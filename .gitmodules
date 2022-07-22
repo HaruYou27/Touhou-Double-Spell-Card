@@ -1,0 +1,6 @@
+[submodule "godot-tiled-importer"]
+	path = godot-tiled-importer
+	url = https://github.com/vnen/godot-tiled-importer
+[submodule "godot-steering-ai-framework-submodule"]
+	path = godot-steering-ai-framework-submodule
+	url = https://github.com/tedoriki/godot-steering-ai-framework-submodule
