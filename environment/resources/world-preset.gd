@@ -22,10 +22,11 @@ func create_noise() -> OpenSimplexNoise:
 	noise.period = period
 	noise.persistence = persistence
 	noise.lacunarity = lacunarity
-	noise.seed = Network.server_config['seeds']
+	randomize()
+	noise.seed = randi()
 	
 	var rng := RandomNumberGenerator.new()
-	rng.seed = Network.server_config['seeds']
+	rng.seed = noise.seed
 	width = rng.randi_range(width.x, width.y)
 	height = rng.randi_range(height.x, height.y)
 	areas = rng.randi_range(areas.x, areas.y)

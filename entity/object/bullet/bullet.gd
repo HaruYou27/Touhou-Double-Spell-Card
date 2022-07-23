@@ -11,13 +11,10 @@ var rotation :float
 export (Script) var draw_method
 export (Resource) var data
 
-func create(latency:float) -> bool:
+func create() -> bool:
 	sprite = draw_method.new()
 	velocity = Vector2(data.speed, 0).rotated(rotation)
 	sprite.create(data)
-	
-	#Recorrection bullet position.
-	sprite.draw(move(latency))
 	
 	return true
 	
@@ -41,7 +38,7 @@ func destroy() -> void:
 	sprite.free_rid()
 	
 func process(delta:float) -> bool:
-	if Network.server_clock - time_created > data.life_time:
+	if OS.get_ticks_msec() - time_created > data.life_time:
 		destroy()
 		return true
 	

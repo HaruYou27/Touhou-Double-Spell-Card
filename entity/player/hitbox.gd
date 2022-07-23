@@ -1,36 +1,31 @@
 extends Area2D
-#Player hitbox. Handler colision.
+#Player hitbox. Handler colision and player stats.
+signal die
 
-export (int) var max_heath = 10
-export (int) var max_mana = 100
 
-var armor :int
-var bar_factor :float
+var max_power := 4
+var max_lives := 7
+var max_spellcard := 7
 
-onready var parent :KinematicBody2D = $'..'
-onready var heath :int = max_heath
-onready var mana :int = max_mana
+var power := 0.0
+var spellcard := 3.0
+var lives := 2
 
 func pick_up(data:Item_Valuable) -> void:
-	if data.power:
-		parent.power += data.value
-	elif data.mana:
-		parent.mana += data.value
+	if data.power and power < max_power:
+		power += data.value
+	elif data.spellcard and spellcard < max_spellcard:
+		spellcard += data.value
+	elif data.lives and lives < max_lives: 
+		lives += data.value
+	
+	Global.update()
 
-func _hit(data, velocity:= Vector2()) -> void:
-	parent.rpc('_heathbar_update', parent.heathbar.point[1].x - bar_factor * data.damage)
-	if armor:
-		armor -= data.damage
+func hit(data, velocity:= Vector2()) -> void:
+	if Global.save.assist:
+		Global.pause_mode = Node.PAUSE_MODE_STOP
 	else:
-		heath -= data.damage
-		
-	if armor < 0:
-		#In case the bullet pierce through armor.
-		heath += armor
-		armor = 0
-	if heath <= 0:
-		parent.die()
-		parent.graze.monitoring = true
-		parent.graze.monitorable = false
-		parent.set_sync_to_physics(true)
-		parent.position += velocity
+		lives -= 1
+		if lives >= 0:
+			
+

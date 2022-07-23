@@ -9,15 +9,55 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "",
+"class": "BasicBulletKit",
+"language": "NativeScript",
+"path": "res://addons/native_bullets/kits/basic_bullet_kit.gdns"
+}, {
 "base": "Reference",
 "class": "Bullet",
 "language": "GDScript",
 "path": "res://entity/object/bullet/bullet.gd"
 }, {
+"base": "",
+"class": "BulletKit",
+"language": "NativeScript",
+"path": "res://addons/native_bullets/bullet_kit.gdns"
+}, {
+"base": "Node2D",
+"class": "Bullets",
+"language": "NativeScript",
+"path": "res://addons/native_bullets/bullets.gdns"
+}, {
+"base": "Node",
+"class": "BulletsEnvironment",
+"language": "GDScript",
+"path": "res://addons/native_bullets/bullets_environment.gd"
+}, {
+"base": "Node2D",
+"class": "BulletsSpawner",
+"language": "GDScript",
+"path": "res://addons/native_bullets/utils/bullets_spawner.gd"
+}, {
+"base": "",
+"class": "DynamicBulletKit",
+"language": "NativeScript",
+"path": "res://addons/native_bullets/kits/dynamic_bullet_kit.gdns"
+}, {
 "base": "Area2D",
 "class": "Enemy",
 "language": "GDScript",
 "path": "res://entity/enemy/enemy.gd"
+}, {
+"base": "",
+"class": "FollowingBulletKit",
+"language": "NativeScript",
+"path": "res://addons/native_bullets/kits/following_bullet_kit.gdns"
+}, {
+"base": "",
+"class": "FollowingDynamicBulletKit",
+"language": "NativeScript",
+"path": "res://addons/native_bullets/kits/following_dynamic_bullet_kit.gdns"
 }, {
 "base": "Reference",
 "class": "GSAIAgentLocation",
@@ -169,10 +209,15 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://entity/object/auto-item/valuable.gd"
 }, {
-"base": "KinematicBody2D",
-"class": "Player",
+"base": "Node",
+"class": "TimedEvents",
 "language": "GDScript",
-"path": "res://entity/player/player.gd"
+"path": "res://addons/native_bullets/utils/timed_events.gd"
+}, {
+"base": "Node2D",
+"class": "TimedRotator",
+"language": "GDScript",
+"path": "res://addons/native_bullets/utils/timed_rotator.gd"
 }, {
 "base": "Control",
 "class": "VirtualJoystick",
@@ -180,8 +225,16 @@ _global_script_classes=[ {
 "path": "res://user-interface/moblie-control/joystick/virtual_joystick.gd"
 } ]
 _global_script_class_icons={
+"BasicBulletKit": "res://addons/native_bullets/icons/icon_bullet_kit.svg",
 "Bullet": "",
+"BulletKit": "res://addons/native_bullets/icons/icon_bullet_kit.svg",
+"Bullets": "res://addons/native_bullets/icons/icon_bullets.svg",
+"BulletsEnvironment": "res://addons/native_bullets/icons/icon_bullets_environment.svg",
+"BulletsSpawner": "res://addons/native_bullets/icons/icon_bullet_properties.svg",
+"DynamicBulletKit": "res://addons/native_bullets/icons/icon_bullet_kit.svg",
 "Enemy": "",
+"FollowingBulletKit": "res://addons/native_bullets/icons/icon_bullet_kit.svg",
+"FollowingDynamicBulletKit": "res://addons/native_bullets/icons/icon_bullet_kit.svg",
 "GSAIAgentLocation": "",
 "GSAIArrive": "",
 "GSAIAvoidCollisions": "",
@@ -212,7 +265,8 @@ _global_script_class_icons={
 "Graze": "",
 "Gunpowder": "",
 "Item_Valuable": "",
-"Player": "",
+"TimedEvents": "res://addons/native_bullets/icons/icon_timed_events.svg",
+"TimedRotator": "res://addons/native_bullets/icons/icon_timed_rotator.svg",
 "VirtualJoystick": ""
 }
 
@@ -224,15 +278,35 @@ config/icon="res://icon.png"
 [autoload]
 
 Global="*res://autoload/Global.scn"
+Bullets="*res://addons/native_bullets/bullets.gdns"
+
+[display]
+
+window/size/width=1920
+window/size/height=1080
+window/size/test_width=1280
+window/size/test_height=720
+window/vsync/use_vsync=false
+window/handheld/orientation="portrait"
+window/stretch/mode="2d"
+window/stretch/aspect="keep"
+
+[editor_plugins]
+
+enabled=PoolStringArray( "res://addons/native_bullets/plugin.cfg" )
+
+[layer_names]
+
+2d_physics/layer_1="Border"
 
 [physics]
 
 common/enable_pause_aware_picking=true
 2d/thread_model=2
+2d/use_bvh=false
 
 [rendering]
 
 threads/thread_model=2
-threads/thread_safe_bvh=true
 batching/options/single_rect_fallback=true
 environment/default_environment="res://default_env.tres"
