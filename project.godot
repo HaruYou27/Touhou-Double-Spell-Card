@@ -14,11 +14,6 @@ _global_script_classes=[ {
 "language": "NativeScript",
 "path": "res://addons/native_bullets/kits/basic_bullet_kit.gdns"
 }, {
-"base": "Reference",
-"class": "Bullet",
-"language": "GDScript",
-"path": "res://entity/object/bullet/bullet.gd"
-}, {
 "base": "",
 "class": "BulletKit",
 "language": "NativeScript",
@@ -189,25 +184,10 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://addons/steering-framework/GSAIUtils.gd"
 }, {
-"base": "Reference",
-"class": "Global_canvas",
+"base": "Node2D",
+"class": "Player",
 "language": "GDScript",
-"path": "res://entity/object/global-canvas.gd"
-}, {
-"base": "Area2D",
-"class": "Graze",
-"language": "GDScript",
-"path": "res://entity/player/graze.gd"
-}, {
-"base": "Reference",
-"class": "Gunpowder",
-"language": "GDScript",
-"path": "res://entity/object/bullet/gunpowder.gd"
-}, {
-"base": "Reference",
-"class": "Item_Valuable",
-"language": "GDScript",
-"path": "res://entity/object/auto-item/valuable.gd"
+"path": "res://entity/player/player.gd"
 }, {
 "base": "Node",
 "class": "TimedEvents",
@@ -226,7 +206,6 @@ _global_script_classes=[ {
 } ]
 _global_script_class_icons={
 "BasicBulletKit": "res://addons/native_bullets/icons/icon_bullet_kit.svg",
-"Bullet": "",
 "BulletKit": "res://addons/native_bullets/icons/icon_bullet_kit.svg",
 "Bullets": "res://addons/native_bullets/icons/icon_bullets.svg",
 "BulletsEnvironment": "res://addons/native_bullets/icons/icon_bullets_environment.svg",
@@ -261,10 +240,7 @@ _global_script_class_icons={
 "GSAISteeringBehavior": "",
 "GSAITargetAcceleration": "",
 "GSAIUtils": "",
-"Global_canvas": "",
-"Graze": "",
-"Gunpowder": "",
-"Item_Valuable": "",
+"Player": "",
 "TimedEvents": "res://addons/native_bullets/icons/icon_timed_events.svg",
 "TimedRotator": "res://addons/native_bullets/icons/icon_timed_rotator.svg",
 "VirtualJoystick": ""
@@ -273,6 +249,7 @@ _global_script_class_icons={
 [application]
 
 config/name="Colorless Sakura"
+run/main_scene="res://user-interface/menu/mainmenuPC.scn"
 config/icon="res://icon.png"
 
 [autoload]
@@ -297,7 +274,8 @@ enabled=PoolStringArray( "res://addons/native_bullets/plugin.cfg" )
 
 [layer_names]
 
-2d_physics/layer_1="Border"
+2d_physics/layer_1="Player"
+2d_physics/layer_2="Enemy"
 
 [physics]
 

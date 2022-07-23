@@ -1,1 +1,0 @@
-set the map to 512x228
