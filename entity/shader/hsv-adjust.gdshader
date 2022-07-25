@@ -2,6 +2,9 @@ shader_type canvas_item;
 render_mode blend_mix;
 
 uniform lowp float h: hint_range(0,1) = 1;
+uniform lowp float s: hint_range(0,1) = 1;
+uniform lowp float v: hint_range(0,1) = 1;
+
 
 vec3 hsv2rgb(vec3 c) {
     lowp vec4 K = vec4(1.0, 2.0 / 3.0, 1.0 / 3.0, 3.0);
@@ -10,5 +13,7 @@ vec3 hsv2rgb(vec3 c) {
 }
 
 void fragment() {
-	COLOR.rgb *= hsv2rgb(vec3(h, 1, 1));
+	lowp vec4 color = texture(TEXTURE, UV);
+	color.rgb *= hsv2rgb(vec3(h, s, v));
+	COLOR = color;
 }
