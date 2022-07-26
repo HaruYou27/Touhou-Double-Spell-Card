@@ -1,5 +1,5 @@
 shader_type canvas_item;
-render_mode blend_mix;
+render_mode blend_add;
 
 uniform lowp float h: hint_range(0,1) = 1;
 uniform lowp float s: hint_range(0,1) = 1;

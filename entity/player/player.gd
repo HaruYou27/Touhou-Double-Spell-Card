@@ -4,18 +4,10 @@ class_name Player
 
 var input : Object
 var cooldown := 0
-var max_lives := 7
-var max_spellcard := 7
 var power := 0.0
-var spellcard := 3.0
-var lives := 2
-var graze := 0
 
-export (int) var bullet_speed
-export (int) var bullet_focus_speed
 export (Resource) var bullet
 export (Resource) var bullet_focus
-
 export (Array) var barrels
 export (int) var firerate
 export (int) var firerate_focus
@@ -54,7 +46,8 @@ func die():
 func attack():
 	if cooldown:
 		cooldown -= 1
-		return
+	else:
+		Global.instance_bullet(barrels, bullet)
 	
 func attack_focus():
 	if cooldown:
@@ -63,9 +56,6 @@ func attack_focus():
 	
 #Input handler.
 func _physics_process(delta) -> void:
-	if graze:
-		power += 0.01
-
 	var velocity = input.move()
 	
 	if input.focus:
@@ -88,17 +78,3 @@ func _physics_process(delta) -> void:
 	elif velocity.x < 0:
 		#Left.
 		pass
-
-func _on_hitbox_area_entered(_area) -> void:
-	if Global.save.assist:
-		Global.tree.pause_mode = Node.PAUSE_MODE_STOP
-	else:
-		lives -= 1
-		if lives >= 0:
-			pass
-
-func _on_graze_area_entered(_area):
-	graze += 1
-
-func _on_graze_area_exited(_area):
-	graze -= 0
