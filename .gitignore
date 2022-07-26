@@ -3,3 +3,5 @@
 build/
 addons/
 .mono/
+export.cfg
+export_presets.cfg
