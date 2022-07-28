@@ -10,9 +10,9 @@ config_version=4
 
 _global_script_classes=[ {
 "base": "Resource",
-"class": "BulletData",
+"class": "Bullet",
 "language": "GDScript",
-"path": "res://addons/2d-bullet-hell/BulletData.gd"
+"path": "res://godot-2D-bullet-hell/src/Bullet.gd"
 }, {
 "base": "Area2D",
 "class": "Enemy",
@@ -30,17 +30,11 @@ _global_script_classes=[ {
 "path": "res://user-interface/moblie-control/joystick/virtual_joystick.gd"
 } ]
 _global_script_class_icons={
-"BulletData": "",
+"Bullet": "",
 "Enemy": "",
 "Player": "",
 "VirtualJoystick": ""
 }
-
-[MonoCustomResourceRegistry]
-
-ClassPrefix=""
-SearchType=0
-ResourceScriptDirectories=[ "res://addons/2d-bullet-hell/" ]
 
 [application]
 
@@ -51,7 +45,11 @@ config/icon="res://icon.png"
 [autoload]
 
 Global="*res://autoload/Global.scn"
-BulletManager="*res://addons/2d-bullet-hell/bullet-manager.gd"
+BulletManager="*res://godot-2D-bullet-hell/src/BulletManager.gd"
+
+[debug]
+
+settings/fps/force_fps=60
 
 [display]
 
@@ -66,7 +64,7 @@ window/stretch/aspect="keep"
 
 [editor_plugins]
 
-enabled=PoolStringArray( "res://addons/2d-bullet-hell/plugin.cfg", "res://addons/MonoCustomResourceRegistry/plugin.cfg" )
+enabled=PoolStringArray(  )
 
 [input]
 
@@ -85,7 +83,6 @@ focus={
 
 common/enable_pause_aware_picking=true
 2d/thread_model=2
-2d/use_bvh=false
 
 [rendering]
 

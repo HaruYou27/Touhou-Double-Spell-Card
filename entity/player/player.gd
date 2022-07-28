@@ -48,11 +48,13 @@ func attack():
 		cooldown -= 1
 	else:
 		Global.instance_bullet(barrels, bullet)
+		cooldown = firerate
 	
 func attack_focus():
 	if cooldown:
 		cooldown -= 1
-		return
+	else:
+		cooldown = firerate_focus
 	
 #Input handler.
 func _physics_process(delta) -> void:
