@@ -1,9 +1,3 @@
-[submodule "godot-tiled-importer"]
-	path = godot-tiled-importer
-	url = https://github.com/vnen/godot-tiled-importer
-[submodule "godot-steering-ai-framework-submodule"]
-	path = godot-steering-ai-framework-submodule
-	url = https://github.com/tedoriki/godot-steering-ai-framework-submodule
-[submodule "godot-native-bullets-plugin"]
-	path = godot-native-bullets-plugin
-	url = https://github.com/samdze/godot-native-bullets-plugin
+[submodule "godot-2D-bullet-hell"]
+	path = godot-2D-bullet-hell
+	url = https://github.com/haruyou27/godot-2D-bullet-hell
