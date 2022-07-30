@@ -4,19 +4,24 @@ class_name Player
 
 var input : Object
 var cooldown := 0
-var power := 0.0
+var power := 0.0 setget _set_power
+var lives := 2
+var graze_count := 0
+var max_lives := 7
 
 export (Resource) var bullet
-export (Resource) var bullet_focus
-export (Array) var barrels
+export (int) var bullet_speed
 export (int) var firerate
+export (Resource) var bullet_focus
+export (int) var bullet_focus_speed
 export (int) var firerate_focus
+export (Array) var barrels
 export (int) var speed = 1500 
 
 onready var sprite :AnimatedSprite = $AnimatedSprite
 onready var canvas :RID = $hitbox.get_canvas_item()
 onready var shape :Shape2D = $hitbox/CollisionShape2D.shape
-onready var main_barrel :Position2D = $Position2D
+onready var orb :Node2D = $orb_manager
 
 func _ready() -> void:
 	var input_method = Global.save.controls['Input']
@@ -40,14 +45,23 @@ func _ready() -> void:
 	firerate = (60 - firerate) / firerate
 	firerate_focus = (60 - firerate_focus) / firerate_focus
 
+func _set_power(value:float):
+	power += value
+
 func die():
 	pass
+
+func _on_graze_area_entered(_area):
+	graze_count += 1
+
+func _on_graze_area_exited(_area):
+	graze_count -= 1
 	
 func attack():
 	if cooldown:
 		cooldown -= 1
 	else:
-		Global.instance_bullet(barrels, bullet)
+		Global.instance_bullet(barrels, bullet, bullet_speed)
 		cooldown = firerate
 	
 func attack_focus():
@@ -58,6 +72,10 @@ func attack_focus():
 	
 #Input handler.
 func _physics_process(delta) -> void:
+	#Grazing
+	if graze_count:
+		power += 0.01
+	
 	var velocity = input.move()
 	
 	if input.focus:

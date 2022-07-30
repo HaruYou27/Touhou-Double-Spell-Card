@@ -9,20 +9,65 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "",
+"class": "BasicBulletKit",
+"language": "NativeScript",
+"path": "res://addons/native_bullets/kits/basic_bullet_kit.gdns"
+}, {
 "base": "Resource",
-"class": "Bullet",
+"class": "BulletKit",
+"language": "NativeScript",
+"path": "res://addons/native_bullets/bullet_kit.gdns"
+}, {
+"base": "Node2D",
+"class": "Bullets",
+"language": "NativeScript",
+"path": "res://addons/native_bullets/bullets.gdns"
+}, {
+"base": "Node",
+"class": "BulletsEnvironment",
 "language": "GDScript",
-"path": "res://godot-2D-bullet-hell/src/Bullet.gd"
+"path": "res://addons/native_bullets/bullets_environment.gd"
+}, {
+"base": "Node2D",
+"class": "BulletsSpawner",
+"language": "GDScript",
+"path": "res://addons/native_bullets/utils/bullets_spawner.gd"
+}, {
+"base": "",
+"class": "DynamicBulletKit",
+"language": "NativeScript",
+"path": "res://addons/native_bullets/kits/dynamic_bullet_kit.gdns"
 }, {
 "base": "Area2D",
 "class": "Enemy",
 "language": "GDScript",
 "path": "res://entity/enemy/enemy.gd"
 }, {
+"base": "",
+"class": "FollowingBulletKit",
+"language": "NativeScript",
+"path": "res://addons/native_bullets/kits/following_bullet_kit.gdns"
+}, {
+"base": "Resource",
+"class": "FollowingDynamicBulletKit",
+"language": "NativeScript",
+"path": "res://addons/native_bullets/kits/following_dynamic_bullet_kit.gdns"
+}, {
 "base": "Node2D",
 "class": "Player",
 "language": "GDScript",
 "path": "res://entity/player/player.gd"
+}, {
+"base": "Node",
+"class": "TimedEvents",
+"language": "GDScript",
+"path": "res://addons/native_bullets/utils/timed_events.gd"
+}, {
+"base": "Node2D",
+"class": "TimedRotator",
+"language": "GDScript",
+"path": "res://addons/native_bullets/utils/timed_rotator.gd"
 }, {
 "base": "Control",
 "class": "VirtualJoystick",
@@ -30,9 +75,18 @@ _global_script_classes=[ {
 "path": "res://user-interface/moblie-control/joystick/virtual_joystick.gd"
 } ]
 _global_script_class_icons={
-"Bullet": "",
+"BasicBulletKit": "res://addons/native_bullets/icons/icon_bullet_kit.svg",
+"BulletKit": "res://addons/native_bullets/icons/icon_bullet_kit.svg",
+"Bullets": "res://addons/native_bullets/icons/icon_bullets.svg",
+"BulletsEnvironment": "res://addons/native_bullets/icons/icon_bullets_environment.svg",
+"BulletsSpawner": "res://addons/native_bullets/icons/icon_bullet_properties.svg",
+"DynamicBulletKit": "res://addons/native_bullets/icons/icon_bullet_kit.svg",
 "Enemy": "",
+"FollowingBulletKit": "res://addons/native_bullets/icons/icon_bullet_kit.svg",
+"FollowingDynamicBulletKit": "res://addons/native_bullets/icons/icon_bullet_kit.svg",
 "Player": "",
+"TimedEvents": "res://addons/native_bullets/icons/icon_timed_events.svg",
+"TimedRotator": "res://addons/native_bullets/icons/icon_timed_rotator.svg",
 "VirtualJoystick": ""
 }
 
@@ -45,7 +99,7 @@ config/icon="res://icon.png"
 [autoload]
 
 Global="*res://autoload/Global.scn"
-BulletManager="*res://godot-2D-bullet-hell/src/BulletManager.gd"
+Bullets="*res://addons/native_bullets/bullets.gdns"
 
 [debug]
 
@@ -64,7 +118,7 @@ window/stretch/aspect="keep"
 
 [editor_plugins]
 
-enabled=PoolStringArray(  )
+enabled=PoolStringArray( "res://addons/native_bullets/plugin.cfg" )
 
 [input]
 

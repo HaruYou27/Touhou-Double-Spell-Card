@@ -1,0 +1,44 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://entity/shader/rainbow.material" type="Material" id=1]
+[ext_resource path="res://entity/player/Reimu/textures/reimuplayer.png" type="Texture" id=2]
+
+[node name="Reimuplayer" type="Sprite"]
+material = ExtResource( 1 )
+position = Vector2( 1480, 180 )
+texture = ExtResource( 2 )
+
+[node name="Reimuplayer" type="Sprite" parent="."]
+material = ExtResource( 1 )
+position = Vector2( -163, 11 )
+texture = ExtResource( 2 )
+
+[node name="Reimuplayer2" type="Sprite" parent="."]
+material = ExtResource( 1 )
+position = Vector2( 234, 22 )
+texture = ExtResource( 2 )
+
+[node name="Reimuplayer3" type="Sprite" parent="."]
+material = ExtResource( 1 )
+position = Vector2( -49, 163 )
+texture = ExtResource( 2 )
+
+[node name="Reimuplayer4" type="Sprite" parent="."]
+material = ExtResource( 1 )
+position = Vector2( 100, -99 )
+texture = ExtResource( 2 )
+
+[node name="Reimuplayer5" type="Sprite" parent="."]
+material = ExtResource( 1 )
+position = Vector2( -90, -100 )
+texture = ExtResource( 2 )
+
+[node name="Reimuplayer6" type="Sprite" parent="."]
+material = ExtResource( 1 )
+position = Vector2( 142, 160 )
+texture = ExtResource( 2 )
+
+[node name="Reimuplayer7" type="Sprite" parent="."]
+material = ExtResource( 1 )
+position = Vector2( -241, 151 )
+texture = ExtResource( 2 )
