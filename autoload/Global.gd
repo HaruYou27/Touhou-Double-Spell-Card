@@ -15,7 +15,6 @@ func _ready() -> void:
 func instance_bullet(barrels:Array, Bullet:Resource, speed:int) -> void:
 	for barrel in barrels:
 		var properties = {
-			"Transform" : Transform2D(barrel.global_rotation, barrel.global_position),
-			"Velocity" : Vector2(speed, 0).rotated(barrel.global_rotation)
+			"Transform" : Transform2D(barrel.global_rotation - 1.57, barrel.global_position),
 		}
-		Bullets.spawn_bullet(Bullet, properties)
+		BulletManager.SpawnBullet(Bullet, properties)
