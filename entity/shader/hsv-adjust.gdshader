@@ -25,7 +25,7 @@ lowp float when_lt(float x, float y) {
 void fragment() {
 	lowp vec4 color = texture(TEXTURE, UV);
 	lowp vec3 colorhsv = rgb2hsv(color.rgb);
-	lowp vec3 value = hsv2rgb(vec3(h, 1, 1) * colorhsv) * when_lt(colorhsv.g, 11);
-	color.rgb = value;
+	lowp vec3 value = vec3(h, 1, 1) * colorhsv * when_lt(colorhsv.g, 11);
+	color.rgb = hsv2rgb(value);
 	COLOR = color;
 }
