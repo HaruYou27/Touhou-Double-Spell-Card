@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://entity/player/Reimu/textures/reimuplayer.png" type="Texture" id=1]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends Sprite
+
+var velocity = Vector2(72, 72)
+
+func _physics_process(delta):
+	transform = transform.translated(velocity * delta)
+"
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 583, 951 )
+texture = ExtResource( 1 )
+script = SubResource( 1 )

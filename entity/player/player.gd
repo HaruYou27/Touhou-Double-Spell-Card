@@ -9,11 +9,7 @@ var lives := 2
 var graze_count := 0
 var max_lives := 7
 
-export (Resource) var bullet
-export (int) var bullet_speed
 export (int) var firerate
-export (Resource) var bullet_focus
-export (int) var bullet_focus_speed
 export (int) var firerate_focus
 export (Array) var barrels
 export (int) var speed = 1500 
@@ -22,6 +18,7 @@ onready var sprite :AnimatedSprite = $AnimatedSprite
 onready var canvas :RID = $hitbox.get_canvas_item()
 onready var shape :Shape2D = $hitbox/CollisionShape2D.shape
 onready var orb :Node2D = $orb_manager
+onready var bullet :Node2D = $bullet
 
 func _ready() -> void:
 	var input_method = Global.save.controls['Input']
@@ -61,7 +58,7 @@ func attack():
 	if cooldown:
 		cooldown -= 1
 	else:
-		Global.instance_bullet(barrels, bullet, bullet_speed)
+		bullet.SpawnBullet(transform)
 		cooldown = firerate
 	
 func attack_focus():

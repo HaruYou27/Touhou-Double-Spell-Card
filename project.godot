@@ -40,7 +40,6 @@ config/icon="res://icon.png"
 [autoload]
 
 Global="*res://autoload/Global.scn"
-BulletManager="*res://godot-2d-bullet-hell/src/BulletManager.cs"
 
 [debug]
 
