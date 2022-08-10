@@ -2,7 +2,7 @@ extends Node2D
 class_name Player
 #Script handles movement, stats, graze and animation.
 
-var input : Object
+var input : input_handler
 var cooldown := 0
 var power := 0.0 setget _set_power
 var lives := 2
@@ -12,7 +12,6 @@ var max_lives := 7
 export (int) var firerate
 export (int) var firerate_focus
 export (Array) var barrels
-export (int) var speed = 1500 
 
 onready var sprite :AnimatedSprite = $AnimatedSprite
 onready var canvas :RID = $hitbox.get_canvas_item()
@@ -21,19 +20,6 @@ onready var orb :Node2D = $orb_manager
 onready var bullet :Node2D = $bullet
 
 func _ready() -> void:
-	var input_method = Global.save.controls['Input']
-	if input_method == 'Keyboard and mouse':
-		input = preload("res://entity/player/keyboard.gd").new()
-		input.parent = self
-	elif input_method == 'Touch':
-		input = preload("res://entity/player/touch.gd").new()
-		var UI
-		if Global.save.controls['Lefthanded']:
-			UI = Global.instance_node('res://user-interface/moblie-control/left-handed.tscn')
-		else:
-			UI = Global.instance_node('res://user-interface/moblie-control/right-handed.tscn')
-		input.init(UI)
-	
 	var index := 0
 	for barrel in barrels:
 		barrels[index] = get_node(barrel)
@@ -41,6 +27,9 @@ func _ready() -> void:
 		
 	firerate = (60 - firerate) / firerate
 	firerate_focus = (60 - firerate_focus) / firerate_focus
+	
+	if Global.save.input == save_data.input.KEYBOARD:
+		input = preload("res://autoload/keyboardHold.gd").new(self)
 
 func _set_power(value:float):
 	power += value
@@ -73,18 +62,15 @@ func _physics_process(delta) -> void:
 	if graze_count:
 		power += 0.01
 	
-	var velocity = input.move()
+	var velocity = Global.input.move(delta)
 	
-	if input.focus:
-		attack_focus()
-	else:
-		attack()
-	
-	if not velocity:
-		return
-	
+	if Global.save.shoot == save_data.shoot.AUTO or input.attack():
+		if Global.focus:
+			attack_focus()
+		else:
+			attack()
+		
 	#Warp around if exceed the border
-	global_position += velocity * speed * delta
 	global_position = global_position.posmodv(Vector2(1920, 1080))
 	
 	if input.focus:
