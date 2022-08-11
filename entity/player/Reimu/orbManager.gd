@@ -4,8 +4,6 @@ var orbs :Array
 
 export (Resource) var bullet
 export (Resource) var bullet_focus
-export (int) var bullet_speed
-export (int) var bullet_speed_focus
 export (Resource) var orb_data
 
 func _ready():
@@ -35,6 +33,7 @@ func orb_repos():
 	var index := 0
 	for orb_node in orbs:
 		Global.tween.interpolate_property(orb_node, orb_node.position, orb_node.position, orb_data.orb2_pos[index], 1)
+		Global.tween.interpolate_property(orb_node, orb_node.rotation, orb_node.rotation, orb_data.orb2_rot[index], 1)
 		index += 1
 	
 func attack():

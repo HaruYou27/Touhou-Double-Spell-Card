@@ -1,17 +1,14 @@
-extends Reference
-#Script handles player inputs.
+extends Object
+class_name input_handler
 
-var parent
-var focus :bool
-
-func move():
+static func get_input(delta:float, position:Vector2) -> Vector2:
 	var x = Input.get_axis("ui_left", "ui_right")
 	var y = Input.get_axis("ui_up", "ui_down")
 	if not x and not y:
-		return
+		return position
+	var velocity := Vector2(x, y).normalized()
 	
 	if Input.is_action_pressed("focus"):
-		focus = true
-		return Vector2(x, y).normalized() / 2
-	else:
-		return Vector2(x, y).normalized()
+		velocity /= 2
+	
+	return position + velocity * delta * Global.speed

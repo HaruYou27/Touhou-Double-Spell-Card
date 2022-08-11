@@ -1,8 +1,7 @@
 extends Node2D
 class_name Player
-#Script handles movement, stats, graze and animation.
 
-var input : input_handler
+var input : Script
 var cooldown := 0
 var power := 0.0 setget _set_power
 var lives := 2
@@ -29,55 +28,38 @@ func _ready() -> void:
 	firerate_focus = (60 - firerate_focus) / firerate_focus
 	
 	if Global.save.input == save_data.input.KEYBOARD:
-		input = preload("res://autoload/keyboardHold.gd").new(self)
+		input = preload("res://entity/player/keyboard.gd")
 
-func _set_power(value:float):
+func _set_power(value:float) -> void:
 	power += value
+	orb
 
 func die():
 	pass
 
-func _on_graze_area_entered(_area):
+func _on_graze_area_entered(_area:Area2D) -> void:
 	graze_count += 1
 
-func _on_graze_area_exited(_area):
+func _on_graze_area_exited(_area:Area2D) -> void:
 	graze_count -= 1
 	
-func attack():
-	if cooldown:
-		cooldown -= 1
-	else:
-		bullet.SpawnBullet(transform)
-		cooldown = firerate
+func attack() -> void:
+	bullet.SpawnBullet(transform)
+	cooldown = firerate
 	
-func attack_focus():
-	if cooldown:
-		cooldown -= 1
-	else:
-		cooldown = firerate_focus
+func attack_focus() -> void:
+	cooldown = firerate_focus
 	
 #Input handler.
-func _physics_process(delta) -> void:
-	#Grazing
+func _physics_process(delta:float) -> void:
 	if graze_count:
 		power += 0.01
+	global_position = input.move(delta, global_position)
 	
-	var velocity = Global.input.move(delta)
-	
-	if Global.save.shoot == save_data.shoot.AUTO or input.attack():
-		if Global.focus:
+	if cooldown:
+		cooldown -= 1
+	elif Global.save.auto_shoot or Input.is_action_pressed("shoot"):
+		if Input.is_action_pressed("focus"):
 			attack_focus()
 		else:
 			attack()
-		
-	#Warp around if exceed the border
-	global_position = global_position.posmodv(Vector2(1920, 1080))
-	
-	if input.focus:
-		shape.draw(canvas, Color(255, 255, 255))
-	if velocity.x > 0:
-		#Right.
-		pass
-	elif velocity.x < 0:
-		#Left.
-		pass
