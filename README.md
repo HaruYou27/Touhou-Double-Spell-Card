@@ -1,11 +1,11 @@
 
-# 7 of a kind.
+# 7 colored Hakurei
 
 Literally Flandre spellcard but Reimu and more.
 
-#To do list
+# To do list
 
 App icon
 Bullet sprites
 game lore
-animate character sprite
+userinterface
