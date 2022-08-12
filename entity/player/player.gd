@@ -28,7 +28,7 @@ func _ready() -> void:
 	firerate_focus = (60 - firerate_focus) / firerate_focus
 	
 	if Global.save.input == save_data.input.KEYBOARD:
-		input = preload("res://entity/player/keyboard.gd")
+		input = load("res://autoload/controls/keyboard.gd")
 
 func _set_power(value:float) -> void:
 	power += value
@@ -54,7 +54,17 @@ func attack_focus() -> void:
 func _physics_process(delta:float) -> void:
 	if graze_count:
 		power += 0.01
-	global_position = input.move(delta, global_position)
+	
+	var new_pos :Vector2 = input.move(delta, global_position)
+	var angle := global_position.angle_to_point(new_pos)
+	if angle <= 90 or angle > -90:
+		#Right.
+		sprite
+	else:
+		#Left
+		sprite
+	
+	global_position = new_pos
 	
 	if cooldown:
 		cooldown -= 1
