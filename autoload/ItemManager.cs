@@ -6,32 +6,27 @@ public class ItemManager : BulletBatched
         public Transform2D transform;
         public float power;
         public int value;
-        public Item(Transform2D trans, int v, float p) {
+        public float live;
+        public float bomb;
+        public Item(Transform2D trans, int v, float p, float l, float b) {
             transform = trans;
             power = p;
             value = v;
+            live = l;
+            bomb = b;
         }
     }
     [Export] public new Vector2 speed;
     private Item[] items;
 
-    public override void _Ready()
+    public override void _EnterTree()
     {
         items = new Item[poolSize];
-		world = GetWorld2d();
-
-        canvas = VisualServer.CanvasItemCreate();	
-		VisualServer.CanvasItemSetZIndex(canvas, zIndex);
-		VisualServer.CanvasItemSetParent(canvas, world.Canvas);
-		if (material != null) {
-			canvas = world.Canvas;
-            VisualServer.CanvasItemSetMaterial(canvas, material.GetRid());
-        }
     }
-    public virtual void SpawnItem(Transform2D transform, int value, float power = 0)
+    public virtual void SpawnItem(Transform2D transform, int value, float power = 0, float live = 0, float bomb = 0)
     {
         if (index < poolSize) {
-            Item item = new Item(transform, value, power);
+            Item item = new Item(transform, value, power, live, bomb);
             items[index] = item;
             index++;
         }
@@ -65,5 +60,10 @@ public class ItemManager : BulletBatched
         }
     items = newItems;
     index = newIndex;
+    }
+    public virtual void CollectAll(Node2D who) {
+        foreach (Item item in items) {
+            
+        }
     }
 }

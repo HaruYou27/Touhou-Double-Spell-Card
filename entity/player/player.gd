@@ -42,14 +42,7 @@ func _on_graze_area_entered(_area:Area2D) -> void:
 
 func _on_graze_area_exited(_area:Area2D) -> void:
 	graze_count -= 1
-	
-func attack() -> void:
-	bullet.SpawnBullet(transform)
-	cooldown = firerate
-	
-func attack_focus() -> void:
-	cooldown = firerate_focus
-	
+
 #Input handler.
 func _physics_process(delta:float) -> void:
 	if graze_count:
@@ -70,6 +63,6 @@ func _physics_process(delta:float) -> void:
 		cooldown -= 1
 	elif Global.save.auto_shoot or Input.is_action_pressed("shoot"):
 		if Input.is_action_pressed("focus"):
-			attack_focus()
+			cooldown = firerate_focus
 		else:
-			attack()
+			cooldown = firerate
