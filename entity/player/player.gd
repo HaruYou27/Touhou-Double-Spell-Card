@@ -27,8 +27,8 @@ func _ready() -> void:
 	firerate = (60 - firerate) / firerate
 	firerate_focus = (60 - firerate_focus) / firerate_focus
 	
-	if Global.save.input == save_data.input.KEYBOARD:
-		input = load("res://autoload/controls/keyboard.gd")
+	#if Global.save.input == save_data.input.KEYBOARD:
+	input = load("res://autoload/controls/keyboard.gd")
 
 func _set_power(value:float) -> void:
 	power += value
@@ -57,7 +57,7 @@ func _physics_process(delta:float) -> void:
 		#Left
 		sprite
 	
-	global_position = new_pos
+	global_position = new_pos.posmodv(Vector2(1920, 1080))
 	
 	if cooldown:
 		cooldown -= 1

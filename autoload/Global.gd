@@ -1,6 +1,6 @@
 extends Node2D
 
-export (float) var speed
+export (float) var speed = 500
 
 var save : save_data
 

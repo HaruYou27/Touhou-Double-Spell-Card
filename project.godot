@@ -119,12 +119,13 @@ _global_script_class_icons={
 config/name="7 colored Hakurei"
 config/description="A Touhou project fangame made in summer 2022."
 run/main_scene="res://user-interface/menu/mainmenuPC.scn"
+boot_splash/show_image=false
 config/icon="res://icon.png"
 
 [autoload]
 
 Global="*res://autoload/Global.scn"
-ItemManager="*res://autoload/ItemManager.cs"
+ItemManager="*res://godot-2d-bullet-hell/src/ItemManager.cs"
 
 [debug]
 
@@ -140,11 +141,6 @@ window/vsync/use_vsync=false
 window/handheld/orientation="portrait"
 window/stretch/mode="2d"
 window/stretch/aspect="keep"
-
-[editor]
-
-version_control_autoload_on_startup=true
-version_control_plugin_name="GitAPI"
 
 [editor_plugins]
 
