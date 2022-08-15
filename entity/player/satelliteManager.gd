@@ -5,15 +5,13 @@ var statellites :Array
 #Use camera2D "smoothing" feature to simulate momentum of some statelites.
 onready var tween :Camera2D = $tween
 
-export (Resource) var bullet
-export (Resource) var bullet_focus
 export (Resource) var data
 export (PackedScene) var statellite : PackedScene
 export (int, "power 1", "power 2", "power 3", "power 4") var preset
 
 export (bool) var save setget _save
-
-"""func _ready():
+"""
+func _ready():
 	var node = statellite.instance()
 	add_child(node)
 	statellites.append(node)"""

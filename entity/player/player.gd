@@ -15,7 +15,6 @@ export (Array) var barrels
 onready var sprite :AnimatedSprite = $AnimatedSprite
 onready var canvas :RID = $hitbox.get_canvas_item()
 onready var shape :Shape2D = $hitbox/CollisionShape2D.shape
-onready var orb :Node2D = $orb_manager
 onready var bullet :Node2D = $bullet
 
 func _ready() -> void:
@@ -27,12 +26,15 @@ func _ready() -> void:
 	firerate = (60 - firerate) / firerate
 	firerate_focus = (60 - firerate_focus) / firerate_focus
 	
-	if Global.save.input == save_data.input.KEYBOARD:
-		input = load("res://autoload/controls/keyboard.gd")
+	#if Global.save.input == save_data.input.KEYBOARD:
+	input = load("res://autoload/controls/keyboard.gd")
+
+func attack(bullet:Node2D) -> void:
+	for barrel in barrels:
+		bullet.SpawnBullet(barrel.global_transform)
 
 func _set_power(value:float) -> void:
 	power += value
-	orb
 
 func die():
 	pass
@@ -57,7 +59,7 @@ func _physics_process(delta:float) -> void:
 		#Left
 		sprite
 	
-	global_position = new_pos
+	global_position = new_pos.posmodv(Vector2(1920, 1080))
 	
 	if cooldown:
 		cooldown -= 1
@@ -66,3 +68,4 @@ func _physics_process(delta:float) -> void:
 			cooldown = firerate_focus
 		else:
 			cooldown = firerate
+			attack(bullet)
