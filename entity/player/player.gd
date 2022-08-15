@@ -15,7 +15,6 @@ export (Array) var barrels
 onready var sprite :AnimatedSprite = $AnimatedSprite
 onready var canvas :RID = $hitbox.get_canvas_item()
 onready var shape :Shape2D = $hitbox/CollisionShape2D.shape
-onready var orb :Node2D = $orb_manager
 onready var bullet :Node2D = $bullet
 
 func _ready() -> void:
@@ -32,7 +31,6 @@ func _ready() -> void:
 
 func _set_power(value:float) -> void:
 	power += value
-	orb
 
 func die():
 	pass

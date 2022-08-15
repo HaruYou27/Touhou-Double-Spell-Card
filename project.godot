@@ -74,11 +74,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://entity/player/player.gd"
 }, {
-"base": "Control",
-"class": "VirtualJoystick",
-"language": "GDScript",
-"path": "res://user-interface/moblie-control/joystick/virtual_joystick.gd"
-}, {
 "base": "Object",
 "class": "input_handler",
 "language": "GDScript",
@@ -108,7 +103,6 @@ _global_script_class_icons={
 "Enemy": "",
 "HistoryRow": "",
 "Player": "",
-"VirtualJoystick": "",
 "input_handler": "",
 "save_data": "",
 "statellite_data": ""
