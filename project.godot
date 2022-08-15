@@ -119,7 +119,6 @@ config/icon="res://icon.png"
 [autoload]
 
 Global="*res://autoload/Global.scn"
-ItemManager="*res://godot-2d-bullet-hell/src/ItemManager.cs"
 
 [debug]
 
