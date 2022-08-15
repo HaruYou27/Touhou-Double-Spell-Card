@@ -74,11 +74,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://entity/player/player.gd"
 }, {
-"base": "Control",
-"class": "VirtualJoystick",
-"language": "GDScript",
-"path": "res://user-interface/moblie-control/joystick/virtual_joystick.gd"
-}, {
 "base": "Object",
 "class": "input_handler",
 "language": "GDScript",
@@ -108,7 +103,6 @@ _global_script_class_icons={
 "Enemy": "",
 "HistoryRow": "",
 "Player": "",
-"VirtualJoystick": "",
 "input_handler": "",
 "save_data": "",
 "statellite_data": ""
@@ -119,12 +113,12 @@ _global_script_class_icons={
 config/name="7 colored Hakurei"
 config/description="A Touhou project fangame made in summer 2022."
 run/main_scene="res://user-interface/menu/mainmenuPC.scn"
+boot_splash/show_image=false
 config/icon="res://icon.png"
 
 [autoload]
 
 Global="*res://autoload/Global.scn"
-ItemManager="*res://autoload/ItemManager.cs"
 
 [debug]
 
@@ -140,11 +134,6 @@ window/vsync/use_vsync=false
 window/handheld/orientation="portrait"
 window/stretch/mode="2d"
 window/stretch/aspect="keep"
-
-[editor]
-
-version_control_autoload_on_startup=true
-version_control_plugin_name="GitAPI"
 
 [editor_plugins]
 
