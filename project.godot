@@ -112,13 +112,13 @@ _global_script_class_icons={
 
 config/name="7 colored Hakurei"
 config/description="A Touhou project fangame made in summer 2022."
-run/main_scene="res://user-interface/menu/mainmenuPC.scn"
+run/main_scene="res://user-interface/Interface/Interface.tscn"
 boot_splash/show_image=false
 config/icon="res://icon.png"
 
 [autoload]
 
-Global="*res://autoload/Global.scn"
+Global="*res://autoload/Global.gd"
 
 [debug]
 
