@@ -15,7 +15,7 @@ export (Array) var barrels
 onready var sprite :AnimatedSprite = $AnimatedSprite
 onready var canvas :RID = $hitbox.get_canvas_item()
 onready var shape :Shape2D = $hitbox/CollisionShape2D.shape
-onready var bullet :Node2D = $bullet
+onready var bullet :Node = $bullet
 
 func _ready() -> void:
 	var index := 0
@@ -28,10 +28,6 @@ func _ready() -> void:
 	
 	#if Global.save.input == save_data.input.KEYBOARD:
 	input = load("res://autoload/controls/keyboard.gd")
-
-func attack(bullet:Node2D) -> void:
-	for barrel in barrels:
-		bullet.SpawnBullet(barrel.global_transform)
 
 func _set_power(value:float) -> void:
 	power += value
@@ -68,4 +64,4 @@ func _physics_process(delta:float) -> void:
 			cooldown = firerate_focus
 		else:
 			cooldown = firerate
-			attack(bullet)
+			bullet.Shoot(barrels)
