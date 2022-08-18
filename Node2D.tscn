@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://godot-2d-bullet-hell/src/SineWave.cs" type="Script" id=1]
+[ext_resource path="res://entity/player/Reimu/textures/ofuda.png" type="Texture" id=2]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends Node2D
+
+onready var bullet = $Node
+
+func _physics_process(_delta):
+	bullet.Shoot([self])
+"
+
+[node name="Node2D" type="Node2D"]
+rotation = 0.667553
+script = SubResource( 1 )
+
+[node name="Node" type="Node" parent="."]
+script = ExtResource( 1 )
+CollideWithBodies = false
+texture = ExtResource( 2 )
+speed = 100.0

@@ -27,12 +27,7 @@ func _ready():
 	set_physics_process(false)
 
 #Callback function.
-func _hit(data:Gunpowder, velocity):
-	heath -= data.damage
-	alert = true
-	count = 30
-	set_process(true)
-	
+func _hit():
 	if heath <= 0:
 		die()
 

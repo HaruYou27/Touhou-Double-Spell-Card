@@ -4,9 +4,7 @@ class_name Player
 var input : Script
 var cooldown := 0
 var power := 0.0 setget _set_power
-var lives := 2
-var graze_count := 0
-var max_lives := 7
+
 
 export (int) var firerate
 export (int) var firerate_focus
@@ -26,8 +24,8 @@ func _ready() -> void:
 	firerate = (60 - firerate) / firerate
 	firerate_focus = (60 - firerate_focus) / firerate_focus
 	
-	#if Global.save.input == save_data.input.KEYBOARD:
-	input = load("res://autoload/controls/keyboard.gd")
+	if Global.save.input_method == save_data.input.KEYBOARD:
+		input = preload("res://autoload/controls/keyboard.gd")
 
 func _set_power(value:float) -> void:
 	power += value
@@ -35,16 +33,16 @@ func _set_power(value:float) -> void:
 func die():
 	pass
 
-func _on_graze_area_entered(_area:Area2D) -> void:
-	graze_count += 1
-
-func _on_graze_area_exited(_area:Area2D) -> void:
-	graze_count -= 1
-
 #Input handler.
 func _physics_process(delta:float) -> void:
-	if graze_count:
-		power += 0.01
+	if cooldown:
+		cooldown -= 1
+	elif Global.save.auto_shoot or Input.is_action_pressed("shoot"):
+		if Input.is_action_pressed("focus"):
+			cooldown = firerate_focus
+		else:
+			cooldown = firerate
+			bullet.Shoot(barrels)
 	
 	var new_pos :Vector2 = input.move(delta, global_position)
 	var angle := global_position.angle_to_point(new_pos)
@@ -56,12 +54,3 @@ func _physics_process(delta:float) -> void:
 		sprite
 	
 	global_position = new_pos.posmodv(Vector2(1920, 1080))
-	
-	if cooldown:
-		cooldown -= 1
-	elif Global.save.auto_shoot or Input.is_action_pressed("shoot"):
-		if Input.is_action_pressed("focus"):
-			cooldown = firerate_focus
-		else:
-			cooldown = firerate
-			bullet.Shoot(barrels)

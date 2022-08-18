@@ -62,7 +62,7 @@ _global_script_classes=[ {
 "base": "Area2D",
 "class": "Enemy",
 "language": "GDScript",
-"path": "res://entity/enemy/enemy.gd"
+"path": "res://entity/ghost/enemy.gd"
 }, {
 "base": "PanelContainer",
 "class": "HistoryRow",
@@ -112,6 +112,7 @@ _global_script_class_icons={
 
 config/name="7 colored Hakurei"
 config/description="A Touhou project fangame made in summer 2022."
+run/main_scene="res://user-interface/Menu.scn"
 boot_splash/show_image=false
 config/icon="res://icon.png"
 
@@ -164,6 +165,7 @@ dialogic_default_action={
 
 2d_physics/layer_1="Player"
 2d_physics/layer_2="Enemy"
+2d_physics/layer_3="Wall"
 
 [physics]
 
