@@ -1,8 +1,0 @@
-[gd_scene load_steps=3 format=2]
-
-[ext_resource path="res://stage/GameInterface/Interface/StatsScene/text_interface.tscn" type="PackedScene" id=1]
-[ext_resource path="res://stage/GameInterface/Interface/StatsScene/Text/Points.gd" type="Script" id=2]
-
-[node name="Points" instance=ExtResource( 1 )]
-text = "0000000000000"
-script = ExtResource( 2 )
