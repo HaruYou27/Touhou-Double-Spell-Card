@@ -1,0 +1,68 @@
+using Godot;
+
+//Abstract class of all bullet, mostly just export variable.
+public class BulletBase : Node {
+	//Physics properties.
+	[Export] protected int poolSize = 127;
+	[Export] public float speed = 727;
+	[Export] public Vector2 shapeSize {
+		set {
+			shapesize = value;
+			CreateCollisionShape(value);
+		}
+		get {return shapesize;}
+	}
+	[Export] public bool CollideWithAreas {
+		set {query.CollideWithAreas = value;}
+		get {return query.CollideWithAreas;	}
+	}
+	[Export] public bool CollideWithBodies {
+		set {query.CollideWithBodies = value;}
+		get {return query.CollideWithBodies;}
+	}
+	[Export(PropertyHint.Layers2dPhysics)] public uint CollisionLayer {
+		set {query.CollisionLayer = value;}
+		get {return query.CollisionLayer;}
+	}
+	protected Physics2DShapeQueryParameters query = new Physics2DShapeQueryParameters();
+	private RID hitbox;
+	private Vector2 shapesize;
+
+	//Visual properties.
+	[Export] protected Texture texture {
+		set {
+			tex = value;
+			textureRID = value.GetRid();
+			textureSize = value.GetSize();
+			if (shapeSize.x == 0.0) {CreateCollisionShape(textureSize);}
+		}
+		get {return tex;}
+	}
+	[Export] public Material material;
+	[Export(PropertyHint.Range, "-4096, 4096")]	public int zIndex;
+	private Texture tex;
+	protected Vector2 textureSize;
+	protected RID textureRID;
+
+	protected World2D world;
+	protected uint index;
+
+	private void CreateCollisionShape(in Vector2 size) {
+			if (hitbox != null) {
+				Physics2DServer.FreeRid(hitbox);
+			}
+			if (size.x == size.y) {
+				hitbox = Physics2DServer.CircleShapeCreate();
+				Physics2DServer.ShapeSetData(hitbox, size.x);
+			} else {
+				hitbox = Physics2DServer.CapsuleShapeCreate();
+				Physics2DServer.ShapeSetData(hitbox, size);
+			}
+			query.ShapeRid = hitbox;
+	}
+    public override void _Notification(int what) {
+        if (what == Godot.Object.NotificationPredelete) {
+            Physics2DServer.FreeRid(hitbox);
+        }
+    }
+}
