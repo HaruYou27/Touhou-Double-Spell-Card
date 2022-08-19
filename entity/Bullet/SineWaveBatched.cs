@@ -3,7 +3,7 @@ public class SineWaveBatched : BulletBatched
 {
     [Export] float amplitude = 5;
     [Export] float frequency = 50;
-    protected new struct  Bullet
+    private struct Bullet
     {
         public Transform2D transform;
         public Vector2 velocity;
@@ -14,7 +14,7 @@ public class SineWaveBatched : BulletBatched
             velocity = new Vector2(speed, 0).Rotated(trans.Rotation);
         }
     }
-    protected new Bullet[] bullets;
+    private Bullet[] bullets;
 
     public override void _Ready()
     {

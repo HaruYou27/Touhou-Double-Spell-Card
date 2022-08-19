@@ -1,14 +1,16 @@
-extends input_handler
+extends Node
 
-static func move(_delta:float, position:Vector2) -> Vector2:
-	if Input.is_action_just_pressed("shoot"):
-		Global.global_position = Global.get_global_mouse_position()
-	var mouse_pos := Global.get_local_mouse_position()
-	var delta_pos := mouse_pos - position
+onready var parent : Node2D = get_parent()
+onready var focus_speed :int = parent.speed / 2
+
+func _unhandled_input(event:InputEvent):
+	if not event is InputEventScreenDrag:
+		return
 	
-	if delta_pos.length() <= Global.speed / 2:
+	if event.relative <= focus_speed:
 		Input.action_press("focus")
 	else:
 		Input.action_release("focus")
 	
-	return mouse_pos + position
+	parent.global_position += event.relative
+	parent.global_position = parent.global_position.posmodv(Global.playground)

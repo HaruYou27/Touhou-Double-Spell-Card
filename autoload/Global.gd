@@ -1,6 +1,6 @@
 extends Node2D
 
-export (float) var speed = 500
+const playground := Vector2(646, 904)
 var save : save_data
 
 func _ready() -> void:

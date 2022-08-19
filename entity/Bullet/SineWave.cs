@@ -3,7 +3,7 @@ public class SineWave : BulletBasic
 {
     [Export] float amplitude = 5;
     [Export] float frequency = 5;
-    protected new struct  Bullet
+    private struct  Bullet
     {
         public Transform2D transform;
         public Vector2 velocity;
@@ -16,12 +16,12 @@ public class SineWave : BulletBasic
             velocity = new Vector2(speed, 0).Rotated(trans.Rotation);
         }
     }
-    protected new Bullet[] bullets;
+    private Bullet[] bullets;
 
     public override void _Ready()
     {
         bullets = new Bullet[poolSize];
-        SpritePool();
+        PoolCanvasItem();
     }
 	public override void Shoot(Godot.Collections.Array<Node2D> barrels) {
 		for (int i = 0; i != barrels.Count; i++) {

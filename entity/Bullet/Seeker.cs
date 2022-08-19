@@ -2,8 +2,19 @@ using Godot;
 
 public class Seeker : BulletBasic {
     [Export] protected float mass = 2;
-    public Node2D target;
-    
+    private struct Bullet {
+        public Transform2D transform;
+        public Vector2 velocity;
+        public Node2D target;
+        public readonly RID sprite;
+        public Bullet(in float speed, in Transform2D trans, in RID canvas) {
+            transform = trans;
+            sprite = canvas;
+            velocity = new Vector2(speed, 0).Rotated(trans.Rotation);
+            target = null;
+        }
+    }    
+
     public virtual void FindNearestNode(in Node2D[] list, in Vector2 relativeNode) {
         float minDistance = float.PositiveInfinity;
         Node2D theChosenOne = null;

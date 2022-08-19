@@ -2,7 +2,7 @@ using Godot;
 using System.Collections.Generic;
 public class BulletBasic : BulletBase {
     //The most simplist bullet.
-    protected struct Bullet {
+    private struct Bullet {
         public Transform2D transform;
         public readonly RID sprite;
         public Vector2 velocity;
@@ -13,9 +13,9 @@ public class BulletBasic : BulletBase {
         }   
     }
     protected Stack<RID> sprites;
-    protected Bullet[] bullets;
+    private Bullet[] bullets;
         
-    protected virtual void SpritePool() {
+    protected virtual void PoolCanvasItem() {
         sprites = new Stack<RID>(poolSize);
         world = GetViewport().World2d;
         Rect2 texRect = new Rect2(-textureSize / 2, textureSize);
@@ -35,7 +35,7 @@ public class BulletBasic : BulletBase {
     public override void _Ready()
     {
         bullets = new Bullet[poolSize];
-        SpritePool();
+        PoolCanvasItem();
     }
 	public virtual void Shoot(Godot.Collections.Array<Node2D> barrels) {
 		for (int i = 0; i != barrels.Count; i++) {

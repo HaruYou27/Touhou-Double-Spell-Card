@@ -1,18 +1,13 @@
 extends Node2D
 class_name Player
 
-var input : Script
 var cooldown := 0
-var power := 0.0 setget _set_power
 
-
+export (int) var speed := 527
 export (int) var firerate
 export (int) var firerate_focus
 export (Array) var barrels
 
-onready var sprite :AnimatedSprite = $AnimatedSprite
-onready var canvas :RID = $hitbox.get_canvas_item()
-onready var shape :Shape2D = $hitbox/CollisionShape2D.shape
 onready var bullet :Node = $bullet
 
 func _ready() -> void:
@@ -25,13 +20,7 @@ func _ready() -> void:
 	firerate_focus = (60 - firerate_focus) / firerate_focus
 	
 	if Global.save.input_method == save_data.input.KEYBOARD:
-		input = preload("res://autoload/controls/keyboard.gd")
-
-func _set_power(value:float) -> void:
-	power += value
-
-func die():
-	pass
+		add_child(preload("res://autoload/controls/keyboard.gd").new())
 
 #Input handler.
 func _physics_process(delta:float) -> void:
@@ -43,14 +32,3 @@ func _physics_process(delta:float) -> void:
 		else:
 			cooldown = firerate
 			bullet.Shoot(barrels)
-	
-	var new_pos :Vector2 = input.move(delta, global_position)
-	var angle := global_position.angle_to_point(new_pos)
-	if angle <= 90 or angle > -90:
-		#Right.
-		sprite
-	else:
-		#Left
-		sprite
-	
-	global_position = new_pos.posmodv(Vector2(1920, 1080))

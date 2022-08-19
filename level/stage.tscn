@@ -1,0 +1,120 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://level/ItemGet.gd" type="Script" id=1]
+[ext_resource path="res://level/stage.gd" type="Script" id=2]
+
+[sub_resource type="CapsuleShape2D" id=1]
+radius = 30.0
+height = 900.0
+
+[node name="Stage" type="Control"]
+script = ExtResource( 2 )
+
+[node name="Background" type="ColorRect" parent="."]
+margin_right = 1280.0
+margin_bottom = 960.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Background"]
+anchor_left = 0.03125
+anchor_top = 0.03125
+anchor_right = 0.972656
+anchor_bottom = 0.972917
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Playground" type="ColorRect" parent="Background/HBoxContainer"]
+margin_right = 646.0
+margin_bottom = 904.0
+rect_min_size = Vector2( 646, 904 )
+color = Color( 0.572549, 0.27451, 0.27451, 1 )
+
+[node name="ItemGet" type="RayCast2D" parent="Background/HBoxContainer/Playground"]
+position = Vector2( 0, 180 )
+enabled = true
+exclude_parent = false
+cast_to = Vector2( 646, 0 )
+script = ExtResource( 1 )
+
+[node name="Control2" type="Control" parent="Background/HBoxContainer/Playground"]
+anchor_left = 0.5
+anchor_right = 0.5
+
+[node name="BulletBound" type="StaticBody2D" parent="Background/HBoxContainer/Playground/Control2"]
+visible = false
+position = Vector2( 0, -61 )
+rotation = 1.5708
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Background/HBoxContainer/Playground/Control2/BulletBound"]
+shape = SubResource( 1 )
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Background/HBoxContainer/Playground/Control2/BulletBound"]
+position = Vector2( 1024, 0 )
+shape = SubResource( 1 )
+
+[node name="Control" type="Control" parent="Background/HBoxContainer/Playground"]
+anchor_top = 0.5
+anchor_bottom = 0.5
+margin_left = -80.0
+margin_right = -80.0
+
+[node name="BulletBound" type="StaticBody2D" parent="Background/HBoxContainer/Playground/Control"]
+visible = false
+collision_layer = 4
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Background/HBoxContainer/Playground/Control/BulletBound"]
+shape = SubResource( 1 )
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Background/HBoxContainer/Playground/Control/BulletBound"]
+position = Vector2( 800, 0 )
+shape = SubResource( 1 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Background/HBoxContainer"]
+margin_left = 650.0
+margin_right = 1205.0
+margin_bottom = 904.0
+size_flags_horizontal = 3
+
+[node name="Hi-Score" type="Label" parent="Background/HBoxContainer/VBoxContainer"]
+margin_right = 555.0
+margin_bottom = 14.0
+
+[node name="Score" type="Label" parent="Background/HBoxContainer/VBoxContainer"]
+margin_top = 18.0
+margin_right = 555.0
+margin_bottom = 32.0
+
+[node name="ScoreNext" type="Label" parent="Background/HBoxContainer/VBoxContainer"]
+margin_top = 36.0
+margin_right = 555.0
+margin_bottom = 50.0
+
+[node name="GridContainer" type="GridContainer" parent="Background/HBoxContainer/VBoxContainer"]
+margin_top = 54.0
+margin_right = 555.0
+margin_bottom = 86.0
+columns = 2
+
+[node name="Power2" type="Sprite" parent="Background/HBoxContainer/VBoxContainer/GridContainer"]
+
+[node name="Power" type="Label" parent="Background/HBoxContainer/VBoxContainer/GridContainer"]
+margin_bottom = 14.0
+
+[node name="Point2" type="Sprite" parent="Background/HBoxContainer/VBoxContainer/GridContainer"]
+
+[node name="Point" type="Label" parent="Background/HBoxContainer/VBoxContainer/GridContainer"]
+margin_left = 4.0
+margin_right = 4.0
+margin_bottom = 14.0
+
+[node name="Graze2" type="Sprite" parent="Background/HBoxContainer/VBoxContainer/GridContainer"]
+
+[node name="Graze" type="Label" parent="Background/HBoxContainer/VBoxContainer/GridContainer"]
+margin_top = 18.0
+margin_bottom = 32.0
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]

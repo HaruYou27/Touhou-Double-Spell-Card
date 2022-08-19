@@ -1,7 +1,7 @@
 using Godot;
 public class BulletBatched : BulletBase
 {//Bullet that draw in a single drawcall 
-	protected struct Bullet{
+	private struct Bullet{
 	    public Vector2 velocity;
 	    public Transform2D transform;
 	    public Bullet(in float speed, in Transform2D trans) {
@@ -12,7 +12,7 @@ public class BulletBatched : BulletBase
 
 	protected RID canvas;
 	protected Vector2 offset;
-	protected Bullet[] bullets;
+	private Bullet[] bullets;
 
 	protected virtual void InitCanvas() {
 		world = GetViewport().World2d;
