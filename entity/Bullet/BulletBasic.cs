@@ -15,9 +15,6 @@ public class BulletBasic : BulletBase {
     protected Stack<RID> sprites;
     private Bullet[] bullets;
         
-    protected virtual void PoolCanvasItem() {
-        
-    }
     public override void _EnterTree()
     {
         bullets = new Bullet[poolSize];

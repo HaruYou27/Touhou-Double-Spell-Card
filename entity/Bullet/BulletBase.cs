@@ -53,29 +53,24 @@ public class BulletBase : Node2D {
 		}
 		get {return cooldown;}
 	}
-	[Export] public uint frameCooldown {
-		set {
-			if (value > 0) {
-				cooldown = value;
-			}
-		}
-		get {return cooldown;}
-	}
+	[Export] public Godot.Collections.Array Barrels = new Godot.Collections.Array();
 
 	protected uint heat;
 	protected uint cooldown;
 	protected World2D world;
 	protected uint index;
-	
 	protected Node2D[] barrels;
 
 	public override void _Ready() {
 		world = GetWorld2d();
-		Godot.Collections.Array nodes = GetChildren();
-		int size = nodes.Count;
+		int size = Barrels.Count;
+		if (size == 0) {
+			Barrels = GetChildren();
+			size = Barrels.Count;
+		}
 		barrels = new Node2D[size];
 		for (int i = 0; i != size; i++) {
-			barrels[i] = (Node2D)nodes[i];
+			barrels[i] = (Node2D)Barrels[i];
 		}
 	}
 	private void CreateCollisionShape(in Vector2 size) {
