@@ -3,7 +3,7 @@ using Godot;
 //Abstract class of all bullet, mostly just export variable.
 public class BulletBase : Node2D {
 	//Physics properties.
-	[Export] protected int poolSize = 127;
+	[Export] protected int maxBullet = 127;
 	[Export] public float speed = 727;
 	[Export] public Vector2 shapeSize {
 		set {
@@ -67,11 +67,18 @@ public class BulletBase : Node2D {
 		if (size == 0) {
 			Barrels = GetChildren();
 			size = Barrels.Count;
+			barrels = new Node2D[size];
+			for (int i = 0; i != size; i++) {
+				barrels[i] = (Node2D)Barrels[i];
+			}
+		} else {
+			Node parent = GetParent();
+			barrels = new Node2D[size];
+			for (int i = 0; i != size; i++) {
+				barrels[i] = parent.GetNode<Node2D>((NodePath)Barrels[i]);
+			}
 		}
-		barrels = new Node2D[size];
-		for (int i = 0; i != size; i++) {
-			barrels[i] = (Node2D)Barrels[i];
-		}
+
 	}
 	private void CreateCollisionShape(in Vector2 size) {
 			if (hitbox != null) {

@@ -17,14 +17,14 @@ public class BulletBasic : BulletBase {
         
     public override void _EnterTree()
     {
-        bullets = new Bullet[poolSize];
+        bullets = new Bullet[maxBullet];
     }
     public override void _Ready()
     {
         base._Ready();
-        sprites = new Stack<RID>(poolSize);
+        sprites = new Stack<RID>(maxBullet);
         Rect2 texRect = new Rect2(-textureSize / 2, textureSize);
-        for (uint i = 0; i != poolSize; i++) {
+        for (uint i = 0; i != maxBullet; i++) {
             RID sprite = VisualServer.CanvasItemCreate();
             VisualServer.CanvasItemSetZIndex(sprite, zIndex);
             VisualServer.CanvasItemSetParent(sprite, world.Canvas);
@@ -50,7 +50,7 @@ public class BulletBasic : BulletBase {
         if (shoting) {
             heat = cooldown;
             foreach (Node2D barrel in barrels) {
-			if (index == poolSize) {break;}
+			if (index == maxBullet) {break;}
 
 			Bullet bullet = new Bullet(speed, barrel.GlobalTransform, sprites.Pop());
 			bullets[index] = bullet;

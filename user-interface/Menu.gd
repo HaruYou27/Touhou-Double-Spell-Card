@@ -1,7 +1,5 @@
 extends Control
 
-
-
 func _on_StartGame_pressed():
 	pass # Replace with function body.
 

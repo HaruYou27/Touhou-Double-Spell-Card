@@ -19,14 +19,14 @@ public class Ricochet : BulletBasic
     private Bullet[] bullets;
 
     public override void _EnterTree() {
-        bullets = new Bullet[poolSize];
+        bullets = new Bullet[maxBullet];
     }
     public override void _PhysicsProcess(float delta)
     {
         if (shoting) {
             heat = cooldown;
             foreach (Node2D barrel in barrels) {
-			if (index == poolSize) {break;}
+			if (index == maxBullet) {break;}
 
 			Bullet bullet = new Bullet(speed, barrel.GlobalTransform, sprites.Pop(), ricochet);
 			bullets[index] = bullet;

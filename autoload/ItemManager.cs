@@ -1,6 +1,6 @@
 using Godot;
 
-public class ItemManager : BulletNoRotate
+public class ItemManager : BulletBase
 {
 	protected struct Item {
 		public Transform2D transform;
@@ -20,15 +20,29 @@ public class ItemManager : BulletNoRotate
 		}
 	}
 	protected Vector2 gravity;
+	protected RID canvas;
+	protected Vector2 offset;
 	protected Item[] items;
 	public Node2D target;
 	public bool freeze;
 
 	public override void _EnterTree() {
-		items = new Item[poolSize];
+		items = new Item[maxBullet];
+	}
+	public override void _Ready()
+	{
+		base._Ready();
+		offset = -textureSize / 2;
+		canvas = VisualServer.CanvasItemCreate();
+		VisualServer.CanvasItemSetZIndex(canvas, zIndex);
+		VisualServer.CanvasItemSetParent(canvas, world.Canvas);
+		if (material != null) {
+			canvas = world.Canvas;
+            VisualServer.CanvasItemSetMaterial(canvas, material.GetRid());
+        }
 	}
 	public virtual void SpawnItem(in Vector2 origin, in int point) {
-		if (index < poolSize) {
+		if (index < maxBullet) {
 			//Item item = new Item(transform, gravity, value, power);
 			//items[index] = item;
 			index++;
