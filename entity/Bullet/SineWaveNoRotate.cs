@@ -22,8 +22,9 @@ public class SineWaveBatched : BulletNoRotate
     public override void _PhysicsProcess(float delta) {
         if (heat > 0) {heat--;}
         if (shoting) {
+            heat = cooldown;
             foreach (Node2D barrel in barrels) {
-			if (index == poolSize) {return;}
+			if (index == poolSize) {break;}
 
 			Bullet bullet = new Bullet(speed, barrel.GlobalTransform);
 			bullets[index] = bullet;

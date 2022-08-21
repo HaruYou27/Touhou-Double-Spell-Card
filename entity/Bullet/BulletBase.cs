@@ -54,7 +54,11 @@ public class BulletBase : Node2D {
 		get {return cooldown;}
 	}
 	[Export] public uint frameCooldown {
-		set {cooldown = value;}
+		set {
+			if (value > 0) {
+				cooldown = value;
+			}
+		}
 		get {return cooldown;}
 	}
 
