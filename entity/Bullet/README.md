@@ -33,10 +33,15 @@ Woa that's quite a lot isn't it? Yes and i have to went though all this mess whe
 # now let's make some barrel (refer to gun barrel) so you can shoot the bullet.
 
 Create a node inherits from Node2D. Seriously, you can just use any 2D-related-Node for the barrel, but i recommend Position2D node since it basically Node2D + a cross in the editor for direction preview.
+
 This tutorial assume you use a Position2D node but as I said, any node inherits from Node2D get the job done.
+
 So in the 2D tab, you should see a cross made by a red line and a green line. By default, the bullet will shoot to the right, which is the bright red line (Im not sure what color it is on your editor, it maybe different if you set it from Editor setting. But by default it's the right because the world is designed for right-handed and so Godot does.)
+
 Now if you want bullet to shoot from another direction, just use Godot rotation tool or set it from the inspector, just read Godot official doc if you dont know what and what in the editor.
+
 Ok now here's important part, you MUST either put these nodes as children of the bullet node or assign it in the barrels variable.
+
 And that's it, run test your scene and see if something bad will happen.
 
 # Report me if you have no idea of what the fuck is this thing about or some strange behavior
