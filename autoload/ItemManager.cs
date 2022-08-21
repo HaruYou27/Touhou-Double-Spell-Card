@@ -1,6 +1,6 @@
 using Godot;
 
-public class ItemManager : BulletBatched
+public class ItemManager : BulletNoRotate
 {
 	protected struct Item {
 		public Transform2D transform;

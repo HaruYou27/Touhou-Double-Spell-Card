@@ -1,5 +1,5 @@
 using Godot;
-public class BulletBatched : BulletBase
+public class BulletNoRotate : BulletBase
 {//Bullet that draw in a single drawcall 
 	private struct Bullet{
 	    public Vector2 velocity;

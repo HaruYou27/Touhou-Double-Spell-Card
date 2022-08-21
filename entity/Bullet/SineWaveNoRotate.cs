@@ -1,5 +1,5 @@
 using Godot;
-public class SineWaveBatched : BulletBatched
+public class SineWaveBatched : BulletNoRotate
 {
     [Export] float amplitude = 5;
     [Export] float frequency = 5;
