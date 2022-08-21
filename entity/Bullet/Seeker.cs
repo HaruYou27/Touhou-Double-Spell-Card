@@ -13,7 +13,7 @@ public class Seeker : BulletBasic {
             velocity = new Vector2(speed, 0).Rotated(trans.Rotation);
             target = null;
         }
-    }    
+    }
 
     public virtual void FindNearestNode(in Node2D[] list, in Vector2 relativeNode) {
         float minDistance = float.PositiveInfinity;
@@ -27,8 +27,17 @@ public class Seeker : BulletBasic {
         }
         target = theChosenOne;
     }
-    public override void _PhysicsProcess(float delta)
-    {
+    public override void _PhysicsProcess(float delta) {
+        if (heat > 0) {heat--;}
+        if (shoting) {
+            foreach (Node2D barrel in barrels) {
+			if (index == poolSize) {return;}
+
+			Bullet bullet = new Bullet(speed, barrel.GlobalTransform);
+			bullets[index] = bullet;
+			index++;
+		    }
+        }
         if (index == 0) {
             return;
         }

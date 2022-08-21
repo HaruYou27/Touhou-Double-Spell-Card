@@ -14,32 +14,32 @@ public class BulletBatched : BulletBase
 	protected Vector2 offset;
 	private Bullet[] bullets;
 
-	protected virtual void InitCanvas() {
-		world = GetViewport().World2d;
+	public override void _EnterTree() {
+		bullets = new Bullet[poolSize];
+	}
+	public override void _Ready()
+	{
+		base._Ready();
 		canvas = VisualServer.CanvasItemCreate();
 		VisualServer.CanvasItemSetZIndex(canvas, zIndex);
 		VisualServer.CanvasItemSetParent(canvas, world.Canvas);
 		if (material != null) {
 			canvas = world.Canvas;
             VisualServer.CanvasItemSetMaterial(canvas, material.GetRid());
-        }	
-	}
-	public override void _Ready()
-	{
-		bullets = new Bullet[poolSize];
-		InitCanvas();
-	}
-	public virtual void Shoot(Godot.Collections.Array<Node2D> barrels) {
-		for (int i = 0; i != barrels.Count; i++) {
-			if (index == poolSize) {return;}
-
-			Bullet bullet = new Bullet(speed, barrels[i].GlobalTransform);
-			bullets[index] = bullet;
-			index++;
-		}
+        }
 	}
 	public override void _PhysicsProcess(float delta)
 	{
+		if (heat > 0) {heat--;}
+        if (shoting) {
+            foreach (Node2D barrel in barrels) {
+			if (index == poolSize) {return;}
+
+			Bullet bullet = new Bullet(speed, barrel.GlobalTransform);
+			bullets[index] = bullet;
+			index++;
+		    }
+        }
 		if (index == 0) {
 			return;
 		}
@@ -68,4 +68,7 @@ public class BulletBatched : BulletBase
 		}
 		index = newIndex;
     }
+	public virtual void BulletFlush() {
+		
+	}
 }

@@ -83,11 +83,6 @@ _global_script_classes=[ {
 "class": "save_data",
 "language": "GDScript",
 "path": "res://autoload/save.gd"
-}, {
-"base": "Resource",
-"class": "statellite_data",
-"language": "GDScript",
-"path": "res://entity/player/statelliteData.gd"
 } ]
 _global_script_class_icons={
 "DTS": "",
@@ -104,14 +99,13 @@ _global_script_class_icons={
 "HistoryRow": "",
 "Player": "",
 "Stage": "",
-"save_data": "",
-"statellite_data": ""
+"save_data": ""
 }
 
 [application]
 
-config/name="7 colored Hakurei"
-config/description="A Touhou project fangame made in summer 2022."
+config/name="Touhou Entropy: Hakurei Chronos"
+config/description="Why i make bullet shmups game."
 run/main_scene="res://user-interface/Menu.scn"
 boot_splash/show_image=false
 config/icon="res://icon.png"

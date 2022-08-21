@@ -13,7 +13,6 @@ func _physics_process(_delta) -> void:
 		Input.action_press("focus")
 	else:
 		Input.action_release("focus")
-	
 	var mouse_global := parent.get_global_mouse_position()
 	var angle := parent.global_position.angle_to_point(mouse_global)
 	

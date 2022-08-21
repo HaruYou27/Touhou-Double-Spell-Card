@@ -29,10 +29,9 @@ public class ItemManager : BulletBatched
 	public Node2D target;
 	public bool freeze;
 
-	public override void _Ready()
+	public override void _EnterTree()
 	{
 		items = new Item[poolSize];
-		InitCanvas();
 	}
 	public virtual void SpawnItem(in Vector2 origin, in int value, in int power = 0)
 	{
@@ -42,7 +41,6 @@ public class ItemManager : BulletBatched
 			index++;
 		}
 	}
-	public override void Shoot(Godot.Collections.Array<Node2D> barrels) {}
 	public override void _PhysicsProcess(float delta)
 	{
 		if (index == 0) {

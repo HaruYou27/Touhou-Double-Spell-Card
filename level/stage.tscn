@@ -13,6 +13,7 @@ script = ExtResource( 2 )
 [node name="Background" type="ColorRect" parent="."]
 margin_right = 1280.0
 margin_bottom = 960.0
+color = Color( 0.0823529, 0.0823529, 0.0823529, 1 )
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Background"]
 anchor_left = 0.03125
@@ -72,49 +73,70 @@ shape = SubResource( 1 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Background/HBoxContainer"]
 margin_left = 650.0
-margin_right = 1205.0
+margin_right = 1204.0
 margin_bottom = 904.0
 size_flags_horizontal = 3
 
-[node name="Hi-Score" type="Label" parent="Background/HBoxContainer/VBoxContainer"]
-margin_right = 555.0
-margin_bottom = 14.0
-
-[node name="Score" type="Label" parent="Background/HBoxContainer/VBoxContainer"]
-margin_top = 18.0
-margin_right = 555.0
-margin_bottom = 32.0
-
-[node name="ScoreNext" type="Label" parent="Background/HBoxContainer/VBoxContainer"]
-margin_top = 36.0
-margin_right = 555.0
+[node name="Stats" type="GridContainer" parent="Background/HBoxContainer/VBoxContainer"]
+margin_right = 554.0
 margin_bottom = 50.0
-
-[node name="GridContainer" type="GridContainer" parent="Background/HBoxContainer/VBoxContainer"]
-margin_top = 54.0
-margin_right = 555.0
-margin_bottom = 86.0
+size_flags_horizontal = 3
 columns = 2
 
-[node name="Power2" type="Sprite" parent="Background/HBoxContainer/VBoxContainer/GridContainer"]
-
-[node name="Power" type="Label" parent="Background/HBoxContainer/VBoxContainer/GridContainer"]
+[node name="Hi-Score" type="Label" parent="Background/HBoxContainer/VBoxContainer/Stats"]
+margin_right = 275.0
 margin_bottom = 14.0
+size_flags_horizontal = 3
+text = "Hi-Score"
+align = 1
+valign = 1
 
-[node name="Point2" type="Sprite" parent="Background/HBoxContainer/VBoxContainer/GridContainer"]
-
-[node name="Point" type="Label" parent="Background/HBoxContainer/VBoxContainer/GridContainer"]
-margin_left = 4.0
-margin_right = 4.0
+[node name="hi-score" type="Label" parent="Background/HBoxContainer/VBoxContainer/Stats"]
+margin_left = 279.0
+margin_right = 554.0
 margin_bottom = 14.0
+size_flags_horizontal = 3
+text = "000.000.000"
+align = 2
+valign = 1
 
-[node name="Graze2" type="Sprite" parent="Background/HBoxContainer/VBoxContainer/GridContainer"]
-
-[node name="Graze" type="Label" parent="Background/HBoxContainer/VBoxContainer/GridContainer"]
+[node name="Score" type="Label" parent="Background/HBoxContainer/VBoxContainer/Stats"]
 margin_top = 18.0
+margin_right = 275.0
 margin_bottom = 32.0
+text = "Score"
+align = 1
+valign = 1
 
-[node name="Timer" type="Timer" parent="."]
-one_shot = true
+[node name="score" type="Label" parent="Background/HBoxContainer/VBoxContainer/Stats"]
+margin_left = 279.0
+margin_top = 18.0
+margin_right = 554.0
+margin_bottom = 32.0
+text = "000.000.000"
+align = 2
+valign = 1
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+[node name="ScoreNext" type="Label" parent="Background/HBoxContainer/VBoxContainer/Stats"]
+margin_top = 36.0
+margin_right = 275.0
+margin_bottom = 50.0
+text = "Next"
+align = 1
+valign = 1
+
+[node name="ScoreNext2" type="Label" parent="Background/HBoxContainer/VBoxContainer/Stats"]
+margin_left = 279.0
+margin_top = 36.0
+margin_right = 554.0
+margin_bottom = 50.0
+text = "000.000.000"
+align = 2
+valign = 1
+
+[node name="Difficulty" type="Label" parent="Background/HBoxContainer/VBoxContainer"]
+margin_top = 54.0
+margin_right = 554.0
+margin_bottom = 68.0
+align = 1
+valign = 1

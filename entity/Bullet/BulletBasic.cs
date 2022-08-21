@@ -16,8 +16,16 @@ public class BulletBasic : BulletBase {
     private Bullet[] bullets;
         
     protected virtual void PoolCanvasItem() {
+        
+    }
+    public override void _EnterTree()
+    {
+        bullets = new Bullet[poolSize];
+    }
+    public override void _Ready()
+    {
+        base._Ready();
         sprites = new Stack<RID>(poolSize);
-        world = GetViewport().World2d;
         Rect2 texRect = new Rect2(-textureSize / 2, textureSize);
         for (uint i = 0; i != poolSize; i++) {
             RID sprite = VisualServer.CanvasItemCreate();
@@ -32,30 +40,25 @@ public class BulletBasic : BulletBase {
             sprites.Push(sprite);
         }
     }
-    public override void _Ready()
+    public override void _ExitTree()
     {
-        bullets = new Bullet[poolSize];
-        PoolCanvasItem();
-    }
-	public virtual void Shoot(Godot.Collections.Array<Node2D> barrels) {
-		for (int i = 0; i != barrels.Count; i++) {
-			if (index == poolSize) {return;}
-
-			Bullet bullet = new Bullet(speed, barrels[i].GlobalTransform, sprites.Pop());
-			bullets[index] = bullet;
-			index++;
-		}
-	}
-    public override void _Notification(int what) {
-        if (what == Godot.Object.NotificationPredelete) {
-            foreach (RID sprite in sprites) {
-                VisualServer.FreeRid(sprite);
-            }
-            base._Notification(what);
+        foreach (RID sprite in sprites) {
+            VisualServer.FreeRid(sprite);
         }
+        base._ExitTree();
     }
     public override void _PhysicsProcess(float delta)
     {
+        if (heat > 0) {heat--;}
+        if (shoting) {
+            foreach (Node2D barrel in barrels) {
+			if (index == poolSize) {return;}
+
+			Bullet bullet = new Bullet(speed, barrel.GlobalTransform, sprites.Pop());
+			bullets[index] = bullet;
+			index++;
+		    }
+        }
         if (index == 0) {
             return;
         }

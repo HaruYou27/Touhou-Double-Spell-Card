@@ -18,23 +18,20 @@ public class Ricochet : BulletBasic
     }
     private Bullet[] bullets;
 
-    public override void _Ready()
-    {
-        PoolCanvasItem();
+    public override void _EnterTree() {
         bullets = new Bullet[poolSize];
-    }
-    public override void Shoot(Array<Node2D> barrels)
-    {
-        for (int i = 0; i != barrels.Count; i++) {
-			if (index == poolSize) {return;}
-
-			Bullet bullet = new Bullet(speed, barrels[i].GlobalTransform, sprites.Pop(), ricochet);
-			bullets[index] = bullet;
-			index++;
-		}
     }
     public override void _PhysicsProcess(float delta)
     {
+        if (shoting) {
+            foreach (Node2D barrel in barrels) {
+			if (index == poolSize) {return;}
+
+			Bullet bullet = new Bullet(speed, barrel.GlobalTransform, sprites.Pop(), ricochet);
+			bullets[index] = bullet;
+			index++;
+		    }
+        }
          if (index == 0) {
             return;
         }

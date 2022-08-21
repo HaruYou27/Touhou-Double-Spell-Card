@@ -1,7 +1,7 @@
 using Godot;
 
 //Abstract class of all bullet, mostly just export variable.
-public class BulletBase : Node {
+public class BulletBase : Node2D {
 	//Physics properties.
 	[Export] protected int poolSize = 127;
 	[Export] public float speed = 727;
@@ -43,10 +43,37 @@ public class BulletBase : Node {
 	private Texture tex;
 	protected Vector2 textureSize;
 	protected RID textureRID;
+	
+	[Export] public bool shoting;
+	[Export] public uint firerate {
+		set {
+			if (value > 0) {
+				cooldown = (60 - value) / value;
+			}
+		}
+		get {return cooldown;}
+	}
+	[Export] public uint frameCooldown {
+		set {cooldown = value;}
+		get {return cooldown;}
+	}
 
+	protected uint heat;
+	protected uint cooldown;
 	protected World2D world;
 	protected uint index;
+	
+	protected Node2D[] barrels;
 
+	public override void _Ready() {
+		world = GetWorld2d();
+		Godot.Collections.Array nodes = GetChildren();
+		int size = nodes.Count;
+		barrels = new Node2D[size];
+		for (int i = 0; i != size; i++) {
+			barrels[i] = (Node2D)nodes[i];
+		}
+	}
 	private void CreateCollisionShape(in Vector2 size) {
 			if (hitbox != null) {
 				Physics2DServer.FreeRid(hitbox);
@@ -60,9 +87,8 @@ public class BulletBase : Node {
 			}
 			query.ShapeRid = hitbox;
 	}
-    public override void _Notification(int what) {
-        if (what == Godot.Object.NotificationPredelete) {
-            Physics2DServer.FreeRid(hitbox);
-        }
+    public override void _ExitTree()
+    {
+        Physics2DServer.FreeRid(hitbox);
     }
 }

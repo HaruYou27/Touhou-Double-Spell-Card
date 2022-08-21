@@ -11,6 +11,6 @@ func _physics_process(delta:float) -> void:
 	
 	if Input.is_action_pressed("focus"):
 		velocity /= 2
-	
+		
 	parent.global_position += velocity * delta * parent.speed
 	parent.global_position = parent.global_position.posmodv(Global.playground)

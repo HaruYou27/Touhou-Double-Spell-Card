@@ -1,10 +1,10 @@
 extends StaticBody2D
 
-signal power_update(value)
-signal graze_update
-signal point_update(value)
+signal update_score(value)
 
-func _collect() -> void:
+
+func _collect(value:int) -> void:
+	emit_signal("update_score", value)
 
 func _hit() -> void:
-	
+	emit_signal("update_score", 1)

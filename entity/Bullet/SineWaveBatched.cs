@@ -16,22 +16,21 @@ public class SineWaveBatched : BulletBatched
     }
     private Bullet[] bullets;
 
-    public override void _Ready()
-    {
+    public override void _EnterTree() {
         bullets = new Bullet[poolSize];
-        InitCanvas();
     }
-	public override void Shoot(Godot.Collections.Array<Node2D> barrels) {
-		for (int i = 0; i != barrels.Count; i++) {
+    public override void _PhysicsProcess(float delta) {
+        if (heat > 0) {heat--;}
+        if (shoting) {
+            foreach (Node2D barrel in barrels) {
 			if (index == poolSize) {return;}
 
-			Bullet bullet = new Bullet(speed, barrels[i].GlobalTransform);
+			Bullet bullet = new Bullet(speed, barrel.GlobalTransform);
 			bullets[index] = bullet;
 			index++;
-		}
-	}
-    public override void _PhysicsProcess(float delta) {
-         if (index == 0) {
+		    }
+        }
+        if (index == 0) {
             return;
         }
         uint newIndex = 0;
