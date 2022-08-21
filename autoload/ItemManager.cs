@@ -4,15 +4,11 @@ public class ItemManager : BulletBatched
 {
 	protected struct Item {
 		public Transform2D transform;
-		public readonly int value;
-		public readonly int power;
-		public readonly RID texture;
+		public readonly int point;
 		public Vector2 velocity;
-		public Item(in Transform2D trans, in Vector2 gravity, in RID tex, in int v, in int p) {
+		public Item(in Transform2D trans, in Vector2 gravity, in int p) {
 			transform = trans;
-			texture = tex;
-			power = p;
-			value = v;
+			point = p;
 			velocity = gravity;
 		}
 	}
@@ -23,31 +19,27 @@ public class ItemManager : BulletBatched
 			return gravity.y;
 		}
 	}
-	[Export] public Texture textureP;
 	protected Vector2 gravity;
 	protected Item[] items;
 	public Node2D target;
 	public bool freeze;
 
-	public override void _EnterTree()
-	{
+	public override void _EnterTree() {
 		items = new Item[poolSize];
 	}
-	public virtual void SpawnItem(in Vector2 origin, in int value, in int power = 0)
-	{
+	public virtual void SpawnItem(in Vector2 origin, in int point) {
 		if (index < poolSize) {
 			//Item item = new Item(transform, gravity, value, power);
 			//items[index] = item;
 			index++;
 		}
 	}
-	public override void _PhysicsProcess(float delta)
-	{
+	public override void _PhysicsProcess(float delta) {
 		if (index == 0) {
 			target = null;
 			return;
 		}
-		if (freeze) {
+		if (freeze && target != null) {
 			freeze = false;
 			return;
 		}
@@ -73,7 +65,7 @@ public class ItemManager : BulletBatched
 			}
 			Object collider = GD.InstanceFromId((ulong) (int)result["collider_id"]);
 			if (collider.HasMethod("_collect")) {
-				collider.Call("_collect", item.value);
+				collider.Call("_collect", item.point);
 			}
 		}
 		index = newIndex;

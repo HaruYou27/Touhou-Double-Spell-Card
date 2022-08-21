@@ -53,15 +53,13 @@ public class Ricochet : BulletBasic
             Object collider = GD.InstanceFromId(((ulong) (int)result["collider_id"]));
             if (collider.HasMethod("_hit")) {
                 collider.Call("_hit");
-            } else {
-                if (ricochet != 0) {
-                    bullet.velocity = bullet.velocity.Bounce((Vector2)result["normal"]);
-                    bullet.ricochet -= 1;
-                    bullets[newIndex] = bullet;
-                    newIndex++;
-                    continue;
+            } else if (ricochet != 0) {
+                bullet.velocity = bullet.velocity.Bounce((Vector2)result["normal"]);
+                bullet.ricochet -= 1;
+                bullets[newIndex] = bullet;
+                newIndex++;
+                continue;
                 }
-            }
             sprites.Push(bullet.sprite);
             VisualServer.CanvasItemSetTransform(bullet.sprite, new Transform2D());
         }
