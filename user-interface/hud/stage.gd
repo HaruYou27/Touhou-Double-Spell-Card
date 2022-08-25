@@ -12,6 +12,7 @@ export (String) var stage_name
 
 onready var score_label :Label = $Background/HBoxContainer/VBoxContainer/Score
 onready var hi_score_label :Label = $Background/HBoxContainer/VBoxContainer/HiScore
+onready var playground :Control = $Background/HBoxContainer/Playground
 
 func _ready() -> void:
 	if Global.save.hi_score.has(stage_name):
@@ -31,7 +32,7 @@ func _exit_tree() -> void:
 	Global.save.hi_score[stage_name] = hi_score
 	Global.save.save()
 
-func next_spellcard() -> void:
+func next() -> void:
 	current_spell.queue_free()
 	current_spell = spellcards.pop_back().instance()
-	add_child(current_spell)
+	playground.add_child(current_spell)

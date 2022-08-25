@@ -1,6 +1,8 @@
 shader_type canvas_item;
 
-uniform float h: hint_range(0,1) = 1;
+uniform float h: hint_range(0, 1) = 1;
+uniform float s: hint_range(0, 2) = 1;
+uniform float v: hint_range(0, 2) = 1;
 
 vec3 rgb2hsv(vec3 c) {
      vec4 K = vec4(0.0, -1.0 / 3.0, 2.0 / 3.0, -1.0);
@@ -22,10 +24,15 @@ vec3 rgb2hsv(vec3 c) {
   return max(sign(y - x), 0.0);
 }
 
+float when_eq(float x, float y) {
+  return 1.0 - abs(sign(x - y));
+}
+
 void fragment() {
-	 vec4 color = texture(TEXTURE, UV);
-	 vec3 colorhsv = rgb2hsv(color.rgb);
-	 vec3 value = vec3(h, 1, 1) * colorhsv * when_lt(colorhsv.g, 11);
-	color.rgb = hsv2rgb(value);
+	vec4 color = texture(TEXTURE, UV);
+	vec3 colorhsv = rgb2hsv(color.rgb);
+	float boolean = when_lt(colorhsv.y, 11.0);
+	colorhsv *= vec3(h, s, v) * boolean;
+	color.rgb = color.rgb * when_eq(boolean, 0.0) + hsv2rgb(colorhsv);
 	COLOR = color;
 }

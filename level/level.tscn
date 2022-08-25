@@ -1,12 +1,7 @@
-[gd_scene load_steps=2 format=2]
-
-[ext_resource path="res://level/level.gd" type="Script" id=1]
+[gd_scene format=2]
 
 [node name="playGround" type="ColorRect"]
 margin_right = 646.0
 margin_bottom = 904.0
-script = ExtResource( 1 )
-
-[node name="Tween" type="Tween" parent="."]
 
 [node name="Timer" type="Timer" parent="."]

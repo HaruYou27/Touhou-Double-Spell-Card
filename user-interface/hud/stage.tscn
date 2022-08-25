@@ -5,7 +5,7 @@
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 30.0
-height = 900.0
+height = 1024.0
 
 [node name="Stage" type="Control"]
 script = ExtResource( 1 )
@@ -29,7 +29,6 @@ __meta__ = {
 margin_right = 646.0
 margin_bottom = 904.0
 rect_min_size = Vector2( 646, 904 )
-color = Color( 0.572549, 0.27451, 0.27451, 1 )
 
 [node name="ItemGet" type="RayCast2D" parent="Background/HBoxContainer/Playground"]
 position = Vector2( 0, 180 )
@@ -37,40 +36,6 @@ enabled = true
 exclude_parent = false
 cast_to = Vector2( 646, 0 )
 script = ExtResource( 2 )
-
-[node name="Control2" type="Control" parent="Background/HBoxContainer/Playground"]
-anchor_left = 0.5
-anchor_right = 0.5
-
-[node name="BulletBound" type="StaticBody2D" parent="Background/HBoxContainer/Playground/Control2"]
-visible = false
-position = Vector2( 0, -61 )
-rotation = 1.5708
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Background/HBoxContainer/Playground/Control2/BulletBound"]
-shape = SubResource( 1 )
-
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="Background/HBoxContainer/Playground/Control2/BulletBound"]
-position = Vector2( 1024, 0 )
-shape = SubResource( 1 )
-
-[node name="Control" type="Control" parent="Background/HBoxContainer/Playground"]
-anchor_top = 0.5
-anchor_bottom = 0.5
-margin_left = -80.0
-margin_right = -80.0
-
-[node name="BulletBound" type="StaticBody2D" parent="Background/HBoxContainer/Playground/Control"]
-visible = false
-collision_layer = 4
-collision_mask = 0
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Background/HBoxContainer/Playground/Control/BulletBound"]
-shape = SubResource( 1 )
-
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="Background/HBoxContainer/Playground/Control/BulletBound"]
-position = Vector2( 800, 0 )
-shape = SubResource( 1 )
 
 [node name="pauseMenu" type="ColorRect" parent="Background/HBoxContainer/Playground"]
 visible = false
@@ -104,6 +69,33 @@ margin_top = 48.0
 margin_right = 69.0
 margin_bottom = 68.0
 text = "Quit"
+
+[node name="BulletBound" type="StaticBody2D" parent="Background/HBoxContainer/Playground"]
+visible = false
+position = Vector2( 323, 452 )
+collision_layer = 4
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Background/HBoxContainer/Playground/BulletBound"]
+position = Vector2( -512, 0 )
+shape = SubResource( 1 )
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Background/HBoxContainer/Playground/BulletBound"]
+position = Vector2( 512, 0 )
+shape = SubResource( 1 )
+
+[node name="BulletBound2" type="StaticBody2D" parent="Background/HBoxContainer/Playground"]
+visible = false
+position = Vector2( 323, 452 )
+rotation = 1.5708
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Background/HBoxContainer/Playground/BulletBound2"]
+position = Vector2( -572, 0 )
+shape = SubResource( 1 )
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Background/HBoxContainer/Playground/BulletBound2"]
+position = Vector2( 572, 0 )
+shape = SubResource( 1 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Background/HBoxContainer"]
 margin_left = 650.0

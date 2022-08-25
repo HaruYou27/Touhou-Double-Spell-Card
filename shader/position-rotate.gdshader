@@ -1,6 +1,6 @@
 shader_type canvas_item;
 
-uniform float strength = 0.001;
+uniform float strength = 1;
 
 const float PI = 3.14159265359;
 
@@ -11,6 +11,6 @@ mat2 rotate2d(float phi){
 
 void vertex() {
 	vec2 pos = (WORLD_MATRIX * vec4(0.0, 0.0, 0.0, 1.0)).xy;
-	float phi = pos.x * pos.y * strength;
+	float phi = pos.x * pos.y * strength / 1000.0;
 	VERTEX *= rotate2d(phi);
 }
