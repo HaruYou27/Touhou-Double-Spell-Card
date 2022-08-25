@@ -1,6 +1,7 @@
 using Godot;
 
 public class Seeker : BulletBasic {
+    //Bullets that chase nearby target.
     [Export] protected float mass = 2;
     [Export] protected float seekRadius {
         set {Physics2DServer.ShapeSetData(seekShape, value);}
@@ -40,8 +41,7 @@ public class Seeker : BulletBasic {
         bullets = new Bullet[maxBullet];
     }
     public override void _PhysicsProcess(float delta) {
-        if (heat > 0) {heat--;}
-        if (shoting) {
+        if (shoting && heat == 0) {
             heat = cooldown;
             foreach (Node2D barrel in barrels) {
 			if (index == maxBullet) {break;}
@@ -50,7 +50,7 @@ public class Seeker : BulletBasic {
 			bullets[index] = bullet;
 			index++;
 		    }
-        }
+        } else {heat--;}
         if (index == 0) {
             return;
         }

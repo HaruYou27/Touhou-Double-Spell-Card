@@ -1,14 +1,15 @@
 [gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://level/ItemGet.gd" type="Script" id=1]
-[ext_resource path="res://level/stage.gd" type="Script" id=2]
+[ext_resource path="res://user-interface/hud/stage.gd" type="Script" id=1]
+[ext_resource path="res://user-interface/hud/ItemGet.gd" type="Script" id=2]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 30.0
 height = 900.0
 
 [node name="Stage" type="Control"]
-script = ExtResource( 2 )
+script = ExtResource( 1 )
+stage_name = "zgfxgx d gff"
 
 [node name="Background" type="ColorRect" parent="."]
 margin_right = 1280.0
@@ -35,7 +36,7 @@ position = Vector2( 0, 180 )
 enabled = true
 exclude_parent = false
 cast_to = Vector2( 646, 0 )
-script = ExtResource( 1 )
+script = ExtResource( 2 )
 
 [node name="Control2" type="Control" parent="Background/HBoxContainer/Playground"]
 anchor_left = 0.5
@@ -71,72 +72,62 @@ shape = SubResource( 1 )
 position = Vector2( 800, 0 )
 shape = SubResource( 1 )
 
+[node name="pauseMenu" type="ColorRect" parent="Background/HBoxContainer/Playground"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 0.164706 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Background/HBoxContainer/Playground/pauseMenu"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -34.5
+margin_top = -34.0
+margin_right = 34.5
+margin_bottom = 34.0
+
+[node name="Continue" type="Button" parent="Background/HBoxContainer/Playground/pauseMenu/VBoxContainer"]
+margin_right = 69.0
+margin_bottom = 20.0
+text = "Continue"
+
+[node name="Reset" type="Button" parent="Background/HBoxContainer/Playground/pauseMenu/VBoxContainer"]
+margin_top = 24.0
+margin_right = 69.0
+margin_bottom = 44.0
+text = "Reset"
+
+[node name="Quit" type="Button" parent="Background/HBoxContainer/Playground/pauseMenu/VBoxContainer"]
+margin_top = 48.0
+margin_right = 69.0
+margin_bottom = 68.0
+text = "Quit"
+
 [node name="VBoxContainer" type="VBoxContainer" parent="Background/HBoxContainer"]
 margin_left = 650.0
 margin_right = 1204.0
 margin_bottom = 904.0
 size_flags_horizontal = 3
 
-[node name="Stats" type="GridContainer" parent="Background/HBoxContainer/VBoxContainer"]
-margin_right = 554.0
-margin_bottom = 50.0
-size_flags_horizontal = 3
-columns = 2
-
-[node name="Hi-Score" type="Label" parent="Background/HBoxContainer/VBoxContainer/Stats"]
-margin_right = 275.0
-margin_bottom = 14.0
-size_flags_horizontal = 3
-text = "Hi-Score"
-align = 1
-valign = 1
-
-[node name="hi-score" type="Label" parent="Background/HBoxContainer/VBoxContainer/Stats"]
-margin_left = 279.0
+[node name="HiScore" type="Label" parent="Background/HBoxContainer/VBoxContainer"]
 margin_right = 554.0
 margin_bottom = 14.0
-size_flags_horizontal = 3
-text = "000.000.000"
-align = 2
-valign = 1
+text = "Hi-Score:"
 
-[node name="Score" type="Label" parent="Background/HBoxContainer/VBoxContainer/Stats"]
-margin_top = 18.0
-margin_right = 275.0
-margin_bottom = 32.0
-text = "Score"
-align = 1
-valign = 1
-
-[node name="score" type="Label" parent="Background/HBoxContainer/VBoxContainer/Stats"]
-margin_left = 279.0
+[node name="Score" type="Label" parent="Background/HBoxContainer/VBoxContainer"]
 margin_top = 18.0
 margin_right = 554.0
 margin_bottom = 32.0
-text = "000.000.000"
-align = 2
-valign = 1
+text = "Score:"
 
-[node name="ScoreNext" type="Label" parent="Background/HBoxContainer/VBoxContainer/Stats"]
-margin_top = 36.0
-margin_right = 275.0
-margin_bottom = 50.0
-text = "Next"
-align = 1
-valign = 1
-
-[node name="ScoreNext2" type="Label" parent="Background/HBoxContainer/VBoxContainer/Stats"]
-margin_left = 279.0
+[node name="Bomb" type="HBoxContainer" parent="Background/HBoxContainer/VBoxContainer"]
 margin_top = 36.0
 margin_right = 554.0
 margin_bottom = 50.0
-text = "000.000.000"
-align = 2
-valign = 1
 
-[node name="Difficulty" type="Label" parent="Background/HBoxContainer/VBoxContainer"]
-margin_top = 54.0
-margin_right = 554.0
-margin_bottom = 68.0
-align = 1
-valign = 1
+[node name="Label" type="Label" parent="Background/HBoxContainer/VBoxContainer/Bomb"]
+margin_right = 42.0
+margin_bottom = 14.0
+text = "Bomb:"

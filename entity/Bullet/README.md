@@ -16,7 +16,7 @@ Texture: You MUST fill a texture in there, anything, just put something in there
 
 maxBullet: The maxium number of bullets can possible have. Try to keep this number as low as possible so it wont hurt performance. Exceed the limit and no more bullet will be shoot out until some current active bullets hit something and free the slot. (Warning: Dont set it to some ridiculous value like few thousands, millons, whatever or your computer will crash.)
 
-Fire rate: The number bullets fire out the barrel in second. The maxium value is 60 because the game runs in 60fps. Higher value will cause bullet to overlap. (In CSGO they have to batch these bullet and send them in 1 go, which is kinda messy.)
+Fire rate: The number bullets fire out the barrel in second. The maxium value is 60 because the game runs in 60fps. Higher value will cause bullet to overlap. Use this or fill in cooldown directly .(In CSGO they have to batch these bullet and send them in 1 go, which is kinda messy.)
 
 Speed: Bullet travel speed in pixel per second. You can change it in run time but only new bullet will be affected (You can also do that with other variable, but somes does not have any effect and somes like this.)
 
@@ -27,6 +27,8 @@ Z-index: This is Godot CanvasItem z-index, you should keep this unique for each 
 Shoting: Check this and bullets will come out by the firerate you set.
 
 Barrels: This is optional, if you need to share barrel node with other bullet node or can not set the barrel node as a child of this node for any reason. (Note: this variable will override children nodes.) Increase the array size then click on the eyedrop icon and choose NodePath, then the null will change into Assign... Click on it or drag the barrel node in the scene panel and drop it here. (Again, blame Godot if you feel inconvient, type Array in Godot 4 should make thing less troublesome.)
+
+Cooldown: Cooldown between shoot, in frame (~1/60 second), use this or firerate.
 
 Woa that's quite a lot isn't it? Yes and i have to went though all this mess when making this "System". Making game is hard and this is my best try to keep stuff as simple as possible for you by cover all of this under a level of abstraction. Nerd talk aside, 
 

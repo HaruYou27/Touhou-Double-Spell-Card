@@ -1,7 +1,6 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://entity/player/player.gd" type="Script" id=1]
-[ext_resource path="res://entity/player/hitbox.gd" type="Script" id=2]
 [ext_resource path="res://entity/player/graze.gd" type="Script" id=3]
 
 [sub_resource type="CapsuleShape2D" id=13]
@@ -11,7 +10,7 @@ height = 58.0
 [sub_resource type="CircleShape2D" id=7]
 radius = 7.07107
 
-[node name="player" type="Node2D"]
+[node name="player" type="StaticBody2D"]
 script = ExtResource( 1 )
 __meta__ = {
 "_editor_description_": ""
@@ -38,24 +37,13 @@ shape = SubResource( 13 )
 
 [node name="collectSFX" type="AudioStreamPlayer" parent="graze"]
 
-[node name="hitbox" type="StaticBody2D" parent="."]
-light_mask = 0
-collision_mask = 0
-script = ExtResource( 2 )
+[node name="bullet" type="Node" parent="."]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="hitbox"]
+[node name="Position2D" type="Position2D" parent="bullet"]
+position = Vector2( 0, -68 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 modulate = Color( 0.283333, 0, 1, 1 )
 shape = SubResource( 7 )
 
-[node name="sfx" type="AudioStreamPlayer" parent="hitbox"]
-
-[node name="Position2D" type="Position2D" parent="."]
-position = Vector2( 0, -68 )
-
-[node name="bullet" type="Node" parent="."]
-
-[node name="Tween" type="Tween" parent="."]
-
-[node name="Camera2D" type="Camera2D" parent="."]
-smoothing_enabled = true
-editor_draw_screen = false
+[node name="sfx" type="AudioStreamPlayer" parent="."]

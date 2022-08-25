@@ -23,7 +23,7 @@ public class Ricochet : BulletBasic
     }
     public override void _PhysicsProcess(float delta)
     {
-        if (shoting) {
+        if (shoting && heat == 0) {
             heat = cooldown;
             foreach (Node2D barrel in barrels) {
 			if (index == maxBullet) {break;}
@@ -32,7 +32,7 @@ public class Ricochet : BulletBasic
 			bullets[index] = bullet;
 			index++;
 		    }
-        }
+        } else {heat--;}
          if (index == 0) {
             return;
         }

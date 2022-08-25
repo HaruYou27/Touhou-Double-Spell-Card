@@ -54,9 +54,9 @@ public class BulletBase : Node2D {
 		get {return cooldown;}
 	}
 	[Export] public Godot.Collections.Array Barrels = new Godot.Collections.Array();
+	[Export] public uint cooldown;
 
 	protected uint heat;
-	protected uint cooldown;
 	protected World2D world;
 	protected uint index;
 	protected Node2D[] barrels;

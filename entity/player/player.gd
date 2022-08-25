@@ -1,7 +1,8 @@
-extends Node2D
+extends StaticBody2D
 class_name Player
 
-var cooldown := 0
+signal deathdoor
+signal update_score(value)
 
 onready var bullet : Node2D = $bullet
 onready var bullet_focus : Node2D = $bulletFocus
@@ -11,8 +12,12 @@ onready var statellite_focus : Node2D = $bulletFocus
 export (int) var speed := 527
 
 func _ready() -> void:
-	if Global.save.input_method == save_data.input.KEYBOARD:
+	Global.player = self
+	if Global.save.input_method == saveData.input.KEYBOARD:
 		add_child(preload("res://autoload/controls/keyboard.gd").new())
+
+func _hit() -> void:
+	emit_signal('deathdoor')
 
 func _physics_process(_delta):
 	if Input.is_action_just_pressed("focus"):
