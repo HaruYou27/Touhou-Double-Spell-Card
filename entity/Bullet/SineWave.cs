@@ -26,6 +26,7 @@ public class SineWave : BulletBasic {
 			if (index == maxBullet) {break;}
 
 			Bullet bullet = new Bullet(speed, barrel.GlobalTransform, sprites.Pop());
+            VisualServer.CanvasItemSetVisible(bullet.sprite, true);
 			bullets[index] = bullet;
 			index++;
 		    }
@@ -57,6 +58,7 @@ public class SineWave : BulletBasic {
                 collider.Call("_hit");
             }
             sprites.Push(bullet.sprite);
+            VisualServer.CanvasItemSetVisible(bullet.sprite, false);
         }
         index = newIndex;
     }

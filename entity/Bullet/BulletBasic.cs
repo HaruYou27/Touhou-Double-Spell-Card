@@ -28,12 +28,13 @@ public class BulletBasic : BulletBase {
             RID sprite = VisualServer.CanvasItemCreate();
             VisualServer.CanvasItemSetZIndex(sprite, zIndex);
             VisualServer.CanvasItemSetParent(sprite, world.Canvas);
-            VisualServer.CanvasItemSetLightMask(sprite, 0);
+            VisualServer.CanvasItemSetLightMask(sprite, lightLayer);
             //Due to a bug in visual server, normal map rid can not be null, which is, null by default.
             VisualServer.CanvasItemAddTextureRect(sprite, texRect, textureRID, false, null, false, textureRID);
             if (material != null) {
                 VisualServer.CanvasItemSetMaterial(sprite, material.GetRid());
             }
+            VisualServer.CanvasItemSetVisible(sprite, false);
             sprites.Push(sprite);
         }
     }
@@ -52,6 +53,7 @@ public class BulletBasic : BulletBase {
 			if (index == maxBullet) {break;}
 
 			Bullet bullet = new Bullet(speed, barrel.GlobalTransform, sprites.Pop());
+            VisualServer.CanvasItemSetVisible(bullet.sprite, true);
 			bullets[index] = bullet;
 			index++;
 		    }
@@ -79,7 +81,7 @@ public class BulletBasic : BulletBase {
                 collider.Call("_hit");
             }
             sprites.Push(bullet.sprite);
-            VisualServer.CanvasItemSetTransform(bullet.sprite, new Transform2D());
+            VisualServer.CanvasItemSetVisible(bullet.sprite, false);
         }
         index = newIndex;
     }

@@ -1,14 +1,16 @@
 extends ColorRect
 
-onready var meimu :Area2D = $meimu
+onready var meimu := $Path2D/PathFollow2D
 onready var barrel :Node2D = $meimu/bullet/Position2D
+onready var tween := create_tween()
+
+var age :float
 
 func _ready():
 	randomize()
 	barrel.rotation = rand_range(0.0, 6.28)
-
-func _physics_process(delta) -> void:
-	meimu.global_position.x += 72 * delta
-	meimu.position.y += sin(Time.get_ticks_msec()) * 272 * delta
-	meimu.global_position = meimu.global_position.posmodv(Global.playground)
+	tween.tween_property(meimu, 'unit_offset', 1.0, 7)
+	tween.set_loops()
+	
+func _physics_process(delta):
 	barrel.rotation += 0.897 * delta

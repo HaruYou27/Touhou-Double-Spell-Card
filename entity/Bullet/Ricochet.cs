@@ -29,6 +29,7 @@ public class Ricochet : BulletBasic
 			if (index == maxBullet) {break;}
 
 			Bullet bullet = new Bullet(speed, barrel.GlobalTransform, sprites.Pop(), ricochet);
+            VisualServer.CanvasItemSetVisible(bullet.sprite, true);
 			bullets[index] = bullet;
 			index++;
 		    }
@@ -62,7 +63,7 @@ public class Ricochet : BulletBasic
                 continue;
                 }
             sprites.Push(bullet.sprite);
-            VisualServer.CanvasItemSetTransform(bullet.sprite, new Transform2D());
+            VisualServer.CanvasItemSetVisible(bullet.sprite, false);
         }
         index = newIndex;
     }

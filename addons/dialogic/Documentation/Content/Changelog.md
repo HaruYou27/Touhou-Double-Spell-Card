@@ -457,7 +457,7 @@ To view previous changes [click here](https://github.com/coppolaemilio/dialogic/
     - Character join (left, center and right) working
     - Focus in and out of portraits when speaking
     - Character leave events working
-    - Basic question/answers support
+    - BulletBasic question/answers support
     - Better scene resizing and position
     - Button styles
 

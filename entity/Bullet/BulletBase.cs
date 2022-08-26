@@ -40,6 +40,7 @@ public class BulletBase : Node2D {
 	}
 	[Export] public Material material;
 	[Export(PropertyHint.Range, "-4096, 4096")]	public int zIndex;
+	[Export(PropertyHint.Layers2dRender)] public int lightLayer;
 	private Texture tex;
 	protected Vector2 textureSize;
 	protected RID textureRID;

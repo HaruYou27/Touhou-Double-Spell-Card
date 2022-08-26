@@ -1,125 +1,53 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://user-interface/hud/stage.gd" type="Script" id=1]
-[ext_resource path="res://user-interface/hud/ItemGet.gd" type="Script" id=2]
-
-[sub_resource type="CapsuleShape2D" id=1]
-radius = 30.0
-height = 1024.0
+[ext_resource path="res://user-interface/hud/textures/hud-background.png" type="Texture" id=3]
 
 [node name="Stage" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
 script = ExtResource( 1 )
 stage_name = "zgfxgx d gff"
 
-[node name="Background" type="ColorRect" parent="."]
-margin_right = 1280.0
-margin_bottom = 960.0
-color = Color( 0.0823529, 0.0823529, 0.0823529, 1 )
-
-[node name="HBoxContainer" type="HBoxContainer" parent="Background"]
-anchor_left = 0.03125
-anchor_top = 0.03125
-anchor_right = 0.972656
-anchor_bottom = 0.972917
-__meta__ = {
-"_edit_use_anchors_": true
-}
-
-[node name="Playground" type="ColorRect" parent="Background/HBoxContainer"]
-margin_right = 646.0
-margin_bottom = 904.0
-rect_min_size = Vector2( 646, 904 )
-
-[node name="ItemGet" type="RayCast2D" parent="Background/HBoxContainer/Playground"]
-position = Vector2( 0, 180 )
-enabled = true
-exclude_parent = false
-cast_to = Vector2( 646, 0 )
-script = ExtResource( 2 )
-
-[node name="pauseMenu" type="ColorRect" parent="Background/HBoxContainer/Playground"]
-visible = false
+[node name="Playground" type="Control" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
-color = Color( 0, 0, 0, 0.164706 )
+margin_left = 60.0
+margin_top = 30.0
+margin_right = -34.0
+margin_bottom = -28.0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Background/HBoxContainer/Playground/pauseMenu"]
-anchor_left = 0.5
+[node name="VBoxContainer" type="VBoxContainer" parent="Playground"]
+anchor_left = 1.0
 anchor_top = 0.5
-anchor_right = 0.5
+anchor_right = 1.0
 anchor_bottom = 0.5
-margin_left = -34.5
-margin_top = -34.0
-margin_right = 34.5
-margin_bottom = 34.0
+margin_left = -511.0
+margin_top = -451.0
+margin_bottom = 77.0
 
-[node name="Continue" type="Button" parent="Background/HBoxContainer/Playground/pauseMenu/VBoxContainer"]
-margin_right = 69.0
-margin_bottom = 20.0
-text = "Continue"
-
-[node name="Reset" type="Button" parent="Background/HBoxContainer/Playground/pauseMenu/VBoxContainer"]
-margin_top = 24.0
-margin_right = 69.0
-margin_bottom = 44.0
-text = "Reset"
-
-[node name="Quit" type="Button" parent="Background/HBoxContainer/Playground/pauseMenu/VBoxContainer"]
-margin_top = 48.0
-margin_right = 69.0
-margin_bottom = 68.0
-text = "Quit"
-
-[node name="BulletBound" type="StaticBody2D" parent="Background/HBoxContainer/Playground"]
-visible = false
-position = Vector2( 323, 452 )
-collision_layer = 4
-collision_mask = 0
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Background/HBoxContainer/Playground/BulletBound"]
-position = Vector2( -512, 0 )
-shape = SubResource( 1 )
-
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="Background/HBoxContainer/Playground/BulletBound"]
-position = Vector2( 512, 0 )
-shape = SubResource( 1 )
-
-[node name="BulletBound2" type="StaticBody2D" parent="Background/HBoxContainer/Playground"]
-visible = false
-position = Vector2( 323, 452 )
-rotation = 1.5708
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Background/HBoxContainer/Playground/BulletBound2"]
-position = Vector2( -572, 0 )
-shape = SubResource( 1 )
-
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="Background/HBoxContainer/Playground/BulletBound2"]
-position = Vector2( 572, 0 )
-shape = SubResource( 1 )
-
-[node name="VBoxContainer" type="VBoxContainer" parent="Background/HBoxContainer"]
-margin_left = 650.0
-margin_right = 1204.0
-margin_bottom = 904.0
-size_flags_horizontal = 3
-
-[node name="HiScore" type="Label" parent="Background/HBoxContainer/VBoxContainer"]
-margin_right = 554.0
+[node name="HiScore" type="Label" parent="Playground/VBoxContainer"]
+margin_right = 511.0
 margin_bottom = 14.0
 text = "Hi-Score:"
 
-[node name="Score" type="Label" parent="Background/HBoxContainer/VBoxContainer"]
+[node name="Score" type="Label" parent="Playground/VBoxContainer"]
 margin_top = 18.0
-margin_right = 554.0
+margin_right = 511.0
 margin_bottom = 32.0
 text = "Score:"
 
-[node name="Bomb" type="HBoxContainer" parent="Background/HBoxContainer/VBoxContainer"]
+[node name="Bomb" type="HBoxContainer" parent="Playground/VBoxContainer"]
 margin_top = 36.0
-margin_right = 554.0
+margin_right = 511.0
 margin_bottom = 50.0
 
-[node name="Label" type="Label" parent="Background/HBoxContainer/VBoxContainer/Bomb"]
+[node name="Label" type="Label" parent="Playground/VBoxContainer/Bomb"]
 margin_right = 42.0
 margin_bottom = 14.0
 text = "Bomb:"
+
+[node name="hud" type="TextureRect" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+texture = ExtResource( 3 )
