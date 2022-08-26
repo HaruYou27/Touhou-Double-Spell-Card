@@ -2,7 +2,7 @@ shader_type canvas_item;
 
 varying float h;
 
-uniform float strength = 0.0001;
+uniform float strength = 1;
 
 vec3 rgb2hsv(vec3 c) {
     vec4 K = vec4(0.0, -1.0 / 3.0, 2.0 / 3.0, -1.0);
@@ -24,15 +24,20 @@ vec3 rgb2hsv(vec3 c) {
   return max(sign(y - x), 0.0);
 }
 
+float when_eq(float x, float y) {
+  return 1.0 - abs(sign(x - y));
+}
+
 void vertex() {
 	vec2 pos = (WORLD_MATRIX * vec4(0.0, 0.0, 0.0, 1.0)).xy;
-	h = sin(pos.x * pos.y * strength);
+	h = sin(pos.x * pos.y * strength / 100000.0);
 }
 
 void fragment() {
 	vec4 color = texture(TEXTURE, UV);
 	vec3 colorhsv = rgb2hsv(color.rgb);
-	vec3 value = vec3(h, 1, 1) * colorhsv * when_lt(colorhsv.g, 11);
-	color.rgb = hsv2rgb(value);
+	float boolean = when_lt(colorhsv.y, 0.11);
+	colorhsv.x += h;
+	color.rgb = color.rgb * boolean + hsv2rgb(colorhsv) * when_eq(boolean, 0.0);
 	COLOR = color;
 }

@@ -31,8 +31,9 @@ float when_eq(float x, float y) {
 void fragment() {
 	vec4 color = texture(TEXTURE, UV);
 	vec3 colorhsv = rgb2hsv(color.rgb);
-	float boolean = when_lt(colorhsv.y, 11.0);
-	colorhsv *= vec3(h, s, v) * boolean;
-	color.rgb = color.rgb * when_eq(boolean, 0.0) + hsv2rgb(colorhsv);
+	float boolean = when_lt(colorhsv.y, 0.11);
+	colorhsv *= vec3(1, s, v);
+	colorhsv.x += h;
+	color.rgb = color.rgb * boolean + hsv2rgb(colorhsv) * when_eq(boolean, 0.0);
 	COLOR = color;
 }

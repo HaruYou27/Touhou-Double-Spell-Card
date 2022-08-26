@@ -1,7 +1,6 @@
 shader_type canvas_item;
 
-uniform float fade_height;
-uniform float fade_rate;
+uniform float fade_rate = 1;
 
 varying float posY;
 
@@ -11,6 +10,6 @@ void vertex() {
 
 void fragment() {
 	vec4 color = texture(TEXTURE, UV);
-	color.a = 255.0 - (posY - fade_height) * fade_rate;
+	color.a -= posY * fade_rate / 100.0;
 	COLOR = color;
 }
