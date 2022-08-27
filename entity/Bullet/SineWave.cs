@@ -55,7 +55,11 @@ public class SineWave : BulletBasic {
             }
             Object collider = GD.InstanceFromId((ulong) (int)result["collider_id"]);
             if (collider.HasMethod("_hit")) {
-                collider.Call("_hit");
+                if ((bool)collider.Call("_hit")) {
+                    bullets[newIndex] = bullet;
+                    newIndex++;
+                    continue;
+                }
             }
             sprites.Push(bullet.sprite);
             VisualServer.CanvasItemSetVisible(bullet.sprite, false);

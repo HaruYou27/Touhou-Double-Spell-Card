@@ -10,9 +10,7 @@ export (Array) var spellcards : Array
 export (NodePath) var current_spell
 export (String) var stage_name
 
-onready var score_label :Label = $Background/HBoxContainer/VBoxContainer/Score
-onready var hi_score_label :Label = $Background/HBoxContainer/VBoxContainer/HiScore
-onready var playground :Control = $Background/HBoxContainer/Playground
+onready var playground :Control = $Playground
 
 func _ready() -> void:
 	if Global.save.hi_score.has(stage_name):
@@ -26,8 +24,6 @@ func _ready() -> void:
 
 func _update_score(value:int) -> void:
 	score += value
-	score_label.text = 'Score: ' + str(value)
-	
 func _exit_tree() -> void:
 	Global.save.hi_score[stage_name] = hi_score
 	Global.save.save()

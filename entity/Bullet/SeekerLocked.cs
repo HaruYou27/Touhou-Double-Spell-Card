@@ -11,7 +11,8 @@ public class SeekerLocked : BulletBasic {
         public Bullet(in float speed, in Transform2D trans, in RID canvas) {
             sprite = canvas;
             transform = trans;
-            velocity = new Vector2(speed, 0).Rotated(transform.Rotation);
+            transform.Rotation += (float)1.57;
+            velocity = new Vector2(speed, 0).Rotated(trans.Rotation);
         }   
     }
     public Node2D target;
@@ -44,7 +45,7 @@ public class SeekerLocked : BulletBasic {
             if (target != null) {
                 Vector2 desiredV = (target.GlobalPosition - bullet.transform.origin).Normalized() * speed;
                 bullet.velocity += (desiredV - bullet.velocity) / mass;
-                bullet.transform.Rotation = bullet.velocity.Angle();
+                bullet.transform.Rotation = bullet.velocity.Angle() + (float)1.57;
             }
             bullet.transform.origin += bullet.velocity * delta;
             VisualServer.CanvasItemSetTransform(bullet.sprite, bullet.transform);
@@ -59,7 +60,11 @@ public class SeekerLocked : BulletBasic {
 			}
             Object collider = GD.InstanceFromId((ulong) (int)result["collider_id"]);
             if (collider.HasMethod("_hit")) {
-                collider.Call("_hit");
+                if ((bool)collider.Call("_hit")) {
+                    bullets[newIndex] = bullet;
+                    newIndex++;
+                    continue;
+                }
             }
             sprites.Push(bullet.sprite);
             VisualServer.CanvasItemSetVisible(bullet.sprite, false);

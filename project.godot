@@ -59,10 +59,10 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://addons/dialogic/Other/DialogicUtil.gd"
 }, {
-"base": "Area2D",
+"base": "Reference",
 "class": "Enemy",
 "language": "GDScript",
-"path": "res://entity/ghost/enemy.gd"
+"path": "res://entity/common-enemies/enemy.gd"
 }, {
 "base": "PanelContainer",
 "class": "HistoryRow",

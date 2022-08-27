@@ -12,8 +12,9 @@ public class Ricochet : BulletBasic
         public Bullet(in float speed, in Transform2D trans, in RID canvas, in uint r) {
             sprite = canvas;
             transform = trans;
+            transform.Rotation += (float)1.57;
             ricochet = r;
-            velocity = new Vector2(speed, 0).Rotated(transform.Rotation);
+            velocity = new Vector2(speed, 0).Rotated(trans.Rotation);
         } 
     }
     private Bullet[] bullets;
@@ -54,7 +55,11 @@ public class Ricochet : BulletBasic
             }
             Object collider = GD.InstanceFromId(((ulong) (int)result["collider_id"]));
             if (collider.HasMethod("_hit")) {
-                collider.Call("_hit");
+                if ((bool)collider.Call("_hit")) {
+                    bullets[newIndex] = bullet;
+                    newIndex++;
+                    continue;
+                }
             } else if (ricochet != 0) {
                 bullet.velocity = bullet.velocity.Bounce((Vector2)result["normal"]);
                 bullet.ricochet -= 1;

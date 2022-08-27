@@ -31,6 +31,7 @@ public class Seeker : BulletBasic {
         public Bullet(in float speed, in Transform2D trans, in RID canvas) {
             transform = trans;
             sprite = canvas;
+            transform.Rotation += (float)1.57;
             velocity = new Vector2(speed, 0).Rotated(trans.Rotation);
             target = null;
         }
@@ -68,7 +69,7 @@ public class Seeker : BulletBasic {
             } else {
                 Vector2 desiredV = (bullet.target.GlobalPosition - bullet.transform.origin).Normalized() * speed;
                 bullet.velocity += (desiredV - bullet.velocity) / mass;
-                bullet.transform.Rotation = bullet.velocity.Angle();
+                bullet.transform.Rotation = bullet.velocity.Angle() + (float)1.57;
             }
             bullet.transform.origin += bullet.velocity * delta;
             VisualServer.CanvasItemSetTransform(bullet.sprite, bullet.transform);
@@ -84,7 +85,11 @@ public class Seeker : BulletBasic {
 			}
             Object collider = GD.InstanceFromId((ulong) (int)result["collider_id"]);
             if (collider.HasMethod("_hit")) {
-                collider.Call("_hit");
+                if ((bool)collider.Call("_hit")) {
+                    bullets[newIndex] = bullet;
+                    newIndex++;
+                    continue;
+                }
             }
             sprites.Push(bullet.sprite);
             VisualServer.CanvasItemSetVisible(bullet.sprite, false);

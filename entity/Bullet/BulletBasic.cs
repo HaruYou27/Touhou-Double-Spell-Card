@@ -9,7 +9,8 @@ public class BulletBasic : BulletBase {
         public Bullet(in float speed, in Transform2D trans, in RID canvas) {
             sprite = canvas;
             transform = trans;
-            velocity = new Vector2(speed, 0).Rotated(transform.Rotation);
+            transform.Rotation += (float)1.57;
+            velocity = new Vector2(speed, 0).Rotated(trans.Rotation);
         }   
     }
     protected Stack<RID> sprites;
@@ -78,7 +79,11 @@ public class BulletBasic : BulletBase {
             }
             Object collider = GD.InstanceFromId(((ulong) (int)result["collider_id"]));
             if (collider.HasMethod("_hit")) {
-                collider.Call("_hit");
+                if ((bool)collider.Call("_hit")) {
+                    bullets[newIndex] = bullet;
+                    newIndex++;
+                    continue;
+                }
             }
             sprites.Push(bullet.sprite);
             VisualServer.CanvasItemSetVisible(bullet.sprite, false);

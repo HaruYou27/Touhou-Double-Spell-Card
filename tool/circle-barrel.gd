@@ -14,7 +14,6 @@ extends CollisionShape2D
 
 export (bool) var add_node setget _add_node
 export (int) var step := 4
-export (bool) var rotate_outward
 export (float) var bullet_scale := 1.0
 export (int) var gizmo := 20
 
@@ -27,10 +26,7 @@ func _add_node(value:bool) -> void:
 			var node = Position2D.new()
 			add_child(node)
 			node.position = Vector2(shape.radius, 0).rotated(angle)
-			if rotate_outward:
-				node.rotation = angle
-			else:
-				node.rotation = angle + PI
+			node.rotation = angle
 			node.scale = Vector2(bullet_scale, bullet_scale)
 			node.gizmo_extents = gizmo
 			

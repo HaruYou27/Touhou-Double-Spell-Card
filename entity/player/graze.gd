@@ -5,5 +5,6 @@ onready var parent : Player = get_parent()
 func _collect(value:int) -> void:
 	parent.emit_signal("update_score", value)
 
-func _hit() -> void:
+func _hit() -> bool:
 	parent.emit_signal("update_score", 1)
+	return true
