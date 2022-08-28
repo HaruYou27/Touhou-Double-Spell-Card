@@ -1,3 +1,4 @@
 extends Player
 
-func spellcard() -> void:
+func bomb() -> void:
+	.bomb()

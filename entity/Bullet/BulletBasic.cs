@@ -39,15 +39,29 @@ public class BulletBasic : BulletBase {
             sprites.Push(sprite);
         }
     }
-    public override void _ExitTree()
-    {
+    public override void _ExitTree() {
         foreach (RID sprite in sprites) {
             VisualServer.FreeRid(sprite);
         }
+        if (index != 0) {
+            for (uint i = 0; i != index; i++) {
+                VisualServer.FreeRid(bullets[i].sprite);
+            }
+        }
         base._ExitTree();
     }
-    public override void _PhysicsProcess(float delta)
-    {
+    public virtual void Flush() {
+        if (index == 0) {return;}
+
+        Vector2[] positions = new Vector2[index];
+        for (uint i = 0; i != index; i++) {
+            RID sprite = bullets[i].sprite;
+            positions[i] = bullets[i].transform.origin;
+            sprites.Push(sprite);
+            VisualServer.CanvasItemSetVisible(sprite, false);
+        }
+    }
+    public override void _PhysicsProcess(float delta) {
         if (shoting && heat == 0) {
             heat = cooldown;
             foreach (Node2D barrel in barrels) {
