@@ -37,9 +37,19 @@ public class Seeker : BulletBasic {
         }
     }
 
-    public override void _EnterTree()
-    {
+    public override void _EnterTree() {
         bullets = new Bullet[maxBullet];
+    }
+    public override void _ExitTree() {
+        foreach (RID sprite in sprites) {
+            VisualServer.FreeRid(sprite);
+        }
+        if (index != 0) {
+            for (uint i = 0; i != index; i++) {
+                VisualServer.FreeRid(bullets[i].sprite);
+            }
+        }
+        Physics2DServer.FreeRid(hitbox);
     }
     public override void _PhysicsProcess(float delta) {
         if (shoting && heat == 0) {

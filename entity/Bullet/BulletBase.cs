@@ -25,7 +25,7 @@ public class BulletBase : Node2D {
 		get {return query.CollisionLayer;}
 	}
 	protected Physics2DShapeQueryParameters query = new Physics2DShapeQueryParameters();
-	private RID hitbox;
+	protected RID hitbox;
 	private Vector2 shapesize;
 
 	//Visual properties.
@@ -94,8 +94,4 @@ public class BulletBase : Node2D {
 			}
 			query.ShapeRid = hitbox;
 	}
-    public override void _ExitTree()
-    {
-        Physics2DServer.FreeRid(hitbox);
-    }
 }

@@ -33,13 +33,13 @@ func _physics_process(_delta):
 	if Input.is_action_just_pressed("focus"):
 		statellite_focus.shoting = true;
 		statellite.shoting = false;
-		focus.visible = true
-		focus2.visible = true
+		remove_child(focus)
+		remove_child(focus2)
 	elif Input.is_action_just_released("focus"):
 		statellite.shoting = true
 		statellite_focus.shoting = false
-		focus.visible = false
-		focus2.visible = false
+		add_child(focus)
+		add_child(focus2)
 
 func bomb() -> void:
 	collision_layer = 0

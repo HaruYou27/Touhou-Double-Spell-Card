@@ -119,6 +119,8 @@ config/icon="res://icon.png"
 [autoload]
 
 Global="*res://autoload/Global.gd"
+ItemManager="*res://autoload/ItemManager.cs"
+BulletFx="*res://autoload/BulletFx.cs"
 
 [debug]
 

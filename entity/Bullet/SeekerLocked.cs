@@ -71,4 +71,15 @@ public class SeekerLocked : BulletBasic {
         }
         index = newIndex;
     }
+    public override void _ExitTree() {
+        foreach (RID sprite in sprites) {
+            VisualServer.FreeRid(sprite);
+        }
+        if (index != 0) {
+            for (uint i = 0; i != index; i++) {
+                VisualServer.FreeRid(bullets[i].sprite);
+            }
+        }
+        Physics2DServer.FreeRid(hitbox);
+    }
 }

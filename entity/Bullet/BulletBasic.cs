@@ -48,7 +48,7 @@ public class BulletBasic : BulletBase {
                 VisualServer.FreeRid(bullets[i].sprite);
             }
         }
-        base._ExitTree();
+        Physics2DServer.FreeRid(hitbox);
     }
     public virtual void Flush() {
         if (index == 0) {return;}
@@ -60,6 +60,8 @@ public class BulletBasic : BulletBase {
             sprites.Push(sprite);
             VisualServer.CanvasItemSetVisible(sprite, false);
         }
+        BulletFx fx = GetNode<BulletFx>("root/BulletFx");
+        fx.SpawnItem(positions);
     }
     public override void _PhysicsProcess(float delta) {
         if (shoting && heat == 0) {
@@ -73,9 +75,7 @@ public class BulletBasic : BulletBase {
 			index++;
 		    }
         } else {heat--;}
-        if (index == 0) {
-            return;
-        }
+        if (index == 0) {return;}
 
         uint newIndex = 0;
         for (uint i = 0;i != index; i++) {
