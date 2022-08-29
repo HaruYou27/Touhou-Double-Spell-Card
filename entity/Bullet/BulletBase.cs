@@ -24,6 +24,7 @@ public class BulletBase : Node2D {
 		set {query.CollisionLayer = value;}
 		get {return query.CollisionLayer;}
 	}
+	protected float physicsSpeed;
 	protected Physics2DShapeQueryParameters query = new Physics2DShapeQueryParameters();
 	protected RID hitbox;
 	private Vector2 shapesize;
@@ -45,7 +46,7 @@ public class BulletBase : Node2D {
 	protected Vector2 textureSize;
 	protected RID textureRID;
 	
-	[Export] public bool shoting;
+	[Export] public bool shooting;
 	[Export] public uint firerate {
 		set {
 			if (value > 0) {
@@ -61,9 +62,16 @@ public class BulletBase : Node2D {
 	protected World2D world;
 	protected uint index;
 	protected Node2D[] barrels;
+	protected Node Global;
+	protected BulletFx fx;
+
 
 	public override void _Ready() {
 		world = GetWorld2d();
+		Global = GetNode("root/Global");
+		fx = GetNode<BulletFx>("root/BulletFx");
+		physicsSpeed = (float)Global.Get("physics_speed");
+
 		int size = Barrels.Count;
 		if (size == 0) {
 			Barrels = GetChildren();
@@ -79,7 +87,6 @@ public class BulletBase : Node2D {
 				barrels[i] = parent.GetNode<Node2D>((NodePath)Barrels[i]);
 			}
 		}
-
 	}
 	private void CreateCollisionShape(in Vector2 size) {
 			if (hitbox != null) {

@@ -35,7 +35,7 @@ public class Ricochet : BulletBasic
     }
     public override void _PhysicsProcess(float delta)
     {
-        if (shoting && heat == 0) {
+        if (shooting && heat == 0) {
             heat = cooldown;
             foreach (Node2D barrel in barrels) {
 			if (index == maxBullet) {break;}
@@ -59,25 +59,19 @@ public class Ricochet : BulletBasic
             //Collision check.
             query.Transform = bullet.transform;
             Godot.Collections.Dictionary result = world.DirectSpaceState.GetRestInfo(query);
-            if (result.Count == 0) {
+            float colliderLayer = ((Vector2)result["linear_velocity"]).x;
+            if (result.Count == 0 || colliderLayer > 1.0) {
                 bullets[newIndex] = bullet;
                 newIndex++;
+                if (colliderLayer == 4.0) {Global.Call("graze");}
+                if (ricochet != 0) {bullet.velocity = bullet.velocity.Bounce((Vector2)result["normal"]);}
                 continue;
             }
-            Object collider = GD.InstanceFromId(((ulong) (int)result["collider_id"]));
-            if (collider.HasMethod("_hit")) {
-                if ((bool)collider.Call("_hit")) {
-                    bullets[newIndex] = bullet;
-                    newIndex++;
-                    continue;
-                }
-            } else if (ricochet != 0) {
-                bullet.velocity = bullet.velocity.Bounce((Vector2)result["normal"]);
-                bullet.ricochet -= 1;
-                bullets[newIndex] = bullet;
-                newIndex++;
-                continue;
-                }
+            if (colliderLayer == 3.0) {
+                Object collider = GD.InstanceFromId(((ulong) (int)result["collider_id"]));
+                collider.Call("_hit");
+                fx.hit((Vector2)result["point"]);
+            }
             sprites.Push(bullet.sprite);
             VisualServer.CanvasItemSetVisible(bullet.sprite, false);
         }

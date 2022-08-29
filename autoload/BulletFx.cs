@@ -1,6 +1,6 @@
 using Godot;
 
-public class BulletFx : Node {
+public class BulletFx : Node2D {
 	private Vector2[] items = new Vector2[maxItem];
 	
 	protected Physics2DShapeQueryParameters query = new Physics2DShapeQueryParameters();
@@ -14,25 +14,36 @@ public class BulletFx : Node {
 	protected Vector2 textureSize;
 	protected RID canvas;
 
+	private const Texture hitFx;
+	private const Material fxMaterial;
+	protected RID fxRID;
+	protected Vector2 fxSize;
+	protected Vector2 fxOffset;
+	protected RID fxCanvas;
+
 	protected Node2D target;
 	protected World2D world;
 
 	public override void _Ready() {
 		target = (Node2D)GetNode<Node>("root/Global").Get("player");
-		query.CollisionLayer = 16;
+		query.CollisionLayer = 8;
 		query.ShapeRid = hitbox;
+		world = GetWorld2d();
 
 		textureRID = texture.GetRid();
 		textureSize = texture.GetSize();
 		Physics2DServer.ShapeSetData(hitbox, textureSize.x);
 		offset = -textureSize / 2;
+		ZIndex = -10;
+		canvas = GetCanvasItem();
 
-		world = GetViewport().World2d;
-		base._Ready();
-		
-		canvas = VisualServer.CanvasItemCreate();
-		VisualServer.CanvasItemSetZIndex(canvas, -10);
-		VisualServer.CanvasItemSetParent(canvas, world.Canvas);
+		fxCanvas = VisualServer.CanvasItemCreate();
+		VisualServer.CanvasItemSetMaterial(fxCanvas, fxMaterial.GetRid());
+		VisualServer.CanvasItemSetParent(fxCanvas, world.Canvas);
+		VisualServer.CanvasItemSetZIndex(fxCanvas, 4096);
+		fxSize = hitFx.GetSize();
+		fxOffset = -fxSize / 2;
+		fxRID = hitFx.GetRid();
 	}
 	public virtual void SpawnItem(in Vector2[] positions) {
 		foreach (Vector2 position in positions) {
@@ -41,10 +52,14 @@ public class BulletFx : Node {
 			index++;
 		}
 	}
+	public virtual void hit(in Vector2 position) {
+		VisualServer.CanvasItemAddTextureRect(fxCanvas, new Rect2(fxOffset + position, fxSize), fxRID, false, null, false, fxRID);
+	}
 	public override void _PhysicsProcess(float delta) {
 		if (index == 0) {return;}
 
 		VisualServer.CanvasItemClear(canvas);
+		VisualServer.CanvasItemClear(fxCanvas);
 		uint newIndex = 0;
 
 		for (uint i = 0; i != index; i++) {

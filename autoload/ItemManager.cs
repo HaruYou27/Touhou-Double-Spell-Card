@@ -53,12 +53,12 @@ public class ItemManager : Node {
 		point -= maxPoint;
 		Item item;
 		GD.Randomize();
-		Vector2 velocity = new Vector2((float)GD.RandRange(0.0, maxVelocity), 0).Rotated((float)GD.RandRange(0.0, 6.28));
+		Vector2 velocity = new Vector2((float)GD.RandRange(0.0, maxVelocity), 0).Rotated((float)GD.RandRange(0.0, Mathf.Tau));
 		Transform2D transform = new Transform2D((float)0.0, origin);
 		while (point > 0) {
 			GD.Randomize();
 			item = new Item(transform, velocity, maxPoint);
-			velocity = new Vector2((float)GD.RandRange(0.0, maxVelocity), 0).Rotated((float)GD.RandRange(0.0, 6.28));
+			velocity = new Vector2((float)GD.RandRange(0.0, maxVelocity), 0).Rotated((float)GD.RandRange(0.0, Mathf.Tau));
 			items[index] = item;
 			index++;
 			point -= maxPoint;

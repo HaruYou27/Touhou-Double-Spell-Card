@@ -1,4 +1,6 @@
 extends Control
+#Bullet hit fx
+#Fixed score system.
 
 func _on_StartGame_pressed():
 	pass # Replace with function body.
