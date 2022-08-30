@@ -8,14 +8,14 @@ public class BulletFx : Node2D {
 	const uint maxItem = 2727;
 	protected uint index;
 
-	protected Texture texture = GD.Load<Texture>("res://autoload/point.png");
+	private Texture texture = GD.Load<Texture>("res://autoload/point.png");
 	protected RID textureRID;
 	protected Vector2 offset;
 	protected Vector2 textureSize;
 	protected RID canvas;
 
-	private const Texture hitFx;
-	private const Material fxMaterial;
+	private Texture hitFx;
+	private Material fxMaterial;
 	protected RID fxRID;
 	protected Vector2 fxSize;
 	protected Vector2 fxOffset;
@@ -23,9 +23,11 @@ public class BulletFx : Node2D {
 
 	protected Node2D target;
 	protected World2D world;
+	protected Node Global;
 
 	public override void _Ready() {
-		target = (Node2D)GetNode<Node>("root/Global").Get("player");
+		Global = GetNode("root/Global");
+		target = (Node2D)Global.Get("player");
 		query.CollisionLayer = 8;
 		query.ShapeRid = hitbox;
 		world = GetWorld2d();
@@ -75,10 +77,8 @@ public class BulletFx : Node2D {
 				newIndex++;
 				continue;
 			}
-			Object collider = GD.InstanceFromId((ulong) (int)result["collider_id"]);
-			collider.Call("_collect", 27);
+			Global.EmitSignal("collect_bullet");
 		}
 		index = newIndex;
 	}
-    public override void _ExitTree() {Physics2DServer.FreeRid(hitbox);}
 }
