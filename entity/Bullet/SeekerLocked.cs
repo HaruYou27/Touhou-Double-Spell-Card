@@ -24,7 +24,7 @@ public class SeekerLocked : BulletBasic {
     }
     public override void _PhysicsProcess(float delta)
     {
-        if (shoting && heat == 0) {
+        if (shooting && heat == 0) {
             heat = cooldown;
             foreach (Node2D barrel in barrels) {
 			if (index == maxBullet) {break;}
@@ -53,22 +53,32 @@ public class SeekerLocked : BulletBasic {
             //Collision checking.
             query.Transform = bullet.transform;
             Godot.Collections.Dictionary result = world.DirectSpaceState.GetRestInfo(query);
-			if (result.Count == 0) {
-				bullets[newIndex] = bullet;
-				newIndex++;
-				continue;
-			}
-            Object collider = GD.InstanceFromId((ulong) (int)result["collider_id"]);
-            if (collider.HasMethod("_hit")) {
-                if ((bool)collider.Call("_hit")) {
-                    bullets[newIndex] = bullet;
-                    newIndex++;
-                    continue;
-                }
+            float colliderLayer = ((Vector2)result["linear_velocity"]).x;
+            if (result.Count == 0 || colliderLayer > 1.0) {
+                bullets[newIndex] = bullet;
+                newIndex++;
+                if (colliderLayer == 4.0) {Global.Call("graze");}
+                continue;
+            }
+            if (colliderLayer == 3.0) {
+                Object collider = GD.InstanceFromId(((ulong) (int)result["collider_id"]));
+                collider.Call("_hit");
+                fx.hit((Vector2)result["point"]);
             }
             sprites.Push(bullet.sprite);
             VisualServer.CanvasItemSetVisible(bullet.sprite, false);
         }
         index = newIndex;
+    }
+    public override void _ExitTree() {
+        foreach (RID sprite in sprites) {
+            VisualServer.FreeRid(sprite);
+        }
+        if (index != 0) {
+            for (uint i = 0; i != index; i++) {
+                VisualServer.FreeRid(bullets[i].sprite);
+            }
+        }
+        Physics2DServer.FreeRid(hitbox);
     }
 }

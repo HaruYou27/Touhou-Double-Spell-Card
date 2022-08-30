@@ -1,7 +1,7 @@
 extends StaticBody2D
 class_name Player
 
-signal update_score(value)
+signal _update_bomb(value)
 
 onready var statellite : Node2D = $statellite
 onready var statellite_focus : Node2D = $statelliteFocus
@@ -10,7 +10,7 @@ onready var focus2 : Sprite = $focus2
 onready var timer : Timer = $DeathTimer
 onready var graze : StaticBody2D = $graze
 onready var tree := get_tree()
-onready var physics_layer = collision_layer
+onready var bomb := Global.save.init_bomb
 
 export (int) var speed := 527
 
@@ -31,19 +31,33 @@ func _hit() -> bool:
 
 func _physics_process(_delta):
 	if Input.is_action_just_pressed("focus"):
-		statellite_focus.shoting = true;
-		statellite.shoting = false;
-		focus.visible = true
-		focus2.visible = true
+		statellite_focus.shooting = true;
+		statellite.shooting = false;
+		remove_child(focus)
+		remove_child(focus2)
 	elif Input.is_action_just_released("focus"):
-		statellite.shoting = true
-		statellite_focus.shoting = false
-		focus.visible = false
-		focus2.visible = false
+		statellite.shooting = true
+		statellite_focus.shooting = false
+		add_child(focus)
+		add_child(focus2)
 
 func bomb() -> void:
-	collision_layer = 0
-	graze.collision_layer = 0
-		
+	if bomb:
+		bomb -= 1
+		emit_signal("update_bomb", bomb)
+		collision_layer = 0
+		graze.collision_layer = 0
+		ItemManager.target = self
+		tree.call_group('bullet', 'Flush')
+
+func _update_bomb() -> void:
+	bomb += 1
+	emit_signal("update_bomb", bomb)
+	
 func _on_DeathTimer_timeout():
 	pass # Replace with function body.
+	
+func _on_BombTimer_timeout():
+	collision_layer = 4
+	graze.collision_layer = 8
+	tree.set_group('bullet', 'shooting', true)
