@@ -1,13 +1,11 @@
 using Godot;
 
-public class ItemManager : Node {
+public class ItemManager : Node2D {
 	private struct Item {
 		public Transform2D transform;
-		public readonly int point;
 		public Vector2 velocity;
-		public Item(in Transform2D trans, in Vector2 initV, in int p) {
+		public Item(in Transform2D trans, in Vector2 initV) {
 			transform = trans;
-			point = p;
 			velocity = initV;
 		}
 	}
@@ -17,8 +15,7 @@ public class ItemManager : Node {
 	private RID hitbox = Physics2DServer.CircleShapeCreate();
 	const float gravity = (float)9.8;
 	const uint maxItem = 2727;
-	const double maxVelocity = 272;
-	const int maxPoint = 127;
+	const float maxVelocity = 272;
 	protected uint index;
 
 	protected Texture texture = GD.Load<Texture>("res://autoload/point.png");
@@ -26,14 +23,14 @@ public class ItemManager : Node {
 	protected Vector2 offset;
 	protected Vector2 textureSize;
 	protected RID canvas;
-	public Material material = GD.Load<Material>("res://shader/position-rotate.gdshader");
 
 	public Node2D target;
 	public bool freeze;
 	protected World2D world;
+	protected Node Global;
 
 	public override void _Ready() {
-		query.CollisionLayer = 16;
+		query.CollisionLayer = 9;
 		query.ShapeRid = hitbox;
 
 		textureRID = texture.GetRid();
@@ -41,31 +38,24 @@ public class ItemManager : Node {
 		Physics2DServer.ShapeSetData(hitbox, textureSize.x);
 		offset = -textureSize / 2;
 
-		world = GetViewport().World2d;
-		base._Ready();
-		
-		canvas = VisualServer.CanvasItemCreate();
-		VisualServer.CanvasItemSetZIndex(canvas, -10);
-		VisualServer.CanvasItemSetParent(canvas, world.Canvas);
-        VisualServer.CanvasItemSetMaterial(canvas, material.GetRid());
+		world = GetWorld2d();
+		Global = GetNode("root/Global");
+		canvas = GetCanvasItem();
+		Material = GD.Load<Material>("res://shader/position-rotate.gdshader");
+		ZIndex = -10;
 	}
-	public virtual void SpawnItem(in Vector2 origin, int point) {
-		point -= maxPoint;
+	public virtual void SpawnItem(in Vector2 origin, int itemCount) {
 		Item item;
 		GD.Randomize();
-		Vector2 velocity = new Vector2((float)GD.RandRange(0.0, maxVelocity), 0).Rotated((float)GD.RandRange(0.0, Mathf.Tau));
+		Vector2 velocity = new Vector2(GD.Randf() * maxVelocity, 0).Rotated(GD.Randf() * Mathf.Tau);
 		Transform2D transform = new Transform2D((float)0.0, origin);
-		while (point > 0) {
+		for (int i = 0; i != itemCount; i++) {
 			GD.Randomize();
-			item = new Item(transform, velocity, maxPoint);
-			velocity = new Vector2((float)GD.RandRange(0.0, maxVelocity), 0).Rotated((float)GD.RandRange(0.0, Mathf.Tau));
+			item = new Item(transform, velocity);
+			velocity = new Vector2(GD.Randf() * maxVelocity, 0).Rotated(GD.Randf() * Mathf.Tau);
 			items[index] = item;
 			index++;
-			point -= maxPoint;
 		}			
-		item = new Item(transform, velocity, point + maxPoint);
-		items[index] = item;
-		index++;
 	}
 	public override void _PhysicsProcess(float delta) {
 		if (index == 0) {
@@ -95,13 +85,8 @@ public class ItemManager : Node {
 				items[newIndex] = item;
 				newIndex++;
 				continue;
-			}
-			Object collider = GD.InstanceFromId((ulong) (int)result["collider_id"]);
-			if (collider.HasMethod("_collect")) {
-				collider.Call("_collect", item.point);
-			}
+			} else if (((Vector2)result["linear_velocity"]).x == 4) {Global.EmitSignal("collect");}
 		}
 		index = newIndex;
 	}
-    public override void _ExitTree() {Physics2DServer.FreeRid(hitbox);}
 }

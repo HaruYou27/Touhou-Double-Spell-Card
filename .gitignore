@@ -4,4 +4,4 @@ build/
 export.cfg
 export_presets.cfg
 *.vscode/
-.~lock.lore.docx#
+*.translation

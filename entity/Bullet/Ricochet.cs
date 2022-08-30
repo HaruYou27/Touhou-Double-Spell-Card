@@ -63,7 +63,7 @@ public class Ricochet : BulletBasic
             if (result.Count == 0 || colliderLayer > 1.0) {
                 bullets[newIndex] = bullet;
                 newIndex++;
-                if (colliderLayer == 4.0) {Global.Call("graze");}
+                if (colliderLayer == 4.0) {Global.EmitSignal("graze");}
                 if (ricochet != 0) {bullet.velocity = bullet.velocity.Bounce((Vector2)result["normal"]);}
                 continue;
             }

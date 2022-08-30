@@ -1,8 +1,6 @@
 extends StaticBody2D
 class_name Player
 
-signal _update_bomb(value)
-
 onready var statellite : Node2D = $statellite
 onready var statellite_focus : Node2D = $statelliteFocus
 onready var focus : Sprite = $focus
@@ -10,7 +8,7 @@ onready var focus2 : Sprite = $focus2
 onready var timer : Timer = $DeathTimer
 onready var graze : StaticBody2D = $graze
 onready var tree := get_tree()
-onready var bomb := Global.save.init_bomb
+onready var bomb :int = Global.save.init_bomb
 
 export (int) var speed := 527
 
@@ -44,7 +42,7 @@ func _physics_process(_delta):
 func bomb() -> void:
 	if bomb:
 		bomb -= 1
-		emit_signal("update_bomb", bomb)
+		Global.emit_signal("bomb")
 		collision_layer = 0
 		graze.collision_layer = 0
 		ItemManager.target = self
@@ -52,7 +50,7 @@ func bomb() -> void:
 
 func _update_bomb() -> void:
 	bomb += 1
-	emit_signal("update_bomb", bomb)
+	Global.emit_signal("bomb")
 	
 func _on_DeathTimer_timeout():
 	pass # Replace with function body.

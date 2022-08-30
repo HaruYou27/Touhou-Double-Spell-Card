@@ -24,7 +24,6 @@ public class BulletBase : Node2D {
 		set {query.CollisionLayer = value;}
 		get {return query.CollisionLayer;}
 	}
-	protected float physicsSpeed;
 	protected Physics2DShapeQueryParameters query = new Physics2DShapeQueryParameters();
 	protected RID hitbox;
 	private Vector2 shapesize;
@@ -70,7 +69,6 @@ public class BulletBase : Node2D {
 		world = GetWorld2d();
 		Global = GetNode("root/Global");
 		fx = GetNode<BulletFx>("root/BulletFx");
-		physicsSpeed = (float)Global.Get("physics_speed");
 
 		int size = Barrels.Count;
 		if (size == 0) {
