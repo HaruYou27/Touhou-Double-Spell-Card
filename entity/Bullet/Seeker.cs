@@ -28,11 +28,11 @@ public class Seeker : BulletBasic {
         public Vector2 velocity;
         public Node2D target;
         public readonly RID sprite;
-        public bool grazed;
+        public bool grazable;
         public Bullet(in float speed, in Transform2D trans, in RID canvas) {
             transform = trans;
             sprite = canvas;
-            grazed = true;
+            grazable = true;
             transform.Rotation += (float)1.57;
             velocity = new Vector2(speed, 0).Rotated(trans.Rotation);
             target = null;
@@ -96,9 +96,9 @@ public class Seeker : BulletBasic {
                 continue;
             }
             float colliderLayer = ((Vector2)result["linear_velocity"]).x;
-            if (colliderLayer == 4.0 && bullet.grazed) {
+            if (colliderLayer == 4.0 && bullet.grazable) {
                 Global.EmitSignal("graze");
-                bullet.grazed = false;
+                bullet.grazable = false;
                 bullets[newIndex] = bullet;
                 newIndex++;
                 continue;

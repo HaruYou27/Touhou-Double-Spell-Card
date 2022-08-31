@@ -7,12 +7,12 @@ public class SineWave : BulletBasic {
         public Vector2 velocity;
         public float age;
         public readonly RID sprite;
-        public bool grazed;
+        public bool grazable;
         public Bullet(in float speed, in Transform2D trans, in RID canvas) {
             age = 0;
             transform = trans;
             sprite = canvas;
-            grazed = true;
+            grazable = true;
             velocity = new Vector2(speed, 0).Rotated(trans.Rotation);
         }
     }
@@ -57,9 +57,9 @@ public class SineWave : BulletBasic {
             }
             float colliderLayer = ((Vector2)result["linear_velocity"]).x;
             if (colliderLayer == 4.0) {
-                    if (bullet.grazed) {
+                    if (bullet.grazable) {
                     Global.EmitSignal("graze");
-                    bullet.grazed = false;
+                    bullet.grazable = false;
                     }
                 bullets[newIndex] = bullet;
                 newIndex++;

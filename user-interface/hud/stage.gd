@@ -47,7 +47,6 @@ func _ready() -> void:
 		Global.save.retry_count[stage_name] = 1
 	
 	level = get_node(level)
-	remove_child(pause_menu)
 	bomb_label.text = bomb_label.text % Global.save.init_bomb
 
 func _update_point() -> void:

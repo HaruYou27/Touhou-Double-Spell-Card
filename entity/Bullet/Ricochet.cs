@@ -7,12 +7,12 @@ public class Ricochet : BulletBasic
     private struct Bullet {
         public Transform2D transform;
         public readonly RID sprite;
-        public bool grazed;
+        public bool grazable;
         public Vector2 velocity;
         public uint ricochet;
         public Bullet(in float speed, in Transform2D trans, in RID canvas, in uint r) {
             sprite = canvas;
-            grazed = true;
+            grazable = true;
             transform = trans;
             transform.Rotation += (float)1.57;
             ricochet = r;
@@ -68,9 +68,9 @@ public class Ricochet : BulletBasic
             }
             float colliderLayer = ((Vector2)result["linear_velocity"]).x;
             if (colliderLayer == 4.0) {
-                    if (bullet.grazed) {
+                    if (bullet.grazable) {
                     Global.EmitSignal("graze");
-                    bullet.grazed = false;
+                    bullet.grazable = false;
                     }
                 bullets[newIndex] = bullet;
                 newIndex++;

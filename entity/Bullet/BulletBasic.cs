@@ -5,10 +5,12 @@ public class BulletBasic : BulletBase {
     private struct Bullet {
         public Transform2D transform;
         public readonly RID sprite;
+        public bool grazable;
         public Vector2 velocity;
         public Bullet(in float speed, in Transform2D trans, in RID canvas) {
             sprite = canvas;
             transform = trans;
+            grazable = true;
             transform.Rotation += (float)1.57;
             velocity = new Vector2(speed, 0).Rotated(trans.Rotation);
         }   
@@ -85,14 +87,21 @@ public class BulletBasic : BulletBase {
             //Collision check.
             query.Transform = bullet.transform;
             Godot.Collections.Dictionary result = world.DirectSpaceState.GetRestInfo(query);
-            float colliderLayer = ((Vector2)result["linear_velocity"]).x;
-            if (result.Count == 0 || colliderLayer > 1.0) {
+            if (result.Count == 0) {
                 bullets[newIndex] = bullet;
                 newIndex++;
-                if (colliderLayer == 4.0) {Global.EmitSignal("graze");}
                 continue;
             }
-            if (colliderLayer == 3.0) {
+            float colliderLayer = ((Vector2)result["linear_velocity"]).x;
+            if (colliderLayer == 4.0) {
+                    if (bullet.grazable) {
+                    Global.EmitSignal("graze");
+                    bullet.grazable = false;
+                    }
+                bullets[newIndex] = bullet;
+                newIndex++;
+                continue;
+            } else if (colliderLayer == 3.0) {
                 Object collider = GD.InstanceFromId(((ulong) (int)result["collider_id"]));
                 collider.Call("_hit");
                 fx.hit((Vector2)result["point"]);
