@@ -8,6 +8,7 @@ onready var bomb_timer : Timer = $BombTimer
 onready var graze : StaticBody2D = $graze
 onready var tree := get_tree()
 onready var bomb :int = Global.save.init_bomb
+onready var tween := create_tween()
 
 export (int) var speed := 527
 
@@ -20,20 +21,28 @@ func _ready() -> void:
 		add_child(preload("res://autoload/controls/mouse.gd").new())
 	else:
 		add_child(preload("res://autoload/controls/touch.gd").new())
-	remove_child(focus)
-	remove_child(focus2)
 
 func _hit() -> void:
 	tree.paused = true
 	death_timer.start()
 
-func _physics_process(_delta):
-	if Input.is_action_just_pressed("focus"):
-		remove_child(focus)
-		remove_child(focus2)
-	elif Input.is_action_just_released("focus"):
-		add_child(focus)
-		add_child(focus2)
+func _unhandled_input(event) -> void:
+	if event.is_action_pressed("focus"):
+		focus()
+	elif event.is_action_released("focus"):
+		un_focus()
+		
+func un_focus() -> void:
+	tween.kill()
+	tween = create_tween()
+	tween.tween_property(focus, 'modulate', Color(1.0, 1.0, 1.0, 0.0), 0.15)
+	tween.parallel().tween_property(focus2, 'modulate', Color(1.0, 1.0, 1.0, 0.0), 0.15)
+	
+func focus() -> void:
+	tween.kill()
+	tween = create_tween()
+	tween.tween_property(focus, 'modulate', Color(1.0, 1.0, 1.0, 1.0), 0.15)
+	tween.parallel().tween_property(focus2, 'modulate', Color(1.0, 1.0, 1.0, 1.0), 0.15)
 
 func bomb() -> void:
 	if bomb:

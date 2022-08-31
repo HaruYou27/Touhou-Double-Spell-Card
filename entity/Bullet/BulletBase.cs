@@ -67,8 +67,8 @@ public class BulletBase : Node2D {
 
 	public override void _Ready() {
 		world = GetWorld2d();
-		Global = GetNode("root/Global");
-		fx = GetNode<BulletFx>("root/BulletFx");
+		Global = GetNode("/root/Global");
+		fx = GetNode<BulletFx>("/root/BulletFx");
 
 		int size = Barrels.Count;
 		if (size == 0) {

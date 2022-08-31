@@ -1,7 +1,7 @@
 extends Node
 class_name Stage
 
-var point := 0
+var point := 1
 var graze := 0
 var goal := 0
 var saved := false
@@ -15,11 +15,11 @@ onready var pause_menu :ColorRect = $Playground/Pause
 onready var playground :Control = $Playground
 onready var ray :RayCast2D = $Playground/RayCast2D
 
-onready var score_label :Label = $VBoxContainer/Score
-onready var graze_label :Label = $VBoxContainer/Graze
-onready var point_label :Label = $VBoxContainer/GridContainer/Point
-onready var bomb_label :Label = $VBoxContainer/GridContainer/Bomb
-onready var goal_label :Label = $VBoxContainer/Goal
+onready var score_label :Label = $hud/VBoxContainer/Score
+onready var graze_label :Label = $hud/VBoxContainer/Graze
+onready var point_label :Label = $hud/VBoxContainer/Point
+onready var bomb_label :Label = $hud/VBoxContainer/Bomb
+onready var goal_label :Label = $hud/VBoxContainer/Goal
 
 func _unhandled_input(event):
 	if event.is_action_pressed("pause"):
@@ -38,9 +38,8 @@ func _ready() -> void:
 	Global.connect("collect", self, "_update_point")
 	Global.connect('graze', self, '_update_graze')
 	Global.connect('bomb', self, '_update_bomb')
-	Global.connect('next', self, '_next')
 	if Global.save.hi_score.has(stage_name):
-		var hi_score :Label = $VBoxContainer/HiScore
+		var hi_score :Label = $hud/VBoxContainer/HiScore
 		hi_score.text = hi_score.text % Global.save.hi_score[stage_name]
 		Global.save.retry_count[stage_name] += 1
 	else:
@@ -49,28 +48,29 @@ func _ready() -> void:
 	
 	level = get_node(level)
 	remove_child(pause_menu)
+	bomb_label.text = bomb_label.text % Global.save.init_bomb
 
 func _update_point() -> void:
 	point += 1
-	point_label.text = point_label.text % point
+	point_label.text = 'Point:                         %06d' % point
 	_update_score(point * graze)
 	
 func _update_graze() -> void:
 	graze += 1
-	graze_label.text = graze_label.text % graze
+	graze_label.text = 'Graze:                       %06d' % graze
 	_update_score(graze * point)
 	
 func _update_score(score:int) -> void:
-	score_label.text = score_label.text % score
+	score_label.text = 'Score:                %010d' % score
 	var score_left = goal - score
-	if score_left > 0:
-		goal_label.text = goal_label.text % score_left
+	if score_left < INF:
+		goal_label.text = 'Next:                      %010d' % score_left
 	else:
 		Global.player.bomb += 1
 		_update_bomb()
 
 func _update_bomb() -> void:
-	bomb_label.text = bomb_label.text %Global.player.bomb
+	bomb_label.text = 'Bomb:        %d' % Global.player.bomb
 	
 func save_score() -> void:
 	var score = point * graze

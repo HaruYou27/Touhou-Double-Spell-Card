@@ -7,10 +7,12 @@ public class SineWave : BulletBasic {
         public Vector2 velocity;
         public float age;
         public readonly RID sprite;
+        public bool grazed;
         public Bullet(in float speed, in Transform2D trans, in RID canvas) {
             age = 0;
             transform = trans;
             sprite = canvas;
+            grazed = true;
             velocity = new Vector2(speed, 0).Rotated(trans.Rotation);
         }
     }
@@ -48,14 +50,21 @@ public class SineWave : BulletBasic {
             //Collision check.
             query.Transform = bullet.transform;
             Godot.Collections.Dictionary result = world.DirectSpaceState.GetRestInfo(query);
-            float colliderLayer = ((Vector2)result["linear_velocity"]).x;
-            if (result.Count == 0 || colliderLayer > 1.0) {
+            if (result.Count == 0) {
                 bullets[newIndex] = bullet;
                 newIndex++;
-                if (colliderLayer == 4.0) {Global.EmitSignal("graze");}
                 continue;
             }
-            if (colliderLayer == 3.0) {
+            float colliderLayer = ((Vector2)result["linear_velocity"]).x;
+            if (colliderLayer == 4.0) {
+                    if (bullet.grazed) {
+                    Global.EmitSignal("graze");
+                    bullet.grazed = false;
+                    }
+                bullets[newIndex] = bullet;
+                newIndex++;
+                continue;
+            } else if (colliderLayer == 3.0) {
                 Object collider = GD.InstanceFromId(((ulong) (int)result["collider_id"]));
                 collider.Call("_hit");
                 fx.hit((Vector2)result["point"]);
