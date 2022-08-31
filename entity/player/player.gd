@@ -10,7 +10,7 @@ onready var tree := get_tree()
 onready var bomb :int = Global.save.init_bomb
 onready var tween := create_tween()
 
-export (int) var speed := 527
+export (int) var speed := 472
 
 func _ready() -> void:
 	Global.player = self
@@ -23,8 +23,7 @@ func _ready() -> void:
 		add_child(preload("res://autoload/controls/touch.gd").new())
 
 func _hit() -> void:
-	tree.paused = true
-	death_timer.start()
+	print('ouch')
 
 func _unhandled_input(event) -> void:
 	if event.is_action_pressed("focus"):

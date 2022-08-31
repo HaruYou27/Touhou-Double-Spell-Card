@@ -1,8 +1,8 @@
 extends Node2D
 
 signal graze
-signal collect
 signal bomb
+signal collect
 
 const playground := Vector2(646, 904)
 

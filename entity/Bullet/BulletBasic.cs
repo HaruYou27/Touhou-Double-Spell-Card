@@ -7,10 +7,10 @@ public class BulletBasic : BulletBase {
         public readonly RID sprite;
         public bool grazable;
         public Vector2 velocity;
-        public Bullet(in float speed, in Transform2D trans, in RID canvas) {
+        public Bullet(in float speed, in Transform2D trans, in RID canvas, in bool graze) {
             sprite = canvas;
             transform = trans;
-            grazable = true;
+            grazable = graze;
             transform.Rotation += (float)1.57;
             velocity = new Vector2(speed, 0).Rotated(trans.Rotation);
         }   
@@ -18,12 +18,10 @@ public class BulletBasic : BulletBase {
     protected Stack<RID> sprites;
     private Bullet[] bullets;
         
-    public override void _EnterTree()
-    {
+    public override void _EnterTree() {
         bullets = new Bullet[maxBullet];
     }
-    public override void _Ready()
-    {
+    public override void _Ready() {
         base._Ready();
         sprites = new Stack<RID>(maxBullet);
         Rect2 texRect = new Rect2(-textureSize / 2, textureSize);
@@ -55,27 +53,25 @@ public class BulletBasic : BulletBase {
     public virtual void Flush() {
         if (index == 0) {return;}
         shooting = false;
-        Vector2[] positions = new Vector2[index];
         for (uint i = 0; i != index; i++) {
             RID sprite = bullets[i].sprite;
-            positions[i] = bullets[i].transform.origin;
+            fx.SpawnItem(bullets[i].transform.origin);
             sprites.Push(sprite);
             VisualServer.CanvasItemSetVisible(sprite, false);
         }
-        fx.SpawnItem(positions);
     }
     public override void _PhysicsProcess(float delta) {
-        if (shooting && heat == 0) {
-            heat = cooldown;
-            foreach (Node2D barrel in barrels) {
-			if (index == maxBullet) {break;}
-
-			Bullet bullet = new Bullet(speed, barrel.GlobalTransform, sprites.Pop());
-            VisualServer.CanvasItemSetVisible(bullet.sprite, true);
-			bullets[index] = bullet;
-			index++;
-		    }
-        } else {heat--;}
+        if (shooting) {
+            if (heat == 0) {
+                heat = cooldown;
+                foreach (Node2D barrel in barrels) {
+			    if (index == maxBullet) {break;}
+			    Bullet bullet = new Bullet(speed, barrel.GlobalTransform, sprites.Pop(), grazable);
+                VisualServer.CanvasItemSetVisible(bullet.sprite, true);
+			    bullets[index] = bullet;
+			    index++;
+		        }
+            } else {heat--;}}
         if (index == 0) {return;}
 
         uint newIndex = 0;
@@ -86,28 +82,43 @@ public class BulletBasic : BulletBase {
 
             //Collision check.
             query.Transform = bullet.transform;
-            Godot.Collections.Dictionary result = world.DirectSpaceState.GetRestInfo(query);
-            if (result.Count == 0) {
+            Godot.Collections.Dictionary result;
+            if (bullet.grazable) {
+                query.CollisionLayer = mask + 8;
+                result = world.DirectSpaceState.GetRestInfo(query);
+                if (result.Count == 0) {
+                    bullets[newIndex] = bullet;
+                    newIndex++;
+                    continue;
+                }
+                float colliderLayer = ((Vector2)result["linear_velocity"]).x;
+                if (colliderLayer == 1.0) {
+                    sprites.Push(bullet.sprite);
+                    VisualServer.CanvasItemSetVisible(bullet.sprite, false);
+                    continue;
+                }
+                bullet.grazable = false;
+                fx.SpawnItem(bullet.transform.origin);
                 bullets[newIndex] = bullet;
                 newIndex++;
                 continue;
-            }
-            float colliderLayer = ((Vector2)result["linear_velocity"]).x;
-            if (colliderLayer == 4.0) {
-                    if (bullet.grazable) {
-                    Global.EmitSignal("graze");
-                    bullet.grazable = false;
-                    }
-                bullets[newIndex] = bullet;
-                newIndex++;
-                continue;
-            } else if (colliderLayer == 3.0) {
+            } else {
+                query.CollisionLayer = mask;
+                result = world.DirectSpaceState.GetRestInfo(query);
+                if (result.Count == 0) {
+                    bullets[newIndex] = bullet;
+                    newIndex++;
+                    continue;
+                }
+                float colliderLayer = ((Vector2)result["linear_velocity"]).x;
+                sprites.Push(bullet.sprite);
+                VisualServer.CanvasItemSetVisible(bullet.sprite, false);
+                if (colliderLayer == 1.0) {continue;}
+
                 Object collider = GD.InstanceFromId(((ulong) (int)result["collider_id"]));
                 collider.Call("_hit");
                 fx.hit((Vector2)result["point"]);
             }
-            sprites.Push(bullet.sprite);
-            VisualServer.CanvasItemSetVisible(bullet.sprite, false);
         }
         index = newIndex;
     }

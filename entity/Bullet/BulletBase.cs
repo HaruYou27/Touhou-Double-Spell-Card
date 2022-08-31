@@ -21,12 +21,16 @@ public class BulletBase : Node2D {
 		get {return query.CollideWithBodies;}
 	}
 	[Export(PropertyHint.Layers2dPhysics)] public uint CollisionLayer {
-		set {query.CollisionLayer = value;}
-		get {return query.CollisionLayer;}
+		set {
+			query.CollisionLayer = value;
+			mask = value;
+		} get {return mask;}
 	}
+	[Export] public bool grazable = true;
 	protected Physics2DShapeQueryParameters query = new Physics2DShapeQueryParameters();
 	protected RID hitbox;
 	private Vector2 shapesize;
+	protected uint mask = 1;
 
 	//Visual properties.
 	[Export] protected Texture texture {
@@ -34,7 +38,7 @@ public class BulletBase : Node2D {
 			tex = value;
 			textureRID = value.GetRid();
 			textureSize = value.GetSize();
-			if (shapeSize.x == 0.0) {CreateCollisionShape(textureSize);}
+			if (shapeSize.x == 0.0) {CreateCollisionShape(textureSize - new Vector2(2, 2));}
 		}
 		get {return tex;}
 	}
@@ -92,10 +96,10 @@ public class BulletBase : Node2D {
 			}
 			if (size.x == size.y) {
 				hitbox = Physics2DServer.CircleShapeCreate();
-				Physics2DServer.ShapeSetData(hitbox, size.x);
+				Physics2DServer.ShapeSetData(hitbox, size.x / 2);
 			} else {
 				hitbox = Physics2DServer.CapsuleShapeCreate();
-				Physics2DServer.ShapeSetData(hitbox, size);
+				Physics2DServer.ShapeSetData(hitbox, new Vector2(size.x / 2, size.y - size.x));
 			}
 			query.ShapeRid = hitbox;
 	}

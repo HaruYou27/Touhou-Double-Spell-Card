@@ -27,7 +27,7 @@ public class BulletFx : Node2D {
 
 	public override void _Ready() {
 		Global = GetNode("/root/Global");
-		query.CollisionLayer = 8;
+		query.CollisionLayer = 4;
 		query.ShapeRid = hitbox;
 		world = GetWorld2d();
 
@@ -46,26 +46,23 @@ public class BulletFx : Node2D {
 		fxOffset = -fxSize / 2;
 		fxRID = hitFx.GetRid();
 	}
-	public virtual void SpawnItem(in Vector2[] positions) {
-		foreach (Vector2 position in positions) {
-			if (index == maxItem) {return;}
-			items[index] = position;
-			index++;
-		}
+	public virtual void SpawnItem(in Vector2 position) {
+		if (index == maxItem) {return;}
+		items[index] = position;
+		index++;
 	}
 	public virtual void hit(in Vector2 position) {
 		VisualServer.CanvasItemAddTextureRect(fxCanvas, new Rect2(fxOffset + position, fxSize), fxRID, false, null, false, fxRID);
 	}
 	public override void _PhysicsProcess(float delta) {
-		if (index == 0) {return;}
-
 		VisualServer.CanvasItemClear(canvas);
 		VisualServer.CanvasItemClear(fxCanvas);
+		if (index == 0) {return;}
 		uint newIndex = 0;
 
 		for (uint i = 0; i != index; i++) {
 			Vector2 item = items[i];
-			item += (target.GlobalPosition - item).Normalized() * 727 * delta;
+			item += (target.GlobalPosition - item).Normalized() * 572 * delta;
 			VisualServer.CanvasItemAddTextureRect(canvas, new Rect2(offset + item, textureSize), textureRID, false, null, false, textureRID);
 
 			//Collision check.
@@ -76,7 +73,7 @@ public class BulletFx : Node2D {
 				newIndex++;
 				continue;
 			}
-			Global.EmitSignal("collect_bullet");
+			Global.EmitSignal("graze");
 		}
 		index = newIndex;
 	}

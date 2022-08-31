@@ -8,9 +8,12 @@ func _unhandled_input(event:InputEvent) -> void:
 		parent.focus = false
 		return
 	
-	if event.relative <= focus_speed:
+	var deltaPosition = event.relative
+	if deltaPosition <= focus_speed:
 		Input.action_press("focus")
 	else:
 		Input.action_release("focus")
-	parent.global_position += event.relative
-	parent.global_position = parent.global_position.posmodv(Global.playground)
+	var angle = deltaPosition.angle()
+	
+	parent.position += deltaPosition
+	parent.position = parent.position.posmodv(Global.playground)

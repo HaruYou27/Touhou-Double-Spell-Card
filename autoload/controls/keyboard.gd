@@ -10,7 +10,7 @@ func _physics_process(delta:float) -> void:
 	var velocity := Vector2(x, y).normalized()
 	
 	if Input.is_action_pressed("focus"):
-		velocity /= 2
+		velocity /= 4
 		
-	parent.global_position += velocity * delta * parent.speed
-	parent.global_position = parent.global_position.posmodv(Global.playground)
+	parent.position += velocity * delta * parent.speed
+	parent.position = parent.position.posmodv(Global.playground)

@@ -10,9 +10,9 @@ public class Ricochet : BulletBasic
         public bool grazable;
         public Vector2 velocity;
         public uint ricochet;
-        public Bullet(in float speed, in Transform2D trans, in RID canvas, in uint r) {
+        public Bullet(in float speed, in Transform2D trans, in RID canvas, in uint r, in bool graze) {
             sprite = canvas;
-            grazable = true;
+            grazable = graze;
             transform = trans;
             transform.Rotation += (float)1.57;
             ricochet = r;
@@ -23,6 +23,16 @@ public class Ricochet : BulletBasic
 
     public override void _EnterTree() {
         bullets = new Bullet[maxBullet];
+    }
+    public override void Flush() {
+        if (index == 0) {return;}
+        shooting = false;
+        for (uint i = 0; i != index; i++) {
+            RID sprite = bullets[i].sprite;
+            fx.SpawnItem(bullets[i].transform.origin);
+            sprites.Push(sprite);
+            VisualServer.CanvasItemSetVisible(sprite, false);
+        }
     }
     public override void _ExitTree() {
         foreach (RID sprite in sprites) {
@@ -35,19 +45,18 @@ public class Ricochet : BulletBasic
         }
         Physics2DServer.FreeRid(hitbox);
     }
-    public override void _PhysicsProcess(float delta)
-    {
-        if (shooting && heat == 0) {
-            heat = cooldown;
-            foreach (Node2D barrel in barrels) {
-			if (index == maxBullet) {break;}
-
-			Bullet bullet = new Bullet(speed, barrel.GlobalTransform, sprites.Pop(), ricochet);
-            VisualServer.CanvasItemSetVisible(bullet.sprite, true);
-			bullets[index] = bullet;
-			index++;
-		    }
-        } else {heat--;}
+    public override void _PhysicsProcess(float delta) {
+        if (shooting) {
+            if (heat == 0) {
+                heat = cooldown;
+                foreach (Node2D barrel in barrels) {
+			    if (index == maxBullet) {break;}
+			    Bullet bullet = new Bullet(speed, barrel.GlobalTransform, sprites.Pop(), ricochet, grazable);
+                VisualServer.CanvasItemSetVisible(bullet.sprite, true);
+			    bullets[index] = bullet;
+			    index++;
+		        }
+            } else {heat--;}}
          if (index == 0) {
             return;
         }
@@ -60,28 +69,50 @@ public class Ricochet : BulletBasic
 
             //Collision check.
             query.Transform = bullet.transform;
-            Godot.Collections.Dictionary result = world.DirectSpaceState.GetRestInfo(query);
-            if (result.Count == 0) {
+            Godot.Collections.Dictionary result;
+            if (bullet.grazable) {
+                query.CollisionLayer = mask + 8;
+                result = world.DirectSpaceState.GetRestInfo(query);
+                if (result.Count == 0) {
+                    bullets[newIndex] = bullet;
+                    newIndex++;
+                    continue;
+                }
+                float colliderLayer = ((Vector2)result["linear_velocity"]).x;
+                if (colliderLayer == 1.0) {
+                    sprites.Push(bullet.sprite);
+                    VisualServer.CanvasItemSetVisible(bullet.sprite, false);
+                    continue;
+                }
+                bullet.grazable = false;
+                fx.SpawnItem(bullet.transform.origin);
                 bullets[newIndex] = bullet;
                 newIndex++;
                 continue;
-            }
-            float colliderLayer = ((Vector2)result["linear_velocity"]).x;
-            if (colliderLayer == 4.0) {
-                    if (bullet.grazable) {
-                    Global.EmitSignal("graze");
-                    bullet.grazable = false;
-                    }
-                bullets[newIndex] = bullet;
-                newIndex++;
-                continue;
-            } else if (colliderLayer == 3.0) {
+            } else {
+                query.CollisionLayer = mask;
+                result = world.DirectSpaceState.GetRestInfo(query);
+                if (result.Count == 0) {
+                    bullets[newIndex] = bullet;
+                    newIndex++;
+                    continue;
+                }
+                if (bullet.ricochet > 0) {
+                    bullet.velocity = bullet.velocity.Bounce((Vector2)result["normal"]);
+                    bullet.ricochet--;
+                    bullets[newIndex] = bullet;
+                    newIndex++;
+                } else {
+                    sprites.Push(bullet.sprite);
+                    VisualServer.CanvasItemSetVisible(bullet.sprite, false);
+                }
+                float colliderLayer = ((Vector2)result["linear_velocity"]).x;
+                if (colliderLayer == 1.0) {continue;}
+                
                 Object collider = GD.InstanceFromId(((ulong) (int)result["collider_id"]));
                 collider.Call("_hit");
                 fx.hit((Vector2)result["point"]);
             }
-            sprites.Push(bullet.sprite);
-            VisualServer.CanvasItemSetVisible(bullet.sprite, false);
         }
         index = newIndex;
     }
