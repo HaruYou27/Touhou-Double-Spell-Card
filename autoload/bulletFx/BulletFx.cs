@@ -8,14 +8,14 @@ public class BulletFx : Node2D {
 	const uint maxItem = 2727;
 	protected uint index;
 
-	private Texture texture = GD.Load<Texture>("res://autoload/point.png");
+	private Texture texture = GD.Load<Texture>("res://autoload/item/point.png");
 	protected RID textureRID;
 	protected Vector2 offset;
 	protected Vector2 textureSize;
 	protected RID canvas;
 
-	private Texture hitFx;
-	private Material fxMaterial;
+	private Texture hitFx = GD.Load<Texture>("res://autoload/item/point.png");
+	private Material fxMaterial = GD.Load<Material>("res://autoload/bulletFx/hitFx.material");
 	protected RID fxRID;
 	protected Vector2 fxSize;
 	protected Vector2 fxOffset;
@@ -26,8 +26,7 @@ public class BulletFx : Node2D {
 	protected Node Global;
 
 	public override void _Ready() {
-		Global = GetNode("root/Global");
-		target = (Node2D)Global.Get("player");
+		Global = GetNode("/root/Global");
 		query.CollisionLayer = 8;
 		query.ShapeRid = hitbox;
 		world = GetWorld2d();

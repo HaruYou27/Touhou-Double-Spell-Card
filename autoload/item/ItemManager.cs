@@ -18,7 +18,7 @@ public class ItemManager : Node2D {
 	const float maxVelocity = 272;
 	protected uint index;
 
-	protected Texture texture = GD.Load<Texture>("res://autoload/point.png");
+	protected Texture texture = GD.Load<Texture>("res://autoload/item/point.png");
 	protected RID textureRID;
 	protected Vector2 offset;
 	protected Vector2 textureSize;
@@ -39,9 +39,9 @@ public class ItemManager : Node2D {
 		offset = -textureSize / 2;
 
 		world = GetWorld2d();
-		Global = GetNode("root/Global");
+		Global = GetNode("/root/Global");
 		canvas = GetCanvasItem();
-		Material = GD.Load<Material>("res://shader/position-rotate.gdshader");
+		Material = GD.Load<Material>("res://autoload/item/item.material");
 		ZIndex = -10;
 	}
 	public virtual void SpawnItem(in Vector2 origin, int itemCount) {
