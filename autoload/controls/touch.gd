@@ -16,4 +16,5 @@ func _unhandled_input(event:InputEvent) -> void:
 	var angle = deltaPosition.angle()
 	
 	parent.position += deltaPosition
-	parent.position = parent.position.posmodv(Global.playground)
+	parent.position.x = clamp(parent.position.x, 0.0, 646.0)
+	parent.position.y = clamp(parent.position.y, 0.0, 904.0)

@@ -4,8 +4,6 @@ signal graze
 signal bomb
 signal collect
 
-const playground := Vector2(646, 904)
-
 var save : saveData
 var player
 

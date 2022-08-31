@@ -13,4 +13,5 @@ func _physics_process(delta:float) -> void:
 		velocity /= 4
 		
 	parent.position += velocity * delta * parent.speed
-	parent.position = parent.position.posmodv(Global.playground)
+	parent.position.x = clamp(parent.position.x, 0.0, 646.0)
+	parent.position.y = clamp(parent.position.y, 0.0, 904.0)

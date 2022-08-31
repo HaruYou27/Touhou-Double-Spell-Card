@@ -17,4 +17,5 @@ func _physics_process(_delta) -> void:
 		Input.action_release("focus")
 	var angle = mouse_local.angle()
 	
-	player.position = mouse_global.posmodv(Global.playground)
+	parent.position.x = clamp(parent.position.x, 0.0, 646.0)
+	parent.position.y = clamp(parent.position.y, 0.0, 904.0)

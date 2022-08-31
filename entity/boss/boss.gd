@@ -19,9 +19,9 @@ func _ready() -> void:
 	time_gauge.max_value = spell_length
 	heath_gauge.max_value = max_hp
 	tween = create_tween()
-	tween.tween_property(self, 'global_position', init_position, 1)
-	tween.parallel().tween_property(time_gauge, 'value', spell_length, 1)
-	tween.parallel().tween_property(heath_gauge, 'value', max_hp, 1)
+	tween.tween_property(self, 'global_position', init_position, 1.0)
+	tween.parallel().tween_property(time_gauge, 'value', spell_length, 1.0)
+	tween.parallel().tween_property(heath_gauge, 'value', max_hp, 1.0)
 	tween.connect("finished", self, '_start', [], 4)
 	tween.connect("finished", parent, '_start', [], 4)
 	
