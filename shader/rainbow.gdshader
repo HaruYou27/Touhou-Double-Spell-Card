@@ -2,7 +2,7 @@ shader_type canvas_item;
 
 varying float h;
 
-uniform float strength = 1;
+uniform float strength = 1.0;
 
 vec3 rgb2hsv(vec3 c) {
     vec4 K = vec4(0.0, -1.0 / 3.0, 2.0 / 3.0, -1.0);
