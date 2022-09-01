@@ -7,13 +7,15 @@ onready var seal2 :Particles2D = $seal2
 onready var seal3 :Particles2D = $seal3
 onready var seal4 :Particles2D = $seal4
 onready var seals = [seal1, seal2, seal3, seal4]
+onready var local_pos = PoolVector2Array([Vector2(), Vector2(), Vector2(), Vector2()])
+var velocities := PoolVector2Array([Vector2(128.0, 0.0), Vector2(-128.0, 0.0), Vector2(0.0, 128.0), Vector2(0.0, -128.0)])
 
 onready var tree := get_tree()
 onready var hp_tween := create_tween()
 onready var shape :CollisionShape2D = $CollisionShape2D
 
 var seal :Particles2D
-var velocities := PoolVector2Array([Vector2(128.0, 0.0), Vector2(-128.0, 0.0), Vector2(0.0, 128.0), Vector2(0.0, -128.0)])
+
 
 func _ready() -> void:
 	var tween = create_tween()
@@ -30,16 +32,18 @@ func _attack() -> void:
 func _physics_process(delta:float) -> void:
 	var velocity :Vector2 = Global.boss.global_position - shape.global_position
 	shape.global_position += velocity.normalized() * delta * 727
-	seal.global_position = shape.global_position
+	seal.position = shape.position
 
 func _process(delta:float) -> void:
 	var index := 0
 	for seal in seals:
 		var velocity = velocities[index]
-		var phi := TAU * delta
-		seal.position += velocity * delta
-		seal.position = seal.position.rotated(phi)
+		var phi = TAU * delta
+		seal.position = (local_pos[index] + velocity * delta).rotated(phi)
+		local_pos[index] = seal.position
+		seal.position += Global.player.global_position
 		velocities[index] = velocity.rotated(phi)
+		
 		index += 1
 
 func _on_Bomb_area_entered(_area):

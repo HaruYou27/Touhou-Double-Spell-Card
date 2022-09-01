@@ -54,7 +54,7 @@ func bomb() -> void:
 		
 		var bomb_node :Node2D = bomb_scene.instance()
 		bomb_node.connect('done', self, '_bomb_done')
-		add_child(bomb_node)
+		Global.add_child(bomb_node)
 		Global.emit_signal("bomb")
 
 func _update_bomb() -> void:
