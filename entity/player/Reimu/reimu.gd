@@ -1,14 +1,16 @@
 extends Player
+#Statellite manager.
 
 onready var orb_tween := create_tween()
 onready var orb1 := $bullet2/YinyangOrb
 onready var orb2 := $bullet2/YinyangOrb2
-onready var orb3 := $YinyangOrb3
-onready var orb4 := $YinyangOrb4
+onready var orb3 := $bullet2/YinyangOrb3
+onready var orb4 := $bullet2/YinyangOrb4
 
-func bomb() -> void:
-	.bomb()
-	
+func _ready() -> void:
+	._ready()
+	tree.set_group('player_bullet', 'shooting', Global.save.auto_shoot)
+
 func focus() -> void:
 	.focus()
 	orb_tween.kill()

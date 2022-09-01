@@ -1,5 +1,5 @@
 extends Area2D
-class_name boss
+class_name Boss
 
 signal next
 
@@ -12,8 +12,8 @@ onready var tween :SceneTreeTween
 onready var hp_tween := create_tween()
 onready var parent = get_parent()
 
-onready var time_gauge :TextureProgress = $timeGauge
-onready var heath_gauge :TextureProgress = $heathGauge
+onready var time_gauge :TextureProgress = $gauge/timeGauge
+onready var heath_gauge :TextureProgress = $gauge/heathGauge
 
 func _ready() -> void:
 	time_gauge.max_value = spell_length
@@ -24,6 +24,7 @@ func _ready() -> void:
 	tween.parallel().tween_property(heath_gauge, 'value', max_hp, 1.0)
 	tween.connect("finished", self, '_start', [], 4)
 	tween.connect("finished", parent, '_start', [], 4)
+	Global.boss = self
 	
 func _start() -> void:
 	tween = create_tween()
@@ -35,6 +36,7 @@ func _on_meimu_body_entered(body) -> void:
 
 func _hit() -> void:
 	heath_gauge.value -= 1.0
+	hp = heath_gauge.value
 	if not hp:
 		emit_signal("next")
 		return

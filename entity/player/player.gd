@@ -4,13 +4,13 @@ class_name Player
 onready var focus : Sprite = $focus
 onready var focus2 : Sprite = $focus2
 onready var death_timer : Timer = $DeathTimer
-onready var bomb_timer : Timer = $BombTimer
 onready var graze : StaticBody2D = $graze
 onready var tree := get_tree()
 onready var bomb :int = Global.save.init_bomb
 onready var tween := create_tween()
 
-export (int) var speed := 472
+export (int) var speed := 372
+export (PackedScene) var bomb_scene
 
 func _ready() -> void:
 	Global.player = self
@@ -21,6 +21,8 @@ func _ready() -> void:
 		add_child(preload("res://autoload/controls/mouse.gd").new())
 	else:
 		add_child(preload("res://autoload/controls/touch.gd").new())
+		
+	
 
 func _hit() -> void:
 	print('ouch')
@@ -46,11 +48,14 @@ func focus() -> void:
 func bomb() -> void:
 	if bomb:
 		bomb -= 1
-		Global.emit_signal("bomb")
 		collision_layer = 0
 		graze.collision_layer = 0
-		ItemManager.target = self
-		tree.call_group('bullet', 'Flush')
+		tree.set_group('player_bullet', 'shooting', false)
+		
+		var bomb_node :Node2D = bomb_scene.instance()
+		bomb_node.connect('done', self, '_bomb_done')
+		add_child(bomb_node)
+		Global.emit_signal("bomb")
 
 func _update_bomb() -> void:
 	bomb += 1
@@ -59,7 +64,7 @@ func _update_bomb() -> void:
 func _on_DeathTimer_timeout():
 	tree.paused = false
 	
-func _on_BombTimer_timeout():
+func _bomb_done():
 	collision_layer = 4
 	graze.collision_layer = 8
-	tree.set_group('bullet', 'shooting', true)
+	tree.set_group('player_bullet', 'shooting', true)

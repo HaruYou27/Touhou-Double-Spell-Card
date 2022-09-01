@@ -2,7 +2,7 @@ using Godot;
 
 public class Seeker : BulletBasic {
     //Bullets that chase nearby target.
-    [Export] protected float mass = 2;
+    [Export] protected float mass = 10;
     [Export] protected float seekRadius {
         set {Physics2DServer.ShapeSetData(seekShape, value);}
         get {return (float)Physics2DServer.ShapeGetData(seekShape);}
@@ -37,17 +37,19 @@ public class Seeker : BulletBasic {
 
     public override void _EnterTree() {
         bullets = new Bullet[maxBullet];
-        seekQuery.CollisionLayer = mask - 1;
+        seekQuery.ShapeRid = seekShape;
+        seekQuery.CollisionLayer = mask;
     }
     public override void Flush() {
         if (index == 0) {return;}
-        shooting = false;
+        
         for (uint i = 0; i != index; i++) {
             RID sprite = bullets[i].sprite;
             fx.SpawnItem(bullets[i].transform.origin);
             sprites.Push(sprite);
             VisualServer.CanvasItemSetVisible(sprite, false);
         }
+        index = 0;
     }
     public override void _ExitTree() {
         foreach (RID sprite in sprites) {
@@ -59,6 +61,7 @@ public class Seeker : BulletBasic {
             }
         }
         Physics2DServer.FreeRid(hitbox);
+        Physics2DServer.FreeRid(seekShape);
     }
     public override void _PhysicsProcess(float delta) {
         if (shooting) {

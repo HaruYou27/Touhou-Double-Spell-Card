@@ -68,7 +68,6 @@ public class BulletBase : Node2D {
 	protected Node Global;
 	protected BulletFx fx;
 
-
 	public override void _Ready() {
 		world = GetWorld2d();
 		Global = GetNode("/root/Global");

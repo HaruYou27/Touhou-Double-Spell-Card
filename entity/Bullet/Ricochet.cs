@@ -26,13 +26,14 @@ public class Ricochet : BulletBasic
     }
     public override void Flush() {
         if (index == 0) {return;}
-        shooting = false;
+        
         for (uint i = 0; i != index; i++) {
             RID sprite = bullets[i].sprite;
             fx.SpawnItem(bullets[i].transform.origin);
             sprites.Push(sprite);
             VisualServer.CanvasItemSetVisible(sprite, false);
         }
+        index = 0;
     }
     public override void _ExitTree() {
         foreach (RID sprite in sprites) {

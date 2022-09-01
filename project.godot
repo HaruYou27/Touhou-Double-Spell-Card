@@ -9,6 +9,11 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Area2D",
+"class": "Boss",
+"language": "GDScript",
+"path": "res://entity/boss/boss.gd"
+}, {
 "base": "Reference",
 "class": "DTS",
 "language": "GDScript",
@@ -79,17 +84,13 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://user-interface/hud/stage.gd"
 }, {
-"base": "Area2D",
-"class": "boss",
-"language": "GDScript",
-"path": "res://entity/boss/boss.gd"
-}, {
 "base": "Resource",
 "class": "saveData",
 "language": "GDScript",
 "path": "res://autoload/save.gd"
 } ]
 _global_script_class_icons={
+"Boss": "",
 "DTS": "",
 "Dialogic": "",
 "DialogicAnimaPropertiesHelper": "",
@@ -104,7 +105,6 @@ _global_script_class_icons={
 "HistoryRow": "",
 "Player": "",
 "Stage": "",
-"boss": "",
 "saveData": ""
 }
 
@@ -113,7 +113,6 @@ _global_script_class_icons={
 config/name="Touhou Entropy ~ Hakurei Chronos"
 config/description="Why i make bullet shmups game."
 run/main_scene="res://user-interface/mainMenu/Menu.scn"
-boot_splash/show_image=false
 config/icon="res://icon.png"
 
 [autoload]

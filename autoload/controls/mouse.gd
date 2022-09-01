@@ -2,7 +2,7 @@ extends Node
 
 onready var player : Node2D = get_parent()
 onready var playground : Control = player.get_parent()
-onready var focus_speed :int = player.speed / 2
+onready var focus_speed :int = player.speed / 4
 
 func _physics_process(_delta) -> void:
 	var mouse_local := player.get_local_mouse_position()
@@ -17,5 +17,5 @@ func _physics_process(_delta) -> void:
 		Input.action_release("focus")
 	var angle = mouse_local.angle()
 	
-	parent.position.x = clamp(parent.position.x, 0.0, 646.0)
-	parent.position.y = clamp(parent.position.y, 0.0, 904.0)
+	player.position.x = clamp(player.position.x, 0.0, 646.0)
+	player.position.y = clamp(player.position.y, 0.0, 904.0)

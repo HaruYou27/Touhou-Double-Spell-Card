@@ -6,6 +6,7 @@ signal collect
 
 var save : saveData
 var player
+var boss
 
 func _ready() -> void:
 	save = load('user://save.res')

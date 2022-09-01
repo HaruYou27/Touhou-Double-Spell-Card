@@ -52,13 +52,14 @@ public class BulletBasic : BulletBase {
     }
     public virtual void Flush() {
         if (index == 0) {return;}
-        shooting = false;
+        
         for (uint i = 0; i != index; i++) {
             RID sprite = bullets[i].sprite;
             fx.SpawnItem(bullets[i].transform.origin);
             sprites.Push(sprite);
             VisualServer.CanvasItemSetVisible(sprite, false);
         }
+        index = 0;
     }
     public override void _PhysicsProcess(float delta) {
         if (shooting) {

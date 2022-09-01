@@ -1,11 +1,11 @@
 extends Node
 
-onready var parent : Node2D = get_parent()
-onready var focus_speed :int = parent.speed / 2
+onready var player : Node2D = get_parent()
+onready var focus_speed :int = player.speed / 4
 
 func _unhandled_input(event:InputEvent) -> void:
 	if not event is InputEventScreenDrag:
-		parent.focus = false
+		player.focus = false
 		return
 	
 	var deltaPosition = event.relative
@@ -15,6 +15,6 @@ func _unhandled_input(event:InputEvent) -> void:
 		Input.action_release("focus")
 	var angle = deltaPosition.angle()
 	
-	parent.position += deltaPosition
-	parent.position.x = clamp(parent.position.x, 0.0, 646.0)
-	parent.position.y = clamp(parent.position.y, 0.0, 904.0)
+	player.position += deltaPosition
+	player.position.x = clamp(player.position.x, 0.0, 646.0)
+	player.position.y = clamp(player.position.y, 0.0, 904.0)

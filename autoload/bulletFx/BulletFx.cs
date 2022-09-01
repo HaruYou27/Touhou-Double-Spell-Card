@@ -14,7 +14,7 @@ public class BulletFx : Node2D {
 	protected Vector2 textureSize;
 	protected RID canvas;
 
-	private Texture hitFx = GD.Load<Texture>("res://autoload/item/point.png");
+	private Texture hitFx = GD.Load<Texture>("res://autoload/bulletFx/hitfx.png");
 	private Material fxMaterial = GD.Load<Material>("res://autoload/bulletFx/hitFx.material");
 	protected RID fxRID;
 	protected Vector2 fxSize;
