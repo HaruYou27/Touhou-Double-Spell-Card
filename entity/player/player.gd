@@ -9,7 +9,6 @@ onready var tree := get_tree()
 onready var bomb :int = Global.save.init_bomb
 onready var tween := create_tween()
 
-export (int) var speed := 372
 export (PackedScene) var bomb_scene
 
 func _ready() -> void:
@@ -22,8 +21,6 @@ func _ready() -> void:
 	else:
 		add_child(preload("res://autoload/controls/touch.gd").new())
 		
-	
-
 func _hit() -> void:
 	print('ouch')
 
@@ -51,6 +48,7 @@ func bomb() -> void:
 		collision_layer = 0
 		graze.collision_layer = 0
 		tree.set_group('player_bullet', 'shooting', false)
+		death_timer.set_process_unhandled_input(false)
 		
 		var bomb_node :Node2D = bomb_scene.instance()
 		bomb_node.connect('done', self, '_bomb_done')
@@ -68,3 +66,4 @@ func _bomb_done():
 	collision_layer = 4
 	graze.collision_layer = 8
 	tree.set_group('player_bullet', 'shooting', true)
+	death_timer.set_process_unhandled_input(true)

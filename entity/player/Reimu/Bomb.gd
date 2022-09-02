@@ -1,4 +1,4 @@
-extends Node2D
+extends Area2D
 
 signal done
 
@@ -16,7 +16,6 @@ onready var shape :CollisionShape2D = $CollisionShape2D
 
 var seal :Particles2D
 
-
 func _ready() -> void:
 	var tween = create_tween()
 	tween.tween_property(self, 'modulate', Color(1.0, 1.0, 1.0, 1.0), 1.0)
@@ -33,22 +32,14 @@ func _physics_process(delta:float) -> void:
 	var velocity :Vector2 = Global.boss.global_position - shape.global_position
 	shape.global_position += velocity.normalized() * delta * 727
 	seal.position = shape.position
-
-func _process(delta:float) -> void:
-	var index := 0
-	for seal in seals:
-		var velocity = velocities[index]
-		var phi = TAU * delta
-		seal.position = (local_pos[index] + velocity * delta).rotated(phi)
-		local_pos[index] = seal.position
-		seal.position += Global.player.global_position
-		velocities[index] = velocity.rotated(phi)
-		
-		index += 1
-
-func _on_Bomb_area_entered(_area):
+	
+	if not get_overlapping_areas().size():
+		return
+	
 	tree.call_group('enemy', 'destroy')
 	tree.call_group('bullet', 'Flush')
+	OS.delay_msec(15)
+	Global.emit_signal("shake", 30)
 	var boss = Global.boss
 	boss.hp -= boss.max_hp * Global.save.bomb_damage / 4
 	hp_tween.kill()
@@ -63,7 +54,20 @@ func _on_Bomb_area_entered(_area):
 		shape.position = seal.position
 	else:
 		emit_signal("done")
+		set_physics_process(false)
+		set_process(false)
 		$Timer.start()
+
+func _process(delta:float) -> void:
+	var index := 0
+	for seal in seals:
+		var velocity = velocities[index]
+		var phi = TAU * delta
+		seal.position = (local_pos[index] + velocity * delta).rotated(phi)
+		local_pos[index] = seal.position
+		seal.position += Global.player.global_position
+		velocities[index] = velocity.rotated(phi)	
+		index += 1
 
 func _on_Timer_timeout():
 	queue_free()

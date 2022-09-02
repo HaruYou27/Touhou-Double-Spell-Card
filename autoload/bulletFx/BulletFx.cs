@@ -1,14 +1,22 @@
 using Godot;
 
 public class BulletFx : Node2D {
-	private Vector2[] items = new Vector2[maxItem];
+	private struct Item {
+		public Vector2 position;
+		public float speed;
+		public Item(in Vector2 pos, in int s) {
+			position = pos;
+			speed = s;
+		}
+	}
+	private Item[] items = new Item[maxItem];
 	
 	protected Physics2DShapeQueryParameters query = new Physics2DShapeQueryParameters();
 	private RID hitbox = Physics2DServer.CircleShapeCreate();
-	const uint maxItem = 2727;
+	const uint maxItem = 4727;
 	protected uint index;
 
-	private Texture texture = GD.Load<Texture>("res://autoload/item/point.png");
+	private Texture texture = GD.Load<Texture>("res://autoload/bulletFx/grazefx.png");
 	protected RID textureRID;
 	protected Vector2 offset;
 	protected Vector2 textureSize;
@@ -46,9 +54,9 @@ public class BulletFx : Node2D {
 		fxOffset = -fxSize / 2;
 		fxRID = hitFx.GetRid();
 	}
-	public virtual void SpawnItem(in Vector2 position) {
+	public virtual void SpawnItem(in Vector2 position, in int speed) {
 		if (index == maxItem) {return;}
-		items[index] = position;
+		items[index] = new Item(position, speed);
 		index++;
 	}
 	public virtual void hit(in Vector2 position) {
@@ -57,16 +65,17 @@ public class BulletFx : Node2D {
 	public override void _PhysicsProcess(float delta) {
 		VisualServer.CanvasItemClear(canvas);
 		VisualServer.CanvasItemClear(fxCanvas);
+
 		if (index == 0) {return;}
 		uint newIndex = 0;
 
 		for (uint i = 0; i != index; i++) {
-			Vector2 item = items[i];
-			item += (target.GlobalPosition - item).Normalized() * 572 * delta;
-			VisualServer.CanvasItemAddTextureRect(canvas, new Rect2(offset + item, textureSize), textureRID, false, null, false, textureRID);
+			Item item = items[i];
+			item.position += (target.GlobalPosition - item.position).Normalized() * item.speed * delta;
+			VisualServer.CanvasItemAddTextureRect(canvas, new Rect2(offset + item.position, textureSize), textureRID, false, null, false, textureRID);
 
 			//Collision check.
-			query.Transform = new Transform2D((float)0.0, item);
+			query.Transform = new Transform2D(0, item.position);
 			Godot.Collections.Dictionary result = world.DirectSpaceState.GetRestInfo(query);
 			if (result.Count == 0) {
 				items[newIndex] = item;

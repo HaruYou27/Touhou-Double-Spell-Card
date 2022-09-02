@@ -5,6 +5,7 @@ var point := 1
 var graze := 0
 var goal := 0
 var saved := false
+var shake_frames := 0
 
 export (Array) var levels : Array
 export (NodePath) var level
@@ -33,11 +34,20 @@ func _unhandled_input(event):
 func _physics_process(_delta) -> void:
 	if ray.is_colliding():
 		ItemManager.target = Global.player
+		
+func _process(_delta) -> void:
+	if shake_frames:
+		shake_frames -= 1
+		playground.rect_position += Vector2(rand_range(-1.0, 1.0), rand_range(-1.0, 1.0))
+	else:
+		playground.rect_position = Vector2(60, 28)
+		set_process(false)
 
 func _ready() -> void:
 	Global.connect("collect", self, "_update_point")
 	Global.connect('graze', self, '_update_graze')
 	Global.connect('bomb', self, '_update_bomb')
+	Global.connect('shake', self, 'shake')
 	if Global.save.hi_score.has(stage_name):
 		var hi_score :Label = $hud/VBoxContainer/HiScore
 		hi_score.text = hi_score.text % Global.save.hi_score[stage_name]
@@ -48,6 +58,11 @@ func _ready() -> void:
 	
 	level = get_node(level)
 	bomb_label.text = bomb_label.text % Global.save.init_bomb
+	set_process(false)
+
+func shake(duration:int) -> void:
+	shake_frames += duration
+	set_process(true)
 
 func _update_point() -> void:
 	point += 1

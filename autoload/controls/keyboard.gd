@@ -20,6 +20,6 @@ func _physics_process(delta:float) -> void:
 	if Input.is_action_pressed("focus"):
 		velocity /= 4
 		
-	player.position += velocity * delta * player.speed
+	player.position += velocity * delta * 372
 	player.position.x = clamp(player.position.x, 0.0, 646.0)
 	player.position.y = clamp(player.position.y, 0.0, 904.0)

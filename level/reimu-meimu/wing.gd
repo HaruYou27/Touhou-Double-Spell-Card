@@ -8,6 +8,7 @@ func _ready() -> void:
 	barrel.set_physics_process(false)
 	barrel2.set_physics_process(false)
 	set_physics_process(false)
+	ItemManager.SpawnItem(meimu.global_position, 128)
 
 func _physics_process(delta) -> void:
 	barrel.rotation += 0.897 * delta

@@ -3,6 +3,7 @@ extends Node2D
 signal graze
 signal bomb
 signal collect
+signal shake(duration)
 
 var save : saveData
 var player
@@ -13,4 +14,4 @@ func _ready() -> void:
 	if not save:
 		save = preload("res://autoload/save.gd").new()
 		save.save()
-		
+	randomize()

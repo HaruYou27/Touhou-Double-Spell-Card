@@ -28,7 +28,7 @@ public class SeekerLocked : BulletBasic {
         
         for (uint i = 0; i != index; i++) {
             RID sprite = bullets[i].sprite;
-            fx.SpawnItem(bullets[i].transform.origin);
+            fx.SpawnItem(bullets[i].transform.origin, 727);
             sprites.Push(sprite);
             VisualServer.CanvasItemSetVisible(sprite, false);
         }
@@ -79,7 +79,7 @@ public class SeekerLocked : BulletBasic {
                     continue;
                 }
                 bullet.grazable = false;
-                fx.SpawnItem(bullet.transform.origin);
+                fx.SpawnItem(bullet.transform.origin, 72);
                 bullets[newIndex] = bullet;
                 newIndex++;
                 continue;
