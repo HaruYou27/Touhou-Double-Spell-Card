@@ -24,8 +24,8 @@ vec3 rgb2hsv(vec3 c) {
   return max(sign(y - x), 0.0);
 }
 
-float when_eq(float x, float y) {
-  return 1.0 - abs(sign(x - y));
+float nah(float a) {
+  return 1.0 - a;
 }
 
 void fragment() {
@@ -34,6 +34,6 @@ void fragment() {
 	float boolean = when_lt(colorhsv.y, 0.11);
 	colorhsv *= vec3(1, s, v);
 	colorhsv.x += h;
-	color.rgb = color.rgb * boolean + hsv2rgb(colorhsv) * when_eq(boolean, 0.0);
+	color.rgb = color.rgb * boolean + hsv2rgb(colorhsv) * nah(boolean);
 	COLOR = color;
 }

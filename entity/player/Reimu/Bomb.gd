@@ -1,4 +1,4 @@
-extends Area2D
+extends Node2D
 
 signal done
 
@@ -12,11 +12,17 @@ var velocities := PoolVector2Array([Vector2(128.0, 0.0), Vector2(-128.0, 0.0), V
 
 onready var tree := get_tree()
 onready var hp_tween := create_tween()
-onready var shape :CollisionShape2D = $CollisionShape2D
+onready var query := Physics2DShapeQueryParameters.new()
+onready var world := get_viewport().world_2d
 
 var seal :Particles2D
 
 func _ready() -> void:
+	query.collision_layer = 2
+	query.collide_with_areas = true
+	query.collide_with_bodies = false
+	query.shape_rid = $CollisionShape2D.shape.get_rid()
+	
 	var tween = create_tween()
 	tween.tween_property(self, 'modulate', Color(1.0, 1.0, 1.0, 1.0), 1.0)
 	tween.connect("finished", self, '_attack')
@@ -26,14 +32,13 @@ func _ready() -> void:
 func _attack() -> void:
 	set_physics_process(true)
 	seal = seals.pop_back()
-	shape.position = seal.position
 
 func _physics_process(delta:float) -> void:
-	var velocity :Vector2 = Global.boss.global_position - shape.global_position
-	shape.global_position += velocity.normalized() * delta * 727
-	seal.position = shape.position
+	var velocity :Vector2 = Global.boss.global_position - seal.global_position
+	seal.global_position += velocity.normalized() * delta * 727
+	query.transform = seal.global_transform
 	
-	if not get_overlapping_areas().size():
+	if not world.direct_space_state.get_rest_info(query).size():
 		return
 	
 	tree.call_group('enemy', 'destroy')
@@ -51,12 +56,12 @@ func _physics_process(delta:float) -> void:
 	seal.get_node('explosion').emitting = true
 	if seals.size():
 		seal = seals.pop_back()
-		shape.position = seal.position
 	else:
 		emit_signal("done")
 		set_physics_process(false)
 		set_process(false)
-		$Timer.start()
+		var timer = tree.create_timer(2)
+		timer.connect("timeout", self, 'queue_free')
 
 func _process(delta:float) -> void:
 	var index := 0
@@ -68,6 +73,3 @@ func _process(delta:float) -> void:
 		seal.position += Global.player.global_position
 		velocities[index] = velocity.rotated(phi)	
 		index += 1
-
-func _on_Timer_timeout():
-	queue_free()

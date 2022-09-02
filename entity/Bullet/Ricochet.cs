@@ -29,7 +29,7 @@ public class Ricochet : BulletBasic
         
         for (uint i = 0; i != index; i++) {
             RID sprite = bullets[i].sprite;
-            fx.SpawnItem(bullets[i].transform.origin, 727);
+            fx.SpawnItem(bullets[i].transform.origin);
             sprites.Push(sprite);
             VisualServer.CanvasItemSetVisible(sprite, false);
         }
@@ -86,7 +86,7 @@ public class Ricochet : BulletBasic
                     continue;
                 }
                 bullet.grazable = false;
-                fx.SpawnItem(bullet.transform.origin, 72);
+                grazefx.SpawnItem(bullet.transform.origin);
                 bullets[newIndex] = bullet;
                 newIndex++;
                 continue;

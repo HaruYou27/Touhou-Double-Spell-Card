@@ -53,6 +53,7 @@ public class ItemManager : Node2D {
 	}
 	public override void _PhysicsProcess(float delta) {
 		if (index == 0) {
+			target = null;
 			return;
 		}
 

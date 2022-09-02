@@ -13,6 +13,7 @@ export (String) var stage_name
 
 onready var tree = get_tree()
 onready var pause_menu :ColorRect = $Playground/Pause
+
 onready var playground :Control = $Playground
 onready var ray :RayCast2D = $Playground/RayCast2D
 
@@ -24,12 +25,8 @@ onready var goal_label :Label = $hud/VBoxContainer/Goal
 
 func _unhandled_input(event):
 	if event.is_action_pressed("pause"):
-		if tree.paused:
-			remove_child(pause_menu)
-			tree.paused = false
-		else:
-			add_child(pause_menu)
-			tree.paused = true
+		playground.add_child(pause_menu)
+		tree.paused = true
 		
 func _physics_process(_delta) -> void:
 	if ray.is_colliding():
@@ -59,6 +56,7 @@ func _ready() -> void:
 	level = get_node(level)
 	bomb_label.text = bomb_label.text % Global.save.init_bomb
 	set_process(false)
+	playground.remove_child(pause_menu)
 
 func shake(duration:int) -> void:
 	shake_frames += duration
@@ -84,7 +82,7 @@ func _update_score(score:int) -> void:
 		_update_bomb()
 
 func _update_bomb() -> void:
-	bomb_label.text = 'Bomb:        %d' % Global.player.bomb
+	bomb_label.text = 'Bomb:        %d' % Global.player.bombs
 	
 func save_score() -> void:
 	var score = point * graze
@@ -97,10 +95,3 @@ func _next() -> void:
 	level.queue_free()
 	level = levels.pop_back().instance()
 	playground.add_child(level)
-
-func _on_Resume_pressed():
-	tree.paused = false
-	remove_child(pause_menu)
-
-func _on_Continue_pressed():
-	pass # Replace with function body.

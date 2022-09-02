@@ -7,10 +7,6 @@ onready var orb2 := $bullet2/YinyangOrb2
 onready var orb3 := $bullet2/YinyangOrb3
 onready var orb4 := $bullet2/YinyangOrb4
 
-func _ready() -> void:
-	._ready()
-	tree.set_group('player_bullet', 'shooting', Global.save.auto_shoot)
-
 func focus() -> void:
 	.focus()
 	orb_tween.kill()
@@ -20,8 +16,8 @@ func focus() -> void:
 	orb_tween.parallel().tween_property(orb2, 'position', Vector2(65, -80), 0.15)
 	orb_tween.parallel().tween_property(orb1, 'position', Vector2(22, -80), 0.15)
 	
-func un_focus() -> void:
-	.un_focus()
+func unfocus() -> void:
+	.unfocus()
 	orb_tween.kill()
 	orb_tween = create_tween()
 	orb_tween.tween_property(orb1, 'position', Vector2(-65, 54), 0.15)

@@ -1,11 +1,10 @@
 using Godot;
-using System;
 
 public class DynamicSpeed : BulletBasic {
     [Export] public float finalSpeed {
         set {
             deltaV = value - speed;
-            absDeltaV = Math.Abs(deltaV);
+            absDeltaV = Mathf.Abs(deltaV);
         }
         get {return speed + deltaV;}
     }
@@ -53,7 +52,7 @@ public class DynamicSpeed : BulletBasic {
         
         for (uint i = 0; i != index; i++) {
             RID sprite = bullets[i].sprite;
-            fx.SpawnItem(bullets[i].transform.origin, 727);
+            fx.SpawnItem(bullets[i].transform.origin);
             sprites.Push(sprite);
             VisualServer.CanvasItemSetVisible(sprite, false);
         }
@@ -80,7 +79,7 @@ public class DynamicSpeed : BulletBasic {
             Bullet bullet = bullets[i];
             if (bullet.deltaV > 0.0) {
                 float a = acceleration * delta;
-                bullet.deltaV -= Math.Abs(a);
+                bullet.deltaV -= Mathf.Abs(a);
                 bullet.velocity += a;
             }
             bullet.transform.origin += new Vector2(bullet.velocity * delta, 0).Rotated(bullet.transform.Rotation - (float)1.57);
@@ -104,7 +103,7 @@ public class DynamicSpeed : BulletBasic {
                     continue;
                 }
                 bullet.grazable = false;
-                fx.SpawnItem(bullet.transform.origin, 72);
+                grazefx.SpawnItem(bullet.transform.origin);
                 bullets[newIndex] = bullet;
                 newIndex++;
                 continue;
@@ -121,7 +120,7 @@ public class DynamicSpeed : BulletBasic {
                 VisualServer.CanvasItemSetVisible(bullet.sprite, false);
                 if (colliderLayer == 1.0) {continue;}
                 
-                Godot.Object collider = GD.InstanceFromId(((ulong) (int)result["collider_id"]));
+                Object collider = GD.InstanceFromId(((ulong) (int)result["collider_id"]));
                 collider.Call("_hit");
                 fx.hit((Vector2)result["point"]);
             }

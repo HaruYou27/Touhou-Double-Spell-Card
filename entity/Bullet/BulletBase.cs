@@ -66,12 +66,14 @@ public class BulletBase : Node2D {
 	protected uint index;
 	protected Node2D[] barrels;
 	protected Node Global;
+	protected GrazeFx grazefx;
 	protected BulletFx fx;
 
 	public override void _Ready() {
 		world = GetWorld2d();
 		Global = GetNode("/root/Global");
 		fx = GetNode<BulletFx>("/root/BulletFx");
+		grazefx = GetNode<GrazeFx>("/root/GrazeFx");
 
 		int size = Barrels.Count;
 		if (size == 0) {
