@@ -24,7 +24,6 @@ radius = 40.0
 height = 1024.0
 
 [node name="Stage" type="Node"]
-pause_mode = 2
 script = ExtResource( 3 )
 level = NodePath("Playground/wing")
 stage_name = "zgfxgx d gff"
@@ -38,6 +37,7 @@ rect_min_size = Vector2( 646, 904 )
 
 [node name="Pause" type="ColorRect" parent="Playground"]
 pause_mode = 2
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 color = Color( 0.172549, 0.172549, 0.172549, 0.529412 )
@@ -91,6 +91,11 @@ position = Vector2( 317, 799 )
 
 [node name="wing" parent="Playground" instance=ExtResource( 1 )]
 color = Color( 1, 1, 1, 0 )
+
+[node name="Death" type="ColorRect" parent="Playground"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0.945098, 0.101961, 0.101961, 0.533333 )
 
 [node name="hud" type="Sprite" parent="."]
 z_index = 4096

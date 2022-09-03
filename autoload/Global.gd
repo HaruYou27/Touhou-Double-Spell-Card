@@ -14,6 +14,7 @@ func _set_player(value:Node2D) -> void:
 	player = value
 	BulletFx.target = value
 	GrazeFx.target = value
+	ItemManager.target = value
 
 func _ready() -> void:
 	save = load('user://save.res')

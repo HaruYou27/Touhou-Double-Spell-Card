@@ -1,5 +1,4 @@
 using Godot;
-using System.Collections.Generic;
 public class BulletBasic : BulletBase {
     //The most simplist bullet.
     private struct Bullet {
@@ -15,40 +14,21 @@ public class BulletBasic : BulletBase {
             velocity = new Vector2(speed, 0).Rotated(trans.Rotation);
         }   
     }
-    protected Stack<RID> sprites;
     private Bullet[] bullets;
         
     public override void _EnterTree() {
         bullets = new Bullet[maxBullet];
     }
-    public override void _Ready() {
-        base._Ready();
-        sprites = new Stack<RID>(maxBullet);
-        Rect2 texRect = new Rect2(-textureSize / 2, textureSize);
-        for (uint i = 0; i != maxBullet; i++) {
-            RID sprite = VisualServer.CanvasItemCreate();
-            VisualServer.CanvasItemSetZIndex(sprite, zIndex);
-            VisualServer.CanvasItemSetParent(sprite, world.Canvas);
-            VisualServer.CanvasItemSetLightMask(sprite, lightLayer);
-            //Due to a bug in visual server, normal map rid can not be null, which is, null by default.
-            VisualServer.CanvasItemAddTextureRect(sprite, texRect, textureRID, false, null, false, textureRID);
-            if (material != null) {
-                VisualServer.CanvasItemSetMaterial(sprite, material.GetRid());
-            }
-            VisualServer.CanvasItemSetVisible(sprite, false);
-            sprites.Push(sprite);
-        }
-    }
     public override void _ExitTree() {
         foreach (RID sprite in sprites) {
             VisualServer.FreeRid(sprite);
         }
-        if (index != 0) {
-            for (uint i = 0; i != index; i++) {
-                VisualServer.FreeRid(bullets[i].sprite);
-            }
+		Physics2DServer.FreeRid(hitbox);
+    
+        if (index == 0) {return;}
+        for (uint i = 0; i != index; i++) {
+            VisualServer.FreeRid(bullets[i].sprite);
         }
-        Physics2DServer.FreeRid(hitbox);
     }
     public virtual void Flush() {
         if (index == 0) {return;}

@@ -5,11 +5,12 @@ public class BulletFx : GrazeFx {
 	private const uint maxItem = 4727;
 
 	private Texture hitFx = GD.Load<Texture>("res://autoload/bulletFx/hitfx.png");
-	private Material fxMaterial = GD.Load<Material>("res://autoload/bulletFx/hitFx.material");
+	private ShaderMaterial fxMaterial = GD.Load<ShaderMaterial>("res://autoload/bulletFx/hitFx.material");
 	protected RID fxRID;
 	protected Vector2 fxSize;
 	protected Vector2 fxOffset;
 	protected RID fxCanvas;
+	protected bool tick;
 
 	public override void _Ready() {
 		base._Ready();
@@ -17,7 +18,7 @@ public class BulletFx : GrazeFx {
 		fxCanvas = VisualServer.CanvasItemCreate();
 		VisualServer.CanvasItemSetMaterial(fxCanvas, fxMaterial.GetRid());
 		VisualServer.CanvasItemSetParent(fxCanvas, world.Canvas);
-		VisualServer.CanvasItemSetZIndex(fxCanvas, 4096);
+		VisualServer.CanvasItemSetZIndex(fxCanvas, 3000);
 		fxSize = hitFx.GetSize();
 		fxOffset = -fxSize / 2;
 		fxRID = hitFx.GetRid();
@@ -31,11 +32,14 @@ public class BulletFx : GrazeFx {
 		VisualServer.CanvasItemAddTextureRect(fxCanvas, new Rect2(fxOffset + position, fxSize), fxRID, false, null, false, fxRID);
 	}
 	public override void _PhysicsProcess(float delta) {
-		VisualServer.CanvasItemClear(fxCanvas);
+		if (tick) {
+			tick = false;
+			VisualServer.CanvasItemClear(fxCanvas);
+		} else {tick = true;}
+		VisualServer.CanvasItemClear(canvas);
 
 		if (index == 0) {return;}
 		uint newIndex = 0;
-		VisualServer.CanvasItemClear(canvas);
 
 		for (uint i = 0; i != index; i++) {
 			Vector2 item = items[i];

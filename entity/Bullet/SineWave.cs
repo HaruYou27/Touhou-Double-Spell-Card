@@ -104,11 +104,11 @@ public class SineWave : BulletBasic {
         foreach (RID sprite in sprites) {
             VisualServer.FreeRid(sprite);
         }
-        if (index != 0) {
-            for (uint i = 0; i != index; i++) {
-                VisualServer.FreeRid(bullets[i].sprite);
-            }
+		Physics2DServer.FreeRid(hitbox);
+    
+        if (index == 0) {return;}
+        for (uint i = 0; i != index; i++) {
+            VisualServer.FreeRid(bullets[i].sprite);
         }
-        Physics2DServer.FreeRid(hitbox);
     }
 }

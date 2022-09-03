@@ -2,7 +2,8 @@ extends Node
 
 onready var player : Node2D = get_parent()
 onready var playground : Control = player.get_parent()
-onready var focus_speed :int = player.speed / 4
+
+var focus_speed :int = 172
 
 func _physics_process(_delta) -> void:
 	var mouse_local := player.get_local_mouse_position()

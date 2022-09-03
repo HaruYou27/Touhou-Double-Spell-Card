@@ -43,6 +43,7 @@ func _physics_process(delta:float) -> void:
 	
 	tree.call_group('enemy', 'destroy')
 	tree.call_group('bullet', 'Flush')
+	ItemManager.autoCollect = true
 	OS.delay_msec(15)
 	Global.emit_signal("shake", 30)
 	var boss = Global.boss
@@ -51,23 +52,23 @@ func _physics_process(delta:float) -> void:
 	hp_tween = create_tween()
 	hp_tween.tween_property(boss.heath_gauge, 'value', boss.hp, 1.0)
 	
-	seal.emitting = false
+	seal.emitting = true
 	seal.get_node('trail').emitting = false
-	seal.get_node('explosion').emitting = true
+	seal.get_node('orb').queue_free()
 	if seals.size():
 		seal = seals.pop_back()
 	else:
 		emit_signal("done")
 		set_physics_process(false)
 		set_process(false)
-		var timer = tree.create_timer(2)
+		var timer = tree.create_timer(2.0)
 		timer.connect("timeout", self, 'queue_free')
 
 func _process(delta:float) -> void:
 	var index := 0
+	var phi = TAU * delta
 	for seal in seals:
 		var velocity = velocities[index]
-		var phi = TAU * delta
 		seal.position = (local_pos[index] + velocity * delta).rotated(phi)
 		local_pos[index] = seal.position
 		seal.position += Global.player.global_position

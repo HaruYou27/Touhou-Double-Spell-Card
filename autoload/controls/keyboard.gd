@@ -1,8 +1,8 @@
 extends Node
 
 onready var player :Node2D = get_parent()
-onready var autoshoot := Global.save.auto_shoot
 onready var tree := get_tree()
+onready var autoshoot :bool = not Global.save.auto_shoot
 
 var focus := 1.0
 
@@ -13,14 +13,23 @@ func _unhandled_input(event):
 	elif event.is_action_released("focus"):
 		focus = 1
 		player.unfocus()
+	elif event.is_action_pressed("bomb"):
+		player.bomb()
+		if tree.paused:
+			tree.paused = false
+			
+func bomb_only() -> void:
+	set_physics_process(false)
+	set_process_input(false)
+	
+func _bomb_done() -> void:
+	set_physics_process(true)
+	set_process_input(autoshoot)
+	
+func _ready():
+	set_process_input(autoshoot)
 
 func _physics_process(delta:float) -> void:
-	if not autoshoot:
-		if Input.is_action_just_pressed("shoot"):
-			tree.set_group('player_bullet', 'shooting', true)
-		elif Input.is_action_just_released("shoot"):
-			tree.set_group('player_bullet', 'shooting', false)
-	
 	var x = Input.get_axis("ui_left", "ui_right")
 	var y = Input.get_axis("ui_up", "ui_down")
 	if not x and not y:
@@ -32,7 +41,7 @@ func _physics_process(delta:float) -> void:
 	player.position.y = clamp(player.position.y, 0.0, 904.0)
 
 func _input(event:InputEvent) -> void:
-	if event.is_action_pressed("bomb"):
-		player.bomb()
-		if tree.paused:
-			tree.paused = false
+	if event.is_action_pressed("shoot"):
+		tree.set_group('player_bullet', 'shooting', true)
+	elif event.is_action_released("shoot"):
+		tree.set_group('player_bullet', 'shooting', false)

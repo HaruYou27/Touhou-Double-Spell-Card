@@ -12,7 +12,7 @@ export (NodePath) var level
 export (String) var stage_name
 
 onready var tree = get_tree()
-onready var pause_menu :ColorRect = $Playground/Pause
+onready var death_overlay :ColorRect = $Playground/Death
 
 onready var playground :Control = $Playground
 onready var ray :RayCast2D = $Playground/RayCast2D
@@ -23,14 +23,9 @@ onready var point_label :Label = $hud/VBoxContainer/Point
 onready var bomb_label :Label = $hud/VBoxContainer/Bomb
 onready var goal_label :Label = $hud/VBoxContainer/Goal
 
-func _unhandled_input(event):
-	if event.is_action_pressed("pause"):
-		playground.add_child(pause_menu)
-		tree.paused = true
-		
 func _physics_process(_delta) -> void:
 	if ray.is_colliding():
-		ItemManager.target = Global.player
+		ItemManager.autoCollect = true
 		
 func _process(_delta) -> void:
 	if shake_frames:
@@ -56,7 +51,8 @@ func _ready() -> void:
 	level = get_node(level)
 	bomb_label.text = bomb_label.text % Global.save.init_bomb
 	set_process(false)
-	playground.remove_child(pause_menu)
+	playground.remove_child(death_overlay)
+	VisualServer.canvas_item_set_z_index(death_overlay.get_canvas_item(), 4000)
 
 func shake(duration:int) -> void:
 	shake_frames += duration

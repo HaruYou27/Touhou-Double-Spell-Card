@@ -1,5 +1,5 @@
 using Godot;
-
+using System.Collections.Generic;
 //Abstract class of all bullet, mostly just export variable.
 public class BulletBase : Node2D {
 	//Physics properties.
@@ -68,6 +68,7 @@ public class BulletBase : Node2D {
 	protected Node Global;
 	protected GrazeFx grazefx;
 	protected BulletFx fx;
+	protected Stack<RID> sprites;
 
 	public override void _Ready() {
 		world = GetWorld2d();
@@ -90,6 +91,22 @@ public class BulletBase : Node2D {
 				barrels[i] = parent.GetNode<Node2D>((NodePath)Barrels[i]);
 			}
 		}
+
+		sprites = new Stack<RID>(maxBullet);
+        Rect2 texRect = new Rect2(-textureSize / 2, textureSize);
+        for (uint i = 0; i != maxBullet; i++) {
+            RID sprite = VisualServer.CanvasItemCreate();
+            VisualServer.CanvasItemSetZIndex(sprite, zIndex);
+            VisualServer.CanvasItemSetParent(sprite, world.Canvas);
+            VisualServer.CanvasItemSetLightMask(sprite, lightLayer);
+            //Due to a bug in visual server, normal map rid can not be null, which is, null by default.
+            VisualServer.CanvasItemAddTextureRect(sprite, texRect, textureRID, false, null, false, textureRID);
+            if (material != null) {
+                VisualServer.CanvasItemSetMaterial(sprite, material.GetRid());
+            }
+            VisualServer.CanvasItemSetVisible(sprite, false);
+            sprites.Push(sprite);
+		}
 	}
 	private void CreateCollisionShape(in Vector2 size) {
 			if (hitbox != null) {
@@ -105,3 +122,4 @@ public class BulletBase : Node2D {
 			query.ShapeRid = hitbox;
 	}
 }
+

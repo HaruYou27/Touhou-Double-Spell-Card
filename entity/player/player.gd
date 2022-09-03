@@ -53,10 +53,10 @@ func bomb() -> void:
 		collision_layer = 0
 		graze.collision_layer = 0
 		tree.set_group('player_bullet', 'shooting', false)
-		input.set_process_input(false)
 		
 		var bomb_node :Node2D = bomb_scene.instance()
 		bomb_node.connect('done', self, '_bomb_done')
+		bomb_node.connect('done', input, '_bomb_done')
 		Global.add_child(bomb_node)
 		Global.emit_signal("bomb")
 
@@ -64,4 +64,3 @@ func _bomb_done():
 	collision_layer = 4
 	graze.collision_layer = 8
 	tree.set_group('player_bullet', 'shooting', true)
-	input.set_process_input(true)

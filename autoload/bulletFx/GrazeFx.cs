@@ -43,7 +43,7 @@ public class GrazeFx : Node2D {
 
 		for (uint i = 0; i != index; i++) {
 			Vector2 item = items[i];
-			item += item.Rotated(Mathf.Pi).Normalized() * 72 * delta;
+			item -= item.Normalized() * 72 * delta;
 			Vector2 Gposition = item + target.GlobalPosition;
 			VisualServer.CanvasItemAddTextureRect(canvas, new Rect2(offset + Gposition, textureSize), textureRID, false, null, false, textureRID);
 
