@@ -5,13 +5,11 @@ public class ItemManager : Node {
 	private struct Item {
 		public Transform2D transform;
 		public Vector2 velocity;
-		public bool targetLocked;
 		public readonly RID sprite;
 		public Item(in Vector2 position, in RID canvas) {
 			transform = new Transform2D(GD.Randf() * Mathf.Tau, position);
 			sprite = canvas;
 			velocity = new Vector2(GD.Randf() * 27, 0).Rotated(GD.Randf() * Mathf.Tau);
-			targetLocked = false;
 		}
 	}
 	private Item[] items = new Item[maxItem];
