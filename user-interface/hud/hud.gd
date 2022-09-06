@@ -1,4 +1,4 @@
-extends Node
+extends Control
 class_name Stage
 
 var point := 1
@@ -12,16 +12,15 @@ export (NodePath) var level
 export (String) var stage_name
 
 onready var tree = get_tree()
-onready var death_overlay :ColorRect = $Playground/Death
+onready var screenFx :ColorRect = $Playground/screenFx
 
-onready var playground :Control = $Playground
 onready var ray :RayCast2D = $Playground/RayCast2D
 
-onready var score_label :Label = $hud/VBoxContainer/Score
-onready var graze_label :Label = $hud/VBoxContainer/Graze
-onready var point_label :Label = $hud/VBoxContainer/Point
-onready var bomb_label :Label = $hud/VBoxContainer/Bomb
-onready var goal_label :Label = $hud/VBoxContainer/Goal
+onready var score_label :Label = $background/VBoxContainer/Score
+onready var graze_label :Label = $background/VBoxContainer/Graze
+onready var point_label :Label = $background/VBoxContainer/Point
+onready var bomb_label :Label = $background/VBoxContainer/Bomb
+onready var goal_label :Label = $background/VBoxContainer/Goal
 
 func _physics_process(_delta) -> void:
 	if ray.is_colliding():
@@ -30,9 +29,9 @@ func _physics_process(_delta) -> void:
 func _process(_delta) -> void:
 	if shake_frames:
 		shake_frames -= 1
-		playground.rect_position += Vector2(rand_range(-1.0, 1.0), rand_range(-1.0, 1.0))
+		rect_position += Vector2(rand_range(-1.0, 1.0), rand_range(-1.0, 1.0))
 	else:
-		playground.rect_position = Vector2(60, 28)
+		rect_position = Vector2(60, 28)
 		set_process(false)
 
 func _ready() -> void:
@@ -40,8 +39,10 @@ func _ready() -> void:
 	Global.connect('graze', self, '_update_graze')
 	Global.connect('bomb', self, '_update_bomb')
 	Global.connect('shake', self, 'shake')
+	
+	
 	if Global.save.hi_score.has(stage_name):
-		var hi_score :Label = $hud/VBoxContainer/HiScore
+		var hi_score :Label = $background/VBoxContainer/HiScore
 		hi_score.text = hi_score.text % Global.save.hi_score[stage_name]
 		Global.save.retry_count[stage_name] += 1
 	else:
@@ -51,8 +52,11 @@ func _ready() -> void:
 	level = get_node(level)
 	bomb_label.text = bomb_label.text % Global.save.init_bomb
 	set_process(false)
-	playground.remove_child(death_overlay)
-	VisualServer.canvas_item_set_z_index(death_overlay.get_canvas_item(), 4000)
+	remove_child(screenFx)
+	VisualServer.canvas_item_set_z_index(screenFx.get_canvas_item(), 4000)
+	
+func flash() -> void:
+	screenFx.color = Color()
 
 func shake(duration:int) -> void:
 	shake_frames += duration
@@ -90,4 +94,4 @@ func save_score() -> void:
 func _next() -> void:
 	level.queue_free()
 	level = levels.pop_back().instance()
-	playground.add_child(level)
+	add_child(level)

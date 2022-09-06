@@ -7,6 +7,8 @@ enum difficulty {EASY, NORMAL, HARD}
 
 var auto_shoot := true
 var input_method = input.KEYBOARD
+var point_sentivity := 1.0
+
 var death_time := 1.0
 var init_bomb := 3
 var bomb_damage := 0.5

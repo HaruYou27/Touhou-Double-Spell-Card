@@ -2,6 +2,7 @@ extends Node
 
 onready var player : Node2D = get_parent()
 onready var focus_speed :int = player.speed / 4
+onready var multipler :float = Global.save.point_sentivity
 
 func _unhandled_input(event:InputEvent) -> void:
 	if not event is InputEventScreenDrag:
@@ -15,6 +16,6 @@ func _unhandled_input(event:InputEvent) -> void:
 		Input.action_release("focus")
 	var angle = deltaPosition.angle()
 	
-	player.position += deltaPosition
+	player.position += deltaPosition * multipler
 	player.position.x = clamp(player.position.x, 0.0, 646.0)
 	player.position.y = clamp(player.position.y, 0.0, 904.0)

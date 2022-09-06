@@ -74,10 +74,10 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://entity/player/player.gd"
 }, {
-"base": "Node",
+"base": "Control",
 "class": "Stage",
 "language": "GDScript",
-"path": "res://user-interface/hud/stage.gd"
+"path": "res://user-interface/hud/hud.gd"
 }, {
 "base": "Resource",
 "class": "saveData",

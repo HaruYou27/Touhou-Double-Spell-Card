@@ -63,4 +63,4 @@ func bomb() -> void:
 func _bomb_done():
 	collision_layer = 4
 	graze.collision_layer = 8
-	tree.set_group('player_bullet', 'shooting', true)
+	tree.set_group('player_bullet', 'shooting', Global.save.auto_shoot)

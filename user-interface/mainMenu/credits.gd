@@ -4,11 +4,6 @@ onready var back :Button = $back
 onready var back_label :Label = $back/Label
 onready var tween := create_tween()
 
-func _unhandled_input(event):
-	if event.is_action_pressed('pause'):
-		back.emit_signal("pressed")
-		set_process_unhandled_input(false)
-		
 func _on_back_focus_entered():
 	tween.kill()
 	tween = create_tween()
