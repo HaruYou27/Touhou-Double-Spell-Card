@@ -12,7 +12,11 @@ var point_sentivity := 1.0
 var death_time := 1.0
 var init_bomb := 3
 var bomb_damage := 0.5
+
 var screen_shake := true
+var screen_flash := true
+var bgm_db := 100
+var sfx_db := 100
 
 var hi_score := {}
 var retry_count := {}

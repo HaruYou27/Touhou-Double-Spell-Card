@@ -43,8 +43,8 @@ public class BulletBasic : BulletBase {
     }
     public override void _PhysicsProcess(float delta) {
         if (shooting) {
-            if (heat == 0) {
-                heat = cooldown;
+            if (heat <= 0) {
+                heat += cooldown;
                 foreach (Node2D barrel in barrels) {
 			    if (index == maxBullet) {break;}
 			    Bullet bullet = new Bullet(speed, barrel.GlobalTransform, sprites.Pop(), grazable);
@@ -52,10 +52,11 @@ public class BulletBasic : BulletBase {
 			    bullets[index] = bullet;
 			    index++;
 		        }
-            } else {heat--;}}
-        if (index == 0) {return;}
+            } else {heat -= delta;}}
 
+        if (index == 0) {return;}
         uint newIndex = 0;
+        
         for (uint i = 0;i != index; i++) {
             Bullet bullet = bullets[i];
             bullet.transform.origin += bullet.velocity * delta;

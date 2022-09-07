@@ -13,7 +13,7 @@ export (String) var stage_name
 
 onready var tree = get_tree()
 onready var screenFx :ColorRect = $Playground/screenFx
-
+onready var tween := create_tween()
 onready var ray :RayCast2D = $Playground/RayCast2D
 
 onready var score_label :Label = $background/VBoxContainer/Score
@@ -40,7 +40,6 @@ func _ready() -> void:
 	Global.connect('bomb', self, '_update_bomb')
 	Global.connect('shake', self, 'shake')
 	
-	
 	if Global.save.hi_score.has(stage_name):
 		var hi_score :Label = $background/VBoxContainer/HiScore
 		hi_score.text = hi_score.text % Global.save.hi_score[stage_name]
@@ -56,7 +55,10 @@ func _ready() -> void:
 	VisualServer.canvas_item_set_z_index(screenFx.get_canvas_item(), 4000)
 	
 func flash() -> void:
-	screenFx.color = Color()
+	screenFx.color = Color(1, 1, 1, .75)
+	tween.kill()
+	tween = create_tween()
+	tween.tween_property(screenFx, 'color', Color(1, 1, 1, 0), .15)
 
 func shake(duration:int) -> void:
 	shake_frames += duration

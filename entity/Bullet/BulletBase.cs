@@ -50,18 +50,18 @@ public class BulletBase : Node2D {
 	protected RID textureRID;
 	
 	[Export] public bool shooting;
-	[Export] public uint firerate {
+	[Export] public float firerate {
 		set {
 			if (value > 0) {
-				cooldown = (60 - value) / value;
+				cooldown = 1 / value;
 			}
 		}
 		get {return cooldown;}
 	}
 	[Export] public Godot.Collections.Array Barrels = new Godot.Collections.Array();
-	[Export] public uint cooldown;
+	[Export] public float cooldown;
 
-	protected uint heat;
+	protected float heat;
 	protected World2D world;
 	protected uint index;
 	protected Node2D[] barrels;

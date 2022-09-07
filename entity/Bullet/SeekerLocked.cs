@@ -36,8 +36,8 @@ public class SeekerLocked : BulletBasic {
     }
     public override void _PhysicsProcess(float delta) {
         if (shooting) {
-            if (heat == 0) {
-                heat = cooldown;
+            if (heat <= 0) {
+                heat += cooldown;
                 foreach (Node2D barrel in barrels) {
 			    if (index == maxBullet) {break;}
 			    Bullet bullet = new Bullet(speed, barrel.GlobalTransform, sprites.Pop(), grazable);
@@ -45,7 +45,7 @@ public class SeekerLocked : BulletBasic {
 			    bullets[index] = bullet;
 			    index++;
 		        }
-            } else {heat--;}}
+            } else {heat -= delta;}}
         if (index == 0) {
             return;
         }

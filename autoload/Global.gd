@@ -6,7 +6,7 @@ signal collect
 signal shake(duration)
 signal freeze
 
-var save : saveData
+var save_data : saveData
 var player setget _set_player
 var boss
 
@@ -17,8 +17,8 @@ func _set_player(value:Node2D) -> void:
 	ItemManager.target = value
 
 func _ready() -> void:
-	save = load('user://save.res')
-	if not save:
-		save = preload("res://autoload/save.gd").new()
-		save.save()
+	save_data = load('user://save.res')
+	if not save_data:
+		save_data = preload("res://autoload/save.gd").new()
+		save_data.save()
 	randomize()
