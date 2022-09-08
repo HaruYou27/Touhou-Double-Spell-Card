@@ -13,7 +13,6 @@ export (String) var stage_name
 
 onready var tree = get_tree()
 onready var screenFx :ColorRect = $Playground/screenFx
-onready var tween := create_tween()
 onready var ray :RayCast2D = $Playground/RayCast2D
 
 onready var score_label :Label = $background/VBoxContainer/Score
@@ -56,9 +55,7 @@ func _ready() -> void:
 	
 func flash() -> void:
 	screenFx.color = Color(1, 1, 1, .75)
-	tween.kill()
-	tween = create_tween()
-	tween.tween_property(screenFx, 'color', Color(1, 1, 1, 0), .15)
+	create_tween().tween_property(screenFx, 'color', Color.transparent, .15)
 
 func shake(duration:int) -> void:
 	shake_frames += duration

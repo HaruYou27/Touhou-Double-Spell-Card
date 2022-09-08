@@ -20,5 +20,5 @@ func _ready() -> void:
 	save_data = load('user://save.res')
 	if not save_data:
 		save_data = preload("res://autoload/save.gd").new()
-		save_data.save()
+		save_data.new_save()
 	randomize()

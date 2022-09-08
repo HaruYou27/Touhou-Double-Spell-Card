@@ -2,7 +2,7 @@ extends Node
 
 onready var player :Node2D = get_parent()
 onready var tree := get_tree()
-onready var autoshoot :bool = not Global.save.auto_shoot
+onready var autoshoot :bool = not Global.save_data.auto_shoot
 
 var focus := 1.0
 

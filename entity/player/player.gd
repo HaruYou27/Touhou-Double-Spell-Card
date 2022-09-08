@@ -5,9 +5,8 @@ onready var hit : Sprite = $hit
 onready var focus : Sprite = $focus
 onready var graze : StaticBody2D = $graze
 onready var tree := get_tree()
-onready var bombs :int = Global.save.init_bomb
-onready var tween := create_tween()
-onready var death_time = Global.save.death_time
+onready var bombs :int = Global.save_data.init_bomb
+onready var death_time = Global.save_data.death_time
 
 var input :Node
 
@@ -15,14 +14,12 @@ export (PackedScene) var bomb_scene
 
 func _ready() -> void:
 	Global.player = self
-	if Global.save.input_method == saveData.input.KEYBOARD:
-		input = preload("res://autoload/controls/keyboard.gd").new()
-	elif Global.save.input_method == saveData.input.MOUSE:
-		input = preload("res://autoload/controls/mouse.gd").new()
+	if Global.save_data.use_mouse:
+		input = preload("res://autoload/controls/mouse.gd").new()		
 	else:
-		input = preload("res://autoload/controls/touch.gd").new()
+		input = preload("res://autoload/controls/keyboard.gd").new()
 	add_child(input)
-	tree.set_group('player_bullet', 'shooting', Global.save.auto_shoot)
+	tree.set_group('player_bullet', 'shooting', Global.save_data.auto_shoot)
 	remove_child(hit)
 	
 func _hit() -> void:
@@ -38,14 +35,12 @@ func _hit() -> void:
 	tween.tween_callback(Global, 'emit_signal', ['die'])"""
 
 func unfocus() -> void:
-	tween.kill()
-	tween = create_tween()
-	tween.tween_property(focus, 'modulate', Color(1.0, 1.0, 1.0, 0.0), 0.15)
+	var tween = create_tween()
+	tween.tween_property(focus, 'modulate', Color.transparent, 0.15)
 	
 func focus() -> void:
-	tween.kill()
-	tween = create_tween()
-	tween.tween_property(focus, 'modulate', Color(1.0, 1.0, 1.0, 1.0), 0.15)
+	var tween = create_tween()
+	tween.tween_property(focus, 'modulate', Color.white, 0.15)
 
 func bomb() -> void:
 	if bombs:
@@ -63,4 +58,4 @@ func bomb() -> void:
 func _bomb_done():
 	collision_layer = 4
 	graze.collision_layer = 8
-	tree.set_group('player_bullet', 'shooting', Global.save.auto_shoot)
+	tree.set_group('player_bullet', 'shooting', Global.save_data.auto_shoot)

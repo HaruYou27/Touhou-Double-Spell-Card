@@ -9,6 +9,26 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Button",
+"class": "AnimatedButton",
+"language": "GDScript",
+"path": "res://user-interface/mainMenu/resource/AnimatedButton.gd"
+}, {
+"base": "AnimatedTextButton",
+"class": "AnimatedLabelButton",
+"language": "GDScript",
+"path": "res://user-interface/mainMenu/resource/AnimatedLabelButton.gd"
+}, {
+"base": "AnimatedButton",
+"class": "AnimatedTextButton",
+"language": "GDScript",
+"path": "res://user-interface/mainMenu/resource/AnimatedTextButton.gd"
+}, {
+"base": "Button",
+"class": "BackButton",
+"language": "GDScript",
+"path": "res://user-interface/mainMenu/resource/BackButton.gd"
+}, {
 "base": "Area2D",
 "class": "Boss",
 "language": "GDScript",
@@ -85,6 +105,10 @@ _global_script_classes=[ {
 "path": "res://autoload/save.gd"
 } ]
 _global_script_class_icons={
+"AnimatedButton": "",
+"AnimatedLabelButton": "",
+"AnimatedTextButton": "",
+"BackButton": "",
 "Boss": "",
 "DTS": "",
 "Dialogic": "",
