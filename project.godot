@@ -14,17 +14,12 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://user-interface/mainMenu/resource/AnimatedButton.gd"
 }, {
-"base": "AnimatedTextButton",
-"class": "AnimatedLabelButton",
-"language": "GDScript",
-"path": "res://user-interface/mainMenu/resource/AnimatedLabelButton.gd"
-}, {
 "base": "AnimatedButton",
 "class": "AnimatedTextButton",
 "language": "GDScript",
 "path": "res://user-interface/mainMenu/resource/AnimatedTextButton.gd"
 }, {
-"base": "Button",
+"base": "AnimatedButton",
 "class": "BackButton",
 "language": "GDScript",
 "path": "res://user-interface/mainMenu/resource/BackButton.gd"
@@ -94,6 +89,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://entity/player/player.gd"
 }, {
+"base": "Label",
+"class": "ScrollButton",
+"language": "GDScript",
+"path": "res://user-interface/mainMenu/resource/ScrollButton.gd"
+}, {
 "base": "Control",
 "class": "Stage",
 "language": "GDScript",
@@ -106,7 +106,6 @@ _global_script_classes=[ {
 } ]
 _global_script_class_icons={
 "AnimatedButton": "",
-"AnimatedLabelButton": "",
 "AnimatedTextButton": "",
 "BackButton": "",
 "Boss": "",
@@ -122,6 +121,7 @@ _global_script_class_icons={
 "DialogicUtil": "",
 "HistoryRow": "",
 "Player": "",
+"ScrollButton": "",
 "Stage": "",
 "saveData": ""
 }

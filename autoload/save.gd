@@ -13,7 +13,7 @@ export (int) var init_bomb := 3
 export (float) var bomb_damage := 0.5
 
 #Graphic
-export (Vector2) var resolution :Vector2 setget _set_resolution
+export (Vector2) var resolution := Vector2(960, 720) setget _set_resolution
 export (bool) var fullscreen := false setget _set_fullscreen
 export (bool) var borderless := false setget _set_borderless
 export (bool) var screen_shake := true
@@ -29,6 +29,8 @@ export (float) var sfx_db := 0.0 setget _set_sfx_db
 #Score
 export (Dictionary) var hi_score := {}
 export (Dictionary) var try_count := {}
+
+onready var release := not OS.is_debug_build()
 
 func new_save() -> void:
 	var res := OS.get_screen_size().x
@@ -81,5 +83,5 @@ func _set_fullscreen(value:bool) -> void:
 	save()
 
 func save() -> void:
-	if not OS.is_debug_build:
+	if release:
 		ResourceSaver.save('user://save.res', self)

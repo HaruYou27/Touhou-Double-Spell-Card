@@ -5,7 +5,7 @@ onready var fade :ColorRect = $fade
 onready var bgm :AudioStreamPlayer = $Bgm
 onready var camera :Camera2D = $Camera2D
 
-onready var main :Button = $main/Button/start
+onready var main :Button = $main/Button/continue
 onready var settings :Button = $setting/TabContainer/Graphic/fullscreen
 
 const black := Color(.09, .09, .09, 1)

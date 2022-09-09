@@ -1,16 +1,25 @@
 extends Control
 
-onready var fps :OptionButton = $TabContainer/Graphic/fps
-onready var resolution :OptionButton = $TabContainer/Graphic/resolution
+#Graphic
+onready var fps :ScrollButton = $TabContainer/Graphic/GridContainer/fps
+onready var resolution :ScrollButton = $TabContainer/Graphic/GridContainer/resolution
+onready var fullscreen :AnimatedTextButton = $TabContainer/Graphic/fullscreen
+onready var borderless :AnimatedTextButton = $TabContainer/Graphic/borderless
+onready var shake :AnimatedTextButton = $TabContainer/Graphic/shake
+onready var flash :AnimatedTextButton = $TabContainer/Graphic/flash
+onready var vsync :AnimatedTextButton = $TabContainer/Graphic/vsync
 
 onready var back :BackButton = $back
 onready var tabcontainer :TabContainer = $TabContainer
 
 func _ready() -> void:
-	AudioServer.set_bus_volume_db(2, -80)
-	$TabContainer/Graphic/vsync.pressed = Global.save_data.vsync
-	fps.sel
-	AudioServer.set_bus_volume_db(2, 0)
+	vsync.set_pressed_no_signal(Global.save_data.vsync)
+	fullscreen.set_pressed_no_signal(Global.save_data.fullscreen)
+	flash.set_pressed_no_signal(Global.save_data.screen_flash)
+	shake.set_pressed_no_signal(Global.save_data.screen_shake)
+	vsync.set_pressed_no_signal(Global.save_data.vsync)
+	resolution.item = resolution.items.find(Global.save_data.resolution)
+	fps.item = fps.items.find(Global.save_data.target_fps)
 
 func _on_settings_pressed():
 	back.disabled = false
@@ -20,22 +29,19 @@ func _on_reset_pressed():
 	match tab:
 		0:
 			AudioServer.set_bus_volume_db(2, -80)
-			$TabContainer/Graphic/vsync.pressed = false
-			fps.selected = 2
+			vsync.pressed = false
+			fps.selected = 1
 			resolution.selected = 1
-			$TabContainer/Graphic/fullscreen.pressed = false
-			$TabContainer/Graphic/borderless.pressed = false
-			$TabContainer/Graphic/shake.pressed = true
-			$TabContainer/Graphic/flash.pressed = true
+			fullscreen.pressed = false
+			borderless.pressed = false
+			flash.pressed = true
+			shake.pressed = true
 			AudioServer.set_bus_volume_db(2, 0)
 
 #Graphic
 func _on_vsync_toggled(button_pressed):
 	Global.save_data.vsync = button_pressed
-	if button_pressed:
-		fps.disable = true
-	else:
-		fps.disable = false
+	fps.disabled = button_pressed
 
 func _on_flash_toggled(button_pressed):
 	Global.save_data.screen_flash = button_pressed
@@ -48,40 +54,17 @@ func _on_autoshoot_toggled(button_pressed):
 
 func _on_fullscreen_toggled(button_pressed):
 	Global.save_data.fullscreen = button_pressed
-	if button_pressed:
-		resolution.disabled = true
-	else:
-		resolution.disable = false
+	resolution.disabled = button_pressed
 
 func _on_borderless_toggled(button_pressed):
 	Global.save_data.borderless = button_pressed
-	
-func _on_resolution_item_selected(index):
-	match index:
-		0:
-			Global.save_data.resolution = Vector2(1280, 960)
-		1:
-			Global.save_data.resolution = Vector2(960, 720)
-		2:
-			Global.save_data.resolution = Vector2(720, 540)
-			
-func _on_fps_item_selected(index):
-	match index:
-		0:
-			Global.save_data.target_fps = 30
-		1: 
-			Global.save_data.target_fps = 60
-		2:
-			Global.save_data.target_fps = 75
-		3: 
-			Global.save_data.target_fps = 114
-		4: 
-			Global.save_data.target_fps = 120
-		5: 
-			Global.save_data.target_fps = 240
-		6:
-			Global.save_data.target_fps = 0
-	
+
+func _on_resolution_item_changed(item):
+	Global.save_data.resolution = resolution.get_item()
+
+func _on_fps_item_changed(item):
+	Global.save_data.target_fps = fps.get_item()
+
 #Audio
 func _on_master_value_changed(value):
 	Global.save_data.master_db = value
