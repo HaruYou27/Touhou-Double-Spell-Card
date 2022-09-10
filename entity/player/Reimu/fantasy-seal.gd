@@ -47,7 +47,7 @@ func _physics_process(delta:float) -> void:
 	OS.delay_msec(15)
 	Global.emit_signal("shake", 30)
 	var boss = Global.boss
-	boss.hp -= boss.max_hp * Global.save.bomb_damage / 4
+	boss.hp -= boss.max_hp / 8
 	hp_tween.kill()
 	hp_tween = create_tween()
 	hp_tween.tween_property(boss.heath_gauge, 'value', boss.hp, 1.0)

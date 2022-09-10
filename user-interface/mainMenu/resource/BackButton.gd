@@ -12,7 +12,7 @@ var cursor_default_pos :Vector2
 func _ready() -> void:
 	disabled = true
 	cursor = get_node(cursor)
-	cursor_pos = cursor.rect_position + direction
+	cursor_pos = cursor.rect_position + velocity
 	cursor_default_pos = cursor.rect_position
 	
 	shortcut = preload("res://user-interface/mainMenu/resource/escape.res")
@@ -24,6 +24,9 @@ func _ready() -> void:
 func _pressed() -> void:
 	disabled = true
 	press_fx.play()
+	
+func _on_mouse_entered() -> void:
+	_on_focus_entered()
 	
 func _on_button_down() -> void:
 	cursor.add_color_override('font_color', press_color)

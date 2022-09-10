@@ -23,7 +23,9 @@ func _ready() -> void:
 	mouse_filter = Control.MOUSE_FILTER_STOP
 	
 	left = get_node(left)
+	left.connect('pressed', self, '_on_left_pressed')
 	right = get_node(right)
+	right.connect('pressed', self, '_on_right_pressed')
 	
 	cursor = get_node(cursor)
 	cursor_pos = Vector2(cursor.position.x, rect_position.y + get_parent().rect_position.y + rect_size.y / 2)
@@ -34,7 +36,7 @@ func _ready() -> void:
 	connect("mouse_exited", self, '_on_focus_exited')
 	
 func _set_item(value:int) -> void:
-	if value < 0:
+	if item < 0:
 		item = item_count - 1
 	elif value == item_count:
 		item = 0
@@ -70,6 +72,8 @@ func _on_focus_exited() -> void:
 
 func _on_left_pressed():
 	self.item -= 1
+	accept_event()
 
 func _on_right_pressed():
 	self.item += 1
+	accept_event()

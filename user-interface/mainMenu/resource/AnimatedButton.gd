@@ -7,11 +7,11 @@ var final_pos :Vector2
 onready var press_fx :AudioStreamPlayer = $pressFX
 onready var focus_fx :AudioStreamPlayer = $focusFX
 
-export (Vector2) var direction := Vector2(20, 0)
+export (Vector2) var velocity := Vector2(20, 0)
 export (float) var animation_length := .15
 
 func _ready() -> void:
-	final_pos = default_pos + direction
+	final_pos = default_pos + velocity
 	
 	connect("focus_entered", self, '_on_focus_entered')
 	connect("focus_exited", self, "_on_focus_exited")

@@ -5,7 +5,7 @@ var point := 1
 var graze := 0
 var goal := 0
 var saved := false
-var shake_frames := 0
+var shaking := 0.0
 
 export (Array) var levels : Array
 export (NodePath) var level
@@ -25,11 +25,11 @@ func _physics_process(_delta) -> void:
 	if ray.is_colliding():
 		ItemManager.autoCollect = true
 		
-func _process(_delta) -> void:
-	if shake_frames:
-		shake_frames -= 1
+func _process(delta) -> void:
+	if shaking:
+		shaking -= delta
 		rect_position += Vector2(rand_range(-1.0, 1.0), rand_range(-1.0, 1.0))
-	else:
+	elif shaking <= 0.0:
 		rect_position = Vector2(60, 28)
 		set_process(false)
 
@@ -58,7 +58,7 @@ func flash() -> void:
 	create_tween().tween_property(screenFx, 'color', Color.transparent, .15)
 
 func shake(duration:int) -> void:
-	shake_frames += duration
+	shaking += duration
 	set_process(true)
 
 func _update_point() -> void:

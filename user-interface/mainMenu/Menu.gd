@@ -5,8 +5,8 @@ onready var fade :ColorRect = $fade
 onready var bgm :AudioStreamPlayer = $Bgm
 onready var camera :Camera2D = $Camera2D
 
-onready var main :Button = $main/Button/continue
-onready var settings :Button = $setting/TabContainer/Graphic/fullscreen
+onready var main :AnimatedTextButton = $main/Button/continue
+
 
 const black := Color(.09, .09, .09, 1)
 const fade_time := 1.0
@@ -26,7 +26,6 @@ func _on_help_pressed():
 	
 func _on_settings_pressed():
 	create_tween().tween_property(camera, 'position', Vector2(-1280, 0), .25)
-	settings.grab_focus()
 
 func _on_credits_pressed():
 	create_tween().tween_property(camera, 'position', Vector2(1280, 0), .25)
