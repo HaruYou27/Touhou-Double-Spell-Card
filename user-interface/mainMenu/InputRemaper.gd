@@ -1,59 +1,74 @@
-extends PopupPanel
+extends PopupDialog
 
 var action :String
 var button :AnimatedTextButton
 
-var parent := get_parent()
+onready var parent := get_parent().get_parent()
+onready var label :Label = $Label
 
 func _ready():
 	set_process_input(false)
 	
-func _on_cancel_pressed():
-	visible = false
-	set_process_input(false)
-
 func _input(event):
-	if not event is InputEventKey or not event is InputEventMouseButton or event.is_action('pause'):
+	if not event is InputEventKey or event.is_action('pause'):
 		return
 	InputMap.action_erase_events(action)
 	InputMap.action_add_event(action, event)
 	accept_event()
 	visible = false
 	set_process_input(false)
-	button.text = parent.templates[action] % OS.get_scancode_string(event.scancode)
+	button.update_label(OS.get_scancode_string(event.scancode))
+	Global.save_data.key_bind[action] = event.scancode
 
 func _on_left_pressed():
 	action = 'ui_left'
-	visible = true
+	label.text = 'Move Left'
+	popup()
 	set_process_input(true)
+	button = parent.keybind[0]
 
 func _on_right_pressed():
 	action = 'ui_right'
-	visible = true
+	label.text = 'Move Right'
+	popup()
 	set_process_input(true)
+	button = parent.keybind[1]
 
 func _on_up_pressed():
 	action = 'ui_up'
-	visible = true
+	label.text = 'Move Up'
+	popup()
 	set_process_input(true)
+	button = parent.keybind[2]
 
 func _on_down_pressed():
 	action = 'ui_down'
-	visible = true
+	label.text = 'Move Down'
+	popup()
 	set_process_input(true)
-
-func _on_shooting_pressed():
-	action = 'shoot'
-	visible = true
-	set_process_input(true)
-	button = parent.shooting
+	button = parent.keybind[3]
 
 func _on_focus_pressed():
 	action = 'focus'
-	visible = true
+	label.text = 'Enter Focus Mode'
+	popup()
 	set_process_input(true)
+	button = parent.keybind[4]
+
+func _on_shooting_pressed():
+	action = 'shoot'
+	label.text = 'Shoot'
+	popup()
+	set_process_input(true)
+	button = parent.keybind[5]
 
 func _on_bomb_pressed():
 	action = 'bomb'
-	visible = true
+	label.text = 'Use bomb'
+	popup()
 	set_process_input(true)
+	button = parent.keybind[6]
+
+func _on_Cancel_pressed():
+	visible = false
+	set_process_input(false)

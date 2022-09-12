@@ -15,7 +15,7 @@ func _ready() -> void:
 	cursor_pos = cursor.rect_position + velocity
 	cursor_default_pos = cursor.rect_position
 	
-	shortcut = preload("res://user-interface/mainMenu/resource/escape.res")
+	shortcut = preload("res://user-interface/resource/escape.res")
 	flat = true
 
 	connect("button_down", self, '_on_button_down')
@@ -23,7 +23,6 @@ func _ready() -> void:
 
 func _pressed() -> void:
 	disabled = true
-	press_fx.play()
 	
 func _on_mouse_entered() -> void:
 	_on_focus_entered()
@@ -33,7 +32,6 @@ func _on_button_down() -> void:
 	create_tween().tween_property(cursor, 'rect_position', cursor_pos, animation_length)
 	
 func _on_focus_entered() -> void:
-	focus_fx.play()
 	cursor.add_color_override('font_color', focus_color)
 	create_tween().tween_property(cursor, 'rect_position', cursor_pos, animation_length)
 	

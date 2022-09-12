@@ -22,13 +22,15 @@ export (float) var sfx_db := 0.0 setget _set_sfx_db
 export (bool) var auto_shoot := true
 export (bool) var use_mouse := true
 
-export (int) var left := KEY_LEFT
-export (int) var right := KEY_RIGHT
-export (int) var up := KEY_UP
-export (int) var down := KEY_DOWN
-export (int) var focus := KEY_SHIFT
-export (int) var bomb := KEY_X
-export (int) var shoot := KEY_Z
+export (Dictionary) var key_bind := {
+	'ui_left' : KEY_LEFT,
+	'ui_right' : KEY_RIGHT,
+	'ui_up' : KEY_UP,
+	'ui_down' : KEY_DOWN,
+	'focus' : KEY_SHIFT,
+	'shoot' : KEY_Z,
+	'bomb' : KEY_X
+}
 
 #Score
 export (Dictionary) var hi_score := {}
@@ -36,30 +38,17 @@ export (Dictionary) var try_count := {}
 
 onready var release := not OS.is_debug_build()
 
-func new_save() -> void:
-	var res := OS.get_screen_size().x
-	match res:
-		1080.0:
-			self.resolution = Vector2(1280, 960)
-		768.0:
-			self.resolution = Vector2(960, 720)
-		720.0:
-			self.resolution = Vector2(720, 540)
-
 func _set_sfx_db(value:float) -> void:
 	sfx_db = value
 	AudioServer.set_bus_volume_db(2, value)
-	
 
 func _set_bgm_db(value:float) -> void:
 	bgm_db = value
 	AudioServer.set_bus_volume_db(1, value)
-	
 
 func _set_master_db(value:float) -> void:
 	master_db = value
 	AudioServer.set_bus_volume_db(0, value)
-	
 
 func _set_resolution(value:Vector2) -> void:
 	resolution = value

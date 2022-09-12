@@ -19,6 +19,9 @@ func _set_player(value:Node2D) -> void:
 func _ready() -> void:
 	save_data = load('user://save.res')
 	if not save_data:
-		save_data = preload("res://autoload/save.gd").new()
-		save_data.new_save()
+		save_data = saveData.new()
+	else:
+		for key in save_data.key_bind.keys():
+			InputMap.action_erase_events(key)
+			InputMap.action_add_event(key, save_data.key_bind[key])
 	randomize()

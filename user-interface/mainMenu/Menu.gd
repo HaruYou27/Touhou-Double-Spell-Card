@@ -1,3 +1,5 @@
+
+tool
 extends Node
 
 onready var tree := get_tree()
@@ -6,7 +8,6 @@ onready var bgm :AudioStreamPlayer = $Bgm
 onready var camera :Camera2D = $Camera2D
 
 onready var main :AnimatedTextButton = $main/Button/continue
-
 
 const black := Color(.09, .09, .09, 1)
 const fade_time := 1.0
@@ -38,7 +39,7 @@ func _on_back_pressed():
 	main.grab_focus()
 
 func _on_start_pressed():
-	pass # Replace with function body.
+	create_tween().tween_property(camera, 'position', Vector2(0, -960), .25)
 
 func _on_continue_pressed():
 	add_child(fade)

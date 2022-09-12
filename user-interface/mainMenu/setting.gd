@@ -22,21 +22,10 @@ func _ready() -> void:
 	#Controls
 	auto_shoot.pressed = Global.save_data.auto_shoot
 	mouse.pressed = Global.save_data.use_mouse
-	
-	templates['ui_left'] = left.text
-	templates['ui_right'] = right.text
-	templates['ui_up'] = up.text
-	templates['ui_down'] = down.text
-	templates['focus'] = focus.text
-	templates['bomb'] = bomb.text
-	templates['shoot'] = shooting.text
-	left.text = left.text % OS.get_scancode_string(Global.save_data.left)
-	right.text = right.text % OS.get_scancode_string(Global.save_data.right)
-	down.text = down.text % OS.get_scancode_string(Global.save_data.down)
-	up.text = up.text % OS.get_scancode_string(Global.save_data.up)
-	focus.text = focus.text % OS.get_scancode_string(Global.save_data.focus)
-	shooting.text = shooting.text % OS.get_scancode_string(Global.save_data.shoot)
-	bomb.text = bomb.text % OS.get_scancode_string(Global.save_data.bomb)
+	var i := 0
+	for value in Global.save_data.key_bind.values():
+		keybind[i].update_label(OS.get_scancode_string(value))
+		i += 1
 	
 	#Assist mode
 	assist_toggler.pressed = Global.save_data.assist_mode
@@ -44,6 +33,8 @@ func _ready() -> void:
 	AudioServer.set_bus_volume_db(2, 0)
 	
 func _exit_tree() -> void:
+	Global.save_data.death_time = float(death_timer.text)
+	Global.save_data.init_bomb = int(bomb.text)
 	Global.save_data.save()
 
 func _entered() -> void:
@@ -109,53 +100,65 @@ func _on_sfx_value_changed(value):
 
 #Assist mode
 onready var assist_toggler :AnimatedTextButton = $"TabContainer/Assist mode/cheat"
+onready var death_timer :LineEdit = $"TabContainer/Assist mode/deathtimer"
+onready var bomb :LineEdit = $"TabContainer/Assist mode/bomb"
 
 func _on_assist_reset_pressed():
 	AudioServer.set_bus_volume_db(2, -80)
 	assist_toggler.pressed = false
 	AudioServer.set_bus_volume_db(2, 0)
+	death_timer.text = '1.0'
+	bomb.text = '3'
 
 func _on_cheat_toggled(button_pressed):
 	Global.save_data.assist_mode = button_pressed
+	if button_pressed:
+		$Popup/CheatWarn.popup()
 
 #Controls
 onready var auto_shoot :AnimatedTextButton = $TabContainer/Control/autoshoot
-onready var shooting :AnimatedTextButton = $TabContainer/Control/shooting
-onready var mouse :AnimatedTextButton = $TabContainer/Control/mouse
-onready var left :AnimatedTextButton = $TabContainer/Control/left
-onready var right :AnimatedTextButton = $TabContainer/Control/right
-onready var up :AnimatedTextButton = $TabContainer/Control/up
-onready var down :AnimatedTextButton = $TabContainer/Control/down
-onready var focus :AnimatedTextButton = $TabContainer/Control/focus
-onready var bomb :AnimatedTextButton = $TabContainer/Control/bomb
+onready var mouse : AnimatedButton = $TabContainer/Control/mouse
+onready var keybind := [
+	$TabContainer/Control/left,
+	$TabContainer/Control/right,
+	$TabContainer/Control/up,
+	$TabContainer/Control/down,
+	$TabContainer/Control/focus,
+	$TabContainer/Control/shoot,
+	$TabContainer/Control/bomb
+]
 
 func _on_controls_reset_pressed():
-	left.text = templates['ui_left'] % 'Left'
-	right.text = templates['ui_right'] % 'Right'
-	up.text = templates['ui_up'] % 'Up'
-	down.text = templates['ui_down'] % 'Down'
-	focus.text = templates['ui_left'] % 'Shift'
-	bomb.text = templates['bomb'] % 'X'
-	shooting.text = templates['shoot'] % 'Z'
-	Global.save_data.left = KEY_LEFT
-	Global.save_data.right = KEY_RIGHT
-	Global.save_data.up = KEY_UP
-	Global.save_data.down = KEY_DOWN
-	Global.save_data.focus = KEY_SHIFT
-	Global.save_data.bomb = KEY_X
-	Global.save_data.shoot = KEY_Z
+	Global.save_data.key_bind = {
+	'ui_left' : KEY_LEFT,
+	'ui_right' : KEY_RIGHT,
+	'ui_up' : KEY_UP,
+	'ui_down' : KEY_DOWN,
+	'focus' : KEY_SHIFT,
+	'shoot' : KEY_Z,
+	'bomb' : KEY_X
+}
+	var i := 0
+	for key in Global.save_data.key_bind.keys():
+		var value = Global.save_data.key_bind[key]
+		keybind[i].update_label(OS.get_scancode_string(value))
+		InputMap.action_erase_events(key)
+		var event = InputEventKey.new()
+		event.scancode = value
+		InputMap.action_add_event(key, event)
+		i += 1
 	
 	AudioServer.set_bus_volume_db(2, -80)
 	auto_shoot.pressed = true
-	mouse.pressed = false
+	mouse.pressed = true
 	AudioServer.set_bus_volume_db(2, 0)
 
 func _on_autoshoot_toggled(button_pressed):
 	Global.save_data.auto_shoot = button_pressed
+	keybind[5].disabled = button_pressed
 
 func _on_mouse_toggled(button_pressed):
-	left.disabled = not button_pressed
-	right.disabled = not button_pressed
-	up.disabled = not button_pressed
-	down.disabled = not button_pressed
+	for button in keybind.slice(0, 4):
+		button.disabled = button_pressed
+		
 	Global.save_data.use_mouse = button_pressed
