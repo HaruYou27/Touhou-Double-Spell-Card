@@ -9,30 +9,35 @@
 config_version=4
 
 _global_script_classes=[ {
-"base": "Button",
+"base": "SFXButton",
 "class": "AnimatedButton",
 "language": "GDScript",
-"path": "res://user-interface/resource/AnimatedButton.gd"
+"path": "res://user-interface/custom-control/AnimatedButton.gd"
 }, {
 "base": "HSlider",
 "class": "AnimatedHSlider",
 "language": "GDScript",
-"path": "res://user-interface/resource/AnimatedHSlider.gd"
+"path": "res://user-interface/custom-control/AnimatedHSlider.gd"
 }, {
 "base": "AnimatedButton",
 "class": "AnimatedLabelButton",
 "language": "GDScript",
-"path": "res://user-interface/resource/AnimatedLabelButton.gd"
+"path": "res://user-interface/custom-control/AnimatedLabelButton.gd"
+}, {
+"base": "Popup",
+"class": "AnimatedPopup",
+"language": "GDScript",
+"path": "res://user-interface/custom-control/AnimatedPopup.gd"
 }, {
 "base": "AnimatedButton",
 "class": "AnimatedTextButton",
 "language": "GDScript",
-"path": "res://user-interface/resource/AnimatedTextButton.gd"
+"path": "res://user-interface/custom-control/AnimatedTextButton.gd"
 }, {
 "base": "AnimatedButton",
 "class": "BackButton",
 "language": "GDScript",
-"path": "res://user-interface/resource/BackButton.gd"
+"path": "res://user-interface/custom-control/BackButton.gd"
 }, {
 "base": "Area2D",
 "class": "Boss",
@@ -99,10 +104,15 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://entity/player/player.gd"
 }, {
+"base": "Button",
+"class": "SFXButton",
+"language": "GDScript",
+"path": "res://user-interface/custom-control/SFXButton.gd"
+}, {
 "base": "Label",
 "class": "ScrollButton",
 "language": "GDScript",
-"path": "res://user-interface/resource/ScrollButton.gd"
+"path": "res://user-interface/custom-control/ScrollButton.gd"
 }, {
 "base": "Control",
 "class": "Stage",
@@ -118,6 +128,7 @@ _global_script_class_icons={
 "AnimatedButton": "",
 "AnimatedHSlider": "",
 "AnimatedLabelButton": "",
+"AnimatedPopup": "",
 "AnimatedTextButton": "",
 "BackButton": "",
 "Boss": "",
@@ -133,6 +144,7 @@ _global_script_class_icons={
 "DialogicUtil": "",
 "HistoryRow": "",
 "Player": "",
+"SFXButton": "",
 "ScrollButton": "",
 "Stage": "",
 "saveData": ""
@@ -235,8 +247,11 @@ pointing/emulate_mouse_from_touch=false
 
 2d_render/layer_2="Fade"
 2d_physics/layer_1="Wall"
+3d_physics/layer_1="Reimu"
 2d_physics/layer_2="Enemy"
+3d_physics/layer_2="Oni-Reimu"
 2d_physics/layer_3="Player"
+3d_physics/layer_3="Meimu"
 2d_physics/layer_4="Graze"
 
 [physics]

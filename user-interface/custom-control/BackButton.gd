@@ -12,7 +12,7 @@ var cursor_default_pos :Vector2
 func _ready() -> void:
 	disabled = true
 	cursor = get_node(cursor)
-	cursor_pos = cursor.rect_position + velocity
+	cursor_pos = cursor.rect_position + offset
 	cursor_default_pos = cursor.rect_position
 	
 	shortcut = preload("res://user-interface/resource/escape.res")

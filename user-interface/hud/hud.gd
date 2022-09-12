@@ -4,7 +4,6 @@ class_name Stage
 var point := 1
 var graze := 0
 var goal := 0
-var saved := false
 var shaking := 0.0
 
 export (Array) var levels : Array
@@ -13,7 +12,7 @@ export (String) var stage_name
 
 onready var tree = get_tree()
 onready var screenFx :ColorRect = $Playground/screenFx
-onready var ray :RayCast2D = $Playground/RayCast2D
+onready var item_get_border :RayCast2D = $Playground/RayCast2D
 
 onready var score_label :Label = $background/VBoxContainer/Score
 onready var graze_label :Label = $background/VBoxContainer/Graze
@@ -22,7 +21,7 @@ onready var bomb_label :Label = $background/VBoxContainer/Bomb
 onready var goal_label :Label = $background/VBoxContainer/Goal
 
 func _physics_process(_delta) -> void:
-	if ray.is_colliding():
+	if item_get_border.is_colliding():
 		ItemManager.autoCollect = true
 		
 func _process(delta) -> void:
@@ -84,11 +83,13 @@ func _update_bomb() -> void:
 	bomb_label.text = 'Bomb:        %d' % Global.player.bombs
 	
 func save_score() -> void:
+	if Global.save_data.assist_mode:
+		return
+		
 	var score = point * graze
-	if Global.save.hi_score[stage_name] < score and not saved:
+	if Global.save.hi_score[stage_name] < score:
 		Global.save.hi_score[stage_name] = score
 		Global.save.save()
-		saved = true
 
 func _next() -> void:
 	level.queue_free()

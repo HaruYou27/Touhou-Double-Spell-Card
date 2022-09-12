@@ -41,9 +41,11 @@ func _entered() -> void:
 	back.disabled = false
 	tabcontainer.set_process_input(true)
 	fullscreen.grab_focus()
+	visible = true
 	
 func _on_back_pressed():
 	tabcontainer.set_process_input(false)
+	visible = false
 	
 func _on_graphic_reset_pressed():
 	AudioServer.set_bus_volume_db(2, -80)

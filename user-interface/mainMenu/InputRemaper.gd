@@ -1,4 +1,4 @@
-extends PopupDialog
+extends AnimatedPopup
 
 var action :String
 var button :AnimatedTextButton
@@ -58,7 +58,7 @@ func _on_focus_pressed():
 func _on_shooting_pressed():
 	action = 'shoot'
 	label.text = 'Shoot'
-	popup()
+	popup_centered_minsize()
 	set_process_input(true)
 	button = parent.keybind[5]
 

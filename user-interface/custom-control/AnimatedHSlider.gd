@@ -9,10 +9,9 @@ var template :String
 var default_pos :Vector2
 var final_pos :Vector2
 
-onready var focus_fx :AudioStreamPlayer = $focusFX
 onready var focus_color := get_color('font_color_focus', 'Button')
 
-export (Vector2) var velocity := Vector2(20, 0)
+export (Vector2) var offset := Vector2(20, 0)
 export (float) var animation_length := .15
 
 onready var percentage = 100 / (max_value + abs(min_value))
@@ -23,7 +22,7 @@ func _ready() -> void:
 	label.text = label.text % get_percentage()
 	default_pos = label.rect_position
 	
-	final_pos = default_pos + velocity
+	final_pos = default_pos + offset
 	cursor = get_node(cursor)
 	cursor_pos = Vector2(cursor.position.x, rect_position.y + rect_size.y / 2)
 	
@@ -40,7 +39,6 @@ func get_percentage() -> int:
 	return int((value + abs(min_value)) * percentage)
 	
 func _on_focus_entered() -> void:
-	focus_fx.play()
 	label.add_color_override('font_color', focus_color)
 	var tween = create_tween()
 	tween.tween_property(cursor, 'position', cursor_pos, animation_length)

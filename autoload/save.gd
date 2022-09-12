@@ -35,6 +35,8 @@ export (Dictionary) var key_bind := {
 #Score
 export (Dictionary) var hi_score := {}
 export (Dictionary) var try_count := {}
+export (int, LAYERS_3D_PHYSICS) var characters := 1
+export (String) var level
 
 onready var release := not OS.is_debug_build()
 

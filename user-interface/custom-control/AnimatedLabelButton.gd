@@ -11,7 +11,7 @@ onready var press_color := get_color('font_color_pressed')
 func _ready() -> void:
 	label = get_node(label)
 	label_default_pos = label.rect_position
-	label_pos = label_default_pos + velocity
+	label_pos = label_default_pos + offset
 	connect("button_down", self, '_on_button_down')
 	
 func _on_focus_entered() -> void:
