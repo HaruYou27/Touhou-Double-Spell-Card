@@ -2,11 +2,7 @@ extends Node2D
 
 signal done
 
-onready var seal1 :Particles2D = $seal
-onready var seal2 :Particles2D = $seal2
-onready var seal3 :Particles2D = $seal3
-onready var seal4 :Particles2D = $seal4
-onready var seals = [seal1, seal2, seal3, seal4]
+onready var seals = [$seal1, $seal2, $seal3, $seal4]
 onready var local_pos = PoolVector2Array([Vector2(), Vector2(), Vector2(), Vector2()])
 var velocities := PoolVector2Array([Vector2(128.0, 0.0), Vector2(-128.0, 0.0), Vector2(0.0, 128.0), Vector2(0.0, -128.0)])
 
@@ -41,11 +37,14 @@ func _physics_process(delta:float) -> void:
 	if not world.direct_space_state.get_rest_info(query).size():
 		return
 	
+	#Impact
 	tree.call_group('enemy', 'destroy')
 	tree.call_group('bullet', 'Flush')
 	ItemManager.autoCollect = true
 	OS.delay_msec(15)
-	Global.emit_signal("shake", 30)
+	Global.emit_signal("shake", 0.5)
+	Global.emit_signal("explosive")
+	
 	var boss = Global.boss
 	boss.hp -= boss.max_hp / 8
 	hp_tween.kill()

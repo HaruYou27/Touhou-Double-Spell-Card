@@ -3,12 +3,18 @@ extends Node2D
 signal graze
 signal bomb
 signal collect
+signal hit
+
 signal shake(duration)
-signal freeze
+signal explosive
 
 var save_data : saveData
 var player setget _set_player
 var boss
+
+const fade_black = Color(0.129412, 0.129412, 0.129412)
+const fade_trans = Color(0.129412, 0.129412, 0.129412, 0)
+const fade_time = .5
 
 func _set_player(value:Node2D) -> void:
 	player = value

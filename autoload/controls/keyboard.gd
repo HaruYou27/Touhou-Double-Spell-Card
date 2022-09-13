@@ -1,8 +1,8 @@
 extends Node
+class_name KeyboardHandler
 
 onready var player :Node2D = get_parent()
 onready var tree := get_tree()
-onready var autoshoot :bool = not Global.save_data.auto_shoot
 
 var focus := 1.0
 
@@ -15,19 +15,15 @@ func _unhandled_input(event):
 		player.unfocus()
 	elif event.is_action_pressed("bomb"):
 		player.bomb()
+		set_physics_process(true)
 		if tree.paused:
 			tree.paused = false
 			
-func bomb_only() -> void:
+func pause() -> void:
 	set_physics_process(false)
-	set_process_input(false)
-	
-func _bomb_done() -> void:
-	set_physics_process(true)
-	set_process_input(autoshoot)
 	
 func _ready():
-	set_process_input(autoshoot)
+	set_process_input(not Global.save_data.auto_shoot)
 
 func _physics_process(delta:float) -> void:
 	var x = Input.get_axis("ui_left", "ui_right")

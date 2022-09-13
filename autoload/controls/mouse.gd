@@ -1,4 +1,5 @@
 extends Node
+class_name MouseHandler
 
 onready var player : Node2D = get_parent()
 

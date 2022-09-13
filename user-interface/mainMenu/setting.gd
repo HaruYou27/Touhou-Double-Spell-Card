@@ -41,11 +41,11 @@ func _entered() -> void:
 	back.disabled = false
 	tabcontainer.set_process_input(true)
 	fullscreen.grab_focus()
-	visible = true
+	show()
 	
 func _on_back_pressed():
 	tabcontainer.set_process_input(false)
-	visible = false
+	hide()
 	
 func _on_graphic_reset_pressed():
 	AudioServer.set_bus_volume_db(2, -80)
@@ -160,6 +160,7 @@ func _on_autoshoot_toggled(button_pressed):
 	keybind[5].disabled = button_pressed
 
 func _on_mouse_toggled(button_pressed):
+	auto_shoot.disabled = button_pressed
 	for button in keybind.slice(0, 4):
 		button.disabled = button_pressed
 		

@@ -2,6 +2,9 @@ extends Control
 
 onready var back :BackButton = $back
 
-func _on_main_select_level():
+func _entered():
+	show()
 	back.disabled = false
-	
+
+func _on_back_pressed():
+	hide()

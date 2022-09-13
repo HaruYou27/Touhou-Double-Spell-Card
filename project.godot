@@ -99,6 +99,21 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://addons/dialogic/Example Assets/History/HistoryRow.gd"
 }, {
+"base": "Node",
+"class": "KeyboardHandler",
+"language": "GDScript",
+"path": "res://autoload/controls/keyboard.gd"
+}, {
+"base": "Control",
+"class": "Level",
+"language": "GDScript",
+"path": "res://level/level.gd"
+}, {
+"base": "Node",
+"class": "MouseHandler",
+"language": "GDScript",
+"path": "res://autoload/controls/mouse.gd"
+}, {
 "base": "StaticBody2D",
 "class": "Player",
 "language": "GDScript",
@@ -113,11 +128,6 @@ _global_script_classes=[ {
 "class": "ScrollButton",
 "language": "GDScript",
 "path": "res://user-interface/custom-control/ScrollButton.gd"
-}, {
-"base": "Control",
-"class": "Stage",
-"language": "GDScript",
-"path": "res://user-interface/hud/hud.gd"
 }, {
 "base": "Resource",
 "class": "saveData",
@@ -143,10 +153,12 @@ _global_script_class_icons={
 "DialogicResources": "",
 "DialogicUtil": "",
 "HistoryRow": "",
+"KeyboardHandler": "",
+"Level": "",
+"MouseHandler": "",
 "Player": "",
 "SFXButton": "",
 "ScrollButton": "",
-"Stage": "",
 "saveData": ""
 }
 
