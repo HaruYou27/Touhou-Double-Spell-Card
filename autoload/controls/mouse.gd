@@ -11,11 +11,6 @@ func _physics_process(_delta) -> void:
 	
 	if not mouse_local.x:
 		return
-	
-	if mouse_local.length() <= focus_speed:
-		Input.action_press("focus")
-	else:
-		Input.action_release("focus")
 	var angle = mouse_local.angle()
 	
 	player.global_position = mouse_global

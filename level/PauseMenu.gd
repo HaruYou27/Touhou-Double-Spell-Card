@@ -12,7 +12,6 @@ func _ready() -> void:
 	color_def.a = .69
 	color.a = 0.0
 	color_trans = color
-	show()
 
 func _on_Resume_pressed() -> void:
 	var tween := create_tween()

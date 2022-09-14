@@ -3,33 +3,31 @@ class_name Boss
 
 signal next
 
-export (float) var max_hp :float
+export (float) var hp :float
 export (float) var spell_length
+export (int) var points
 
-onready var hp := max_hp
 onready var init_position = global_position
 onready var tween :SceneTreeTween
 onready var hp_tween := create_tween()
-onready var parent = get_parent()
 
 onready var time_gauge :TextureProgress = $gauge/timeGauge
 onready var heath_gauge :TextureProgress = $gauge/heathGauge
 
 func _ready() -> void:
 	time_gauge.max_value = spell_length
-	heath_gauge.max_value = max_hp
+	heath_gauge.max_value = hp
 	tween = create_tween()
 	tween.tween_property(self, 'global_position', init_position, 1.0)
 	tween.parallel().tween_property(time_gauge, 'value', spell_length, 1.0)
-	tween.parallel().tween_property(heath_gauge, 'value', max_hp, 1.0)
+	tween.parallel().tween_property(heath_gauge, 'value', hp, 1.0)
 	tween.connect("finished", self, '_start', [], 4)
-	tween.connect("finished", parent, '_start', [], 4)
+	tween.connect("finished", get_parent(), '_start', [], 4)
 	Global.boss = self
 	
 func _start() -> void:
 	tween = create_tween()
 	tween.tween_property(time_gauge, 'value', 0.0, spell_length)
-	#tween.connect("finished", get_node('/root/Stage'), '_next')
 
 func _on_meimu_body_entered(body) -> void:
 	body._hit()

@@ -5,11 +5,12 @@ signal select_level
 onready var tree := get_tree()
 onready var fade := ColorRect.new()
 
-onready var main_menu :VBoxContainer = $main
-onready var main_menu_pos := main_menu.rect_position
-onready var char_menu :Control = $character
+onready var conti :AnimatedTextButton = $main/continue
 
 const ani_time := .15
+
+func _ready():
+	conti.grab_focus()
 
 func fade2black(level):
 	fade.color = Global.fade_trans
@@ -22,7 +23,7 @@ func fade2black(level):
 func _on_start_pressed():
 	if Global.save_data.hi_score.empty():
 		pass
-	elif Global.save_data.characters == 1:
+	elif Global.save_data.characters.size() == 1:
 		pass
 		
 func _on_continue_pressed():

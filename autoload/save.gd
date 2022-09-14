@@ -20,7 +20,7 @@ export (float) var sfx_db := 0.0 setget _set_sfx_db
 
 #Controls
 export (bool) var auto_shoot := true
-export (bool) var use_mouse := true
+export (bool) var use_mouse := false
 
 export (Dictionary) var key_bind := {
 	'ui_left' : KEY_LEFT,
@@ -35,7 +35,7 @@ export (Dictionary) var key_bind := {
 #Score
 export (Dictionary) var hi_score := {}
 export (Dictionary) var try_count := {}
-export (int, LAYERS_3D_PHYSICS) var characters := 1
+export (PoolStringArray) var characters := ['reimu']
 export (String) var level
 
 onready var release := not OS.is_debug_build()

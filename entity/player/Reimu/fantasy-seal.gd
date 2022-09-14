@@ -7,9 +7,9 @@ onready var local_pos = PoolVector2Array([Vector2(), Vector2(), Vector2(), Vecto
 var velocities := PoolVector2Array([Vector2(128.0, 0.0), Vector2(-128.0, 0.0), Vector2(0.0, 128.0), Vector2(0.0, -128.0)])
 
 onready var tree := get_tree()
-onready var hp_tween := create_tween()
+onready var level :Level = get_parent()
 onready var query := Physics2DShapeQueryParameters.new()
-onready var world := get_viewport().world_2d
+onready var world := get_world_2d()
 
 var seal :Particles2D
 
@@ -20,7 +20,7 @@ func _ready() -> void:
 	query.shape_rid = $CollisionShape2D.shape.get_rid()
 	
 	var tween = create_tween()
-	tween.tween_property(self, 'modulate', Color(1.0, 1.0, 1.0, 1.0), 1.0)
+	tween.tween_property(self, 'modulate', Color.white, 1.0)
 	tween.connect("finished", self, '_attack')
 	
 	set_physics_process(false)
@@ -42,14 +42,13 @@ func _physics_process(delta:float) -> void:
 	tree.call_group('bullet', 'Flush')
 	ItemManager.autoCollect = true
 	OS.delay_msec(15)
-	Global.emit_signal("shake", 0.5)
-	Global.emit_signal("explosive")
+	level.shake(.5)
+	level.flash()
 	
 	var boss = Global.boss
 	boss.hp -= boss.max_hp / 8
-	hp_tween.kill()
-	hp_tween = create_tween()
-	hp_tween.tween_property(boss.heath_gauge, 'value', boss.hp, 1.0)
+	var tween = create_tween()
+	tween.tween_property(boss.heath_gauge, 'value', boss.hp, 1.0)
 	
 	seal.emitting = true
 	seal.get_node('trail').emitting = false

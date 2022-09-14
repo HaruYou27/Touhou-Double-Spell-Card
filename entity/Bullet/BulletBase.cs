@@ -44,7 +44,6 @@ public class BulletBase : Node2D {
 	}
 	[Export] public Material material;
 	[Export(PropertyHint.Range, "-4096, 4096")]	public int zIndex;
-	[Export(PropertyHint.Layers2dRender)] public int lightLayer;
 	private Texture tex;
 	protected Vector2 textureSize;
 	protected RID textureRID;
@@ -98,7 +97,7 @@ public class BulletBase : Node2D {
             RID sprite = VisualServer.CanvasItemCreate();
             VisualServer.CanvasItemSetZIndex(sprite, zIndex);
             VisualServer.CanvasItemSetParent(sprite, world.Canvas);
-            VisualServer.CanvasItemSetLightMask(sprite, lightLayer);
+            VisualServer.CanvasItemSetLightMask(sprite, 0);
             //Due to a bug in visual server, normal map rid can not be null, which is, null by default.
             VisualServer.CanvasItemAddTextureRect(sprite, texRect, textureRID, false, null, false, textureRID);
             if (material != null) {

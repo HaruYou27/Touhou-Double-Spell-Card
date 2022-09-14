@@ -6,8 +6,9 @@ onready var tabcontainer :TabContainer = $TabContainer
 var templates := {}
 
 func _ready() -> void:
-	#Graphic
 	AudioServer.set_bus_volume_db(2, -80)
+	
+	#Graphic
 	vsync.pressed = Global.save_data.vsync
 	fullscreen.pressed = Global.save_data.fullscreen
 	borderless.pressed = Global.save_data.borderless
@@ -29,6 +30,8 @@ func _ready() -> void:
 	
 	#Assist mode
 	assist_toggler.pressed = Global.save_data.assist_mode
+	bomb.text = str(Global.save_data.init_bomb)
+	death_timer.text = str(Global.save_data.death_time)
 	
 	AudioServer.set_bus_volume_db(2, 0)
 	
@@ -38,10 +41,10 @@ func _exit_tree() -> void:
 	Global.save_data.save()
 
 func _entered() -> void:
+	show()
 	back.disabled = false
 	tabcontainer.set_process_input(true)
 	fullscreen.grab_focus()
-	show()
 	
 func _on_back_pressed():
 	tabcontainer.set_process_input(false)
@@ -49,13 +52,13 @@ func _on_back_pressed():
 	
 func _on_graphic_reset_pressed():
 	AudioServer.set_bus_volume_db(2, -80)
+	
 	fps.item = 1
 	resolution.item = 1
-	AudioServer.set_bus_volume_db(2, -80)
 	vsync.pressed = false
 	fullscreen.pressed = false
 	borderless.pressed = false
-	AudioServer.set_bus_volume_db(2, 0)
+	
 	AudioServer.set_bus_volume_db(2, 0)
 
 #Graphic

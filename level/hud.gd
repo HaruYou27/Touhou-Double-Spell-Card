@@ -4,11 +4,13 @@ var point := 1
 var graze := 0
 var goal := 0
 
-onready var score_label :Label = $background/VBoxContainer/Score
-onready var graze_label :Label = $background/VBoxContainer/Graze
-onready var point_label :Label = $background/VBoxContainer/Point
-onready var bomb_label :Label = $background/VBoxContainer/Bomb
-onready var goal_label :Label = $background/VBoxContainer/Goal
+onready var score_label :Label = $VBoxContainer/Score
+onready var graze_label :Label = $VBoxContainer/Graze
+onready var point_label :Label = $VBoxContainer/Point
+onready var bomb_label :Label = $VBoxContainer/Bomb
+onready var goal_label :Label = $VBoxContainer/Goal
+
+onready var stage_name :String = get_parent().stage_name
 
 func _ready() -> void:
 	Global.connect("collect", self, "_update_point")
@@ -16,12 +18,12 @@ func _ready() -> void:
 	Global.connect('bomb', self, '_update_bomb')
 	
 	if Global.save_data.hi_score.has(stage_name):
-		var hi_score :Label = $background/VBoxContainer/HiScore
+		var hi_score :Label = $VBoxContainer/HiScore
 		hi_score.text = hi_score.text % Global.save_data.hi_score[stage_name]
-		Global.save_data.retry_count[stage_name] += 1
+		Global.save_data.try_count[stage_name] += 1
 	else:
 		Global.save_data.hi_score[stage_name] = 0
-		Global.save_data.retry_count[stage_name] = 1
+		Global.save_data.try_count[stage_name] = 1
 	
 	bomb_label.text = bomb_label.text % Global.save_data.init_bomb
 
@@ -46,3 +48,12 @@ func _update_score(score:int) -> void:
 
 func _update_bomb() -> void:
 	bomb_label.text = 'Bomb:        %d' % Global.player.bombs
+
+func save_score() -> void:
+	if Global.save_data.assist_mode:
+		return
+		
+	var score = point * graze
+	if Global.save_data.hi_score[stage_name] < score:
+		Global.save_data.hi_score[stage_name] = score
+		Global.save_data.save_data()

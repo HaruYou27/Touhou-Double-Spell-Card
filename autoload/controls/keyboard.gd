@@ -16,11 +16,16 @@ func _unhandled_input(event):
 	elif event.is_action_pressed("bomb"):
 		player.bomb()
 		set_physics_process(true)
+		set_process_input(false)
 		if tree.paused:
 			tree.paused = false
 			
 func pause() -> void:
 	set_physics_process(false)
+
+func _bomb_done() -> void:
+	set_process_input(not Global.save_data.auto_shoot)
+		
 	
 func _ready():
 	set_process_input(not Global.save_data.auto_shoot)
@@ -33,8 +38,8 @@ func _physics_process(delta:float) -> void:
 	var velocity := Vector2(x, y).normalized()
 	
 	player.position += velocity * delta * 372 * focus
-	player.position.x = clamp(player.position.x, 0.0, 646.0)
-	player.position.y = clamp(player.position.y, 0.0, 904.0)
+	player.position.x = clamp(player.position.x, 0.0, Global.playground.x)
+	player.position.y = clamp(player.position.y, 0.0, Global.playground.y)
 
 func _input(event:InputEvent) -> void:
 	if event.is_action_pressed("shoot"):

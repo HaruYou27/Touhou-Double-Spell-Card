@@ -2,7 +2,7 @@ using Godot;
 
 public class SeekerLocked : BulletBasic {
     //Bullets which only target 1 entity at a time.
-    [Export] public float mass;
+    [Export] public float mass = 1;
 
     private struct Bullet {
         public Transform2D transform;
