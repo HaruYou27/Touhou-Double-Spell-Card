@@ -4,14 +4,14 @@ class_name KeyboardHandler
 onready var player :Node2D = get_parent()
 onready var tree := get_tree()
 
-var focus := 1.0
+var speed := 575
 
 func _unhandled_input(event):
 	if event.is_action_pressed("focus"):
-		focus = 0.25
+		speed = 94
 		player.focus()
 	elif event.is_action_released("focus"):
-		focus = 1
+		speed = 575
 		player.unfocus()
 	elif event.is_action_pressed("bomb"):
 		player.bomb()
@@ -22,11 +22,11 @@ func _unhandled_input(event):
 			
 func pause() -> void:
 	set_physics_process(false)
+	set_process_input(false)
 
 func _bomb_done() -> void:
 	set_process_input(not Global.save_data.auto_shoot)
 		
-	
 func _ready():
 	set_process_input(not Global.save_data.auto_shoot)
 
@@ -37,7 +37,7 @@ func _physics_process(delta:float) -> void:
 		return
 	var velocity := Vector2(x, y).normalized()
 	
-	player.position += velocity * delta * 372 * focus
+	player.position += velocity * delta * speed
 	player.position.x = clamp(player.position.x, 0.0, Global.playground.x)
 	player.position.y = clamp(player.position.y, 0.0, Global.playground.y)
 

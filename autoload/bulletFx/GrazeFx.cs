@@ -28,7 +28,7 @@ public class GrazeFx : Node2D {
 		textureSize = texture.GetSize();
 		Physics2DServer.ShapeSetData(hitbox, textureSize.x / 2);
 		offset = -textureSize / 2;
-		ZIndex = -10;
+		ZIndex = 1;
 		canvas = GetCanvasItem();
 	}
 	public virtual void SpawnItem(in Vector2 position) {

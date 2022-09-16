@@ -14,11 +14,11 @@ onready var item_get_border :RayCast2D = $RayCast2D
 onready var hud :Sprite = $hud
 
 func _ready() -> void:
-	
 	hud.add_child(overlay)
 	VisualServer.canvas_item_set_z_index(overlay.get_canvas_item(), 4000)
 	overlay.rect_size = Global.game_rect
 	overlay.color = Global.fade_black
+	
 	var tween := create_tween()
 	tween.tween_property(overlay, 'color', Global.fade_trans, Global.fade_time)
 	tween.connect("finished", hud, 'remove_child', [overlay])
@@ -28,7 +28,6 @@ func _ready() -> void:
 	
 func _exit_tree() -> void:
 	Global.save_data.level = stage_scene
-	
 
 func _physics_process(_delta) -> void:
 	if item_get_border.is_colliding():

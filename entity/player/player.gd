@@ -37,7 +37,7 @@ func _hit() -> void:
 	hitSFX.play()
 	add_child(hit)
 	hit.scale = Vector2.ONE
-	level.flash_red
+	level.flash_red()
 	
 	var tween := create_tween()
 	tween.tween_property(hit, 'scale', Vector2(0.01, 0.01), death_time)

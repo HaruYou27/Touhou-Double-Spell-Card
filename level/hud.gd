@@ -38,7 +38,7 @@ func _update_graze() -> void:
 	_update_score(graze * point)
 	
 func _update_score(score:int) -> void:
-	score_label.text = 'Score:                %010d' % score
+	score_label.text = 'Score:           %010d' % score
 	var score_left = goal - score
 	if score_left < INF:
 		goal_label.text = 'Next:                      %010d' % score_left

@@ -9,7 +9,7 @@ export (int) var points
 
 onready var init_position = global_position
 onready var tween :SceneTreeTween
-onready var hp_tween := create_tween()
+onready var max_hp := hp
 
 onready var time_gauge :TextureProgress = $gauge/timeGauge
 onready var heath_gauge :TextureProgress = $gauge/heathGauge

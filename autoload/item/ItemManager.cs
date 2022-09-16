@@ -9,7 +9,7 @@ public class ItemManager : Node {
 		public Item(in Vector2 position, in RID canvas) {
 			transform = new Transform2D(GD.Randf() * Mathf.Tau, position);
 			sprite = canvas;
-			velocity = new Vector2(GD.Randf() * 27, 0).Rotated(GD.Randf() * Mathf.Tau);
+			velocity = new Vector2(GD.Randf() * 7, 0).Rotated(GD.Randf() * Mathf.Tau);
 		}
 	}
 	private Item[] items = new Item[maxItem];
@@ -19,7 +19,8 @@ public class ItemManager : Node {
 	protected uint index;
 
 	private Texture texture = GD.Load<Texture>("res://autoload/item/point.png");
-	private ShaderMaterial material = GD.Load<ShaderMaterial>("res://autoload/item/item.material");
+	private ShaderMaterial forward = GD.Load<ShaderMaterial>("res://autoload/item/forward.material");
+	private ShaderMaterial backward = GD.Load<ShaderMaterial>("res://autoload/item/forward.material");
 	protected Stack<RID> sprites = new Stack<RID>(maxItem);
 
 	protected World2D world;
@@ -34,7 +35,8 @@ public class ItemManager : Node {
 		Vector2 texSize = texture.GetSize();
 		Physics2DServer.ShapeSetData(hitbox, texSize.x);
 		Rect2 texRect = new Rect2(-texSize / 2, texSize);
-		RID matRID = material.GetRid();
+		RID forwardRID = forward.GetRid();
+		RID backwardRID = backward.GetRid();
 
 		world = GetViewport().World2d;
 		Global = GetNode("/root/Global");
@@ -44,9 +46,11 @@ public class ItemManager : Node {
 			RID sprite = VisualServer.CanvasItemCreate();
 			VisualServer.CanvasItemSetParent(sprite, canvas);
 			VisualServer.CanvasItemAddTextureRect(sprite, texRect, texRID, false, null, false, texRID);
-			VisualServer.CanvasItemSetZIndex(sprite, -10);
+			VisualServer.CanvasItemSetZIndex(sprite, 100);
 			VisualServer.CanvasItemSetLightMask(sprite, 0);
-			VisualServer.CanvasItemSetMaterial(sprite, matRID);
+			if (GD.Randf() >= 0.5) {VisualServer.CanvasItemSetMaterial(sprite, forwardRID);}
+			else {VisualServer.CanvasItemSetMaterial(sprite, backwardRID);}
+
 			VisualServer.CanvasItemSetVisible(sprite, false);
 
 			sprites.Push(sprite);
@@ -76,7 +80,7 @@ public class ItemManager : Node {
 				item.velocity = 727 * (target.GlobalPosition - item.transform.origin).Normalized();
 			} else {
 				query.CollisionLayer = 9;
-				item.velocity.y += 57 * delta;
+				item.velocity.y += 27 * delta;
 			}
 			item.transform.origin += item.velocity * delta;
 			

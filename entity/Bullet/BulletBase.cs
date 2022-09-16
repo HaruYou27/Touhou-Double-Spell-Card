@@ -73,7 +73,11 @@ public class BulletBase : Node2D {
 		world = GetWorld2d();
 		Global = GetNode("/root/Global");
 		fx = GetNode<BulletFx>("/root/BulletFx");
-		grazefx = GetNode<GrazeFx>("/root/GrazeFx");
+
+		if (grazable) {
+			grazefx = GetNode<GrazeFx>("/root/GrazeFx");
+			AddToGroup("bullet");
+		}
 
 		int size = Barrels.Count;
 		if (size == 0) {

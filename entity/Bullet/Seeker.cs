@@ -87,7 +87,7 @@ public class Seeker : BulletBasic {
 
         for (uint i = 0; i != index; i++) {
             Bullet bullet = bullets[i];
-            if (bullet.target == null) {
+            if (bullet.target == null || !Object.IsInstanceValid(bullet.target)) {
                 seekQuery.Transform = bullet.transform;
                 Godot.Collections.Dictionary seekResult = world.DirectSpaceState.GetRestInfo(seekQuery);
                 if (seekResult.Count != 0) {
@@ -102,7 +102,7 @@ public class Seeker : BulletBasic {
             VisualServer.CanvasItemSetTransform(bullet.sprite, bullet.transform);
 
 
-            //Collision checking
+            //Collision checking 
             query.Transform = bullet.transform;
             Godot.Collections.Dictionary result;
             if (bullet.grazable) {

@@ -2,7 +2,7 @@ extends Node2D
 
 signal done
 
-onready var seals = [$seal1, $seal2, $seal3, $seal4]
+onready var seals = [$seal, $seal2, $seal3, $seal4]
 onready var local_pos = PoolVector2Array([Vector2(), Vector2(), Vector2(), Vector2()])
 var velocities := PoolVector2Array([Vector2(128.0, 0.0), Vector2(-128.0, 0.0), Vector2(0.0, 128.0), Vector2(0.0, -128.0)])
 
@@ -14,6 +14,7 @@ onready var world := get_world_2d()
 var seal :Particles2D
 
 func _ready() -> void:
+	position = level.hud.position
 	query.collision_layer = 2
 	query.collide_with_areas = true
 	query.collide_with_bodies = false
@@ -38,7 +39,7 @@ func _physics_process(delta:float) -> void:
 		return
 	
 	#Impact
-	tree.call_group('enemy', 'destroy')
+	tree.call_group('enemy', 'die')
 	tree.call_group('bullet', 'Flush')
 	ItemManager.autoCollect = true
 	OS.delay_msec(15)

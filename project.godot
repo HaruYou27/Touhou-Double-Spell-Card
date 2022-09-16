@@ -191,6 +191,8 @@ GrazeFx="*res://autoload/bulletFx/GrazeFx.cs"
 [debug]
 
 settings/fps/force_fps=60
+gdscript/warnings/return_value_discarded=false
+gdscript/warnings/integer_division=false
 
 [display]
 
