@@ -7,14 +7,12 @@ onready var local_pos = PoolVector2Array([Vector2(), Vector2(), Vector2(), Vecto
 var velocities := PoolVector2Array([Vector2(128.0, 0.0), Vector2(-128.0, 0.0), Vector2(0.0, 128.0), Vector2(0.0, -128.0)])
 
 onready var tree := get_tree()
-onready var level :Level = get_parent()
 onready var query := Physics2DShapeQueryParameters.new()
 onready var world := get_world_2d()
 
 var seal :Particles2D
 
 func _ready() -> void:
-	position = level.hud.position
 	query.collision_layer = 2
 	query.collide_with_areas = true
 	query.collide_with_bodies = false
@@ -43,8 +41,8 @@ func _physics_process(delta:float) -> void:
 	tree.call_group('bullet', 'Flush')
 	ItemManager.autoCollect = true
 	OS.delay_msec(15)
-	level.shake(.5)
-	level.flash()
+	Global.emit_signal('shake', .15)
+	Global.emit_signal('flash')
 	
 	var boss = Global.boss
 	boss.hp -= boss.max_hp / 8

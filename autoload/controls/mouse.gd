@@ -7,7 +7,7 @@ var focus_speed :int = 172
 
 func _physics_process(_delta) -> void:
 	var mouse_local := player.get_local_mouse_position()
-	var mouse_global := Global.get_global_mouse_position()
+	var mouse_global :Vector2 = Global.get_global_mouse_position()
 	
 	if not mouse_local.x:
 		return

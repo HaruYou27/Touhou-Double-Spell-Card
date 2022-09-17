@@ -2,8 +2,10 @@ extends Node2D
 
 signal graze
 signal collect
-signal next
 signal bomb
+
+signal shake(time)
+signal flash
 
 var save_data : saveData
 var player setget _set_player

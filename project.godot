@@ -139,6 +139,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://user-interface/custom-control/ScrollButton.gd"
 }, {
+"base": "Position2D",
+"class": "TargetLocker",
+"language": "GDScript",
+"path": "res://entity/targetLocker.gd"
+}, {
 "base": "Resource",
 "class": "saveData",
 "language": "GDScript",
@@ -171,6 +176,7 @@ _global_script_class_icons={
 "Player": "",
 "SFXButton": "",
 "ScrollButton": "",
+"TargetLocker": "",
 "saveData": ""
 }
 
@@ -187,6 +193,7 @@ Global="*res://autoload/Global.gd"
 ItemManager="*res://autoload/item/ItemManager.cs"
 BulletFx="*res://autoload/bulletFx/BulletFx.cs"
 GrazeFx="*res://autoload/bulletFx/GrazeFx.cs"
+Rewind="*res://autoload/Rewind.scn"
 
 [debug]
 

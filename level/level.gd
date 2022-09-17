@@ -14,6 +14,9 @@ onready var item_get_border :RayCast2D = $RayCast2D
 onready var hud :Sprite = $hud
 
 func _ready() -> void:
+	Global.connect("flash", self, 'flash')
+	Global.connect('shake', self, 'shake')
+	
 	hud.add_child(overlay)
 	VisualServer.canvas_item_set_z_index(overlay.get_canvas_item(), 4000)
 	overlay.rect_size = Global.game_rect
@@ -61,11 +64,5 @@ func next() -> void:
 	level = levels.pop_back().instance()
 	add_child(level)
 
-func _on_Restart_pressed():
-	hud.add_chid(overlay)
-	overlay.rect_size = Global.game_rect
-	overlay.color = Global.fade_trans
-	
-	var tween := create_tween()
-	tween.tween_property(overlay, 'color', Global.fade_black, Global.fade_time)
-	tween.connect("finished", tree, 'change_scene_to', [stage_scene])
+func _on_Restart_pressed() -> void:
+	Rewind.rewind(stage_scene)
