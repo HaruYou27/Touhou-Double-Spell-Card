@@ -1,25 +1,41 @@
 extends Node
 
-onready var screenshot := get_viewport().get_texture()
-onready var timer :Timer = $Timer
-onready var sprite :AnimatedSprite = $AnimatedSprite
+onready var viewport := get_viewport()
+onready var screenshot := viewport.get_texture()
 onready var tree := get_tree()
 
+onready var fx :ColorRect = $ColorRect
+onready var timer :Timer = $Timer
+onready var sprite :AnimatedSprite = $AnimatedSprite
+
+var frame := 0
 var frames := []
 
 func _ready() -> void:
-	sprite.connect("animation_finished", sprite.frames, 'clear')
-	sprite.connect("animation_finished", sprite, 'stop')
+	VisualServer.canvas_item_set_z_index($ColorRect.get_canvas_item(), 4096)
+	remove_child(fx)
 
 func _record() -> void:
-	frames.append(screenshot.get_data())
+	var texture := ImageTexture.new()
+	texture.create_from_image(screenshot.get_data(), 0)
+	frames.append(texture)
+	frame += 1
 
-func rewind(level:PackedScene) -> void:
+func rewind() -> void:
+	ItemManager
 	timer.stop()
-	for frame in frames:
-		var img := ImageTexture.new()
-		sprite.frames.add_frame('default', img)
-	sprite.frames.set_animation_speed('default', frames.size() / 3.0)
+	pause_mode = Node.PAUSE_MODE_PROCESS
+	add_child(fx)
+	
+	sprite.scale = Global.game_rect / viewport.size
+	for f in frames:
+		sprite.frames.add_frame('default', f)
+	sprite.frames.set_animation_speed('default', frame / 3.0)
 	sprite.play("default", true)
+	sprite.connect("animation_finished", tree, 'reload_current_scene', [], 4)
+
+func _on_AnimatedSprite_animation_finished():
+	remove_child(fx)
+	sprite.frames.clear('default')
+	sprite.stop()
 	frames.clear()
-	sprite.connect("animation_finished", tree, 'change_scene_to', [level], 4)

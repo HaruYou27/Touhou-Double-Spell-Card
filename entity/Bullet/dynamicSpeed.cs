@@ -58,18 +58,16 @@ public class DynamicSpeed : BulletBasic {
         }
         index = 0;
     }
+    public override void SpawnBullet() {
+        foreach (Node2D barrel in barrels) {
+            if (index == maxBullet) {return;}
+            RID sprite = sprites.Pop();
+            VisualServer.CanvasItemSetVisible(sprite, true);
+            bullets[index] = new Bullet(speed, barrel.GlobalTransform, sprite, absDeltaV, grazable);
+            index++;
+        }
+    }
     public override void _PhysicsProcess(float delta) {
-        if (shooting) {
-            if (heat <= 0) {
-                heat += cooldown;
-                foreach (Node2D barrel in barrels) {
-			    if (index == maxBullet) {break;}
-			    Bullet bullet = new Bullet(speed, barrel.GlobalTransform, sprites.Pop(), absDeltaV, grazable);
-                VisualServer.CanvasItemSetVisible(bullet.sprite, true);
-			    bullets[index] = bullet;
-			    index++;
-		        }
-            } else {heat -= delta;}}
         if (index == 0) {
             return;
         }

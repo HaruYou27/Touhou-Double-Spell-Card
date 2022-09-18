@@ -3,7 +3,6 @@ class_name Player
 
 signal die
 
-onready var hit : Sprite = $hit
 onready var hitSFX : AudioStreamPlayer = $hitSFX
 onready var focus_layer : Sprite = $focus
 onready var graze : StaticBody2D = $graze
@@ -26,34 +25,34 @@ func _ready() -> void:
 		input = KeyboardHandler.new()
 	add_child(input)
 	
+	var timer :Timer = $Timer
+	var timer2 :Timer = $Timer2
 	if Global.save_data.auto_shoot:
-		tree.set_group('player_bullet', 'shooting', true)
-	remove_child(hit)
+		timer.start()
+		timer.connect("timeout", $bullet, 'SpawnBullet')
+		timer2.start()
+		timer2.connect("timeout", $bullet2, 'SpawnBullet')
 	
 func _hit() -> void:
 	input.pause()
-	tree.paused = true
-	
 	hitSFX.play()
 	emit_signal('die')
 
 func unfocus() -> void:
 	animation.play_backwards("focus")
-	create_tween().tween_property(focus_layer, 'modulate', Color.transparent, 0.15)
+	create_tween().tween_property(focus_layer, 'modulate', Color.transparent, .15)
 	
 func focus() -> void:
 	animation.play("focus")
-	create_tween().tween_property(focus_layer, 'modulate', Color.white, 0.15)
+	create_tween().tween_property(focus_layer, 'modulate', Color.white, .15)
 
 func bomb() -> void:
-	remove_child(hit)
-	
 	if bombs:
 		bombs -= 1
 		collision_layer = 0
 		graze.collision_layer = 0
 		if Global.save_data.auto_shoot:
-			tree.set_group('player_bullet', 'shooting', false)
+			tree.call_group('player_bullet', 'stop')
 		
 		var bomb_node :Node2D = bomb_scene.instance()
 		bomb_node.connect('done', self, '_bomb_done')
@@ -65,4 +64,4 @@ func _bomb_done():
 	collision_layer = 4
 	graze.collision_layer = 8
 	if Global.save_data.auto_shoot:
-		tree.set_group('player_bullet', 'shooting', true)
+		tree.call_group('player_bullet', 'start')

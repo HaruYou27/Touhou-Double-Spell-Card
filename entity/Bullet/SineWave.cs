@@ -32,18 +32,16 @@ public class SineWave : BulletBasic {
     public override void _EnterTree() {
         bullets = new Bullet[maxBullet];
     }
+    public override void SpawnBullet() {
+        foreach (Node2D barrel in barrels) {
+            if (index == maxBullet) {return;}
+            RID sprite = sprites.Pop();
+            VisualServer.CanvasItemSetVisible(sprite, true);
+            bullets[index] = new Bullet(speed, barrel.GlobalTransform, sprite, grazable);
+            index++;
+        }
+    }
     public override void _PhysicsProcess(float delta) {
-        if (shooting) {
-            if (heat <= 0) {
-                heat += cooldown;
-                foreach (Node2D barrel in barrels) {
-			    if (index == maxBullet) {break;}
-			    Bullet bullet = new Bullet(speed, barrel.GlobalTransform, sprites.Pop(), grazable);
-                VisualServer.CanvasItemSetVisible(bullet.sprite, true);
-			    bullets[index] = bullet;
-			    index++;
-		        }
-            } else {heat -= delta;}}
         if (index == 0) {
             return;
         }

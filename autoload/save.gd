@@ -3,7 +3,7 @@ class_name saveData
 
 #Gameplay
 export (bool) var assist_mode := false
-export (float) var death_time := 1.0
+export (float) var death_time := .5
 export (int) var init_bomb := 3
 
 #Graphic

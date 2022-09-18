@@ -10,3 +10,6 @@ func _on_back_pressed():
 
 func select_character():
 	create_tween().tween_property(self, 'position', Vector2(1280, 0), ani_length)
+
+func select_level():
+	create_tween().tween_property(self, 'position', Vector2(2560, 0), ani_length)

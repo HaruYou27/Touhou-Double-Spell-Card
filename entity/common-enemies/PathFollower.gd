@@ -5,12 +5,13 @@ export (float) var time
 export (bool) var backward
 
 export (NodePath) var visual_node
-export (Array) var bullet_node
 
-var tween : SceneTreeTween
+onready var tween := create_tween()
+onready var timer :Timer = $Timer
+onready var bullet :Node2D = $bullet
 
 func _ready() -> void:
-	tween = create_tween()
+	tween.set_process_mode(Tween.TWEEN_PROCESS_PHYSICS)
 	if backward:
 		unit_offset = 1.0
 		tween.tween_property(self, 'unit_offset', 0.0, time)
@@ -18,16 +19,16 @@ func _ready() -> void:
 		tween.tween_property(self, 'unit_offset', 1.0, time)
 		
 	tween.connect("finished", get_node(visual_node), 'queue_free')
+	tween.connect("finished", self, '_on_die')
 	if loop:
 		tween.set_loops()
-
-func _on_orb_die():
-	tween.kill()
-	for node in bullet_node:
-		var bullet = get_node(node)
-		bullet.shooting = false
-		bullet.remove_from_group('bullet')
 		
-		for barrel in bullet.get_children():
-			barrel.queue_free()
+	timer.connect("timeout", bullet, 'SpawnBullet')
+	timer.connect("timeout", $Timer/sfx, 'play')
+
+func _on_die():
+	tween.kill()
+	timer.queue_free()
+	for barrel in bullet.get_children():
+		barrel.queue_free()
 	

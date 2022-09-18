@@ -4,28 +4,24 @@ class_name KeyboardHandler
 onready var player :Node2D = get_parent()
 onready var tree := get_tree()
 
-var speed := 575
-
 func _unhandled_input(event):
-	if event.is_action_pressed("focus"):
-		speed = 94
-		player.focus()
-	elif event.is_action_released("focus"):
-		speed = 575
-		player.unfocus()
-	elif event.is_action_pressed("bomb"):
+	if event.is_action_pressed("bomb"):
 		player.bomb()
-		set_physics_process(true)
-		set_process_input(false)
+		pause_mode = Node.PAUSE_MODE_INHERIT		
 		if tree.paused:
+			set_physics_process(true)
+			set_process_input(false)
+			set_process_unhandled_input(false)
 			tree.paused = false
 			
 func pause() -> void:
+	pause_mode = Node.PAUSE_MODE_PROCESS
 	set_physics_process(false)
 	set_process_input(false)
 
 func _bomb_done() -> void:
 	set_process_input(not Global.save_data.auto_shoot)
+	set_process_unhandled_input(true)
 		
 func _ready():
 	set_process_input(not Global.save_data.auto_shoot)
@@ -37,12 +33,15 @@ func _physics_process(delta:float) -> void:
 		return
 	var velocity := Vector2(x, y).normalized()
 	
-	player.position += velocity * delta * speed
+	if Input.is_action_pressed('focus'):
+		velocity /= 6
+	
+	player.position += velocity * delta * 575
 	player.position.x = clamp(player.position.x, 0.0, Global.playground.x)
 	player.position.y = clamp(player.position.y, 0.0, Global.playground.y)
 
 func _input(event:InputEvent) -> void:
 	if event.is_action_pressed("shoot"):
-		tree.set_group('player_bullet', 'shooting', true)
+		tree.call_group('player_bullet', 'start')
 	elif event.is_action_released("shoot"):
-		tree.set_group('player_bullet', 'shooting', false)
+		tree.call_group('player_bullet', 'stop')

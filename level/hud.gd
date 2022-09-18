@@ -19,7 +19,7 @@ func _ready() -> void:
 	
 	if Global.save_data.hi_score.has(stage_name):
 		var hi_score :Label = $VBoxContainer/HiScore
-		hi_score.text = hi_score.text % Global.save_data.hi_score[stage_name]
+		hi_score.text = 'Score:           %010d' % Global.save_data.hi_score[stage_name]
 		Global.save_data.try_count[stage_name] += 1
 	else:
 		Global.save_data.hi_score[stage_name] = 0

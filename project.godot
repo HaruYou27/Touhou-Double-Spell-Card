@@ -44,6 +44,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://entity/boss/boss.gd"
 }, {
+"base": "Sprite",
+"class": "BossIndicator",
+"language": "GDScript",
+"path": "res://level/Boss-indicator.gd"
+}, {
 "base": "Reference",
 "class": "DTS",
 "language": "GDScript",
@@ -107,7 +112,7 @@ _global_script_classes=[ {
 "base": "Node",
 "class": "KeyboardHandler",
 "language": "GDScript",
-"path": "res://autoload/controls/keyboard.gd"
+"path": "res://entity/player/controls/keyboard.gd"
 }, {
 "base": "Control",
 "class": "Level",
@@ -117,7 +122,7 @@ _global_script_classes=[ {
 "base": "Node",
 "class": "MouseHandler",
 "language": "GDScript",
-"path": "res://autoload/controls/mouse.gd"
+"path": "res://entity/player/controls/mouse.gd"
 }, {
 "base": "PathFollow2D",
 "class": "PathFollower",
@@ -157,6 +162,7 @@ _global_script_class_icons={
 "AnimatedTextButton": "",
 "BackButton": "",
 "Boss": "",
+"BossIndicator": "",
 "DTS": "",
 "Dialogic": "",
 "DialogicAnimaPropertiesHelper": "",

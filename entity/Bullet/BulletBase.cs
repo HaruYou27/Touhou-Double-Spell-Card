@@ -27,6 +27,7 @@ public class BulletBase : Node2D {
 		} get {return mask;}
 	}
 	[Export] public bool grazable = true;
+	[Export] public Godot.Collections.Array Barrels = new Godot.Collections.Array();
 	protected Physics2DShapeQueryParameters query = new Physics2DShapeQueryParameters();
 	protected RID hitbox;
 	private Vector2 shapesize;
@@ -47,20 +48,7 @@ public class BulletBase : Node2D {
 	private Texture tex;
 	protected Vector2 textureSize;
 	protected RID textureRID;
-	
-	[Export] public bool shooting;
-	[Export] public float firerate {
-		set {
-			if (value > 0) {
-				cooldown = 1 / value;
-			}
-		}
-		get {return cooldown;}
-	}
-	[Export] public Godot.Collections.Array Barrels = new Godot.Collections.Array();
-	[Export] public float cooldown;
 
-	protected float heat;
 	protected World2D world;
 	protected uint index;
 	protected Node2D[] barrels;

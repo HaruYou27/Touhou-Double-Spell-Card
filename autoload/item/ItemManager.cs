@@ -52,7 +52,6 @@ public class ItemManager : Node {
 			else {VisualServer.CanvasItemSetMaterial(sprite, backwardRID);}
 
 			VisualServer.CanvasItemSetVisible(sprite, false);
-
 			sprites.Push(sprite);
 		}
 	}
@@ -65,6 +64,13 @@ public class ItemManager : Node {
 			items[index] = item;
 			index++;
 		}			
+	}
+	public virtual void Flush() {
+		foreach (Item item in items) {
+			sprites.Push(item.sprite);
+			VisualServer.CanvasItemSetVisible(item.sprite, false);
+		}
+		index = 0;
 	}
 	public override void _PhysicsProcess(float delta) {
 		if (index == 0) {
