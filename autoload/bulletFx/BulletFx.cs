@@ -8,7 +8,7 @@ public class BulletFx : GrazeFx {
 	private ShaderMaterial fxMaterial = GD.Load<ShaderMaterial>("res://autoload/bulletFx/hitFx.material");
 	protected RID[] fxSprites = new RID[maxFx];
 	protected const uint maxFx = 72;
-	protected uint tick;
+	protected float tick;
 	protected uint fxIndex = 0;
 
 	public override void _Ready() {
@@ -44,14 +44,12 @@ public class BulletFx : GrazeFx {
 		VisualServer.CanvasItemSetTransform(sprite, new Transform2D(GD.Randf() * Mathf.Tau, position));
 		fxIndex++;
 	}
-	public override void _Process(float delta) {
-		if (tick != fxIndex) {
-			for (uint i = 0; i != fxIndex; i++) {
-				VisualServer.CanvasItemSetVisible(fxSprites[i], false);
-			}
-			fxIndex = 0;
-			tick = 7;
-		} else if (tick > 0) {tick--;}
+	public virtual void ClearFx() {
+		if (fxIndex == 0) {return;}
+		for (uint i = 0; i != fxIndex; i++) {
+			VisualServer.CanvasItemSetVisible(fxSprites[i], false);
+		}
+		fxIndex = 0;
 	}
 	public override void _PhysicsProcess(float delta) {
 		VisualServer.CanvasItemClear(canvas);

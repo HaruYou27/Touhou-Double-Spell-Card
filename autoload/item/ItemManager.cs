@@ -9,7 +9,7 @@ public class ItemManager : Node {
 		public Item(in Vector2 position, in RID canvas) {
 			transform = new Transform2D(GD.Randf() * Mathf.Tau, position);
 			sprite = canvas;
-			velocity = new Vector2(GD.Randf() * 7, 0).Rotated(GD.Randf() * Mathf.Tau);
+			velocity = new Vector2(GD.Randf() * 17, 0).Rotated(GD.Randf() * Mathf.Tau);
 		}
 	}
 	private Item[] items = new Item[maxItem];
@@ -66,9 +66,10 @@ public class ItemManager : Node {
 		}			
 	}
 	public virtual void Flush() {
-		foreach (Item item in items) {
-			sprites.Push(item.sprite);
-			VisualServer.CanvasItemSetVisible(item.sprite, false);
+		for (uint i = 0; i != index; i++) {
+			RID sprite = items[i].sprite;
+			VisualServer.CanvasItemSetVisible(sprite, false);
+			sprites.Push(sprite);
 		}
 		index = 0;
 	}
@@ -99,7 +100,8 @@ public class ItemManager : Node {
 				items[newIndex] = item;
 				newIndex++;
 				continue;
-			} else if (((Vector2)result["linear_velocity"]).x == 4) {Global.EmitSignal("collect");}
+			}
+			else if (((Vector2)result["linear_velocity"]).x == 4) {Global.EmitSignal("collect");}
 			sprites.Push(item.sprite);
 			VisualServer.CanvasItemSetVisible(item.sprite, false);
 		}

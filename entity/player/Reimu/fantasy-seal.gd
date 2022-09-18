@@ -37,8 +37,7 @@ func _physics_process(delta:float) -> void:
 		return
 	
 	#Impact
-	tree.call_group('enemy', 'die')
-	tree.call_group('bullet', 'Flush')
+	tree.call_group('enemy', 'bomb')
 	ItemManager.autoCollect = true
 	OS.delay_msec(15)
 	Global.emit_signal('shake', .15)

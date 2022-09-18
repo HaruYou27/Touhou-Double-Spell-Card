@@ -27,8 +27,8 @@ func _ready() -> void:
 	
 	bomb_label.text = bomb_label.text % Global.save_data.init_bomb
 
-func _update_point() -> void:
-	point += 1
+func _update_point(value = 1) -> void:
+	point += value
 	point_label.text = 'Point:                         %06d' % point
 	_update_score(point * graze)
 	

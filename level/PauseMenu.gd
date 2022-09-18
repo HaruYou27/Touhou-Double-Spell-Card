@@ -9,6 +9,7 @@ var color_trans
 func _input(event):
 	if event.is_action_pressed("pause"):
 		tree.paused = true
+		show()		
 		create_tween().tween_property(self, 'color', color_def, .15)
 		resume.grab_focus()
 		set_process_input(false)
@@ -18,6 +19,7 @@ func _ready() -> void:
 	color_def.a = .69
 	color.a = 0.0
 	color_trans = color
+	$VBoxContainer/Restart.connect("pressed", Rewind, 'rewind')
 
 func _on_Resume_pressed() -> void:
 	var tween := create_tween()

@@ -14,6 +14,7 @@ var frames := []
 func _ready() -> void:
 	VisualServer.canvas_item_set_z_index($ColorRect.get_canvas_item(), 4096)
 	remove_child(fx)
+	sprite.connect("animation_finished", tree, 'reload_current_scene')	
 
 func _record() -> void:
 	var texture := ImageTexture.new()
@@ -22,7 +23,6 @@ func _record() -> void:
 	frame += 1
 
 func rewind() -> void:
-	ItemManager
 	timer.stop()
 	pause_mode = Node.PAUSE_MODE_PROCESS
 	add_child(fx)
@@ -32,9 +32,9 @@ func rewind() -> void:
 		sprite.frames.add_frame('default', f)
 	sprite.frames.set_animation_speed('default', frame / 3.0)
 	sprite.play("default", true)
-	sprite.connect("animation_finished", tree, 'reload_current_scene', [], 4)
 
 func _on_AnimatedSprite_animation_finished():
+	pause_mode = Node.PAUSE_MODE_STOP
 	remove_child(fx)
 	sprite.frames.clear('default')
 	sprite.stop()

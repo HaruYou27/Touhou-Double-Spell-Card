@@ -14,6 +14,10 @@ onready var hud :Sprite = $hud
 
 func _ready() -> void:
 	Rewind.timer.start()
+	ItemManager.Flush()
+	GrazeFx.index = 0
+	BulletFx.index = 0
+	
 	Global.connect("flash", self, 'flash')
 	Global.connect('shake', self, 'shake')
 	Global.player.connect('die', self, 'flash_red')
@@ -65,7 +69,7 @@ func flash_red() -> void:
 	count_down.global_position = Global.player.global_position
 	var tween := create_tween()
 	tween.tween_property(count_down, 'scale', Vector2(.01, .01), Global.save_data.death_time)
-	tween.connect("finished", self, '_on_Restart_pressed')
+	tween.connect("finished", Rewind, 'rewind')
 	tween.connect("finished", self, 'set_pause_mode', [0])
 	
 func bomb() -> void:
@@ -80,9 +84,6 @@ func next() -> void:
 	level.queue_free()
 	level = levels.pop_back().instance()
 	add_child(level)
-
-func _on_Restart_pressed() -> void:
-	Rewind.rewind()
 
 func _on_Quit_pressed():
 	var tween := fade2black()

@@ -6,7 +6,7 @@ public class GrazeFx : Node2D {
 	protected Physics2DShapeQueryParameters query = new Physics2DShapeQueryParameters();
 	protected RID hitbox = Physics2DServer.CircleShapeCreate();
 	private const uint maxItem = 57;
-	protected uint index;
+	public uint index;
 
 	protected Texture texture = GD.Load<Texture>("res://autoload/bulletFx/grazefx.png");
 	protected RID textureRID;

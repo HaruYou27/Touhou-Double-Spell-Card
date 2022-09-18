@@ -8,16 +8,14 @@ export (int) var point
 
 func _ready() -> void:
 	connect("body_entered", self, '_on_body_entered')
-	add_to_group('enemy')
 
 func _hit() -> void:
 	hp -= 1
 	if hp:
 		return
-	
 	_die()
 	
-func _on_body_entered(body):
+func _on_body_entered(body) -> void:
 	body._hit()
 	
 func _die() -> void:

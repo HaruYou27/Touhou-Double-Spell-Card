@@ -31,4 +31,10 @@ func _on_die():
 	timer.queue_free()
 	for barrel in bullet.get_children():
 		barrel.queue_free()
-	
+
+func bomb():
+	bullet.Flush()
+	var orb = $orb
+	if orb:
+		Global.emit_signal("collect", orb.point)
+	queue_free()

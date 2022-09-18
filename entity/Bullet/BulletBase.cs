@@ -64,7 +64,6 @@ public class BulletBase : Node2D {
 
 		if (grazable) {
 			grazefx = GetNode<GrazeFx>("/root/GrazeFx");
-			AddToGroup("bullet");
 		}
 
 		int size = Barrels.Count;
