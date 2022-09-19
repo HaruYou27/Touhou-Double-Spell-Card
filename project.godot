@@ -198,7 +198,6 @@ config/icon="res://icon.png"
 Global="*res://autoload/Global.gd"
 Rewind="*res://autoload/Rewind.scn"
 ItemManager="*res://autoload/item/ItemManager.cs"
-GrazeFx="*res://autoload/bulletFx/GrazeFx.cs"
 BulletFx="*res://autoload/bulletFx/BulletFx.scn"
 
 [debug]

@@ -48,7 +48,6 @@ func _entered() -> void:
 	
 func _on_back_pressed():
 	tabcontainer.set_process_input(false)
-	hide()
 	
 func _on_graphic_reset_pressed():
 	AudioServer.set_bus_volume_db(2, -80)
@@ -79,10 +78,10 @@ func _on_borderless_toggled(button_pressed):
 	Global.save_data.borderless = button_pressed
 
 func _on_resolution_item_changed(item):
-	Global.save_data.resolution = resolution.get_item()
+	Global.save_data.resolution = item
 
 func _on_fps_item_changed(item):
-	Global.save_data.target_fps = fps.get_item()
+	Global.save_data.target_fps = item
 
 #Audio
 onready var master_slider :AnimatedHSlider = $TabContainer/Audio/master

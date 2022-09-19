@@ -21,7 +21,6 @@ const game_rect := Vector2(1280, 960)
 func _set_player(value:Node2D) -> void:
 	player = value
 	BulletFx.target = value
-	GrazeFx.target = value
 	ItemManager.target = value
 
 func _ready() -> void:

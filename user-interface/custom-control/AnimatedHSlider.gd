@@ -50,4 +50,4 @@ func _on_focus_exited() -> void:
 	tween.tween_property(label, 'rect_position', default_pos, animation_length)
 
 func _on_value_changed(value) -> void:
-	label.text = template % get_percentage()
+	label.text = template % value

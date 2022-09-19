@@ -34,7 +34,7 @@ func _on_die():
 
 func bomb():
 	bullet.Flush()
-	var orb = $orb
+	var orb = get_node_or_null('orb')
 	if orb:
 		Global.emit_signal("collect", orb.point)
 	queue_free()

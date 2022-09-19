@@ -9,10 +9,11 @@ var color_trans
 func _input(event):
 	if event.is_action_pressed("pause"):
 		tree.paused = true
-		show()		
+		show()
 		create_tween().tween_property(self, 'color', color_def, .15)
 		resume.grab_focus()
 		set_process_input(false)
+		accept_event()
 
 func _ready() -> void:
 	VisualServer.canvas_item_set_z_index(get_canvas_item(), 4000)

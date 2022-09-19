@@ -53,7 +53,6 @@ public class BulletBase : Node2D {
 	protected uint index;
 	protected Node2D[] barrels;
 	protected Node Global;
-	protected GrazeFx grazefx;
 	protected BulletFx fx;
 	protected Stack<RID> sprites;
 
@@ -61,10 +60,6 @@ public class BulletBase : Node2D {
 		world = GetWorld2d();
 		Global = GetNode("/root/Global");
 		fx = GetNode<BulletFx>("/root/BulletFx");
-
-		if (grazable) {
-			grazefx = GetNode<GrazeFx>("/root/GrazeFx");
-		}
 
 		int size = Barrels.Count;
 		if (size == 0) {

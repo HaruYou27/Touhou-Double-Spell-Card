@@ -3,10 +3,11 @@ class_name Player
 
 signal die
 
-onready var hitSFX : AudioStreamPlayer = $hitSFX
+onready var hitFx : Sprite = $hitFx
+onready var hitSFX : AudioStreamPlayer = $hitFx/hitSfx
 onready var focus_layer : Sprite = $focus
 onready var graze : StaticBody2D = $graze
-onready var animation :AnimationPlayer = $AnimationPlayer
+onready var animation : AnimationPlayer = $AnimationPlayer
 onready var tree := get_tree()
 
 onready var bombs :int = Global.save_data.init_bomb
@@ -18,6 +19,9 @@ export (PackedScene) var bomb_scene
 
 func _ready() -> void:
 	Global.player = self
+	#Global.connect("graze", gra)
+	remove_child(hitFx)
+	
 	if Global.save_data.use_mouse:
 		input = MouseHandler.new()
 		focus()
@@ -35,8 +39,16 @@ func _ready() -> void:
 	
 func _hit() -> void:
 	input.pause()
-	hitSFX.play()
 	emit_signal('die')
+	collision_layer = 0
+	
+	add_child(hitFx)
+	hitSFX.play()
+	hitFx.scale = Vector2.ONE
+	var tween := create_tween()
+	tween.tween_property(hitFx, 'scale', Vector2(.01, .01), Global.save_data.death_time)
+	tween.
+	
 
 func unfocus() -> void:
 	animation.play_backwards("focus")

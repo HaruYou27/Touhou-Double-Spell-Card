@@ -9,7 +9,6 @@ var focus := false
 func _unhandled_input(event):
 	if event.is_action_pressed("bomb"):
 		player.bomb()
-		pause_mode = Node.PAUSE_MODE_INHERIT		
 		if tree.paused:
 			set_physics_process(true)
 			set_process_input(false)
@@ -17,7 +16,6 @@ func _unhandled_input(event):
 			tree.paused = false
 			
 func pause() -> void:
-	pause_mode = Node.PAUSE_MODE_PROCESS
 	set_physics_process(false)
 	set_process_input(false)
 

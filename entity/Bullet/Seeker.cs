@@ -117,7 +117,7 @@ public class Seeker : BulletBasic {
                     continue;
                 }
                 bullet.grazable = false;
-                grazefx.SpawnItem(bullet.transform.origin);
+                Global.EmitSignal("graze");
                 bullets[newIndex] = bullet;
                 newIndex++;
                 continue;

@@ -64,14 +64,6 @@ func flash_red() -> void:
 	add_child(overlay)
 	overlay.color = Color(0.996078, 0.203922, 0.203922, 0.592157)
 	
-	add_child(count_down)
-	count_down.scale = Vector2.ONE
-	count_down.global_position = Global.player.global_position
-	var tween := create_tween()
-	tween.tween_property(count_down, 'scale', Vector2(.01, .01), Global.save_data.death_time)
-	tween.connect("finished", Rewind, 'rewind')
-	tween.connect("finished", self, 'set_pause_mode', [0])
-	
 func bomb() -> void:
 	remove_child(overlay)
 	remove_child(count_down)

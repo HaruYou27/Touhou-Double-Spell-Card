@@ -1,6 +1,6 @@
 using Godot;
 
-public class BulletFx : GrazeFx {
+public class BulletFx : Node2D {
 	private Vector2[] items = new Vector2[maxItem];
 	private const uint maxItem = 4727;
 
@@ -11,8 +11,33 @@ public class BulletFx : GrazeFx {
 	protected float tick;
 	protected uint fxIndex = 0;
 
+	protected Physics2DShapeQueryParameters query = new Physics2DShapeQueryParameters();
+	protected RID hitbox = Physics2DServer.CircleShapeCreate();
+	public uint index;
+
+	protected Texture texture = GD.Load<Texture>("res://autoload/bulletFx/grazefx.png");
+	protected RID textureRID;
+	protected Vector2 offset;
+	protected Vector2 textureSize;
+	protected RID canvas;
+
+	protected Node2D target;
+	protected World2D world;
+	protected Node Global;
+
 	public override void _Ready() {
-		base._Ready();
+		Global = GetNode("/root/Global");
+		query.CollisionLayer = 4;
+		query.ShapeRid = hitbox;
+		world = GetWorld2d();
+
+		textureRID = texture.GetRid();
+		textureSize = texture.GetSize();
+		Physics2DServer.ShapeSetData(hitbox, textureSize.x / 2);
+		offset = -textureSize / 2;
+		ZIndex = 1;
+		canvas = GetCanvasItem();
+
 		Vector2 texSize = fxTexure.GetSize();
 		RID texRID = fxTexure.GetRid();
 		Rect2 texRect = new Rect2(-texSize / 2, texSize);
@@ -31,7 +56,7 @@ public class BulletFx : GrazeFx {
 			fxSprites[i] = sprite;
 		}
 	}
-	public override void SpawnItem(in Vector2 position) {
+	public virtual void SpawnItem(in Vector2 position) {
 		if (index == maxItem) {return;}
 		items[index] = position;
 		index++;
