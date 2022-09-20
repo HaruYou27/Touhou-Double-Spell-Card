@@ -9,19 +9,19 @@ var focus := false
 func _unhandled_input(event):
 	if event.is_action_pressed("bomb"):
 		player.bomb()
-		if tree.paused:
-			set_physics_process(true)
-			set_process_input(false)
-			set_process_unhandled_input(false)
-			tree.paused = false
+		set_physics_process(true)
+		set_process_input(false)
+		set_process_unhandled_input(false)
 			
 func pause() -> void:
 	set_physics_process(false)
 	set_process_input(false)
+	pause_mode = Node.PAUSE_MODE_PROCESS
 
 func _bomb_done() -> void:
 	set_process_input(not Global.save_data.auto_shoot)
 	set_process_unhandled_input(true)
+	pause_mode = Node.PAUSE_MODE_INHERIT
 		
 func _ready():
 	set_process_input(not Global.save_data.auto_shoot)

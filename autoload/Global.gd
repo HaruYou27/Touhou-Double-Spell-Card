@@ -4,8 +4,7 @@ signal graze
 signal collect
 signal bomb
 
-signal shake(time)
-signal flash
+signal impact
 
 var save_data : saveData
 var player setget _set_player

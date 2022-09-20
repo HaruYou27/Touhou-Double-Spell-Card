@@ -37,11 +37,9 @@ func _physics_process(delta:float) -> void:
 		return
 	
 	#Impact
-	tree.call_group('enemy', 'bomb')
+	Global.emit_signal('impact')
 	ItemManager.autoCollect = true
 	OS.delay_msec(15)
-	Global.emit_signal('shake', .15)
-	Global.emit_signal('flash')
 	
 	var boss = Global.boss
 	boss.hp -= boss.max_hp / 8

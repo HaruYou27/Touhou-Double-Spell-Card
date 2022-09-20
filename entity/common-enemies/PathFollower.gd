@@ -25,6 +25,8 @@ func _ready() -> void:
 		
 	timer.connect("timeout", bullet, 'SpawnBullet')
 	timer.connect("timeout", $Timer/sfx, 'play')
+	
+	Global.connect("impact", self, 'bomb')
 
 func _on_die():
 	tween.kill()

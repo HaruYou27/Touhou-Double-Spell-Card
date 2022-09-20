@@ -15,12 +15,11 @@ onready var hud :Sprite = $hud
 func _ready() -> void:
 	Rewind.timer.start()
 	ItemManager.Flush()
-	GrazeFx.index = 0
 	BulletFx.index = 0
 	
-	Global.connect("flash", self, 'flash')
-	Global.connect('shake', self, 'shake')
+	Global.connect("impact", self, 'impact')
 	Global.player.connect('die', self, 'flash_red')
+	Global.connect("bomb", self, 'bomb')
 	
 	VisualServer.canvas_item_set_z_index(overlay.get_canvas_item(), 4000)
 	var tween := fade2black()
@@ -28,7 +27,6 @@ func _ready() -> void:
 	tween.connect("finished", hud, 'remove_child', [overlay])
 	
 	level = get_node(level)
-	remove_child(count_down)
 	
 func _exit_tree() -> void:
 	Global.save_data.level = tree.current_scene
@@ -52,25 +50,22 @@ func fade2black() -> SceneTreeTween:
 	tween.tween_property(overlay, 'color', Global.fade_trans, Global.fade_time)
 	return tween
 
-func flash() -> void:
-	add_child(overlay)
-	overlay.color = Color(1, 1, 1, .5)
-	var tween := create_tween()
-	tween.tween_property(overlay, 'color', Color.transparent, .15)
-	tween.connect("finished", self, 'remove_child', [overlay])
-	
-onready var count_down :Sprite = $CountDown
 func flash_red() -> void:
 	add_child(overlay)
 	overlay.color = Color(0.996078, 0.203922, 0.203922, 0.592157)
 	
 func bomb() -> void:
 	remove_child(overlay)
-	remove_child(count_down)
 
-func shake(duration:float) -> void:
-	shaking += duration
+func impact() -> void:
+	shaking += .15
 	set_process(true)
+	
+	add_child(overlay)
+	overlay.color = Color(1, 1, 1, .5)
+	var tween := create_tween()
+	tween.tween_property(overlay, 'color', Color.transparent, .15)
+	tween.connect("finished", self, 'remove_child', [overlay])
 
 func next() -> void:
 	level.queue_free()
