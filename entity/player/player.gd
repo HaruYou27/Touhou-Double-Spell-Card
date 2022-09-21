@@ -47,6 +47,9 @@ func _ready() -> void:
 		timer2.connect("timeout", $bullet2, 'SpawnBullet')
 	
 func _hit() -> void:
+	if tree.paused:
+		return
+	
 	input.pause()
 	emit_signal('die')
 	

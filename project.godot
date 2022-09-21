@@ -196,9 +196,9 @@ config/icon="res://icon.png"
 [autoload]
 
 Global="*res://autoload/Global.gd"
-Rewind="*res://autoload/Rewind.scn"
 ItemManager="*res://autoload/item/ItemManager.cs"
 BulletFx="*res://autoload/bulletFx/BulletFx.scn"
+Rewind="*res://autoload/Rewind.scn"
 
 [debug]
 

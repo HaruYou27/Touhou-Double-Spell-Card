@@ -19,6 +19,6 @@ func _on_body_entered(body) -> void:
 	body._hit()
 	
 func _die() -> void:
-	ItemManager.SpawnItem(global_position, point)
+	Global.ItemManager.SpawnItem(global_position, point)
 	emit_signal('die')
 	queue_free()

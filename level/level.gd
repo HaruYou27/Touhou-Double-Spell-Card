@@ -13,7 +13,7 @@ onready var item_get_border :RayCast2D = $RayCast2D
 onready var hud :Sprite = $hud
 
 func _ready() -> void:
-	Rewind.timer.start()
+	Rewind.set_process(true)
 	ItemManager.Flush()
 	BulletFx.index = 0
 	
@@ -51,6 +51,9 @@ func fade2black() -> SceneTreeTween:
 	return tween
 
 func flash_red() -> void:
+	if tree.paused:
+		return
+		
 	add_child(overlay)
 	overlay.color = Color(0.996078, 0.203922, 0.203922, 0.592157)
 	
