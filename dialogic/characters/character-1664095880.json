@@ -1,0 +1,21 @@
+{
+	"color": "#ff6317eb",
+	"description": "A legendary youkai who is able to manipulate boundaries. One of \tGensokyo's Sage, maintaining Gensokyo's balance and order.",
+	"display_name": "",
+	"display_name_bool": false,
+	"id": "character-1664095880.json",
+	"mirror_portraits": false,
+	"name": "Yukari Yakumo",
+	"nickname": "Yukari",
+	"nickname_bool": true,
+	"offset_x": 0,
+	"offset_y": 0,
+	"portraits": [
+		{
+			"name": "Default",
+			"path": ""
+		}
+	],
+	"scale": 100,
+	"theme": ""
+}

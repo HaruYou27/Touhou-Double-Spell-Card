@@ -1,9 +1,12 @@
 extends Node
 class_name MouseHandler
 
-onready var player : Node2D = get_parent()
+onready var player : Node2D
 
 var focus_speed :int = 172
+
+func _init(node) -> void:
+	player = node
 
 func _physics_process(_delta) -> void:
 	var mouse_local := player.get_local_mouse_position()

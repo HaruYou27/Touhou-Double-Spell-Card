@@ -26,7 +26,8 @@ public class ItemManager : Node {
 	protected World2D world;
 	protected Node Global;
 	protected Node2D target;
-	protected bool autoCollect;
+	public bool autoCollect;
+	public bool keepCollect;
 
 	public override void _Ready() {
 		query.ShapeRid = hitbox;
@@ -75,7 +76,7 @@ public class ItemManager : Node {
 	}
 	public override void _PhysicsProcess(float delta) {
 		if (index == 0) {
-			autoCollect = false;
+			autoCollect = keepCollect;
 			return;
 		}
 		uint newIndex = 0;

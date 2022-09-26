@@ -5,12 +5,15 @@ var shaking := 0.0
 
 export (Array) var levels : Array
 export (NodePath) var level
-export (String) var stage_name
+export (PackedScene) var dialogue
+export (int, 0, 7) var stage
+export (String) var stage_path
 
 onready var tree = get_tree()
 onready var overlay := ColorRect.new()
-onready var item_get_border :RayCast2D = $RayCast2D
+onready var item_get_border :Area2D = $itemGet
 onready var hud :Sprite = $hud
+onready var save : CharacterData
 
 func _ready() -> void:
 	Rewind.set_process(true)
@@ -20,21 +23,20 @@ func _ready() -> void:
 	Global.connect("impact", self, 'impact')
 	Global.player.connect('die', self, 'flash_red')
 	Global.connect("bomb", self, 'bomb')
+	Global.save_data.last_level = stage_path
 	
 	VisualServer.canvas_item_set_z_index(overlay.get_canvas_item(), 4000)
 	var tween := fade2black()
 	tween.connect("finished", overlay, 'set_size', [rect_size])
 	tween.connect("finished", hud, 'remove_child', [overlay])
 	
+	save = Global.get_char_data()
+	$VBoxContainer/HiScore.text = 'Hi-Score:      %010d' % save.score[stage]
+	save.retry_count[stage] += 1
+	Global.save_data.save()
+	
 	level = get_node(level)
 	
-func _exit_tree() -> void:
-	Global.save_data.level = tree.current_scene
-
-func _physics_process(_delta) -> void:
-	if item_get_border.is_colliding():
-		ItemManager.autoCollect = true
-		
 func _process(delta) -> void:
 	if shaking <= 0.0:
 		rect_position = Vector2(60, 28)
@@ -71,10 +73,25 @@ func impact() -> void:
 	tween.connect("finished", self, 'remove_child', [overlay])
 
 func next() -> void:
-	level.queue_free()
-	level = levels.pop_back().instance()
-	add_child(level)
+	if levels.size():
+		level.queue_free()
+		level = levels.pop_back().instance()
+		add_child(level)
+		return
+	
+	var score :int = hud.point * hud.graze
+	if score > save.score[stage]:
+		save.score[stage] = score
+		Global.save_data.save()
 
 func _on_Quit_pressed():
 	var tween := fade2black()
 	tween.connect("finished", tree, 'change_scene', ["res://user-interface/mainMenu/Menu.scn"])
+
+func _on_itemGet_body_entered(_body):
+	ItemManager.autoCollect = true
+	ItemManager.keepCollect = true
+
+func _on_itemGet_body_exited(body):
+	ItemManager.keepCollect = false
+	

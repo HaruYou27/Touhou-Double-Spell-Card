@@ -1,0 +1,21 @@
+{
+	"color": "#ff000000",
+	"description": " An ordinary human magician who specializes in light and heat magic and currently resides in the Forest of Magic. She has a compulsive mania for collecting things, and is considered to be the deuteragonist of the Touhou Project series.",
+	"display_name": "",
+	"display_name_bool": false,
+	"id": "character-1664109907.json",
+	"mirror_portraits": false,
+	"name": "Marisa Kirisame",
+	"nickname": "Marisa",
+	"nickname_bool": true,
+	"offset_x": 0,
+	"offset_y": 0,
+	"portraits": [
+		{
+			"name": "Default",
+			"path": ""
+		}
+	],
+	"scale": 100,
+	"theme": ""
+}

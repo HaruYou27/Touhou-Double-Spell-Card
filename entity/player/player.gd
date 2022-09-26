@@ -32,10 +32,10 @@ func _ready() -> void:
 	death_tween.interpolate_property(hitFx, 'scale', Vector2.ONE, Vector2(.01, .01), Global.save_data.death_time)
 	
 	if Global.save_data.use_mouse:
-		input = MouseHandler.new()
+		input = MouseHandler.new(self)
 		focus()
 	else:
-		input = KeyboardHandler.new()
+		input = KeyboardHandler.new(self)
 	add_child(input)
 	
 	var timer :Timer = $Timer

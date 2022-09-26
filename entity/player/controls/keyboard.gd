@@ -1,12 +1,15 @@
 extends Node
 class_name KeyboardHandler
 
-onready var player :Node2D = get_parent()
+onready var player :Node2D
 onready var tree := get_tree()
 
 var speed := 575
 
-func _unhandled_input(event):
+func _init(node) -> void:
+	player = node
+
+func _unhandled_input(event) -> void:
 	if event.is_action_pressed("bomb"):
 		player.bomb()
 		set_physics_process(true)

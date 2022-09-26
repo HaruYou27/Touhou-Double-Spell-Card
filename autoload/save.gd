@@ -1,6 +1,7 @@
 extends Resource
 class_name saveData
 
+### Game settings data
 #Gameplay
 export (bool) var assist_mode := false
 export (float) var death_time := .727
@@ -32,11 +33,11 @@ export (Dictionary) var key_bind := {
 	'bomb' : KEY_X
 }
 
-#Score
-export (Dictionary) var hi_score := {}
-export (Dictionary) var try_count := {}
-export (PoolStringArray) var characters := ['reimu']
-export (String) var level
+### User data
+export (Dictionary) var char_data := {
+	'reimu' : CharacterData.new()
+}
+export (String) var last_level
 
 onready var release := not OS.is_debug_build()
 
