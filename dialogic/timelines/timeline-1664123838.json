@@ -1,10 +1,29 @@
 {
 	"events": [
-
+		{
+			"animation": "[Default]",
+			"animation_length": 0,
+			"change_mirror_portrait": false,
+			"change_z_index": false,
+			"character": "character-1664095880.json",
+			"event_id": "dialogic_002",
+			"mirror_portrait": false,
+			"portrait": "Default",
+			"portrait_definition": "",
+			"position": {
+				"0": true,
+				"1": false,
+				"2": false,
+				"3": false,
+				"4": false
+			},
+			"type": 0,
+			"z_index": 0
+		}
 	],
 	"metadata": {
 		"dialogic-version": "1.4.4",
 		"file": "timeline-1664123838.json",
-		"name": "tutorial"
+		"name": "move"
 	}
 }

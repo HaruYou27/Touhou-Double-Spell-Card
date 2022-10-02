@@ -1,7 +1,7 @@
 extends Node2D
 
 signal done
-
+	
 onready var seals = [$seal, $seal2, $seal3, $seal4]
 onready var local_pos = PoolVector2Array([Vector2(), Vector2(), Vector2(), Vector2()])
 var velocities := PoolVector2Array([Vector2(128.0, 0.0), Vector2(-128.0, 0.0), Vector2(0.0, 128.0), Vector2(0.0, -128.0)])
@@ -9,6 +9,7 @@ var velocities := PoolVector2Array([Vector2(128.0, 0.0), Vector2(-128.0, 0.0), V
 onready var tree := get_tree()
 onready var query := Physics2DShapeQueryParameters.new()
 onready var world := get_world_2d()
+onready var damage := Global.save_data.bomb_damage
 
 var seal :Particles2D
 
@@ -42,7 +43,7 @@ func _physics_process(delta:float) -> void:
 	OS.delay_msec(15)
 	
 	var boss = Global.boss
-	boss.hp -= boss.max_hp / 8
+	boss.hp -= boss.max_hp * damage / 4
 	var tween = create_tween()
 	tween.tween_property(boss.heath_gauge, 'value', boss.hp, 1.0)
 	

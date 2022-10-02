@@ -1,19 +1,19 @@
 {
 	"glossary": [
 		{
-			"extra": "Source: https://en.touhouwiki.net/wiki/Sages_of_Gensokyo",
-			"id": "1664096272-787",
-			"name": "Sage",
-			"text": "Mysterious group responsible for the creation of Gensokyo, both separating it from the Outside World and establishing its current social order. ",
-			"title": "The Sages of Gensokyo",
-			"type": 1
-		},
-		{
 			"extra": "Source: https://en.touhouwiki.net/wiki/Gensokyo",
 			"id": "1664095965-648",
 			"name": "Gensokyo",
 			"text": " Is the setting of Touhou Project. Its culture vaguely resembles that of feudal Japan, heavily embellished with folkloric elements.",
 			"title": "Gensokyo (幻想郷, \"Land of Illusions\" or \"Land of Fantasy\")",
+			"type": 1
+		},
+		{
+			"extra": "Source: https://en.touhouwiki.net/wiki/Sages_of_Gensokyo",
+			"id": "1664096272-787",
+			"name": "Sage",
+			"text": "Mysterious group responsible for the creation of Gensokyo, both separating it from the Outside World and establishing its current social order. ",
+			"title": "The Sages of Gensokyo",
 			"type": 1
 		}
 	],

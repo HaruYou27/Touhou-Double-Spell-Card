@@ -23,6 +23,7 @@ func _ready() -> void:
 	Global.connect("impact", self, 'impact')
 	Global.player.connect('die', self, 'flash_red')
 	Global.connect("bomb", self, 'bomb')
+	Global.connect("next_level", self, 'next')
 	Global.save_data.last_level = stage_path
 	
 	VisualServer.canvas_item_set_z_index(overlay.get_canvas_item(), 4000)
@@ -31,7 +32,7 @@ func _ready() -> void:
 	tween.connect("finished", hud, 'remove_child', [overlay])
 	
 	save = Global.get_char_data()
-	$VBoxContainer/HiScore.text = 'Hi-Score:      %010d' % save.score[stage]
+	$hud/VBoxContainer/HiScore.update_label(save.score[stage])
 	save.retry_count[stage] += 1
 	Global.save_data.save()
 	

@@ -5,6 +5,7 @@ signal collect
 signal bomb
 
 signal impact
+signal next_level
 
 var save_data : saveData
 var player setget _set_player

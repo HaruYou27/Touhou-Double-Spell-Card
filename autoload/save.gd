@@ -5,6 +5,7 @@ class_name saveData
 #Gameplay
 export (bool) var assist_mode := false
 export (float) var death_time := .727
+export (int) var bomb_damage := 0.5
 export (int) var init_bomb := 3
 
 #Graphic
@@ -13,6 +14,8 @@ export (bool) var fullscreen := false setget _set_fullscreen
 export (bool) var borderless := false setget _set_borderless
 export (bool) var vsync := false setget _set_vsync
 export (int) var target_fps := 60 setget _set_target_fps
+export (bool) var show_fps := false
+export (bool) var rewind := true
 
 #Audio
 export (float) var master_db := 0.0 setget _set_master_db

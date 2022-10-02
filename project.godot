@@ -42,7 +42,7 @@ _global_script_classes=[ {
 "base": "Area2D",
 "class": "Boss",
 "language": "GDScript",
-"path": "res://entity/boss/boss.gd"
+"path": "res://entity/boss/meimu/meimu-boss.gd"
 }, {
 "base": "Sprite",
 "class": "BossIndicator",
@@ -109,6 +109,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://entity/common-enemies/Enemy.gd"
 }, {
+"base": "Label",
+"class": "FormatLabel",
+"language": "GDScript",
+"path": "res://user-interface/custom-control/FormatLabel.gd"
+}, {
 "base": "PanelContainer",
 "class": "HistoryRow",
 "language": "GDScript",
@@ -137,7 +142,7 @@ _global_script_classes=[ {
 "base": "StaticBody2D",
 "class": "Player",
 "language": "GDScript",
-"path": "res://entity/player/player.gd"
+"path": "res://entity/player/Reimu/reimu.gd"
 }, {
 "base": "Button",
 "class": "SFXButton",
@@ -180,6 +185,7 @@ _global_script_class_icons={
 "DialogicResources": "",
 "DialogicUtil": "",
 "Enemy": "",
+"FormatLabel": "",
 "HistoryRow": "",
 "KeyboardHandler": "",
 "Level": "",

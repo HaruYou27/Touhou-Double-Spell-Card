@@ -14,7 +14,7 @@
 			},
 			"metadata": {
 				"color": null,
-				"folded": true
+				"folded": false
 			}
 		},
 		"Definitions": {
@@ -44,10 +44,26 @@
 		},
 		"Timelines": {
 			"files": [
-				"timeline-1664123838.json"
+
 			],
 			"folders": {
+				"tutorial": {
+					"files": [
+						"timeline-1664123838.json",
+						"timeline-1664617205.json",
+						"timeline-1664617210.json",
+						"timeline-1664617213.json",
+						"timeline-1664617223.json",
+						"timeline-1664617231.json"
+					],
+					"folders": {
 
+					},
+					"metadata": {
+						"color": null,
+						"folded": false
+					}
+				}
 			},
 			"metadata": {
 				"color": null,

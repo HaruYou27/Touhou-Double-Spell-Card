@@ -9,11 +9,20 @@ onready var replayer :Sprite = $Replayer
 func _ready():
 	set_process(false)
 
+func start():
+	set_process(Global.save_data.rewind)
+
 func _record() -> void:
 	screenshot.get_data().save_png(replayer.path % replayer.frame_count)
 	replayer.frame_count += 1
 
 func rewind() -> void:
+	if not Global.save_data.rewind:
+		var tree := get_tree()
+		tree.paused = false
+		tree.reload_current_scene()
+		return
+		
 	replayer.show()
 	replayer.set_process(true)
 	replayer.frame_delta = 2.0 / replayer.frame_count

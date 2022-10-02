@@ -3,6 +3,7 @@ class_name KeyboardHandler
 
 onready var player :Node2D
 onready var tree := get_tree()
+onready var manual_shoot := not Global.save_data.auto_shoot
 
 var speed := 575
 
@@ -31,12 +32,12 @@ func pause() -> void:
 	pause_mode = Node.PAUSE_MODE_PROCESS
 
 func _bomb_done() -> void:
-	set_process_input(not Global.save_data.auto_shoot)
+	set_process_input(manual_shoot)
 	set_process_unhandled_input(true)
 	pause_mode = Node.PAUSE_MODE_INHERIT
 	
 func _ready():
-	set_process_input(not Global.save_data.auto_shoot)
+	set_process_input(manual_shoot)
 
 func _physics_process(delta:float) -> void:
 	var x = Input.get_axis("ui_left", "ui_right")
@@ -46,8 +47,6 @@ func _physics_process(delta:float) -> void:
 	var velocity := Vector2(x, y).normalized()
 	
 	player.position += velocity * delta * speed
-	player.position.x = clamp(player.position.x, 0.0, Global.playground.x)
-	player.position.y = clamp(player.position.y, 0.0, Global.playground.y)
 
 func _input(event:InputEvent) -> void:
 	if event.is_action_pressed("shoot"):

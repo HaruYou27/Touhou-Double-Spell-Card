@@ -10,6 +10,10 @@ func _ready() -> void:
 	set_physics_process(false)
 	
 	Global.connect("impact", self, 'bomb')
+	bullet.rotation = rand_range(.785, 2.356)
+	if randi() % 2:
+		bullet.rotation *= -1
+	bullet2.rotation = bullet.rotation
 
 func _physics_process(delta) -> void:
 	bullet.rotation += 0.897 * delta

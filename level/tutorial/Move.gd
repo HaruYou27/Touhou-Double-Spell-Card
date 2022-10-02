@@ -6,11 +6,15 @@ onready var tree := get_tree()
 
 func _ready() -> void:
 	tree.call_group('player_bullet', 'stop')
-	tree.create_timer(3.0).connect("timeout", self, '_timeout')
 	
 func _process(_delta) -> void:
 	if player.global_position == init_pos:
+		Global.emit_signal("next_level")
 		return
+		
+	Global.emit_signal("next_level")
+	tree.call_group('player_bullet', 'start')
+	set_process(false)
 	
-func _timeout() -> void:
-	
+func _on_Timer_timeout():
+	pass # Replace with function body.
