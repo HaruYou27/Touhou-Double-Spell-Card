@@ -1,4 +1,4 @@
-extends HBoxContainer
+extends ScrollContainer
 
 onready var save := Global.save_data
 

@@ -5,13 +5,6 @@ onready var tabcontainer :TabContainer = $TabContainer
 onready var save := Global.save_data
 
 func _ready() -> void:
-	AudioServer.set_bus_volume_db(2, -80)
-	
-	#Audio
-	master_slider.value = save.master_db
-	bgm_slider.value = save.bgm_db
-	sfx_slider.value = save.sfx_db
-	
 	#Controls
 	auto_shoot.pressed = save.auto_shoot
 	mouse.pressed = save.use_mouse
@@ -27,10 +20,7 @@ func _ready() -> void:
 	
 	AudioServer.set_bus_volume_db(2, 0)
 	
-func _exit_tree() -> void:
-	save.death_time = float(death_timer.text)
-	save.init_bomb = int(bomb.text)
-	save.save()
+
 
 func _entered() -> void:
 	show()
@@ -40,27 +30,6 @@ func _entered() -> void:
 	
 func _on_back_pressed():
 	tabcontainer.set_process_input(false)
-	
-
-
-#Audio
-onready var master_slider :AnimatedHSlider = $TabContainer/Audio/master
-onready var bgm_slider :AnimatedHSlider = $TabContainer/Audio/bgm
-onready var sfx_slider :AnimatedHSlider = $TabContainer/Audio/sfx
-
-func _on_audio_reset_pressed():
-	master_slider.value = 0.0
-	bgm_slider.value = 0.0
-	sfx_slider.value = 0.0
-
-func _on_master_value_changed(value):
-	save.master_db = value
-
-func _on_bgm_value_changed(value):
-	save.bgm_db = value
-
-func _on_sfx_value_changed(value):
-	save.sfx_db = value
 
 #Assist mode
 onready var assist_toggler :AnimatedTextButton = $"TabContainer/Assist mode/cheat"
