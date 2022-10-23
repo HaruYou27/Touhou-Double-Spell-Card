@@ -4,8 +4,8 @@ class_name saveData
 ### Game settings data
 #Gameplay
 export (bool) var assist_mode := false
-export (float) var death_time := .727
-export (float) var bomb_damage := 0.5
+export (float) var death_time := .3
+export (float) var bomb_damage := .5
 export (int) var init_bomb := 3
 
 #Graphic

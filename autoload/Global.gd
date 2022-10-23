@@ -30,7 +30,6 @@ func _ready() -> void:
 	save_data = load('user://save.res')
 	if not save_data:
 		save_data = saveData.new()
-		save_data.new_save()
 	else:
 		for key in save_data.key_bind.keys():
 			InputMap.action_erase_events(key)

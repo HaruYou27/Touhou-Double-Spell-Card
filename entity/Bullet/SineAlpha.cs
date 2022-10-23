@@ -1,55 +1,27 @@
 using Godot;
 
-public class Seeker : BulletBasic {
-    //Bullets that chase nearby target.
-    [Export] protected float mass = 10;
-    [Export] protected float seekRadius {
-        set {Physics2DServer.ShapeSetData(seekShape, value);}
-        get {return (float)Physics2DServer.ShapeGetData(seekShape);}
-    }
-    [Export] bool seekAreas {
-        set {seekQuery.CollideWithAreas = value;}
-        get {return seekQuery.CollideWithAreas;}
-    }
-    [Export] bool seekBodies {
-        set {seekQuery.CollideWithBodies = value;}
-        get {return seekQuery.CollideWithBodies;}
-    }
-
-    private Bullet[] bullets;
-    protected Physics2DShapeQueryParameters seekQuery = new Physics2DShapeQueryParameters();
-    private RID seekShape = Physics2DServer.CircleShapeCreate();
+public class SineAlpha : BulletBase {
+    [Export] float timeSpeed;
     private struct Bullet {
+        public float lifeTime;
         public Transform2D transform;
-        public Vector2 velocity;
-        public Node2D target;
         public readonly RID sprite;
         public bool grazable;
-        public Bullet(in float speed, in Transform2D trans, in RID canvas, in bool graze) {
-            transform = trans;
-            sprite = canvas;
+        public Vector2 velocity;
+        
+        public Bullet(in float speed, in Transform2D trans, in RID canvasItem, in bool graze) {
+            sprite = canvasItem;
             grazable = graze;
+            transform = trans;
             transform.Rotation += Mathf.Pi / 2;
             velocity = new Vector2(speed, 0).Rotated(trans.Rotation);
-            target = null;
+            lifeTime = 0;
         }
     }
+    private Bullet[] bullets;
 
     public override void _EnterTree() {
         bullets = new Bullet[maxBullet];
-        seekQuery.ShapeRid = seekShape;
-        seekQuery.CollisionLayer = mask;
-    }
-    public override void Flush() {
-        if (index == 0) {return;}
-        
-        for (uint i = 0; i != index; i++) {
-            RID sprite = bullets[i].sprite;
-            fx.SpawnItem(bullets[i].transform.origin);
-            sprites.Push(sprite);
-            VisualServer.CanvasItemSetVisible(sprite, false);
-        }
-        index = 0;
     }
     public override void _ExitTree() {
         foreach (RID sprite in sprites) {
@@ -61,14 +33,8 @@ public class Seeker : BulletBasic {
         for (uint i = 0; i != index; i++) {
             VisualServer.FreeRid(bullets[i].sprite);
         }
-    
-        Physics2DServer.FreeRid(seekShape);
-        if (index == 0) {return;}
-        for (uint i = 0; i != index; i++) {
-            VisualServer.FreeRid(bullets[i].sprite);
-        }
     }
-    public override void SpawnBullet() {
+    public virtual void SpawnBullet() {
         foreach (Node2D barrel in barrels) {
             if (index == maxBullet) {return;}
             RID sprite = sprites.Pop();
@@ -77,29 +43,29 @@ public class Seeker : BulletBasic {
             index++;
         }
     }
+    public virtual void Flush() {
+        if (index == 0) {return;}
+        
+        for (uint i = 0; i != index; i++) {
+            RID sprite = bullets[i].sprite;
+            fx.SpawnItem(bullets[i].transform.origin);
+            sprites.Push(sprite);
+            VisualServer.CanvasItemSetVisible(sprite, false);
+        }
+        index = 0;
+    }
     public override void _PhysicsProcess(float delta) {
         if (index == 0) {return;}
-
         uint newIndex = 0;
-
-        for (uint i = 0; i != index; i++) {
+        
+        for (uint i = 0;i != index; i++) {
             Bullet bullet = bullets[i];
-            if (bullet.target == null || !Object.IsInstanceValid(bullet.target)) {
-                seekQuery.Transform = bullet.transform;
-                Godot.Collections.Dictionary seekResult = world.DirectSpaceState.GetRestInfo(seekQuery);
-                if (seekResult.Count != 0) {
-                    bullet.target = (Node2D)GD.InstanceFromId((ulong) (int)seekResult["collider_id"]);
-                }
-            } else {
-                Vector2 desiredV = (bullet.target.GlobalPosition - bullet.transform.origin).Normalized() * speed;
-                bullet.velocity += (desiredV - bullet.velocity) / mass;
-                bullet.transform.Rotation = bullet.velocity.Angle() + Mathf.Pi / 2;
-            }
+            bullet.lifeTime += delta * timeSpeed;
             bullet.transform.origin += bullet.velocity * delta;
             VisualServer.CanvasItemSetTransform(bullet.sprite, bullet.transform);
+            VisualServer.CanvasItemSetModulate(bullet.sprite, new Color(1, 1, 1, Mathf.Abs(Mathf.Sin(bullet.lifeTime))));
 
-
-            //Collision checking 
+            //Collision check.
             query.Transform = bullet.transform;
             Godot.Collections.Dictionary result;
             if (bullet.grazable) {
@@ -133,7 +99,7 @@ public class Seeker : BulletBasic {
                 sprites.Push(bullet.sprite);
                 VisualServer.CanvasItemSetVisible(bullet.sprite, false);
                 if (colliderLayer == 1.0) {continue;}
-                
+
                 Object collider = GD.InstanceFromId(((ulong) (int)result["collider_id"]));
                 collider.Call("_hit");
                 fx.hit((Vector2)result["point"]);

@@ -1,38 +1,28 @@
 using Godot;
 
-public class DynamicSpeed : BulletBasic {
-    [Export] public float finalSpeed {
-        set {
-            deltaV = value - speed;
-            absDeltaV = Mathf.Abs(deltaV);
-        }
-        get {return speed + deltaV;}
-    }
-    [Export] public float time {
-        set {acceleration = deltaV / value;}
-        get {return deltaV / acceleration;}
-    }
-
+public class SineSpeed : BulletBase {
+    [Export] float timeSpeed;
     private struct Bullet {
+        public float lifeTime;
         public Transform2D transform;
         public readonly RID sprite;
         public bool grazable;
-        public float velocity;
-        public float deltaV;
-        public Bullet(in float speed, in Transform2D trans, in RID canvas, in float deltav, in bool graze) {
-            sprite = canvas;
+        public float maxSpeed;
+        
+        public Bullet(in float speed, in Transform2D trans, in RID canvasItem, in bool graze) {
+            sprite = canvasItem;
+            maxSpeed = speed;
             grazable = graze;
-            deltaV = deltav;
             transform = trans;
-            transform.Rotation += (float)1.57;
-            velocity = speed;
-        }   
+            transform.Rotation += Mathf.Pi / 2;
+            lifeTime = 0;
+        }
     }
     private Bullet[] bullets;
-    private float deltaV;
-    protected float absDeltaV;
-    protected float acceleration;
 
+    public override void _EnterTree() {
+        bullets = new Bullet[maxBullet];
+    }
     public override void _ExitTree() {
         foreach (RID sprite in sprites) {
             VisualServer.FreeRid(sprite);
@@ -44,10 +34,16 @@ public class DynamicSpeed : BulletBasic {
             VisualServer.FreeRid(bullets[i].sprite);
         }
     }
-    public override void _EnterTree() {
-        bullets = new Bullet[maxBullet];
+    public virtual void SpawnBullet() {
+        foreach (Node2D barrel in barrels) {
+            if (index == maxBullet) {return;}
+            RID sprite = sprites.Pop();
+            VisualServer.CanvasItemSetVisible(sprite, true);
+            bullets[index] = new Bullet(speed, barrel.GlobalTransform, sprite, grazable);
+            index++;
+        }
     }
-    public override void Flush() {
+    public virtual void Flush() {
         if (index == 0) {return;}
         
         for (uint i = 0; i != index; i++) {
@@ -58,29 +54,15 @@ public class DynamicSpeed : BulletBasic {
         }
         index = 0;
     }
-    public override void SpawnBullet() {
-        foreach (Node2D barrel in barrels) {
-            if (index == maxBullet) {return;}
-            RID sprite = sprites.Pop();
-            VisualServer.CanvasItemSetVisible(sprite, true);
-            bullets[index] = new Bullet(speed, barrel.GlobalTransform, sprite, absDeltaV, grazable);
-            index++;
-        }
-    }
     public override void _PhysicsProcess(float delta) {
-        if (index == 0) {
-            return;
-        }
-
+        if (index == 0) {return;}
         uint newIndex = 0;
+        
         for (uint i = 0;i != index; i++) {
             Bullet bullet = bullets[i];
-            if (bullet.deltaV > 0.0) {
-                float a = acceleration * delta;
-                bullet.deltaV -= Mathf.Abs(a);
-                bullet.velocity += a;
-            }
-            bullet.transform.origin += new Vector2(bullet.velocity * delta, 0).Rotated(bullet.transform.Rotation - (float)1.57);
+            bullet.lifeTime += delta * timeSpeed;
+            Vector2 velocity = new Vector2(bullet.maxSpeed, 0).Rotated(bullet.transform.Rotation - Mathf.Pi / 2);
+            bullet.transform.origin += velocity * Mathf.Sin(bullet.lifeTime) * delta;
             VisualServer.CanvasItemSetTransform(bullet.sprite, bullet.transform);
 
             //Collision check.
@@ -117,7 +99,7 @@ public class DynamicSpeed : BulletBasic {
                 sprites.Push(bullet.sprite);
                 VisualServer.CanvasItemSetVisible(bullet.sprite, false);
                 if (colliderLayer == 1.0) {continue;}
-                
+
                 Object collider = GD.InstanceFromId(((ulong) (int)result["collider_id"]));
                 collider.Call("_hit");
                 fx.hit((Vector2)result["point"]);

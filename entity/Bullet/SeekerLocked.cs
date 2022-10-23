@@ -13,7 +13,7 @@ public class SeekerLocked : BulletBasic {
             sprite = canvas;
             grazable = graze;
             transform = trans;
-            transform.Rotation += (float)1.57;
+            transform.Rotation += Mathf.Pi / 2;
             velocity = new Vector2(speed, 0).Rotated(trans.Rotation);
         }   
     }
@@ -52,7 +52,7 @@ public class SeekerLocked : BulletBasic {
             if (target != null) {
                 Vector2 desiredV = (target.GlobalPosition - bullet.transform.origin).Normalized() * speed;
                 bullet.velocity += (desiredV - bullet.velocity) / mass;
-                bullet.transform.Rotation = bullet.velocity.Angle() + (float)1.57;
+                bullet.transform.Rotation = bullet.velocity.Angle() + Mathf.Pi / 2;
             }
             bullet.transform.origin += bullet.velocity * delta;
             VisualServer.CanvasItemSetTransform(bullet.sprite, bullet.transform);

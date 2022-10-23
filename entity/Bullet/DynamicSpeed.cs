@@ -1,44 +1,51 @@
 using Godot;
 
-public class Seeker : BulletBasic {
-    //Bullets that chase nearby target.
-    [Export] protected float mass = 10;
-    [Export] protected float seekRadius {
-        set {Physics2DServer.ShapeSetData(seekShape, value);}
-        get {return (float)Physics2DServer.ShapeGetData(seekShape);}
+public class DynamicSpeed : BulletBasic {
+    [Export] public float finalSpeed {
+        set {
+            deltaV = value - speed;
+            absDeltaV = Mathf.Abs(deltaV);
+        }
+        get {return speed + deltaV;}
     }
-    [Export] bool seekAreas {
-        set {seekQuery.CollideWithAreas = value;}
-        get {return seekQuery.CollideWithAreas;}
-    }
-    [Export] bool seekBodies {
-        set {seekQuery.CollideWithBodies = value;}
-        get {return seekQuery.CollideWithBodies;}
+    [Export] public float time {
+        set {acceleration = deltaV / value;}
+        get {return deltaV / acceleration;}
     }
 
-    private Bullet[] bullets;
-    protected Physics2DShapeQueryParameters seekQuery = new Physics2DShapeQueryParameters();
-    private RID seekShape = Physics2DServer.CircleShapeCreate();
     private struct Bullet {
         public Transform2D transform;
-        public Vector2 velocity;
-        public Node2D target;
         public readonly RID sprite;
         public bool grazable;
-        public Bullet(in float speed, in Transform2D trans, in RID canvas, in bool graze) {
-            transform = trans;
+        public float velocity;
+        public float deltaV;
+        public Bullet(in float speed, in Transform2D trans, in RID canvas, in float deltav, in bool graze) {
             sprite = canvas;
             grazable = graze;
+            deltaV = deltav;
+            transform = trans;
             transform.Rotation += Mathf.Pi / 2;
-            velocity = new Vector2(speed, 0).Rotated(trans.Rotation);
-            target = null;
+            velocity = speed;
+        }   
+    }
+    private Bullet[] bullets;
+    private float deltaV;
+    protected float absDeltaV;
+    protected float acceleration;
+
+    public override void _ExitTree() {
+        foreach (RID sprite in sprites) {
+            VisualServer.FreeRid(sprite);
+        }
+		Physics2DServer.FreeRid(hitbox);
+    
+        if (index == 0) {return;}
+        for (uint i = 0; i != index; i++) {
+            VisualServer.FreeRid(bullets[i].sprite);
         }
     }
-
     public override void _EnterTree() {
         bullets = new Bullet[maxBullet];
-        seekQuery.ShapeRid = seekShape;
-        seekQuery.CollisionLayer = mask;
     }
     public override void Flush() {
         if (index == 0) {return;}
@@ -51,55 +58,32 @@ public class Seeker : BulletBasic {
         }
         index = 0;
     }
-    public override void _ExitTree() {
-        foreach (RID sprite in sprites) {
-            VisualServer.FreeRid(sprite);
-        }
-		Physics2DServer.FreeRid(hitbox);
-    
-        if (index == 0) {return;}
-        for (uint i = 0; i != index; i++) {
-            VisualServer.FreeRid(bullets[i].sprite);
-        }
-    
-        Physics2DServer.FreeRid(seekShape);
-        if (index == 0) {return;}
-        for (uint i = 0; i != index; i++) {
-            VisualServer.FreeRid(bullets[i].sprite);
-        }
-    }
     public override void SpawnBullet() {
         foreach (Node2D barrel in barrels) {
             if (index == maxBullet) {return;}
             RID sprite = sprites.Pop();
             VisualServer.CanvasItemSetVisible(sprite, true);
-            bullets[index] = new Bullet(speed, barrel.GlobalTransform, sprite, grazable);
+            bullets[index] = new Bullet(speed, barrel.GlobalTransform, sprite, absDeltaV, grazable);
             index++;
         }
     }
     public override void _PhysicsProcess(float delta) {
-        if (index == 0) {return;}
+        if (index == 0) {
+            return;
+        }
 
         uint newIndex = 0;
-
-        for (uint i = 0; i != index; i++) {
+        for (uint i = 0;i != index; i++) {
             Bullet bullet = bullets[i];
-            if (bullet.target == null || !Object.IsInstanceValid(bullet.target)) {
-                seekQuery.Transform = bullet.transform;
-                Godot.Collections.Dictionary seekResult = world.DirectSpaceState.GetRestInfo(seekQuery);
-                if (seekResult.Count != 0) {
-                    bullet.target = (Node2D)GD.InstanceFromId((ulong) (int)seekResult["collider_id"]);
-                }
-            } else {
-                Vector2 desiredV = (bullet.target.GlobalPosition - bullet.transform.origin).Normalized() * speed;
-                bullet.velocity += (desiredV - bullet.velocity) / mass;
-                bullet.transform.Rotation = bullet.velocity.Angle() + Mathf.Pi / 2;
+            if (bullet.deltaV > 0.0) {
+                float a = acceleration * delta;
+                bullet.deltaV -= Mathf.Abs(a);
+                bullet.velocity += a;
             }
-            bullet.transform.origin += bullet.velocity * delta;
+            bullet.transform.origin += new Vector2(bullet.velocity * delta, 0).Rotated(bullet.transform.Rotation - Mathf.Pi / 2);
             VisualServer.CanvasItemSetTransform(bullet.sprite, bullet.transform);
 
-
-            //Collision checking 
+            //Collision check.
             query.Transform = bullet.transform;
             Godot.Collections.Dictionary result;
             if (bullet.grazable) {

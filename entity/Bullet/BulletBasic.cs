@@ -10,7 +10,7 @@ public class BulletBasic : BulletBase {
             sprite = canvas;
             transform = trans;
             grazable = graze;
-            transform.Rotation += (float)1.57;
+            transform.Rotation += Mathf.Pi / 2;
             velocity = new Vector2(speed, 0).Rotated(trans.Rotation);
         }   
     }

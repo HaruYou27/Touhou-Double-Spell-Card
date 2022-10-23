@@ -39,7 +39,7 @@ public class BulletBase : Node2D {
 			tex = value;
 			textureRID = value.GetRid();
 			textureSize = value.GetSize();
-			if (shapeSize.x == 0.0) {CreateCollisionShape(textureSize - new Vector2(2, 2));}
+			if (shapeSize.x == 0.0) {CreateCollisionShape(textureSize - new Vector2(4, 4));}
 		}
 		get {return tex;}
 	}

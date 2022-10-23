@@ -14,7 +14,7 @@ public class Ricochet : BulletBasic
             sprite = canvas;
             grazable = graze;
             transform = trans;
-            transform.Rotation += (float)1.57;
+            transform.Rotation += Mathf.Pi / 2;
             ricochet = r;
             velocity = new Vector2(speed, 0).Rotated(trans.Rotation);
         } 
