@@ -1,28 +1,29 @@
 tool
 extends CollisionShape2D
-
+class_name CircleBarrel
 #Create a bunch of barrels node in circle.
-#How to use:
-#Create a collisionShape2D node.
-#Choose circleShape then shape it however you want.
-#The step export variable is the number of barrels.
-#Click the Add node checkbox.
-#Done.
-#You can reparent all the child node after that.
 
+#How to use:
+#1. Change the radius of CirleShape2D however you want.
+#2. Click the Add node checkbox.
+
+#You can reparent all the child node after that.
 #Uncheck if you want to remove all the barrels (in case all the barrel is still children of this node)
 
 export (bool) var add_node setget _add_node
-export (int) var step := 4
+export (int) var barrels := 4
 export (float) var bullet_scale := 1.0
 export (int) var gizmo := 20
+
+func _ready():
+	shape = CircleShape2D.new()
 
 func _add_node(value:bool) -> void:
 	if value:
 		add_node = true
-		var deltaR : float = 2 * PI / step
+		var deltaR : float = 2 * PI / barrels
 		var angle : float
-		for i in range(step):
+		for i in range(barrels):
 			var node = Position2D.new()
 			add_child(node)
 			node.position = Vector2(shape.radius, 0).rotated(angle)

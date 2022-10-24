@@ -62,7 +62,7 @@ public class SineSpeed : BulletBase {
             Bullet bullet = bullets[i];
             bullet.lifeTime += delta * timeSpeed;
             Vector2 velocity = new Vector2(bullet.maxSpeed, 0).Rotated(bullet.transform.Rotation - Mathf.Pi / 2);
-            bullet.transform.origin += velocity * Mathf.Sin(bullet.lifeTime) * delta;
+            bullet.transform.origin += velocity * Mathf.Abs(Mathf.Sin(bullet.lifeTime)) * delta;
             VisualServer.CanvasItemSetTransform(bullet.sprite, bullet.transform);
 
             //Collision check.

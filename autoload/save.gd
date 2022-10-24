@@ -9,11 +9,8 @@ export (float) var bomb_damage := .5
 export (int) var init_bomb := 3
 
 #Graphic
-export (Vector2) var resolution := Vector2(960, 720) setget _set_resolution
 export (bool) var fullscreen := false setget _set_fullscreen
 export (bool) var borderless := false setget _set_borderless
-export (bool) var vsync := false setget _set_vsync
-export (int) var target_fps := 60 setget _set_target_fps
 export (bool) var show_fps := false
 export (bool) var rewind := true
 
@@ -56,18 +53,6 @@ func _set_master_db(value:float) -> void:
 	master_db = value
 	AudioServer.set_bus_volume_db(0, value)
 
-func _set_resolution(value:Vector2) -> void:
-	resolution = value
-	OS.window_size = value
-	
-func _set_target_fps(value:int) -> void:
-	target_fps = value
-	Engine.target_fps = value
-	
-func _set_vsync(value:bool) -> void:
-	vsync = value
-	OS.vsync_enabled = value
-	
 func _set_borderless(value:bool) -> void:
 	borderless = value
 	OS.window_borderless = value
