@@ -1,9 +1,8 @@
 using Godot;
 
 public class SineAlpha : BulletBase {
-    [Export] float timeSpeed;
+    //Bullet that change it's alpha value by sine wave.
     private struct Bullet {
-        public float lifeTime;
         public Transform2D transform;
         public readonly RID sprite;
         public bool grazable;
@@ -15,7 +14,6 @@ public class SineAlpha : BulletBase {
             transform = trans;
             transform.Rotation += Mathf.Pi / 2;
             velocity = new Vector2(speed, 0).Rotated(trans.Rotation);
-            lifeTime = 0;
         }
     }
     private Bullet[] bullets;
@@ -38,6 +36,7 @@ public class SineAlpha : BulletBase {
         foreach (Node2D barrel in barrels) {
             if (index == maxBullet) {return;}
             RID sprite = sprites.Pop();
+            VisualServer.CanvasItemSetModulate(sprite, new Color(1, 1, 1, Mathf.Abs(Mathf.Sin(Time.GetTicksMsec()))));
             VisualServer.CanvasItemSetVisible(sprite, true);
             bullets[index] = new Bullet(speed, barrel.GlobalTransform, sprite, grazable);
             index++;
@@ -60,10 +59,8 @@ public class SineAlpha : BulletBase {
         
         for (uint i = 0;i != index; i++) {
             Bullet bullet = bullets[i];
-            bullet.lifeTime += delta * timeSpeed;
             bullet.transform.origin += bullet.velocity * delta;
             VisualServer.CanvasItemSetTransform(bullet.sprite, bullet.transform);
-            VisualServer.CanvasItemSetModulate(bullet.sprite, new Color(1, 1, 1, Mathf.Abs(Mathf.Sin(bullet.lifeTime))));
 
             //Collision check.
             query.Transform = bullet.transform;

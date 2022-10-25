@@ -2,7 +2,7 @@ shader_type canvas_item;
 
 varying float h;
 
-uniform float strength = 1.0;
+uniform float speed = 1.0;
 
 vec3 rgb2hsv(vec3 c) {
     vec4 K = vec4(0.0, -1.0 / 3.0, 2.0 / 3.0, -1.0);
@@ -29,8 +29,7 @@ float when_eq(float x, float y) {
 }
 
 void vertex() {
-	vec2 pos = (WORLD_MATRIX * vec4(0.0, 0.0, 0.0, 1.0)).xy;
-	h = sin(pos.x * pos.y * strength / 100000.0);
+	h = abs(sin(TIME * speed));
 }
 
 void fragment() {

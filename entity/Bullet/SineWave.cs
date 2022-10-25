@@ -1,5 +1,6 @@
 using Godot;
 public class SineWave : BulletBasic {
+    //Bullet that offset y coord by sine wave.
     [Export] float amplitude = 5;
     [Export] float frequency = 5;
     private struct  Bullet {
@@ -11,6 +12,7 @@ public class SineWave : BulletBasic {
         public Bullet(in float speed, in Transform2D trans, in RID canvas, in bool graze) {
             age = 0;
             transform = trans;
+            transform.Rotation += (float)Mathf.Pi / 2;
             sprite = canvas;
             grazable = graze;
             velocity = new Vector2(speed, 0).Rotated(trans.Rotation);

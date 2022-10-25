@@ -1,6 +1,7 @@
 using Godot;
 
-public class DynamicSpeed : BulletBasic {
+public class ChargeBullet : BulletBasic {
+    //Bullet that shoot out fast and slow down over time.
     [Export] public float finalSpeed {
         set {
             deltaV = value - speed;

@@ -1,6 +1,7 @@
 using Godot;
 
 public class SineSpeed : BulletBase {
+    //Bullet that speed up and down by sine wave.
     [Export] float timeSpeed;
     private struct Bullet {
         public float lifeTime;
