@@ -11,7 +11,6 @@ onready var graze_fx : Particles2D = $graze/grazeFX
 onready var graze_timer : Timer = $graze/grazeFX/Timer
 
 onready var focus_layer : Sprite = $focus
-onready var animation : AnimationPlayer = $AnimationPlayer
 onready var tree := get_tree()
 
 onready var bombs := Global.save_data.init_bomb
@@ -68,11 +67,9 @@ func _graze() -> void:
 	graze_timer.start()
 
 func unfocus() -> void:
-	animation.play_backwards("focus")
 	create_tween().tween_property(focus_layer, 'modulate', Color.transparent, .15)
 	
 func focus() -> void:
-	animation.play("focus")
 	create_tween().tween_property(focus_layer, 'modulate', Color.white, .15)
 
 func bomb() -> void:
@@ -91,10 +88,10 @@ func bomb() -> void:
 	if Global.save_data.auto_shoot:
 		tree.call_group('player_bullet', 'stop')
 		
-	var bomb_node :Node2D = bomb_scene.instance()
+	var bomb_node :Node = bomb_scene.instance()
 	bomb_node.connect('done', self, '_bomb_done')
 	bomb_node.connect('done', input, '_bomb_done')
-	Global.add_child(bomb_node)
+	add_child(bomb_node)
 	Global.emit_signal("bomb")
 	
 	tree.paused = false

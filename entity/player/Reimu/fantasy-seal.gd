@@ -1,4 +1,5 @@
-extends Node2D
+extends Node
+#Reimu spellcard
 
 signal done
 	
@@ -8,7 +9,7 @@ var velocities := PoolVector2Array([Vector2(128.0, 0.0), Vector2(-128.0, 0.0), V
 
 onready var tree := get_tree()
 onready var query := Physics2DShapeQueryParameters.new()
-onready var world := get_world_2d()
+onready var world := Global.get_world_2d()
 onready var damage := Global.save_data.bomb_damage
 
 var seal :Particles2D
@@ -19,9 +20,7 @@ func _ready() -> void:
 	query.collide_with_bodies = false
 	query.shape_rid = $CollisionShape2D.shape.get_rid()
 	
-	var tween = create_tween()
-	tween.tween_property(self, 'modulate', Color.white, 1.0)
-	tween.connect("finished", self, '_attack')
+	get_tree().create_timer(1.0).connect("timeout", self, '_attack')
 	
 	set_physics_process(false)
 
@@ -64,8 +63,8 @@ func _process(delta:float) -> void:
 	var phi = TAU * delta
 	for seal in seals:
 		var velocity = velocities[index]
-		seal.position = (local_pos[index] + velocity * delta).rotated(phi)
-		local_pos[index] = seal.position
-		seal.position += Global.player.global_position
+		seal.global_position = (local_pos[index] + velocity * delta).rotated(phi)
+		local_pos[index] = seal.global_position
+		seal.global_position += Global.player.global_position
 		velocities[index] = velocity.rotated(phi)	
 		index += 1

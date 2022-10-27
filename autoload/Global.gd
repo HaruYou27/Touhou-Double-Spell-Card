@@ -27,12 +27,12 @@ func _set_player(value:Node2D) -> void:
 	ItemManager.target = value
 
 func _ready() -> void:
-	save_data = load('user://save.res')
 	var fps = OS.get_screen_refresh_rate()
 	if fps:
 		Engine.target_fps = fps
 		OS.vsync_enabled = false
-		
+	
+	save_data = load('user://save.res')	
 	if not save_data:
 		save_data = saveData.new()
 	else:
