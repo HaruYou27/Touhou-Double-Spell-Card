@@ -19,6 +19,7 @@ func _init():
 	tween = Tween.new()
 	add_child(tween)
 
+
 func fade_in(time = 1):
 	modulate = Color(1, 1,1,0)
 	tween.interpolate_property(self, "modulate",

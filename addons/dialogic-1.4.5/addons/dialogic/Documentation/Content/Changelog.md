@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.4.5
+* Added focus style options for themes [[CptFubar](https://github.com/CptFubar)]
+* Fixed a broken font reference [[todd-koeck](https://github.com/todd-koeck)]
+* Fix for Nameplate being unaligned [[meyaoigames](https://github.com/meyaoigames)]
+* Fix crash if theme is missing on character file [[thebardsrc](https://github.com/thebardsrc)]
+
 ## v1.4.4
 * Added no skip event [[zaknafean](https://github.com/zaknafean)]
 * Added auto-advance mode [[zaknafean](https://github.com/zaknafean)]
@@ -457,7 +463,7 @@ To view previous changes [click here](https://github.com/coppolaemilio/dialogic/
     - Character join (left, center and right) working
     - Focus in and out of portraits when speaking
     - Character leave events working
-    - BulletBasic question/answers support
+    - Basic question/answers support
     - Better scene resizing and position
     - Button styles
 

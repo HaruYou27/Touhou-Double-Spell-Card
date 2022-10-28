@@ -1,10 +1,9 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://addons/dialogic/Example Assets/Fonts/DefaultFont.tres" type="DynamicFont" id=1]
 [ext_resource path="res://addons/dialogic/Example Assets/backgrounds/background-2.png" type="Texture" id=2]
+[ext_resource path="res://addons/dialogic/Example Assets/next-indicator/next-indicator.png" type="Texture" id=3]
 [ext_resource path="res://addons/dialogic/Nodes/TextBubble.gd" type="Script" id=4]
-[ext_resource path="res://shader/time-rotate.gdshader" type="Shader" id=5]
-[ext_resource path="res://entity/player/Reimu/yinyangOrb.png" type="Texture" id=6]
 
 [sub_resource type="StyleBoxEmpty" id=1]
 
@@ -43,10 +42,6 @@ tracks/0/keys = {
 "update": 0,
 "values": [ Vector2( 0, 0 ), Vector2( 0, -10 ) ]
 }
-
-[sub_resource type="ShaderMaterial" id=7]
-shader = ExtResource( 5 )
-shader_param/speed = 1.7
 
 [sub_resource type="StyleBoxFlat" id=6]
 content_margin_left = 10.0
@@ -135,17 +130,17 @@ __meta__ = {
 margin_top = -10.0
 margin_right = 51.0
 margin_bottom = 41.0
+texture = ExtResource( 3 )
 stretch_mode = 4
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="NextIndicatorContainer/NextIndicator"]
 autoplay = "Up and down"
 anims/Pulse = SubResource( 3 )
 anims/Static = SubResource( 4 )
 "anims/Up and down" = SubResource( 5 )
-
-[node name="Sprite" type="Sprite" parent="NextIndicatorContainer/NextIndicator"]
-material = SubResource( 7 )
-texture = ExtResource( 6 )
 
 [node name="NameLabel" type="Label" parent="."]
 visible = false
