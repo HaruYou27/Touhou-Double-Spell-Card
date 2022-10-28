@@ -1,26 +1,36 @@
 extends EditorProperty
 
-var index_list := OptionButton.new()
+var index_button := OptionButton.new()
 var items :Dictionary
-
-onready var node :CanvasItem = get_edited_object()
-onready var property := get_edited_property()
+var selected := -1
 
 func _init() -> void:
+	items = ProjectSettings.get('layer_names/z_index/z_index')
 	_update_button()
-	index_list.connect("item_selected", self, '_selected_Zindex')
+	index_button.connect("item_selected", self, '_selected_Zindex')
 	label = 'Z Index'
 
-	add_child(index_list)
-	add_focusable(index_list)
+	add_child(index_button)
+	add_focusable(index_button)
+	ProjectSettings.connect("project_settings_changed", self, '_update_button')
 	
 func _update_button() -> void:
-	items = ProjectSettings.get('layer_names/z_index/z_index')
+	index_button.clear()
+	
 	for key in items.keys():
-		if key != TYPE_STRING or items[key] != TYPE_INT:
+		if typeof(key) != TYPE_STRING or typeof(items[key]) != TYPE_INT:
 			continue
-		index_list.add_item(key)
+		index_button.add_item(key)
 	
 func _selected_Zindex(key) -> void:
-	VisualServer.canvas_item_set_z_index(node.get_canvas_item(), items[key])
-	emit_changed(property, key)
+	var value = items[index_button.get_item_text(key)]
+	
+	if not value:
+		return
+	
+	var node := get_edited_object()
+	print(node)
+	if node is Node2D:
+		node.z_index = value
+		
+	VisualServer.canvas_item_set_z_index(node.get_canvas_item(), value)

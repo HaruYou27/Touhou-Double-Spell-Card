@@ -226,7 +226,6 @@ Rewind="*res://autoload/Rewind.scn"
 
 [debug]
 
-settings/fps/force_fps=60
 gdscript/warnings/unused_signal=false
 gdscript/warnings/return_value_discarded=false
 gdscript/warnings/integer_division=false
@@ -243,7 +242,7 @@ window/stretch/aspect="keep"
 
 [editor_plugins]
 
-enabled=PoolStringArray( "res://addons/dialogic/plugin.cfg" )
+enabled=PoolStringArray( "res://addons/BetterZindex/plugin.cfg", "res://addons/dialogic/plugin.cfg" )
 
 [importer_defaults]
 
@@ -311,6 +310,11 @@ pause={
 3d_physics/layer_3="Meimu"
 2d_physics/layer_4="Graze"
 z_index={
+}
+z_index/z_index={
+"Not Set": 0,
+"Player Overlay 6": 6,
+"Player Sprite": 5
 }
 
 [mono]
