@@ -124,20 +124,10 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://addons/dialogic/Example Assets/History/HistoryRow.gd"
 }, {
-"base": "Node",
-"class": "KeyboardHandler",
-"language": "GDScript",
-"path": "res://entity/player/controls/keyboard.gd"
-}, {
 "base": "Control",
 "class": "Level",
 "language": "GDScript",
 "path": "res://level/level.gd"
-}, {
-"base": "Node",
-"class": "MouseHandler",
-"language": "GDScript",
-"path": "res://entity/player/controls/mouse.gd"
 }, {
 "base": "PathFollow2D",
 "class": "PathFollower",
@@ -198,9 +188,7 @@ _global_script_class_icons={
 "Enemy": "",
 "FormatLabel": "",
 "HistoryRow": "",
-"KeyboardHandler": "",
 "Level": "",
-"MouseHandler": "",
 "PathFollower": "",
 "Player": "",
 "SFXButton": "",
