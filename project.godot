@@ -312,6 +312,7 @@ pause={
 z_index={
 }
 z_index/z_index={
+"Background": -10,
 "Not Set": 0,
 "Player Overlay 6": 6,
 "Player Sprite": 5

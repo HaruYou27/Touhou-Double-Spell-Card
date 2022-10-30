@@ -7,7 +7,6 @@ export (Array) var levels : Array
 export (NodePath) var level
 export (PackedScene) var dialogue
 export (int, 0, 7) var stage
-export (String) var stage_path
 
 onready var tree = get_tree()
 onready var overlay := ColorRect.new()
@@ -24,7 +23,7 @@ func _ready() -> void:
 	Global.player.connect('die', self, 'flash_red')
 	Global.connect("bomb", self, 'bomb')
 	Global.connect("next_level", self, 'next')
-	Global.save_data.last_level = stage_path
+	Global.save_data.last_level = get_parent().filename
 	
 	VisualServer.canvas_item_set_z_index(overlay.get_canvas_item(), 4000)
 	var tween := fade2black()

@@ -8,6 +8,10 @@ func can_handle(object) -> bool:
 func parse_category(object, category):
 	if category != 'CanvasItem':
 		return false
-		
-	add_property_editor(category, p_interface.new())
+	
+	var current := -1
+	if object is Node2D:
+		current = ProjectSettings.get('layer_names/z_index/z_index').values().find(object.z_index)
+	
+	add_property_editor(category, p_interface.new(current))
 	return true
