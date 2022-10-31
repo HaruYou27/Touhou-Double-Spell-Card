@@ -23,7 +23,7 @@ func _ready() -> void:
 	Global.player.connect('die', self, 'flash_red')
 	Global.connect("bomb", self, 'bomb')
 	Global.connect("next_level", self, 'next')
-	Global.save_data.last_level = get_parent().filename
+	Global.save_data.last_level = tree.current_scene.filename
 	
 	VisualServer.canvas_item_set_z_index(overlay.get_canvas_item(), 4000)
 	var tween := fade2black()
