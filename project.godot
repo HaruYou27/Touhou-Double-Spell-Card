@@ -9,36 +9,6 @@
 config_version=4
 
 _global_script_classes=[ {
-"base": "SFXButton",
-"class": "AnimatedButton",
-"language": "GDScript",
-"path": "res://user-interface/custom-control/AnimatedButton.gd"
-}, {
-"base": "HSlider",
-"class": "AnimatedHSlider",
-"language": "GDScript",
-"path": "res://user-interface/custom-control/AnimatedHSlider.gd"
-}, {
-"base": "AnimatedButton",
-"class": "AnimatedLabelButton",
-"language": "GDScript",
-"path": "res://user-interface/custom-control/AnimatedLabelButton.gd"
-}, {
-"base": "Popup",
-"class": "AnimatedPopup",
-"language": "GDScript",
-"path": "res://user-interface/custom-control/AnimatedPopup.gd"
-}, {
-"base": "AnimatedButton",
-"class": "AnimatedTextButton",
-"language": "GDScript",
-"path": "res://user-interface/custom-control/AnimatedTextButton.gd"
-}, {
-"base": "AnimatedButton",
-"class": "BackButton",
-"language": "GDScript",
-"path": "res://user-interface/custom-control/BackButton.gd"
-}, {
 "base": "Area2D",
 "class": "Boss",
 "language": "GDScript",
@@ -59,70 +29,10 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://tool/circle-barrel.gd"
 }, {
-"base": "Reference",
-"class": "DTS",
-"language": "GDScript",
-"path": "res://addons/dialogic/Localization/translation_service.gd"
-}, {
-"base": "Node",
-"class": "Dialogic",
-"language": "GDScript",
-"path": "res://addons/dialogic/Other/DialogicClass.gd"
-}, {
-"base": "Reference",
-"class": "DialogicAnimaPropertiesHelper",
-"language": "GDScript",
-"path": "res://addons/dialogic/Nodes/Anima/DialogicAnimaPropertiesHelper.gd"
-}, {
-"base": "Node",
-"class": "DialogicAnimaResources",
-"language": "GDScript",
-"path": "res://addons/dialogic/Nodes/Anima/DialogicAnimaResources.gd"
-}, {
-"base": "Control",
-"class": "DialogicBackgroundMusic",
-"language": "GDScript",
-"path": "res://addons/dialogic/Nodes/BackgroundMusic.gd"
-}, {
-"base": "Node",
-"class": "DialogicCustomEvents",
-"language": "GDScript",
-"path": "res://addons/dialogic/Nodes/DialogicCustomEvents.gd"
-}, {
-"base": "Node",
-"class": "DialogicDefinitionsUtil",
-"language": "GDScript",
-"path": "res://addons/dialogic/Other/DialogicDefinitionsUtil.gd"
-}, {
-"base": "Node",
-"class": "DialogicParser",
-"language": "GDScript",
-"path": "res://addons/dialogic/Parser/DialogicParser.gd"
-}, {
-"base": "Reference",
-"class": "DialogicResources",
-"language": "GDScript",
-"path": "res://addons/dialogic/Other/DialogicResources.gd"
-}, {
-"base": "Reference",
-"class": "DialogicUtil",
-"language": "GDScript",
-"path": "res://addons/dialogic/Other/DialogicUtil.gd"
-}, {
 "base": "Area2D",
 "class": "Enemy",
 "language": "GDScript",
 "path": "res://entity/common-enemies/Enemy.gd"
-}, {
-"base": "Label",
-"class": "FormatLabel",
-"language": "GDScript",
-"path": "res://user-interface/custom-control/FormatLabel.gd"
-}, {
-"base": "PanelContainer",
-"class": "HistoryRow",
-"language": "GDScript",
-"path": "res://addons/dialogic/Example Assets/History/HistoryRow.gd"
 }, {
 "base": "Control",
 "class": "Level",
@@ -139,20 +49,10 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://entity/player/Reimu/reimu.gd"
 }, {
-"base": "Button",
-"class": "SFXButton",
-"language": "GDScript",
-"path": "res://user-interface/custom-control/SFXButton.gd"
-}, {
 "base": "Sprite",
 "class": "Satellite",
 "language": "GDScript",
 "path": "res://entity/player/Reimu/orb.gd"
-}, {
-"base": "Label",
-"class": "ScrollButton",
-"language": "GDScript",
-"path": "res://user-interface/custom-control/ScrollButton.gd"
 }, {
 "base": "Position2D",
 "class": "TargetLocker",
@@ -165,35 +65,15 @@ _global_script_classes=[ {
 "path": "res://autoload/save.gd"
 } ]
 _global_script_class_icons={
-"AnimatedButton": "",
-"AnimatedHSlider": "",
-"AnimatedLabelButton": "",
-"AnimatedPopup": "",
-"AnimatedTextButton": "",
-"BackButton": "",
 "Boss": "",
 "BossIndicator": "",
 "CharacterData": "",
 "CircleBarrel": "",
-"DTS": "",
-"Dialogic": "",
-"DialogicAnimaPropertiesHelper": "",
-"DialogicAnimaResources": "",
-"DialogicBackgroundMusic": "",
-"DialogicCustomEvents": "",
-"DialogicDefinitionsUtil": "",
-"DialogicParser": "",
-"DialogicResources": "",
-"DialogicUtil": "",
 "Enemy": "",
-"FormatLabel": "",
-"HistoryRow": "",
 "Level": "",
 "PathFollower": "",
 "Player": "",
-"SFXButton": "",
 "Satellite": "",
-"ScrollButton": "",
 "TargetLocker": "",
 "saveData": ""
 }
@@ -230,7 +110,7 @@ window/stretch/aspect="keep"
 
 [editor_plugins]
 
-enabled=PoolStringArray( "res://addons/BetterZindex/plugin.cfg", "res://addons/dialogic/plugin.cfg" )
+enabled=PoolStringArray( "res://addons/dialogic/plugin.cfg" )
 
 [importer_defaults]
 
@@ -300,7 +180,6 @@ pause={
 z_index={
 }
 z_index/z_index={
-"Background": -10,
 "Not Set": 0,
 "Player Overlay 6": 6,
 "Player Sprite": 5
