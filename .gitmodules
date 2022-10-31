@@ -1,0 +1,6 @@
+[submodule "addons/Labeled-Z-index"]
+	path = addons/Labeled-Z-index
+	url = https://github.com/haruyou27/Labeled-Z-index
+[submodule "addons/keyboard-focused-control"]
+	path = addons/keyboard-focused-control
+	url = https://github.com/haruyou27/keyboard-focused-control
