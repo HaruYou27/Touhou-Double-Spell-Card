@@ -1,116 +1,31 @@
 using Godot;
-using Godot.Collections;
-
-public class Ricochet : BulletBasic
-{
+//Bullet that bounce off wall.
+public class Ricochet : BulletBasic {
     [Export] uint ricochet = 1;
-    private struct Bullet {
-        public Transform2D transform;
-        public readonly RID sprite;
-        public bool grazable;
-        public Vector2 velocity;
-        public uint ricochet;
-        public Bullet(in float speed, in Transform2D trans, in RID canvas, in uint r, in bool graze) {
-            sprite = canvas;
-            grazable = graze;
-            transform = trans;
-            transform.Rotation += Mathf.Pi / 2;
-            ricochet = r;
-            velocity = new Vector2(speed, 0).Rotated(trans.Rotation);
-        } 
-    }
-    private Bullet[] bullets;
+    protected uint[] ricochets;
 
-    public override void _EnterTree() {
-        bullets = new Bullet[maxBullet];
+    public override void _Ready()
+    {
+        base._Ready();
+        ricochets = new uint[maxBullet];
     }
-    public override void Flush() {
-        if (index == 0) {return;}
-        
-        for (uint i = 0; i != index; i++) {
-            RID sprite = bullets[i].sprite;
-            fx.SpawnItem(bullets[i].transform.origin);
-            sprites.Push(sprite);
-            VisualServer.CanvasItemSetVisible(sprite, false);
-        }
-        index = 0;
+    protected override void BulletConstructor() {
+        ricochets[activeIndex] = ricochet;
     }
-    public override void _ExitTree() {
-        foreach (RID sprite in sprites) {
-            VisualServer.FreeRid(sprite);
-        }
-		Physics2DServer.FreeRid(hitbox);
-    
-        if (index == 0) {return;}
-        for (uint i = 0; i != index; i++) {
-            VisualServer.FreeRid(bullets[i].sprite);
-        }
+    protected override void Overwrite(in uint i)
+    {
+        base.Overwrite(i);
+        ricochets[newIndex] = ricochets[i];
     }
-    public override void SpawnBullet() {
-        foreach (Node2D barrel in barrels) {
-            if (index == maxBullet) {return;}
-            RID sprite = sprites.Pop();
-            VisualServer.CanvasItemSetVisible(sprite, true);
-            bullets[index] = new Bullet(speed, barrel.GlobalTransform, sprite, ricochet, grazable);
-            index++;
+    protected override bool Collide(in Godot.Collections.Dictionary result, in uint i) {
+        if (ricochets[i] > 0) {
+            velocities[i] = velocities[i].Bounce((Vector2)result["normal"]);
+            ricochets[i]--;
+            Overwrite(i);
+            
+            newIndex++;
+            return true;
         }
-    }
-    public override void _PhysicsProcess(float delta) {
-        if (index == 0) {return;}
-
-        uint newIndex = 0;
-        for (uint i = 0;i != index; i++) {
-            Bullet bullet = bullets[i];
-            bullet.transform.origin += bullet.velocity * delta;
-            VisualServer.CanvasItemSetTransform(bullet.sprite, bullet.transform);
-
-            //Collision check.
-            query.Transform = bullet.transform;
-            Godot.Collections.Dictionary result;
-            if (bullet.grazable) {
-                query.CollisionLayer = mask + 8;
-                result = world.DirectSpaceState.GetRestInfo(query);
-                if (result.Count == 0) {
-                    bullets[newIndex] = bullet;
-                    newIndex++;
-                    continue;
-                }
-                float colliderLayer = ((Vector2)result["linear_velocity"]).x;
-                if (colliderLayer == 1.0) {
-                    sprites.Push(bullet.sprite);
-                    VisualServer.CanvasItemSetVisible(bullet.sprite, false);
-                    continue;
-                }
-                bullet.grazable = false;
-                Global.EmitSignal("graze");
-                bullets[newIndex] = bullet;
-                newIndex++;
-                continue;
-            } else {
-                query.CollisionLayer = mask;
-                result = world.DirectSpaceState.GetRestInfo(query);
-                if (result.Count == 0) {
-                    bullets[newIndex] = bullet;
-                    newIndex++;
-                    continue;
-                }
-                if (bullet.ricochet > 0) {
-                    bullet.velocity = bullet.velocity.Bounce((Vector2)result["normal"]);
-                    bullet.ricochet--;
-                    bullets[newIndex] = bullet;
-                    newIndex++;
-                } else {
-                    sprites.Push(bullet.sprite);
-                    VisualServer.CanvasItemSetVisible(bullet.sprite, false);
-                }
-                float colliderLayer = ((Vector2)result["linear_velocity"]).x;
-                if (colliderLayer == 1.0) {continue;}
-                
-                Object collider = GD.InstanceFromId(((ulong) (int)result["collider_id"]));
-                collider.Call("_hit");
-                fx.hit((Vector2)result["point"]);
-            }
-        }
-        index = newIndex;
-    }
+        return false;
+}
 }
