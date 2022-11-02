@@ -2,9 +2,9 @@ extends GridContainer
 
 onready var save := Global.save_data
 
-onready var master_slider :AnimatedHSlider = $TabContainer/Audio/master
-onready var bgm_slider :AnimatedHSlider = $TabContainer/Audio/bgm
-onready var sfx_slider :AnimatedHSlider = $TabContainer/Audio/sfx
+onready var master_slider :AnimatedHSlider = $master
+onready var bgm_slider :AnimatedHSlider = $bgm
+onready var sfx_slider :AnimatedHSlider = $sfx
 
 func _ready():
 	master_slider.value = save.master_db

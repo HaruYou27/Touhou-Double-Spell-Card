@@ -6,6 +6,7 @@ onready var save := Global.save_data
 
 func _ready() -> void:
 	#Controls
+	"""
 	auto_shoot.pressed = save.auto_shoot
 	mouse.pressed = save.use_mouse
 	var i := 0
@@ -19,7 +20,8 @@ func _ready() -> void:
 	death_timer.text = str(save.death_time)
 	
 	AudioServer.set_bus_volume_db(2, 0)
-	
+	"""
+	pass
 
 
 func _entered() -> void:
@@ -49,6 +51,7 @@ func _on_cheat_toggled(button_pressed):
 		$Popup/CheatWarn.popup()
 
 #Controls
+"""
 onready var auto_shoot :AnimatedTextButton = $TabContainer/Control/autoshoot
 onready var mouse : AnimatedButton = $TabContainer/Control/mouse
 onready var keybind := [
@@ -95,4 +98,4 @@ func _on_mouse_toggled(button_pressed):
 	for button in keybind.slice(0, 4):
 		button.disabled = button_pressed
 		
-	save.use_mouse = button_pressed
+	save.use_mouse = button_pressed"""
