@@ -114,20 +114,10 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://entity/common-enemies/Enemy.gd"
 }, {
-"base": "Label",
-"class": "FormatLabel",
-"language": "GDScript",
-"path": "res://user-interface/custom-control/FormatLabel.gd"
-}, {
 "base": "PanelContainer",
 "class": "HistoryRow",
 "language": "GDScript",
 "path": "res://addons/dialogic/Example Assets/History/HistoryRow.gd"
-}, {
-"base": "Node",
-"class": "KeyboardHandler",
-"language": "GDScript",
-"path": "res://entity/player/controls/keyboard.gd"
 }, {
 "base": "Control",
 "class": "Level",
@@ -191,9 +181,7 @@ _global_script_class_icons={
 "DialogicResources": "",
 "DialogicUtil": "",
 "Enemy": "",
-"FormatLabel": "",
 "HistoryRow": "",
-"KeyboardHandler": "",
 "Level": "",
 "MouseHandler": "",
 "PathFollower": "",

@@ -16,129 +16,40 @@ public class Seeker : BulletBasic {
         get {return seekQuery.CollideWithBodies;}
     }
 
-    private Bullet[] bullets;
+    protected Node2D[] targets;
     protected Physics2DShapeQueryParameters seekQuery = new Physics2DShapeQueryParameters();
     private RID seekShape = Physics2DServer.CircleShapeCreate();
-    private struct Bullet {
-        public Transform2D transform;
-        public Vector2 velocity;
-        public Node2D target;
-        public readonly RID sprite;
-        public bool grazable;
-        public Bullet(in float speed, in Transform2D trans, in RID canvas, in bool graze) {
-            transform = trans;
-            sprite = canvas;
-            grazable = graze;
-            transform.Rotation += Mathf.Pi / 2;
-            velocity = new Vector2(speed, 0).Rotated(trans.Rotation);
-            target = null;
-        }
-    }
 
-    public override void _EnterTree() {
-        bullets = new Bullet[maxBullet];
+    public override void _Ready() {
+        base._Ready();
         seekQuery.ShapeRid = seekShape;
         seekQuery.CollisionLayer = mask;
+        targets = new Node2D[maxBullet];
     }
-    public override void Flush() {
-        if (index == 0) {return;}
-        
-        for (uint i = 0; i != index; i++) {
-            RID sprite = bullets[i].sprite;
-            fx.SpawnItem(bullets[i].transform.origin);
-            sprites.Push(sprite);
-            VisualServer.CanvasItemSetVisible(sprite, false);
-        }
-        index = 0;
+    protected override void Overwrite(in uint i) {
+        base.Overwrite(i);
+        targets[newIndex] = targets[i];
+    }
+    protected override void BulletConstructor() {
+        base.BulletConstructor();
+        targets[activeIndex] = null;
     }
     public override void _ExitTree() {
-        foreach (RID sprite in sprites) {
-            VisualServer.FreeRid(sprite);
-        }
-		Physics2DServer.FreeRid(hitbox);
-    
-        if (index == 0) {return;}
-        for (uint i = 0; i != index; i++) {
-            VisualServer.FreeRid(bullets[i].sprite);
-        }
-    
+        base._ExitTree();
         Physics2DServer.FreeRid(seekShape);
-        if (index == 0) {return;}
-        for (uint i = 0; i != index; i++) {
-            VisualServer.FreeRid(bullets[i].sprite);
-        }
     }
-    public override void SpawnBullet() {
-        foreach (Node2D barrel in barrels) {
-            if (index == maxBullet) {return;}
-            RID sprite = sprites.Pop();
-            VisualServer.CanvasItemSetVisible(sprite, true);
-            bullets[index] = new Bullet(speed, barrel.GlobalTransform, sprite, grazable);
-            index++;
-        }
-    }
-    public override void _PhysicsProcess(float delta) {
-        if (index == 0) {return;}
-
-        uint newIndex = 0;
-
-        for (uint i = 0; i != index; i++) {
-            Bullet bullet = bullets[i];
-            if (bullet.target == null || !Object.IsInstanceValid(bullet.target)) {
-                seekQuery.Transform = bullet.transform;
-                Godot.Collections.Dictionary seekResult = world.DirectSpaceState.GetRestInfo(seekQuery);
-                if (seekResult.Count != 0) {
-                    bullet.target = (Node2D)GD.InstanceFromId((ulong) (int)seekResult["collider_id"]);
-                }
-            } else {
-                Vector2 desiredV = (bullet.target.GlobalPosition - bullet.transform.origin).Normalized() * speed;
-                bullet.velocity += (desiredV - bullet.velocity) / mass;
-                bullet.transform.Rotation = bullet.velocity.Angle() + Mathf.Pi / 2;
+    protected override void Move(in uint i, in float delta) {
+        if (targets[i] == null || !Object.IsInstanceValid(targets[i])) {
+            seekQuery.Transform = transforms[i];
+            Godot.Collections.Dictionary seekResult = world.DirectSpaceState.GetRestInfo(seekQuery);
+            if (seekResult.Count != 0) {
+                targets[i] = (Node2D)GD.InstanceFromId((ulong) (int)seekResult["collider_id"]);
             }
-            bullet.transform.origin += bullet.velocity * delta;
-            VisualServer.CanvasItemSetTransform(bullet.sprite, bullet.transform);
-
-
-            //Collision checking 
-            query.Transform = bullet.transform;
-            Godot.Collections.Dictionary result;
-            if (bullet.grazable) {
-                query.CollisionLayer = mask + 8;
-                result = world.DirectSpaceState.GetRestInfo(query);
-                if (result.Count == 0) {
-                    bullets[newIndex] = bullet;
-                    newIndex++;
-                    continue;
-                }
-                float colliderLayer = ((Vector2)result["linear_velocity"]).x;
-                if (colliderLayer == 1.0) {
-                    sprites.Push(bullet.sprite);
-                    VisualServer.CanvasItemSetVisible(bullet.sprite, false);
-                    continue;
-                }
-                bullet.grazable = false;
-                Global.EmitSignal("graze");
-                bullets[newIndex] = bullet;
-                newIndex++;
-                continue;
-            } else {
-                query.CollisionLayer = mask;
-                result = world.DirectSpaceState.GetRestInfo(query);
-                if (result.Count == 0) {
-                    bullets[newIndex] = bullet;
-                    newIndex++;
-                    continue;
-                }
-                float colliderLayer = ((Vector2)result["linear_velocity"]).x;
-                sprites.Push(bullet.sprite);
-                VisualServer.CanvasItemSetVisible(bullet.sprite, false);
-                if (colliderLayer == 1.0) {continue;}
-                
-                Object collider = GD.InstanceFromId(((ulong) (int)result["collider_id"]));
-                collider.Call("_hit");
-                fx.hit((Vector2)result["point"]);
-            }
+        } else {
+            Vector2 desiredV = (targets[i].GlobalPosition - transforms[i].origin).Normalized() * speed;
+            velocities[i] += (desiredV - velocities[i]) / mass;
+            transforms[i].Rotation = velocities[i].Angle() + Mathf.Pi / 2;
         }
-        index = newIndex;
+        base.Move(i, delta);
     }
 }

@@ -1,111 +1,14 @@
 using Godot;
 
-public class SineSpeed : BulletBase {
+public class SineSpeed : BulletBasic {
     //Bullet that speed up and down by sine wave.
     [Export] float timeSpeed;
-    private struct Bullet {
-        public float lifeTime;
-        public Transform2D transform;
-        public readonly RID sprite;
-        public bool grazable;
-        public float maxSpeed;
-        
-        public Bullet(in float speed, in Transform2D trans, in RID canvasItem, in bool graze) {
-            sprite = canvasItem;
-            maxSpeed = speed;
-            grazable = graze;
-            transform = trans;
-            transform.Rotation += Mathf.Pi / 2;
-            lifeTime = 0;
-        }
-    }
-    private Bullet[] bullets;
+    protected float[] ages;
 
-    public override void _EnterTree() {
-        bullets = new Bullet[maxBullet];
-    }
-    public override void _ExitTree() {
-        foreach (RID sprite in sprites) {
-            VisualServer.FreeRid(sprite);
-        }
-		Physics2DServer.FreeRid(hitbox);
-    
-        if (index == 0) {return;}
-        for (uint i = 0; i != index; i++) {
-            VisualServer.FreeRid(bullets[i].sprite);
-        }
-    }
-    public virtual void SpawnBullet() {
-        foreach (Node2D barrel in barrels) {
-            if (index == maxBullet) {return;}
-            RID sprite = sprites.Pop();
-            VisualServer.CanvasItemSetVisible(sprite, true);
-            bullets[index] = new Bullet(speed, barrel.GlobalTransform, sprite, grazable);
-            index++;
-        }
-    }
-    public virtual void Flush() {
-        if (index == 0) {return;}
+    protected override void Move(in uint i, in float delta) {
+        ages[i] += delta * timeSpeed;
+        velocities[i] = velocities[i].Normalized() * speed * Mathf.Abs(Mathf.Sin(ages[i]));
         
-        for (uint i = 0; i != index; i++) {
-            RID sprite = bullets[i].sprite;
-            fx.SpawnItem(bullets[i].transform.origin);
-            sprites.Push(sprite);
-            VisualServer.CanvasItemSetVisible(sprite, false);
-        }
-        index = 0;
-    }
-    public override void _PhysicsProcess(float delta) {
-        if (index == 0) {return;}
-        uint newIndex = 0;
-        
-        for (uint i = 0;i != index; i++) {
-            Bullet bullet = bullets[i];
-            bullet.lifeTime += delta * timeSpeed;
-            Vector2 velocity = new Vector2(bullet.maxSpeed, 0).Rotated(bullet.transform.Rotation - Mathf.Pi / 2);
-            bullet.transform.origin += velocity * Mathf.Abs(Mathf.Sin(bullet.lifeTime)) * delta;
-            VisualServer.CanvasItemSetTransform(bullet.sprite, bullet.transform);
-
-            //Collision check.
-            query.Transform = bullet.transform;
-            Godot.Collections.Dictionary result;
-            if (bullet.grazable) {
-                query.CollisionLayer = mask + 8;
-                result = world.DirectSpaceState.GetRestInfo(query);
-                if (result.Count == 0) {
-                    bullets[newIndex] = bullet;
-                    newIndex++;
-                    continue;
-                }
-                float colliderLayer = ((Vector2)result["linear_velocity"]).x;
-                if (colliderLayer == 1.0) {
-                    sprites.Push(bullet.sprite);
-                    VisualServer.CanvasItemSetVisible(bullet.sprite, false);
-                    continue;
-                }
-                bullet.grazable = false;
-                Global.EmitSignal("graze");
-                bullets[newIndex] = bullet;
-                newIndex++;
-                continue;
-            } else {
-                query.CollisionLayer = mask;
-                result = world.DirectSpaceState.GetRestInfo(query);
-                if (result.Count == 0) {
-                    bullets[newIndex] = bullet;
-                    newIndex++;
-                    continue;
-                }
-                float colliderLayer = ((Vector2)result["linear_velocity"]).x;
-                sprites.Push(bullet.sprite);
-                VisualServer.CanvasItemSetVisible(bullet.sprite, false);
-                if (colliderLayer == 1.0) {continue;}
-
-                Object collider = GD.InstanceFromId(((ulong) (int)result["collider_id"]));
-                collider.Call("_hit");
-                fx.hit((Vector2)result["point"]);
-            }
-        }
-        index = newIndex;
+        base.Move(i, delta);
     }
 }
