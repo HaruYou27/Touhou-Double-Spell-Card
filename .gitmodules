@@ -4,3 +4,6 @@
 [submodule "addons/keyboard-focused-control"]
 	path = addons/keyboard-focused-control
 	url = https://github.com/haruyou27/keyboard-focused-control
+[submodule "addons/dialogic"]
+	path = addons/dialogic
+	url = https://github.com/haruyou27/dialogic
