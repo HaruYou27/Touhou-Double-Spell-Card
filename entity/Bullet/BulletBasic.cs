@@ -127,8 +127,8 @@ public class BulletBasic : Node2D {
             if (activeIndex == maxBullet) {return;}
             VisualServer.CanvasItemSetVisible(sprites[activeIndex], true);
 			velocities[activeIndex] = new Vector2(speed, 0).Rotated(barrel.Rotation);
-			transforms[activeIndex] = barrel.Transform;
-			transforms[activeIndex].Rotation -= Mathf.Pi / 2;
+			transforms[activeIndex] = barrel.GlobalTransform;
+			transforms[activeIndex].Rotation += Mathf.Pi / 2;
 			grazable[activeIndex] = Grazable;
 			BulletConstructor();
             
@@ -153,7 +153,6 @@ public class BulletBasic : Node2D {
 		transforms[newIndex] = transforms[i];
 		velocities[newIndex] = velocities[i];
 		grazable[newIndex] = grazable[i];
-		newIndex++;
 	}
 	protected virtual bool Collide(in Godot.Collections.Dictionary result, in uint i) {
 		if (((Vector2)result["linear_velocity"]).x == 1.0) {return true;}
@@ -164,7 +163,7 @@ public class BulletBasic : Node2D {
         if (activeIndex == 0) {return;}
 		newIndex = 0;
         
-        for (uint i = 0;i != activeIndex; i++) {
+        for (uint i = 0; i != activeIndex; i++) {
 			Move(i, delta);
         	VisualServer.CanvasItemSetTransform(sprites[i], transforms[i]);
 
@@ -175,10 +174,9 @@ public class BulletBasic : Node2D {
 			//Collision checking.
 			Godot.Collections.Dictionary result = world.DirectSpaceState.GetRestInfo(query);
 	        if (result.Count == 0) {
-    	    	if (newIndex != activeIndex) {
-					Overwrite(i);
-            	    return;
-        	    }
+    	    	if (newIndex != activeIndex) {Overwrite(i);}
+				newIndex++;
+				continue;
 			}
     	    if (Collide(result, i)) {continue;}
 

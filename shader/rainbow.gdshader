@@ -2,7 +2,7 @@ shader_type canvas_item;
 
 varying float h;
 
-uniform float speed = 1.0;
+uniform float frequency = 1.0;
 
 vec3 rgb2hsv(vec3 c) {
     vec4 K = vec4(0.0, -1.0 / 3.0, 2.0 / 3.0, -1.0);
@@ -29,14 +29,14 @@ float when_eq(float x, float y) {
 }
 
 void vertex() {
-	h = abs(sin(TIME * speed));
+	h = abs(sin(TIME * frequency));
 }
 
 void fragment() {
 	vec4 color = texture(TEXTURE, UV);
 	vec3 colorhsv = rgb2hsv(color.rgb);
 	float boolean = when_lt(colorhsv.y, 0.11);
-	colorhsv.x += h;
+	colorhsv.x += h + MODULATE.a;
 	color.rgb = color.rgb * boolean + hsv2rgb(colorhsv) * when_eq(boolean, 0.0);
 	COLOR = color;
 }

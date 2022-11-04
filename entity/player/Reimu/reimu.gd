@@ -42,9 +42,7 @@ func _ready() -> void:
 	var timer2 :Timer = $Timer2
 	if Global.save_data.auto_shoot:
 		timer.start()
-		timer.connect("timeout", $bullet, 'SpawnBullet')
 		timer2.start()
-		timer2.connect("timeout", $bullet2, 'SpawnBullet')
 		
 func _physics_process(_delta):
 	position = position.posmodv(playground)
