@@ -9,20 +9,11 @@ func _ready() -> void:
 	bullet2.set_physics_process(false)
 	set_physics_process(false)
 	
-	Global.connect("impact", self, 'bomb')
-	bullet.rotation = rand_range(.785, 2.356)
-	if randi() % 2:
-		bullet.rotation *= -1
-	bullet2.rotation = bullet.rotation
-
 func _physics_process(delta) -> void:
-	bullet.rotation += 0.897 * delta
-	bullet2.rotation -= 0.897 * delta
-	
-func bomb() -> void:
-	bullet.Flush()
-	bullet2.Flush()
-	
+	var phi :float = 0.897 * delta
+	bullet.rotation += phi
+	bullet2.rotation -= phi
+
 func _start() -> void:
 	bullet.set_physics_process(true)
 	bullet2.set_physics_process(true)

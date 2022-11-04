@@ -37,7 +37,7 @@ public class FantasySeal : Node {
         SetPhysicsProcess(false);
         target = (Node2D) GetNode("/root/Global").Get("boss");
         tree = GetTree();
-        tree.CreateTimer(1).Connect("timeout", GetNode(GetPath()), "Attack");
+        tree.CreateTimer(1).Connect("timeout", this, "Attack");
 
     }
     public virtual void Attack() {
