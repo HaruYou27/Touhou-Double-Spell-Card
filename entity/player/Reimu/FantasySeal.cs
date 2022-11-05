@@ -33,19 +33,6 @@ public class FantasySeal : Node {
 	protected Physics2DShapeQueryParameters query = new Physics2DShapeQueryParameters();
 	protected RID shape = Physics2DServer.CircleShapeCreate();
 
-<<<<<<< HEAD
-    public override void _Ready() {
-        for (uint i = 0; i != 4; i++) {
-            Particles2D visual = orbScene.Instance<Particles2D>();
-            AddChild(visual);
-            SealOrb orb = new SealOrb(visual, i);
-            orbs.Push(orb);
-        }
-        SetPhysicsProcess(false);
-        target = (Node2D) GetNode("/root/Global").Get("boss");
-        tree = GetTree();
-        tree.CreateTimer(1).Connect("timeout", this, "Attack");
-=======
 	public override void _Ready() {
 		Node2D parent = GetParent<Node2D>();
 		for (uint i = 0; i != 4; i++) {
@@ -55,7 +42,6 @@ public class FantasySeal : Node {
 			orbs.Push(orb);
 		}
 		SetPhysicsProcess(false);
->>>>>>> main
 
 		Global = GetNode<Node2D>("/root/Global");
 		itemManager = GetNode<ItemManager>("/root/ItemManager");
