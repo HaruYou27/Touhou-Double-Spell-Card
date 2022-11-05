@@ -64,6 +64,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://entity/common-enemies/Enemy.gd"
 }, {
+<<<<<<< HEAD
 "base": "Label",
 "class": "FormatLabel",
 "language": "GDScript",
@@ -73,6 +74,12 @@ _global_script_classes=[ {
 "class": "KeyboardHandler",
 "language": "GDScript",
 "path": "res://entity/player/controls/keyboard.gd"
+=======
+"base": "PanelContainer",
+"class": "HistoryRow",
+"language": "GDScript",
+"path": "res://addons/dialogic/Example Assets/History/HistoryRow.gd"
+>>>>>>> main
 }, {
 "base": "Control",
 "class": "Level",
@@ -126,8 +133,12 @@ _global_script_class_icons={
 "CharacterData": "",
 "CircleBarrel": "",
 "Enemy": "",
+<<<<<<< HEAD
 "FormatLabel": "",
 "KeyboardHandler": "",
+=======
+"HistoryRow": "",
+>>>>>>> main
 "Level": "",
 "MouseHandler": "",
 "PathFollower": "",
@@ -170,7 +181,7 @@ window/stretch/aspect="keep"
 
 [editor_plugins]
 
-enabled=PoolStringArray( "res://addons/dialogic/plugin.cfg" )
+enabled=PoolStringArray( "res://addons/Labeled-Z-index/plugin.cfg", "res://addons/dialogic/plugin.cfg", "res://addons/keyboard-focused-control/plugin.cfg" )
 
 [importer_defaults]
 
