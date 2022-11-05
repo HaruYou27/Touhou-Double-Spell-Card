@@ -12,7 +12,7 @@ export (int) var init_bomb := 3
 export (bool) var fullscreen := false setget _set_fullscreen
 export (bool) var borderless := false setget _set_borderless
 export (bool) var show_fps := false
-export (bool) var rewind := true
+export (bool) var rewind := false
 
 #Audio
 export (float) var master_db := 0.0 setget _set_master_db

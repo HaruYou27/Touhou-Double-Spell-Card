@@ -15,7 +15,7 @@ onready var hud :Sprite = $hud
 onready var save : CharacterData
 
 func _ready() -> void:
-	Rewind.set_process(true)
+	Rewind.start()
 	ItemManager.Flush()
 	BulletFx.index = 0
 	
