@@ -3,8 +3,9 @@ using Godot;
 public class BulletBasic : Node2D {
 //Read-only properties
 	//Physics properties.
-	[Export] protected int maxBullet = 127;
+	[Export] public int maxBullet = 127;
 	[Export] public float speed;
+	[Export] public bool localRotation = true;
 	[Export] public Vector2 shapeSize {
 		set {
 			shapesize = value;
@@ -69,9 +70,24 @@ public class BulletBasic : Node2D {
 		transforms = new Transform2D[maxBullet];
 		velocities = new Vector2[maxBullet];
 		sprites = new RID[maxBullet];
+
 		if (Grazable) {
 			grazable = new bool[maxBullet];
 			Global.Connect("impact", this, "Flush");
+
+		Godot.Collections.Array Barrels = GetChildren();
+		int size = Barrels.Count;
+
+			size = Barrels.Count;
+			barrels = new Node2D[size];
+			for (int i = 0; i != size; i++) {
+				barrels[i] = (Node2D)Barrels[i];
+
+			Node parent = GetParent();
+			barrels = new Node2D[size];
+			for (int i = 0; i != size; i++) {
+				barrels[i] = parent.GetNode<Node2D>((NodePath)Barrels[i]);
+			}
 		}
 
 		//Convert into type-safe C# native array.
@@ -120,7 +136,12 @@ public class BulletBasic : Node2D {
 		foreach (Node2D barrel in barrels) {
 			if (activeIndex == maxBullet) {return;}
 			VisualServer.CanvasItemSetVisible(sprites[activeIndex], true);
-			velocities[activeIndex] = new Vector2(speed, 0).Rotated(barrel.Rotation);
+
+			if (localRotation) {
+				velocities[activeIndex] = new Vector2(speed, 0).Rotated(barrel.Rotation);
+			} else {
+				velocities[activeIndex] = new Vector2(speed, 0).Rotated(barrel.GlobalRotation);
+			}
 			transforms[activeIndex] = barrel.GlobalTransform;
 			transforms[activeIndex].Rotation += Mathf.Pi / 2;
 			if (Grazable) {grazable[activeIndex] = true;}
