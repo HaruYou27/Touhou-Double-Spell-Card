@@ -3,8 +3,9 @@ using Godot;
 public class BulletBasic : Node2D {
 //Read-only properties
 	//Physics properties.
-	[Export] protected int maxBullet = 127;
+	[Export] public int maxBullet = 127;
 	[Export] public float speed;
+	[Export] public bool localRotation = true;
 	[Export] public Vector2 shapeSize {
 		set {
 			shapesize = value;
@@ -27,7 +28,6 @@ public class BulletBasic : Node2D {
 		} get {return mask;}
 	}
 	[Export] public bool Grazable = true;
-	[Export] public Godot.Collections.Array Barrels = new Godot.Collections.Array();
 	protected Physics2DShapeQueryParameters query = new Physics2DShapeQueryParameters();
 	protected RID hitbox;
 	private Vector2 shapesize;
@@ -72,15 +72,14 @@ public class BulletBasic : Node2D {
 		velocities = new Vector2[maxBullet];
 		sprites = new RID[maxBullet];
 
+		Godot.Collections.Array Barrels = GetChildren();
 		int size = Barrels.Count;
-		if (size == 0) {
-			Barrels = GetChildren();
+
 			size = Barrels.Count;
 			barrels = new Node2D[size];
 			for (int i = 0; i != size; i++) {
 				barrels[i] = (Node2D)Barrels[i];
-			}
-		} else {
+
 			Node parent = GetParent();
 			barrels = new Node2D[size];
 			for (int i = 0; i != size; i++) {
@@ -123,13 +122,18 @@ public class BulletBasic : Node2D {
 		Physics2DServer.FreeRid(hitbox);
     }
 	public void SpawnBullet() {
-        foreach (Node2D barrel in barrels) {
-            if (activeIndex == maxBullet) {return;}
-            VisualServer.CanvasItemSetVisible(sprites[activeIndex], true);
-			velocities[activeIndex] = new Vector2(speed, 0).Rotated(barrel.Rotation);
-			transforms[activeIndex] = barrel.Transform;
-			transforms[activeIndex].Rotation -= Mathf.Pi / 2;
-			grazable[activeIndex] = Grazable;
+		foreach (Node2D barrel in barrels) {
+			if (activeIndex == maxBullet) {return;}
+			VisualServer.CanvasItemSetVisible(sprites[activeIndex], true);
+			if (localRotation) {
+				velocities[activeIndex] = new Vector2(speed, 0).Rotated(barrel.Rotation);
+			} else {
+				velocities[activeIndex] = new Vector2(speed, 0).Rotated(barrel.GlobalRotation);
+			}
+			transforms[activeIndex] = barrel.GlobalTransform;
+			transforms[activeIndex].Rotation += Mathf.Pi / 2;
+			if (Grazable) {grazable[activeIndex] = true;}
+			
 			BulletConstructor();
             
             activeIndex++;
