@@ -3,10 +3,12 @@ class_name saveData
 
 ### Game settings data
 #Gameplay
+export (bool) var death_assit := true
 export (bool) var assist_mode := false
-export (float) var death_time := .3
-export (float) var bomb_damage := .5
+export (float) var game_speed := 1.0
+export (float) var assit_duration := .3
 export (int) var init_bomb := 3
+export (bool) var invicible := false
 
 #Graphic
 export (bool) var fullscreen := false setget _set_fullscreen

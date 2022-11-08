@@ -2,8 +2,8 @@ using Godot;
 //The base class of all bullets.
 public class BulletBasic : Node2D {
 //Read-only properties
-	//Physics properties.
-	[Export] public int maxBullet = 127;
+	//Physics.
+	[Export] public int maxBullet = 127; //Exceed the limit and no more bullet will be shoot out.
 	[Export] public float speed;
 	[Export] public bool localRotation = true;
 	[Export] public Vector2 shapeSize {
@@ -33,7 +33,7 @@ public class BulletBasic : Node2D {
 	private Vector2 shapesize;
 	protected uint mask = 1;
 
-	//Visual properties.
+	//Visual.
 	[Export] protected Texture texture {
 		set {
 			tex = value;
@@ -50,13 +50,13 @@ public class BulletBasic : Node2D {
 	protected RID textureRID;
 
 	protected World2D world;
-	protected uint activeIndex = 0;
+	protected uint activeIndex = 0; //Current empty index, also bullet count.
 	protected uint newIndex = 0;
 	protected Node2D[] barrels;
 	protected Node Global;
 	protected BulletFx fx;
 
-	//Bullets properties.
+//Bullets properties.
 	protected Transform2D[] transforms;
 	protected bool[] grazable;
 	protected Vector2[] velocities;
@@ -72,19 +72,9 @@ public class BulletBasic : Node2D {
 		velocities = new Vector2[maxBullet];
 		sprites = new RID[maxBullet];
 
-		Godot.Collections.Array Barrels = GetChildren();
-		int size = Barrels.Count;
-
-			size = Barrels.Count;
-			barrels = new Node2D[size];
-			for (int i = 0; i != size; i++) {
-				barrels[i] = (Node2D)Barrels[i];
-
-			Node parent = GetParent();
-			barrels = new Node2D[size];
-			for (int i = 0; i != size; i++) {
-				barrels[i] = parent.GetNode<Node2D>((NodePath)Barrels[i]);
-			}
+		if (Grazable) {
+			grazable = new bool[maxBullet];
+			Global.Connect("impact", this, "Flush");
 		}
 
         Rect2 texRect = new Rect2(-textureSize / 2, textureSize);
