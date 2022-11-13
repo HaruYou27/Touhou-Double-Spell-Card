@@ -2,26 +2,27 @@
 Create a Node2D then assign a C# script from Bullet folder. If you dont see the export variable pop up in the inspector, hit the build button at the top right corner of the screen (make sure you're using Godot Mono x64 build too)
 
 # Let me explain each of these variables:
-Shape size: This is optional, in case you need precision collisionshape for the bullet. Otherwise, just assign a texture and my script will use the texture size for the collision size. Note, my script use Circle and Capsule shape.
-Collide with Areas: If you use Area2D node for hitbox, check this.
+__Shape size:__ This is optional, in case you need precision collisionshape for the bullet. Otherwise, just assign a texture and my script will use the texture size for the collision size. Note, my script use Circle and Capsule shape.
 
-Collide with Bodies: If you use hitbox inherits from PhysicsBody2D, check this.
+__Collide with Areas:__ If you use Area2D node for hitbox, check this.
 
-Collision layer: You may dont want your player to be get hit by their own bullet and so the AI enemies. Godot comes with the physic layer for this problem. Check the layer where this bullet's targets are in and uncheck otherwise. (Dont blame me for the default value, blame Godot api.)
+__Collide with Bodies:__ If you use hitbox inherits from PhysicsBody2D, check this.
 
-Texture: You MUST fill a texture in there, anything, just put something in there so the script can draw the bullet. Otherwise it will crashes. If you let the shape size variable blank, the script will use the texture size for bullet collision shape, so you probably want to crop all the useless transparent pixel in your texture (So the gpu and the cpu dont have to take these useless pixel into account.)
+__Collision layer:__ You may dont want your player to be get hit by their own bullet and so the AI enemies. Godot comes with the physic layer for this problem. Check the layer where this bullet's targets are in and uncheck otherwise. (Dont blame me for the default value, blame Godot api.)
 
-maxBullet: The maxium number of bullets can possible have. Try to keep this number as low as possible so it wont hurt performance. Exceed the limit and no more bullet will be shoot out until some current active bullets hit something and free the slot. (Warning: Dont set it to some ridiculous value like few thousands, millons, whatever or your computer will crash.)
+__Texture:__ You MUST fill a texture in there, anything, just put something in there so the script can draw the bullet. Otherwise it will crashes. If you let the shape size variable blank, the script will use the texture size for bullet collision shape, so you probably want to crop all the useless transparent pixel in your texture (So the gpu and the cpu dont have to take these useless pixel into account.)
 
-Grazeable: Set this true and player will be able to graze the bullet
+__maxBullet:__ The maxium number of bullets can possible have. Try to keep this number as low as possible so it wont hurt performance. Exceed the limit and no more bullet will be shoot out.
 
-Speed: Bullet travel speed in pixel per second. You can change it in run time but only new bullet will be affected (You can also do that with other variable, but somes does not have any effect and somes like this.)
+(Warning: Dont set this property to some ridiculous value like few thousands, millons, whatever or your computer will crash.)
 
-Material: This is optional, if you got some cool shader, create a Material resource and assign it here.
+__Grazeable:__ Leave this true and player will be able to graze the bullet
 
-Z-index: Draw order.
+__Speed:__ Bullet travel speed in pixel per second. You can change it in run time but only new bullet will be affected.
 
-Barrels: This is optional, if you need to share barrel node with other bullet node or can not set the barrel node as a child of this node for any reason. (Note: this variable will override children nodes.) Increase the array size then click on the eyedrop icon and choose NodePath, then the null will change into Assign... Click on it or drag the barrel node in the scene panel and drop it here. (Again, blame Godot if you feel inconvient, type Array in Godot 4 should make thing less troublesome.)
+__Material:__ This is optional, if you got some cool shader, create a Material resource and assign it here.
+
+__Z-index:__ Draw order.
 
 # Now let's make some barrel (refer to gun barrel) so you can shoot the bullet.
 Create a node inherits from Node2D, recommend Position2D node since it has a cross in the editor for direction preview.
@@ -32,7 +33,7 @@ In the 2D tab, you should see a cross made by a red line and a green line. By de
 
 Now if you want bullet to shoot from another direction, just use Godot rotation tool or set it from the inspector, just read Godot official doc if you dont know what and what in the editor.
 
-Ok now here's important part, you MUST either put these nodes as children of the bullet node or assign it in the barrels variable.
+Next, you MUST either put these nodes as children of the bullet node.
 
 Now create a timer node, set the time as you like and connect the signal to the bullet node method ```SpawnBullet()```
 
