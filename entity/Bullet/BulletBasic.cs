@@ -83,6 +83,16 @@ public class BulletBasic : Node2D
 		velocities = new Vector2[maxBullet];
 		sprites = new RID[maxBullet];
 
+		Godot.Collections.Array Barrels = GetChildren();
+		for (int i = 0; i != Barrels.Count; i++) 
+		{
+			if (!(Barrels[i] is Node2D)) {
+				Barrels.RemoveAt(i);
+			}
+		}
+		barrels = new Node2D[Barrels.Count];
+		Barrels.CopyTo(barrels, 0);
+
 		if (Grazable) {
 			grazable = new bool[maxBullet];
 			Global.Connect("impact", this, "Flush");
