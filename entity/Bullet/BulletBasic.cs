@@ -122,6 +122,9 @@ public class BulletBasic : Node2D
 		for (uint i = 0; i != maxBullet; i++) 
 		{
 			RID sprite = VisualServer.CanvasItemCreate();
+			sprites[i] = sprite;
+
+			VisualServer.CanvasItemSetVisible(sprite, false);
 			VisualServer.CanvasItemSetZIndex(sprite, zIndex);
 			VisualServer.CanvasItemSetParent(sprite, world.Canvas);
 			VisualServer.CanvasItemSetLightMask(sprite, 0);
@@ -131,8 +134,6 @@ public class BulletBasic : Node2D
 			{
 				VisualServer.CanvasItemSetMaterial(sprite, material.GetRid());
 			}
-			VisualServer.CanvasItemSetVisible(sprite, false);
-			sprites[i] = sprite;
 		}
 	}
 	public override void _ExitTree() 

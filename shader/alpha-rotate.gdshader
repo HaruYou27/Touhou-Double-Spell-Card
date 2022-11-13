@@ -11,6 +11,6 @@ mat2 rotate2d(float phi)
 }
 void vertex()
 {
-	float phi = TIME * speed * PI;
+	float phi = TIME * speed * PI * sign(MODULATE.a - .5);
 	VERTEX *= rotate2d(phi);
 }
