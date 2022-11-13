@@ -1,17 +1,21 @@
 using Godot;
 
-public class Seeker : BulletBasic {
+public class Seeker : BulletBasic 
+{
     //Bullets that chase nearby target.
     [Export] protected float mass = 10;
-    [Export] protected float seekRadius {
+    [Export] protected float seekRadius 
+    {
         set {Physics2DServer.ShapeSetData(seekShape, value);}
         get {return (float)Physics2DServer.ShapeGetData(seekShape);}
     }
-    [Export] bool seekAreas {
+    [Export] bool seekAreas 
+    {
         set {seekQuery.CollideWithAreas = value;}
         get {return seekQuery.CollideWithAreas;}
     }
-    [Export] bool seekBodies {
+    [Export] bool seekBodies 
+    {
         set {seekQuery.CollideWithBodies = value;}
         get {return seekQuery.CollideWithBodies;}
     }
@@ -20,25 +24,30 @@ public class Seeker : BulletBasic {
     protected Physics2DShapeQueryParameters seekQuery = new Physics2DShapeQueryParameters();
     private RID seekShape = Physics2DServer.CircleShapeCreate();
 
-    public override void _Ready() {
+    public override void _Ready() 
+    {
         base._Ready();
         seekQuery.ShapeRid = seekShape;
         seekQuery.CollisionLayer = mask;
         targets = new Node2D[maxBullet];
     }
-    protected override void Overwrite(in uint i) {
-        base.Overwrite(i);
-        targets[newIndex] = targets[i];
+    protected override void ArraySort(in uint i)
+    {
+        targets[i] = targets[activeIndex];
+        base.ArraySort(i);
     }
-    protected override void BulletConstructor() {
+    protected override void BulletConstructor() 
+    {
         base.BulletConstructor();
         targets[activeIndex] = null;
     }
-    public override void _ExitTree() {
+    public override void _ExitTree() 
+    {
         base._ExitTree();
         Physics2DServer.FreeRid(seekShape);
     }
-    protected override void Move(in uint i, in float delta) {
+    protected override void Move(in uint i, in float delta) 
+    {
         if (targets[i] == null || !Object.IsInstanceValid(targets[i])) {
             seekQuery.Transform = transforms[i];
             Godot.Collections.Dictionary seekResult = world.DirectSpaceState.GetRestInfo(seekQuery);
