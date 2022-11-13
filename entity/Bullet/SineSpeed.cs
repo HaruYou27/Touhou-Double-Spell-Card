@@ -6,16 +6,16 @@ public class SineSpeed : BulletBasic
     [Export] float timeSpeed;
     protected float[] ages;
 
-    protected override void ArraySort(in uint i)
+    protected override void SortBullet()
     {
-        ages[i] = ages[activeIndex];
-        base.ArraySort(i);
+        ages[index] = ages[activeIndex];
+        base.SortBullet();
     }
-    protected override void Move(in uint i, in float delta)
+    protected override void Move(in float delta)
     {
-        ages[i] += delta * timeSpeed;
-        velocities[i] = velocities[i].Normalized() * speed * Mathf.Abs(Mathf.Sin(ages[i]));
+        ages[index] += delta * timeSpeed;
+        velocities[index] = velocities[index].Normalized() * speed * Mathf.Abs(Mathf.Sin(ages[index]));
         
-        base.Move(i, delta);
+        base.Move(delta);
     }
 }

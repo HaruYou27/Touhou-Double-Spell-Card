@@ -15,7 +15,6 @@ onready var tree := get_tree()
 
 onready var bombs := Global.save_data.init_bomb
 onready var playground := Global.playground
-onready var death_time = Global.save_data.death_time
 onready var death_tween :Tween = $hitFx/Tween
 
 var input :Node
@@ -29,7 +28,7 @@ func _ready() -> void:
 	remove_child(hitFx)
 	graze_timer.connect("timeout", graze_fx, 'set_emitting', [false])
 	death_tween.connect("tween_all_completed", Rewind, 'rewind')
-	death_tween.interpolate_property(hitFx, 'scale', Vector2.ONE, Vector2(.01, .01), Global.save_data.death_time)
+	death_tween.interpolate_property(hitFx, 'scale', Vector2.ONE, Vector2(.01, .01), Global.save_data.assit_duration)
 	
 	if Global.save_data.use_mouse:
 		input = MouseHandler.new(self)
@@ -38,8 +37,8 @@ func _ready() -> void:
 		input = KeyboardHandler.new(self)
 	add_child(input)
 	
-	var timer :Timer = $Timer
-	var timer2 :Timer = $Timer2
+	var timer :Timer = $bullet/Timer
+	var timer2 :Timer = $bullet2/Timer2
 	if Global.save_data.auto_shoot:
 		timer.start()
 		timer.connect("timeout", $bullet, 'SpawnBullet')
@@ -47,7 +46,8 @@ func _ready() -> void:
 		timer2.connect("timeout", $bullet2, 'SpawnBullet')
 		
 func _physics_process(_delta):
-	position = position.posmodv(playground)
+	position.x = clamp(position.x, 0.0, playground.x)
+	position.y = clamp(position.y, 0.0, playground.y)
 	
 func _hit() -> void:
 	if tree.paused:

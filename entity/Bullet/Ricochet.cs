@@ -14,18 +14,18 @@ public class Ricochet : BulletBasic
     {
         ricochets[activeIndex] = ricochet;
     }
-    protected override void ArraySort(in uint i)
+    protected override void SortBullet()
     {
-        base.ArraySort(i);
-        ricochets[i] = ricochets[activeIndex];
+        base.SortBullet();
+        ricochets[index] = ricochets[activeIndex];
     }
-    protected override bool Collide(in Godot.Collections.Dictionary result, in uint i) 
+    protected override bool Collide(in Godot.Collections.Dictionary result) 
     {
-        if (ricochets[i] > 0) {
-            velocities[i] = velocities[i].Bounce((Vector2)result["normal"]);
-            ricochets[i]--;
+        if (ricochets[index] > 0) {
+            velocities[index] = velocities[index].Bounce((Vector2)result["normal"]);
+            ricochets[index]--;
             return true;
         }
-        return base.Collide(result, i);
+        return base.Collide(result);
     }
 }

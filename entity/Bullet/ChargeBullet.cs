@@ -31,17 +31,17 @@ public class ChargeBullet : BulletBasic
     {
         deltaVes[activeIndex] = absDeltaV;
     }
-    protected override void ArraySort(in uint i)
+    protected override void SortBullet()
     {
-        base.ArraySort(i);
-        deltaVes[i] = deltaVes[activeIndex];
+        base.SortBullet();
+        deltaVes[index] = deltaVes[activeIndex];
     }
-    protected override void Move(in uint i, in float delta) 
+    protected override void Move(in float delta) 
     {
-        if (deltaVes[i] > 0.0) {
-            deltaVes[i] -= Mathf.Abs(acceleration * delta);
-            velocities[i] = velocities[i].Normalized() * speed * deltaVes[i] / deltaV;
+        if (deltaVes[index] > 0.0) {
+            deltaVes[index] -= Mathf.Abs(acceleration * delta);
+            velocities[index] = velocities[index].Normalized() * speed * deltaVes[index] / deltaV;
         }
-        base.Move(i, delta);
+        base.Move(delta);
     }
 }
