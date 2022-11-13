@@ -22,7 +22,7 @@ export (float) var bgm_db := 0.0 setget _set_bgm_db
 export (float) var sfx_db := 0.0 setget _set_sfx_db
 
 #Controls
-export (bool) var auto_shoot := true
+export (bool) var auto_shoot := false
 export (bool) var use_mouse := false
 
 export (Dictionary) var key_bind := {

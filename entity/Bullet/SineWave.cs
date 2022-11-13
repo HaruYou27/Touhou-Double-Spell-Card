@@ -4,12 +4,12 @@ public class SineWave : BulletBasic {
     [Export] float amplitude = 5;
     [Export] float frequency = 5;
 
-    protected override void Move(in uint i, in float delta)
+    protected override void Move(in float delta)
     {
-        transforms[i].Rotation = delta * frequency;
+        transforms[index].Rotation = delta * frequency;
         //Offset bullet local y position to create wave-like effect.
-        transforms[i].origin.y += Mathf.Sin(transforms[i].Rotation) * amplitude;
-        base.Move(i, delta);
+        transforms[index].origin.y += Mathf.Sin(transforms[index].Rotation) * amplitude;
+        base.Move(delta);
     }
     protected override void BulletConstructor()
     {

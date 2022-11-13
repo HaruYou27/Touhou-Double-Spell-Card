@@ -39,6 +39,24 @@ public class BulletBasic : Node2D
 	protected uint mask = 1;
 
 	//Visual.
+	private void CreateCollisionShape(in Vector2 size) 
+	{
+			if (hitbox != null)
+			 {
+				Physics2DServer.FreeRid(hitbox);
+			}
+			if (size.x == size.y) 
+			{
+				hitbox = Physics2DServer.CircleShapeCreate();
+				Physics2DServer.ShapeSetData(hitbox, size.x / 2);
+			} 
+			else 
+			{
+				hitbox = Physics2DServer.CapsuleShapeCreate();
+				Physics2DServer.ShapeSetData(hitbox, new Vector2(size.x / 2, size.y - size.x));
+			}
+			query.ShapeRid = hitbox;
+	}
 	[Export] public Texture texture 
 	{
 		set 
@@ -60,6 +78,7 @@ public class BulletBasic : Node2D
 	protected RID textureRID;
 
 	protected uint activeIndex = 0; //Current empty index, also bullet count.
+	protected uint index;
 	protected Node2D[] barrels;
 	protected static Node Global;
 	protected static BulletFx fx;
@@ -83,73 +102,60 @@ public class BulletBasic : Node2D
 		sprites = new RID[maxBullet];
 
 		Godot.Collections.Array Barrels = GetChildren();
-		for (int i = 0; i != Barrels.Count; i++) 
+		for (int i = 0; i < Barrels.Count; i++) 
 		{
-			if (!(Barrels[i] is Node2D)) {
+			if (!(Barrels[i] is Node2D)) 
+			{
 				Barrels.RemoveAt(i);
 			}
 		}
 		barrels = new Node2D[Barrels.Count];
 		Barrels.CopyTo(barrels, 0);
 
-		if (Grazable) {
+		if (Grazable)
+		{
 			grazable = new bool[maxBullet];
-			Global.Connect("impact", this, "Flush");
-		}
-
-		//Convert into type-safe C# native array.
-		Godot.Collections.Array Barrels = GetChildren();
-		int size = Barrels.Count;
-		barrels = new Node2D[size];
-		for (int i = 0; i != size; i++) {
-			barrels[i] = (Node2D)Barrels[i];
+			Global.Connect("impact", this, "Clear");
 		}
 
 		Rect2 texRect = new Rect2(-textureSize / 2, textureSize);
-		for (uint i = 0; i != maxBullet; i++) {
+		for (uint i = 0; i != maxBullet; i++) 
+		{
 			RID sprite = VisualServer.CanvasItemCreate();
 			VisualServer.CanvasItemSetZIndex(sprite, zIndex);
 			VisualServer.CanvasItemSetParent(sprite, world.Canvas);
 			VisualServer.CanvasItemSetLightMask(sprite, 0);
 			//Due to a bug in visual server, normal map rid can not be null, which is, null by default.
 			VisualServer.CanvasItemAddTextureRect(sprite, texRect, textureRID, false, null, false, textureRID);
-			if (material != null) {
+			if (material != null)
+			{
 				VisualServer.CanvasItemSetMaterial(sprite, material.GetRid());
 			}
 			VisualServer.CanvasItemSetVisible(sprite, false);
 			sprites[i] = sprite;
 		}
 	}
-	private void CreateCollisionShape(in Vector2 size) 
-	{
-			if (hitbox != null) {
-				Physics2DServer.FreeRid(hitbox);
-			}
-			if (size.x == size.y) {
-				hitbox = Physics2DServer.CircleShapeCreate();
-				Physics2DServer.ShapeSetData(hitbox, size.x / 2);
-			} else {
-				hitbox = Physics2DServer.CapsuleShapeCreate();
-				Physics2DServer.ShapeSetData(hitbox, new Vector2(size.x / 2, size.y - size.x));
-			}
-			query.ShapeRid = hitbox;
-	}
 	public override void _ExitTree() 
 	{
-        foreach (RID sprite in sprites) {
-            VisualServer.FreeRid(sprite);
-        }
+		foreach (RID sprite in sprites) 
+		{
+			VisualServer.FreeRid(sprite);
+		}
 		Physics2DServer.FreeRid(hitbox);
-    }
+	}	
 	public virtual void SpawnBullet() 
 	{
-		foreach (Node2D barrel in barrels) {
+		foreach (Node2D barrel in barrels) 
+		{
 			if (activeIndex == maxBullet) {return;}
 			VisualServer.CanvasItemSetVisible(sprites[activeIndex], true);
 
-			if (localRotation) {
+			if (localRotation) 
+			{
 				velocities[activeIndex] = new Vector2(speed, 0).Rotated(barrel.Rotation);
-			} else {
+			} 
+			else 
+			{
 				velocities[activeIndex] = new Vector2(speed, 0).Rotated(barrel.GlobalRotation);
 			}
 			transforms[activeIndex] = barrel.GlobalTransform;
@@ -162,79 +168,74 @@ public class BulletBasic : Node2D
 		}
 	}
 	protected virtual void BulletConstructor() {}
-	public virtual void Flush() 
+	public virtual void Clear() 
 	{
-        if (activeIndex == 0) {return;}
-        
-        for (uint i = 0; i != activeIndex; i++) {
-            fx.SpawnItem(transforms[i].origin);
-            VisualServer.CanvasItemSetVisible(sprites[i], false);
-        }
-        activeIndex = 0;
-    }
-	protected virtual void ArraySort(in uint i) 
-	{
-		transforms[i] = transforms[activeIndex];
-		velocities[i] = velocities[activeIndex];
-		grazable[i] = grazable[activeIndex];
-		RID sprite = sprites[i];
-		sprites[i] = sprites[activeIndex];
-		sprites[activeIndex] = sprite;
+		if (activeIndex == 0) {return;}
+		
+		for (uint i = 0; i < activeIndex; i++) {
+			fx.SpawnItem(transforms[i].origin);
+			VisualServer.CanvasItemSetVisible(sprites[i], false);
+		}
+		activeIndex = 0;
 	}
-	protected virtual void Move(in uint i, in float delta) 
+	protected virtual void SortBullet()
 	{
-		transforms[i].origin += velocities[i] * delta;
-		VisualServer.CanvasItemSetTransform(sprites[i], transforms[i]);
-	}
-	protected virtual bool Collide(in Godot.Collections.Dictionary result, in uint i) 
-	{
-		if (((Vector2)result["linear_velocity"]).x == 1.0) {return true;}
+		//Sort from tail to head.
+		transforms[index] = transforms[activeIndex];
+		velocities[index] = velocities[activeIndex];
+		if (Grazable) {grazable[index] = grazable[activeIndex];}
 
-		if (query.CollisionLayer == mask) {
-				Object collider = GD.InstanceFromId(((ulong) (int)result["collider_id"]));
-				collider.Call("_hit");
-				fx.hit((Vector2)result["point"]);
-			} else {
-    	    	grazable[i] = false;
-	    	    Global.EmitSignal("graze");
-			}
+		RID sprite = sprites[index];
+		sprites[index] = sprites[activeIndex];
+		sprites[activeIndex] = sprite;
+
+		activeIndex--;
+	}
+	protected virtual void Move(in float delta) 
+	{
+		transforms[index].origin += velocities[index] * delta;
+		VisualServer.CanvasItemSetTransform(sprites[index], transforms[index]);
+	}
+	protected virtual bool Collide(in Godot.Collections.Dictionary result) 
+	{
+		//Return true means the bullet will still alive.
+		if (((Vector2)result["linear_velocity"]).x == 1.0) {return false;}
+
+		if (query.CollisionLayer == mask) 
+		{
+			Object collider = GD.InstanceFromId(((ulong) (int)result["collider_id"]));
+			collider.Call("_hit");
+			fx.hit((Vector2)result["point"]);
+		} 
+		else 
+		{
+			grazable[index] = false;
+			Global.EmitSignal("graze");
+			return true;
+		}
 
 		return false;
 	}
 	public override void _PhysicsProcess(float delta)
 	{
-        if (activeIndex == 0) {return;}
-        
-        for (uint i = 0;i != activeIndex; i++) {
-			uint gap = activeIndex;
+		if (activeIndex == 0) {return;}
+		
+		for (index = activeIndex; index != 0; index--) 
+		{
+			Move(delta);
+				
+			//Collision checking.
+			query.Transform = transforms[index];
+			if (Grazable && grazable[index]) {query.CollisionLayer = mask + 8;} 
+			else {query.CollisionLayer = mask;}
 
-			while (true) {
-				Move(i, delta);
-	        	
-				//Collision checking.
-    	        query.Transform = transforms[i];
-	           	if (Grazable && grazable[i]) {query.CollisionLayer = mask + 8;} 
-				else {query.CollisionLayer = mask;}
+			Godot.Collections.Dictionary result = world.DirectSpaceState.GetRestInfo(query);
+			if (result.Count == 0 || Collide(result)) {continue;}
 
-				Godot.Collections.Dictionary result = world.DirectSpaceState.GetRestInfo(query);
-		        if (result.Count == 0) {
-	    	    	if (gap == activeIndex) {break;}
-					i = gap;
-					ArraySort(i);
-					break;
-				}
-    		    if (Collide(result, i)) {
-					i = gap;
-					ArraySort(i);
-					break;
-				}
-				if (gap != activeIndex) {break;}
-
-				gap = i;
-				activeIndex--;
-				i = activeIndex;
-				VisualServer.CanvasItemSetVisible(sprites[i], false);
-	        }
+			VisualServer.CanvasItemSetVisible(sprites[index], false);
+			if (index == 0) {continue;}
+			SortBullet();
 		}
-    }
+	}
 }
+

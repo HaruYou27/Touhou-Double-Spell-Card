@@ -31,10 +31,10 @@ public class Seeker : BulletBasic
         seekQuery.CollisionLayer = mask;
         targets = new Node2D[maxBullet];
     }
-    protected override void ArraySort(in uint i)
+    protected override void SortBullet()
     {
-        targets[i] = targets[activeIndex];
-        base.ArraySort(i);
+        targets[index] = targets[activeIndex];
+        base.SortBullet();
     }
     protected override void BulletConstructor() 
     {
@@ -46,19 +46,19 @@ public class Seeker : BulletBasic
         base._ExitTree();
         Physics2DServer.FreeRid(seekShape);
     }
-    protected override void Move(in uint i, in float delta) 
+    protected override void Move(in float delta) 
     {
-        if (targets[i] == null || !Object.IsInstanceValid(targets[i])) {
-            seekQuery.Transform = transforms[i];
+        if (targets[index] == null || !Object.IsInstanceValid(targets[index])) {
+            seekQuery.Transform = transforms[index];
             Godot.Collections.Dictionary seekResult = world.DirectSpaceState.GetRestInfo(seekQuery);
             if (seekResult.Count != 0) {
-                targets[i] = (Node2D)GD.InstanceFromId((ulong) (int)seekResult["collider_id"]);
+                targets[index] = (Node2D)GD.InstanceFromId((ulong) (int)seekResult["collider_id"]);
             }
         } else {
-            Vector2 desiredV = (targets[i].GlobalPosition - transforms[i].origin).Normalized() * speed;
-            velocities[i] += (desiredV - velocities[i]) / mass;
-            transforms[i].Rotation = velocities[i].Angle() + Mathf.Pi / 2;
+            Vector2 desiredV = (targets[index].GlobalPosition - transforms[index].origin).Normalized() * speed;
+            velocities[index] += (desiredV - velocities[index]) / mass;
+            transforms[index].Rotation = velocities[index].Angle() + Mathf.Pi / 2;
         }
-        base.Move(i, delta);
+        base.Move(delta);
     }
 }
