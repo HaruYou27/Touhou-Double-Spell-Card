@@ -1,8 +1,8 @@
 shader_type canvas_item;
 
-uniform float speed = .1;
+uniform vec2 velocity = vec2(.1, .1);
 
 void vertex()
 {
-	UV += TIME * speed;
+	UV += TIME * velocity;
 }

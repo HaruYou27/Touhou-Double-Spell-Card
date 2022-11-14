@@ -16,7 +16,11 @@ public class ItemManager : BulletBasic
 
 		base._Ready();
 	}
-	public override void SpawnBullet() {}
+	public override void SpawnBullet()
+	{
+		//Prevents crash if for any reason something accidently call this function.
+		//Use SpawnItem() instead.
+	}
 	public virtual void SpawnItem(in uint point, Transform2D transform)
 	{
 		bool tick = false;
@@ -32,6 +36,8 @@ public class ItemManager : BulletBasic
 			VisualServer.CanvasItemSetVisible(sprite, true);
 			if (tick)
 			{
+				//Ensure that 50% of the items will rotate clockwise and vice versa.
+				//This is better than rng in my opinion, both in term of performance and visual.
 				VisualServer.CanvasItemSetModulate(sprite, Color.ColorN("white"));
 				tick = false;
 			}
@@ -52,6 +58,8 @@ public class ItemManager : BulletBasic
 		else
 		{
 			//Fake gravity acceleratetion.
+			//Or fake the player movement.
+			//Everything is just an illusion.
 			velocities[index].y += 27 * delta;
 		}
 		base.Move(delta);
