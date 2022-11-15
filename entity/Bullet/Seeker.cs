@@ -38,7 +38,6 @@ public class Seeker : BulletBasic
     }
     protected override void BulletConstructor() 
     {
-        base.BulletConstructor();
         targets[activeIndex] = null;
     }
     public override void _ExitTree() 
@@ -48,13 +47,17 @@ public class Seeker : BulletBasic
     }
     protected override void Move(in float delta) 
     {
-        if (targets[index] == null || !Object.IsInstanceValid(targets[index])) {
+        if (targets[index] == null || !Object.IsInstanceValid(targets[index]))
+        {
             seekQuery.Transform = transforms[index];
             Godot.Collections.Dictionary seekResult = world.DirectSpaceState.GetRestInfo(seekQuery);
-            if (seekResult.Count != 0) {
+            if (seekResult.Count != 0)
+            {
                 targets[index] = (Node2D)GD.InstanceFromId((ulong) (int)seekResult["collider_id"]);
             }
-        } else {
+        }
+        else
+        {
             Vector2 desiredV = (targets[index].GlobalPosition - transforms[index].origin).Normalized() * speed;
             velocities[index] += (desiredV - velocities[index]) / mass;
             transforms[index].Rotation = velocities[index].Angle() + Mathf.Pi / 2;

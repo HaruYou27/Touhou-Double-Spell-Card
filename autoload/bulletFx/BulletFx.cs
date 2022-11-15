@@ -8,12 +8,12 @@ public class BulletFx : Node2D {
 	private ShaderMaterial fxMaterial = GD.Load<ShaderMaterial>("res://autoload/bulletFx/hitFx.material");
 	protected RID[] fxSprites = new RID[maxFx];
 	protected const uint maxFx = 72;
-	protected float tick;
 	protected uint fxIndex = 0;
+	protected bool tick = false;
 
-	protected Physics2DShapeQueryParameters query = new Physics2DShapeQueryParameters();
-	protected RID hitbox = Physics2DServer.CircleShapeCreate();
-	public uint index;
+	protected readonly Physics2DShapeQueryParameters query = new Physics2DShapeQueryParameters();
+	protected readonly RID hitbox = Physics2DServer.CircleShapeCreate();
+	protected uint index;
 
 	protected Texture texture = GD.Load<Texture>("res://autoload/bulletFx/grazefx.png");
 	protected RID textureRID;
@@ -22,10 +22,11 @@ public class BulletFx : Node2D {
 	protected RID canvas;
 
 	protected Node2D target;
-	protected World2D world;
-	protected Node Global;
+	protected static World2D world;
+	protected static Node Global;
 
-	public override void _Ready() {
+	public override void _Ready()
+	{
 		Global = GetNode("/root/Global");
 		query.CollisionLayer = 4;
 		query.ShapeRid = hitbox;
@@ -56,32 +57,43 @@ public class BulletFx : Node2D {
 			fxSprites[i] = sprite;
 		}
 	}
-	public virtual void SpawnItem(in Vector2 position) {
+	public virtual void SpawnItem(in Vector2 position)
+	{
 		if (index == maxItem) {return;}
 		items[index] = position;
 		index++;
 	}
-	public virtual void hit(in Vector2 position) {
+	public virtual void Hit(in Transform2D transform)
+	{
 		if (fxIndex == maxFx) {return;}
 
 		RID sprite = fxSprites[fxIndex];
 		VisualServer.CanvasItemSetVisible(sprite, true);
-		VisualServer.CanvasItemSetTransform(sprite, new Transform2D(GD.Randf() * Mathf.Tau, position));
+		VisualServer.CanvasItemSetTransform(sprite, transform);
+		//Random alpha value to feed into shader.
+		VisualServer.CanvasItemSetModulate(sprite, Color.ColorN("white", Mathf.Sin(Time.GetTicksMsec())));
 		fxIndex++;
 	}
-	public virtual void ClearFx() {
+	public override void _Process(float delta)
+	{
 		if (fxIndex == 0) {return;}
-		for (uint i = 0; i != fxIndex; i++) {
-			VisualServer.CanvasItemSetVisible(fxSprites[i], false);
+
+		//To increase the feel of impact, I let them here for 2 frames.
+		if (tick)
+		{
+			for (uint i = 0; i != fxIndex; i++) {
+				VisualServer.CanvasItemSetVisible(fxSprites[i], false);
+			}
+			fxIndex = 0;
 		}
-		fxIndex = 0;
+		tick = !tick;
 	}
-	public override void _PhysicsProcess(float delta) {
+	public override void _PhysicsProcess(float delta)
+	{
 		VisualServer.CanvasItemClear(canvas);
 		if (index == 0) {return;}
-		uint newIndex = 0;
 
-		for (uint i = 0; i != index; i++) {
+		for (uint i = index; i != 0; i--) {
 			Vector2 item = items[i];
 			item += (target.GlobalPosition - item).Normalized() * 727 * delta;
 			VisualServer.CanvasItemAddTextureRect(canvas, new Rect2(offset + item, textureSize), textureRID, false, null, false, textureRID);
@@ -90,12 +102,14 @@ public class BulletFx : Node2D {
 			query.Transform = new Transform2D(0, item);
 			Godot.Collections.Dictionary result = world.DirectSpaceState.GetRestInfo(query);
 			if (result.Count == 0) {
-				items[newIndex] = item;
-				newIndex++;
+				items[i] = item;
 				continue;
 			}
 			Global.EmitSignal("graze");
+
+			//Sort from tail to head to minize array access.
+			items[i] = items[index];
+			index--;
 		}
-		index = newIndex;
 	}
 }

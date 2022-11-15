@@ -33,7 +33,7 @@ public class BulletBasic : Node2D
 		} get {return mask;}
 	}
 	[Export] public bool Grazable = true;
-	protected Physics2DShapeQueryParameters query = new Physics2DShapeQueryParameters();
+	protected readonly Physics2DShapeQueryParameters query = new Physics2DShapeQueryParameters();
 	protected RID hitbox;
 	private Vector2 shapesize;
 	protected uint mask = 1;
@@ -42,7 +42,7 @@ public class BulletBasic : Node2D
 	private void CreateCollisionShape(in Vector2 size) 
 	{
 			if (hitbox != null)
-			 {
+			{
 				Physics2DServer.FreeRid(hitbox);
 			}
 			if (size.x == size.y) 
@@ -86,6 +86,10 @@ public class BulletBasic : Node2D
 
 
 //Bullets properties.
+	//Why don't i encapsule all these in a subclass?
+	//In fact, i tried. However, the complexity skyrocket.
+	//The performance when access data is the same, except when sort array.
+
 	protected Transform2D[] transforms;
 	protected bool[] grazable;
 	protected Vector2[] velocities;
@@ -128,7 +132,7 @@ public class BulletBasic : Node2D
 			VisualServer.CanvasItemSetZIndex(sprite, zIndex);
 			VisualServer.CanvasItemSetParent(sprite, world.Canvas);
 			VisualServer.CanvasItemSetLightMask(sprite, 0);
-			//Due to a bug in visual server, normal map rid can not be null, which is, null by default.
+			//Due to a bug in C# visual server, normal map rid can not be null, which is, null by default.
 			VisualServer.CanvasItemAddTextureRect(sprite, texRect, textureRID, false, null, false, textureRID);
 			if (material != null)
 			{
@@ -138,6 +142,9 @@ public class BulletBasic : Node2D
 	}
 	public override void _ExitTree() 
 	{
+		//RID is actually an memory address to get the object in Godot server.
+		//Since these CanvasItem are created directly using VisualServer (not reference counted),
+		//it must be freed manually.
 		foreach (RID sprite in sprites) 
 		{
 			VisualServer.FreeRid(sprite);
@@ -181,11 +188,12 @@ public class BulletBasic : Node2D
 	}
 	protected virtual void SortBullet()
 	{
-		//Sort from tail to head.
+		//Sort from tail to head to minimize array access.
 		transforms[index] = transforms[activeIndex];
 		velocities[index] = velocities[activeIndex];
 		if (Grazable) {grazable[index] = grazable[activeIndex];}
 
+		//Avoid memory leak in Godot server.
 		RID sprite = sprites[index];
 		sprites[index] = sprites[activeIndex];
 		sprites[activeIndex] = sprite;
@@ -206,7 +214,7 @@ public class BulletBasic : Node2D
 		{
 			Object collider = GD.InstanceFromId(((ulong) (int)result["collider_id"]));
 			collider.Call("_hit");
-			fx.hit((Vector2)result["point"]);
+			fx.Hit(transforms[index]);
 		} 
 		else 
 		{
