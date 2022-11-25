@@ -47,7 +47,7 @@ _global_script_classes=[ {
 "base": "Sprite",
 "class": "BossIndicator",
 "language": "GDScript",
-"path": "res://level/Boss-indicator.gd"
+"path": "res://level/base/Boss-indicator.gd"
 }, {
 "base": "Resource",
 "class": "CharacterData",
@@ -132,7 +132,7 @@ _global_script_classes=[ {
 "base": "Control",
 "class": "Level",
 "language": "GDScript",
-"path": "res://level/level.gd"
+"path": "res://level/base/level.gd"
 }, {
 "base": "Node",
 "class": "MouseHandler",
@@ -210,6 +210,10 @@ config/name="Touhou Entropy ~ Hakurei Chronos"
 config/description="Why i make bullet shmups game."
 run/main_scene="res://level/reimu-meimu/reimu-meimu.scn"
 config/icon="res://icon.png"
+
+[audio]
+
+default_bus_layout="res://default_bus_layout.res"
 
 [autoload]
 

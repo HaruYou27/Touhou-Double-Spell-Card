@@ -2,6 +2,8 @@ using Godot;
 //The base class of all bullets.
 public class BulletBasic : Node2D 
 {
+//Shared properties.
+	//Physics.
 	[Export] public int maxBullet = 127; //Exceed the limit and no more bullet will be shoot out.
 	[Export] public float speed;
 	[Export] public bool localRotation = true;
@@ -86,9 +88,26 @@ public class BulletBasic : Node2D
 
 
 //Bullets properties.
-	//Why don't i encapsule all these in a subclass?
-	//In fact, i tried. However, the complexity skyrocket.
-	//The performance when access data is the same, except when sort array.
+	//Why don't I encapsule all these in a subclass? Good question.
+	//In fact, I tried. However, this seems to be the case where OOP and static typing suck.
+	//So I declared a Bullet{} sub class to store all these data below.
+	//And an Bullet[] array to store all the instances.
+	//And everything works fine. Until I want to make another one that can ricochet...
+	//So I have to add new variables and functions into Bullet{} subclass.
+	//I declare a RicochetBullet{} subclass inhernit from Bullet{} class.
+	//And that's when I realize that the array in root base class is Bullet[] not RicochetBullet[]...
+	//I could just cast (aka Boxing and Unboxing) the RicochetBullet into Bullet,
+	//but I also have to cast it into RicochetBullet again everytime I need to access new data and function.
+	//There're many other problems arise too, but that's enough to stop using OOP.
+
+	//Reject human, return to monkee.
+	//By just get rid of OOP, all the problems just go away.
+	//The only issue which this design is Array Sorting.
+	//If we use object, we only need to move the memory address. (which is 4 bytes pointer)
+	//But here we have to move the whole data (same as using struct), 
+	//which get more expensive with more data. (O(n) operation)
+	//Since the order is not important, we can just process and sort the bullet in the same
+	//for loop from tail to head to minimize array access and iteration.
 
 	protected Transform2D[] transforms;
 	protected bool[] grazable;
@@ -242,7 +261,7 @@ public class BulletBasic : Node2D
 			if (result.Count == 0 || Collide(result)) {continue;}
 
 			VisualServer.CanvasItemSetVisible(sprites[index], false);
-			if (index == 0) {continue;}
+			if (index == activeIndex) {continue;}
 			SortBullet();
 		}
 	}

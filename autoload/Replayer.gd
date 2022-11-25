@@ -3,6 +3,7 @@ extends Sprite
 var heat := 0.0
 var frame_delta := 0.0
 var frame_count := 1
+var next_frame :ImageTexture
 
 onready var tree := get_tree()
 onready var fx :ColorRect = $fx
@@ -21,10 +22,16 @@ func _ready():
 func _on_size_changed():
 	scale = Global.game_rect / viewport.size
 	fx.rect_size = viewport.size
+	ProjectSettings.set_setting('display/window/size/width', viewport.size.x)
+	ProjectSettings.set_setting('display/window/size/height', viewport.size.y)
+
+func _load_image() -> void:
+	var img := Image.new()
+	img.load(path % frame_count)
+	next_frame.create_from_image(img)
 
 func _process(delta) -> void:
 	heat -= delta
-	
 	if heat > 0:
 		return
 	
@@ -34,11 +41,8 @@ func _process(delta) -> void:
 		frame_count -= 1
 	
 	if frame_count > 0:
-		var img := Image.new()
-		img.load(path % frame_count)
-		var tex := ImageTexture.new()
-		tex.create_from_image(img)
-		texture = tex
+		call_deferred('_load_image')
+		texture = next_frame
 		return
 	
 	hide()
@@ -47,4 +51,4 @@ func _process(delta) -> void:
 	set_process(false)
 	
 	tree.paused = false
-	tree.reload_current_scene()
+	tree.change_scene(Global.save_data.last_level)

@@ -9,7 +9,7 @@ public class BulletFx : Node2D {
 	protected RID[] fxSprites = new RID[maxFx];
 	protected const uint maxFx = 72;
 	protected uint fxIndex = 0;
-	protected bool tick = false;
+	protected float tick = 0;
 
 	protected readonly Physics2DShapeQueryParameters query = new Physics2DShapeQueryParameters();
 	protected readonly RID hitbox = Physics2DServer.CircleShapeCreate();
@@ -78,15 +78,17 @@ public class BulletFx : Node2D {
 	{
 		if (fxIndex == 0) {return;}
 
-		//To increase the feel of impact, I let them here for 2 frames.
-		if (tick)
+		//To increase the feel of impact, I let them here for 30ms.
+		tick += delta;
+		if (tick >= 0.03)
 		{
 			for (uint i = 0; i != fxIndex; i++) {
 				VisualServer.CanvasItemSetVisible(fxSprites[i], false);
 			}
 			fxIndex = 0;
+			tick = 0;
 		}
-		tick = !tick;
+		
 	}
 	public override void _PhysicsProcess(float delta)
 	{

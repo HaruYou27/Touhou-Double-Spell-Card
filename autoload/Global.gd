@@ -27,16 +27,14 @@ func _set_player(value:Node2D) -> void:
 	ItemManager.target = value
 
 func _ready() -> void:
-	var fps = OS.get_screen_refresh_rate()
-	if fps:
-		Engine.target_fps = fps
-		OS.vsync_enabled = false
-	
 	save_data = load('user://save.res')	
 	if not save_data:
 		save_data = saveData.new()
-	else:
-		for key in save_data.key_bind.keys():
-			InputMap.action_erase_events(key)
-			InputMap.action_add_event(key, save_data.key_bind[key])
 	randomize()
+	
+func _exit_tree():
+	if OS.is_debug_build():
+		return
+	
+	ProjectSettings.save_custom('user://override.cfg')
+	ResourceSaver.save('user://save.res', save_data)

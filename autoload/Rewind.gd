@@ -17,16 +17,17 @@ func _record() -> void:
 	replayer.frame_count += 1
 
 func rewind() -> void:
+	var tree := get_tree()
 	if not Global.save_data.rewind:
-		var tree := get_tree()
 		tree.paused = false
 		tree.reload_current_scene()
 		return
-		
+	
 	replayer.show()
 	replayer.set_process(true)
 	replayer.frame_delta = 2.0 / replayer.frame_count
 	set_process(false)
+	tree.current_scene.queue_free()
 
 func _process(_delta) -> void:
 	if thread.is_alive():

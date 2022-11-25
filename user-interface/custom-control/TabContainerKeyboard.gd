@@ -6,18 +6,14 @@ onready var max_tab = get_tab_count() - 1
 
 func _ready() -> void:
 	set_process_input(false)
-	var index := 0
-	for button in first_button:
-		first_button[index] = get_node(button)
-		index += 1
 
 func _input(event):
-	if event.is_action_pressed("ui_focus_prev"):
+	if event.is_action_pressed("ui_focus_prev") or event.is_action_pressed('ui_left'):
 		if not current_tab:
 			current_tab = max_tab
 		else:
 			current_tab -= 1
-	elif event.is_action_pressed('ui_focus_next'):
+	elif event.is_action_pressed('ui_focus_next') or event.is_action_pressed('ui_right'):
 		if current_tab == max_tab:
 			current_tab = 0
 		else:
