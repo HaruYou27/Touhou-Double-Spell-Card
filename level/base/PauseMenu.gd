@@ -1,7 +1,7 @@
 extends ColorRect
 
 onready var tree := get_tree()
-onready var resume :AnimatedTextButton = $VBoxContainer/Resume
+onready var resume :AnimatedButton = $VBoxContainer/Resume
 
 func _input(event):
 	if event.is_action_pressed("pause"):

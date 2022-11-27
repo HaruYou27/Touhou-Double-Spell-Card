@@ -26,12 +26,16 @@ func _set_player(value:Node2D):
 func _ready():
 	config = load('user://save.res')	
 	if not config:
-		config = saveData.new()
+		config = Config.new()
 	randomize()
 	
-func _exit_tree():
-	if OS.is_debug_build():
-		return
+static func save_resource(path:String, resource:Resource):
+	var err := ResourceSaver.save(path, resource, 32)
+	if err:
+		push_error('Error when saving file. Error code = ' + str(err))
 	
+func _exit_tree():
+	ProjectSettings.set_setting('display/window/size/borderless', OS.window_borderless)
+	ProjectSettings.set_setting('display/window/size/fullscreen', OS.window_fullscreen)
 	ProjectSettings.save_custom('user://override.cfg')
-	ResourceSaver.save('user://save.res', config)
+	save_resource('config.res', config)

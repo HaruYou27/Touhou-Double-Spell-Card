@@ -1,4 +1,4 @@
-extends Particles2D
+extends Particle
 
 func start():
 	emitting = true

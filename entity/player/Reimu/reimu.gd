@@ -18,6 +18,7 @@ onready var playground := Global.playground
 onready var death_tween :Tween = $hitFx/Tween
 
 var input :Node
+var focus := true setget _set_focus
 
 export (PackedScene) var bomb_scene
 
@@ -32,7 +33,6 @@ func _ready():
 	
 	if Global.config.use_mouse:
 		input = MouseHandler.new(self)
-		focus()
 	else:
 		input = KeyboardHandler.new(self)
 	add_child(input)
@@ -64,11 +64,13 @@ func _graze():
 	graze_fx.emitting = true
 	graze_timer.start()
 
-func unfocus():
+func _set_focus(value:bool):
+	if value:
+		create_tween().tween_property(focus_layer, 'modulate', Color.white, .15)
+		return
+		
 	create_tween().tween_property(focus_layer, 'modulate', Color.transparent, .15)
 	
-func focus():
-	create_tween().tween_property(focus_layer, 'modulate', Color.white, .15)
 
 func bomb():
 	if not bombs:

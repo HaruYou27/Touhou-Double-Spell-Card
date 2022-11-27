@@ -2,17 +2,17 @@ extends Control
 class_name Level
 
 var shaking := 0.0
+var score_data :Score
 
 export (Array) var levels : Array
 export (NodePath) var level
-export (PackedScene) var dialogue
-export (int, 0, 7) var stage
+export (PackedScene) var next_scene
+export (String) var stage_name
 
 onready var tree = get_tree()
 onready var overlay := ColorRect.new()
 onready var item_get_border :Area2D = $itemGet
 onready var hud :Sprite = $hud
-onready var save : CharacterData
 
 func _ready():
 	Rewind.start()
@@ -21,7 +21,7 @@ func _ready():
 	
 	Global.connect("impact", self, 'impact')
 	Global.player.connect('die', self, 'flash_red')
-	Global.connect("bomb", self, 'bomb')
+	Global.connect("bomb", self, 'remove_child', [overlay])
 	Global.connect("next_level", self, 'next')
 	Global.config.last_level = tree.current_scene.filename
 	
@@ -30,10 +30,11 @@ func _ready():
 	tween.connect("finished", overlay, 'set_size', [rect_size])
 	tween.connect("finished", hud, 'remove_child', [overlay])
 	
-	save = Global.get_char_data()
-	$hud/VBoxContainer/HiScore.update_label(save.score[stage])
-	save.retry_count[stage] += 1
-	Global.config.save()
+	stage_name = 'user://%s.res' % stage_name
+	score_data = load(stage_name)
+	if not score_data:
+		score_data = Score.new()
+	score_data.retry += 1
 	
 	level = get_node(level)
 	
@@ -58,9 +59,6 @@ func flash_red():
 		
 	add_child(overlay)
 	overlay.color = Color(0.996078, 0.203922, 0.203922, 0.592157)
-	
-func bomb():
-	remove_child(overlay)
 
 func impact():
 	shaking += .15
@@ -79,10 +77,8 @@ func next():
 		add_child(level)
 		return
 	
-	var score :int = hud.point * hud.graze
-	if score > save.score[stage]:
-		save.score[stage] = score
-		Global.config.save()
+	score_data.add_score(hud, stage_name)
+	tree.change_scene_to(next_scene)
 
 func _on_Quit_pressed():
 	var tween := fade2black()
@@ -92,6 +88,5 @@ func _on_itemGet_body_entered(_body):
 	ItemManager.autoCollect = true
 	ItemManager.keepCollect = true
 
-func _on_itemGet_body_exited(body):
+func _on_itemGet_body_exited(_body):
 	ItemManager.keepCollect = false
-	

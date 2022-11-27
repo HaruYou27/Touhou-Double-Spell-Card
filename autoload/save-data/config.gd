@@ -1,7 +1,7 @@
 extends Resource
-class_name saveData
+class_name Config
 
-### Game settings data
+##Config
 #Gameplay
 export (bool) var death_assit := true
 export (bool) var assist_mode := false
@@ -11,14 +11,18 @@ export (int) var init_bomb := 3
 export (bool) var invicible := false
 
 #Graphic
-export (bool) var rewind := false
+export (bool) var rewind := true
+export (bool) var full_particle := true
+export (bool) var dynamic_background := true
 
 #Controls
 export (bool) var auto_shoot := false
 export (bool) var use_mouse := false
 
-### User data
-export (Dictionary) var char_data := {
-	'reimu' : CharacterData.new()
+##User data
+export (Dictionary) var characters := {
+	'Reimu' : true,
 }
 export (String) var last_level
+export (bool) var first_time := true
+export (bool) var first_character := true

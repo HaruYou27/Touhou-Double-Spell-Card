@@ -6,6 +6,11 @@ onready var max_tab = get_tab_count() - 1
 
 func _ready():
 	set_process_input(false)
+	for child in get_children():
+		for grand_child in child.get_children():
+			if grand_child.focus_mode != 0:
+				first_button.append(grand_child)
+				break
 
 func _input(event):
 	if event.is_action_pressed("ui_focus_prev") or event.is_action_pressed('ui_left'):

@@ -5,11 +5,16 @@ signal select_level
 onready var tree := get_tree()
 onready var fade := ColorRect.new()
 
-onready var conti :AnimatedTextButton = $main/continue
+onready var conti :AnimatedButton = $main/continue
+onready var start :AnimatedButton = $main/start
 
 const ani_time := .15
 
 func _ready():
+	if Global.config.first_time:
+		start.grab_focus()
+		return
+		
 	conti.grab_focus()
 
 func fade2black(level):
@@ -21,11 +26,9 @@ func fade2black(level):
 	tween.connect("finished", tree, 'change_scene_to', [level])
 
 func _on_start_pressed():
-	if Global.config.hi_score.empty():
+	if Global.config.first_character:
 		pass
-	elif Global.config.characters.size() == 1:
-		pass
-		
+	
 func _on_continue_pressed():
 	fade2black(load(Global.config.level))
 

@@ -1,7 +1,8 @@
 extends AnimatedPopup
 
 var action :String
-var button :AnimatedTextButton
+var button :AnimatedButton
+var keybind :KeyBind
 
 onready var parent := get_parent().get_parent()
 onready var label :Label = $Label
@@ -18,7 +19,7 @@ func _input(event):
 	visible = false
 	set_process_input(false)
 	button.update_label(OS.get_scancode_string(event.scancode))
-	ProjectSettings.get_setting('input/' + action)
+	keybind.keybind[action] = event
 
 func remap(act:String, text:String):
 	label.text = text

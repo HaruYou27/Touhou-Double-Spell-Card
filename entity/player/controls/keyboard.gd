@@ -20,10 +20,10 @@ func _unhandled_input(event):
 		player.unfocus()
 		speed = 575
 	elif event.is_action_pressed('focus'):
-		player.focus()
+		player.focus = true
 		speed = 96
 	elif event.is_action_released('focus'):
-		player.unfocus()
+		player.focus = false
 		speed = 575
 			
 func pause():

@@ -19,20 +19,10 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://user-interface/control-node/AnimatedHSlider.gd"
 }, {
-"base": "AnimatedButton",
-"class": "AnimatedLabelButton",
-"language": "GDScript",
-"path": "res://user-interface/control-node/AnimatedLabelButton.gd"
-}, {
 "base": "Popup",
 "class": "AnimatedPopup",
 "language": "GDScript",
 "path": "res://user-interface/control-node/AnimatedPopup.gd"
-}, {
-"base": "AnimatedButton",
-"class": "AnimatedTextButton",
-"language": "GDScript",
-"path": "res://user-interface/control-node/AnimatedTextButton.gd"
 }, {
 "base": "AnimatedButton",
 "class": "BackButton",
@@ -53,6 +43,11 @@ _global_script_classes=[ {
 "class": "CircleBarrel",
 "language": "GDScript",
 "path": "res://tool/circle-barrel.gd"
+}, {
+"base": "Resource",
+"class": "Config",
+"language": "GDScript",
+"path": "res://autoload/save-data/config.gd"
 }, {
 "base": "Reference",
 "class": "DTS",
@@ -119,6 +114,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://addons/dialogic/Example Assets/History/HistoryRow.gd"
 }, {
+"base": "Resource",
+"class": "KeyBind",
+"language": "GDScript",
+"path": "res://autoload/save-data/key-bind.gd"
+}, {
 "base": "Node",
 "class": "KeyboardHandler",
 "language": "GDScript",
@@ -133,6 +133,11 @@ _global_script_classes=[ {
 "class": "MouseHandler",
 "language": "GDScript",
 "path": "res://entity/player/controls/mouse.gd"
+}, {
+"base": "Particles2D",
+"class": "Particle",
+"language": "GDScript",
+"path": "res://entity/utility/Particle.gd"
 }, {
 "base": "PathFollow2D",
 "class": "PathFollower",
@@ -154,26 +159,25 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://entity/player/Reimu/orb.gd"
 }, {
+"base": "Resource",
+"class": "Score",
+"language": "GDScript",
+"path": "res://autoload/save-data/score.gd"
+}, {
 "base": "Position2D",
 "class": "TargetLocker",
 "language": "GDScript",
-"path": "res://entity/targetLocker.gd"
-}, {
-"base": "Resource",
-"class": "saveData",
-"language": "GDScript",
-"path": "res://autoload/save-data/config.gd"
+"path": "res://entity/utility/targetLocker.gd"
 } ]
 _global_script_class_icons={
 "AnimatedButton": "",
 "AnimatedHSlider": "",
-"AnimatedLabelButton": "",
 "AnimatedPopup": "",
-"AnimatedTextButton": "",
 "BackButton": "",
 "Boss": "",
 "BossIndicator": "",
 "CircleBarrel": "",
+"Config": "",
 "DTS": "",
 "Dialogic": "",
 "DialogicAnimaPropertiesHelper": "",
@@ -187,15 +191,17 @@ _global_script_class_icons={
 "Enemy": "",
 "FormatLabel": "",
 "HistoryRow": "",
+"KeyBind": "",
 "KeyboardHandler": "",
 "Level": "",
 "MouseHandler": "",
+"Particle": "",
 "PathFollower": "",
 "Player": "",
 "SFXButton": "",
 "Satellite": "",
-"TargetLocker": "",
-"saveData": ""
+"Score": "",
+"TargetLocker": ""
 }
 
 [application]
