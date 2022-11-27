@@ -4,7 +4,7 @@ class_name SFXButton
 onready var focus_fx := AudioStreamPlayer.new()
 onready var press_fx := AudioStreamPlayer.new()
 
-func _ready() -> void:
+func _ready():
 	focus_fx.bus = 'SFX'
 	press_fx.bus = 'SFX'
 	add_child(focus_fx)

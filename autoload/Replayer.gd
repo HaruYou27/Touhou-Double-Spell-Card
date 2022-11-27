@@ -25,12 +25,12 @@ func _on_size_changed():
 	ProjectSettings.set_setting('display/window/size/width', viewport.size.x)
 	ProjectSettings.set_setting('display/window/size/height', viewport.size.y)
 
-func _load_image() -> void:
+func _load_image():
 	var img := Image.new()
 	img.load(path % frame_count)
 	next_frame.create_from_image(img)
 
-func _process(delta) -> void:
+func _process(delta):
 	heat -= delta
 	if heat > 0:
 		return
@@ -51,4 +51,4 @@ func _process(delta) -> void:
 	set_process(false)
 	
 	tree.paused = false
-	tree.change_scene(Global.save_data.last_level)
+	tree.change_scene(Global.config.last_level)

@@ -2,8 +2,8 @@ extends Enemy
 
 onready var sprite :AnimatedSprite = $sprite
 
-func _ready() -> void:
+func _ready():
 	sprite.flip_h = bool(randi() % 2)
 
-func die() -> void:
+func die():
 	sprite.hide()

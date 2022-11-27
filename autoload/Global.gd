@@ -7,7 +7,7 @@ signal bomb
 signal impact
 signal next_level
 
-var save_data : saveData
+var config : Config
 var player setget _set_player
 var boss
 
@@ -18,18 +18,15 @@ const fade_time = .5
 const playground := Vector2(646, 904)
 const game_rect := Vector2(1280, 960)
 
-func get_char_data() -> CharacterData:
-	return save_data.char_data[player.name]
-
-func _set_player(value:Node2D) -> void:
+func _set_player(value:Node2D):
 	player = value
 	BulletFx.target = value
 	ItemManager.target = value
 
-func _ready() -> void:
-	save_data = load('user://save.res')	
-	if not save_data:
-		save_data = saveData.new()
+func _ready():
+	config = load('user://save.res')	
+	if not config:
+		config = saveData.new()
 	randomize()
 	
 func _exit_tree():
@@ -37,4 +34,4 @@ func _exit_tree():
 		return
 	
 	ProjectSettings.save_custom('user://override.cfg')
-	ResourceSaver.save('user://save.res', save_data)
+	ResourceSaver.save('user://save.res', config)

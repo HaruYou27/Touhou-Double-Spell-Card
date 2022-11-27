@@ -12,32 +12,32 @@ _global_script_classes=[ {
 "base": "SFXButton",
 "class": "AnimatedButton",
 "language": "GDScript",
-"path": "res://user-interface/custom-control/AnimatedButton.gd"
+"path": "res://user-interface/control-node/AnimatedButton.gd"
 }, {
 "base": "HSlider",
 "class": "AnimatedHSlider",
 "language": "GDScript",
-"path": "res://user-interface/custom-control/AnimatedHSlider.gd"
+"path": "res://user-interface/control-node/AnimatedHSlider.gd"
 }, {
 "base": "AnimatedButton",
 "class": "AnimatedLabelButton",
 "language": "GDScript",
-"path": "res://user-interface/custom-control/AnimatedLabelButton.gd"
+"path": "res://user-interface/control-node/AnimatedLabelButton.gd"
 }, {
 "base": "Popup",
 "class": "AnimatedPopup",
 "language": "GDScript",
-"path": "res://user-interface/custom-control/AnimatedPopup.gd"
+"path": "res://user-interface/control-node/AnimatedPopup.gd"
 }, {
 "base": "AnimatedButton",
 "class": "AnimatedTextButton",
 "language": "GDScript",
-"path": "res://user-interface/custom-control/AnimatedTextButton.gd"
+"path": "res://user-interface/control-node/AnimatedTextButton.gd"
 }, {
 "base": "AnimatedButton",
 "class": "BackButton",
 "language": "GDScript",
-"path": "res://user-interface/custom-control/BackButton.gd"
+"path": "res://user-interface/control-node/BackButton.gd"
 }, {
 "base": "Area2D",
 "class": "Boss",
@@ -48,11 +48,6 @@ _global_script_classes=[ {
 "class": "BossIndicator",
 "language": "GDScript",
 "path": "res://level/base/Boss-indicator.gd"
-}, {
-"base": "Resource",
-"class": "CharacterData",
-"language": "GDScript",
-"path": "res://autoload/CharacterData.gd"
 }, {
 "base": "CollisionShape2D",
 "class": "CircleBarrel",
@@ -117,7 +112,7 @@ _global_script_classes=[ {
 "base": "Label",
 "class": "FormatLabel",
 "language": "GDScript",
-"path": "res://user-interface/custom-control/FormatLabel.gd"
+"path": "res://user-interface/control-node/FormatLabel.gd"
 }, {
 "base": "PanelContainer",
 "class": "HistoryRow",
@@ -152,7 +147,7 @@ _global_script_classes=[ {
 "base": "Button",
 "class": "SFXButton",
 "language": "GDScript",
-"path": "res://user-interface/custom-control/SFXButton.gd"
+"path": "res://user-interface/control-node/SFXButton.gd"
 }, {
 "base": "Sprite",
 "class": "Satellite",
@@ -167,7 +162,7 @@ _global_script_classes=[ {
 "base": "Resource",
 "class": "saveData",
 "language": "GDScript",
-"path": "res://autoload/save.gd"
+"path": "res://autoload/save-data/config.gd"
 } ]
 _global_script_class_icons={
 "AnimatedButton": "",
@@ -178,7 +173,6 @@ _global_script_class_icons={
 "BackButton": "",
 "Boss": "",
 "BossIndicator": "",
-"CharacterData": "",
 "CircleBarrel": "",
 "DTS": "",
 "Dialogic": "",
@@ -220,7 +214,7 @@ default_bus_layout="res://default_bus_layout.res"
 Global="*res://autoload/Global.gd"
 ItemManager="*res://autoload/item/ItemManager.cs"
 BulletFx="*res://autoload/bulletFx/BulletFx.scn"
-Rewind="*res://autoload/Rewind.scn"
+Rewind="*res://autoload/rewind/Rewind.scn"
 
 [debug]
 
@@ -234,6 +228,7 @@ window/size/width=1280
 window/size/height=960
 window/size/test_width=960
 window/size/test_height=720
+window/vsync/use_vsync=false
 window/handheld/orientation="portrait"
 window/stretch/mode="2d"
 window/stretch/aspect="keep"
@@ -268,6 +263,13 @@ texture={
 
 [input]
 
+ui_accept={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777221,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+, Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777222,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+, Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":0,"button_index":0,"pressure":0.0,"pressed":false,"script":null)
+ ]
+}
 focus={
 "deadzone": 0.5,
 "events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777237,"physical_scancode":0,"unicode":0,"echo":false,"script":null)

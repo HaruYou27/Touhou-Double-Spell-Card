@@ -2,7 +2,7 @@ extends Enemy
 
 onready var sprite :Sprite = $sprite
 
-func _ready() -> void:
+func _ready():
 	sprite.flip_h = bool(randi() % 2)
 	rotation = randf() * TAU
 	if randi() % 2:

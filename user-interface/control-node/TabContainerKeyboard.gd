@@ -4,7 +4,7 @@ export (Array) var first_button
 
 onready var max_tab = get_tab_count() - 1
 
-func _ready() -> void:
+func _ready():
 	set_process_input(false)
 
 func _input(event):

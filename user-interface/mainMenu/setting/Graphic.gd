@@ -1,11 +1,11 @@
 extends HBoxContainer
 
-onready var save := Global.save_data
+onready var save := Global.config
 
 onready var fullscreen :AnimatedTextButton = $settings/fullscreen
 onready var borderless :AnimatedTextButton = $settings/borderless
 
-func _ready() -> void:
+func _ready():
 	fullscreen.set_pressed_no_signal(OS.window_fullscreen)
 	borderless.set_pressed_no_signal(OS.window_borderless)
 	

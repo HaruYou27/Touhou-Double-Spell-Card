@@ -14,7 +14,7 @@ onready var item_get_border :Area2D = $itemGet
 onready var hud :Sprite = $hud
 onready var save : CharacterData
 
-func _ready() -> void:
+func _ready():
 	Rewind.start()
 	ItemManager.Flush()
 	BulletFx.index = 0
@@ -23,7 +23,7 @@ func _ready() -> void:
 	Global.player.connect('die', self, 'flash_red')
 	Global.connect("bomb", self, 'bomb')
 	Global.connect("next_level", self, 'next')
-	Global.save_data.last_level = tree.current_scene.filename
+	Global.config.last_level = tree.current_scene.filename
 	
 	VisualServer.canvas_item_set_z_index(overlay.get_canvas_item(), 4000)
 	var tween := fade2black()
@@ -33,11 +33,11 @@ func _ready() -> void:
 	save = Global.get_char_data()
 	$hud/VBoxContainer/HiScore.update_label(save.score[stage])
 	save.retry_count[stage] += 1
-	Global.save_data.save()
+	Global.config.save()
 	
 	level = get_node(level)
 	
-func _process(delta) -> void:
+func _process(delta):
 	if shaking <= 0.0:
 		rect_position = Vector2(60, 28)
 		set_process(false)
@@ -52,17 +52,17 @@ func fade2black() -> SceneTreeTween:
 	tween.tween_property(overlay, 'color', Global.fade_trans, Global.fade_time)
 	return tween
 
-func flash_red() -> void:
+func flash_red():
 	if tree.paused:
 		return
 		
 	add_child(overlay)
 	overlay.color = Color(0.996078, 0.203922, 0.203922, 0.592157)
 	
-func bomb() -> void:
+func bomb():
 	remove_child(overlay)
 
-func impact() -> void:
+func impact():
 	shaking += .15
 	set_process(true)
 	
@@ -72,7 +72,7 @@ func impact() -> void:
 	tween.tween_property(overlay, 'color', Color.transparent, .15)
 	tween.connect("finished", self, 'remove_child', [overlay])
 
-func next() -> void:
+func next():
 	if levels.size():
 		level.queue_free()
 		level = levels.pop_back().instance()
@@ -82,7 +82,7 @@ func next() -> void:
 	var score :int = hud.point * hud.graze
 	if score > save.score[stage]:
 		save.score[stage] = score
-		Global.save_data.save()
+		Global.config.save()
 
 func _on_Quit_pressed():
 	var tween := fade2black()

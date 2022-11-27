@@ -10,15 +10,15 @@ func _ready():
 	set_process(false)
 
 func start():
-	set_process(Global.save_data.rewind)
+	set_process(Global.config.rewind)
 
-func _record() -> void:
+func _record():
 	screenshot.get_data().save_png(replayer.path % replayer.frame_count)
 	replayer.frame_count += 1
 
-func rewind() -> void:
+func rewind():
 	var tree := get_tree()
-	if not Global.save_data.rewind:
+	if not Global.config.rewind:
 		tree.paused = false
 		tree.reload_current_scene()
 		return
@@ -29,7 +29,7 @@ func rewind() -> void:
 	set_process(false)
 	tree.current_scene.queue_free()
 
-func _process(_delta) -> void:
+func _process(_delta):
 	if thread.is_alive():
 		return
 	

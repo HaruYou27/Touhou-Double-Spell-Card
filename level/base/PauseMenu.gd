@@ -12,11 +12,11 @@ func _input(event):
 		set_process_input(false)
 		accept_event()
 
-func _ready() -> void:
+func _ready():
 	VisualServer.canvas_item_set_z_index(get_canvas_item(), 4000)
 	$VBoxContainer/Restart.connect("pressed", Rewind, 'rewind')
 
-func _on_Resume_pressed() -> void:
+func _on_Resume_pressed():
 	var tween := create_tween()
 	tween.tween_property(self, 'modulate', Color.transparent, .15)
 	tween.connect("finished", self, '_resume')

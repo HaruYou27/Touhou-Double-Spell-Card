@@ -9,7 +9,7 @@ export (NodePath) var cursor
 var cursor_pos : Vector2
 var cursor_default_pos :Vector2
 
-func _ready() -> void:
+func _ready():
 	disabled = true
 	cursor = get_node(cursor)
 	cursor_pos = cursor.rect_position + offset
@@ -21,20 +21,20 @@ func _ready() -> void:
 	connect("button_down", self, '_on_button_down')
 	connect("button_up", self, '_on_focus_exited')
 
-func _pressed() -> void:
+func _pressed():
 	disabled = true
 	
-func _on_mouse_entered() -> void:
+func _on_mouse_entered():
 	_on_focus_entered()
 	
-func _on_button_down() -> void:
+func _on_button_down():
 	cursor.add_color_override('font_color', press_color)
 	create_tween().tween_property(cursor, 'rect_position', cursor_pos, animation_length)
 	
-func _on_focus_entered() -> void:
+func _on_focus_entered():
 	cursor.add_color_override('font_color', focus_color)
 	create_tween().tween_property(cursor, 'rect_position', cursor_pos, animation_length)
 	
-func _on_focus_exited() -> void:
+func _on_focus_exited():
 	cursor.remove_color_override('font_color')
 	create_tween().tween_property(cursor, 'rect_position', cursor_default_pos, animation_length)

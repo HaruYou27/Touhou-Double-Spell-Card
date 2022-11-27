@@ -1,6 +1,6 @@
 extends Particles2D
 
-func start() -> void:
+func start():
 	emitting = true
 	$sfx.play()
 	var tween := create_tween()

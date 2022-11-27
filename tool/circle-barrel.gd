@@ -18,7 +18,7 @@ export (int) var gizmo := 20
 func _ready():
 	shape = CircleShape2D.new()
 
-func _add_node(value:bool) -> void:
+func _add_node(value:bool):
 	if value:
 		add_node = true
 		var deltaR : float = 2 * PI / barrels

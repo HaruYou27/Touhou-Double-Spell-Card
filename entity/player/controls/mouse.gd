@@ -5,10 +5,10 @@ onready var player : Node2D
 
 var focus_speed :int = 172
 
-func _init(node) -> void:
+func _init(node):
 	player = node
 
-func _physics_process(_delta) -> void:
+func _physics_process(_delta):
 	var mouse_local := player.get_local_mouse_position()
 	var mouse_global :Vector2 = Global.get_global_mouse_position()
 	

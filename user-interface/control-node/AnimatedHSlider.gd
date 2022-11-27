@@ -16,7 +16,7 @@ export (float) var animation_length := .15
 
 onready var percentage = 100 / (max_value + abs(min_value))
 
-func _ready() -> void:
+func _ready():
 	label = get_node(label)
 	template = label.text
 	label.text = label.text % get_percentage()
@@ -32,22 +32,22 @@ func _ready() -> void:
 	connect("mouse_exited", self, '_on_focus_exited')
 	connect("value_changed", self, '_on_value_changed')
 	
-func _on_mouse_entered() -> void:
+func _on_mouse_entered():
 	grab_focus()
 	
 func get_percentage() -> int:
 	return int((value + abs(min_value)) * percentage)
 	
-func _on_focus_entered() -> void:
+func _on_focus_entered():
 	label.add_color_override('font_color', focus_color)
 	var tween = create_tween()
 	tween.tween_property(cursor, 'position', cursor_pos, animation_length)
 	tween.parallel().tween_property(label, 'rect_position', final_pos, animation_length)
 		
-func _on_focus_exited() -> void:
+func _on_focus_exited():
 	label.remove_color_override('font_color')
 	var tween = create_tween()
 	tween.tween_property(label, 'rect_position', default_pos, animation_length)
 
-func _on_value_changed(value) -> void:
+func _on_value_changed(value):
 	label.text = template % value

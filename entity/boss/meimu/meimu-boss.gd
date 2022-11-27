@@ -12,7 +12,7 @@ onready var max_hp := hp
 onready var time_gauge :TextureProgress = $gauge/timeGauge
 onready var heath_gauge :TextureProgress = $gauge/heathGauge
 
-func _ready() -> void:
+func _ready():
 	time_gauge.max_value = time_limit
 	heath_gauge.max_value = hp
 	tween = create_tween()
@@ -23,14 +23,14 @@ func _ready() -> void:
 	tween.connect("finished", get_parent(), '_start', [], 4)
 	Global.boss = self
 	
-func _start() -> void:
+func _start():
 	tween = create_tween()
 	tween.tween_property(time_gauge, 'value', 0.0, time_limit)
 
-func _on_meimu_body_entered(body) -> void:
+func _on_meimu_body_entered(body):
 	body._hit()
 
-func _hit() -> void:
+func _hit():
 	heath_gauge.value -= 1.0
 	hp = heath_gauge.value
 	if not hp:

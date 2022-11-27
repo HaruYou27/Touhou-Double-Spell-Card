@@ -10,7 +10,7 @@ onready var tween := create_tween()
 onready var timer :Timer = $Timer
 onready var bullet :Node2D = $bullet
 
-func _ready() -> void:
+func _ready():
 	tween.set_process_mode(Tween.TWEEN_PROCESS_PHYSICS)
 	if backward:
 		unit_offset = 1.0

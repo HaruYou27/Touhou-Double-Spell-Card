@@ -7,7 +7,7 @@ var final_pos :Vector2
 export (Vector2) var offset := Vector2(20, 0)
 export (float) var animation_length := .15
 
-func _ready() -> void:
+func _ready():
 	final_pos = default_pos + offset
 	
 	connect("focus_entered", self, '_on_focus_entered')
@@ -15,13 +15,13 @@ func _ready() -> void:
 	connect("mouse_entered", self, "_on_mouse_entered")
 	connect("mouse_exited", self, '_on_focus_exited')
 	
-func _on_mouse_entered() -> void:
+func _on_mouse_entered():
 	grab_focus()
 	
-func _on_focus_entered() -> void:
+func _on_focus_entered():
 	var tween = create_tween()
 	tween.tween_property(self, 'rect_position', final_pos, animation_length)
 		
-func _on_focus_exited() -> void:
+func _on_focus_exited():
 	var tween = create_tween()
 	tween.tween_property(self, 'rect_position', default_pos, animation_length)

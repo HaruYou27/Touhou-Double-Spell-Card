@@ -13,7 +13,7 @@ onready var graze_timer : Timer = $graze/grazeFX/Timer
 onready var focus_layer : Sprite = $focus
 onready var tree := get_tree()
 
-onready var bombs := Global.save_data.init_bomb
+onready var bombs := Global.config.init_bomb
 onready var playground := Global.playground
 onready var death_tween :Tween = $hitFx/Tween
 
@@ -21,16 +21,16 @@ var input :Node
 
 export (PackedScene) var bomb_scene
 
-func _ready() -> void:
+func _ready():
 	Global.player = self
 	Global.connect("graze", self, '_graze')
 	
 	remove_child(hitFx)
 	graze_timer.connect("timeout", graze_fx, 'set_emitting', [false])
 	death_tween.connect("tween_all_completed", Rewind, 'rewind')
-	death_tween.interpolate_property(hitFx, 'scale', Vector2.ONE, Vector2(.01, .01), Global.save_data.assit_duration)
+	death_tween.interpolate_property(hitFx, 'scale', Vector2.ONE, Vector2(.01, .01), Global.config.assit_duration)
 	
-	if Global.save_data.use_mouse:
+	if Global.config.use_mouse:
 		input = MouseHandler.new(self)
 		focus()
 	else:
@@ -39,7 +39,7 @@ func _ready() -> void:
 	
 	var timer :Timer = $bullet/Timer
 	var timer2 :Timer = $bullet2/Timer2
-	if Global.save_data.auto_shoot:
+	if Global.config.auto_shoot:
 		timer.start()
 		timer2.start()
 		
@@ -47,7 +47,7 @@ func _physics_process(_delta):
 	position.x = clamp(position.x, 0.0, playground.x)
 	position.y = clamp(position.y, 0.0, playground.y)
 	
-func _hit() -> void:
+func _hit():
 	if tree.paused:
 		return
 	
@@ -60,17 +60,17 @@ func _hit() -> void:
 	
 	tree.paused = true
 	
-func _graze() -> void:
+func _graze():
 	graze_fx.emitting = true
 	graze_timer.start()
 
-func unfocus() -> void:
+func unfocus():
 	create_tween().tween_property(focus_layer, 'modulate', Color.transparent, .15)
 	
-func focus() -> void:
+func focus():
 	create_tween().tween_property(focus_layer, 'modulate', Color.white, .15)
 
-func bomb() -> void:
+func bomb():
 	if not bombs:
 		return
 		
@@ -83,7 +83,7 @@ func bomb() -> void:
 	graze.collision_layer = 0
 	modulate = Color(1.0, 1.0, 1.0, .5)
 	
-	if Global.save_data.auto_shoot:
+	if Global.config.auto_shoot:
 		tree.call_group('player_bullet', 'stop')
 		
 	var bomb_node :Node = bomb_scene.instance()
@@ -99,5 +99,5 @@ func _bomb_done():
 	graze.collision_layer = 8
 	modulate = Color.white
 	
-	if Global.save_data.auto_shoot:
+	if Global.config.auto_shoot:
 		tree.call_group('player_bullet', 'start')

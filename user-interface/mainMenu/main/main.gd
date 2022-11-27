@@ -21,13 +21,13 @@ func fade2black(level):
 	tween.connect("finished", tree, 'change_scene_to', [level])
 
 func _on_start_pressed():
-	if Global.save_data.hi_score.empty():
+	if Global.config.hi_score.empty():
 		pass
-	elif Global.save_data.characters.size() == 1:
+	elif Global.config.characters.size() == 1:
 		pass
 		
 func _on_continue_pressed():
-	fade2black(load(Global.save_data.level))
+	fade2black(load(Global.config.level))
 
 func _on_help_pressed():
 	var tutorial
