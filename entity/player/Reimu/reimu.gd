@@ -34,7 +34,7 @@ func _ready():
 	if Global.config.use_mouse:
 		input = MouseHandler.new(self)
 	else:
-		input = KeyboardHandler.new(self)
+		input = KeyboardInput.new(self)
 	add_child(input)
 	
 	var timer :Timer = $bullet/Timer

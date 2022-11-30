@@ -8,7 +8,7 @@ public class SineSpeed : BulletBasic
 
     protected override void SortBullet()
     {
-        ages[index] = ages[activeIndex];
+        ages[index] = ages[lastIndex];
         base.SortBullet();
     }
     protected override void Move(in float delta)

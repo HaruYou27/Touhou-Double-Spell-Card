@@ -79,8 +79,9 @@ public class BulletBasic : Node2D
 	protected Vector2 textureSize;
 	protected RID textureRID;
 
-	protected uint activeIndex = 0; //Current empty index, also bullet count.
-	protected uint index;
+	protected int activeIndex = 0; //Current empty index, also bullet count.
+	protected int lastIndex; //Last bullet index.
+	protected int index;
 	protected Node2D[] barrels;
 	protected static Node Global;
 	protected static BulletFx fx;
@@ -208,16 +209,17 @@ public class BulletBasic : Node2D
 	protected virtual void SortBullet()
 	{
 		//Sort from tail to head to minimize array access.
-		transforms[index] = transforms[activeIndex];
-		velocities[index] = velocities[activeIndex];
-		if (Grazable) {grazable[index] = grazable[activeIndex];}
+		transforms[index] = transforms[lastIndex];
+		velocities[index] = velocities[lastIndex];
+		if (Grazable) {grazable[index] = grazable[lastIndex];}
 
 		//Avoid memory leak in Godot server.
 		RID sprite = sprites[index];
-		sprites[index] = sprites[activeIndex];
-		sprites[activeIndex] = sprite;
+		sprites[index] = sprites[lastIndex];
+		sprites[lastIndex] = sprite;
 
 		activeIndex--;
+		lastIndex--;
 	}
 	protected virtual void Move(in float delta) 
 	{
@@ -247,8 +249,9 @@ public class BulletBasic : Node2D
 	public override void _PhysicsProcess(float delta)
 	{
 		if (activeIndex == 0) {return;}
+		lastIndex = activeIndex - 1;
 		
-		for (index = activeIndex; index != 0; index--) 
+		for (index = lastIndex; index >= 0; index--) 
 		{
 			Move(delta);
 				
@@ -261,7 +264,7 @@ public class BulletBasic : Node2D
 			if (result.Count == 0 || Collide(result)) {continue;}
 
 			VisualServer.CanvasItemSetVisible(sprites[index], false);
-			if (index == activeIndex) {continue;}
+			if (index == lastIndex) {continue;}
 			SortBullet();
 		}
 	}

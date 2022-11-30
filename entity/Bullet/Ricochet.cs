@@ -16,8 +16,8 @@ public class Ricochet : BulletBasic
     }
     protected override void SortBullet()
     {
+        ricochets[index] = ricochets[lastIndex];
         base.SortBullet();
-        ricochets[index] = ricochets[activeIndex];
     }
     protected override bool Collide(in Godot.Collections.Dictionary result) 
     {

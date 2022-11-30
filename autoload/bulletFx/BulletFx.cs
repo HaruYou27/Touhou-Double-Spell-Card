@@ -73,7 +73,7 @@ public class BulletFx : Node2D {
 		VisualServer.CanvasItemSetModulate(sprite, Color.ColorN("white", Mathf.Sin(Time.GetTicksMsec())));
 		fxIndex++;
 	}
-	public virtual void ClearFx(float delta)
+	public virtual void ClearFx()
 	{
 		for (uint i = 0; i != fxIndex; i++) {
 			VisualServer.CanvasItemSetVisible(fxSprites[i], false);

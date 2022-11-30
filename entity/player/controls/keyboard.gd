@@ -1,5 +1,5 @@
 extends Node
-class_name KeyboardHandler
+class_name KeyboardInput
 
 onready var player :Node2D
 onready var tree := get_tree()

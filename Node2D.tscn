@@ -1,0 +1,26 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://entity/Bullet/textures/smallorb.png" type="Texture" id=1]
+[ext_resource path="res://entity/Bullet/BulletBasic.cs" type="Script" id=2]
+
+[node name="Node2D" type="Node2D"]
+position = Vector2( 0, 1 )
+script = ExtResource( 2 )
+CollideWithBodies = false
+texture = ExtResource( 1 )
+maxBullet = 727
+speed = 276.0
+Grazable = false
+
+[node name="Position2D" type="Position2D" parent="."]
+rotation = 0.626064
+__meta__ = {
+"_gizmo_extents_": 170.2
+}
+
+[node name="Timer" type="Timer" parent="."]
+process_mode = 0
+wait_time = 0.1
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="SpawnBullet"]

@@ -33,7 +33,7 @@ public class Seeker : BulletBasic
     }
     protected override void SortBullet()
     {
-        targets[index] = targets[activeIndex];
+        targets[index] = targets[lastIndex];
         base.SortBullet();
     }
     protected override void BulletConstructor() 

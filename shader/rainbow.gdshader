@@ -38,7 +38,6 @@ void fragment()
 	vec4 color = texture(TEXTURE, UV);
 	vec3 colorhsv = rgb2hsv(color.rgb);
 	float boolean = when_lt(colorhsv.y, 0.11);
-	colorhsv *= vec3(1, s, v);
 	colorhsv.x += h;
 	color.rgb = color.rgb * boolean + hsv2rgb(colorhsv) * nah(boolean);
 	COLOR = color;

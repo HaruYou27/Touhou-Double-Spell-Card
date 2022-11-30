@@ -6,13 +6,11 @@ export (NodePath) var cursor
 
 export (NodePath) var label
 var template :String
-var default_pos :Vector2
-var final_pos :Vector2
 
 onready var focus_color := get_color('font_color_focus', 'Button')
 
-export (Vector2) var offset := Vector2(20, 0)
-export (float) var animation_length := .15
+export (float) var duration := .15
+export (int) var cursor_offset_x := -40
 
 onready var percentage = 100 / (max_value + abs(min_value))
 
@@ -20,16 +18,14 @@ func _ready():
 	label = get_node(label)
 	template = label.text
 	label.text = label.text % get_percentage()
-	default_pos = label.rect_position
 	
-	final_pos = default_pos + offset
 	cursor = get_node(cursor)
-	cursor_pos = Vector2(cursor.position.x, rect_position.y + rect_size.y / 2)
+	cursor_pos = Vector2(rect_position.x - cursor_offset_x, rect_position.y + rect_size.y / 2)
 	
 	connect("focus_entered", self, '_on_focus_entered')
-	connect("focus_exited", self, "_on_focus_exited")
+	connect("focus_exited", label, "remove_color_override", ['font_color'])
 	connect("mouse_entered", self, "_on_mouse_entered")
-	connect("mouse_exited", self, '_on_focus_exited')
+	connect("mouse_exited", label, 'remove_color_override', ['font_color'])
 	connect("value_changed", self, '_on_value_changed')
 	
 func _on_mouse_entered():
@@ -40,14 +36,7 @@ func get_percentage() -> int:
 	
 func _on_focus_entered():
 	label.add_color_override('font_color', focus_color)
-	var tween = create_tween()
-	tween.tween_property(cursor, 'position', cursor_pos, animation_length)
-	tween.parallel().tween_property(label, 'rect_position', final_pos, animation_length)
-		
-func _on_focus_exited():
-	label.remove_color_override('font_color')
-	var tween = create_tween()
-	tween.tween_property(label, 'rect_position', default_pos, animation_length)
+	create_tween().tween_property(cursor, 'position', cursor_pos, duration)
 
 func _on_value_changed(value):
 	label.text = template % value

@@ -24,9 +24,13 @@ func _set_player(value:Node2D):
 	ItemManager.target = value
 
 func _ready():
-	config = load('user://save.res')	
+	config = load('user://save.res')
 	if not config:
 		config = Config.new()
+		var fps := OS.get_screen_refresh_rate()
+		if fps:
+			Engine.target_fps = fps
+			ProjectSettings.set_setting('debug/settings/fps/force_fps', fps)
 	randomize()
 	
 static func save_resource(path:String, resource:Resource):

@@ -16,7 +16,7 @@ onready var hud :Sprite = $hud
 
 func _ready():
 	Rewind.start()
-	ItemManager.Flush()
+	ItemManager.Clear()
 	BulletFx.index = 0
 	
 	Global.connect("impact", self, 'impact')

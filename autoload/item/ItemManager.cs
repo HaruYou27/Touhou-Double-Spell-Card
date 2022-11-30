@@ -72,14 +72,14 @@ public class ItemManager : BulletBasic
 		}
 		return false;
 	}
-    public override void _PhysicsProcess(float delta)
-    {
+	public override void _PhysicsProcess(float delta)
+	{
 		if (activeIndex == 0)
 		{
 			//Ensure all remaining items has to be collected before turning autoCollect off.
 			autoCollect = keepCollect;
 			return;
 		}
-        base._PhysicsProcess(delta);
-    }
+		base._PhysicsProcess(delta);
+	}
 }

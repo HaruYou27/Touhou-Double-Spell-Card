@@ -3,7 +3,7 @@ class_name Config
 
 ##Config
 #Gameplay
-export (bool) var death_assit := true
+export (bool) var death_assist := true
 export (bool) var assist_mode := false
 export (float) var game_speed := 1.0
 export (float) var assit_duration := .3
@@ -16,8 +16,9 @@ export (bool) var full_particle := true
 export (bool) var dynamic_background := true
 
 #Controls
-export (bool) var auto_shoot := false
+export (bool) var auto_shoot := true
 export (bool) var use_mouse := false
+export (bool) var use_joystick := false
 
 ##User data
 export (Dictionary) var characters := {

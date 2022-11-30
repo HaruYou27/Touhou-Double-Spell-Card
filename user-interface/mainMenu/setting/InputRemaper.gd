@@ -1,29 +1,51 @@
 extends AnimatedPopup
 
-var action :String
-var button :AnimatedButton
-var keybind :KeyBind
+var index := 0
 
-onready var parent := get_parent().get_parent()
 onready var label :Label = $Label
+onready var buttons :Array = $"../../TabContainer/Controls".buttons
+onready var keybind :KeyBind = $"../../TabContainer/Controls".keybind
+
+const actions := [
+	'ui_left',
+	'ui_right',
+	'ui_up',
+	'ui_down',
+	'focus',
+	'shoot',
+	'bomb',
+]
+const label_text := [
+	'Move left',
+	'Move right',
+	'Move up',
+	'Move down',
+	'Shoot',
+	'Use bomb',
+]
 
 func _ready():
 	set_process_input(false)
+	for button in buttons:
+		button.connect('pressed', self, '_remap', [index])
+		index += 1
 	
 func _input(event):
-	if not event is InputEventKey or event.is_action('pause'):
+	if not event is InputEventKey or not event is InputEventJoypadButton or not event is InputEventMouseButton or event.is_action('pause'):
 		return
+		
+	var action :String = actions[index]
 	InputMap.action_erase_events(action)
 	InputMap.action_add_event(action, event)
 	accept_event()
 	visible = false
 	set_process_input(false)
-	button.update_label(OS.get_scancode_string(event.scancode))
+	buttons[index].update_label(keybind.get_event_string(event))
 	keybind.keybind[action] = event
 
-func remap(act:String, text:String):
-	label.text = text
-	action = act
+func _remap(idx:int):
+	index = idx
+	label.text = label_text[idx]
 	set_process_input(true)
 	visible = true
 

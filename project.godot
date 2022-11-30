@@ -19,15 +19,15 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://user-interface/control-node/AnimatedHSlider.gd"
 }, {
+"base": "Label",
+"class": "AnimatedLabel",
+"language": "GDScript",
+"path": "res://user-interface/control-node/AnimatedLabel.gd"
+}, {
 "base": "Popup",
 "class": "AnimatedPopup",
 "language": "GDScript",
 "path": "res://user-interface/control-node/AnimatedPopup.gd"
-}, {
-"base": "AnimatedButton",
-"class": "BackButton",
-"language": "GDScript",
-"path": "res://user-interface/control-node/BackButton.gd"
 }, {
 "base": "Area2D",
 "class": "Boss",
@@ -120,7 +120,7 @@ _global_script_classes=[ {
 "path": "res://autoload/save-data/key-bind.gd"
 }, {
 "base": "Node",
-"class": "KeyboardHandler",
+"class": "KeyboardInput",
 "language": "GDScript",
 "path": "res://entity/player/controls/keyboard.gd"
 }, {
@@ -172,8 +172,8 @@ _global_script_classes=[ {
 _global_script_class_icons={
 "AnimatedButton": "",
 "AnimatedHSlider": "",
+"AnimatedLabel": "",
 "AnimatedPopup": "",
-"BackButton": "",
 "Boss": "",
 "BossIndicator": "",
 "CircleBarrel": "",
@@ -192,7 +192,7 @@ _global_script_class_icons={
 "FormatLabel": "",
 "HistoryRow": "",
 "KeyBind": "",
-"KeyboardHandler": "",
+"KeyboardInput": "",
 "Level": "",
 "MouseHandler": "",
 "Particle": "",
