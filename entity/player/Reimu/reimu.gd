@@ -18,7 +18,7 @@ onready var playground := Global.playground
 onready var death_tween :Tween = $hitFx/Tween
 
 var input :Node
-var focus := true setget _set_focus
+var focus := false setget _set_focus
 
 export (PackedScene) var bomb_scene
 

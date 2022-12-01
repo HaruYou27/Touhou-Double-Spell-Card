@@ -11,7 +11,7 @@ export (int) var init_bomb := 3
 export (bool) var invicible := false
 
 #Graphic
-export (bool) var rewind := true
+export (bool) var rewind := false
 export (bool) var full_particle := true
 export (bool) var dynamic_background := true
 

@@ -1,8 +1,8 @@
 shader_type canvas_item;
 
-uniform float h: hint_range(0, 1) = 1;
-uniform float s: hint_range(0, 2) = 1;
-uniform float v: hint_range(0, 2) = 1;
+uniform float hue: hint_range(0, 1) = 1;
+uniform float saturation: hint_range(0, 2) = 1;
+uniform float brightness: hint_range(0, 2) = 1;
 
 vec3 rgb2hsv(vec3 c)
 {
@@ -33,8 +33,8 @@ void fragment()
 	vec4 color = texture(TEXTURE, UV);
 	vec3 colorhsv = rgb2hsv(color.rgb);
 	float boolean = when_lt(colorhsv.y, 0.11);
-	colorhsv *= vec3(1, s, v);
-	colorhsv.x += h;
+	colorhsv *= vec3(1, saturation, brightness);
+	colorhsv.x += hue;
 	color.rgb = color.rgb * boolean + hsv2rgb(colorhsv) * nah(boolean);
 	COLOR = color;
 }
