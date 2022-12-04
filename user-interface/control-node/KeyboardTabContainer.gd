@@ -1,24 +1,30 @@
 extends TabContainer
 
-export (Array) var first_button
-
+var first_button := []
 onready var max_tab = get_tab_count() - 1
 
 func _ready():
-	set_process_input(false)
+	connect("visibility_changed", self, '_on_visibility_changed')
 	for child in get_children():
 		for grand_child in child.get_children():
-			if grand_child.focus_mode != 0:
+			if grand_child is Control and grand_child.focus_mode:
 				first_button.append(grand_child)
 				break
+				
+func _on_visibility_changed():
+	if visible:
+		first_button[0].grab_focus()
+		current_tab = 0
+	else:
+		set_process_input(false)
 
 func _input(event):
-	if event.is_action_pressed("ui_focus_prev") or event.is_action_pressed('ui_left'):
+	if event.is_action_pressed("ui_focus_prev"):
 		if not current_tab:
 			current_tab = max_tab
 		else:
 			current_tab -= 1
-	elif event.is_action_pressed('ui_focus_next') or event.is_action_pressed('ui_right'):
+	elif event.is_action_pressed('ui_focus_next'):
 		if current_tab == max_tab:
 			current_tab = 0
 		else:

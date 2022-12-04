@@ -41,7 +41,8 @@ static func save_resource(path:String, resource:Resource):
 		push_error('Error when saving file. Error code = ' + str(err))
 	
 func _exit_tree():
-	ProjectSettings.set_setting('display/window/size/borderless', OS.window_borderless)
-	ProjectSettings.set_setting('display/window/size/fullscreen', OS.window_fullscreen)
+	var viewport := get_viewport()
+	ProjectSettings.set_setting('display/window/size/width', viewport.size.x)
+	ProjectSettings.set_setting('display/window/size/height', viewport.size.y)
 	ProjectSettings.save_custom('user://override.cfg')
 	save_resource('config.res', config)

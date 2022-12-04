@@ -21,8 +21,7 @@ func load_bind():
 		InputMap.action_add_event(action, event)
 		
 func reset_bind():
-	for action in keybind.keys():
-		keybind[action] = null
+	reset_dictionary()
 		
 	for action in default_bind.keys():
 		InputMap.action_erase_events(action)
@@ -32,6 +31,11 @@ func reset_bind():
 func first_time():
 	for action in default_bind.keys():
 		default_bind[action] = InputMap.get_action_list(action)
+	reset_dictionary()
+		
+func reset_dictionary():
+	for action in keybind.keys():
+		keybind[action] = default_bind[action][0]
 		
 static func get_event_string(event:InputEvent) -> String:
 	if event is InputEventKey:
@@ -40,7 +44,7 @@ static func get_event_string(event:InputEvent) -> String:
 		return Input.get_joy_button_string(event.button_index)
 	elif event is InputEventMouseButton:
 		return get_mouse_button_string(event.button_index)
-	return 'Unknow'
+	return 'Unknown'
 	
 static func get_mouse_button_string(index:int) -> String:
 	match index:

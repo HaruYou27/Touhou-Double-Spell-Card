@@ -104,6 +104,16 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://entity/common-enemies/Enemy.gd"
 }, {
+"base": "BoxContainer",
+"class": "FocusedBoxcontainer",
+"language": "GDScript",
+"path": "res://user-interface/control-node/keyboard-focused-control/FocusedBoxContainer.gd"
+}, {
+"base": "GridContainer",
+"class": "FocusedGridContainer",
+"language": "GDScript",
+"path": "res://user-interface/control-node/keyboard-focused-control/FocusedGridContainer.gd"
+}, {
 "base": "Label",
 "class": "FormatLabel",
 "language": "GDScript",
@@ -189,6 +199,8 @@ _global_script_class_icons={
 "DialogicResources": "",
 "DialogicUtil": "",
 "Enemy": "",
+"FocusedBoxcontainer": "",
+"FocusedGridContainer": "",
 "FormatLabel": "",
 "HistoryRow": "",
 "KeyBind": "",
@@ -241,7 +253,7 @@ window/stretch/aspect="keep"
 
 [editor_plugins]
 
-enabled=PoolStringArray( "res://addons/Labeled-Z-index/plugin.cfg", "res://addons/dialogic/plugin.cfg", "res://addons/keyboard-focused-control/plugin.cfg" )
+enabled=PoolStringArray( "res://addons/Labeled-Z-index/plugin.cfg", "res://addons/dialogic/plugin.cfg" )
 
 [importer_defaults]
 

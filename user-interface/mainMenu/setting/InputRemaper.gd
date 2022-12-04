@@ -44,6 +44,7 @@ func _input(event):
 	keybind.keybind[action] = event
 
 func _remap(idx:int):
+	print(idx)
 	index = idx
 	label.text = label_text[idx]
 	set_process_input(true)

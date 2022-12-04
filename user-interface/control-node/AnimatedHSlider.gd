@@ -7,17 +7,22 @@ export (NodePath) var cursor
 export (NodePath) var label
 var template :String
 
-onready var focus_color := get_color('font_color_focus', 'Button')
-
 export (float) var duration := .15
-export (int) var cursor_offset_x := -40
+export (int) var cursor_offset_x := 40
+export (bool) var raw_value := false
 
-onready var percentage = 100 / (max_value + abs(min_value))
+var percentage := 0.0
+onready var focus_color := get_color('font_color_focus', 'Button')
 
 func _ready():
 	label = get_node(label)
 	template = label.text
-	label.text = label.text % get_percentage()
+	
+	if not raw_value:
+		percentage = 100 / max_value
+		get_percentage()
+	else:
+		label.text = template % value
 	
 	cursor = get_node(cursor)
 	cursor_pos = Vector2(rect_position.x - cursor_offset_x, rect_position.y + rect_size.y / 2)
@@ -31,12 +36,16 @@ func _ready():
 func _on_mouse_entered():
 	grab_focus()
 	
-func get_percentage() -> int:
-	return int((value + abs(min_value)) * percentage)
+func get_percentage():
+	#In case min_value < 0
+	label.text = template % (value * percentage)
 	
 func _on_focus_entered():
 	label.add_color_override('font_color', focus_color)
 	create_tween().tween_property(cursor, 'position', cursor_pos, duration)
 
 func _on_value_changed(value):
-	label.text = template % value
+	if raw_value:
+		label.text = template % value
+		return
+	get_percentage()

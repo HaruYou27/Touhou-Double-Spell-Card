@@ -4,10 +4,10 @@ class_name Config
 ##Config
 #Gameplay
 export (bool) var death_assist := true
-export (bool) var assist_mode := false
+export (bool) var cheat := false
 export (float) var game_speed := 1.0
 export (float) var assit_duration := .3
-export (int) var init_bomb := 3
+export (bool) var infinity_bomb := false
 export (bool) var invicible := false
 
 #Graphic

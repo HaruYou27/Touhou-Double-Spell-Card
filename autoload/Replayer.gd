@@ -22,8 +22,6 @@ func _ready():
 func _on_size_changed():
 	scale = Global.game_rect / viewport.size
 	fx.rect_size = viewport.size
-	ProjectSettings.set_setting('display/window/size/width', viewport.size.x)
-	ProjectSettings.set_setting('display/window/size/height', viewport.size.y)
 
 func _load_image():
 	var img := Image.new()

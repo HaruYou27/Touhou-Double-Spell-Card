@@ -5,11 +5,11 @@ public class ItemManager : BulletBasic
 	protected Node2D target;
 	public bool autoCollect;
 	public bool keepCollect;
+	public bool[] collecting;
 
 	public override void _Ready()
 	{
-		Grazable = false;
-		query.CollisionLayer = 9;
+		query.CollisionLayer = 1+4+8;
 		texture = GD.Load<Texture>("res://autoload/item/point.png");
 		material = GD.Load<ShaderMaterial>("res://autoload/item/random-rotate.material");
 		maxBullet = 4727;
@@ -31,6 +31,7 @@ public class ItemManager : BulletBasic
 			transform.Rotation = GD.Randf() * Mathf.Tau;
 			transforms[activeIndex] = transform;
 			velocities[activeIndex] = new Vector2(GD.Randf() * 17, 0).Rotated(transform.Rotation);
+			grazable[activeIndex] = false;
 			
 			RID sprite = sprites[activeIndex];
 			VisualServer.CanvasItemSetVisible(sprite, true);
@@ -51,7 +52,7 @@ public class ItemManager : BulletBasic
 	}
 	protected override void Move(in float delta)
 	{
-		if (autoCollect)
+		if (autoCollect || grazable[index])
 		{
 			velocities[index] = 727 * (target.GlobalPosition - transforms[index].origin).Normalized();
 		}
@@ -59,16 +60,22 @@ public class ItemManager : BulletBasic
 		{
 			//Fake gravity acceleratetion.
 			//Or fake the player movement.
-			//Everything is just an illusion.
+			//It's just an illusion.
 			velocities[index].y += 27 * delta;
 		}
 		base.Move(delta);
 	}
 	protected override bool Collide(in Godot.Collections.Dictionary result)
 	{
-		if (((Vector2)result["linear_velocity"]).x == 4)
+		int mask = (int) ((Vector2)result["linear_velocity"]).x;
+		if (mask == 4)
 		{
 			Global.EmitSignal("collect");
+		}
+		else if (mask == 8) 
+		{
+			grazable[index] = true;
+			return true;
 		}
 		return false;
 	}

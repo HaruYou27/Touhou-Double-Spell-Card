@@ -13,7 +13,7 @@ onready var graze_timer : Timer = $graze/grazeFX/Timer
 onready var focus_layer : Sprite = $focus
 onready var tree := get_tree()
 
-onready var bombs := Global.config.init_bomb
+onready var bombs := 3
 onready var playground := Global.playground
 onready var death_tween :Tween = $hitFx/Tween
 

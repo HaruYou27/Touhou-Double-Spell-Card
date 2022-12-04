@@ -2,13 +2,13 @@ extends SFXButton
 class_name AnimatedButton
 
 export (float) var duration := .15
-export (int) var cursor_offset_x := -40
+export (int) var cursor_offset_x := 40
 
-export (NodePath) var path
-onready var cursor :Sprite = get_node(path)
+export (NodePath) var cursor
 onready var cursor_pos := Vector2(rect_position.x - cursor_offset_x, rect_position.y + rect_size.y / 2)
 
 func _ready():
+	cursor = get_node(cursor)
 	connect("focus_entered", self, '_on_focus_entered')
 	connect("mouse_entered", self, "_on_mouse_entered")
 	

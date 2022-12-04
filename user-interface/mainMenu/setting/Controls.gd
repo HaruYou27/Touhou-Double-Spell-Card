@@ -1,6 +1,8 @@
-extends VBoxContainer
+tool
+extends FocusedBoxcontainer
 
 var keybind :KeyBind
+onready var config :Config = Global.config
 
 onready var autoshoot := $autoshoot
 onready var mouse := $mouse
@@ -17,9 +19,9 @@ onready var buttons := [
 ]
 
 func _ready():
-	autoshoot.pressed = Global.config.auto_shoot
-	mouse.pressed = Global.config.use_mouse
-	joystick.pressed = Global.config.use_joystick
+	autoshoot.pressed = config.auto_shoot
+	mouse.pressed = config.use_mouse
+	joystick.pressed = config.use_joystick
 	
 	keybind = load('user://keybind.res')
 	if not keybind:
@@ -28,13 +30,14 @@ func _ready():
 	update_label()
 
 func _exit_tree():
-	Global.save_resource('user://keybind.res', keybind)
+	if not Engine.editor_hint:
+		Global.save_resource('user://keybind.res', keybind)
 
 func update_label():
-	var index := 0
-	for event in keybind.keybind:
-		buttons[0].update_label(keybind.get_event_string(event))
-		index += 1
+	var i := 0
+	for event in keybind.keybind.values():
+		buttons[i].update_label(keybind.get_event_string(event))
+		i += 1
 
 func _on_controls_reset_pressed():
 	keybind.reset_bind()
@@ -45,20 +48,20 @@ func _on_controls_reset_pressed():
 
 func _on_autoshoot_toggled(button_pressed):
 	shoot.disabled = button_pressed
-	Global.config.auto_shoot = button_pressed
+	config.auto_shoot = button_pressed
 
 func _on_mouse_toggled(button_pressed):
 	for i in range(0, 4):
 		buttons[i].disabled = button_pressed
-	Global.config.use_mouse = button_pressed
+	config.use_mouse = button_pressed
 	joystick.disabled = button_pressed
 	autoshoot.disabled = button_pressed
 	if button_pressed:
-		Global.config.auto_shoot = true
+		config.auto_shoot = true
 
 func _on_joystick_toggled(button_pressed):
 	mouse.disabled = button_pressed
-	Global.config.use_joystick = button_pressed
+	config.use_joystick = button_pressed
 	for i in range(0, 4):
 		buttons[i].disabled = button_pressed
 	

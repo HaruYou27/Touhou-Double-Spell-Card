@@ -1,9 +1,9 @@
 [submodule "addons/Labeled-Z-index"]
 	path = addons/Labeled-Z-index
 	url = https://github.com/haruyou27/Labeled-Z-index
-[submodule "addons/keyboard-focused-control"]
-	path = addons/keyboard-focused-control
-	url = https://github.com/haruyou27/keyboard-focused-control
 [submodule "addons/dialogic"]
 	path = addons/dialogic
 	url = https://github.com/haruyou27/dialogic
+[submodule "user-interface/control-node/keyboard-focused-control"]
+	path = user-interface/control-node/keyboard-focused-control
+	url = https://github.com/haruyou27/keyboard-focused-control
