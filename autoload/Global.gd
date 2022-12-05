@@ -32,6 +32,8 @@ func _ready():
 		if fps:
 			fps += 1
 			Engine.target_fps = fps
+			Engine.iterations_per_second = fps
+			ProjectSettings.set_setting('physics/common/physics_fps', fps)
 			ProjectSettings.set_setting('debug/settings/fps/force_fps', fps)
 	randomize()
 	

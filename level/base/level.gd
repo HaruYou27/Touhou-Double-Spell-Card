@@ -15,7 +15,7 @@ onready var item_get_border :Area2D = $itemGet
 onready var hud :Sprite = $hud
 
 func _ready():
-	Rewind.start()
+	Rewind.set_process(Global.config.rewind)
 	ItemManager.Clear()
 	BulletFx.index = 0
 	

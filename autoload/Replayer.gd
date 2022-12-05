@@ -2,7 +2,7 @@ extends Sprite
 
 var heat := 0.0
 var frame_delta := 0.0
-var frame_count := 1
+var frame_count := 0
 var next_frame :ImageTexture
 
 onready var tree := get_tree()
@@ -11,6 +11,11 @@ onready var viewport := get_viewport()
 onready var dir := Directory.new()
 
 const path := 'user://%d.png'
+
+func _exit_tree():
+	if frame_count:
+		for frame in range(frame_count):
+			dir.remove(path % frame_count)
 
 func _ready():
 	set_process(false)

@@ -15,6 +15,7 @@ onready var tree := get_tree()
 
 onready var bombs := 3
 onready var playground := Global.playground
+onready var config := Global.config
 onready var death_tween :Tween = $hitFx/Tween
 
 var input :Node
@@ -25,23 +26,23 @@ export (PackedScene) var bomb_scene
 func _ready():
 	Global.player = self
 	Global.connect("graze", self, '_graze')
+	if config.invicible:
+		$hitbox.queue_free()
 	
 	remove_child(hitFx)
 	graze_timer.connect("timeout", graze_fx, 'set_emitting', [false])
 	death_tween.connect("tween_all_completed", Rewind, 'rewind')
 	death_tween.interpolate_property(hitFx, 'scale', Vector2.ONE, Vector2(.01, .01), Global.config.assit_duration)
 	
-	if Global.config.use_mouse:
+	if config.use_mouse:
 		input = MouseHandler.new(self)
 	else:
 		input = KeyboardInput.new(self)
 	add_child(input)
 	
-	var timer :Timer = $bullet/Timer
-	var timer2 :Timer = $bullet2/Timer2
-	if Global.config.auto_shoot:
-		timer.start()
-		timer2.start()
+	if config.auto_shoot:
+		$bullet/Timer.start()
+		$bullet2/Timer2.start()
 		
 func _physics_process(_delta):
 	position.x = clamp(position.x, 0.0, playground.x)
@@ -80,12 +81,13 @@ func bomb():
 	death_tween.reset_all()
 	remove_child(hitFx)
 	
-	bombs -= 1
+	if not config.infinity_bomb:
+		bombs -= 1
 	collision_layer = 0
 	graze.collision_layer = 0
 	modulate = Color(1.0, 1.0, 1.0, .5)
 	
-	if Global.config.auto_shoot:
+	if config.auto_shoot:
 		tree.call_group('player_bullet', 'stop')
 		
 	var bomb_node :Node = bomb_scene.instance()
@@ -101,5 +103,5 @@ func _bomb_done():
 	graze.collision_layer = 8
 	modulate = Color.white
 	
-	if Global.config.auto_shoot:
+	if config.auto_shoot:
 		tree.call_group('player_bullet', 'start')

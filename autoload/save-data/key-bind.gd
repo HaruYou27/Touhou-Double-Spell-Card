@@ -42,21 +42,5 @@ static func get_event_string(event:InputEvent) -> String:
 		return OS.get_scancode_string(event.scancode)
 	elif event is InputEventJoypadButton:
 		return Input.get_joy_button_string(event.button_index)
-	elif event is InputEventMouseButton:
-		return get_mouse_button_string(event.button_index)
 	return 'Unknown'
 	
-static func get_mouse_button_string(index:int) -> String:
-	match index:
-		1:
-			return 'Mouse Button Left'
-		2:
-			return 'Mouse Button Right'
-		3:
-			return 'Mouse Button Middle'
-		4:
-			return "Mouse Wheel Up"
-		5:
-			return "Mouse Wheel Down"
-
-	return 'Unknow Mouse Button'

@@ -5,6 +5,9 @@ var index := 0
 onready var label :Label = $Label
 onready var buttons :Array = $"../../TabContainer/Controls".buttons
 onready var keybind :KeyBind = $"../../TabContainer/Controls".keybind
+onready var parent :CanvasLayer = get_parent()
+
+const ani_duration := .15
 
 const actions := [
 	'ui_left',
@@ -31,25 +34,30 @@ func _ready():
 		index += 1
 	
 func _input(event):
-	if not event is InputEventKey or not event is InputEventJoypadButton or not event is InputEventMouseButton or event.is_action('pause'):
+	if not event is InputEventKey or not event is InputEventJoypadButton or event.is_action('pause'):
 		return
 		
 	var action :String = actions[index]
 	InputMap.action_erase_events(action)
 	InputMap.action_add_event(action, event)
 	accept_event()
-	visible = false
-	set_process_input(false)
 	buttons[index].update_label(keybind.get_event_string(event))
 	keybind.keybind[action] = event
+	
+	_on_Cancel_pressed()
 
 func _remap(idx:int):
-	print(idx)
 	index = idx
 	label.text = label_text[idx]
+	
 	set_process_input(true)
-	visible = true
+	parent.show()
+	show()
+	create_tween().tween_property(self, 'rect_scale', Vector2.ONE, ani_duration)
 
 func _on_Cancel_pressed():
-	visible = false
+	var tween := create_tween()
+	tween.tween_property(self, 'rect_scale', Vector2(.1, .1), ani_duration)
+	tween.connect("finished", parent, 'hide')
+	tween.connect("finished", self, 'hide')
 	set_process_input(false)
