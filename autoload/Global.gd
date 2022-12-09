@@ -1,34 +1,28 @@
 extends Node2D
+#Shared data, the midground allow objects to talk to each others.
 
 signal graze
 signal collect
-signal bomb
 
+signal spawnBfx(position)
+signal hit(position)
+signal bomb
 signal impact
+
 signal next_level
 
 var config : Config
-var player setget _set_player
-var boss
-
-const fade_black = Color(0.129412, 0.129412, 0.129412)
-const fade_trans = Color(0.129412, 0.129412, 0.129412, 0)
-const fade_time = .5
+var player : Player
 
 const playground := Vector2(646, 904)
 const game_rect := Vector2(1280, 960)
-
-func _set_player(value:Node2D):
-	player = value
-	BulletFx.target = value
-	ItemManager.target = value
 
 func _ready():
 	config = load('user://save.res')
 	Input.use_accumulated_input = false
 	if not config:
 		config = Config.new()
-		var fps := OS.get_screen_refresh_rate()
+		var fps :int = OS.get_screen_refresh_rate()
 		if fps:
 			fps += 1
 			Engine.target_fps = fps

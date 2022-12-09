@@ -22,8 +22,8 @@ func _add_node(value:bool):
 	if value:
 		add_node = true
 		var deltaR : float = 2 * PI / barrels
-		var angle : float
-		for i in range(barrels):
+		var angle := 0.0
+		for _i in range(barrels):
 			var node = Position2D.new()
 			add_child(node)
 			node.position = Vector2(shape.radius, 0).rotated(angle)

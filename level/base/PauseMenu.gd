@@ -1,7 +1,7 @@
 extends ColorRect
 
 onready var tree := get_tree()
-onready var resume :AnimatedButton = $VBoxContainer/Resume
+onready var resume :Button = $VBoxContainer/Resume
 
 func _input(event):
 	if event.is_action_pressed("pause"):
@@ -14,14 +14,10 @@ func _input(event):
 
 func _ready():
 	VisualServer.canvas_item_set_z_index(get_canvas_item(), 4000)
-	$VBoxContainer/Restart.connect("pressed", Rewind, 'rewind')
 
 func _on_Resume_pressed():
+	tree.paused = false
 	var tween := create_tween()
 	tween.tween_property(self, 'modulate', Color.transparent, .15)
-	tween.connect("finished", self, '_resume')
+	tween.connect("finished", self, 'hide')
 	set_process_input(true)
-
-func _resume():
-	tree.paused = false
-	hide()

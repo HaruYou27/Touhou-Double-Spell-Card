@@ -4,8 +4,8 @@ public class BulletFx : Node2D {
 	private Vector2[] items = new Vector2[maxItem];
 	private const uint maxItem = 4727;
 
-	private Texture fxTexure = GD.Load<Texture>("res://autoload/bulletFx/hitfx.png");
-	private ShaderMaterial fxMaterial = GD.Load<ShaderMaterial>("res://autoload/bulletFx/hitFx.material");
+	[Export] public Texture fxTexure;
+	[Export] public ShaderMaterial fxMaterial;
 	protected RID[] fxSprites = new RID[maxFx];
 	protected const uint maxFx = 72;
 	protected uint fxIndex = 0;
@@ -14,7 +14,7 @@ public class BulletFx : Node2D {
 	protected readonly RID hitbox = Physics2DServer.CircleShapeCreate();
 	protected uint index;
 
-	protected Texture texture = GD.Load<Texture>("res://autoload/bulletFx/grazefx.png");
+	[Export] public Texture grazeTexture;
 	protected RID textureRID;
 	protected Vector2 offset;
 	protected Vector2 textureSize;
@@ -23,16 +23,20 @@ public class BulletFx : Node2D {
 	protected Node2D target;
 	protected static World2D world;
 	protected static Node Global;
+	protected static SceneTree tree;
 
 	public override void _Ready()
 	{
 		Global = GetNode("/root/Global");
-		query.CollisionLayer = 4;
-		query.ShapeRid = hitbox;
+		Global.Connect("impact", this, "_PlayerBombImpact");
+		tree = GetTree();
 		world = GetWorld2d();
 
-		textureRID = texture.GetRid();
-		textureSize = texture.GetSize();
+		query.CollisionLayer = 4;
+		query.ShapeRid = hitbox;
+
+		textureRID = grazeTexture.GetRid();
+		textureSize = grazeTexture.GetSize();
 		Physics2DServer.ShapeSetData(hitbox, textureSize.x / 2);
 		offset = -textureSize / 2;
 		ZIndex = 1;
@@ -56,11 +60,14 @@ public class BulletFx : Node2D {
 			fxSprites[i] = sprite;
 		}
 	}
-	public virtual void SpawnItem(in Vector2 position)
+	public virtual void SpawnItem(in Transform2D[] positions)
 	{
-		if (index == maxItem) {return;}
-		items[index] = position;
-		index++;
+		foreach (Transform2D position in positions)
+		{
+			if (index == maxItem) {return;}
+			items[index] = position.origin;
+			index++;
+		}
 	}
 	public virtual void Hit(in Transform2D transform)
 	{

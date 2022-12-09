@@ -1,7 +1,8 @@
 extends StaticBody2D
 class_name Player
 
-signal die
+signal dying
+signal bomb
 
 onready var hitFx : Sprite = $hitFx
 onready var hitSFX : AudioStreamPlayer = $hitFx/hitSfx
@@ -13,9 +14,8 @@ onready var graze_timer : Timer = $graze/grazeFX/Timer
 onready var focus_layer : Sprite = $focus
 onready var tree := get_tree()
 
-onready var bombs := 3
-onready var playground := Global.playground
-onready var config := Global.config
+onready var bomb_count := 3
+onready var config :Config = Global.config
 onready var death_tween :Tween = $hitFx/Tween
 
 var input :Node
@@ -31,23 +31,18 @@ func _ready():
 	
 	remove_child(hitFx)
 	graze_timer.connect("timeout", graze_fx, 'set_emitting', [false])
-	death_tween.connect("tween_all_completed", Rewind, 'rewind')
 	death_tween.interpolate_property(hitFx, 'scale', Vector2.ONE, Vector2(.01, .01), Global.config.assit_duration)
 	
 	if config.use_mouse:
-		input = MouseHandler.new(self)
+		input = MouseInput.new()
 	else:
-		input = KeyboardInput.new(self)
+		input = KeyboardInput.new()
 	add_child(input)
 	
 	if config.auto_shoot:
 		$bullet/Timer.start()
 		$bullet2/Timer2.start()
 		
-func _physics_process(_delta):
-	position.x = clamp(position.x, 0.0, playground.x)
-	position.y = clamp(position.y, 0.0, playground.y)
-	
 func _hit():
 	if tree.paused:
 		return
@@ -74,7 +69,7 @@ func _set_focus(value:bool):
 	
 
 func bomb():
-	if not bombs:
+	if not bomb_count:
 		return
 		
 	death_tween.stop_all()
@@ -82,7 +77,7 @@ func bomb():
 	remove_child(hitFx)
 	
 	if not config.infinity_bomb:
-		bombs -= 1
+		bomb_count -= 1
 	collision_layer = 0
 	graze.collision_layer = 0
 	modulate = Color(1.0, 1.0, 1.0, .5)
@@ -94,7 +89,7 @@ func bomb():
 	bomb_node.connect('done', self, '_bomb_done')
 	bomb_node.connect('done', input, '_bomb_done')
 	add_child(bomb_node)
-	Global.emit_signal("bomb")
+	emit_signal("bomb")
 	
 	tree.paused = false
 

@@ -1,5 +1,5 @@
 extends SFXButton
-class_name AnimatedButton
+class_name KeyboardButton
 
 export (float) var duration := .15
 export (int) var cursor_offset_x := 40

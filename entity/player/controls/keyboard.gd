@@ -1,14 +1,11 @@
 extends Node
 class_name KeyboardInput
 
-onready var player :Node2D
+onready var player :Node2D = get_parent()
 onready var tree := get_tree()
-onready var manual_shoot := not Global.config.auto_shoot
+onready var manual_shoot :bool = not Global.config.auto_shoot
 
 var speed := 575
-
-func _init(node):
-	player = node
 
 func _unhandled_input(event):
 	if event.is_action_pressed("bomb"):
@@ -17,7 +14,7 @@ func _unhandled_input(event):
 		set_process_input(false)
 		set_process_unhandled_input(false)
 		
-		player.unfocus()
+		player.focus = false
 		speed = 575
 	elif event.is_action_pressed('focus'):
 		player.focus = true
@@ -47,6 +44,8 @@ func _physics_process(delta:float):
 	var velocity := Vector2(x, y).normalized()
 	
 	player.position += velocity * delta * speed
+	player.position.x = clamp(player.position.x, 0.0, 646.0)
+	player.position.y = clamp(player.position.y, 0.0, 904.0)
 
 func _input(event:InputEvent):
 	if event.is_action_pressed("shoot"):

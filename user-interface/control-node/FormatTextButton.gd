@@ -1,4 +1,4 @@
-extends AnimatedButton
+extends KeyboardButton
 
 onready var template := text
 

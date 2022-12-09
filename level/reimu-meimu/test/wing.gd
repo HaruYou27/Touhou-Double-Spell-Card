@@ -1,6 +1,5 @@
 extends ColorRect
 
-onready var meimu :Area2D = $meimu
 onready var bullet :Node2D = $bullet
 onready var bullet2 :Node2D = $bullet2
 

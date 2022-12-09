@@ -84,7 +84,6 @@ public class BulletBasic : Node2D
 	protected int index;
 	protected Node2D[] barrels;
 	protected static Node Global;
-	protected static BulletFx fx;
 	protected static World2D world;
 
 
@@ -119,7 +118,6 @@ public class BulletBasic : Node2D
 	{
 		world = GetWorld2d();
 		Global = GetNode("/root/Global");
-		fx = GetNode<BulletFx>("/root/BulletFx");
 
 		transforms = new Transform2D[maxBullet];
 		velocities = new Vector2[maxBullet];
@@ -201,10 +199,10 @@ public class BulletBasic : Node2D
 		if (activeIndex == 0) {return;}
 		
 		for (uint i = 0; i < activeIndex; i++) {
-			fx.SpawnItem(transforms[i].origin);
 			VisualServer.CanvasItemSetVisible(sprites[i], false);
 		}
 		activeIndex = 0;
+		Global.EmitSignal("spawnBfx", transforms);
 	}
 	protected virtual void SortBullet()
 	{
@@ -235,7 +233,7 @@ public class BulletBasic : Node2D
 		{
 			Object collider = GD.InstanceFromId(((ulong) (int)result["collider_id"]));
 			collider.Call("_hit");
-			fx.Hit(transforms[index]);
+			Global.EmitSignal("hit", transforms[index]);
 		} 
 		else 
 		{

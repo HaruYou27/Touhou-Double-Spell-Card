@@ -14,7 +14,7 @@ const path := 'user://%d.png'
 
 func _exit_tree():
 	if frame_count:
-		for frame in range(frame_count):
+		for _frame in range(frame_count):
 			dir.remove(path % frame_count)
 
 func _ready():

@@ -1,5 +1,4 @@
 using Godot;
-using System.Collections.Generic;
 
 public class FantasySeal : Node {
 	[Signal] delegate void done();
@@ -8,43 +7,40 @@ public class FantasySeal : Node {
 		public Particles2D visual;
 		protected Vector2 localPos = Vector2.Zero;
 		protected Vector2 velocity;
-		protected Node2D parent;
-		public SealOrb(in Particles2D node, in uint i, in Node2D root) {
+		public SealOrb(in Particles2D node, in uint i) {
 			visual = node;
-			visual.GlobalPosition = root.GlobalPosition;
 			velocity = new Vector2(127, 0).Rotated(Mathf.Pi / 2 * i);
-			parent = root;
 		}
-		public void Move(in float delta, in float phi) {
+		public void Move(in float delta, in float phi, in Vector2 gobalCoord) {
 			localPos += velocity * delta;
 			localPos = localPos.Rotated(phi);
-			visual.GlobalPosition = localPos + parent.GlobalPosition;
+			visual.GlobalPosition = localPos + gobalCoord;
 			velocity = velocity.Rotated(phi);
 		}
 	}
-	protected Stack<SealOrb> orbs = new Stack<SealOrb>(4);
+	protected SealOrb[] orbs = new SealOrb[4];
 	protected Particles2D currentOrb;
 	protected SceneTree tree;
 	protected World2D world;
 	protected Node2D Global;
-	protected ItemManager itemManager;
 
 	protected Node2D target;
+	protected Node2D parent;
 	protected Physics2DShapeQueryParameters query = new Physics2DShapeQueryParameters();
 	protected RID shape = Physics2DServer.CircleShapeCreate();
+	protected int activeIndex = 0;
 
 	public override void _Ready() {
-		Node2D parent = GetParent<Node2D>();
+		parent = GetParent<Node2D>();
 		for (uint i = 0; i != 4; i++) {
 			Particles2D visual = orbScene.Instance<Particles2D>();
 			AddChild(visual);
-			SealOrb orb = new SealOrb(visual, i, parent);
-			orbs.Push(orb);
+			SealOrb orb = new SealOrb(visual, i);
+			orbs[i] = orb;
 		}
 		SetPhysicsProcess(false);
 
 		Global = GetNode<Node2D>("/root/Global");
-		itemManager = GetNode<ItemManager>("/root/ItemManager");
 		target = (Node2D) Global.Get("boss");
 		tree = GetTree();
 		tree.CreateTimer(1).Connect("timeout", this, "Attack");
@@ -59,38 +55,34 @@ public class FantasySeal : Node {
 	}
 	public virtual void Attack() {
 		SetPhysicsProcess(true);
-		currentOrb = orbs.Pop().visual;
+		currentOrb = orbs[activeIndex].visual;
+		activeIndex++;
 	}
 	public override void _Process(float delta) {
 		float phi = delta * Mathf.Tau;
+		Vector2 globalCoord = parent.GlobalPosition;
 		foreach (SealOrb orb in orbs) {
-			orb.Move(delta, phi);
+			orb.Move(delta, phi, globalCoord);
 		}
 	}
-	protected virtual void Move(in float delta) {
-		currentOrb.GlobalPosition += (target.GlobalPosition - currentOrb.GlobalPosition).Normalized() * delta * 727;
-	}
-	protected virtual void Impact() {
-		currentOrb.Emitting = true;
-		currentOrb.GetNode<Particles2D>("trail").Emitting = false;
-		currentOrb.GetNode<Node>("orb").QueueFree();
-	}
 	public override void _PhysicsProcess(float delta) {
-		Move(delta);
+		currentOrb.GlobalPosition += (target.GlobalPosition - currentOrb.GlobalPosition).Normalized() * delta * 727;
 		query.Transform = currentOrb.Transform;
 
 		if (world.DirectSpaceState.GetRestInfo(query).Count == 0) {
 			return;
 		}
 
+		//Hit the target.
 		Global.EmitSignal("impact");
-		itemManager.autoCollect = true;
 		OS.DelayMsec(15);
 
-		Impact();
+		currentOrb.Emitting = true;
+		currentOrb.GetNode<Particles2D>("trail").Emitting = false;
+		currentOrb.GetNode<Node>("orb").QueueFree();
 		target.Call("_spell_hit", 0.25);
-		if (orbs.Count > 0) {
-			currentOrb = orbs.Pop().visual;
+		if (activeIndex != 4) {
+			Attack();
 			return;
 		}
 

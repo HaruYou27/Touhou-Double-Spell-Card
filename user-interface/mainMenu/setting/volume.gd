@@ -1,4 +1,4 @@
-extends AnimatedHSlider
+extends HSlider
 
 func _ready():
 	raw_value = false

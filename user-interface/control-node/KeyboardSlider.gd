@@ -1,5 +1,5 @@
 extends HSlider
-class_name AnimatedHSlider
+class_name KeyboardHSlider
 
 var cursor_pos
 export (NodePath) var cursor

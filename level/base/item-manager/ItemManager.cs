@@ -2,24 +2,24 @@ using Godot;
 
 public class ItemManager : BulletBasic
 {
-	protected Node2D target;
 	public bool autoCollect;
 	public bool keepCollect;
-	public bool[] collecting;
+	protected bool[] collecting;
+	protected Node2D target;
 
-	public override void _Ready()
-	{
-		query.CollisionLayer = 1+4+8;
-		texture = GD.Load<Texture>("res://autoload/item/point.png");
-		material = GD.Load<ShaderMaterial>("res://autoload/item/random-rotate.material");
-		maxBullet = 4727;
-
-		base._Ready();
-	}
 	public override void SpawnBullet()
 	{
 		//Prevents crash if for any reason something accidently call this function.
 		//Use SpawnItem() instead.
+	}
+	public override void _Ready()
+	{
+		base._Ready();
+		Global.Connect("impact", this, "_AutoCollect");
+	}
+	public virtual void _AutoCollect()
+	{
+		autoCollect = true;
 	}
 	public virtual void SpawnItem(in uint point, Transform2D transform)
 	{
@@ -88,5 +88,14 @@ public class ItemManager : BulletBasic
 			return;
 		}
 		base._PhysicsProcess(delta);
+	}
+	public virtual void _ItemGetBorderEntered()
+	{
+		keepCollect = true;
+		autoCollect = true;
+	}
+	public virtual void _ItemGetBorderExited()
+	{
+		keepCollect = false;
 	}
 }

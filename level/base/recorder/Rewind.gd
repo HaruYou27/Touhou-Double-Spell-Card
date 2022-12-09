@@ -6,9 +6,6 @@ onready var thread := Thread.new()
 
 onready var replayer :Sprite = $Replayer
 
-func _ready():
-	set_process(false)
-
 func _record():
 	screenshot.get_data().save_png(replayer.path % replayer.frame_count)
 	replayer.frame_count += 1
@@ -22,7 +19,7 @@ func rewind():
 	
 	replayer.show()
 	replayer.set_process(true)
-	replayer.frame_delta = 2.0 / replayer.frame_count
+	replayer.frame_delta = 3.0 / replayer.frame_count
 	set_process(false)
 	tree.current_scene.queue_free()
 	

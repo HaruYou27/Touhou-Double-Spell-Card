@@ -13,9 +13,7 @@ onready var goal_label :FormatLabel = $VBoxContainer/Goal
 func _ready():
 	Global.connect("collect", self, "_update_point")
 	Global.connect('graze', self, '_update_graze')
-	Global.connect('bomb', self, '_update_bomb')
 	
-	bomb_label.update_label(Global.config.init_bomb)
 	score_label.update_label(0)
 	point_label.update_label(0)
 	goal_label.update_label(0)
@@ -40,4 +38,4 @@ func _update_score(score:int):
 		_update_bomb()
 
 func _update_bomb():
-	bomb_label.update_label(Global.player.bombs)
+	bomb_label.update_label(Global.player.bomb_count)
