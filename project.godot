@@ -149,11 +149,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://user-interface/control-node/SFXButton.gd"
 }, {
-"base": "Sprite",
-"class": "Satellite",
-"language": "GDScript",
-"path": "res://entity/player/Reimu/orb.gd"
-}, {
 "base": "Resource",
 "class": "Score",
 "language": "GDScript",
@@ -163,11 +158,6 @@ _global_script_classes=[ {
 "class": "ScreenEffect",
 "language": "GDScript",
 "path": "res://user-interface/control-node/ScreenEffect.gd"
-}, {
-"base": "Position2D",
-"class": "TargetLocker",
-"language": "GDScript",
-"path": "res://entity/utility/targetLocker.gd"
 } ]
 _global_script_class_icons={
 "AnimatedPopup": "",
@@ -198,17 +188,15 @@ _global_script_class_icons={
 "PathFollower": "",
 "Player": "",
 "SFXButton": "",
-"Satellite": "",
 "Score": "",
-"ScreenEffect": "",
-"TargetLocker": ""
+"ScreenEffect": ""
 }
 
 [application]
 
 config/name="Touhou Entropy ~ Hakurei Chronos"
 config/description="Why i make bullet shmups game."
-run/main_scene="res://level/reimu-meimu/reimu-meimu.scn"
+run/main_scene="res://level/tutorial/tutorial.scn"
 config/icon="res://icon.png"
 
 [audio]

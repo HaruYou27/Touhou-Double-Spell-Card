@@ -1,5 +1,4 @@
 extends Sprite
-class_name Satellite
 #Simulate momentum.
 
 var is_stopped := true

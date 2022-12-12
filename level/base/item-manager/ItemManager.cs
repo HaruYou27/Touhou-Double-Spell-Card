@@ -2,24 +2,12 @@ using Godot;
 
 public class ItemManager : BulletBasic
 {
-	public bool autoCollect;
-	public bool keepCollect;
-	protected bool[] collecting;
 	protected Node2D target;
 
 	public override void SpawnBullet()
 	{
 		//Prevents crash if for any reason something accidently call this function.
 		//Use SpawnItem() instead.
-	}
-	public override void _Ready()
-	{
-		base._Ready();
-		Global.Connect("impact", this, "_AutoCollect");
-	}
-	public virtual void _AutoCollect()
-	{
-		autoCollect = true;
 	}
 	public virtual void SpawnItem(in uint point, Transform2D transform)
 	{
@@ -52,7 +40,7 @@ public class ItemManager : BulletBasic
 	}
 	protected override void Move(in float delta)
 	{
-		if (autoCollect || grazable[index])
+		if (grazable[index])
 		{
 			velocities[index] = 727 * (target.GlobalPosition - transforms[index].origin).Normalized();
 		}
@@ -70,7 +58,7 @@ public class ItemManager : BulletBasic
 		int mask = (int) ((Vector2)result["linear_velocity"]).x;
 		if (mask == 4)
 		{
-			Global.EmitSignal("collect");
+			Global.EmitSignal("collect", (int) 904 - transforms[index].origin.y);
 		}
 		else if (mask == 8) 
 		{
@@ -78,24 +66,5 @@ public class ItemManager : BulletBasic
 			return true;
 		}
 		return false;
-	}
-	public override void _PhysicsProcess(float delta)
-	{
-		if (activeIndex == 0)
-		{
-			//Ensure all remaining items has to be collected before turning autoCollect off.
-			autoCollect = keepCollect;
-			return;
-		}
-		base._PhysicsProcess(delta);
-	}
-	public virtual void _ItemGetBorderEntered()
-	{
-		keepCollect = true;
-		autoCollect = true;
-	}
-	public virtual void _ItemGetBorderExited()
-	{
-		keepCollect = false;
 	}
 }

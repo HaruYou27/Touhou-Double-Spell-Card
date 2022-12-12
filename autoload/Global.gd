@@ -1,13 +1,15 @@
 extends Node2D
 #Shared data, the midground allow objects to talk to each others.
 
+#Bullet signal
 signal graze
-signal collect
+signal collect(point)
 
-signal spawnBfx(position)
-signal hit(position)
+#Player signal
 signal bomb
+signal dying
 signal impact
+signal died
 
 signal next_level
 

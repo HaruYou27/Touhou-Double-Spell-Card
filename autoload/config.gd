@@ -16,9 +16,7 @@ export (bool) var full_particle := true
 export (bool) var dynamic_background := true
 
 #Controls
-export (bool) var auto_shoot := true
 export (bool) var use_mouse := false
-export (bool) var use_joystick := false
 
 ##User data
 export (Dictionary) var characters := {

@@ -50,6 +50,7 @@ func screen_shake():
 	shaking += .15
 	set_process(true)
 	screenfx.flash()
+	tree.call_group('enemy', 'Clear')
 
 func next():
 	if levels.size():

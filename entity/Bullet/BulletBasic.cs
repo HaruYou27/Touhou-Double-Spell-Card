@@ -137,7 +137,6 @@ public class BulletBasic : Node2D
 		if (Grazable)
 		{
 			grazable = new bool[maxBullet];
-			Global.Connect("impact", this, "Clear");
 		}
 
 		Rect2 texRect = new Rect2(-textureSize / 2, textureSize);
@@ -202,7 +201,6 @@ public class BulletBasic : Node2D
 			VisualServer.CanvasItemSetVisible(sprites[i], false);
 		}
 		activeIndex = 0;
-		Global.EmitSignal("spawnBfx", transforms);
 	}
 	protected virtual void SortBullet()
 	{
@@ -233,7 +231,6 @@ public class BulletBasic : Node2D
 		{
 			Object collider = GD.InstanceFromId(((ulong) (int)result["collider_id"]));
 			collider.Call("_hit");
-			Global.EmitSignal("hit", transforms[index]);
 		} 
 		else 
 		{
