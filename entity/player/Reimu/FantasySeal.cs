@@ -3,15 +3,19 @@ using Godot;
 public class FantasySeal : Node {
 	[Signal] delegate void done();
 	protected PackedScene orbScene = GD.Load<PackedScene>("res://entity/player/Reimu/seal-orb.scn");
-	protected class SealOrb {
+	protected struct SealOrb
+	{
 		public Particles2D visual;
-		protected Vector2 localPos = Vector2.Zero;
-		protected Vector2 velocity;
-		public SealOrb(in Particles2D node, in uint i) {
+		private Vector2 localPos;
+		private Vector2 velocity;
+		public SealOrb(in Particles2D node, in uint i)
+		{
+			localPos = Vector2.Zero;
 			visual = node;
 			velocity = new Vector2(127, 0).Rotated(Mathf.Pi / 2 * i);
 		}
-		public void Move(in float delta, in float phi, in Vector2 gobalCoord) {
+		public void Move(in float delta, in float phi, in Vector2 gobalCoord)
+		{
 			localPos += velocity * delta;
 			localPos = localPos.Rotated(phi);
 			visual.GlobalPosition = localPos + gobalCoord;
@@ -30,7 +34,8 @@ public class FantasySeal : Node {
 	protected RID shape = Physics2DServer.CircleShapeCreate();
 	protected int activeIndex = 0;
 
-	public override void _Ready() {
+	public override void _Ready()
+	{
 		parent = GetParent<Node2D>();
 		for (uint i = 0; i != 4; i++) {
 			Particles2D visual = orbScene.Instance<Particles2D>();
@@ -53,19 +58,22 @@ public class FantasySeal : Node {
 		query.CollisionLayer = 2;
 
 	}
-	public virtual void Attack() {
+	public virtual void Attack()
+	{
 		SetPhysicsProcess(true);
 		currentOrb = orbs[activeIndex].visual;
 		activeIndex++;
 	}
-	public override void _Process(float delta) {
+	public override void _Process(float delta)
+	{
 		float phi = delta * Mathf.Tau;
 		Vector2 globalCoord = parent.GlobalPosition;
 		foreach (SealOrb orb in orbs) {
 			orb.Move(delta, phi, globalCoord);
 		}
 	}
-	public override void _PhysicsProcess(float delta) {
+	public override void _PhysicsProcess(float delta)
+	{
 		currentOrb.GlobalPosition += (target.GlobalPosition - currentOrb.GlobalPosition).Normalized() * delta * 727;
 		query.Transform = currentOrb.Transform;
 
@@ -81,7 +89,8 @@ public class FantasySeal : Node {
 		currentOrb.GetNode<Particles2D>("trail").Emitting = false;
 		currentOrb.GetNode<Node>("orb").QueueFree();
 		target.Call("_spell_hit", 0.25);
-		if (activeIndex != 4) {
+		if (activeIndex != 4)
+		{
 			Attack();
 			return;
 		}
@@ -91,7 +100,8 @@ public class FantasySeal : Node {
 		tree.CreateTimer(2).Connect("timeout", this, "_Timeout");
 
 	}
-	public virtual void _Timeout() {
+	public virtual void _Timeout()
+	{
 		EmitSignal("done");
 		QueueFree();
 	}

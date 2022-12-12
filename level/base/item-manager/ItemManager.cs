@@ -42,7 +42,8 @@ public class ItemManager : BulletBasic
 	{
 		if (grazable[index])
 		{
-			velocities[index] = 727 * (target.GlobalPosition - transforms[index].origin).Normalized();
+			transforms[index].origin += 572 * (target.GlobalPosition - transforms[index].origin).Normalized();
+			VisualServer.CanvasItemSetTransform(sprites[index], transforms[index]);
 		}
 		else
 		{
@@ -50,8 +51,8 @@ public class ItemManager : BulletBasic
 			//Or fake the player movement.
 			//It's just an illusion.
 			velocities[index].y += 27 * delta;
+			base.Move(delta);
 		}
-		base.Move(delta);
 	}
 	protected override bool Collide(in Godot.Collections.Dictionary result)
 	{

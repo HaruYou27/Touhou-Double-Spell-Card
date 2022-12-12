@@ -300,6 +300,7 @@ pause={
 2d_physics/layer_3="Player"
 3d_physics/layer_3="Meimu"
 2d_physics/layer_4="Graze"
+2d_physics/layer_5="Item"
 z_index={
 }
 z_index/z_index={

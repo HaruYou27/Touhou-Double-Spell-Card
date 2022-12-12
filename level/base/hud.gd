@@ -22,6 +22,7 @@ func _ready():
 	point_label.update_label(0)
 	goal_label.update_label(0)
 
+#There's no point in updating the score label string more than 1 per frame.
 func _set_point(value):
 	point += value
 	if updating_point:
