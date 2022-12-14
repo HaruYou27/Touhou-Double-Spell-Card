@@ -3,14 +3,13 @@ using Godot;
 public class FantasySeal : Node {
 	[Signal] delegate void done();
 	protected PackedScene orbScene = GD.Load<PackedScene>("res://entity/player/Reimu/seal-orb.scn");
-	protected struct SealOrb
+	protected class SealOrb
 	{
 		public Particles2D visual;
-		private Vector2 localPos;
+		private Vector2 localPos = Vector2.Zero;
 		private Vector2 velocity;
 		public SealOrb(in Particles2D node, in uint i)
 		{
-			localPos = Vector2.Zero;
 			visual = node;
 			velocity = new Vector2(127, 0).Rotated(Mathf.Pi / 2 * i);
 		}

@@ -59,10 +59,10 @@ func _graze():
 
 func _set_focus(value:bool):
 	if value:
-		create_tween().tween_property(focus_layer, 'modulate', Color.white, .15)
+		create_tween().tween_property(focus_layer, 'modulate', Color.white, .25)
 		return
 		
-	create_tween().tween_property(focus_layer, 'modulate', Color.transparent, .15)
+	create_tween().tween_property(focus_layer, 'modulate', Color.transparent, .25)
 	
 
 func _bomb():
