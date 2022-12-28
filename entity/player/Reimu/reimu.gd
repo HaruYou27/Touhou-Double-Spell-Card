@@ -21,7 +21,7 @@ var focus := false setget _set_focus
 export (PackedScene) var bomb_scene
 
 func _ready():
-	Global.player = self
+	Global.call_deferred("_set_player", self)
 	Global.connect("graze", self, '_graze')
 	Global.connect("bomb", self, "_bomb")
 	
@@ -39,7 +39,7 @@ func _ready():
 	else:
 		input = KeyboardInput.new()
 	add_child(input)
-		
+	
 func _hit():
 	if tree.paused:
 		return

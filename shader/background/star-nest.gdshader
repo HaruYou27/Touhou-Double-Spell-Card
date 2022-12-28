@@ -1,5 +1,4 @@
 shader_type canvas_item;
-render_mode unshaded;
 
 uniform int iterations = 20;
 uniform float formuparam = 1.00;
@@ -30,15 +29,9 @@ float SCurve (float value) {
 
 void fragment()
 {
-	vec2 iResolution = 1.0 / SCREEN_PIXEL_SIZE;
-	//get coords and direction
-	vec2 uv=FRAGCOORD.xy/iResolution.xy;
-	uv.y*=iResolution.y/iResolution.x;
-	vec3 dir=vec3(uv*zoom,1.);
-	float time=TIME*speed;
-
+	vec3 dir=vec3(UV*zoom,1.);
 	vec3 from=vec3(1.0,0.5,0.5);
-	from-=vec3(0.0,time,0.0);
+	from-=vec3(0.0, TIME * speed,0.0);
 	
 	//volumetric rendering
 	float s=0.1,fade=1.;

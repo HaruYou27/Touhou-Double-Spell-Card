@@ -6,6 +6,7 @@ signal graze
 signal collect(point)
 
 #Player signal
+signal player_entered
 signal bomb
 signal dying
 signal impact
@@ -14,10 +15,14 @@ signal died
 signal next_level
 
 var config : Config
-var player : Player
+var player : Player setget _set_player
 
 const playground := Vector2(646, 904)
 const game_rect := Vector2(1280, 960)
+
+func _set_player(node:Player):
+	player = node
+	emit_signal("player_entered", node)
 
 func _ready():
 	config = load('user://save.res')

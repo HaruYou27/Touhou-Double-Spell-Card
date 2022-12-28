@@ -10,11 +10,7 @@ onready var cursor_pos := Vector2(rect_position.x - cursor_offset_x, rect_positi
 func _ready():
 	cursor = get_node(cursor)
 	connect("focus_entered", self, '_on_focus_entered')
-	connect("mouse_entered", self, "_on_mouse_entered")
-	
-func _on_mouse_entered():
-	grab_focus()
+	connect("mouse_entered", self, "grab_focus")
 	
 func _on_focus_entered():
 	create_tween().tween_property(cursor, 'position', cursor_pos, duration)
-
