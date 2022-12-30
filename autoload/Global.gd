@@ -1,32 +1,28 @@
 extends Node2D
-#Shared data, the midground allow objects to talk to each others.
+#The meditor, contain shared data and handle connection bettween nodes.
 
 #Bullet signal
-signal graze
-signal collect(point)
+signal bullet_graze
+signal item_collect(point)
+signal spawn_item(quantity)
 
 #Player signal
-signal player_entered
-signal bomb
-signal dying
-signal impact
-signal died
+signal player_moved(new_pos)
+signal player_bombed
+signal player_reward
+signal player_dying
+signal player_died
+signal bomb_impact
 
 signal next_level
 
 var config : Config
-var player : Player setget _set_player
 
 const playground := Vector2(646, 904)
 const game_rect := Vector2(1280, 960)
 
-func _set_player(node:Player):
-	player = node
-	emit_signal("player_entered", node)
-
 func _ready():
 	config = load('user://save.res')
-	Input.use_accumulated_input = false
 	if not config:
 		config = Config.new()
 		var fps :int = OS.get_screen_refresh_rate()

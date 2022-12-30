@@ -8,7 +8,7 @@ var speed := 575
 
 func _unhandled_input(event):
 	if event.is_action_pressed("bomb"):
-		Global.emit_signal('bomb')
+		player.bomb()
 		speed = 575
 
 		set_physics_process(true)
@@ -19,8 +19,8 @@ func _unhandled_input(event):
 	elif event.is_action_released('focus'):
 		player.focus = false
 		speed = 575
-			
-func death_door():
+
+func pause():
 	set_physics_process(false)
 	pause_mode = Node.PAUSE_MODE_PROCESS
 
@@ -38,3 +38,4 @@ func _physics_process(delta:float):
 	player.position += velocity * delta * speed
 	player.position.x = clamp(player.position.x, 0.0, 646.0)
 	player.position.y = clamp(player.position.y, 0.0, 904.0)
+	Global.emit_signal("player_moved", player.global_position)

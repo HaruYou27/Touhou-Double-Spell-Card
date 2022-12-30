@@ -6,19 +6,12 @@ public class FantasySeal : Node {
 	protected class SealOrb
 	{
 		public Particles2D visual;
-		private Vector2 localPos = Vector2.Zero;
-		private Vector2 velocity;
+		public Vector2 localPos = Vector2.Zero;
+		public Vector2 velocity;
 		public SealOrb(in Particles2D node, in uint i)
 		{
 			visual = node;
 			velocity = new Vector2(127, 0).Rotated(Mathf.Pi / 2 * i);
-		}
-		public void Move(in float delta, in float phi, in Vector2 gobalCoord)
-		{
-			localPos += velocity * delta;
-			localPos = localPos.Rotated(phi);
-			visual.GlobalPosition = localPos + gobalCoord;
-			velocity = velocity.Rotated(phi);
 		}
 	}
 	protected SealOrb[] orbs = new SealOrb[4];
@@ -66,9 +59,10 @@ public class FantasySeal : Node {
 	public override void _Process(float delta)
 	{
 		float phi = delta * Mathf.Tau;
-		Vector2 globalCoord = parent.GlobalPosition;
 		foreach (SealOrb orb in orbs) {
-			orb.Move(delta, phi, globalCoord);
+			orb.localPos += orb.velocity * delta;
+			orb.visual.GlobalPosition = parent.ToGlobal(orb.localPos);
+			orb.velocity = orb.velocity.Rotated(phi);
 		}
 	}
 	public override void _PhysicsProcess(float delta)

@@ -4,6 +4,11 @@ public class ItemManager : BulletBasic
 {
 	protected Node2D target;
 
+	public override void _Ready()
+	{
+		Global.Connect("bomb_impact", this, "Clear");
+		Global.Connect("spawn_item", this, "SpawnItem")
+	}
 	public override void SpawnBullet()
 	{
 		//Prevents crash if for any reason something accidently call this function.
@@ -59,7 +64,7 @@ public class ItemManager : BulletBasic
 		int mask = (int) ((Vector2)result["linear_velocity"]).x;
 		if (mask == 4)
 		{
-			Global.EmitSignal("collect", (int) 904 - transforms[index].origin.y);
+			Global.EmitSignal("item_collect", (int) 904 - transforms[index].origin.y);
 		}
 		else if (mask == 8) 
 		{

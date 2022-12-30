@@ -3,6 +3,7 @@ class_name Level
 
 var shaking := 0.0
 var score_data :Score
+var rewind
 
 export (Array) var levels : Array
 export (NodePath) var level
@@ -15,17 +16,16 @@ onready var screenfx :ScreenEffect = $hud/ScreenEffect
 onready var config : Config = Global.config
 
 func _ready():
-	var player :Player = Global.player
-	player.connect('dying', self, 'flash_red')
-	player.death_tween.connect("tween_all_completed", self, '_on_Restart_pressed')
-	player.connect('bomb', hud, '_update_bomb')
-	player.emit_signal("bomb")
-
-	Global.connect("impact", self, 'screen_shake')
+	Global.connect("player_died", self, '_on_Restart_pressed')
+	Global.connect("player_dying", screenfx, 'flash_red')
+	Global.connect("bomb_impact", self, 'screen_shake')
 	Global.connect("next_level", self, 'next')
 	Global.config.last_level = tree.current_scene.filename
+	Global.connect("player_bombed", screenfx, 'hide')
+	
 	if config.rewind:
-		add_child(preload("res://level/base/recorder/Recorder.scn").instance())
+		rewind = preload("res://level/base/recorder/Recorder.scn").instance()
+		add_child(rewind)
 	
 	var tween := screenfx.fade2black()
 	tween.connect("finished", screenfx, 'set_size', [rect_size])
@@ -58,8 +58,11 @@ func next():
 		level = levels.pop_back().instance()
 		add_child(level)
 		return
+		
+	elif Engine.editor_hint:
+		return
 	
-	score_data.add_score(hud.point, hud.graze, Global.player.bomb_count)
+	score_data.add_score(hud.point, hud.graze, hud.bomb_count)
 	Global.save_resource(stage_name, score_data)
 	tree.change_scene_to(next_scene)
 
@@ -68,7 +71,7 @@ func _on_Quit_pressed():
 	tween.connect("finished", tree, 'change_scene', ["res://user-interface/mainMenu/Menu.scn"])
 
 func _on_Restart_pressed():
-	if config.rewind:
-		pass
+	if rewind:
+		rewind.rewind()
 	else:
-		screenfx.fade2black().connect('finished', tree, 'reload_current_scene')
+		tree.reload_current_scene()

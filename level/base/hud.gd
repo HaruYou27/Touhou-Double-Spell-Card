@@ -5,6 +5,7 @@ var updating_point := false
 var graze := 0
 var updating_graze := false
 var goal := 0
+var bomb_count := 3
 
 onready var score_label :FormatLabel = $VBoxContainer/Score
 onready var graze_label :FormatLabel = $VBoxContainer/Graze
@@ -15,14 +16,16 @@ onready var reward_sfx :AudioStreamPlayer = $reward
 onready var goal_label :FormatLabel = $VBoxContainer/Goal
 
 func _ready():
-	Global.connect("collect", self, "_set_point")
-	Global.connect('graze', self, '_set_graze')
+	Global.connect("item_collect", self, "_set_point")
+	Global.connect('bullet_graze', self, '_set_graze')
+	Global.connect("player_bombed", self, '_update_bomb')
 	
 	score_label.update_label(0)
 	point_label.update_label(0)
 	goal_label.update_label(0)
+	bomb_label.update_label(3)
 
-#There's no point in updating the score label string more than 1 per frame.
+#There's no point in updating the score more than 1 per frame.
 func _set_point(value):
 	point += value
 	if updating_point:
@@ -62,8 +65,10 @@ func _update_score():
 	if score_left < INF:
 		goal_label.update_label(score_left)
 	else:
-		Global.player.bombs += 1
-		_update_bomb()
+		bomb_count += 1
+		Global.emit_signal("player_reward")
+		bomb_label.update_label(bomb_count)
 
 func _update_bomb():
-	bomb_label.update_label(Global.player.bomb_count)
+	bomb_count -= 1
+	bomb_label.update_label(bomb_count)

@@ -7,18 +7,13 @@ var init_pos : Vector2
 
 func _ready():
 	tree.call_group('player_bullet', 'stop')
-	Global.connect("player_entered", self, "_start")
-	set_process(false)
+	Global.connect("player_moved", self, "_moving")
 	
-func _start(node:Node2D):
-	player = node
-	init_pos = node.global_position
-	set_process(true)
-	
-func _process(_delta):
-	if player.global_position != init_pos:
+func _moving(pos:Vector2):
+	if not init_pos:
+		init_pos = pos
+	elif init_pos != pos:
 		Global.emit_signal("next_level")
-		return
 	
 func _on_Timer_timeout():
 	add_child(Dialogic.start('/tutorial/move'))

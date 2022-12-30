@@ -235,7 +235,7 @@ public class BulletBasic : Node2D
 		else 
 		{
 			grazable[index] = false;
-			Global.EmitSignal("graze");
+			Global.EmitSignal("bullet_graze");
 			return true;
 		}
 

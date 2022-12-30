@@ -54,4 +54,4 @@ func _process(delta):
 	set_process(false)
 	
 	tree.paused = false
-	tree.change_scene(Global.config.last_level)
+	tree.reload_current_scene()

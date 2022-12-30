@@ -77,7 +77,7 @@ _global_script_classes=[ {
 "base": "Area2D",
 "class": "Enemy",
 "language": "GDScript",
-"path": "res://entity/common-enemies/Enemy.gd"
+"path": "res://entity/enemy/Enemy.gd"
 }, {
 "base": "BoxContainer",
 "class": "FocusedBoxcontainer",
@@ -124,7 +124,12 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://level/base/level.gd"
 }, {
-"base": "Node",
+"base": "Node2D",
+"class": "LockedNode2D",
+"language": "GDScript",
+"path": "res://entity/utility/LockedNode2D.gd"
+}, {
+"base": "KeyboardInput",
 "class": "MouseInput",
 "language": "GDScript",
 "path": "res://entity/player/controls/mouse.gd"
@@ -133,11 +138,6 @@ _global_script_classes=[ {
 "class": "Particle",
 "language": "GDScript",
 "path": "res://entity/utility/Particle.gd"
-}, {
-"base": "PathFollow2D",
-"class": "PathFollower",
-"language": "GDScript",
-"path": "res://entity/common-enemies/PathFollower.gd"
 }, {
 "base": "StaticBody2D",
 "class": "Player",
@@ -158,6 +158,16 @@ _global_script_classes=[ {
 "class": "ScreenEffect",
 "language": "GDScript",
 "path": "res://user-interface/control-node/ScreenEffect.gd"
+}, {
+"base": "Node2D",
+"class": "TargetLocker",
+"language": "GDScript",
+"path": "res://entity/utility/TargetLocker.gd"
+}, {
+"base": "Area2D",
+"class": "boss",
+"language": "GDScript",
+"path": "res://entity/boss/yukari/yukari.gd"
 } ]
 _global_script_class_icons={
 "AnimatedPopup": "",
@@ -183,13 +193,15 @@ _global_script_class_icons={
 "KeyboardHSlider": "",
 "KeyboardInput": "",
 "Level": "",
+"LockedNode2D": "",
 "MouseInput": "",
 "Particle": "",
-"PathFollower": "",
 "Player": "",
 "SFXButton": "",
 "Score": "",
-"ScreenEffect": ""
+"ScreenEffect": "",
+"TargetLocker": "",
+"boss": ""
 }
 
 [application]

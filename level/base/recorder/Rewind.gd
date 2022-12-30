@@ -20,8 +20,6 @@ func rewind():
 	replayer.show()
 	replayer.set_process(true)
 	replayer.frame_delta = 3.0 / replayer.frame_count
-	set_process(false)
-	tree.current_scene.queue_free()
 	
 func _process(_delta):
 	if thread.is_alive():
