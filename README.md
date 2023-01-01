@@ -1,4 +1,3 @@
-# Touhou Entropy ~ Hakurei Chronos
-What a mouthful name.
+# Touhou Hakurei Paradox
 
 2D bullet hell shoot 'em up game, cross-platform.
