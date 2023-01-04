@@ -1,6 +1,13 @@
 extends StaticBody2D
 class_name Player
 
+signal bombing(impact_times)
+signal bombed
+
+signal dying
+signal died
+signal bomb_impact
+
 onready var hitFx : Sprite = $hitFx
 onready var hitSFX : AudioStreamPlayer = $hitFx/hitSfx
 
@@ -16,7 +23,7 @@ onready var death_tween :Tween = $hitFx/Tween
 
 var input :Node
 var focus := false setget _set_focus
-var bomb_count := 3
+var bomb_count := 1
 
 export (PackedScene) var bomb_scene
 
@@ -47,7 +54,7 @@ func _hit():
 		return
 	
 	input.pause()
-	Global.emit_signal('player_dying')
+	emit_signal('dying')
 	
 	add_child(hitFx)
 	hitSFX.play()
@@ -65,7 +72,7 @@ func _set_focus(value:bool):
 	else:
 		create_tween().tween_property(focus_layer, 'modulate', Color.transparent, .25)
 
-func bomb(value):
+func bomb():
 	if not bomb_count:
 		return
 		
@@ -96,3 +103,4 @@ func _bomb_done():
 	modulate = Color.white
 	tree.call_group('player_bullet', 'start')
 	focus = config.use_mouse
+	emit_signal("bombed")

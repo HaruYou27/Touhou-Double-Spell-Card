@@ -15,13 +15,16 @@ onready var hud :Sprite = $hud
 onready var screenfx :ScreenEffect = $hud/ScreenEffect
 onready var config : Config = Global.config
 
+func _player_entered(node:Player):
+	node.connect('died', self, '_on_Restart_pressed')
+	node.connect("dying", screenfx, 'flash_red')
+	node.connect("bomb_impact", self, 'screen_shake')
+	node.connect("bombed", screenfx, 'hide')
+
 func _ready():
-	Global.connect("player_died", self, '_on_Restart_pressed')
-	Global.connect("player_dying", screenfx, 'flash_red')
-	Global.connect("bomb_impact", self, 'screen_shake')
-	Global.connect("next_level", self, 'next')
 	Global.config.last_level = tree.current_scene.filename
-	Global.connect("player_bombed", screenfx, 'hide')
+	Global.connect("player_entered", self, '_player_entered')
+	Global.connect("next_level", self, '_next_level')
 	
 	if config.rewind:
 		rewind = preload("res://level/base/recorder/Recorder.scn").instance()
@@ -52,7 +55,7 @@ func screen_shake():
 	screenfx.flash()
 	tree.call_group('enemy', 'Clear')
 
-func next():
+func _next_level():
 	if levels.size():
 		level.queue_free()
 		level = levels.pop_back().instance()

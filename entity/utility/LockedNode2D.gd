@@ -1,16 +1,11 @@
 extends Node2D
 class_name LockedNode2D
 
-export (bool) var locked_y := true
+export (int) var value
+export (bool) var locked_y
 export (bool) var sync_physics := false
 
-var value := 0.0
-
 func _ready():
-	if locked_y:
-		value = global_position.y
-	else:
-		value = global_position.x
 	set_process(not sync_physics)
 	set_physics_process(sync_physics)
 	

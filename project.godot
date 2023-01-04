@@ -206,9 +206,8 @@ _global_script_class_icons={
 
 [application]
 
-config/name="Touhou Entropy ~ Hakurei Chronos"
+config/name="Touhou Hakurei Paradox"
 config/description="Why i make bullet shmups game."
-run/main_scene="res://level/tutorial/tutorial.scn"
 config/icon="res://icon.png"
 
 [audio]

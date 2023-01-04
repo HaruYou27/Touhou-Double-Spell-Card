@@ -18,12 +18,11 @@ onready var goal_label :FormatLabel = $VBoxContainer/Goal
 func _ready():
 	Global.connect("item_collect", self, "_set_point")
 	Global.connect('bullet_graze', self, '_set_graze')
-	Global.connect("player_bombed", self, '_update_bomb')
-	
+
 	score_label.update_label(0)
 	point_label.update_label(0)
 	goal_label.update_label(0)
-	bomb_label.update_label(3)
+	bomb_label.update_label(1)
 
 #There's no point in updating the score more than 1 per frame.
 func _set_point(value):

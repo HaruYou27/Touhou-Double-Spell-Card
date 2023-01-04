@@ -5,25 +5,66 @@ export (int) var point := 64
 export (int) var hp := 10
 export (float) var duration := 0.0
 
-onready var hp_gauge :TextureProgress = $HeathGauge
-onready var time_gauge :TextureProgress = $TimeGauge
+onready var clockwise :TextureProgress = $Gauge/clockwise
+
+var updating_gauge := false
+var player_bomb_damage := 0
+
+const boss_spot := Vector2(323, 235)
+
+func _player_entered(node:Player):
+	if hp:
+		node.connect("bombing", self, '_player_bombing')
+		node.connect("bomb_impact", self, '_bomb_impact')
+	node.connect("bombed", self, '_die')
+
+func _player_bombing(times):
+	player_bomb_damage = int(hp / times)
+
+func _bomb_impact():
+	hp -= player_bomb_damage
+	clockwise.value = hp
 
 func _ready():
-	hp_gauge.max_value = hp
-	hp_gauge.value = hp
-	if duration:
-		time_gauge.max_value = duration
-		time_gauge.value = duration
+	Global.connect("player_entered", self, '_player_entered')
+
+	if global_position != boss_spot:
 		var tween := create_tween()
-		tween.tween_property(time_gauge, 'value', 0.0, duration)
-		tween.connect("finished", Global, 'emit_signal', ['next_level'])
-	else:
-		time_gauge.queue_free()
-		hp_gauge.radial_fill_degrees = 360
-		hp_gauge.radial_initial_angle = 0
+		tween.tween_property(self, 'global_position', boss_spot, 2.0)
+
+	clockwise.share($Gauge/counter)
+	if hp:
+		clockwise.max_value = hp
+		clockwise.value = hp
+		return
+	
+	clockwise.max_value = duration
+	clockwise.value = duration
 		
+	var tween_gauge = create_tween()
+	tween_gauge.parallel().tween_property(clockwise, 'value', 0.0, duration)
+	tween_gauge.connect("finished", self, '_die')
+	
+func _die():
+	if global_position == boss_spot:
+		var tween := create_tween()
+		tween.tween_property(self, 'global_position', boss_spot, 2.0)
+		tween.connect("finished", Global, "emit_signal", ['next_level'])
+		get_tree().call_group('enemy_bullet', 'stop')
+		return
+
+	Global.emit_signal('next_level')
+
+func _update_gauge():
+	clockwise.value = hp
+	updating_gauge = false
+
 func _hit():
-	hp_gauge.value -= 1
-	if not hp_gauge.value:
+	hp -= 1
+	if not hp:
 		Global.emit_signal("spawn_item", point)
-		Global.emit_signal("next_level")
+		_die()
+
+	if not updating_gauge:
+		updating_gauge = true
+		call_deferred('_update_gauge')

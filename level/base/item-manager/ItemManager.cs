@@ -7,7 +7,12 @@ public class ItemManager : BulletBasic
 	public override void _Ready()
 	{
 		Global.Connect("bomb_impact", this, "Clear");
-		Global.Connect("spawn_item", this, "SpawnItem")
+		Global.Connect("spawn_item", this, "SpawnItem");
+		Global.Connect("player_entered", this, "SetTarget");
+	}
+	public void SetTarget(Node2D node)
+	{
+		target = node;
 	}
 	public override void SpawnBullet()
 	{
@@ -47,7 +52,9 @@ public class ItemManager : BulletBasic
 	{
 		if (grazable[index])
 		{
-			transforms[index].origin += 572 * (target.GlobalPosition - transforms[index].origin).Normalized();
+			Vector2 localPos = target.ToLocal(transforms[index].origin);
+			localPos -= localPos.Normalized() * delta * 72;
+			transforms[index].origin = target.ToGlobal(localPos);
 			VisualServer.CanvasItemSetTransform(sprites[index], transforms[index]);
 		}
 		else

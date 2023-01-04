@@ -7,5 +7,8 @@ func _input(event):
 		Global.emit_signal("next_level")
 		set_process_input(false)
 
-func _on_Timer_timeout():
-	pass
+func _ready():
+	if Global.config.use_mouse:
+		Global.emit_signal("next_level")
+	else:
+		Dialogic.start('')
