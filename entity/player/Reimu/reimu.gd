@@ -18,7 +18,7 @@ onready var graze_timer : Timer = $graze/grazeFX/Timer
 onready var focus_layer : Sprite = $focus
 onready var tree := get_tree()
 
-onready var config :Config = Global.config
+onready var config :UserSetting = Global.user_setting
 onready var death_tween :Tween = $hitFx/Tween
 
 var input :Node
@@ -40,7 +40,7 @@ func _ready():
 	
 	remove_child(hitFx)
 	graze_timer.connect("timeout", graze_fx, 'set_emitting', [false])
-	death_tween.interpolate_property(hitFx, 'scale', Vector2.ONE, Vector2(.01, .01), Global.config.assit_duration)
+	death_tween.interpolate_property(hitFx, 'scale', Vector2.ONE, Vector2(.01, .01), Global.user_setting.assit_duration)
 	death_tween.connect("tween_all_completed", Global, "emit_signal", ["player_died"])
 
 	if config.use_mouse:
@@ -48,6 +48,8 @@ func _ready():
 	else:
 		input = KeyboardInput.new()
 	add_child(input)
+	
+	Global.player = self
 	
 func _hit():
 	if tree.paused:

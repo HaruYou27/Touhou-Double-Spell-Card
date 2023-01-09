@@ -13,18 +13,19 @@ export (String) var stage_name
 onready var tree = get_tree()
 onready var hud :Sprite = $hud
 onready var screenfx :ScreenEffect = $hud/ScreenEffect
-onready var config : Config = Global.config
+onready var config :UserSetting = Global.user_setting
 
-func _player_entered(node:Player):
+func _player_entered():
+	var node = Global.player
 	node.connect('died', self, '_on_Restart_pressed')
 	node.connect("dying", screenfx, 'flash_red')
 	node.connect("bomb_impact", self, 'screen_shake')
 	node.connect("bombed", screenfx, 'hide')
 
 func _ready():
-	Global.config.last_level = tree.current_scene.filename
-	Global.connect("player_entered", self, '_player_entered')
+	Global.user_setting.last_level = tree.current_scene.filename
 	Global.connect("next_level", self, '_next_level')
+	call_deferred('_player_entered')
 	
 	if config.rewind:
 		rewind = preload("res://level/base/recorder/Recorder.scn").instance()

@@ -2,9 +2,8 @@ tool
 extends FocusedBoxcontainer
 
 var keybind :KeyBind
-onready var config :Config = Global.config
+onready var config :UserSetting = Global.user_setting
 
-onready var autoshoot := $autoshoot
 onready var mouse := $mouse
 onready var joystick := $joystick
 onready var shoot := $shoot
@@ -19,9 +18,7 @@ onready var buttons := [
 ]
 
 func _ready():
-	autoshoot.pressed = config.auto_shoot
 	mouse.pressed = config.use_mouse
-	joystick.pressed = config.use_joystick
 	
 	keybind = load('user://keybind.res')
 	if not keybind:
@@ -42,20 +39,14 @@ func update_label():
 func _on_controls_reset_pressed():
 	keybind.reset_bind()
 	update_label()
-	autoshoot.pressed = true
 	mouse.pressed = false
 	joystick.pressed = false
-
-func _on_autoshoot_toggled(button_pressed):
-	shoot.disabled = button_pressed
-	config.auto_shoot = button_pressed
 
 func _on_mouse_toggled(button_pressed):
 	for i in range(0, 4):
 		buttons[i].disabled = button_pressed
 	config.use_mouse = button_pressed
 	joystick.disabled = button_pressed
-	autoshoot.disabled = button_pressed
 	if button_pressed:
 		config.auto_shoot = true
 

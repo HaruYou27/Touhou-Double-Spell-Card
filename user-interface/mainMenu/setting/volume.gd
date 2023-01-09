@@ -1,4 +1,4 @@
-extends HSlider
+extends KeyboardHSlider
 
 func _ready():
 	raw_value = false

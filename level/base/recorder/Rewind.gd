@@ -12,7 +12,7 @@ func _record():
 
 func rewind():
 	var tree := get_tree()
-	if not Global.config.rewind:
+	if not Global.user_setting.rewind:
 		tree.paused = false
 		tree.reload_current_scene()
 		return

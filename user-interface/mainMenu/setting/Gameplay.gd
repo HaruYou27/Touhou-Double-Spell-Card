@@ -8,7 +8,7 @@ onready var duration :HSlider = $duration
 onready var bomb :Button = $bomb
 onready var invicible :Button = $invicible
 
-onready var config :Config = Global.config
+onready var config :UserSetting = Global.user_setting
 
 func _ready():
 	death_assist.set_pressed_no_signal(config.death_assist)

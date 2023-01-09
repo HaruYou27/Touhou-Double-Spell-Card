@@ -1,7 +1,11 @@
 extends Control
 
 func _ready():
-	Global.connect("dying", self, "_alert")
+	call_deferred('ready')
+	
+func ready():
+	Global.player.connect("dying", self, '_alert')
+	Global.player.death_tween.disconnect("tween_all_completed", Global, 'emit_signal')
 
 func _alert():
 	Global.disconnect('player_died', get_parent(), '_on_Restart_pressed')

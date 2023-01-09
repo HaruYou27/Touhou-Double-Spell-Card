@@ -1,7 +1,6 @@
 extends Resource
-class_name Config
+class_name UserSetting
 
-##Config
 #Gameplay
 export (bool) var death_assist := true
 export (bool) var cheat := false

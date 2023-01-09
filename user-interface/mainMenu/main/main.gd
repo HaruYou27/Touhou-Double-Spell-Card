@@ -11,7 +11,7 @@ onready var start :Button = $main/start
 const ani_time := .15
 
 func _ready():
-	if Global.config.first_time:
+	if Global.user_setting.first_time:
 		start.grab_focus()
 		return
 		
@@ -26,11 +26,11 @@ func fade2black(level):
 	tween.connect("finished", tree, 'change_scene_to', [level])
 
 func _on_start_pressed():
-	if Global.config.first_character:
+	if Global.user_setting.first_character:
 		pass
 	
 func _on_continue_pressed():
-	fade2black(load(Global.config.level))
+	fade2black(load(Global.user_setting.level))
 
 func _on_help_pressed():
 	var tutorial

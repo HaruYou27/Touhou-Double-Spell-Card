@@ -1,19 +1,12 @@
-extends Control
-
-onready var tree := get_tree()
-
-var player : Player
-var init_pos : Vector2
+extends Node2D
 
 func _ready():
-	tree.call_group('player_bullet', 'stop')
-	Global.connect("player_moved", self, "_moving")
-	
-func _moving(pos:Vector2):
-	if not init_pos:
-		init_pos = pos
-	elif init_pos != pos:
+	get_tree().call_group('player_bullet', 'stop')
+
+func _process(delta):
+	if global_position:
 		Global.emit_signal("next_level")
-	
+		$Timer.queue_free()
+
 func _on_Timer_timeout():
 	add_child(Dialogic.start('/tutorial/move'))

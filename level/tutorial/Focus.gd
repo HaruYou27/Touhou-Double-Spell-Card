@@ -8,7 +8,7 @@ func _input(event):
 		set_process_input(false)
 
 func _ready():
-	if Global.config.use_mouse:
+	if Global.user_setting.use_mouse:
 		Global.emit_signal("next_level")
 	else:
 		Dialogic.start('')

@@ -1,7 +1,7 @@
 tool
 extends FocusedBoxcontainer
 
-onready var config :Config = Global.config
+onready var config :UserSetting = Global.user_setting
 
 onready var fullscreen :Button = $fullscreen
 onready var borderless :Button = $borderless

@@ -6,13 +6,14 @@ public class ItemManager : BulletBasic
 
 	public override void _Ready()
 	{
-		Global.Connect("bomb_impact", this, "Clear");
+		base._Ready();
 		Global.Connect("spawn_item", this, "SpawnItem");
-		Global.Connect("player_entered", this, "SetTarget");
+		CallDeferred("SetTarget");
 	}
-	public void SetTarget(Node2D node)
+	public void SetTarget()
 	{
-		target = node;
+		target = (Node2D) Global.Get("player");
+		target.Connect("bomb_impact", this, "Clear");
 	}
 	public override void SpawnBullet()
 	{

@@ -5,21 +5,24 @@ signal bullet_graze
 signal item_collect(point)
 signal spawn_item(quantity)
 
-signal player_entered(node)
+signal spell_timeout
+signal update_boss_hp(hp)
+signal spell_start
+
 signal player_reward
 
 signal next_level
 
-var config : Config
-var player : Player setget _set_player
+var user_setting : UserSetting
+var player : Player
 
-const playground := Vector2(646, 904)
+const playground := Vector2(604, 906)
 const game_rect := Vector2(1280, 960)
 
 func _ready():
-	config = load('user://save.res')
-	if not config:
-		config = Config.new()
+	user_setting = load('user://save.res')
+	if not user_setting:
+		user_setting = UserSetting.new()
 		var fps := int(ceil(OS.get_screen_refresh_rate()))
 		if fps:
 			Engine.target_fps = fps
@@ -28,10 +31,6 @@ func _ready():
 			ProjectSettings.set_setting('debug/settings/fps/force_fps', fps)
 	randomize()
 
-func _set_player(node:Player):
-	player = node
-	emit_signal('player_entered', node)
-	
 static func save_resource(path:String, resource:Resource):
 	var err := ResourceSaver.save(path, resource, 32)
 	if err:
@@ -42,4 +41,4 @@ func _exit_tree():
 	ProjectSettings.set_setting('display/window/size/width', viewport.size.x)
 	ProjectSettings.set_setting('display/window/size/height', viewport.size.y)
 	ProjectSettings.save_custom('user://override.cfg')
-	save_resource('config.res', config)
+	save_resource('user_setting.res', user_setting)

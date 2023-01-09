@@ -2,7 +2,7 @@ extends Particles2D
 class_name Particle
 
 func _ready():
-	if Global.config.full_particle:
+	if Global.user_setting.full_particle:
 		return
 		
 	amount /= 2
