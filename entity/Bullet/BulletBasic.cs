@@ -118,6 +118,7 @@ public class BulletBasic : Node2D
 	{
 		world = GetWorld2d();
 		Global = GetNode("/root/Global");
+		Global.Connect("bomb_impact", this, "Clear");
 
 		transforms = new Transform2D[maxBullet];
 		velocities = new Vector2[maxBullet];

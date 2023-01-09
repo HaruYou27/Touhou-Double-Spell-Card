@@ -7,13 +7,11 @@ public class ItemManager : BulletBasic
 	public override void _Ready()
 	{
 		base._Ready();
-		Global.Connect("spawn_item", this, "SpawnItem");
 		CallDeferred("SetTarget");
 	}
 	public void SetTarget()
 	{
 		target = (Node2D) Global.Get("player");
-		target.Connect("bomb_impact", this, "Clear");
 	}
 	public override void SpawnBullet()
 	{

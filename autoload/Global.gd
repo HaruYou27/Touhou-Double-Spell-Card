@@ -3,16 +3,12 @@ extends Node2D
 
 signal bullet_graze
 signal item_collect(point)
-signal spawn_item(quantity)
 
-signal spell_timeout
-signal update_boss_hp(hp)
-signal spell_start
+signal bomb_impact
+signal bomb_finished
 
-signal player_reward
-
-signal next_level
-
+var level :Level
+var boss :Boss
 var user_setting : UserSetting
 var player : Player
 

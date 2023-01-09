@@ -6,6 +6,9 @@ onready var tree := get_tree()
 
 var speed := 575
 
+func _ready():
+	Global.connect("bomb_finished", self, "_bomb_finished")
+
 func _unhandled_input(event):
 	if event.is_action_pressed("bomb"):
 		player.bomb()
@@ -24,7 +27,7 @@ func pause():
 	set_physics_process(false)
 	pause_mode = Node.PAUSE_MODE_PROCESS
 
-func _bomb_done():
+func _bomb_finished():
 	set_process_unhandled_input(true)
 	pause_mode = Node.PAUSE_MODE_INHERIT
 

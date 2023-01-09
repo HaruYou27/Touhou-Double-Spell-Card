@@ -13,19 +13,12 @@ export (String) var stage_name
 onready var tree = get_tree()
 onready var hud :Sprite = $hud
 onready var screenfx :ScreenEffect = $hud/ScreenEffect
+onready var item_manager := $ItemManager
 onready var config :UserSetting = Global.user_setting
-
-func _player_entered():
-	var node = Global.player
-	node.connect('died', self, '_on_Restart_pressed')
-	node.connect("dying", screenfx, 'flash_red')
-	node.connect("bomb_impact", self, 'screen_shake')
-	node.connect("bombed", screenfx, 'hide')
 
 func _ready():
 	Global.user_setting.last_level = tree.current_scene.filename
-	Global.connect("next_level", self, '_next_level')
-	call_deferred('_player_entered')
+	Global.connect("bomb_impact", self, 'screen_shake')
 	
 	if config.rewind:
 		rewind = preload("res://level/base/recorder/Recorder.scn").instance()
@@ -41,6 +34,7 @@ func _ready():
 	score_data.retry += 1
 	
 	level = get_node(level)
+	Global.level = self
 	
 func _process(delta):
 	if shaking <= 0.0:
@@ -74,7 +68,7 @@ func _on_Quit_pressed():
 	var tween := screenfx.fade2black()
 	tween.connect("finished", tree, 'change_scene', ["res://user-interface/mainMenu/Menu.scn"])
 
-func _on_Restart_pressed():
+func restart():
 	if rewind:
 		rewind.rewind()
 	else:

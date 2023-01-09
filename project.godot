@@ -14,6 +14,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://user-interface/control-node/AnimatedPopup.gd"
 }, {
+"base": "Area2D",
+"class": "Boss",
+"language": "GDScript",
+"path": "res://entity/boss/yukari/yukari.gd"
+}, {
 "base": "CollisionShape2D",
 "class": "CircleBarrel",
 "language": "GDScript",
@@ -163,14 +168,10 @@ _global_script_classes=[ {
 "class": "UserSetting",
 "language": "GDScript",
 "path": "res://autoload/UserSetting.gd"
-}, {
-"base": "Area2D",
-"class": "boss",
-"language": "GDScript",
-"path": "res://entity/boss/yukari/yukari.gd"
 } ]
 _global_script_class_icons={
 "AnimatedPopup": "",
+"Boss": "",
 "CircleBarrel": "",
 "DTS": "",
 "Dialogic": "",
@@ -200,8 +201,7 @@ _global_script_class_icons={
 "Score": "",
 "ScreenEffect": "",
 "TargetLocker": "",
-"UserSetting": "",
-"boss": ""
+"UserSetting": ""
 }
 
 [application]

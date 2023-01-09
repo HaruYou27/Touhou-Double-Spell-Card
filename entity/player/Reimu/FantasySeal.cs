@@ -95,7 +95,7 @@ public class FantasySeal : Node {
 	}
 	public virtual void _Timeout()
 	{
-		EmitSignal("done");
+		Global.EmitSignal("bomb_finished");
 		QueueFree();
 	}
 }

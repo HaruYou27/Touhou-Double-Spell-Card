@@ -1,13 +1,6 @@
 extends StaticBody2D
 class_name Player
 
-signal bombing(impact_times)
-signal bombed
-
-signal dying
-signal died
-signal bomb_impact
-
 onready var hitFx : Sprite = $hitFx
 onready var hitSFX : AudioStreamPlayer = $hitFx/hitSfx
 
@@ -16,23 +9,24 @@ onready var graze_fx : Particles2D = $graze/grazeFX
 onready var graze_timer : Timer = $graze/grazeFX/Timer
 
 onready var focus_layer : Sprite = $focus
-onready var tree := get_tree()
-
-onready var config :UserSetting = Global.user_setting
 onready var death_tween :Tween = $hitFx/Tween
+
+onready var tree := get_tree()
+onready var config :UserSetting = Global.user_setting
 
 var input :Node
 var focus := false setget _set_focus
 var bomb_count := 1
 
 export (PackedScene) var bomb_scene
+export (int) var bomb_impact_times := 4
 
 func _set_bomb_count():
 	bomb_count += 1
 
 func _ready():
 	Global.connect("bullet_graze", self, '_graze')
-	Global.connect("player_reward", self, '_set_bomb_count')
+	Global.connect("bomb_finished", self, '_bomb_finished')
 	
 	if config.invicible:
 		$hitbox.queue_free()
@@ -80,6 +74,7 @@ func bomb():
 		
 	if not config.infinity_bomb:
 		bomb_count -= 1
+		Global.level.hud.update_bomb()
 		
 	focus = true
 	death_tween.stop_all()
@@ -93,16 +88,13 @@ func bomb():
 	focus = false
 	
 	var bomb_node :Node = bomb_scene.instance()
-	bomb_node.connect('done', self, '_bomb_done')
-	bomb_node.connect('done', input, '_bomb_done')
 	add_child(bomb_node)
 
 	tree.paused = false
 	
-func _bomb_done():
+func _bomb_finished():
 	collision_layer = 4
 	graze.collision_layer = 8
 	modulate = Color.white
 	tree.call_group('player_bullet', 'start')
 	focus = config.use_mouse
-	emit_signal("bombed")

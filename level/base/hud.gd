@@ -5,7 +5,6 @@ var updating_point := false
 var graze := 0
 var updating_graze := false
 var goal := 0
-var bomb_count := 3
 
 onready var score_label :FormatLabel = $VBoxContainer/Score
 onready var graze_label :FormatLabel = $VBoxContainer/Graze
@@ -18,7 +17,7 @@ onready var goal_label :FormatLabel = $VBoxContainer/Goal
 func _ready():
 	Global.connect("item_collect", self, "_set_point")
 	Global.connect('bullet_graze', self, '_set_graze')
-
+	
 	score_label.update_label(0)
 	point_label.update_label(0)
 	goal_label.update_label(0)
@@ -64,10 +63,9 @@ func _update_score():
 	if score_left < INF:
 		goal_label.update_label(score_left)
 	else:
-		bomb_count += 1
+		Global.player.bomb_count += 1
 		Global.emit_signal("player_reward")
-		bomb_label.update_label(bomb_count)
+		bomb_label.update_label(Global.player.bomb_count)
 
 func _update_bomb():
-	bomb_count -= 1
-	bomb_label.update_label(bomb_count)
+	bomb_label.update_label(Global.player.bomb_count)
