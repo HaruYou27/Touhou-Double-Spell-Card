@@ -7,8 +7,8 @@ func _input(event):
 		Global.emit_signal("next_level")
 		set_process_input(false)
 
-func _ready():
+func start():
 	if Global.user_setting.use_mouse:
 		Global.emit_signal("next_level")
 	else:
-		Dialogic.start('')
+		Global.level.add_child(Dialogic.start('/tutorial/focus'))

@@ -50,7 +50,7 @@ func _hit():
 		return
 	
 	input.pause()
-	emit_signal('dying')
+	Global.level.screenfx.flash_red()
 	
 	add_child(hitFx)
 	hitSFX.play()

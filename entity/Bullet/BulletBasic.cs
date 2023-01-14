@@ -265,4 +265,3 @@ public class BulletBasic : Node2D
 		}
 	}
 }
-

@@ -226,9 +226,9 @@ gdscript/warnings/integer_division=false
 
 [display]
 
-window/size/width=1280
-window/size/height=960
-window/size/test_width=960
+window/size/width=1920
+window/size/height=1080
+window/size/test_width=1280
 window/size/test_height=720
 window/vsync/use_vsync=false
 window/handheld/orientation="portrait"

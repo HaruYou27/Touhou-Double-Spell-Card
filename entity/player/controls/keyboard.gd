@@ -41,4 +41,3 @@ func _physics_process(delta:float):
 	player.position += velocity * delta * speed
 	player.position.x = clamp(player.position.x, 0.0, 646.0)
 	player.position.y = clamp(player.position.y, 0.0, 904.0)
-	Global.emit_signal("player_moved", player.global_position)

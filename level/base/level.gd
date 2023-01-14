@@ -53,8 +53,8 @@ func screen_shake():
 func _next_level():
 	if levels.size():
 		level.queue_free()
-		level = levels.pop_back().instance()
-		add_child(level)
+		level = get_node(levels.pop_back())
+		level.start()
 		return
 		
 	elif Engine.editor_hint:

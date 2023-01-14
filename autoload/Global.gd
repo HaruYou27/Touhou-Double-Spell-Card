@@ -33,8 +33,11 @@ static func save_resource(path:String, resource:Resource):
 		push_error('Error when saving file. Error code = ' + str(err))
 	
 func _exit_tree():
+	if Engine.editor_hint:
+		return
+	
 	var viewport := get_viewport()
 	ProjectSettings.set_setting('display/window/size/width', viewport.size.x)
 	ProjectSettings.set_setting('display/window/size/height', viewport.size.y)
 	ProjectSettings.save_custom('user://override.cfg')
-	save_resource('user_setting.res', user_setting)
+	save_resource('user://user_setting.res', user_setting)
