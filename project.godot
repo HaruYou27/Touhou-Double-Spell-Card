@@ -79,6 +79,16 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://entity/enemy/Enemy.gd"
 }, {
+"base": "BoxContainer",
+"class": "FocusedBoxcontainer",
+"language": "GDScript",
+"path": "res://user-interface/control-node/FocusedBoxContainer.gd"
+}, {
+"base": "GridContainer",
+"class": "FocusedGridContainer",
+"language": "GDScript",
+"path": "res://user-interface/control-node/FocusedGridContainer.gd"
+}, {
 "base": "Label",
 "class": "FormatLabel",
 "language": "GDScript",
@@ -129,11 +139,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://entity/player/Reimu/reimu.gd"
 }, {
-"base": "Button",
-"class": "SFXButton",
-"language": "GDScript",
-"path": "res://user-interface/control-node/SFXButton.gd"
-}, {
 "base": "Resource",
 "class": "Score",
 "language": "GDScript",
@@ -174,6 +179,8 @@ _global_script_class_icons={
 "DialogicResources": "",
 "DialogicUtil": "",
 "Enemy": "",
+"FocusedBoxcontainer": "",
+"FocusedGridContainer": "",
 "FormatLabel": "",
 "HistoryRow": "",
 "KeyBind": "",
@@ -184,7 +191,6 @@ _global_script_class_icons={
 "MouseInput": "",
 "Particle": "",
 "Player": "",
-"SFXButton": "",
 "Score": "",
 "ScreenEffect": "",
 "TargetLocker": "",
