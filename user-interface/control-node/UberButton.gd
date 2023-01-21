@@ -16,6 +16,8 @@ func update_label(value):
 	text = template % value
 
 func _ready():
+	connect("mouse_entered", self, 'grab_focus')
+	
 	if cursor:
 		cursor = get_node(cursor)
 		cursor_offset = rect_position - cursor_offset
