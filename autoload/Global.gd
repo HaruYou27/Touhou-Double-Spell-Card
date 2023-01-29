@@ -13,7 +13,7 @@ var user_setting : UserSetting
 var player : Player
 
 const playground := Vector2(604, 906)
-const game_rect := Vector2(1280, 960)
+const game_rect := Vector2(1920, 1080)
 
 func _ready():
 	user_setting = load('user://save.res')

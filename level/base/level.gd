@@ -11,7 +11,7 @@ export (PackedScene) var next_scene
 export (String) var stage_name
 
 onready var tree = get_tree()
-onready var hud :Sprite = $hud
+onready var hud :Sprite = $Node/hud
 onready var screenfx :ScreenEffect = $hud/ScreenEffect
 onready var item_manager := $ItemManager
 onready var config :UserSetting = Global.user_setting

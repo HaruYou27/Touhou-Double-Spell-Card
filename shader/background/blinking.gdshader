@@ -13,7 +13,8 @@ float when_lt(float x, float y)
 
 void vertex()
 {
-	alpha = when_lt(sin(TIME * speed), show_range);
+	vec2 view_position = (WORLD_MATRIX * (EXTRA_MATRIX * vec4(VERTEX, 0.0, 1.0))).xy;
+	alpha = when_lt(sin(TIME * speed + view_position.x * view_position.y), show_range);
 }
 
 void fragment()

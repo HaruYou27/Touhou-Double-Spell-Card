@@ -1,6 +1,6 @@
-extends Control
+extends Node
 
-const ani_length := .15
+const ani_length := .5
 
 onready var settings := $setting
 onready var level := $level
