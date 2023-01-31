@@ -7,7 +7,7 @@ signal item_collect(point)
 signal bomb_impact
 signal bomb_finished
 
-var level :Level
+var level :Leveler
 var boss :Boss
 var user_setting : UserSetting
 var player : Player

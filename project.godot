@@ -115,9 +115,9 @@ _global_script_classes=[ {
 "path": "res://entity/player/controls/keyboard.gd"
 }, {
 "base": "Control",
-"class": "Level",
+"class": "Leveler",
 "language": "GDScript",
-"path": "res://level/base/level.gd"
+"path": "res://level/base/leveler.gd"
 }, {
 "base": "Node2D",
 "class": "LockedNode2D",
@@ -186,7 +186,7 @@ _global_script_class_icons={
 "KeyBind": "",
 "KeyboardHSlider": "",
 "KeyboardInput": "",
-"Level": "",
+"Leveler": "",
 "LockedNode2D": "",
 "MouseInput": "",
 "Particle": "",

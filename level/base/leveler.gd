@@ -1,5 +1,5 @@
 extends Control
-class_name Level
+class_name Leveler
 
 var shaking := 0.0
 var score_data :Score
@@ -12,7 +12,7 @@ export (String) var stage_name
 
 onready var tree = get_tree()
 onready var hud :Sprite = $Node/hud
-onready var screenfx :ScreenEffect = $hud/ScreenEffect
+onready var screenfx :ScreenEffect = $Node/hud/ScreenEffect
 onready var item_manager := $ItemManager
 onready var config :UserSetting = Global.user_setting
 
@@ -34,11 +34,12 @@ func _ready():
 	score_data.retry += 1
 	
 	level = get_node(level)
+	level.start()
 	Global.level = self
 	
 func _process(delta):
 	if shaking <= 0.0:
-		rect_position = Vector2(60, 28)
+		rect_position = Vector2(526, 88)
 		set_process(false)
 	else:
 		shaking -= delta
