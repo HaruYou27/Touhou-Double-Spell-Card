@@ -262,6 +262,6 @@ public class BulletBasic : Node2D
 			VisualServer.CanvasItemSetVisible(sprites[index], false);
 			if (index == lastIndex) {continue;}
 			SortBullet();
+}
 		}
 	}
-}

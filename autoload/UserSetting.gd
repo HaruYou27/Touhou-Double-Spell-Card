@@ -16,6 +16,9 @@ export (bool) var dynamic_background := true
 
 #Controls
 export (bool) var use_mouse := false
+export (float) var mouse_sentivity := 1.0
+export (int) var player_velocity := 575
+export (int) var player_velocity_focus := 97
 
 ##User data
 export (Dictionary) var characters := {

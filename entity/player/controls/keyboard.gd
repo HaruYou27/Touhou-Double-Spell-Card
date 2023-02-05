@@ -3,8 +3,10 @@ class_name KeyboardInput
 
 onready var player :Node2D = get_parent()
 onready var tree := get_tree()
+onready var speed_norm :int = Global.user_setting.player_velocity
+onready var speed_focus :int = Global.user_setting
 
-var speed := 575
+var speed := speed_norm
 
 func _ready():
 	Global.connect("bomb_finished", self, "_bomb_finished")

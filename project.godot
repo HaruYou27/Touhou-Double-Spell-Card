@@ -17,7 +17,7 @@ _global_script_classes=[ {
 "base": "Area2D",
 "class": "Boss",
 "language": "GDScript",
-"path": "res://entity/boss/yukari/yukari.gd"
+"path": "res://level/yukari/base/yukari.gd"
 }, {
 "base": "CollisionShape2D",
 "class": "CircleBarrel",
