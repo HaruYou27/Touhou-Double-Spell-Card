@@ -1,58 +1,61 @@
-tool
-extends FocusedBoxcontainer
+extends VBoxContainer
 
-var keybind :KeyBind
-onready var config :UserSetting = Global.user_setting
+onready var drag :UberButton = $drag
+onready var bomb :UberButton = $bomb
 
-onready var mouse := $mouse
-onready var joystick := $joystick
-onready var shoot := $shoot
-onready var buttons := [
-	$left,
-	$right,
-	$up,
-	$down,
-	$focus,
-	shoot,
-	$bomb,
-]
+onready var user_setting :UserSetting = Global.user_setting
 
-func _ready():
-	mouse.pressed = config.use_mouse
+var switch := false
+
+
+
+func _unhandled_input(event):
+	if not event is InputEventMouseButton or not event is InputEventKey:
+		return
 	
-	keybind = load('user://keybind.res')
-	if not keybind:
-		keybind = KeyBind.new()
-		keybind.first_time()
-	update_label()
-
-func _exit_tree():
-	if not Engine.editor_hint:
-		Global.save_resource('user://keybind.res', keybind)
-
-func update_label():
-	var i := 0
-	for event in keybind.keybind.values():
-		buttons[i].update_label(keybind.get_event_string(event))
-		i += 1
+	if switch:
+		user_setting.drag_bind = event
+		drag.update_label(get_input_string(event))
+	else:
+		user_setting.bomb_bind = event
+		bomb.update_label(get_input_string(event))
 
 func _on_controls_reset_pressed():
-	keybind.reset_bind()
-	update_label()
-	mouse.pressed = false
-	joystick.pressed = false
-
-func _on_mouse_toggled(button_pressed):
-	for i in range(0, 4):
-		buttons[i].disabled = button_pressed
-	config.use_mouse = button_pressed
-	joystick.disabled = button_pressed
-	if button_pressed:
-		config.auto_shoot = true
-
-func _on_joystick_toggled(button_pressed):
-	mouse.disabled = button_pressed
-	config.use_joystick = button_pressed
-	for i in range(0, 4):
-		buttons[i].disabled = button_pressed
+	InputMap.action_erase_events('bomb')
+	InputMap.action_erase_events('drag')
 	
+	var b_bind := InputEventMouseButton.new()
+	b_bind.button_index = 2
+	InputMap.action_add_event('bomb', b_bind)
+	
+	var d_bind := InputEventMouseButton.new()
+	d_bind.button_index = 1
+	InputMap.action_add_event('drag', d_bind)
+	
+	bomb.update_label('Mouse Right')
+	drag.update_label('Mouse Left')
+
+func get_input_string(event:InputEvent) -> String:
+	if event is InputEventKey:
+		return OS.get_scancode_string(event.scancode)
+	
+	match event.button_index:
+		1:
+			return 'Mouse Left'
+		2:
+			return 'Mouse Right'
+		3:
+			return 'Mouse Middle'
+	
+	return 'Unknown'
+
+func _on_bomb_pressed():
+	bomb.update_label('Press a button')
+	switch = false
+
+func _on_drag_pressed():
+	drag.update_label('Press a button')
+	switch = true
+
+func _on_raw_toggled(button_pressed):
+	user_setting.raw_input = button_pressed

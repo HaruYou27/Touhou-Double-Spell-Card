@@ -12,11 +12,13 @@ onready var focus_layer : Sprite = $focus
 onready var death_tween :Tween = $hitFx/Tween
 
 onready var tree := get_tree()
-onready var config :UserSetting = Global.user_setting
+onready var user_setting :UserSetting = Global.user_setting
 
 var input :Node
-var focus := false setget _set_focus
 var bomb_count := 1
+
+onready var sentivity := user_setting.sentivity
+var moving := false
 
 export (PackedScene) var bomb_scene
 export (int) var bomb_impact_times := 4
@@ -28,7 +30,7 @@ func _ready():
 	Global.connect("bullet_graze", self, '_graze')
 	Global.connect("bomb_finished", self, '_bomb_finished')
 	
-	if config.invicible:
+	if user_setting.invicible:
 		$hitbox.queue_free()
 		hitFx.queue_free()
 	
@@ -36,15 +38,24 @@ func _ready():
 	graze_timer.connect("timeout", graze_fx, 'set_emitting', [false])
 	death_tween.interpolate_property(hitFx, 'scale', Vector2.ONE, Vector2(.01, .01), Global.user_setting.assit_duration)
 	death_tween.connect("tween_all_completed", Global, "emit_signal", ["player_died"])
-
-	if config.use_mouse:
-		input = MouseInput.new()
-	else:
-		input = KeyboardInput.new()
-	add_child(input)
 	
 	Global.player = self
 	
+func _unhandled_input(event:InputEvent):
+	if event.is_action_pressed('drag'):
+		moving = true
+		create_tween().tween_property(focus_layer, 'modulate', Color.white, .25)
+		return
+	elif event.is_action_released('drag'):
+		moving = false
+		create_tween().tween_property(focus_layer, 'modulate', Color.transparent, .25)
+		return
+	
+	if event is InputEventMouseMotion and moving:
+		global_position += event.relative * sentivity
+		position.x = clamp(position.x, 0.0, 646.0)
+		position.y = clamp(position.y, 0.0, 904.0)
+
 func _hit():
 	if tree.paused:
 		return
@@ -62,21 +73,14 @@ func _graze():
 	graze_fx.emitting = true
 	graze_timer.start()
 
-func _set_focus(value:bool):
-	if value:
-		create_tween().tween_property(focus_layer, 'modulate', Color.white, .25)
-	else:
-		create_tween().tween_property(focus_layer, 'modulate', Color.transparent, .25)
-
 func bomb():
 	if not bomb_count:
 		return
 		
-	if not config.infinity_bomb:
+	if not user_setting.infinity_bomb:
 		bomb_count -= 1
 		Global.level.hud.update_bomb()
 		
-	focus = true
 	death_tween.stop_all()
 	death_tween.reset_all()
 	remove_child(hitFx)
@@ -85,7 +89,6 @@ func bomb():
 	graze.collision_layer = 0
 	modulate = Color(1.0, 1.0, 1.0, .5)
 	tree.call_group('player_bullet', 'stop')
-	focus = false
 	
 	var bomb_node :Node = bomb_scene.instance()
 	add_child(bomb_node)
@@ -97,4 +100,3 @@ func _bomb_finished():
 	graze.collision_layer = 8
 	modulate = Color.white
 	tree.call_group('player_bullet', 'start')
-	focus = config.use_mouse

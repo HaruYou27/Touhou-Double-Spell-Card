@@ -1,6 +1,4 @@
-tool
-extends FocusedBoxcontainer
-
+extends VBoxContainer
 onready var config :UserSetting = Global.user_setting
 
 onready var fullscreen :Button = $fullscreen
