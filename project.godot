@@ -9,11 +9,6 @@
 config_version=4
 
 _global_script_classes=[ {
-"base": "Popup",
-"class": "AnimatedPopup",
-"language": "GDScript",
-"path": "res://user-interface/control-node/AnimatedPopup.gd"
-}, {
 "base": "Area2D",
 "class": "Boss",
 "language": "GDScript",
@@ -79,16 +74,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://entity/enemy/Enemy.gd"
 }, {
-"base": "BoxContainer",
-"class": "FocusedBoxcontainer",
-"language": "GDScript",
-"path": "res://user-interface/control-node/FocusedBoxContainer.gd"
-}, {
-"base": "GridContainer",
-"class": "FocusedGridContainer",
-"language": "GDScript",
-"path": "res://user-interface/control-node/FocusedGridContainer.gd"
-}, {
 "base": "Label",
 "class": "FormatLabel",
 "language": "GDScript",
@@ -103,11 +88,6 @@ _global_script_classes=[ {
 "class": "KeyBind",
 "language": "GDScript",
 "path": "res://autoload/key-bind.gd"
-}, {
-"base": "HSlider",
-"class": "KeyboardHSlider",
-"language": "GDScript",
-"path": "res://user-interface/control-node/KeyboardSlider.gd"
 }, {
 "base": "Control",
 "class": "Leveler",
@@ -155,7 +135,6 @@ _global_script_classes=[ {
 "path": "res://autoload/UserSetting.gd"
 } ]
 _global_script_class_icons={
-"AnimatedPopup": "",
 "Boss": "",
 "CircleBarrel": "",
 "DTS": "",
@@ -169,12 +148,9 @@ _global_script_class_icons={
 "DialogicResources": "",
 "DialogicUtil": "",
 "Enemy": "",
-"FocusedBoxcontainer": "",
-"FocusedGridContainer": "",
 "FormatLabel": "",
 "HistoryRow": "",
 "KeyBind": "",
-"KeyboardHSlider": "",
 "Leveler": "",
 "LockedNode2D": "",
 "Particle": "",

@@ -5,17 +5,7 @@ signal select_level
 onready var tree := get_tree()
 onready var fade := ColorRect.new()
 
-onready var conti :Button = $main/continue
-onready var start :Button = $main/start
-
 const ani_time := .15
-
-func _ready():
-	if Global.user_setting.first_time:
-		start.grab_focus()
-		return
-		
-	conti.grab_focus()
 
 func fade2black(level):
 	fade.color = Global.fade_trans

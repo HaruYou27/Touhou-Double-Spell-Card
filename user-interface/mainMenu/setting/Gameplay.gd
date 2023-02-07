@@ -1,5 +1,4 @@
-tool
-extends FocusedBoxcontainer
+extends VBoxContainer
 
 onready var death_assist :Button = $deathAssist
 onready var cheat :Button = $cheat
