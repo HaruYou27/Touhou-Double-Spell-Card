@@ -2,7 +2,7 @@
 
 [ext_resource path="res://user-interface/control-node/FormatLabel.gd" type="Script" id=1]
 [ext_resource path="res://level/base/item-manager/ItemManager.cs" type="Script" id=2]
-[ext_resource path="res://user-interface/resource/Default.theme" type="Theme" id=3]
+[ext_resource path="res://user-interface/resource/Default.tres" type="Theme" id=3]
 [ext_resource path="res://level/base/leveler.gd" type="Script" id=4]
 [ext_resource path="res://user-interface/control-node/ScreenEffect.gd" type="Script" id=5]
 [ext_resource path="res://user-interface/control-node/UberButton.gd" type="Script" id=6]
@@ -96,7 +96,7 @@ theme = ExtResource( 13 )
 text = "Graze:	%09d"
 script = ExtResource( 1 )
 
-[node name="Point" type="Label" parent="Node/hud/VBoxContainer"]
+[node name="item" type="Label" parent="Node/hud/VBoxContainer"]
 margin_top = 149.0
 margin_right = 511.0
 margin_bottom = 188.0

@@ -7,18 +7,19 @@ signal item_collect(point)
 signal bomb_impact
 signal bomb_finished
 
-var level :Leveler
+var leveler :Leveler
 var boss :Boss
-var user_setting : UserSetting
+var user_data : UserData
 var player : Player
+var score :Score
 
-const playground := Vector2(604, 906)
+const playground := Vector2(646, 904)
 const game_rect := Vector2(1920, 1080)
 
 func _ready():
-	user_setting = load('user://save.res')
-	if not user_setting:
-		user_setting = UserSetting.new()
+	user_data = load('user://save.res')
+	if not user_data:
+		user_data = UserData.new()
 	
 	var fps := int(ceil(OS.get_screen_refresh_rate()))
 	if fps:
@@ -41,4 +42,4 @@ func _exit_tree():
 	ProjectSettings.set_setting('display/window/size/width', viewport.size.x)
 	ProjectSettings.set_setting('display/window/size/height', viewport.size.y)
 	ProjectSettings.save_custom('user://override.cfg')
-	save_resource('user://user_setting.res', user_setting)
+	save_resource('user://user_data.res', user_data)

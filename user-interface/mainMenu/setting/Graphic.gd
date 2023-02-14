@@ -1,6 +1,6 @@
 extends VBoxContainer
 
-onready var config :UserSetting = Global.user_setting
+onready var config :UserData = Global.user_data
 
 onready var fullscreen :Button = $fullscreen
 onready var borderless :Button = $borderless

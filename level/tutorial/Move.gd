@@ -11,8 +11,8 @@ func start():
 
 func _notification(what):
 	if what == CanvasItem.NOTIFICATION_TRANSFORM_CHANGED and init_pos != global_position:
-		Global.level.next_level()
+		leveler.next_level()
 		timer.queue_free()
 
 func _on_Timer_timeout():
-	Global.level.add_child(Dialogic.start('/tutorial/move'))
+	leveler.add_child(Dialogic.start('/tutorial/move'))

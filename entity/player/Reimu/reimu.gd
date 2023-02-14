@@ -1,8 +1,6 @@
 extends StaticBody2D
 class_name Player
 
-signal dying
-
 onready var hitFx : Sprite = $hitFx
 onready var hitSFX : AudioStreamPlayer = $hitFx/hitSfx
 
@@ -14,9 +12,9 @@ onready var focus_layer : Sprite = $focus
 onready var death_tween :Tween = $hitFx/Tween
 
 onready var tree := get_tree()
-onready var user_setting :UserSetting = Global.user_setting
+onready var user_data :UserData = Global.user_data
 
-onready var sentivity := user_setting.sentivity
+onready var sentivity := user_data.sentivity
 var moving := false
 
 const bomb_impact_times := 4
@@ -29,14 +27,14 @@ func _ready():
 	Global.connect("bullet_graze", self, '_graze')
 	Global.connect("bomb_finished", self, '_bomb_finished')
 	
-	if user_setting.invicible:
+	if user_data.invicible:
 		$hitbox.queue_free()
 		hitFx.queue_free()
 	
 	remove_child(hitFx)
 	graze_timer.connect("timeout", graze_fx, 'set_emitting', [false])
-	death_tween.interpolate_property(hitFx, 'scale', Vector2.ONE, Vector2(.01, .01), Global.user_setting.assit_duration)
-	death_tween.connect("tween_all_completed", Global, "emit_signal", ["player_died"])
+	death_tween.interpolate_property(hitFx, 'scale', Vector2.ONE, Vector2(.01, .01), Global.score.death_duration)
+	death_tween.connect('tween_all_completed', Global.leveler, 'restart')
 	
 	Global.player = self
 	
@@ -60,8 +58,7 @@ func _hit():
 		return
 	
 	set_process_unhandled_input(false)
-	emit_signal("dying")
-	Global.level.screenfx.flash_red()
+	Global.levelr.screenfx.flash_red()
 	
 	add_child(hitFx)
 	hitSFX.play()
@@ -77,11 +74,11 @@ func bomb():
 	if not bomb_count:
 		return
 		
-	if not user_setting.infinity_bomb:
+	if not user_data.infinity_bomb:
 		bomb_count -= 1
-		Global.level.hud.update_bomb()
+		Global.levelr.hud.update_bomb()
 		
-	Global.level.screenfx.hide()
+	Global.leveler.screenfx.hide()
 	death_tween.stop_all()
 	death_tween.reset_all()
 	remove_child(hitFx)

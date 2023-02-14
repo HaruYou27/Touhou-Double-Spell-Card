@@ -97,7 +97,7 @@ _global_script_classes=[ {
 "base": "Resource",
 "class": "LevelHeader",
 "language": "GDScript",
-"path": "res://user-interface/resource/LevelHeader.gd"
+"path": "res://autoload/LevelHeader.gd"
 }, {
 "base": "Control",
 "class": "Leveler",
@@ -140,9 +140,9 @@ _global_script_classes=[ {
 "path": "res://user-interface/control-node/UberButton.gd"
 }, {
 "base": "Resource",
-"class": "UserSetting",
+"class": "UserData",
 "language": "GDScript",
-"path": "res://autoload/UserSetting.gd"
+"path": "res://autoload/UserData.gd"
 } ]
 _global_script_class_icons={
 "Boss": "",
@@ -171,7 +171,7 @@ _global_script_class_icons={
 "ScreenEffect": "",
 "TargetLocker": "",
 "UberButton": "",
-"UserSetting": ""
+"UserData": ""
 }
 
 [application]
@@ -180,10 +180,6 @@ config/name="Touhou Hakurei Paradox"
 config/description="Why i make bullet shmups game."
 run/main_scene="res://user-interface/mainMenu/Menu.tscn"
 config/icon="res://icon.png"
-
-[audio]
-
-default_bus_layout="res://default_bus_layout.res"
 
 [autoload]
 

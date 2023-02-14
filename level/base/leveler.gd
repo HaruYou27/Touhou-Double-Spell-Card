@@ -2,19 +2,17 @@ extends Control
 class_name Leveler
 
 var shaking := 0.0
-var score_data :Score
 var rewind
 
 export (Array) var levels : Array
 export (NodePath) var level
 export (PackedScene) var next_scene
-export (String) var stage_name
 
 onready var tree = get_tree()
 onready var hud :Sprite = $Node/hud
 onready var screenfx :ScreenEffect = $Node/hud/ScreenEffect
 onready var item_manager := $ItemManager
-onready var config :UserSetting = Global.user_setting
+onready var config :UserData = Global.user_data
 
 func _ready():
 	Global.connect("bomb_impact", self, 'screen_shake')
@@ -26,15 +24,11 @@ func _ready():
 	var tween := screenfx.fade2black()
 	tween.connect("finished", screenfx, 'set_size', [rect_size])
 	
-	stage_name = 'user://%s.res' % stage_name
-	score_data = load(stage_name)
-	if not score_data:
-		score_data = Score.new()
-	score_data.retry += 1
-	
+	Global.score.retry += 1
 	level = get_node(level)
 	level.start()
-	Global.level = self
+	Global.leveler = self
+	next_scene = next_scene.resource_path
 	
 func _process(delta):
 	if shaking <= 0.0:
@@ -60,9 +54,8 @@ func next_level():
 	elif Engine.editor_hint:
 		return
 	
-	score_data.save_score()
-	Global.save_resource(stage_name, score_data)
-	tree.change_scene_to(next_scene)
+	Global.score.save_score()
+	Global.user_data.unlocked_levels.append(next_scene)
 
 func _on_Quit_pressed():
 	var tween := screenfx.fade2black()

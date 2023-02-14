@@ -38,7 +38,7 @@ func _die():
 	if global_position != boss_spot:
 		var tween := create_tween()
 		tween.tween_property(self, 'global_position', boss_spot, 2.0)
-		tween.connect("finished", Global.level, 'next_level')
+		tween.connect("finished", Global.leveler, 'next_level')
 		get_tree().call_group('enemy_bullet', 'stop')
 		return
 
@@ -47,7 +47,7 @@ func _die():
 func _hit():
 	hp -= 1
 	if not hp:
-		Global.level.item_manager.SpawnItem(int(point * gauge.value / duration))
+		Global.leveler.item_manager.SpawnItem(int(point * gauge.value / duration))
 		_die()
 
 	if not updating_gauge:

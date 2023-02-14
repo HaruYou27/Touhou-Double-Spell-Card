@@ -16,11 +16,11 @@ func fade2black(level):
 	tween.connect("finished", tree, 'change_scene_to', [level])
 
 func _on_start_pressed():
-	if Global.user_setting.first_character:
+	if Global.user_data.first_character:
 		pass
 	
 func _on_continue_pressed():
-	fade2black(load(Global.user_setting.level))
+	fade2black(load(Global.user_data.level))
 
 func _on_help_pressed():
 	var tutorial

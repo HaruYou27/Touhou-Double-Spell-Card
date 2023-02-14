@@ -6,33 +6,33 @@ onready var raw :UberButton = $raw
 onready var sentivity :HSlider = $sentivity
 onready var sentivityLabel :FormatLabel = $SentivityLabel
 
-onready var user_setting :UserSetting = Global.user_setting
+onready var user_data :UserData = Global.user_data
 
 var switch := false
 
 func _ready():
-	if user_setting.bomb_bind:
-		bomb.update_label(get_input_string(user_setting.bomb_bind))
+	if user_data.bomb_bind:
+		bomb.update_label(get_input_string(user_data.bomb_bind))
 	else:
 		bomb.update_label('Mouse Right')
 		
-	if user_setting.drag_bind:
-		drag.update_label(get_input_string(user_setting.drag_bind))
+	if user_data.drag_bind:
+		drag.update_label(get_input_string(user_data.drag_bind))
 	else:
 		drag.update_label('Mouse Left')
 		
-	raw.set_pressed_no_signal(user_setting.raw_input)
-	sentivity.value = user_setting.sentivity
+	raw.set_pressed_no_signal(user_data.raw_input)
+	sentivity.value = user_data.sentivity
 
 func _unhandled_input(event):
 	if not event is InputEventMouseButton or not event is InputEventKey:
 		return
 	
 	if switch:
-		user_setting.drag_bind = event
+		user_data.drag_bind = event
 		drag.update_label(get_input_string(event))
 	else:
-		user_setting.bomb_bind = event
+		user_data.bomb_bind = event
 		bomb.update_label(get_input_string(event))
 	
 	set_process_unhandled_input(false)
@@ -83,6 +83,6 @@ func _on_sentivity_value_changed(value):
 	sentivityLabel.update_label(value)
 
 func _exit_tree():
-	user_setting.sentivity = sentivity.value
-	user_setting.raw_input = raw.pressed
+	user_data.sentivity = sentivity.value
+	user_data.raw_input = raw.pressed
 	

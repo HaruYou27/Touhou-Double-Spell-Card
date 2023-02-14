@@ -8,6 +8,7 @@ var graze := 0
 var updating_graze := false
 var goal := 0
 
+onready var hi_score_label :FormatLabel = $VBoxContainer/HiScore
 onready var score_label :FormatLabel = $VBoxContainer/Score
 onready var graze_label :FormatLabel = $VBoxContainer/Graze
 onready var item_label :FormatLabel = $VBoxContainer/item
@@ -16,12 +17,13 @@ onready var bomb_label :FormatLabel = $VBoxContainer/Bomb
 onready var reward_sfx :AudioStreamPlayer = $reward
 onready var goal_label :FormatLabel = $VBoxContainer/Goal
 
-onready var user_setting :UserSetting = Global.user_setting
+onready var user_data :UserData = Global.user_data
 
 func _ready():
 	Global.connect("item_collect", self, "_set_item")
 	Global.connect('bullet_graze', self, '_set_graze')
 	
+	hi_score_label.update_label(Global.score.score)
 	score_label.update_label(0)
 	item_label.update_label(0)
 	goal_label.update_label(0)
@@ -61,7 +63,7 @@ func _update_graze():
 	_update_score()
 	
 func _update_score():
-	score = (500*Global.player.bomb_bount + graze) * item * user_setting.game_speed / user_setting.death_duration
+	score = (500*Global.player.bomb_bount + graze) * item * user_data.game_speed / user_data.death_duration
 	score_label.update_label(score)
 	var score_left = goal - score
 	if score_left < INF:

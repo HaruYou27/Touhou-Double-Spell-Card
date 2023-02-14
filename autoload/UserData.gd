@@ -1,12 +1,5 @@
 extends Resource
-class_name UserSetting
-
-#Gameplay
-export (float) var death_duration := .3
-export (bool) var cheat := false
-export (float) var game_speed := 1.0
-export (bool) var infinity_bomb := false
-export (bool) var invicible := false
+class_name UserData
 
 #Graphic
 export (bool) var rewind := false
@@ -20,7 +13,7 @@ export (Resource) var drag_bind setget _bind_drag
 export (Resource) var bomb_bind setget _bind_bomb
 
 ##User data
-
+export (Array) var unlocked_levels := PoolStringArray([''])
 
 func _bind_drag(event:InputEvent):
 	InputMap.action_erase_events('drag')
