@@ -40,6 +40,8 @@ func _on_muteBGM_toggled(button_pressed):
 func _on_audio_reset_pressed():
 	bgm.value = 0.0
 	sfx.value = 0.0
+	mute_bgm.pressed = false
+	mute_sfx.pressed = false
 
 func _on_muteSFX_toggled(button_pressed):
 	AudioServer.set_bus_mute(1, button_pressed)

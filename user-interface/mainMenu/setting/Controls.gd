@@ -23,7 +23,6 @@ func _ready():
 		
 	raw.set_pressed_no_signal(user_setting.raw_input)
 	sentivity.value = user_setting.sentivity
-	sentivityLabel.update_label(user_setting.sentivity)
 
 func _unhandled_input(event):
 	if not event is InputEventMouseButton or not event is InputEventKey:
@@ -80,9 +79,10 @@ func _on_drag_pressed():
 	switch = true
 	set_process_unhandled_input(true)
 
-func _on_raw_toggled(button_pressed):
-	user_setting.raw_input = button_pressed
-
 func _on_sentivity_value_changed(value):
-	user_setting.sentivity = value
 	sentivityLabel.update_label(value)
+
+func _exit_tree():
+	user_setting.sentivity = sentivity.value
+	user_setting.raw_input = raw.pressed
+	

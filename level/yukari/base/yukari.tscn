@@ -1,0 +1,55 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://level/base/BossGauge.gd" type="Script" id=1]
+[ext_resource path="res://entity/utility/LockedNode2D.gd" type="Script" id=2]
+[ext_resource path="res://level/yukari/base/yukari.gd" type="Script" id=3]
+[ext_resource path="res://level/base/resource/boss-indicator.png" type="Texture" id=4]
+[ext_resource path="res://level/textures/over.png" type="Texture" id=5]
+[ext_resource path="res://level/textures/fill.png" type="Texture" id=6]
+[ext_resource path="res://level/yukari/base/texture/Yukari.png" type="Texture" id=7]
+
+[sub_resource type="CapsuleShape2D" id=1]
+radius = 77.0
+height = 102.0
+
+[sub_resource type="SpriteFrames" id=2]
+animations = [ {
+"frames": [ ExtResource( 7 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
+[node name="yukari" type="Area2D"]
+collision_layer = 2
+collision_mask = 0
+monitoring = false
+monitorable = false
+script = ExtResource( 3 )
+
+[node name="indicator" type="Sprite" parent="."]
+texture = ExtResource( 4 )
+script = ExtResource( 2 )
+value = 878
+locked_y = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource( 1 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+frames = SubResource( 2 )
+
+[node name="Gauge" type="Node" parent="."]
+
+[node name="TextureProgress" type="TextureProgress" parent="Gauge"]
+modulate = Color( 1, 1, 1, 0 )
+margin_left = 26.0
+margin_right = 334.0
+margin_bottom = 35.0
+rect_scale = Vector2( 1.75, 2 )
+value = 100.0
+texture_over = ExtResource( 5 )
+texture_progress = ExtResource( 6 )
+fill_mode = 6
+script = ExtResource( 1 )

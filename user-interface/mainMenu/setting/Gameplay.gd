@@ -32,9 +32,9 @@ func _exit_tree():
 	config.death_assist = death_assist.pressed
 
 func _on_reset_pressed():
-	death_assist.pressed = true
+	death_assist.set_pressed_no_signal(true)
 	cheat.pressed = false
 	speed.value = 1.0
 	duration.value = .3
-	bomb.pressed = false
-	invicible.pressed = false
+	bomb.set_pressed_no_signal(false)
+	invicible.set_pressed_no_signal(false)

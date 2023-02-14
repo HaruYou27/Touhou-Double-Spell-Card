@@ -61,8 +61,10 @@ public class FantasySeal : Node {
 		float phi = delta * Mathf.Tau;
 		foreach (SealOrb orb in orbs) {
 			orb.localPos += orb.velocity * delta;
+			orb.localPos = orb.localPos.LimitLength();
 			orb.visual.GlobalPosition = parent.ToGlobal(orb.localPos);
 			orb.velocity = orb.velocity.Rotated(phi);
+
 		}
 	}
 	public override void _PhysicsProcess(float delta)

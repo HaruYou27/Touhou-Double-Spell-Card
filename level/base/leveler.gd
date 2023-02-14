@@ -17,11 +17,10 @@ onready var item_manager := $ItemManager
 onready var config :UserSetting = Global.user_setting
 
 func _ready():
-	Global.user_setting.last_level = tree.current_scene.filename
 	Global.connect("bomb_impact", self, 'screen_shake')
 	
 	if config.rewind:
-		rewind = preload("res://level/base/recorder/Recorder.scn").instance()
+		rewind = preload("res://level/base/recorder/Recorder.tscn").instance()
 		add_child(rewind)
 	
 	var tween := screenfx.fade2black()
@@ -51,7 +50,7 @@ func screen_shake():
 	screenfx.flash()
 	tree.call_group('enemy', 'Clear')
 
-func _next_level():
+func next_level():
 	if levels.size():
 		level.queue_free()
 		level = get_node(levels.pop_back())
@@ -61,7 +60,7 @@ func _next_level():
 	elif Engine.editor_hint:
 		return
 	
-	score_data.add_score(hud.point, hud.graze, hud.bomb_count)
+	score_data.save_score()
 	Global.save_resource(stage_name, score_data)
 	tree.change_scene_to(next_scene)
 

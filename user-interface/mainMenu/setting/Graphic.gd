@@ -1,4 +1,5 @@
 extends VBoxContainer
+
 onready var config :UserSetting = Global.user_setting
 
 onready var fullscreen :Button = $fullscreen
@@ -20,16 +21,16 @@ func _on_fullscreen_toggled(button_pressed):
 func _on_borderless_toggled(button_pressed):
 	OS.window_borderless = button_pressed
 
-func _on_graphic_reset_pressed():
-	fullscreen.pressed = false
-	borderless.pressed = false
-	rewind.pressed = true
-	particle.pressed = true
-	DynamicBackground.pressed = true
-
 func _exit_tree():
 	ProjectSettings.set_setting('display/window/size/borderless', OS.window_borderless)
 	ProjectSettings.set_setting('display/window/size/fullscreen', OS.window_fullscreen)
 	config.dynamic_background = DynamicBackground.pressed
 	config.full_particle = particle.pressed
 	config.rewind = rewind.pressed
+
+func _on_reset_pressed():
+	fullscreen.pressed = false
+	borderless.pressed = false
+	rewind.set_pressed_no_signal(true)
+	particle.set_pressed_no_signal(true)
+	DynamicBackground.set_pressed_no_signal(true)

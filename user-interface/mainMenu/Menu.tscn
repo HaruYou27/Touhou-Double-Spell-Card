@@ -1,0 +1,728 @@
+[gd_scene load_steps=16 format=2]
+
+[ext_resource path="res://user-interface/mainMenu/Menu.gd" type="Script" id=1]
+[ext_resource path="res://user-interface/mainMenu/setting/Graphic.gd" type="Script" id=2]
+[ext_resource path="res://user-interface/mainMenu/setting/Gameplay.gd" type="Script" id=3]
+[ext_resource path="res://user-interface/mainMenu/main.gd" type="Script" id=4]
+[ext_resource path="res://user-interface/control-node/FormatLabel.gd" type="Script" id=5]
+[ext_resource path="res://user-interface/mainMenu/setting/Audio.gd" type="Script" id=6]
+[ext_resource path="res://user-interface/resource/Default.theme" type="Theme" id=7]
+[ext_resource path="res://user-interface/control-node/UberButton.gd" type="Script" id=8]
+[ext_resource path="res://user-interface/mainMenu/setting/Controls.gd" type="Script" id=9]
+[ext_resource path="res://user-interface/resource/escape.tres" type="ShortCut" id=10]
+[ext_resource path="res://user-interface/mainMenu/level.gd" type="Script" id=11]
+[ext_resource path="res://user-interface/fonts/stroked.res" type="DynamicFont" id=12]
+[ext_resource path="res://level/base/resource/score.theme" type="Theme" id=13]
+
+[sub_resource type="Theme" id=11]
+default_font = ExtResource( 12 )
+Button/colors/font_color = Color( 1, 1, 1, 1 )
+Button/colors/font_color_focus = Color( 0.0627451, 0.65098, 0.894118, 1 )
+Button/colors/font_color_hover = Color( 0.0627451, 0.65098, 0.894118, 1 )
+Button/colors/font_color_pressed = Color( 0.901961, 0.0862745, 0.0862745, 1 )
+CheckButton/colors/font_color_hover_pressed = Color( 1, 1, 1, 1 )
+CheckButton/colors/font_color_pressed = Color( 1, 1, 1, 1 )
+HBoxContainer/constants/separation = 0
+TabContainer/constants/side_margin = 0
+TabContainer/constants/top_margin = 0
+TabContainer/styles/panel = null
+TabContainer/styles/tab_bg = null
+TabContainer/styles/tab_fg = null
+VBoxContainer/constants/separation = 0
+
+[sub_resource type="GDScript" id=16]
+script/source = "extends HSlider
+class_name KeyboardHSlider
+
+var cursor_pos
+export (NodePath) var cursor
+
+export (NodePath) var label
+var template :String
+
+export (float) var duration := .15
+export (int) var cursor_offset_x := 40
+export (bool) var raw_value := false
+
+var percentage := 0.0
+onready var focus_color := get_color('font_color_focus', 'Button')
+
+func _ready():
+	label = get_node(label)
+	template = label.text
+	
+	if not raw_value:
+		percentage = 100 / max_value
+		get_percentage()
+	else:
+		label.text = template % value
+	
+	cursor = get_node(cursor)
+	cursor_pos = Vector2(rect_position.x - cursor_offset_x, rect_position.y + rect_size.y / 2)
+	
+	connect(\"focus_entered\", self, '_on_focus_entered')
+	connect(\"focus_exited\", label, \"remove_color_override\", ['font_color'])
+	connect(\"mouse_entered\", self, \"_on_mouse_entered\")
+	connect(\"mouse_exited\", label, 'remove_color_override', ['font_color'])
+	connect(\"value_changed\", self, '_on_value_changed')
+	
+func _on_mouse_entered():
+	grab_focus()
+	
+func get_percentage():
+	#In case min_value < 0
+	label.text = template % (value * percentage)
+	
+func _on_focus_entered():
+	label.add_color_override('font_color', focus_color)
+	create_tween().tween_property(cursor, 'position', cursor_pos, duration)
+
+func _on_value_changed(value):
+	if raw_value:
+		label.text = template % value
+		return
+	get_percentage()
+"
+
+[node name="menu" type="Node"]
+script = ExtResource( 1 )
+
+[node name="Camera2D" type="Camera2D" parent="."]
+anchor_mode = 0
+current = true
+
+[node name="Bgm" type="AudioStreamPlayer" parent="."]
+autoplay = true
+
+[node name="main" type="Control" parent="."]
+use_parent_material = true
+margin_right = 1920.0
+margin_bottom = 1080.0
+theme = SubResource( 11 )
+script = ExtResource( 4 )
+
+[node name="main" type="VBoxContainer" parent="main"]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 133.0
+margin_top = -955.0
+margin_right = 529.0
+margin_bottom = -565.0
+
+[node name="start" type="Button" parent="main/main"]
+margin_right = 396.0
+margin_bottom = 71.0
+focus_neighbour_left = NodePath("../quit")
+focus_neighbour_top = NodePath("../quit")
+focus_previous = NodePath("../quit")
+mouse_default_cursor_shape = 2
+text = "Select level"
+align = 0
+script = ExtResource( 8 )
+
+[node name="help" type="Button" parent="main/main"]
+margin_top = 71.0
+margin_right = 396.0
+margin_bottom = 142.0
+focus_neighbour_right = NodePath("../settings")
+focus_neighbour_bottom = NodePath("../settings")
+focus_next = NodePath("../settings")
+mouse_default_cursor_shape = 16
+text = "Tutorial"
+align = 0
+script = ExtResource( 8 )
+
+[node name="settings" type="Button" parent="main/main"]
+margin_top = 142.0
+margin_right = 396.0
+margin_bottom = 213.0
+focus_neighbour_left = NodePath("../help")
+focus_neighbour_top = NodePath("../help")
+focus_neighbour_right = NodePath("../credit")
+focus_neighbour_bottom = NodePath("../credit")
+focus_next = NodePath("../credit")
+focus_previous = NodePath("../help")
+mouse_default_cursor_shape = 2
+text = "Settings"
+align = 0
+script = ExtResource( 8 )
+
+[node name="credit" type="Button" parent="main/main"]
+margin_top = 213.0
+margin_right = 396.0
+margin_bottom = 284.0
+focus_neighbour_left = NodePath("../settings")
+focus_neighbour_top = NodePath("../settings")
+focus_neighbour_right = NodePath("../quit")
+focus_neighbour_bottom = NodePath("../quit")
+focus_next = NodePath("../quit")
+focus_previous = NodePath("../settings")
+mouse_default_cursor_shape = 16
+text = "Credits"
+align = 0
+script = ExtResource( 8 )
+
+[node name="quit" type="Button" parent="main/main"]
+margin_top = 284.0
+margin_right = 396.0
+margin_bottom = 355.0
+focus_neighbour_left = NodePath("../credit")
+focus_neighbour_top = NodePath("../credit")
+focus_neighbour_right = NodePath("../start")
+focus_neighbour_bottom = NodePath("../start")
+focus_next = NodePath("../start")
+focus_previous = NodePath("../credit")
+mouse_default_cursor_shape = 2
+text = "Quit"
+align = 0
+script = ExtResource( 8 )
+
+[node name="setting" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -1920.0
+margin_right = -1920.0
+theme = ExtResource( 7 )
+
+[node name="TabContainer" type="TabContainer" parent="setting"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 130.0
+margin_top = 211.0
+margin_right = -965.0
+margin_bottom = -458.0
+tab_align = 0
+
+[node name="Graphic" type="VBoxContainer" parent="setting/TabContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 67.0
+margin_right = -4.0
+margin_bottom = -4.0
+script = ExtResource( 2 )
+
+[node name="fullscreen" type="CheckButton" parent="setting/TabContainer/Graphic"]
+margin_right = 817.0
+margin_bottom = 57.0
+focus_neighbour_left = NodePath("../reset")
+focus_neighbour_top = NodePath("../reset")
+focus_neighbour_right = NodePath("../borderless")
+focus_neighbour_bottom = NodePath("../borderless")
+focus_next = NodePath("../borderless")
+focus_previous = NodePath("../reset")
+mouse_default_cursor_shape = 2
+text = "Full Screen"
+script = ExtResource( 8 )
+
+[node name="borderless" type="CheckButton" parent="setting/TabContainer/Graphic"]
+margin_top = 57.0
+margin_right = 817.0
+margin_bottom = 114.0
+focus_neighbour_left = NodePath("../fullscreen")
+focus_neighbour_top = NodePath("../fullscreen")
+focus_neighbour_right = NodePath("../rewind")
+focus_neighbour_bottom = NodePath("../rewind")
+focus_next = NodePath("../rewind")
+focus_previous = NodePath("../fullscreen")
+mouse_default_cursor_shape = 2
+text = "Borderless"
+flat = true
+script = ExtResource( 8 )
+
+[node name="rewind" type="CheckButton" parent="setting/TabContainer/Graphic"]
+margin_top = 114.0
+margin_right = 817.0
+margin_bottom = 171.0
+focus_neighbour_left = NodePath("../borderless")
+focus_neighbour_top = NodePath("../borderless")
+focus_neighbour_right = NodePath("../DynamicBackground")
+focus_neighbour_bottom = NodePath("../DynamicBackground")
+focus_next = NodePath("../DynamicBackground")
+focus_previous = NodePath("../borderless")
+mouse_default_cursor_shape = 2
+text = "Rewind effect on death"
+flat = true
+script = ExtResource( 8 )
+
+[node name="DynamicBackground" type="CheckButton" parent="setting/TabContainer/Graphic"]
+margin_top = 171.0
+margin_right = 817.0
+margin_bottom = 228.0
+focus_neighbour_left = NodePath("../rewind")
+focus_neighbour_top = NodePath("../rewind")
+focus_neighbour_right = NodePath("../particle")
+focus_neighbour_bottom = NodePath("../particle")
+focus_next = NodePath("../particle")
+focus_previous = NodePath("../rewind")
+mouse_default_cursor_shape = 2
+text = "Dynamic background"
+flat = true
+script = ExtResource( 8 )
+
+[node name="particle" type="CheckButton" parent="setting/TabContainer/Graphic"]
+margin_top = 228.0
+margin_right = 817.0
+margin_bottom = 285.0
+focus_neighbour_left = NodePath("../DynamicBackground")
+focus_neighbour_top = NodePath("../DynamicBackground")
+focus_neighbour_right = NodePath("../reset")
+focus_neighbour_bottom = NodePath("../reset")
+focus_next = NodePath("../reset")
+focus_previous = NodePath("../DynamicBackground")
+mouse_default_cursor_shape = 2
+text = "Full particles effect"
+flat = true
+script = ExtResource( 8 )
+
+[node name="reset" type="Button" parent="setting/TabContainer/Graphic"]
+margin_left = 685.0
+margin_top = 285.0
+margin_right = 817.0
+margin_bottom = 340.0
+focus_neighbour_left = NodePath("../particle")
+focus_neighbour_top = NodePath("../particle")
+focus_neighbour_right = NodePath("../fullscreen")
+focus_neighbour_bottom = NodePath("../fullscreen")
+focus_next = NodePath("../fullscreen")
+focus_previous = NodePath("../particle")
+size_flags_horizontal = 8
+size_flags_vertical = 0
+text = "Reset"
+flat = true
+align = 2
+script = ExtResource( 8 )
+
+[node name="Controls" type="VBoxContainer" parent="setting/TabContainer"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 67.0
+margin_right = -4.0
+margin_bottom = -4.0
+script = ExtResource( 9 )
+
+[node name="drag" type="Button" parent="setting/TabContainer/Controls"]
+margin_right = 809.0
+margin_bottom = 55.0
+focus_neighbour_right = NodePath("../reset")
+focus_neighbour_bottom = NodePath("../reset")
+focus_next = NodePath("../reset")
+mouse_default_cursor_shape = 2
+text = "Drag:          %s"
+flat = true
+align = 0
+script = ExtResource( 8 )
+
+[node name="bomb" type="Button" parent="setting/TabContainer/Controls"]
+margin_top = 55.0
+margin_right = 809.0
+margin_bottom = 110.0
+focus_neighbour_right = NodePath("../reset")
+focus_neighbour_bottom = NodePath("../reset")
+focus_next = NodePath("../reset")
+mouse_default_cursor_shape = 2
+text = "Bomb:          %s"
+flat = true
+align = 0
+script = ExtResource( 8 )
+
+[node name="raw" type="CheckButton" parent="setting/TabContainer/Controls"]
+margin_top = 110.0
+margin_right = 809.0
+margin_bottom = 167.0
+size_flags_horizontal = 3
+text = "Raw Input"
+flat = true
+script = ExtResource( 8 )
+
+[node name="SentivityLabel" type="Label" parent="setting/TabContainer/Controls"]
+margin_top = 167.0
+margin_right = 809.0
+margin_bottom = 216.0
+text = "Input sentivity : %1.1f"
+align = 1
+script = ExtResource( 5 )
+
+[node name="sentivity" type="HSlider" parent="setting/TabContainer/Controls"]
+margin_top = 216.0
+margin_right = 809.0
+margin_bottom = 232.0
+min_value = 0.1
+max_value = 2.0
+step = 0.1
+value = 2.0
+allow_greater = true
+
+[node name="reset" type="Button" parent="setting/TabContainer/Controls"]
+margin_left = 677.0
+margin_top = 232.0
+margin_right = 809.0
+margin_bottom = 287.0
+focus_neighbour_left = NodePath("../bomb")
+focus_neighbour_top = NodePath("../bomb")
+focus_previous = NodePath("../bomb")
+size_flags_horizontal = 8
+text = "Reset"
+flat = true
+align = 2
+script = ExtResource( 8 )
+
+[node name="Audio" type="VBoxContainer" parent="setting/TabContainer"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 67.0
+margin_right = -4.0
+margin_bottom = -4.0
+script = ExtResource( 6 )
+
+[node name="BgmLabel" type="Label" parent="setting/TabContainer/Audio"]
+margin_right = 809.0
+margin_bottom = 49.0
+text = "Music: %d %%"
+align = 1
+script = ExtResource( 5 )
+
+[node name="bgm" type="HSlider" parent="setting/TabContainer/Audio"]
+margin_top = 49.0
+margin_right = 809.0
+margin_bottom = 65.0
+focus_neighbour_left = NodePath("../reset")
+focus_neighbour_top = NodePath("../reset")
+focus_neighbour_right = NodePath("../muteBGM")
+focus_neighbour_bottom = NodePath("../muteBGM")
+focus_next = NodePath("../muteBGM")
+focus_previous = NodePath("../reset")
+size_flags_vertical = 1
+min_value = -60.0
+max_value = 30.0
+step = 0.6
+value = -60.0
+allow_lesser = true
+tick_count = 8
+
+[node name="muteBGM" type="CheckButton" parent="setting/TabContainer/Audio"]
+margin_left = 633.0
+margin_top = 65.0
+margin_right = 809.0
+margin_bottom = 122.0
+focus_neighbour_left = NodePath("../bgm")
+focus_neighbour_top = NodePath("../bgm")
+focus_neighbour_right = NodePath("../sfx")
+focus_neighbour_bottom = NodePath("../sfx")
+focus_next = NodePath("../sfx")
+focus_previous = NodePath("../bgm")
+size_flags_horizontal = 8
+text = "Mute"
+script = ExtResource( 8 )
+
+[node name="SfxLabel" type="Label" parent="setting/TabContainer/Audio"]
+margin_top = 122.0
+margin_right = 809.0
+margin_bottom = 171.0
+focus_neighbour_left = NodePath("../bgm")
+focus_neighbour_top = NodePath("../bgm")
+focus_neighbour_right = NodePath("../muteSFX")
+focus_neighbour_bottom = NodePath("../muteSFX")
+focus_next = NodePath("../muteSFX")
+focus_previous = NodePath("../bgm")
+text = "Sound Effect: %d %%"
+align = 1
+script = ExtResource( 5 )
+
+[node name="sfx" type="HSlider" parent="setting/TabContainer/Audio"]
+margin_top = 171.0
+margin_right = 809.0
+margin_bottom = 187.0
+focus_neighbour_left = NodePath("../muteBGM")
+focus_neighbour_top = NodePath("../muteBGM")
+focus_neighbour_right = NodePath("../muteSFX")
+focus_neighbour_bottom = NodePath("../muteSFX")
+focus_next = NodePath("../muteSFX")
+focus_previous = NodePath("../muteBGM")
+size_flags_horizontal = 3
+size_flags_vertical = 1
+min_value = -60.0
+max_value = 30.0
+step = 0.6
+value = -60.0
+allow_lesser = true
+tick_count = 8
+
+[node name="muteSFX" type="CheckButton" parent="setting/TabContainer/Audio"]
+margin_left = 633.0
+margin_top = 187.0
+margin_right = 809.0
+margin_bottom = 244.0
+focus_neighbour_left = NodePath("../sfx")
+focus_neighbour_top = NodePath("../sfx")
+focus_neighbour_right = NodePath("../reset")
+focus_neighbour_bottom = NodePath("../reset")
+focus_next = NodePath("../reset")
+focus_previous = NodePath("../sfx")
+size_flags_horizontal = 8
+text = "Mute"
+script = ExtResource( 8 )
+
+[node name="reset" type="Button" parent="setting/TabContainer/Audio"]
+margin_left = 677.0
+margin_top = 244.0
+margin_right = 809.0
+margin_bottom = 299.0
+focus_neighbour_left = NodePath("../muteSFX")
+focus_neighbour_top = NodePath("../muteSFX")
+focus_neighbour_right = NodePath("../bgm")
+focus_neighbour_bottom = NodePath("../bgm")
+focus_next = NodePath("../bgm")
+focus_previous = NodePath("../muteSFX")
+size_flags_horizontal = 8
+text = "Reset"
+flat = true
+align = 2
+script = ExtResource( 8 )
+
+[node name="Gameplay" type="VBoxContainer" parent="setting/TabContainer"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 67.0
+margin_right = -4.0
+margin_bottom = -4.0
+script = ExtResource( 3 )
+
+[node name="deathAssist" type="CheckButton" parent="setting/TabContainer/Gameplay"]
+margin_right = 809.0
+margin_bottom = 57.0
+focus_neighbour_left = NodePath("../reset")
+focus_neighbour_top = NodePath("../reset")
+focus_neighbour_right = NodePath("../cheat")
+focus_neighbour_bottom = NodePath("../cheat")
+focus_next = NodePath("../cheat")
+focus_previous = NodePath("../reset")
+text = "Death Assist"
+script = ExtResource( 8 )
+
+[node name="cheat" type="CheckButton" parent="setting/TabContainer/Gameplay"]
+margin_top = 57.0
+margin_right = 809.0
+margin_bottom = 114.0
+focus_neighbour_left = NodePath("../deathAssist")
+focus_neighbour_top = NodePath("../deathAssist")
+focus_neighbour_right = NodePath("../speed")
+focus_neighbour_bottom = NodePath("../speed")
+focus_next = NodePath("../speed")
+focus_previous = NodePath("../deathAssist")
+text = "Assist mode"
+script = ExtResource( 8 )
+
+[node name="Label" type="Label" parent="setting/TabContainer/Gameplay"]
+margin_top = 114.0
+margin_right = 809.0
+margin_bottom = 163.0
+text = "Game speed %d %%"
+align = 1
+
+[node name="speed" type="HSlider" parent="setting/TabContainer/Gameplay"]
+margin_top = 163.0
+margin_right = 809.0
+margin_bottom = 179.0
+focus_neighbour_left = NodePath("../cheat")
+focus_neighbour_top = NodePath("../cheat")
+focus_neighbour_right = NodePath("../duration")
+focus_neighbour_bottom = NodePath("../duration")
+focus_next = NodePath("../duration")
+focus_previous = NodePath("../cheat")
+min_value = 0.5
+max_value = 1.0
+step = 0.05
+value = 1.0
+allow_lesser = true
+editable = false
+script = SubResource( 16 )
+label = NodePath("../Label")
+
+[node name="Label2" type="Label" parent="setting/TabContainer/Gameplay"]
+margin_top = 179.0
+margin_right = 809.0
+margin_bottom = 228.0
+text = "Deathbomb duration %1.2f s"
+align = 1
+
+[node name="duration" type="HSlider" parent="setting/TabContainer/Gameplay"]
+margin_top = 228.0
+margin_right = 809.0
+margin_bottom = 244.0
+focus_neighbour_left = NodePath("../speed")
+focus_neighbour_top = NodePath("../speed")
+focus_neighbour_right = NodePath("../bomb")
+focus_neighbour_bottom = NodePath("../bomb")
+focus_next = NodePath("../bomb")
+focus_previous = NodePath("../speed")
+min_value = 0.3
+max_value = 1.0
+step = 0.05
+value = 1.0
+allow_greater = true
+editable = false
+script = SubResource( 16 )
+label = NodePath("../Label2")
+raw_value = true
+
+[node name="bomb" type="CheckButton" parent="setting/TabContainer/Gameplay"]
+margin_top = 244.0
+margin_right = 809.0
+margin_bottom = 301.0
+focus_neighbour_left = NodePath("../duration")
+focus_neighbour_top = NodePath("../duration")
+focus_neighbour_right = NodePath("../invicible")
+focus_neighbour_bottom = NodePath("../invicible")
+focus_next = NodePath("../invicible")
+focus_previous = NodePath("../duration")
+text = "Infinity bomb"
+script = ExtResource( 8 )
+
+[node name="invicible" type="CheckButton" parent="setting/TabContainer/Gameplay"]
+margin_top = 301.0
+margin_right = 809.0
+margin_bottom = 358.0
+focus_neighbour_left = NodePath("../bomb")
+focus_neighbour_top = NodePath("../bomb")
+focus_neighbour_right = NodePath("../reset")
+focus_neighbour_bottom = NodePath("../reset")
+focus_next = NodePath("../reset")
+focus_previous = NodePath("../bomb")
+text = "Invicible"
+script = ExtResource( 8 )
+
+[node name="reset" type="Button" parent="setting/TabContainer/Gameplay"]
+margin_left = 677.0
+margin_top = 358.0
+margin_right = 809.0
+margin_bottom = 413.0
+focus_neighbour_left = NodePath("../invicible")
+focus_neighbour_top = NodePath("../invicible")
+focus_neighbour_right = NodePath("../deathAssist")
+focus_neighbour_bottom = NodePath("../deathAssist")
+focus_next = NodePath("../deathAssist")
+focus_previous = NodePath("../invicible")
+size_flags_horizontal = 8
+text = "Reset"
+align = 2
+script = ExtResource( 8 )
+
+[node name="back" type="Button" parent="setting"]
+margin_left = 1695.0
+margin_top = 40.0
+margin_right = 1839.0
+margin_bottom = 89.0
+shortcut = ExtResource( 10 )
+text = "Back >"
+script = ExtResource( 8 )
+
+[node name="level" type="Control" parent="."]
+margin_left = 1920.0
+margin_right = 3840.0
+margin_bottom = 1080.0
+script = ExtResource( 11 )
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="level"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="list" type="VBoxContainer" parent="level/HBoxContainer2"]
+margin_bottom = 1080.0
+
+[node name="preview" type="TextureRect" parent="level/HBoxContainer2"]
+margin_left = 4.0
+margin_right = 4.0
+margin_bottom = 1080.0
+
+[node name="score" type="VBoxContainer" parent="level/HBoxContainer2"]
+margin_left = 8.0
+margin_right = 632.0
+margin_bottom = 1080.0
+theme = ExtResource( 13 )
+
+[node name="title" type="Label" parent="level/HBoxContainer2/score"]
+margin_right = 624.0
+margin_bottom = 49.0
+text = "Test level"
+script = ExtResource( 5 )
+
+[node name="HiScore" type="Label" parent="level/HBoxContainer2/score"]
+margin_top = 53.0
+margin_right = 624.0
+margin_bottom = 102.0
+size_flags_vertical = 5
+text = "Score:	%010d"
+script = ExtResource( 5 )
+
+[node name="Graze" type="Label" parent="level/HBoxContainer2/score"]
+margin_top = 106.0
+margin_right = 624.0
+margin_bottom = 155.0
+size_flags_vertical = 5
+text = "Graze:	%06d"
+script = ExtResource( 5 )
+
+[node name="item" type="Label" parent="level/HBoxContainer2/score"]
+margin_top = 159.0
+margin_right = 624.0
+margin_bottom = 208.0
+size_flags_horizontal = 3
+size_flags_vertical = 5
+text = "Point:	%06d"
+valign = 1
+script = ExtResource( 5 )
+
+[node name="retry" type="Label" parent="level/HBoxContainer2/score"]
+margin_top = 212.0
+margin_right = 624.0
+margin_bottom = 261.0
+text = "Retry count : %d"
+script = ExtResource( 5 )
+
+[node name="bomb" type="Label" parent="level/HBoxContainer2/score"]
+margin_top = 265.0
+margin_right = 624.0
+margin_bottom = 314.0
+text = "Bomb : %d"
+script = ExtResource( 5 )
+
+[node name="duration" type="Label" parent="level/HBoxContainer2/score"]
+margin_top = 318.0
+margin_right = 624.0
+margin_bottom = 367.0
+text = "Deathbomb duration %1.2f s"
+script = ExtResource( 5 )
+
+[node name="speed" type="Label" parent="level/HBoxContainer2/score"]
+margin_top = 371.0
+margin_right = 624.0
+margin_bottom = 420.0
+text = "Game speed %d %%"
+script = ExtResource( 5 )
+
+[connection signal="pressed" from="main/main/start" to="main" method="_on_start_pressed"]
+[connection signal="pressed" from="main/main/help" to="main" method="_on_help_pressed"]
+[connection signal="pressed" from="main/main/settings" to="." method="_on_settings_pressed"]
+[connection signal="pressed" from="main/main/quit" to="main" method="_on_quit_pressed"]
+[connection signal="toggled" from="setting/TabContainer/Graphic/fullscreen" to="setting/TabContainer/Graphic" method="_on_fullscreen_toggled"]
+[connection signal="toggled" from="setting/TabContainer/Graphic/borderless" to="setting/TabContainer/Graphic" method="_on_borderless_toggled"]
+[connection signal="pressed" from="setting/TabContainer/Graphic/reset" to="setting/TabContainer/Graphic" method="_on_reset_pressed"]
+[connection signal="pressed" from="setting/TabContainer/Controls/drag" to="setting/TabContainer/Controls" method="_on_drag_pressed"]
+[connection signal="pressed" from="setting/TabContainer/Controls/bomb" to="setting/TabContainer/Controls" method="_on_bomb_pressed"]
+[connection signal="value_changed" from="setting/TabContainer/Controls/sentivity" to="setting/TabContainer/Controls" method="_on_sentivity_value_changed"]
+[connection signal="pressed" from="setting/TabContainer/Controls/reset" to="setting/TabContainer/Controls" method="_on_controls_reset_pressed"]
+[connection signal="value_changed" from="setting/TabContainer/Audio/bgm" to="setting/TabContainer/Audio" method="_on_bgm_value_changed"]
+[connection signal="toggled" from="setting/TabContainer/Audio/muteBGM" to="setting/TabContainer/Audio" method="_on_muteBGM_toggled"]
+[connection signal="value_changed" from="setting/TabContainer/Audio/sfx" to="setting/TabContainer/Audio" method="_on_sfx_value_changed"]
+[connection signal="toggled" from="setting/TabContainer/Audio/muteSFX" to="setting/TabContainer/Audio" method="_on_muteSFX_toggled"]
+[connection signal="pressed" from="setting/TabContainer/Audio/reset" to="setting/TabContainer/Audio" method="_on_audio_reset_pressed"]
+[connection signal="toggled" from="setting/TabContainer/Gameplay/cheat" to="setting/TabContainer/Gameplay" method="_on_cheat_toggled"]
+[connection signal="pressed" from="setting/TabContainer/Gameplay/reset" to="setting/TabContainer/Gameplay" method="_on_reset_pressed"]
+[connection signal="pressed" from="setting/back" to="." method="_on_back_pressed"]

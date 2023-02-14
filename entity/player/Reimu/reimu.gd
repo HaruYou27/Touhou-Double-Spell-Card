@@ -1,6 +1,8 @@
 extends StaticBody2D
 class_name Player
 
+signal dying
+
 onready var hitFx : Sprite = $hitFx
 onready var hitSFX : AudioStreamPlayer = $hitFx/hitSfx
 
@@ -14,14 +16,11 @@ onready var death_tween :Tween = $hitFx/Tween
 onready var tree := get_tree()
 onready var user_setting :UserSetting = Global.user_setting
 
-var input :Node
-var bomb_count := 1
-
 onready var sentivity := user_setting.sentivity
 var moving := false
 
-export (PackedScene) var bomb_scene
-export (int) var bomb_impact_times := 4
+const bomb_impact_times := 4
+var bomb_count := 1
 
 func _set_bomb_count():
 	bomb_count += 1
@@ -60,7 +59,8 @@ func _hit():
 	if tree.paused:
 		return
 	
-	input.pause()
+	set_process_unhandled_input(false)
+	emit_signal("dying")
 	Global.level.screenfx.flash_red()
 	
 	add_child(hitFx)
@@ -81,6 +81,7 @@ func bomb():
 		bomb_count -= 1
 		Global.level.hud.update_bomb()
 		
+	Global.level.screenfx.hide()
 	death_tween.stop_all()
 	death_tween.reset_all()
 	remove_child(hitFx)
@@ -90,10 +91,11 @@ func bomb():
 	modulate = Color(1.0, 1.0, 1.0, .5)
 	tree.call_group('player_bullet', 'stop')
 	
-	var bomb_node :Node = bomb_scene.instance()
+	var bomb_node = preload("res://entity/player/Reimu/FantasySeal.cs").new()
 	add_child(bomb_node)
 
 	tree.paused = false
+	set_process_unhandled_input(true)
 	
 func _bomb_finished():
 	collision_layer = 4

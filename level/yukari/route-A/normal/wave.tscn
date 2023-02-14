@@ -1,0 +1,74 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://entity/Bullet/BulletBasic.cs" type="Script" id=1]
+[ext_resource path="res://entity/Bullet/textures/ofuda.png" type="Texture" id=2]
+[ext_resource path="res://entity/Bullet/material/blue.material" type="Material" id=3]
+
+[node name="bullet2" type="Node2D"]
+material = ExtResource( 3 )
+position = Vector2( 309, 207 )
+script = ExtResource( 1 )
+texture = ExtResource( 2 )
+maxBullet = 727
+speed = 272.0
+localRotation = false
+material = ExtResource( 3 )
+zIndex = 100
+
+[node name="Position2D" type="Position2D" parent="."]
+position = Vector2( 66.2722, 0 )
+__meta__ = {
+"_gizmo_extents_": 20.0
+}
+
+[node name="Position2D2" type="Position2D" parent="."]
+position = Vector2( 61.2275, 25.3613 )
+rotation = 0.392699
+__meta__ = {
+"_gizmo_extents_": 20.0
+}
+
+[node name="Position2D3" type="Position2D" parent="."]
+position = Vector2( 46.8615, 46.8615 )
+rotation = 0.785398
+scale = Vector2( 1, 1 )
+__meta__ = {
+"_gizmo_extents_": 20.0
+}
+
+[node name="Position2D4" type="Position2D" parent="."]
+position = Vector2( 25.3613, 61.2275 )
+rotation = 1.1781
+scale = Vector2( 1, 1 )
+__meta__ = {
+"_gizmo_extents_": 20.0
+}
+
+[node name="Position2D5" type="Position2D" parent="."]
+position = Vector2( -2.89685e-06, 66.2722 )
+rotation = 1.5708
+__meta__ = {
+"_gizmo_extents_": 20.0
+}
+
+[node name="Position2D6" type="Position2D" parent="."]
+position = Vector2( -25.3613, 61.2275 )
+rotation = 1.9635
+__meta__ = {
+"_gizmo_extents_": 20.0
+}
+
+[node name="Position2D7" type="Position2D" parent="."]
+position = Vector2( -46.8615, 46.8615 )
+rotation = 2.35619
+scale = Vector2( 1, 1 )
+__meta__ = {
+"_gizmo_extents_": 20.0
+}
+
+[node name="Position2D8" type="Position2D" parent="."]
+position = Vector2( -61.2275, 25.3613 )
+rotation = 2.74889
+__meta__ = {
+"_gizmo_extents_": 20.0
+}

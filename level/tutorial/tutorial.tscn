@@ -1,0 +1,113 @@
+[gd_scene load_steps=22 format=2]
+
+[ext_resource path="res://level/yukari/base/yukari-gap.material" type="Material" id=2]
+[ext_resource path="res://user-interface/mainMenu/Menu.tscn" type="PackedScene" id=3]
+[ext_resource path="res://level/tutorial/Move.gd" type="Script" id=4]
+[ext_resource path="res://level/yukari/base/yukari.tscn" type="PackedScene" id=5]
+[ext_resource path="res://level/tutorial/bomb.gd" type="Script" id=6]
+[ext_resource path="res://level/base/leveler.tscn" type="PackedScene" id=7]
+[ext_resource path="res://entity/player/Reimu/reimu.tscn" type="PackedScene" id=8]
+[ext_resource path="res://tool/shader-baker/shader/noise-overlay-3.gdshader" type="Shader" id=9]
+
+[sub_resource type="Gradient" id=4]
+offsets = PoolRealArray( 0.103175, 1 )
+colors = PoolColorArray( 0, 0, 0, 1, 0.0866852, 0, 0.179688, 1 )
+
+[sub_resource type="GradientTexture" id=5]
+gradient = SubResource( 4 )
+width = 16
+
+[sub_resource type="Gradient" id=8]
+offsets = PoolRealArray( 0.595238, 1 )
+colors = PoolColorArray( 0, 0, 0, 0, 1, 0, 0, 1 )
+
+[sub_resource type="GradientTexture" id=9]
+gradient = SubResource( 8 )
+width = 16
+
+[sub_resource type="Gradient" id=12]
+offsets = PoolRealArray( 0.611111, 1 )
+colors = PoolColorArray( 0, 0, 0, 0, 1, 1, 1, 1 )
+
+[sub_resource type="GradientTexture" id=13]
+gradient = SubResource( 12 )
+width = 16
+
+[sub_resource type="OpenSimplexNoise" id=1]
+seed = 727
+octaves = 1
+period = 77.6
+
+[sub_resource type="NoiseTexture" id=2]
+width = 646
+height = 904
+seamless = true
+noise = SubResource( 1 )
+
+[sub_resource type="OpenSimplexNoise" id=6]
+seed = 727
+octaves = 4
+persistence = 0.433
+lacunarity = 2.52
+
+[sub_resource type="NoiseTexture" id=7]
+width = 646
+height = 904
+seamless = true
+noise = SubResource( 6 )
+
+[sub_resource type="OpenSimplexNoise" id=10]
+seed = 727
+octaves = 4
+persistence = 1.0
+lacunarity = 4.0
+
+[sub_resource type="NoiseTexture" id=11]
+width = 646
+height = 904
+seamless = true
+noise = SubResource( 10 )
+
+[sub_resource type="ShaderMaterial" id=3]
+shader = ExtResource( 9 )
+shader_param/velocity = Vector2( 0, -0.1 )
+shader_param/noise_background = SubResource( 2 )
+shader_param/color_background = SubResource( 5 )
+shader_param/noise_nebula = SubResource( 7 )
+shader_param/color_nebula = SubResource( 9 )
+shader_param/noise_stars = SubResource( 11 )
+shader_param/color_stars = SubResource( 13 )
+
+[node name="tutorial" type="Node2D"]
+
+[node name="level" parent="." instance=ExtResource( 7 )]
+level = NodePath("background/reimu/move")
+next_scene = ExtResource( 3 )
+
+[node name="background" type="ColorRect" parent="level"]
+material = ExtResource( 2 )
+margin_left = 2.0
+margin_right = 648.0
+margin_bottom = 904.0
+
+[node name="reimu" parent="level/background" instance=ExtResource( 8 )]
+position = Vector2( 332, 817 )
+
+[node name="move" type="Node2D" parent="level/background/reimu"]
+material = SubResource( 3 )
+script = ExtResource( 4 )
+
+[node name="Timer" type="Timer" parent="level/background/reimu/move"]
+wait_time = 3.0
+one_shot = true
+
+[node name="yukari" parent="level/background" instance=ExtResource( 5 )]
+position = Vector2( -178, -102 )
+duration = 547.0
+
+[node name="item" type="Node" parent="."]
+
+[node name="bomb" type="Node" parent="."]
+script = ExtResource( 6 )
+
+[connection signal="timeout" from="level/background/reimu/move/Timer" to="level/background/reimu/move" method="_on_Timer_timeout"]

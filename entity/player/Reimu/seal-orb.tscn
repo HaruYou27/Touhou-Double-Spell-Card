@@ -1,0 +1,88 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://entity/utility/Particle.gd" type="Script" id=1]
+[ext_resource path="res://entity/enemy/phantom/fire_particle.png" type="Texture" id=2]
+
+[sub_resource type="CanvasItemMaterial" id=2]
+blend_mode = 1
+
+[sub_resource type="ParticlesMaterial" id=25]
+emission_shape = 1
+emission_sphere_radius = 8.0
+flag_disable_z = true
+direction = Vector3( 0, 0, 0 )
+spread = 180.0
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 727.0
+angular_velocity = 227.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+
+[sub_resource type="Gradient" id=3]
+offsets = PoolRealArray( 0, 0.356522, 0.66087, 0.982609 )
+colors = PoolColorArray( 1, 0, 0, 1, 0, 1, 0.015625, 1, 0, 0.015625, 1, 1, 1, 0, 0, 1 )
+
+[sub_resource type="GradientTexture" id=4]
+gradient = SubResource( 3 )
+
+[sub_resource type="ParticlesMaterial" id=5]
+emission_shape = 1
+emission_sphere_radius = 8.0
+flag_disable_z = true
+direction = Vector3( 0, 0, 0 )
+gravity = Vector3( 0, 0, 0 )
+angular_velocity = 227.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+radial_accel = 10.0
+scale = 2.0
+scale_random = 0.3
+color_ramp = SubResource( 4 )
+
+[sub_resource type="ParticlesMaterial" id=6]
+emission_shape = 1
+emission_sphere_radius = 8.0
+flag_disable_z = true
+direction = Vector3( 0, 0, 0 )
+gravity = Vector3( 0, 0, 0 )
+angular_velocity = 720.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+linear_accel = 50.0
+linear_accel_random = 1.0
+damping = 2.0
+scale = 0.5
+scale_random = 0.3
+
+[node name="seal" type="Particles2D"]
+material = SubResource( 2 )
+position = Vector2( 1, 0 )
+emitting = false
+amount = 32
+lifetime = 2.0
+one_shot = true
+preprocess = 0.1
+explosiveness = 1.0
+randomness = 1.0
+process_material = SubResource( 25 )
+texture = ExtResource( 2 )
+script = ExtResource( 1 )
+
+[node name="orb" type="Particles2D" parent="."]
+material = SubResource( 2 )
+amount = 16
+preprocess = 0.1
+process_material = SubResource( 5 )
+texture = ExtResource( 2 )
+script = ExtResource( 1 )
+
+[node name="trail" type="Particles2D" parent="."]
+material = SubResource( 2 )
+position = Vector2( 0, -1 )
+amount = 32
+lifetime = 0.5
+preprocess = 0.1
+local_coords = false
+process_material = SubResource( 6 )
+texture = ExtResource( 2 )
+script = ExtResource( 1 )

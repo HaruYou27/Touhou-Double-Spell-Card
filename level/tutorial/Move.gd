@@ -1,13 +1,18 @@
 extends Node2D
 
+onready var timer := $Timer
+onready var init_pos := global_position
+
 func _ready():
 	get_tree().call_group('player_bullet', 'stop')
-	set_notify_transform(true)
+	
+func start():
+	timer.start()
 
 func _notification(what):
-	if what == CanvasItem.NOTIFICATION_TRANSFORM_CHANGED:
-		Global.emit_signal("next_level")
-		$Timer.queue_free()
+	if what == CanvasItem.NOTIFICATION_TRANSFORM_CHANGED and init_pos != global_position:
+		Global.level.next_level()
+		timer.queue_free()
 
 func _on_Timer_timeout():
 	Global.level.add_child(Dialogic.start('/tutorial/move'))
