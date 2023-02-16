@@ -90,11 +90,6 @@ _global_script_classes=[ {
 "path": "res://addons/dialogic/Example Assets/History/HistoryRow.gd"
 }, {
 "base": "Resource",
-"class": "KeyBind",
-"language": "GDScript",
-"path": "res://autoload/key-bind.gd"
-}, {
-"base": "Resource",
 "class": "LevelHeader",
 "language": "GDScript",
 "path": "res://autoload/LevelHeader.gd"
@@ -117,7 +112,7 @@ _global_script_classes=[ {
 "base": "StaticBody2D",
 "class": "Player",
 "language": "GDScript",
-"path": "res://entity/player/Reimu/reimu.gd"
+"path": "res://entity/player/reimu.gd"
 }, {
 "base": "Resource",
 "class": "Score",
@@ -161,7 +156,6 @@ _global_script_class_icons={
 "FormatLabel": "",
 "HUD": "",
 "HistoryRow": "",
-"KeyBind": "",
 "LevelHeader": "",
 "Leveler": "",
 "LockedNode2D": "",

@@ -8,7 +8,7 @@ onready var item :FormatLabel = $HBoxContainer2/score/Point
 onready var speed :FormatLabel = $HBoxContainer2/score/speed
 onready var death_duration :FormatLabel = $HBoxContainer2/score/duration
 
-var levels := []
+export (Reso)var levels := []
 
 func _ready():
 	var i := 0

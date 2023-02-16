@@ -1,16 +1,16 @@
 [gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://entity/Bullet/BulletBasic.cs" type="Script" id=1]
-[ext_resource path="res://entity/player/Reimu/reimu.gd" type="Script" id=2]
+[ext_resource path="res://entity/player/reimu.gd" type="Script" id=2]
 [ext_resource path="res://entity/Bullet/Seeker.cs" type="Script" id=3]
-[ext_resource path="res://entity/player/focus.png" type="Texture" id=4]
+[ext_resource path="res://entity/player/texture/focus.png" type="Texture" id=4]
 [ext_resource path="res://shader/item/time-rotate.gdshader" type="Shader" id=5]
 [ext_resource path="res://entity/Bullet/textures/ofuda.png" type="Texture" id=6]
-[ext_resource path="res://entity/player/Reimu/reimu.png" type="Texture" id=7]
-[ext_resource path="res://entity/player/Reimu/ofuda-tail.png" type="Texture" id=8]
-[ext_resource path="res://entity/player/Reimu/orb.gd" type="Script" id=9]
+[ext_resource path="res://entity/player/texture/reimu.png" type="Texture" id=7]
+[ext_resource path="res://entity/player/texture/ofuda-tail.png" type="Texture" id=8]
+[ext_resource path="res://entity/player/orb.gd" type="Script" id=9]
 [ext_resource path="res://shader/item/hsv-adjust.gdshader" type="Shader" id=11]
-[ext_resource path="res://entity/player/Reimu/yinyangOrb.png" type="Texture" id=12]
+[ext_resource path="res://entity/player/texture/yinyangOrb.png" type="Texture" id=12]
 
 [sub_resource type="SpriteFrames" id=14]
 animations = [ {

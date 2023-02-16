@@ -1,0 +1,82 @@
+shader_type canvas_item;
+
+uniform bool rainbow;
+uniform float rainbow_frequency = 1.0;
+
+uniform bool recolor;
+uniform float h: hint_range(0, 1) = 1;
+uniform float s: hint_range(0, 2) = 1;
+uniform float v: hint_range(0, 2) = 1;
+
+uniform bool rotate;
+uniform float time_speed = 1.0;
+const float PI = 3.14159265359;
+
+uniform bool wobble;
+uniform float wobble_max = 1.25;
+uniform float wobble_min = .75;
+
+vec3 rgb2hsv(vec3 c)
+{
+     vec4 K = vec4(0.0, -1.0 / 3.0, 2.0 / 3.0, -1.0);
+     vec4 p = mix(vec4(c.bg, K.wz), vec4(c.gb, K.xy), step(c.b, c.g));
+     vec4 q = mix(vec4(p.xyw, c.r), vec4(c.r, p.yzx), step(p.x, c.r));
+
+     float d = q.x - min(q.w, q.y);
+     float e = 1.0e-10;
+    return vec3(abs(q.z + (q.w - q.y) / (6.0 * d + e)), d / (q.x + e), q.x);
+}
+
+vec3 hsv2rgb(vec3 c)
+{
+     vec4 K = vec4(1.0, 2.0 / 3.0, 1.0 / 3.0, 3.0);
+     vec3 p = abs(fract(c.xxx + K.xyz) * 6.0 - K.www);
+    return c.z * mix(K.xxx, clamp(p - K.xxx, 0.0, 1.0), c.y);
+}
+
+float when_lt(float x, float y)
+{
+  return max(sign(y - x), 0.0);
+}
+
+float nah(float a)
+{
+  return 1.0 - a;
+}
+
+varying float rainbow_hue;
+
+void vertex()
+{
+	if (rainbow)
+	{
+    	rainbow_hue = abs(sin(TIME * rainbow_frequency)) + MODULATE.a;
+  	}
+    if (rotate)
+    {
+    	float phi = TIME * time_speed * PI * sign(MODULATE.a - .5);
+        VERTEX *= mat2(vec2(cos(phi),-sin(phi)),
+                       vec2(sin(phi),cos(phi)));
+    }
+	if (wobble)
+	{
+		VERTEX *= wobble_min + abs(sin(TIME * time_speed + 1000.0*MODULATE.a)) * (wobble_max - wobble_min);
+	}
+}
+
+void fragment()
+{
+	vec4 color = texture(TEXTURE, UV);
+	
+	if (recolor)
+	{
+		vec3 colorhsv = rgb2hsv(color.rgb);
+		float boolean = when_lt(colorhsv.y, 0.11);
+		colorhsv *= vec3(1, s, v);
+		colorhsv.x += h + rainbow_hue;
+		color.rgb = color.rgb * boolean + hsv2rgb(colorhsv) * nah(boolean);
+	}
+	
+	COLOR = color;
+	
+}

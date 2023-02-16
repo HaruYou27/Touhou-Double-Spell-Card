@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://entity/enemy/phantom/fire_particle.png" type="Texture" id=1]
-[ext_resource path="res://entity/utility/deathFX.gd" type="Script" id=2]
+[ext_resource path="res://entity/utility/particle/deathFX.gd" type="Script" id=2]
 
 [sub_resource type="CanvasItemMaterial" id=3]
 blend_mode = 1

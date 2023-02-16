@@ -13,7 +13,7 @@ var user_data : UserData
 var player : Player
 var score :Score
 
-const playground := Vector2(646, 904)
+const playground := Vector2(604, 906)
 const game_rect := Vector2(1920, 1080)
 
 func _ready():

@@ -1,7 +1,15 @@
 [gd_resource type="ShaderMaterial" load_steps=2 format=2]
 
-[ext_resource path="res://shader/item/time-rotate.gdshader" type="Shader" id=1]
+[ext_resource path="res://shader/UberItem.gdshader" type="Shader" id=1]
 
 [resource]
 shader = ExtResource( 1 )
-shader_param/speed = 2.0
+shader_param/rainbow = null
+shader_param/rainbow_frequency = 1.0
+shader_param/recolor = false
+shader_param/h = 1.0
+shader_param/s = 1.0
+shader_param/v = 1.0
+shader_param/rotate = true
+shader_param/time_speed = 1.0
+shader_param/wobble = null
