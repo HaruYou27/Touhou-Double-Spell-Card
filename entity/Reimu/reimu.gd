@@ -17,29 +17,24 @@ onready var user_data :UserData = Global.user_data
 onready var sentivity := user_data.sentivity
 var moving := false
 
-const bomb_impact_times := 4
+export (PackedScene) var bomb_scene
 var bomb_count := 1
-
-func _set_bomb_count():
-	bomb_count += 1
 
 func _ready():
 	Global.connect("bullet_graze", self, '_graze')
-	Global.connect("bomb_finished", self, '_bomb_finished')
-	
-	if user_data.invicible:
-		$hitbox.queue_free()
-		hitFx.queue_free()
+	Global.connect("bomb_impact", self, '_bomb_impact')
 	
 	remove_child(hitFx)
 	graze_timer.connect("timeout", graze_fx, 'set_emitting', [false])
-	death_tween.interpolate_property(hitFx, 'scale', Vector2.ONE, Vector2(.01, .01), Global.score.death_duration)
-	death_tween.connect('tween_all_completed', Global.leveler, 'restart')
+	death_tween.interpolate_property(hitFx, 'scale', Vector2.ONE, Vector2(.01, .01), Global.death_timer)
+	death_tween.call_deferred('connect', 'tween_all_completed', Global.leveler, 'restart')
 	
 	Global.player = self
 	
 func _unhandled_input(event:InputEvent):
-	if event.is_action_pressed('drag'):
+	if event.is_action_released("bomb"):
+		bomb()
+	elif event.is_action_pressed('drag'):
 		moving = true
 		create_tween().tween_property(focus_layer, 'modulate', Color.white, .25)
 		return
@@ -59,11 +54,10 @@ func _hit():
 	
 	set_process_unhandled_input(false)
 	Global.levelr.screenfx.flash_red()
-	
 	add_child(hitFx)
 	hitSFX.play()
 	death_tween.start()
-	
+
 	tree.paused = true
 	
 func _graze():
@@ -73,10 +67,6 @@ func _graze():
 func bomb():
 	if not bomb_count:
 		return
-		
-	if not user_data.infinity_bomb:
-		bomb_count -= 1
-		Global.levelr.hud.update_bomb()
 		
 	Global.leveler.screenfx.hide()
 	death_tween.stop_all()
@@ -88,13 +78,12 @@ func bomb():
 	modulate = Color(1.0, 1.0, 1.0, .5)
 	tree.call_group('player_bullet', 'stop')
 	
-	var bomb_node = preload("res://entity/player/Reimu/FantasySeal.cs").new()
-	add_child(bomb_node)
+	add_child(bomb_scene.instance())
 
 	tree.paused = false
 	set_process_unhandled_input(true)
 	
-func _bomb_finished():
+func _bomb_impact():
 	collision_layer = 4
 	graze.collision_layer = 8
 	modulate = Color.white

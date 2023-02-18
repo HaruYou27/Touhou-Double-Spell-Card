@@ -13,7 +13,7 @@ export (Resource) var drag_bind setget _bind_drag
 export (Resource) var bomb_bind setget _bind_bomb
 
 ##User data
-export (Array) var unlocked_levels := PoolStringArray([''])
+export (Array) var unlocked_levels := PoolStringArray(["res://level/tutorial/tutorial.tres", "res://level/yukari/route-A/lunatic/yukari-A-lunatic.tres"])
 
 func _bind_drag(event:InputEvent):
 	InputMap.action_erase_events('drag')

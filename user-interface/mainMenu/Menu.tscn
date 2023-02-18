@@ -1,9 +1,8 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://user-interface/mainMenu/Menu.gd" type="Script" id=1]
 [ext_resource path="res://user-interface/mainMenu/setting/Graphic.gd" type="Script" id=2]
 [ext_resource path="res://user-interface/resource/Default.tres" type="Theme" id=3]
-[ext_resource path="res://user-interface/mainMenu/main.gd" type="Script" id=4]
 [ext_resource path="res://user-interface/control-node/FormatLabel.gd" type="Script" id=5]
 [ext_resource path="res://user-interface/mainMenu/setting/Audio.gd" type="Script" id=6]
 [ext_resource path="res://user-interface/control-node/UberButton.gd" type="Script" id=8]
@@ -26,7 +25,6 @@ autoplay = true
 use_parent_material = true
 margin_right = 1920.0
 margin_bottom = 1080.0
-script = ExtResource( 4 )
 
 [node name="main" type="VBoxContainer" parent="main"]
 anchor_top = 1.0
@@ -47,37 +45,22 @@ text = "Select level"
 align = 0
 script = ExtResource( 8 )
 
-[node name="help" type="Button" parent="main/main"]
+[node name="settings" type="Button" parent="main/main"]
 margin_top = 59.0
 margin_right = 396.0
 margin_bottom = 114.0
-focus_neighbour_right = NodePath("../settings")
-focus_neighbour_bottom = NodePath("../settings")
-focus_next = NodePath("../settings")
-mouse_default_cursor_shape = 16
-text = "Tutorial"
-align = 0
-script = ExtResource( 8 )
-
-[node name="settings" type="Button" parent="main/main"]
-margin_top = 118.0
-margin_right = 396.0
-margin_bottom = 173.0
-focus_neighbour_left = NodePath("../help")
-focus_neighbour_top = NodePath("../help")
 focus_neighbour_right = NodePath("../credit")
 focus_neighbour_bottom = NodePath("../credit")
 focus_next = NodePath("../credit")
-focus_previous = NodePath("../help")
 mouse_default_cursor_shape = 2
 text = "Settings"
 align = 0
 script = ExtResource( 8 )
 
 [node name="credit" type="Button" parent="main/main"]
-margin_top = 177.0
+margin_top = 118.0
 margin_right = 396.0
-margin_bottom = 232.0
+margin_bottom = 173.0
 focus_neighbour_left = NodePath("../settings")
 focus_neighbour_top = NodePath("../settings")
 focus_neighbour_right = NodePath("../quit")
@@ -90,9 +73,9 @@ align = 0
 script = ExtResource( 8 )
 
 [node name="quit" type="Button" parent="main/main"]
-margin_top = 236.0
+margin_top = 177.0
 margin_right = 396.0
-margin_bottom = 291.0
+margin_bottom = 232.0
 focus_neighbour_left = NodePath("../credit")
 focus_neighbour_top = NodePath("../credit")
 focus_neighbour_right = NodePath("../start")
@@ -426,22 +409,26 @@ margin_bottom = 1080.0
 script = ExtResource( 11 )
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="level"]
+anchor_left = 1.0
 anchor_right = 1.0
-anchor_bottom = 1.0
+margin_left = -1754.0
+margin_top = 138.0
+margin_right = -476.0
+margin_bottom = 1042.0
 
 [node name="list" type="VBoxContainer" parent="level/HBoxContainer2"]
-margin_bottom = 1080.0
+margin_bottom = 904.0
 
 [node name="preview" type="TextureRect" parent="level/HBoxContainer2"]
 margin_left = 4.0
 margin_right = 650.0
-margin_bottom = 1080.0
+margin_bottom = 904.0
 rect_min_size = Vector2( 646, 904 )
 
 [node name="score" type="VBoxContainer" parent="level/HBoxContainer2"]
 margin_left = 654.0
 margin_right = 1278.0
-margin_bottom = 1080.0
+margin_bottom = 904.0
 
 [node name="HiScore" type="Label" parent="level/HBoxContainer2/score"]
 margin_right = 624.0
@@ -489,7 +476,7 @@ margin_bottom = 314.0
 text = "Deathbomb duration %1.2f s"
 script = ExtResource( 5 )
 
-[node name="HSlider" type="HSlider" parent="level/HBoxContainer2/score"]
+[node name="DurationSlider" type="HSlider" parent="level/HBoxContainer2/score"]
 margin_top = 318.0
 margin_right = 624.0
 margin_bottom = 334.0
@@ -507,7 +494,7 @@ margin_bottom = 387.0
 text = "Game speed %d %%"
 script = ExtResource( 5 )
 
-[node name="HSlider2" type="HSlider" parent="level/HBoxContainer2/score"]
+[node name="SpeedSlider" type="HSlider" parent="level/HBoxContainer2/score"]
 margin_top = 391.0
 margin_right = 624.0
 margin_bottom = 407.0
@@ -518,10 +505,25 @@ value = 1.0
 tick_count = 16
 ticks_on_borders = true
 
-[connection signal="pressed" from="main/main/start" to="main" method="_on_start_pressed"]
-[connection signal="pressed" from="main/main/help" to="main" method="_on_help_pressed"]
+[node name="start" type="Button" parent="level/HBoxContainer2/score"]
+margin_top = 411.0
+margin_right = 624.0
+margin_bottom = 466.0
+text = "Start"
+script = ExtResource( 8 )
+
+[node name="back" type="Button" parent="level"]
+margin_left = 87.0
+margin_top = 41.0
+margin_right = 243.0
+margin_bottom = 96.0
+shortcut = ExtResource( 10 )
+text = "< Back"
+script = ExtResource( 8 )
+
+[connection signal="pressed" from="main/main/start" to="." method="_on_start_pressed"]
 [connection signal="pressed" from="main/main/settings" to="." method="_on_settings_pressed"]
-[connection signal="pressed" from="main/main/quit" to="main" method="_on_quit_pressed"]
+[connection signal="pressed" from="main/main/quit" to="." method="_on_quit_pressed"]
 [connection signal="toggled" from="setting/TabContainer/Graphic/fullscreen" to="setting/TabContainer/Graphic" method="_on_fullscreen_toggled"]
 [connection signal="toggled" from="setting/TabContainer/Graphic/borderless" to="setting/TabContainer/Graphic" method="_on_borderless_toggled"]
 [connection signal="pressed" from="setting/TabContainer/Graphic/reset" to="setting/TabContainer/Graphic" method="_on_reset_pressed"]
@@ -535,3 +537,5 @@ ticks_on_borders = true
 [connection signal="toggled" from="setting/TabContainer/Audio/muteSFX" to="setting/TabContainer/Audio" method="_on_muteSFX_toggled"]
 [connection signal="pressed" from="setting/TabContainer/Audio/reset" to="setting/TabContainer/Audio" method="_on_audio_reset_pressed"]
 [connection signal="pressed" from="setting/back" to="." method="_on_back_pressed"]
+[connection signal="pressed" from="level/HBoxContainer2/score/start" to="level" method="load_level"]
+[connection signal="pressed" from="level/back" to="." method="_on_back_pressed"]

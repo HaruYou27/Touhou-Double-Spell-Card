@@ -19,7 +19,7 @@ public class BulletBasic : Node2D
 	[Export] public bool CollideWithAreas 
 	{
 		set {query.CollideWithAreas = value;}
-		get {return query.CollideWithAreas;	}
+		get {return query.CollideWithAreas;}
 	}
 	[Export] public bool CollideWithBodies 
 	{

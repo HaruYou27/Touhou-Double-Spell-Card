@@ -13,3 +13,5 @@ shader_param/v = 1.0
 shader_param/rotate = true
 shader_param/time_speed = 1.0
 shader_param/wobble = null
+shader_param/wobble_max = 1.25
+shader_param/wobble_min = 0.75

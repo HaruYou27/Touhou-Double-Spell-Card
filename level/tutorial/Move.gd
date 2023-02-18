@@ -2,6 +2,7 @@ extends Node2D
 
 onready var timer := $Timer
 onready var init_pos := global_position
+onready var leveler := Global.leveler
 
 func _ready():
 	get_tree().call_group('player_bullet', 'stop')

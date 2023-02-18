@@ -1,13 +1,13 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
-[ext_resource path="res://entity/Bullet/BulletBasic.cs" type="Script" id=1]
+[ext_resource path="res://shader/UberItem.gdshader" type="Shader" id=1]
 [ext_resource path="res://level/yukari/route-A/normal/wave.tscn" type="PackedScene" id=2]
 [ext_resource path="res://level/yukari/base/yukari.tscn" type="PackedScene" id=3]
 [ext_resource path="res://level/base/leveler.tscn" type="PackedScene" id=4]
 [ext_resource path="res://shader/background/moving-tiled.gdshader" type="Shader" id=5]
-[ext_resource path="res://entity/Bullet/material/green.material" type="Material" id=6]
-[ext_resource path="res://entity/player/reimu.tscn" type="PackedScene" id=7]
-[ext_resource path="res://entity/Bullet/textures/ofuda.png" type="Texture" id=8]
+[ext_resource path="res://entity/Bullet/textures/smallOrb.png" type="Texture" id=6]
+[ext_resource path="res://entity/Reimu/reimu.tscn" type="PackedScene" id=7]
+[ext_resource path="res://entity/Bullet/SineAlpha.cs" type="Script" id=8]
 [ext_resource path="res://level/yukari/route-A/lunatic/wave.gd" type="Script" id=9]
 [ext_resource path="res://level/yukari/route-A/lunatic/wing.gd" type="Script" id=10]
 [ext_resource path="res://level/yukari/base/texture/baked.png" type="Texture" id=11]
@@ -16,20 +16,32 @@
 shader = ExtResource( 5 )
 shader_param/velocity = Vector2( 0, -0.1 )
 
+[sub_resource type="ShaderMaterial" id=2]
+shader = ExtResource( 1 )
+shader_param/rainbow = true
+shader_param/rainbow_frequency = 1.0
+shader_param/recolor = true
+shader_param/h = 1.0
+shader_param/s = 1.0
+shader_param/v = 1.0
+shader_param/rotate = null
+shader_param/time_speed = 1.0
+shader_param/wobble = null
+shader_param/wobble_max = 1.25
+shader_param/wobble_min = 0.75
+
 [node name="YukariEx" type="Node2D"]
 
 [node name="level" parent="." instance=ExtResource( 4 )]
-level = NodePath("wing")
+level = NodePath("wave")
 
 [node name="TextureRect" type="TextureRect" parent="level"]
 material = SubResource( 1 )
 margin_right = 646.0
 margin_bottom = 904.0
+mouse_filter = 2
 texture = ExtResource( 11 )
 stretch_mode = 2
-
-[node name="Eyes" type="TileMap" parent="level/TextureRect"]
-format = 1
 
 [node name="reimu" parent="level/TextureRect" instance=ExtResource( 7 )]
 position = Vector2( 307, 776 )
@@ -43,14 +55,14 @@ visible = false
 script = ExtResource( 9 )
 
 [node name="bullet" type="Node2D" parent="level/wave"]
-material = ExtResource( 6 )
+material = SubResource( 2 )
 position = Vector2( 323, 235 )
-script = ExtResource( 1 )
-texture = ExtResource( 8 )
+script = ExtResource( 8 )
+texture = ExtResource( 6 )
 maxBullet = 727
-speed = 252.0
-material = ExtResource( 6 )
-zIndex = 18
+speed = 272.0
+material = SubResource( 2 )
+zIndex = 14
 
 [node name="Position2D" type="Position2D" parent="level/wave/bullet"]
 position = Vector2( 118, 0 )
@@ -61,7 +73,6 @@ __meta__ = {
 [node name="Position2D2" type="Position2D" parent="level/wave/bullet"]
 position = Vector2( 115.733, 23.0207 )
 rotation = 0.19635
-scale = Vector2( 1, 1 )
 __meta__ = {
 "_gizmo_extents_": 20.0
 }
@@ -83,7 +94,6 @@ __meta__ = {
 [node name="Position2D5" type="Position2D" parent="level/wave/bullet"]
 position = Vector2( 83.4386, 83.4386 )
 rotation = 0.785398
-scale = Vector2( 1, 1 )
 __meta__ = {
 "_gizmo_extents_": 20.0
 }
@@ -98,7 +108,6 @@ __meta__ = {
 [node name="Position2D7" type="Position2D" parent="level/wave/bullet"]
 position = Vector2( 45.1566, 109.018 )
 rotation = 1.1781
-scale = Vector2( 1, 1 )
 __meta__ = {
 "_gizmo_extents_": 20.0
 }
@@ -106,7 +115,6 @@ __meta__ = {
 [node name="Position2D8" type="Position2D" parent="level/wave/bullet"]
 position = Vector2( 23.0207, 115.733 )
 rotation = 1.37445
-scale = Vector2( 1, 1 )
 __meta__ = {
 "_gizmo_extents_": 20.0
 }
@@ -121,7 +129,6 @@ __meta__ = {
 [node name="Position2D10" type="Position2D" parent="level/wave/bullet"]
 position = Vector2( -23.0206, 115.733 )
 rotation = 1.76715
-scale = Vector2( 1, 1 )
 __meta__ = {
 "_gizmo_extents_": 20.0
 }
@@ -143,7 +150,6 @@ __meta__ = {
 [node name="Position2D13" type="Position2D" parent="level/wave/bullet"]
 position = Vector2( -83.4386, 83.4386 )
 rotation = 2.35619
-scale = Vector2( 1, 1 )
 __meta__ = {
 "_gizmo_extents_": 20.0
 }
@@ -186,7 +192,6 @@ __meta__ = {
 [node name="Position2D19" type="Position2D" parent="level/wave/bullet"]
 position = Vector2( -109.018, -45.1566 )
 rotation = -2.74889
-scale = Vector2( 1, 1 )
 __meta__ = {
 "_gizmo_extents_": 20.0
 }
@@ -194,7 +199,6 @@ __meta__ = {
 [node name="Position2D20" type="Position2D" parent="level/wave/bullet"]
 position = Vector2( -98.1134, -65.5573 )
 rotation = -2.55254
-scale = Vector2( 1, 1 )
 __meta__ = {
 "_gizmo_extents_": 20.0
 }
@@ -223,7 +227,6 @@ __meta__ = {
 [node name="Position2D24" type="Position2D" parent="level/wave/bullet"]
 position = Vector2( -23.0207, -115.733 )
 rotation = -1.76715
-scale = Vector2( 1, 1 )
 __meta__ = {
 "_gizmo_extents_": 20.0
 }
@@ -238,7 +241,6 @@ __meta__ = {
 [node name="Position2D26" type="Position2D" parent="level/wave/bullet"]
 position = Vector2( 23.0207, -115.733 )
 rotation = -1.37445
-scale = Vector2( 1, 1 )
 __meta__ = {
 "_gizmo_extents_": 20.0
 }

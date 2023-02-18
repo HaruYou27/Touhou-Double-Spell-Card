@@ -3,7 +3,7 @@ using Godot;
 public class SineSpeed : BulletBasic 
 {
 	//Bullet that speed up and down by sine wave.
-	[Export] float frequency;
+	[Export] float frequency = 1;
 	protected float[] ages;
 
 	protected override void SortBullet()

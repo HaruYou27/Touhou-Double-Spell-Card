@@ -1,4 +1,4 @@
-extends Control
+extends Node2D
 class_name Leveler
 
 var shaking := 0.0
@@ -6,7 +6,7 @@ var rewind
 
 export (Array) var levels : Array
 export (NodePath) var level
-export (PackedScene) var next_scene
+export (Resource) var next_scene
 
 onready var tree = get_tree()
 onready var hud :Sprite = $Node/hud
@@ -22,21 +22,21 @@ func _ready():
 		add_child(rewind)
 	
 	var tween := screenfx.fade2black()
-	tween.connect("finished", screenfx, 'set_size', [rect_size])
+	tween.connect("finished", screenfx, 'set_size', [Global.playground])
 	
-	Global.score.retry += 1
+	if Global.score:
+		Global.score.retry += 1
 	level = get_node(level)
 	level.start()
 	Global.leveler = self
-	next_scene = next_scene.resource_path
 	
 func _process(delta):
 	if shaking <= 0.0:
-		rect_position = Vector2(526, 88)
+		position = Vector2(526, 88)
 		set_process(false)
 	else:
 		shaking -= delta
-		rect_position += Vector2(rand_range(-1.0, 1.0), rand_range(-1.0, 1.0))
+		position += Vector2(rand_range(-1.0, 1.0), rand_range(-1.0, 1.0))
 
 func screen_shake():
 	shaking += .15
@@ -55,13 +55,15 @@ func next_level():
 		return
 	
 	Global.score.save_score()
-	Global.user_data.unlocked_levels.append(next_scene)
+	Global.user_data.unlocked_levels.append(next_scene.resource_path)
+	tree.change_scene_to(next_scene.level)
 
 func _on_Quit_pressed():
-	var tween := screenfx.fade2black()
-	tween.connect("finished", tree, 'change_scene', ["res://user-interface/mainMenu/Menu.scn"])
+	tree.paused = false
+	tree.change_scene("res://user-interface/mainMenu/Menu.tscn")
 
 func restart():
+	tree.paused = false
 	if rewind:
 		rewind.rewind()
 	else:

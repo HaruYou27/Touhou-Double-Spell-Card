@@ -6,9 +6,10 @@ export (Texture) var preview
 export (PackedScene) var level
 
 var score :Score
+var path := 'user://' + title + '.res'
 
 func load_score():
-	score = load('user://' + title)
+	score = load(path)
 	if not score:
 		score = Score.new()
-		Global.save_resource('user://' + title + '.tscn', score)
+		Global.save_resource(path, score)

@@ -24,7 +24,10 @@ func _on_back_pressed():
 	tween.connect("finished", level, 'hide')
 	main.show()
 
-func select_level():
+func _on_quit_pressed():
+	get_tree().quit()
+
+func _on_start_pressed():
 	var tween := create_tween()
 	tween.tween_property(camera, 'position', Vector2(1920, 0), ani_length)
 	tween.connect("finished", main, 'hide')

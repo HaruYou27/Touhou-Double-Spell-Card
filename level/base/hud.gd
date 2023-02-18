@@ -17,13 +17,17 @@ onready var bomb_label :FormatLabel = $VBoxContainer/Bomb
 onready var reward_sfx :AudioStreamPlayer = $reward
 onready var goal_label :FormatLabel = $VBoxContainer/Goal
 
-onready var user_data :UserData = Global.user_data
+onready var game_speed := Engine.time_scale
+onready var death_timer :float = Global.death_timer
 
 func _ready():
 	Global.connect("item_collect", self, "_set_item")
 	Global.connect('bullet_graze', self, '_set_graze')
 	
-	hi_score_label.update_label(Global.score.score)
+	if Global.score:
+		hi_score_label.update_label(Global.score.score)
+	else:
+		hi_score_label.update_label(0)
 	score_label.update_label(0)
 	item_label.update_label(0)
 	goal_label.update_label(0)
@@ -63,7 +67,7 @@ func _update_graze():
 	_update_score()
 	
 func _update_score():
-	score = (500*Global.player.bomb_bount + graze) * item * user_data.game_speed / user_data.death_duration
+	score = graze * item * game_speed / death_timer
 	score_label.update_label(score)
 	var score_left = goal - score
 	if score_left < INF:

@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://user-interface/control-node/FormatLabel.gd" type="Script" id=1]
 [ext_resource path="res://level/base/item-manager/ItemManager.cs" type="Script" id=2]
@@ -6,11 +6,9 @@
 [ext_resource path="res://level/base/leveler.gd" type="Script" id=4]
 [ext_resource path="res://user-interface/control-node/ScreenEffect.gd" type="Script" id=5]
 [ext_resource path="res://user-interface/control-node/UberButton.gd" type="Script" id=6]
-[ext_resource path="res://user-interface/resource/rotate.tres" type="Material" id=7]
 [ext_resource path="res://level/base/resource/bomb-font.res" type="DynamicFont" id=8]
 [ext_resource path="res://level/textures/hud.png" type="Texture" id=9]
 [ext_resource path="res://level/base/fps.gd" type="Script" id=10]
-[ext_resource path="res://user-interface/resource/cursor.png" type="Texture" id=11]
 [ext_resource path="res://level/base/PauseMenu.gd" type="Script" id=12]
 [ext_resource path="res://level/base/resource/collection.theme" type="Theme" id=13]
 [ext_resource path="res://level/base/item-manager/point.png" type="Texture" id=14]
@@ -22,12 +20,8 @@
 radius = 40.0
 height = 1024.0
 
-[node name="level" type="Control"]
-margin_left = 526.0
-margin_top = 88.0
-margin_right = 1172.0
-margin_bottom = 992.0
-theme = ExtResource( 3 )
+[node name="level" type="Node2D"]
+position = Vector2( 526, 88 )
 script = ExtResource( 4 )
 
 [node name="bulletBound" type="StaticBody2D" parent="."]
@@ -157,17 +151,18 @@ CollisionLayer = 21
 texture = ExtResource( 14 )
 maxBullet = 4727
 
-[node name="Pause" type="ColorRect" parent="."]
+[node name="PauseMenu" type="ColorRect" parent="."]
 pause_mode = 2
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_right = -42.0
-margin_bottom = 2.0
+margin_right = 604.0
+margin_bottom = 906.0
+mouse_filter = 2
 color = Color( 0.129412, 0.129412, 0.129412, 0.690196 )
 script = ExtResource( 12 )
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Pause"]
+[node name="VBoxContainer" type="VBoxContainer" parent="PauseMenu"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -177,7 +172,7 @@ margin_top = -73.5
 margin_right = 84.0
 margin_bottom = 73.5
 
-[node name="Resume" type="Button" parent="Pause/VBoxContainer"]
+[node name="Resume" type="Button" parent="PauseMenu/VBoxContainer"]
 margin_right = 180.0
 margin_bottom = 55.0
 focus_neighbour_left = NodePath(".")
@@ -187,16 +182,16 @@ focus_neighbour_bottom = NodePath("../Restart")
 focus_next = NodePath("../Restart")
 focus_previous = NodePath(".")
 theme = ExtResource( 3 )
+disabled = true
 shortcut = ExtResource( 16 )
 text = "Resume"
-flat = true
 align = 0
 script = ExtResource( 6 )
 
-[node name="Restart" type="Button" parent="Pause/VBoxContainer"]
-margin_top = 55.0
+[node name="Restart" type="Button" parent="PauseMenu/VBoxContainer"]
+margin_top = 59.0
 margin_right = 180.0
-margin_bottom = 110.0
+margin_bottom = 114.0
 focus_neighbour_left = NodePath(".")
 focus_neighbour_top = NodePath(".")
 focus_neighbour_right = NodePath("../Quit")
@@ -205,14 +200,13 @@ focus_next = NodePath("../Quit")
 focus_previous = NodePath(".")
 theme = ExtResource( 3 )
 text = "Restart"
-flat = true
 align = 0
 script = ExtResource( 6 )
 
-[node name="Quit" type="Button" parent="Pause/VBoxContainer"]
-margin_top = 110.0
+[node name="Quit" type="Button" parent="PauseMenu/VBoxContainer"]
+margin_top = 118.0
 margin_right = 180.0
-margin_bottom = 165.0
+margin_bottom = 173.0
 focus_neighbour_left = NodePath(".")
 focus_neighbour_top = NodePath(".")
 focus_neighbour_right = NodePath("../Resume")
@@ -221,16 +215,9 @@ focus_next = NodePath("../Resume")
 focus_previous = NodePath(".")
 theme = ExtResource( 3 )
 text = "Quit"
-flat = true
 align = 0
 script = ExtResource( 6 )
 
-[node name="YinyangOrb" type="Sprite" parent="Pause/VBoxContainer"]
-material = ExtResource( 7 )
-position = Vector2( -20, 0 )
-scale = Vector2( 0.75, 0.75 )
-texture = ExtResource( 11 )
-
-[connection signal="pressed" from="Pause/VBoxContainer/Resume" to="Pause" method="_on_Resume_pressed"]
-[connection signal="pressed" from="Pause/VBoxContainer/Restart" to="." method="restart"]
-[connection signal="pressed" from="Pause/VBoxContainer/Quit" to="." method="_on_Quit_pressed"]
+[connection signal="pressed" from="PauseMenu/VBoxContainer/Resume" to="PauseMenu" method="_on_Resume_pressed"]
+[connection signal="pressed" from="PauseMenu/VBoxContainer/Restart" to="." method="restart"]
+[connection signal="pressed" from="PauseMenu/VBoxContainer/Quit" to="." method="_on_Quit_pressed"]

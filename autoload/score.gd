@@ -5,8 +5,7 @@ export (int) var retry := 0
 export (int) var score := 0
 export (int) var item := 0
 export (int) var graze := 0
-export (int) var bomb := 0
-export (float) var death_duration := .3
+export (float) var death_timer := .3
 export (float) var game_speed := 1.0
 
 func save_score():
@@ -15,6 +14,7 @@ func save_score():
 		score = hud.score
 		graze = hud.graze
 		item = hud.item
-		bomb = Global.player.bomb
+		death_timer = Global.death_timer
+		game_speed = Engine.time_scale
 	
 	Global.save_resource(resource_path, self)

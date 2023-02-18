@@ -12,37 +12,23 @@ onready var gauge :TextureProgress = $Gauge/TextureProgress
 var updating_gauge := false
 var player_bomb_damage := 0
 
-const boss_spot := Vector2(323, 235)
-
-func _bomb_impact():
-	hp -= player_bomb_damage
-	if not updating_gauge:
-		updating_gauge = true
-		call_deferred('_update_gauge')
+const boss_spot := Vector2(307, 222)
 
 func _ready():
 	var tween :SceneTreeTween
 	if hp:
-		Global.connect("bomb_impact", self, "_bomb_impact")
 		tween = gauge.fill_gauge(hp)
 	else:
-		Global.connect("bomb_finished", self, "_die")
 		tween = gauge.fill_gauge(duration)
 		tween.connect("finished", gauge, "_timer_start")
 
 	tween.connect("finished", self, "emit_signal", ['ready'])
-
-	tween.parallel().tween_property(self, 'global_position', boss_spot, 2.0)
+	tween.parallel().tween_property(self, 'position', boss_spot, .25)
+	
+	Global.connect("bomb_impact", self, "_die")
 	
 func _die():
-	if global_position != boss_spot:
-		var tween := create_tween()
-		tween.tween_property(self, 'global_position', boss_spot, 2.0)
-		tween.connect("finished", Global.leveler, 'next_level')
-		get_tree().call_group('enemy_bullet', 'stop')
-		return
-
-	Global.emit_signal('next_level')
+	Global.leveler.next_level()
 
 func _hit():
 	hp -= 1

@@ -17,6 +17,7 @@ public class ItemManager : BulletBasic
 	{
 		//Prevents crash if for any reason something accidently call this function.
 		//Use SpawnItem() instead.
+		//The Greatest downfall of inhernitence btw.
 	}
 	public virtual void SpawnItem(in uint point, Transform2D transform)
 	{

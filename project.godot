@@ -94,7 +94,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://autoload/LevelHeader.gd"
 }, {
-"base": "Control",
+"base": "Node2D",
 "class": "Leveler",
 "language": "GDScript",
 "path": "res://level/base/leveler.gd"
@@ -112,7 +112,7 @@ _global_script_classes=[ {
 "base": "StaticBody2D",
 "class": "Player",
 "language": "GDScript",
-"path": "res://entity/player/reimu.gd"
+"path": "res://entity/Reimu/reimu.gd"
 }, {
 "base": "Resource",
 "class": "Score",
