@@ -6,7 +6,7 @@
 [ext_resource path="res://level/yukari/base/yukari.tscn" type="PackedScene" id=5]
 [ext_resource path="res://level/tutorial/bomb.gd" type="Script" id=6]
 [ext_resource path="res://level/base/leveler.tscn" type="PackedScene" id=7]
-[ext_resource path="res://entity/Reimu/reimu.tscn" type="PackedScene" id=8]
+[ext_resource path="res://entity/Reimu/reimuA.tscn" type="PackedScene" id=8]
 [ext_resource path="res://tool/shader-baker/shader/noise-overlay-3.gdshader" type="Shader" id=9]
 
 [sub_resource type="Gradient" id=4]

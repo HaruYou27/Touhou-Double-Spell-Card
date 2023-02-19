@@ -159,7 +159,6 @@ rotation = -1.5708
 [node name="Timer" type="Timer" parent="bullet" groups=["player_bullet"]]
 process_mode = 0
 wait_time = 0.143
-autostart = true
 
 [node name="bullet2" type="Node2D" parent="."]
 material = SubResource( 32 )
@@ -212,7 +211,6 @@ flip_v = true
 [node name="Timer2" type="Timer" parent="bullet2" groups=["player_bullet"]]
 process_mode = 0
 wait_time = 0.333
-autostart = true
 
 [connection signal="bomb" from="hitFx" to="." method="bomb"]
 [connection signal="timeout" from="bullet/Timer" to="bullet" method="SpawnBullet"]

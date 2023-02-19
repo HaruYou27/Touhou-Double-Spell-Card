@@ -5,7 +5,7 @@
 [ext_resource path="res://level/yukari/base/yukari.tscn" type="PackedScene" id=3]
 [ext_resource path="res://level/yukari/route-A/normal/wave.gd" type="Script" id=4]
 [ext_resource path="res://level/base/leveler.tscn" type="PackedScene" id=5]
-[ext_resource path="res://entity/Reimu/reimu.tscn" type="PackedScene" id=6]
+[ext_resource path="res://entity/Reimu/reimuA.tscn" type="PackedScene" id=6]
 [ext_resource path="res://level/yukari/base/texture/baked.png" type="Texture" id=7]
 [ext_resource path="res://shader/UberItem.gdshader" type="Shader" id=8]
 

@@ -68,6 +68,7 @@ func bomb():
 	if not bomb_count:
 		return
 		
+	Global.leveler.hud._update_bomb()
 	Global.leveler.screenfx.hide()
 	death_tween.stop_all()
 	death_tween.reset_all()
@@ -76,10 +77,10 @@ func bomb():
 	collision_layer = 0
 	graze.collision_layer = 0
 	modulate = Color(1.0, 1.0, 1.0, .5)
-	tree.call_group('player_bullet', 'stop')
+	if Global.can_shoot:
+		tree.call_group('player_bullet', 'stop')
 	
 	add_child(bomb_scene.instance())
-
 	tree.paused = false
 	set_process_unhandled_input(true)
 	
@@ -87,4 +88,5 @@ func _bomb_impact():
 	collision_layer = 4
 	graze.collision_layer = 8
 	modulate = Color.white
-	tree.call_group('player_bullet', 'start')
+	if Global.can_shoot:
+		tree.call_group('player_bullet', 'start')

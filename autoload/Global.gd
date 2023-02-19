@@ -10,6 +10,8 @@ var boss :Boss
 var user_data : UserData
 var player : Player
 var score :Score
+
+var can_shoot := true
 var death_timer := 0.3
 
 const playground := Vector2(604, 906)

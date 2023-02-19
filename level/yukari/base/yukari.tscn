@@ -40,14 +40,11 @@ shape = SubResource( 1 )
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 2 )
 
-[node name="Gauge" type="Node" parent="."]
-
-[node name="TextureProgress" type="TextureProgress" parent="Gauge"]
-modulate = Color( 1, 1, 1, 0 )
-margin_left = 26.0
-margin_right = 334.0
-margin_bottom = 35.0
-rect_scale = Vector2( 1.75, 2 )
+[node name="Gauge" type="TextureProgress" parent="."]
+margin_left = -154.0
+margin_top = -163.0
+margin_right = 154.0
+margin_bottom = -128.0
 value = 100.0
 texture_over = ExtResource( 5 )
 texture_progress = ExtResource( 6 )

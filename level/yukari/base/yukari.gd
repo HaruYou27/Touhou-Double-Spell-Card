@@ -1,20 +1,20 @@
 extends Area2D
 class_name Boss
 
-signal start_spell
-
 export (int) var point := 64
-export (int) var hp := 10
+export (int) var hp := 10 setget _set_hp
 export (float) var duration := 0.0
 
-onready var gauge :TextureProgress = $Gauge/TextureProgress
+onready var bomb_damage := hp / 2
+onready var physics_layer := collision_layer
+onready var gauge :TextureProgress = $Gauge
 
 var updating_gauge := false
-var player_bomb_damage := 0
 
 const boss_spot := Vector2(307, 222)
 
 func _ready():
+	collision_layer = 0
 	var tween :SceneTreeTween
 	if hp:
 		tween = gauge.fill_gauge(hp)
@@ -22,24 +22,22 @@ func _ready():
 		tween = gauge.fill_gauge(duration)
 		tween.connect("finished", gauge, "_timer_start")
 
-	tween.connect("finished", self, "emit_signal", ['ready'])
-	tween.parallel().tween_property(self, 'position', boss_spot, .25)
+	tween.connect("finished", Global.leveler.level, 'start')
+	Global.connect("bomb_impact", self, "_set_hp", [bomb_damage])
 	
-	Global.connect("bomb_impact", self, "_die")
-	
-func _die():
-	Global.leveler.next_level()
-
 func _hit():
 	hp -= 1
+	
+func _set_hp(damage):
+	hp -= damage
 	if not hp:
 		Global.leveler.item_manager.SpawnItem(int(point * gauge.value / duration))
-		_die()
+		Global.leveler.next_level()
 
 	if not updating_gauge:
 		updating_gauge = true
 		call_deferred('_update_gauge')
-		
+
 func _update_gauge():
 	gauge.value = hp
 	updating_gauge = false

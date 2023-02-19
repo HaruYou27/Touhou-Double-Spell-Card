@@ -86,7 +86,6 @@ public class BulletBasic : Node2D
 	protected static Node Global;
 	protected static World2D world;
 
-
 //Bullets properties.
 	//Why don't I encapsule all these in a subclass? Good question.
 	//In fact, I tried. However, this seems to be the case where OOP and static typing suck.
@@ -98,16 +97,20 @@ public class BulletBasic : Node2D
 	//And that's when I realize that the array in root base class is Bullet[] not RicochetBullet[]...
 	//I could just cast (aka Boxing and Unboxing) the RicochetBullet into Bullet,
 	//but I also have to cast it into RicochetBullet again everytime I need to access new data and function.
-	//There're many other problems arise too, but that's enough to stop using OOP.
+	//And this is the greatest downfall of inheritance.
 
-	//Reject human, return to monkee.
-	//By just get rid of OOP, all the problems just go away.
+	//Prefer Composition over Inheritance
+	//With composition, I can declare new variable and behavior without interfer the old stuff.
+	//In other words, I just jam everything into Array.
 	//The only issue which this design is Array Sorting.
 	//If we use object, we only need to move the memory address. (which is 4 bytes pointer)
 	//But here we have to move the whole data (same as using struct), 
 	//which get more expensive with more data. (O(n) operation)
-	//Since the order is not important, we can just process and sort the bullet in the same
-	//for loop from tail to head to minimize array access and iteration.
+	//Lucky that there aren't much data for a bullet.
+	//Since the order is not important, we can just process and sort the bullet in the same for loop from tail to head to minimize array access and iteration.
+
+	//The OOP may sounds more elegant, but I have seen nothing but boilerpate.
+	//Just keep it simple and do.
 
 	protected Transform2D[] transforms;
 	protected bool[] grazable;
@@ -158,6 +161,7 @@ public class BulletBasic : Node2D
 			}
 		}
 	}
+
 	public override void _ExitTree() 
 	{
 		//RID is actually an memory address to get the object in Godot server.
@@ -198,10 +202,13 @@ public class BulletBasic : Node2D
 	{
 		if (activeIndex == 0) {return;}
 		
+		Vector2[] bullets = new Vector2[maxBullet];
 		for (uint i = 0; i < activeIndex; i++) {
 			VisualServer.CanvasItemSetVisible(sprites[i], false);
+			bullets[i] = transforms[i].origin;
 		}
 		activeIndex = 0;
+		((ItemManager) Global.Get("leveler.item_manager")).ConvertBullet(bullets);
 	}
 	protected virtual void SortBullet()
 	{
