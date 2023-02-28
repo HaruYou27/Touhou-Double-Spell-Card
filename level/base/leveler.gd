@@ -16,6 +16,7 @@ onready var config :UserData = Global.user_data
 
 func _ready():
 	Global.connect("bomb_impact", self, 'screen_shake')
+	Global.connect('restart', self, 'restart')
 	
 	if config.rewind:
 		rewind = preload("res://level/base/recorder/Recorder.tscn").instance()
@@ -27,7 +28,6 @@ func _ready():
 	if Global.score:
 		Global.score.retry += 1
 	level = get_node(level)
-	level.start()
 	Global.leveler = self
 	
 func _process(delta):

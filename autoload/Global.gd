@@ -5,6 +5,8 @@ signal bullet_graze
 signal item_collect(point)
 signal bomb_impact
 
+signal restart_level
+
 var leveler :Leveler
 var boss :Boss
 var user_data : UserData
@@ -12,7 +14,7 @@ var player : Player
 var score :Score
 
 var can_shoot := true
-var death_timer := 0.3
+var death_time := 0.3
 
 const playground := Vector2(604, 906)
 const game_rect := Vector2(1920, 1080)

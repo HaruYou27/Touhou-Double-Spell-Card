@@ -22,8 +22,11 @@ func _ready():
 		tween = gauge.fill_gauge(duration)
 		tween.connect("finished", gauge, "_timer_start")
 
-	tween.connect("finished", Global.leveler.level, 'start')
+	tween.connect("finished", self, '_start')
 	Global.connect("bomb_impact", self, "_set_hp", [bomb_damage])
+	
+func _start():
+	Global.leveler.level.start()
 	
 func _hit():
 	hp -= 1

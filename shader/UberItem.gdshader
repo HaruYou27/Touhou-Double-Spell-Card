@@ -77,6 +77,6 @@ void fragment()
 		color.rgb = color.rgb * boolean + hsv2rgb(colorhsv) * nah(boolean);
 	}
 	
-	COLOR = color;
+	COLOR = color * MODULATE;
 	
 }

@@ -81,7 +81,7 @@ shader_param/color_stars = SubResource( 13 )
 [node name="tutorial" type="Node2D"]
 
 [node name="level" parent="." instance=ExtResource( 7 )]
-level = NodePath("background/reimu/move")
+level = NodePath("reimu/move")
 next_scene = ExtResource( 3 )
 
 [node name="background" type="ColorRect" parent="level"]
@@ -90,24 +90,24 @@ margin_left = 2.0
 margin_right = 648.0
 margin_bottom = 904.0
 
-[node name="reimu" parent="level/background" instance=ExtResource( 8 )]
-position = Vector2( 332, 817 )
+[node name="yukari" parent="level" instance=ExtResource( 5 )]
+position = Vector2( -176, -102 )
+duration = 547.0
 
-[node name="move" type="Node2D" parent="level/background/reimu"]
+[node name="reimu" parent="level" instance=ExtResource( 8 )]
+position = Vector2( 334, 817 )
+
+[node name="move" type="Node2D" parent="level/reimu"]
 material = SubResource( 3 )
 script = ExtResource( 4 )
 
-[node name="Timer" type="Timer" parent="level/background/reimu/move"]
+[node name="Timer" type="Timer" parent="level/reimu/move"]
 wait_time = 3.0
 one_shot = true
-
-[node name="yukari" parent="level/background" instance=ExtResource( 5 )]
-position = Vector2( -178, -102 )
-duration = 547.0
 
 [node name="item" type="Node" parent="."]
 
 [node name="bomb" type="Node" parent="."]
 script = ExtResource( 6 )
 
-[connection signal="timeout" from="level/background/reimu/move/Timer" to="level/background/reimu/move" method="_on_Timer_timeout"]
+[connection signal="timeout" from="level/reimu/move/Timer" to="level/reimu/move" method="_on_Timer_timeout"]

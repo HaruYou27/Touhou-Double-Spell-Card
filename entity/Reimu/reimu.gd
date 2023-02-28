@@ -1,15 +1,12 @@
 extends StaticBody2D
 class_name Player
 
-onready var hitFx : Sprite = $hitFx
-onready var hitSFX : AudioStreamPlayer = $hitFx/hitSfx
-
 onready var graze : StaticBody2D = $graze
 onready var graze_fx : Particles2D = $graze/grazeFX
 onready var graze_timer : Timer = $graze/grazeFX/Timer
 
-onready var focus_layer : Sprite = $focus
-onready var death_tween :Tween = $hitFx/Tween
+onready var focus_layer : AnimationPlayer = $focus/AnimationPlayer
+onready var death_timer : Timer = $DeathTimer
 
 onready var tree := get_tree()
 onready var user_data :UserData = Global.user_data
@@ -21,13 +18,13 @@ export (PackedScene) var bomb_scene
 var bomb_count := 1
 
 func _ready():
+	call_deferred('ready')
 	Global.connect("bullet_graze", self, '_graze')
 	Global.connect("bomb_impact", self, '_bomb_impact')
 	
-	remove_child(hitFx)
+	death_timer.wait_time = Global.death_time
+	death_timer.connect("timeout", Global, 'emit_signal', ['restart_level'])
 	graze_timer.connect("timeout", graze_fx, 'set_emitting', [false])
-	death_tween.interpolate_property(hitFx, 'scale', Vector2.ONE, Vector2(.01, .01), Global.death_timer)
-	death_tween.call_deferred('connect', 'tween_all_completed', Global.leveler, 'restart')
 	
 	Global.player = self
 	
@@ -36,11 +33,11 @@ func _unhandled_input(event:InputEvent):
 		bomb()
 	elif event.is_action_pressed('drag'):
 		moving = true
-		create_tween().tween_property(focus_layer, 'modulate', Color.white, .25)
+		focus_layer.play("show")
 		return
 	elif event.is_action_released('drag'):
 		moving = false
-		create_tween().tween_property(focus_layer, 'modulate', Color.transparent, .25)
+		focus_layer.play_backwards("show")
 		return
 	
 	if event is InputEventMouseMotion and moving:
@@ -54,9 +51,7 @@ func _hit():
 	
 	set_process_unhandled_input(false)
 	Global.levelr.screenfx.flash_red()
-	add_child(hitFx)
-	hitSFX.play()
-	death_tween.start()
+	death_timer.start()
 
 	tree.paused = true
 	
@@ -70,9 +65,8 @@ func bomb():
 		
 	Global.leveler.hud._update_bomb()
 	Global.leveler.screenfx.hide()
-	death_tween.stop_all()
-	death_tween.reset_all()
-	remove_child(hitFx)
+	death_timer.stop_all()
+	death_timer.reset_all()
 	
 	collision_layer = 0
 	graze.collision_layer = 0

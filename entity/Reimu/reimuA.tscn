@@ -1,11 +1,9 @@
 [gd_scene load_steps=22 format=2]
 
-[ext_resource path="res://shader/item/hsv-adjust.gdshader" type="Shader" id=1]
 [ext_resource path="res://shader/UberItem.gdshader" type="Shader" id=2]
 [ext_resource path="res://entity/Reimu/reimu.gd" type="Script" id=3]
 [ext_resource path="res://entity/Bullet/BulletBasic.cs" type="Script" id=4]
 [ext_resource path="res://entity/Reimu/FantasySeal.tscn" type="PackedScene" id=5]
-[ext_resource path="res://entity/Reimu/hitFx.gd" type="Script" id=6]
 [ext_resource path="res://entity/Reimu/texture/ofuda-tail.png" type="Texture" id=7]
 [ext_resource path="res://entity/Reimu/texture/reimu.png" type="Texture" id=8]
 [ext_resource path="res://entity/Bullet/Seeker.cs" type="Script" id=9]
@@ -43,8 +41,86 @@ angular_velocity = 227.0
 orbit_velocity = 0.0
 orbit_velocity_random = 0.0
 
-[sub_resource type="ShaderMaterial" id=30]
-shader = ExtResource( 1 )
+[sub_resource type="ShaderMaterial" id=35]
+shader = ExtResource( 2 )
+shader_param/rainbow = null
+shader_param/rainbow_frequency = 1.0
+shader_param/recolor = true
+shader_param/h = 0.705
+shader_param/s = 1.0
+shader_param/v = 1.0
+shader_param/rotate = null
+shader_param/time_speed = 1.0
+shader_param/wobble = null
+shader_param/wobble_max = 1.25
+shader_param/wobble_min = 0.75
+
+[sub_resource type="Animation" id=33]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ true ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=34]
+resource_name = "show"
+length = 0.25
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.249578 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.249208 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1.5, 1.5 ), Vector2( 1, 1 ) ]
+}
 
 [sub_resource type="ShaderMaterial" id=32]
 shader = ExtResource( 2 )
@@ -125,17 +201,14 @@ wait_time = 0.15
 one_shot = true
 
 [node name="focus" type="Sprite" parent="."]
-material = SubResource( 30 )
+modulate = Color( 1, 1, 1, 0 )
+material = SubResource( 35 )
 z_index = 6
 texture = ExtResource( 12 )
 
-[node name="hitFx" type="Sprite" parent="."]
-pause_mode = 2
-script = ExtResource( 6 )
-
-[node name="hitSfx" type="AudioStreamPlayer" parent="hitFx"]
-
-[node name="Tween" type="Tween" parent="hitFx"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="focus"]
+anims/RESET = SubResource( 33 )
+anims/show = SubResource( 34 )
 
 [node name="bullet" type="Node2D" parent="."]
 position = Vector2( 1, 4 )
@@ -212,6 +285,10 @@ flip_v = true
 process_mode = 0
 wait_time = 0.333
 
-[connection signal="bomb" from="hitFx" to="." method="bomb"]
+[node name="hitFX" type="AudioStreamPlayer" parent="."]
+
+[node name="DeathTimer" type="Timer" parent="."]
+one_shot = true
+
 [connection signal="timeout" from="bullet/Timer" to="bullet" method="SpawnBullet"]
 [connection signal="timeout" from="bullet2/Timer2" to="bullet2" method="SpawnBullet"]
