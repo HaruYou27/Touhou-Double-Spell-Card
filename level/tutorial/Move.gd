@@ -1,6 +1,6 @@
 extends Timer
 
-onready var init_pos :Vector2
+@onready var init_pos :Vector2
 var player
 
 func _ready():
@@ -8,7 +8,7 @@ func _ready():
 	Global.can_shoot = false
 	
 func start(time = wait_time):
-	.start()
+	super.start()
 	player = Global.player
 	init_pos = player.global_position
 	set_physics_process(true)

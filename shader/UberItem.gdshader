@@ -10,11 +10,12 @@ uniform float v: hint_range(0, 2) = 1;
 
 uniform bool rotate;
 uniform float time_speed = 1.0;
-const float PI = 3.14159265359;
 
 uniform bool wobble;
 uniform float wobble_max = 1.25;
 uniform float wobble_min = .75;
+
+uniform bool disable_modulate;
 
 vec3 rgb2hsv(vec3 c)
 {
@@ -50,33 +51,32 @@ void vertex()
 {
 	if (rainbow)
 	{
-    	rainbow_hue = abs(sin(TIME * rainbow_frequency)) + MODULATE.a;
-  	}
+    	rainbow_hue = abs(sin(TIME * rainbow_frequency)) + COLOR.a;
+	}
     if (rotate)
-    {
-    	float phi = TIME * time_speed * PI * sign(MODULATE.a - .5);
+	{
+    	float phi = TIME * time_speed * PI * sign(COLOR.a - .5);
         VERTEX *= mat2(vec2(cos(phi),-sin(phi)),
                        vec2(sin(phi),cos(phi)));
     }
 	if (wobble)
 	{
-		VERTEX *= wobble_min + abs(sin(TIME * time_speed + 1000.0*MODULATE.a)) * (wobble_max - wobble_min);
+		VERTEX *= wobble_min + abs(sin(TIME * time_speed + 1000.0*COLOR.a)) * (wobble_max - wobble_min);
+	}
+	if (disable_modulate)
+	{
+		COLOR = vec4(1.0);
 	}
 }
 
 void fragment()
 {
-	vec4 color = texture(TEXTURE, UV);
-	
 	if (recolor)
 	{
-		vec3 colorhsv = rgb2hsv(color.rgb);
+		vec3 colorhsv = rgb2hsv(COLOR.rgb);
 		float boolean = when_lt(colorhsv.y, 0.11);
 		colorhsv *= vec3(1, s, v);
 		colorhsv.x += h + rainbow_hue;
-		color.rgb = color.rgb * boolean + hsv2rgb(colorhsv) * nah(boolean);
+		COLOR.rgb = COLOR.rgb * boolean + hsv2rgb(colorhsv) * nah(boolean);
 	}
-	
-	COLOR = color * MODULATE;
-	
 }

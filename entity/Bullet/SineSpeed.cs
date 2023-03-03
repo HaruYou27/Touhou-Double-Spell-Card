@@ -1,6 +1,6 @@
 using Godot;
 
-public class SineSpeed : BulletBasic 
+public partial class SineSpeed : BulletBasic 
 {
 	//Bullet that speed up and down by sine wave.
 	[Export] float frequency = 1;

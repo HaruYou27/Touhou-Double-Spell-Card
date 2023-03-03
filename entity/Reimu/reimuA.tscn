@@ -1,298 +1,318 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=25 format=3 uid="uid://cr6qdq3n4qsl5"]
 
-[ext_resource path="res://entity/Reimu/deathTimer.gd" type="Script" id=1]
-[ext_resource path="res://shader/UberItem.gdshader" type="Shader" id=2]
-[ext_resource path="res://entity/Reimu/reimu.gd" type="Script" id=3]
-[ext_resource path="res://entity/Bullet/BulletBasic.cs" type="Script" id=4]
-[ext_resource path="res://entity/Reimu/FantasySeal.tscn" type="PackedScene" id=5]
-[ext_resource path="res://entity/Reimu/texture/ofuda-tail.png" type="Texture" id=7]
-[ext_resource path="res://entity/Reimu/texture/reimu.png" type="Texture" id=8]
-[ext_resource path="res://entity/Bullet/Seeker.cs" type="Script" id=9]
-[ext_resource path="res://entity/Reimu/orb.gd" type="Script" id=10]
-[ext_resource path="res://entity/Reimu/texture/yinyangOrb.png" type="Texture" id=11]
-[ext_resource path="res://entity/Reimu/texture/focus.png" type="Texture" id=12]
-[ext_resource path="res://entity/Reimu/texture/ofuda.png" type="Texture" id=13]
+[ext_resource type="Script" path="res://entity/Reimu/deathTimer.gd" id="1"]
+[ext_resource type="Shader" path="res://shader/UberItem.gdshader" id="2"]
+[ext_resource type="Script" path="res://entity/Reimu/reimu.gd" id="3"]
+[ext_resource type="Script" path="res://entity/Bullet/BulletBasic.cs" id="4"]
+[ext_resource type="Script" path="res://entity/Reimu/graze.gd" id="4_x0778"]
+[ext_resource type="PackedScene" path="res://entity/Reimu/FantasySeal.tscn" id="5"]
+[ext_resource type="Texture2D" uid="uid://c3jodrorofxht" path="res://entity/Reimu/texture/ofuda-tail.png" id="7"]
+[ext_resource type="Texture2D" uid="uid://r7d3f3sdgdhy" path="res://entity/Reimu/texture/reimu.png" id="8"]
+[ext_resource type="Script" path="res://entity/Bullet/Seeker.cs" id="9"]
+[ext_resource type="Texture2D" uid="uid://bxqtm4axxr5gl" path="res://entity/Reimu/texture/yinyangOrb.png" id="11"]
+[ext_resource type="Texture2D" uid="uid://dv7h11hcjacg2" path="res://entity/Reimu/texture/focus.png" id="12"]
+[ext_resource type="Texture2D" uid="uid://dk5iw3idwfm40" path="res://entity/Reimu/texture/ofuda.png" id="13"]
 
-[sub_resource type="SpriteFrames" id=14]
-animations = [ {
-"frames": [ ExtResource( 8 ) ],
+[sub_resource type="SpriteFrames" id="14"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8")
+}],
 "loop": true,
-"name": "default",
+"name": &"default",
 "speed": 5.0
-} ]
+}]
 
-[sub_resource type="CircleShape2D" id=7]
+[sub_resource type="CircleShape2D" id="7"]
 radius = 4.0
 
-[sub_resource type="CircleShape2D" id=27]
+[sub_resource type="CircleShape2D" id="27"]
 radius = 80.0
 
-[sub_resource type="CircleShape2D" id=16]
+[sub_resource type="CircleShape2D" id="16"]
 radius = 40.0
 
-[sub_resource type="ParticlesMaterial" id=25]
+[sub_resource type="ParticleProcessMaterial" id="25"]
 emission_shape = 1
 emission_sphere_radius = 8.0
-flag_disable_z = true
-direction = Vector3( 0, 0, 0 )
+direction = Vector3(0, 0, 0)
 spread = 180.0
-gravity = Vector3( 0, 0, 0 )
-initial_velocity = 100.0
-angular_velocity = 227.0
-orbit_velocity = 0.0
-orbit_velocity_random = 0.0
+gravity = Vector3(0, 0, 0)
 
-[sub_resource type="ShaderMaterial" id=35]
-shader = ExtResource( 2 )
-shader_param/rainbow = null
-shader_param/rainbow_frequency = 1.0
-shader_param/recolor = true
-shader_param/h = 0.705
-shader_param/s = 1.0
-shader_param/v = 1.0
-shader_param/rotate = null
-shader_param/time_speed = 1.0
-shader_param/wobble = null
-shader_param/wobble_max = 1.25
-shader_param/wobble_min = 0.75
+[sub_resource type="ShaderMaterial" id="35"]
+shader = ExtResource("2")
+shader_parameter/rainbow = null
+shader_parameter/rainbow_frequency = 1.0
+shader_parameter/recolor = null
+shader_parameter/h = 1.0
+shader_parameter/s = 1.0
+shader_parameter/v = 1.0
+shader_parameter/rotate = null
+shader_parameter/time_speed = 1.0
+shader_parameter/wobble = null
+shader_parameter/wobble_max = 1.25
+shader_parameter/wobble_min = 0.75
+shader_parameter/disable_modulate = null
 
-[sub_resource type="Animation" id=33]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/path = NodePath(".:visible")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ true ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath(".:modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Color( 1, 1, 1, 0 ) ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath(".:scale")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Vector2( 1, 1 ) ]
-}
-
-[sub_resource type="Animation" id=34]
+[sub_resource type="Animation" id="34"]
 resource_name = "show"
 length = 0.25
 tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
 tracks/0/path = NodePath(".:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.249578 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PackedFloat32Array(0, 0.249578),
+"transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
 }
 tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
 tracks/1/path = NodePath(".:scale")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.249208),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1.5, 1.5), Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_xn0pm"]
+_data = {
+"show": SubResource("34")
+}
+
+[sub_resource type="ShaderMaterial" id="32"]
+shader = ExtResource("2")
+shader_parameter/rainbow = null
+shader_parameter/rainbow_frequency = 1.0
+shader_parameter/recolor = null
+shader_parameter/h = 1.0
+shader_parameter/s = 1.0
+shader_parameter/v = 1.0
+shader_parameter/rotate = null
+shader_parameter/time_speed = 1.0
+shader_parameter/wobble = null
+shader_parameter/wobble_max = 1.25
+shader_parameter/wobble_min = 0.75
+shader_parameter/disable_modulate = null
+
+[sub_resource type="Animation" id="Animation_yfsl5"]
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("bullet3:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [6.28319]
+}
+tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
+tracks/1/path = NodePath("bullet2:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 0.249208 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [ Vector2( 1.5, 1.5 ), Vector2( 1, 1 ) ]
+"values": [-6.28319]
 }
 
-[sub_resource type="ShaderMaterial" id=32]
-shader = ExtResource( 2 )
-shader_param/rainbow = null
-shader_param/rainbow_frequency = 1.0
-shader_param/recolor = true
-shader_param/h = 0.738
-shader_param/s = 1.0
-shader_param/v = 1.0
-shader_param/rotate = null
-shader_param/time_speed = 1.0
-shader_param/wobble = null
-shader_param/wobble_max = 1.25
-shader_param/wobble_min = 0.75
+[sub_resource type="Animation" id="Animation_50kuu"]
+resource_name = "spin"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("bullet2:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, -6.28319]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("bullet3:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 6.28319]
+}
 
-[sub_resource type="ShaderMaterial" id=31]
-shader = ExtResource( 2 )
-shader_param/rainbow = null
-shader_param/rainbow_frequency = 1.0
-shader_param/recolor = null
-shader_param/h = 1.0
-shader_param/s = 1.0
-shader_param/v = 1.0
-shader_param/rotate = true
-shader_param/time_speed = 1.0
-shader_param/wobble = null
-shader_param/wobble_max = 1.25
-shader_param/wobble_min = 0.75
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_wwnxa"]
+_data = {
+"RESET": SubResource("Animation_yfsl5"),
+"spin": SubResource("Animation_50kuu")
+}
 
 [node name="reimu" type="StaticBody2D"]
-position = Vector2( 0, 1 )
+texture_filter = 1
+position = Vector2(0, 1)
 collision_layer = 4
 collision_mask = 0
-constant_linear_velocity = Vector2( 3, 0 )
-script = ExtResource( 3 )
-__meta__ = {
-"_editor_description_": ""
-}
-bomb_scene = ExtResource( 5 )
+constant_linear_velocity = Vector2(3, 0)
+script = ExtResource("3")
+bomb_scene = ExtResource("5")
 
-[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 z_index = 5
-frames = SubResource( 14 )
-__meta__ = {
-"_editor_description_": ""
-}
+sprite_frames = SubResource("14")
 
 [node name="hitbox" type="CollisionShape2D" parent="."]
 visible = false
 z_index = 10
-shape = SubResource( 7 )
+shape = SubResource("7")
 
 [node name="item" type="StaticBody2D" parent="."]
 collision_layer = 16
 collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="item"]
-shape = SubResource( 27 )
+shape = SubResource("27")
 
 [node name="graze" type="StaticBody2D" parent="."]
-pause_mode = 2
+process_mode = 2
 visible = false
 collision_layer = 8
 collision_mask = 0
-constant_linear_velocity = Vector2( 4, 0 )
+constant_linear_velocity = Vector2(4, 0)
+script = ExtResource("4_x0778")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="graze"]
 z_index = 9
-shape = SubResource( 16 )
+shape = SubResource("16")
 
-[node name="grazeFX" type="Particles2D" parent="graze"]
+[node name="grazeFX" type="GPUParticles2D" parent="graze"]
 emitting = false
+process_material = SubResource("25")
 lifetime = 0.5
-process_material = SubResource( 25 )
 
 [node name="Timer" type="Timer" parent="graze/grazeFX"]
 wait_time = 0.15
 one_shot = true
 
-[node name="focus" type="Sprite" parent="."]
-modulate = Color( 1, 1, 1, 0 )
-material = SubResource( 35 )
+[node name="focus" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0)
 z_index = 6
-texture = ExtResource( 12 )
+material = SubResource("35")
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("12")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="focus"]
-anims/RESET = SubResource( 33 )
-anims/show = SubResource( 34 )
+libraries = {
+"": SubResource("AnimationLibrary_xn0pm")
+}
 
 [node name="bullet" type="Node2D" parent="."]
-position = Vector2( 1, 4 )
-script = ExtResource( 4 )
+position = Vector2(1, 4)
+script = ExtResource("4")
 CollideWithAreas = true
 CollisionLayer = 3
-texture = ExtResource( 7 )
+texture = ExtResource("7")
 maxBullet = 57
 speed = 727.0
 Grazable = false
 zIndex = 1
 
-[node name="Position2D" type="Position2D" parent="bullet"]
-position = Vector2( 7, -38 )
+[node name="Marker2D" type="Marker2D" parent="bullet"]
+position = Vector2(7, -38)
 rotation = -1.5708
 
-[node name="Position2D2" type="Position2D" parent="bullet"]
-position = Vector2( -7, -58 )
+[node name="Position2D2" type="Marker2D" parent="bullet"]
+position = Vector2(-7, -58)
 rotation = -1.5708
 
-[node name="Timer" type="Timer" parent="bullet" groups=["player_bullet"]]
-process_mode = 0
+[node name="Timer" type="Timer" parent="bullet"]
+process_callback = 0
 wait_time = 0.143
 
 [node name="bullet2" type="Node2D" parent="."]
-material = SubResource( 32 )
-position = Vector2( -65, 54 )
 z_index = 6
-script = ExtResource( 9 )
+material = SubResource("32")
+rotation = -2.01046
+script = ExtResource("9")
 CollideWithAreas = true
 CollisionLayer = 3
-texture = ExtResource( 13 )
+texture = ExtResource("13")
 maxBullet = 57
 speed = 727.0
 Grazable = false
-material = SubResource( 32 )
 zIndex = 1
 seekRadius = 646.0
 seekAreas = true
 seekBodies = false
 
-[node name="YinyangOrb" type="Sprite" parent="bullet2"]
-material = SubResource( 31 )
-position = Vector2( -50, 0 )
-rotation = -1.74533
-texture = ExtResource( 11 )
-
-[node name="YinyangOrb2" type="Sprite" parent="bullet2"]
-material = SubResource( 31 )
-rotation = -1.74533
-texture = ExtResource( 11 )
-script = ExtResource( 10 )
-
-[node name="YinyangOrb3" type="Sprite" parent="bullet2/YinyangOrb2"]
-material = SubResource( 31 )
-position = Vector2( -22.4006, 127.04 )
-texture = ExtResource( 11 )
+[node name="YinyangOrb" type="Sprite2D" parent="bullet2"]
+position = Vector2(98, 0)
+texture = ExtResource("11")
 flip_h = true
-flip_v = true
 
-[node name="Dummy" type="Node2D" parent="bullet2"]
-position = Vector2( 129, -1.52588e-05 )
-rotation = -1.39626
-
-[node name="YinyangOrb4" type="Sprite" parent="bullet2"]
-material = SubResource( 31 )
-position = Vector2( 180, 0 )
-rotation = -1.39626
-texture = ExtResource( 11 )
+[node name="YinyangOrb4" type="Sprite2D" parent="bullet2"]
+position = Vector2(-98, 0)
+texture = ExtResource("11")
 flip_h = true
-flip_v = true
 
-[node name="Timer2" type="Timer" parent="bullet2" groups=["player_bullet"]]
-process_mode = 0
-wait_time = 0.333
+[node name="bullet3" type="Node2D" parent="."]
+z_index = 6
+material = SubResource("32")
+rotation = 2.01046
+script = ExtResource("9")
+CollideWithAreas = true
+CollisionLayer = 3
+texture = ExtResource("13")
+maxBullet = 57
+speed = 727.0
+Grazable = false
+zIndex = 1
+seekRadius = 646.0
+seekAreas = true
+seekBodies = false
+
+[node name="YinyangOrb" type="Sprite2D" parent="bullet3"]
+position = Vector2(0, -132)
+texture = ExtResource("11")
+
+[node name="YinyangOrb4" type="Sprite2D" parent="bullet3"]
+position = Vector2(0, 132)
+texture = ExtResource("11")
 
 [node name="hitFX" type="AudioStreamPlayer" parent="."]
 
 [node name="DeathTimer" type="Timer" parent="."]
-pause_mode = 2
+process_mode = 2
 one_shot = true
-script = ExtResource( 1 )
+script = ExtResource("1")
+
+[node name="orbAnimator" type="AnimationPlayer" parent="."]
+reset_on_save = false
+libraries = {
+"": SubResource("AnimationLibrary_wwnxa")
+}
+
+[node name="Timer2" type="Timer" parent="."]
+process_callback = 0
+wait_time = 0.333
 
 [connection signal="timeout" from="bullet/Timer" to="bullet" method="SpawnBullet"]
-[connection signal="timeout" from="bullet2/Timer2" to="bullet2" method="SpawnBullet"]
 [connection signal="bomb" from="DeathTimer" to="." method="bomb"]
+[connection signal="timeout" from="Timer2" to="bullet2" method="SpawnBullet"]
+[connection signal="timeout" from="Timer2" to="bullet3" method="SpawnBullet"]

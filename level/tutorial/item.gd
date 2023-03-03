@@ -1,7 +1,7 @@
 extends Timer
 
 func start(_time:= wait_time) -> void:
-	.start()
+	super.start()
 	Global.can_shoot = false
 	Global.leveler.item_manager.SpawnItem(27, Global.boss.transform)
 

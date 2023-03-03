@@ -1,32 +1,41 @@
 extends StaticBody2D
 class_name Player
 
-onready var graze : StaticBody2D = $graze
-onready var graze_fx : Particles2D = $graze/grazeFX
-onready var graze_timer : Timer = $graze/grazeFX/Timer
+@onready var graze : StaticBody2D = $graze
+@onready var focus_layer : AnimationPlayer = $focus/AnimationPlayer
+@onready var death_timer : Timer = $DeathTimer
+@onready var orb_animator : AnimationPlayer = $orbAnimator
 
-onready var focus_layer : AnimationPlayer = $focus/AnimationPlayer
-onready var death_timer : Timer = $DeathTimer
+@onready var tree := get_tree()
+@onready var user_data :UserData = Global.user_data
 
-onready var tree := get_tree()
-onready var user_data :UserData = Global.user_data
-
-onready var sentivity := user_data.sentivity
+@onready var sentivity := user_data.sentivity
 var moving := false
+var can_shoot := true : set = _set_shooting
+func _set_shooting(value:bool) -> void:
+	can_shoot = value
+	if value:
+		orb_animator.speed_scale = 1.0
+		for timer in bullet_timer:
+			timer.start()
+			
+	else:
+		orb_animator.speed_scale = .25
+		for timer in bullet_timer:
+			timer.stop()
 
-export (PackedScene) var bomb_scene
+@export var bullet_timer : Array[Timer]
+@export var bomb_scene : PackedScene
 var bomb_count := 1
 
-func _ready():
-	death_timer.connect('timeout', Global.leveler, 'restart')
-	Global.connect("bullet_graze", self, '_graze')
-	Global.connect("bomb_impact", self, '_bomb_impact')
+func _ready() -> void:
+	death_timer.connect('timeout',Callable(Global.leveler,'restart'))
+	Global.connect("bomb_impact",Callable(self,'_bomb_impact'))
 	
 	death_timer.wait_time = Global.score.death_time
-	graze_timer.connect("timeout", graze_fx, 'set_emitting', [false])
 	position = Vector2(307, 800)
 	
-func _unhandled_input(event:InputEvent):
+func _unhandled_input(event:InputEvent) -> void:
 	if event.is_action_released("bomb"):
 		bomb()
 	elif event.is_action_pressed('drag'):
@@ -43,7 +52,7 @@ func _unhandled_input(event:InputEvent):
 		position.x = clamp(position.x, 0.0, 604.0)
 		position.y = clamp(position.y, 0.0, 906.0)
 
-func _hit():
+func _hit() -> void:
 	if tree.paused:
 		return
 	
@@ -52,33 +61,30 @@ func _hit():
 	death_timer.start()
 
 	tree.paused = true
-	
-func _graze():
-	graze_fx.emitting = true
-	graze_timer.start()
 
-func bomb():
+func bomb() -> void:
 	if not bomb_count:
 		return
 		
 	Global.leveler.hud._update_bomb()
 	Global.leveler.screenfx.hide()
-	death_timer.stop_all()
-	death_timer.reset_all()
+	death_timer.stop()
 	
 	collision_layer = 0
 	graze.collision_layer = 0
 	modulate = Color(1.0, 1.0, 1.0, .5)
-	if Global.can_shoot:
-		tree.call_group('player_bullet', 'stop')
+	if can_shoot:
+		for timer in bullet_timer:
+			timer.stop()
 	
-	add_child(bomb_scene.instance())
+	add_child(bomb_scene.instantiate())
 	tree.paused = false
 	set_process_unhandled_input(true)
 	
-func _bomb_impact():
+func _bomb_impact() -> void:
 	collision_layer = 4
 	graze.collision_layer = 8
-	modulate = Color.white
-	if Global.can_shoot:
-		tree.call_group('player_bullet', 'start')
+	modulate = Color.WHITE
+	if can_shoot:
+		for timer in bullet_timer:
+			timer.start()

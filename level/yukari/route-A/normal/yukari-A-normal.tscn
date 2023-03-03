@@ -5,7 +5,7 @@
 [ext_resource path="res://level/yukari/base/yukari.tscn" type="PackedScene" id=3]
 [ext_resource path="res://level/yukari/route-A/normal/wave.gd" type="Script" id=4]
 [ext_resource path="res://level/base/leveler.tscn" type="PackedScene" id=5]
-[ext_resource path="res://level/yukari/base/texture/baked.png" type="Texture" id=7]
+[ext_resource path="res://level/yukari/base/texture/baked.png" type="Texture2D" id=7]
 [ext_resource path="res://shader/UberItem.gdshader" type="Shader" id=8]
 
 [sub_resource type="ShaderMaterial" id=1]
@@ -47,8 +47,8 @@ level = NodePath("yukari/wave2")
 
 [node name="TextureRect" type="TextureRect" parent="level"]
 material = SubResource( 1 )
-margin_right = 646.0
-margin_bottom = 904.0
+offset_right = 646.0
+offset_bottom = 904.0
 mouse_filter = 2
 texture = ExtResource( 7 )
 stretch_mode = 2

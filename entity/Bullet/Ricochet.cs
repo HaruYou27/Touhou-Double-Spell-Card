@@ -1,6 +1,6 @@
 using Godot;
 //Bullet that bounce off wall.
-public class Ricochet : BulletBasic 
+public partial class Ricochet : BulletBasic 
 {
     [Export] uint ricochet = 1;
     protected uint[] ricochets;

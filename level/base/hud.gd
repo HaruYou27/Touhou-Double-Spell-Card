@@ -1,4 +1,4 @@
-extends Sprite
+extends Sprite2D
 class_name HUD
 
 var score := 0
@@ -8,20 +8,20 @@ var graze := 0
 var updating_graze := false
 var goal := 0
 
-onready var hi_score_label :FormatLabel = $VBoxContainer/HiScore
-onready var score_label :FormatLabel = $VBoxContainer/Score
-onready var graze_label :FormatLabel = $VBoxContainer/Graze
-onready var item_label :FormatLabel = $VBoxContainer/item
-onready var pickup_sfx : AudioStreamPlayer = $pickup
-onready var bomb_label :FormatLabel = $VBoxContainer/Bomb
-onready var reward_sfx :AudioStreamPlayer = $reward
-onready var goal_label :FormatLabel = $VBoxContainer/Goal
+@onready var hi_score_label :FormatLabel = $VBoxContainer/HiScore
+@onready var score_label :FormatLabel = $VBoxContainer/Score
+@onready var graze_label :FormatLabel = $VBoxContainer/Graze
+@onready var item_label :FormatLabel = $VBoxContainer/item
+@onready var pickup_sfx : AudioStreamPlayer = $pickup
+@onready var bomb_label :FormatLabel = $VBoxContainer/Bomb
+@onready var reward_sfx :AudioStreamPlayer = $reward
+@onready var goal_label :FormatLabel = $VBoxContainer/Goal
 
-onready var multiplier := pow(Global.score.death_time, Engine.time_scale)
+@onready var multiplier := pow(Global.score.death_time, Engine.time_scale)
 
 func _ready():
-	Global.connect("item_collect", self, "_set_item")
-	Global.connect('bullet_graze', self, '_set_graze')
+	Global.connect("item_collect",Callable(self,"_set_item"))
+	Global.connect('bullet_graze',Callable(self,'_set_graze'))
 	
 	if Global.score:
 		hi_score_label.update_label(Global.score.score)

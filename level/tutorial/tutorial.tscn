@@ -8,7 +8,7 @@
 [ext_resource path="res://level/tutorial/bomb.gd" type="Script" id=6]
 [ext_resource path="res://level/base/leveler.tscn" type="PackedScene" id=7]
 [ext_resource path="res://entity/utility/TargetLocker.gd" type="Script" id=8]
-[ext_resource path="res://level/yukari/base/texture/kunai1.png" type="Texture" id=9]
+[ext_resource path="res://level/yukari/base/texture/kunai1.png" type="Texture2D" id=9]
 [ext_resource path="res://level/tutorial/Dodge.gd" type="Script" id=10]
 [ext_resource path="res://entity/Bullet/BulletBasic.cs" type="Script" id=11]
 
@@ -21,9 +21,9 @@ next_scene = ExtResource( 3 )
 
 [node name="background" type="ColorRect" parent="level"]
 material = ExtResource( 2 )
-margin_left = 2.0
-margin_right = 648.0
-margin_bottom = 904.0
+offset_left = 2.0
+offset_right = 648.0
+offset_bottom = 904.0
 
 [node name="yukari" parent="level" instance=ExtResource( 5 )]
 position = Vector2( 201, -227 )
@@ -42,7 +42,7 @@ speed = 127.0
 [node name="Timer" type="Timer" parent="level/yukari/Dodge/bullet"]
 process_mode = 0
 
-[node name="TargetLocker" type="Position2D" parent="level/yukari/Dodge/bullet"]
+[node name="TargetLocker" type="Marker2D" parent="level/yukari/Dodge/bullet"]
 visible = false
 rotation = 1.5708
 script = ExtResource( 8 )
@@ -50,13 +50,13 @@ __meta__ = {
 "_gizmo_extents_": 116.4
 }
 
-[node name="Position2D" type="Position2D" parent="level/yukari/Dodge/bullet/TargetLocker"]
+[node name="Marker2D" type="Marker2D" parent="level/yukari/Dodge/bullet/TargetLocker"]
 rotation = 0.441876
 __meta__ = {
 "_gizmo_extents_": 148.3
 }
 
-[node name="Position2D2" type="Position2D" parent="level/yukari/Dodge/bullet/TargetLocker"]
+[node name="Position2D2" type="Marker2D" parent="level/yukari/Dodge/bullet/TargetLocker"]
 rotation = -0.441568
 __meta__ = {
 "_gizmo_extents_": 148.3

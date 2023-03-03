@@ -1,6 +1,6 @@
 using Godot;
 
-public class ChargeBullet : BulletBasic 
+public partial class ChargeBullet : BulletBasic 
 {
 	//Bullet that shoot out fast and slow down over time.
 	//Or fake friction.

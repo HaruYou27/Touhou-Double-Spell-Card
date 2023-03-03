@@ -1,12 +1,12 @@
 extends VBoxContainer
 
-onready var drag :UberButton = $drag
-onready var bomb :UberButton = $bomb
-onready var raw :UberButton = $raw
-onready var sentivity :HSlider = $sentivity
-onready var sentivityLabel :FormatLabel = $SentivityLabel
+@onready var drag :UberButton = $drag
+@onready var bomb :UberButton = $bomb
+@onready var raw :UberButton = $raw
+@onready var sentivity :HSlider = $sentivity
+@onready var sentivityLabel :FormatLabel = $SentivityLabel
 
-onready var user_data :UserData = Global.user_data
+@onready var user_data :UserData = Global.user_data
 
 var switch := false
 
@@ -38,7 +38,7 @@ func _unhandled_input(event):
 	set_process_unhandled_input(false)
 
 func _on_controls_reset_pressed():
-	raw.pressed = true
+	raw.button_pressed = true
 	sentivity.value = 1.0
 	
 	InputMap.action_erase_events('bomb')
@@ -57,7 +57,7 @@ func _on_controls_reset_pressed():
 
 static func get_input_string(event:InputEvent) -> String:
 	if event is InputEventKey:
-		return OS.get_scancode_string(event.scancode)
+		return OS.get_keycode_string(event.keycode)
 	
 	match event.button_index:
 		1:

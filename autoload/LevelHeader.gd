@@ -1,9 +1,9 @@
 extends Resource
 class_name LevelHeader
 
-export (String) var title := 'Test Level'
-export (Texture) var preview
-export (PackedScene) var level
+@export (String) var title := 'Test Level'
+@export (Texture2D) var preview
+@export (PackedScene) var level
 
 var score :Score
 var path := 'user://' + title + '.res'

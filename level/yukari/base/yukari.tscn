@@ -3,10 +3,10 @@
 [ext_resource path="res://level/base/BossGauge.gd" type="Script" id=1]
 [ext_resource path="res://entity/utility/LockedNode2D.gd" type="Script" id=2]
 [ext_resource path="res://level/yukari/base/yukari.gd" type="Script" id=3]
-[ext_resource path="res://level/base/resource/boss-indicator.png" type="Texture" id=4]
-[ext_resource path="res://level/textures/over.png" type="Texture" id=5]
-[ext_resource path="res://level/textures/fill.png" type="Texture" id=6]
-[ext_resource path="res://level/yukari/base/texture/Yukari.png" type="Texture" id=7]
+[ext_resource path="res://level/base/resource/boss-indicator.png" type="Texture2D" id=4]
+[ext_resource path="res://level/textures/over.png" type="Texture2D" id=5]
+[ext_resource path="res://level/textures/fill.png" type="Texture2D" id=6]
+[ext_resource path="res://level/yukari/base/texture/Yukari.png" type="Texture2D" id=7]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 77.0
@@ -27,7 +27,7 @@ monitoring = false
 monitorable = false
 script = ExtResource( 3 )
 
-[node name="indicator" type="Sprite" parent="."]
+[node name="indicator" type="Sprite2D" parent="."]
 texture = ExtResource( 4 )
 script = ExtResource( 2 )
 value = 880
@@ -37,14 +37,14 @@ locked_y = true
 visible = false
 shape = SubResource( 1 )
 
-[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 frames = SubResource( 2 )
 
-[node name="Gauge" type="TextureProgress" parent="."]
-margin_left = -154.0
-margin_top = -163.0
-margin_right = 154.0
-margin_bottom = -128.0
+[node name="Gauge" type="TextureProgressBar" parent="."]
+offset_left = -154.0
+offset_top = -163.0
+offset_right = 154.0
+offset_bottom = -128.0
 value = 100.0
 texture_over = ExtResource( 5 )
 texture_progress = ExtResource( 6 )

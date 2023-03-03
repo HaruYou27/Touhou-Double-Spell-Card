@@ -1,7 +1,7 @@
 [gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://entity/enemy/Enemy.gd" type="Script" id=1]
-[ext_resource path="res://entity/enemy/phantom/fire_particle.png" type="Texture" id=2]
+[ext_resource path="res://entity/enemy/phantom/fire_particle.png" type="Texture2D" id=2]
 
 [sub_resource type="CircleShape2D" id=2]
 radius = 11.0
@@ -23,7 +23,7 @@ _data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
 [sub_resource type="CurveTexture" id=5]
 curve = SubResource( 4 )
 
-[sub_resource type="ParticlesMaterial" id=6]
+[sub_resource type="ParticleProcessMaterial" id=6]
 emission_shape = 1
 emission_sphere_radius = 3.0
 flag_disable_z = true
@@ -43,7 +43,7 @@ color = Color( 0.0431373, 0.423529, 0.858824, 1 )
 [sub_resource type="CanvasItemMaterial" id=8]
 blend_mode = 1
 
-[sub_resource type="ParticlesMaterial" id=9]
+[sub_resource type="ParticleProcessMaterial" id=9]
 emission_shape = 1
 emission_sphere_radius = 8.0
 flag_disable_z = true
@@ -68,14 +68,14 @@ script = ExtResource( 1 )
 visible = false
 shape = SubResource( 2 )
 
-[node name="sprite" type="Particles2D" parent="."]
+[node name="sprite" type="GPUParticles2D" parent="."]
 material = SubResource( 1 )
 preprocess = 0.1
 local_coords = false
 process_material = SubResource( 6 )
 texture = ExtResource( 2 )
 
-[node name="explosion" type="Particles2D" parent="."]
+[node name="explosion" type="GPUParticles2D" parent="."]
 material = SubResource( 8 )
 position = Vector2( 1, 1 )
 emitting = false

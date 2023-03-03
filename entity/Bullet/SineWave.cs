@@ -1,5 +1,5 @@
 using Godot;
-public class SineWave : BulletBasic {
+public partial class SineWave : BulletBasic {
     //Bullet that offset y coord by sine wave.
     [Export] float amplitude = 5;
     [Export] float frequency = 5;

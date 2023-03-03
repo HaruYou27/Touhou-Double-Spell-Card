@@ -6,8 +6,8 @@ uniform float anchor : hint_range(-1.0,0.0) = -0.5;
 uniform float speed_scale = 1.0;
 uniform float fov : hint_range(0.001, 1.0) = 0.2;
 uniform float line_count = 1.0;
-uniform vec4 background_color : hint_color = vec4(0.0, 0.1, 0.2, 1.0);
-uniform vec4 grid_color : hint_color = vec4(1.0, 0.5, 1.0, 1.0);
+uniform vec4 background_color : source_color = vec4(0.0, 0.1, 0.2, 1.0);
+uniform vec4 grid_color : source_color = vec4(1.0, 0.5, 1.0, 1.0);
 
 float grid(vec2 uv, float batt) {
     vec2 size = vec2(uv.y, uv.y * uv.y * 0.2) * 0.01* (batt + 0.05);

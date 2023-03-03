@@ -1,6 +1,6 @@
 using Godot;
 //The base class of all bullets.
-public class BulletBasic : Node2D 
+public partial class BulletBasic : Node2D 
 {
 //Shared properties.
 	//Physics.
@@ -35,7 +35,7 @@ public class BulletBasic : Node2D
 		} get {return mask;}
 	}
 	[Export] public bool Grazable = true;
-	protected readonly Physics2DShapeQueryParameters query = new Physics2DShapeQueryParameters();
+	protected readonly PhysicsShapeQueryParameters2D query = new PhysicsShapeQueryParameters2D();
 	protected RID hitbox;
 	private Vector2 shapesize;
 	protected uint mask = 1;
@@ -45,21 +45,21 @@ public class BulletBasic : Node2D
 	{
 			if (hitbox != null)
 			{
-				Physics2DServer.FreeRid(hitbox);
+				PhysicsServer2D.FreeRid(hitbox);
 			}
 			if (size.x == size.y) 
 			{
-				hitbox = Physics2DServer.CircleShapeCreate();
-				Physics2DServer.ShapeSetData(hitbox, size.x / 2);
+				hitbox = PhysicsServer2D.CircleShapeCreate();
+				PhysicsServer2D.ShapeSetData(hitbox, size.x / 2);
 			} 
 			else 
 			{
-				hitbox = Physics2DServer.CapsuleShapeCreate();
-				Physics2DServer.ShapeSetData(hitbox, new Vector2(size.x / 2, size.y - size.x));
+				hitbox = PhysicsServer2D.CapsuleShapeCreate();
+				PhysicsServer2D.ShapeSetData(hitbox, new Vector2(size.x / 2, size.y - size.x));
 			}
 			query.ShapeRid = hitbox;
 	}
-	[Export] public Texture texture 
+	[Export] public Texture2D texture 
 	{
 		set 
 		{
@@ -75,7 +75,7 @@ public class BulletBasic : Node2D
 	}
 	[Export] public Material material;
 	[Export(PropertyHint.Range, "-4096, 4096")]	public int zIndex;
-	private Texture tex;
+	private Texture2D tex;
 	protected Vector2 textureSize;
 	protected RID textureRID;
 
@@ -121,7 +121,7 @@ public class BulletBasic : Node2D
 	{
 		world = GetWorld2d();
 		Global = GetNode("/root/Global");
-		Global.Connect("bomb_impact", this, "Clear");
+		Global.Connect("bomb_impact",new Callable(this,"Clear"));
 
 		transforms = new Transform2D[maxBullet];
 		velocities = new Vector2[maxBullet];
@@ -146,18 +146,18 @@ public class BulletBasic : Node2D
 		Rect2 texRect = new Rect2(-textureSize / 2, textureSize);
 		for (uint i = 0; i != maxBullet; i++) 
 		{
-			RID sprite = VisualServer.CanvasItemCreate();
+			RID sprite = RenderingServer.CanvasItemCreate();
 			sprites[i] = sprite;
 
-			VisualServer.CanvasItemSetVisible(sprite, false);
-			VisualServer.CanvasItemSetZIndex(sprite, zIndex);
-			VisualServer.CanvasItemSetParent(sprite, world.Canvas);
-			VisualServer.CanvasItemSetLightMask(sprite, 0);
+			RenderingServer.CanvasItemSetVisible(sprite, false);
+			RenderingServer.CanvasItemSetZIndex(sprite, zIndex);
+			RenderingServer.CanvasItemSetParent(sprite, world.Canvas);
+			RenderingServer.CanvasItemSetLightMask(sprite, 0);
 			//Due to a bug in C# visual server, normal map rid can not be null, which is, null by default.
-			VisualServer.CanvasItemAddTextureRect(sprite, texRect, textureRID, false, null, false, textureRID);
+			RenderingServer.CanvasItemAddTextureRect(sprite, texRect, textureRID, false, null, false, textureRID);
 			if (material != null)
 			{
-				VisualServer.CanvasItemSetMaterial(sprite, material.GetRid());
+				RenderingServer.CanvasItemSetMaterial(sprite, material.GetRid());
 			}
 		}
 	}
@@ -165,20 +165,20 @@ public class BulletBasic : Node2D
 	public override void _ExitTree() 
 	{
 		//RID is actually an memory address to get the object in Godot server.
-		//Since these CanvasItem are created directly using VisualServer (not reference counted),
+		//Since these CanvasItem are created directly using RenderingServer (not reference counted),
 		//it must be freed manually.
 		foreach (RID sprite in sprites) 
 		{
-			VisualServer.FreeRid(sprite);
+			RenderingServer.FreeRid(sprite);
 		}
-		Physics2DServer.FreeRid(hitbox);
+		PhysicsServer2D.FreeRid(hitbox);
 	}	
 	public virtual void SpawnBullet() 
 	{
 		foreach (Node2D barrel in barrels) 
 		{
 			if (activeIndex == maxBullet) {return;}
-			VisualServer.CanvasItemSetVisible(sprites[activeIndex], true);
+			RenderingServer.CanvasItemSetVisible(sprites[activeIndex], true);
 
 			if (localRotation) 
 			{
@@ -204,7 +204,7 @@ public class BulletBasic : Node2D
 		
 		Vector2[] bullets = new Vector2[maxBullet];
 		for (uint i = 0; i < activeIndex; i++) {
-			VisualServer.CanvasItemSetVisible(sprites[i], false);
+			RenderingServer.CanvasItemSetVisible(sprites[i], false);
 			bullets[i] = transforms[i].origin;
 		}
 		activeIndex = 0;
@@ -228,7 +228,7 @@ public class BulletBasic : Node2D
 	protected virtual void Move(in float delta) 
 	{
 		transforms[index].origin += velocities[index] * delta;
-		VisualServer.CanvasItemSetTransform(sprites[index], transforms[index]);
+		RenderingServer.CanvasItemSetTransform(sprites[index], transforms[index]);
 	}
 	protected virtual bool Collide(in Godot.Collections.Dictionary result) 
 	{
@@ -259,14 +259,14 @@ public class BulletBasic : Node2D
 			Move(delta);
 				
 			//Collision checking.
-			query.Transform = transforms[index];
+			query.Transform3D = transforms[index];
 			if (Grazable && grazable[index]) {query.CollisionLayer = mask + 8;} 
 			else {query.CollisionLayer = mask;}
 
 			Godot.Collections.Dictionary result = world.DirectSpaceState.GetRestInfo(query);
 			if (result.Count == 0 || Collide(result)) {continue;}
 
-			VisualServer.CanvasItemSetVisible(sprites[index], false);
+			RenderingServer.CanvasItemSetVisible(sprites[index], false);
 			if (index == lastIndex) {continue;}
 			SortBullet();
 }

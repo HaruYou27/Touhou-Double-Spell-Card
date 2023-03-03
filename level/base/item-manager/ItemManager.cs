@@ -1,6 +1,6 @@
 using Godot;
 
-public class ItemManager : BulletBasic
+public partial class ItemManager : BulletBasic
 {
 	protected Node2D target;
 	protected bool tick = false;
@@ -44,17 +44,17 @@ public class ItemManager : BulletBasic
 		grazable[activeIndex] = false;
 		
 		RID sprite = sprites[activeIndex];
-		VisualServer.CanvasItemSetVisible(sprite, true);
+		RenderingServer.CanvasItemSetVisible(sprite, true);
 		if (tick)
 		{
 			//Ensure that 50% of the items will rotate clockwise and vice versa.
 			//This is better than rng in my opinion, both in term of performance and visual.
-			VisualServer.CanvasItemSetModulate(sprite, Color.ColorN("white"));
+			RenderingServer.CanvasItemSetModulate(sprite, Color.ColorN("white"));
 			tick = false;
 		}
 		else
 		{
-			VisualServer.CanvasItemSetModulate(sprite, Color.ColorN("white", (float)0.4));
+			RenderingServer.CanvasItemSetModulate(sprite, Color.ColorN("white", (float)0.4));
 			tick = true;
 		}
 		activeIndex++;
@@ -66,7 +66,7 @@ public class ItemManager : BulletBasic
 			Vector2 localPos = target.ToLocal(transforms[index].origin);
 			localPos -= localPos.Normalized() * delta * 72;
 			transforms[index].origin = target.ToGlobal(localPos);
-			VisualServer.CanvasItemSetTransform(sprites[index], transforms[index]);
+			RenderingServer.CanvasItemSetTransform(sprites[index], transforms[index]);
 		}
 		else
 		{

@@ -1,18 +1,18 @@
 extends Control
 
-onready var list :VBoxContainer = $HBoxContainer2/list
-onready var preview :TextureRect = $HBoxContainer2/preview
-onready var score :FormatLabel = $HBoxContainer2/score/HiScore
-onready var graze :FormatLabel = $HBoxContainer2/score/Graze
-onready var item :FormatLabel = $HBoxContainer2/score/item
-onready var speed :FormatLabel = $HBoxContainer2/score/speed
-onready var death_duration :FormatLabel = $HBoxContainer2/score/duration
-onready var shoot_type :OptionButton = $HBoxContainer2/score/ShootType
+@onready var list :VBoxContainer = $HBoxContainer2/list
+@onready var preview :TextureRect = $HBoxContainer2/preview
+@onready var score :FormatLabel = $HBoxContainer2/score/HiScore
+@onready var graze :FormatLabel = $HBoxContainer2/score/Graze
+@onready var item :FormatLabel = $HBoxContainer2/score/item
+@onready var speed :FormatLabel = $HBoxContainer2/score/speed
+@onready var death_duration :FormatLabel = $HBoxContainer2/score/duration
+@onready var shoot_type :OptionButton = $HBoxContainer2/score/ShootType
 
 var levels := []
 var header :LevelHeader
 
-export (Array) var players
+@export (Array) var players
 
 func _ready():
 	var i := 0
@@ -22,7 +22,7 @@ func _ready():
 		levels.append(header)
 		var button := UberButton.new()
 		button.text = header.title
-		button.connect("pressed", self, '_select_level', [i])
+		button.connect("pressed",Callable(self,'_select_level').bind(i))
 		
 		list.add_child(button)
 		i += 1
@@ -44,7 +44,7 @@ func load_level():
 		return
 		
 	Global.score = header.score
-	Global.player = players[shoot_type.selected].instance()
+	Global.player = players[shoot_type.selected].instantiate()
 	header.score.save_setting(shoot_type.selected, $HBoxContainer2/score/DurationSlider.value)
 	Engine.time_scale = $HBoxContainer2/score/SpeedSlider.value
-	get_tree().change_scene_to(header.level)
+	get_tree().change_scene_to_packed(header.level)

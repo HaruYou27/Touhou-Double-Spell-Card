@@ -3,12 +3,12 @@
 [ext_resource path="res://entity/Reimu/seal-orb.tscn" type="PackedScene" id=1]
 [ext_resource path="res://entity/Reimu/FantasySeal.gd" type="Script" id=2]
 [ext_resource path="res://entity/utility/Particle.gd" type="Script" id=3]
-[ext_resource path="res://entity/enemy/phantom/fire_particle.png" type="Texture" id=4]
+[ext_resource path="res://entity/enemy/phantom/fire_particle.png" type="Texture2D" id=4]
 
 [sub_resource type="CanvasItemMaterial" id=2]
 blend_mode = 1
 
-[sub_resource type="ParticlesMaterial" id=25]
+[sub_resource type="ParticleProcessMaterial" id=25]
 emission_shape = 1
 emission_sphere_radius = 8.0
 flag_disable_z = true
@@ -36,7 +36,7 @@ rotation = -3.14159
 [node name="seal4" parent="rotator" instance=ExtResource( 1 )]
 rotation = -1.5708
 
-[node name="explosion" type="Particles2D" parent="."]
+[node name="explosion" type="GPUParticles2D" parent="."]
 material = SubResource( 2 )
 position = Vector2( 1, 0 )
 emitting = false

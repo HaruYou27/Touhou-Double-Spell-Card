@@ -1,14 +1,14 @@
-extends Sprite
+extends Sprite2D
 
 var heat := 0.0
 var frame_delta := 0.0
 var frame_count := 0
 var next_frame :ImageTexture
 
-onready var tree := get_tree()
-onready var fx :ColorRect = $fx
-onready var viewport := get_viewport()
-onready var dir := Directory.new()
+@onready var tree := get_tree()
+@onready var fx :ColorRect = $fx
+@onready var viewport := get_viewport()
+@onready var dir := Directory.new()
 
 const path := 'user://%d.png'
 
@@ -19,14 +19,14 @@ func _exit_tree():
 
 func _ready():
 	set_process(false)
-	VisualServer.canvas_item_set_z_index(fx.get_canvas_item(), 4096)
-	viewport.connect("size_changed", self, '_on_size_changed')
+	RenderingServer.canvas_item_set_z_index(fx.get_canvas_item(), 4096)
+	viewport.connect("size_changed",Callable(self,'_on_size_changed'))
 	dir.open('user://')
 	_on_size_changed()
 	
 func _on_size_changed():
 	scale = Global.game_rect / viewport.size
-	fx.rect_size = viewport.size
+	fx.size = viewport.size
 
 func _load_image():
 	var img := Image.new()

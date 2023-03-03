@@ -1,19 +1,19 @@
 extends VBoxContainer
 
-onready var bgm :HSlider = $bgm
-onready var bgmLabel :FormatLabel = $BgmLabel
-onready var mute_bgm :Button = $muteBGM
-onready var sfx :HSlider = $sfx
-onready var sfxLabel :FormatLabel = $SfxLabel
-onready var mute_sfx :Button = $muteSFX
+@onready var bgm :HSlider = $bgm
+@onready var bgmLabel :FormatLabel = $BgmLabel
+@onready var mute_bgm :Button = $muteBGM
+@onready var sfx :HSlider = $sfx
+@onready var sfxLabel :FormatLabel = $SfxLabel
+@onready var mute_sfx :Button = $muteSFX
 
 func _ready():
 	var config :AudioBusLayout = load('user://audio_override.res')
 	if config:
 		AudioServer.set_bus_layout(config)
 	
-	mute_sfx.pressed = AudioServer.is_bus_mute(1)
-	mute_bgm.pressed = AudioServer.is_bus_mute(2)
+	mute_sfx.button_pressed = AudioServer.is_bus_mute(1)
+	mute_bgm.button_pressed = AudioServer.is_bus_mute(2)
 	
 	sfx.value = AudioServer.get_bus_volume_db(1)
 	bgm.value = AudioServer.get_bus_volume_db(2)
@@ -40,8 +40,8 @@ func _on_muteBGM_toggled(button_pressed):
 func _on_audio_reset_pressed():
 	bgm.value = 0.0
 	sfx.value = 0.0
-	mute_bgm.pressed = false
-	mute_sfx.pressed = false
+	mute_bgm.button_pressed = false
+	mute_sfx.button_pressed = false
 
 func _on_muteSFX_toggled(button_pressed):
 	AudioServer.set_bus_mute(1, button_pressed)

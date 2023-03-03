@@ -1,8 +1,8 @@
 extends Node2D
 class_name LockedNode2D
 
-export (int) var value
-export (bool) var locked_y
+@export (int) var value
+@export (bool) var locked_y
 
 func _notification(what):
 	if what != CanvasItem.NOTIFICATION_TRANSFORM_CHANGED:

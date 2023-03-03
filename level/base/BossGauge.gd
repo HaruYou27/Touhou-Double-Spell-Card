@@ -1,12 +1,12 @@
-extends TextureProgress
+extends TextureProgressBar
 
 func hide_gauge():
-	create_tween().tween_property(self, 'modulate', Color.transparent, .5)
+	create_tween().tween_property(self, 'modulate', Color.TRANSPARENT, .5)
 
 func show_gauge():
-	create_tween().tween_property(self, 'modulate', Color.white, .5)
+	create_tween().tween_property(self, 'modulate', Color.WHITE, .5)
 
-func fill_gauge(val:float) -> SceneTreeTween:
+func fill_gauge(val:float) -> Tween:
 	max_value = val
 	var tween := create_tween()
 	tween.tween_property(self, 'value', val, 2.0)

@@ -1,4 +1,4 @@
-extends Particles2D
+extends GPUParticles2D
 class_name Particle
 
 func _ready():

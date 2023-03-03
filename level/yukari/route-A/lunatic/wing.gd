@@ -1,7 +1,7 @@
 extends Node2D
 
-onready var bullet2 := $bullet2
-onready var bullet := $bullet
+@onready var bullet2 := $bullet2
+@onready var bullet := $bullet
 
 func _ready():
 	set_physics_process(false)
