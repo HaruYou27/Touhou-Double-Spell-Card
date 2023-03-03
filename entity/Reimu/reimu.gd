@@ -18,15 +18,13 @@ export (PackedScene) var bomb_scene
 var bomb_count := 1
 
 func _ready():
-	call_deferred('ready')
+	death_timer.connect('timeout', Global.leveler, 'restart')
 	Global.connect("bullet_graze", self, '_graze')
 	Global.connect("bomb_impact", self, '_bomb_impact')
 	
-	death_timer.wait_time = Global.death_time
-	death_timer.connect("timeout", Global, 'emit_signal', ['restart_level'])
+	death_timer.wait_time = Global.score.death_time
 	graze_timer.connect("timeout", graze_fx, 'set_emitting', [false])
-	
-	Global.player = self
+	position = Vector2(307, 800)
 	
 func _unhandled_input(event:InputEvent):
 	if event.is_action_released("bomb"):
@@ -50,7 +48,7 @@ func _hit():
 		return
 	
 	set_process_unhandled_input(false)
-	Global.levelr.screenfx.flash_red()
+	Global.leveler.screenfx.flash_red()
 	death_timer.start()
 
 	tree.paused = true

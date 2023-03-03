@@ -7,9 +7,12 @@ onready var graze :FormatLabel = $HBoxContainer2/score/Graze
 onready var item :FormatLabel = $HBoxContainer2/score/item
 onready var speed :FormatLabel = $HBoxContainer2/score/speed
 onready var death_duration :FormatLabel = $HBoxContainer2/score/duration
+onready var shoot_type :OptionButton = $HBoxContainer2/score/ShootType
 
 var levels := []
 var header :LevelHeader
+
+export (Array) var players
 
 func _ready():
 	var i := 0
@@ -32,13 +35,16 @@ func _select_level(index):
 	score.update_label(score_data.score)
 	graze.update_label(score_data.graze)
 	item.update_label(score_data.item)
-	death_duration.update_label(score_data.death_timer)
+	death_duration.update_label(score_data.death_time)
 	speed.update_label(score_data.game_speed)
+	shoot_type.selected = score_data.shoot_type
 
 func load_level():
 	if not header:
 		return
 		
+	Global.score = header.score
+	Global.player = players[shoot_type.selected].instance()
+	header.score.save_setting(shoot_type.selected, $HBoxContainer2/score/DurationSlider.value)
 	Engine.time_scale = $HBoxContainer2/score/SpeedSlider.value
-	Global.death_timer = $HBoxContainer2/score/DurationSlider.value
 	get_tree().change_scene_to(header.level)

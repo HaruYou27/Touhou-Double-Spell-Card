@@ -2,7 +2,7 @@ extends Area2D
 class_name Boss
 
 export (int) var point := 64
-export (int) var hp := 10 setget _set_hp
+export (int) var hp := 727
 export (float) var duration := 0.0
 
 onready var bomb_damage := hp / 2
@@ -24,23 +24,20 @@ func _ready():
 
 	tween.connect("finished", self, '_start')
 	Global.connect("bomb_impact", self, "_set_hp", [bomb_damage])
+	Global.boss = self
 	
 func _start():
 	Global.leveler.level.start()
 	
 func _hit():
 	hp -= 1
-	
-func _set_hp(damage):
-	hp -= damage
 	if not hp:
-		Global.leveler.item_manager.SpawnItem(int(point * gauge.value / duration))
 		Global.leveler.next_level()
 
 	if not updating_gauge:
 		updating_gauge = true
 		call_deferred('_update_gauge')
-
+	
 func _update_gauge():
 	gauge.value = hp
 	updating_gauge = false

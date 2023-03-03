@@ -17,7 +17,7 @@ onready var bomb_label :FormatLabel = $VBoxContainer/Bomb
 onready var reward_sfx :AudioStreamPlayer = $reward
 onready var goal_label :FormatLabel = $VBoxContainer/Goal
 
-onready var multiplier := pow(Global.death_timer, Engine.time_scale)
+onready var multiplier := pow(Global.score.death_time, Engine.time_scale)
 
 func _ready():
 	Global.connect("item_collect", self, "_set_item")

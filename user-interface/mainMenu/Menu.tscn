@@ -1,8 +1,9 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://user-interface/mainMenu/Menu.gd" type="Script" id=1]
 [ext_resource path="res://user-interface/mainMenu/setting/Graphic.gd" type="Script" id=2]
 [ext_resource path="res://user-interface/resource/Default.tres" type="Theme" id=3]
+[ext_resource path="res://entity/Reimu/reimuA.tscn" type="PackedScene" id=4]
 [ext_resource path="res://user-interface/control-node/FormatLabel.gd" type="Script" id=5]
 [ext_resource path="res://user-interface/mainMenu/setting/Audio.gd" type="Script" id=6]
 [ext_resource path="res://user-interface/control-node/UberButton.gd" type="Script" id=8]
@@ -40,7 +41,9 @@ margin_bottom = 55.0
 focus_neighbour_left = NodePath("../quit")
 focus_neighbour_top = NodePath("../quit")
 focus_previous = NodePath("../quit")
+focus_mode = 0
 mouse_default_cursor_shape = 2
+enabled_focus_mode = 0
 text = "Select level"
 align = 0
 script = ExtResource( 8 )
@@ -52,7 +55,9 @@ margin_bottom = 114.0
 focus_neighbour_right = NodePath("../credit")
 focus_neighbour_bottom = NodePath("../credit")
 focus_next = NodePath("../credit")
+focus_mode = 0
 mouse_default_cursor_shape = 2
+enabled_focus_mode = 0
 text = "Settings"
 align = 0
 script = ExtResource( 8 )
@@ -67,7 +72,9 @@ focus_neighbour_right = NodePath("../quit")
 focus_neighbour_bottom = NodePath("../quit")
 focus_next = NodePath("../quit")
 focus_previous = NodePath("../settings")
+focus_mode = 0
 mouse_default_cursor_shape = 16
+enabled_focus_mode = 0
 text = "Credits"
 align = 0
 script = ExtResource( 8 )
@@ -82,7 +89,9 @@ focus_neighbour_right = NodePath("../start")
 focus_neighbour_bottom = NodePath("../start")
 focus_next = NodePath("../start")
 focus_previous = NodePath("../credit")
+focus_mode = 0
 mouse_default_cursor_shape = 2
+enabled_focus_mode = 0
 text = "Quit"
 align = 0
 script = ExtResource( 8 )
@@ -92,6 +101,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = -1920.0
 margin_right = -1920.0
+rect_min_size = Vector2( 1920, 1080 )
 
 [node name="TabContainer" type="TabContainer" parent="setting"]
 anchor_right = 1.0
@@ -112,7 +122,7 @@ margin_bottom = -4.0
 script = ExtResource( 2 )
 
 [node name="fullscreen" type="CheckButton" parent="setting/TabContainer/Graphic"]
-margin_right = 608.0
+margin_right = 817.0
 margin_bottom = 57.0
 focus_neighbour_left = NodePath("../reset")
 focus_neighbour_top = NodePath("../reset")
@@ -120,13 +130,15 @@ focus_neighbour_right = NodePath("../borderless")
 focus_neighbour_bottom = NodePath("../borderless")
 focus_next = NodePath("../borderless")
 focus_previous = NodePath("../reset")
+focus_mode = 0
 mouse_default_cursor_shape = 2
+enabled_focus_mode = 0
 text = "Full Screen"
 script = ExtResource( 8 )
 
 [node name="borderless" type="CheckButton" parent="setting/TabContainer/Graphic"]
 margin_top = 61.0
-margin_right = 608.0
+margin_right = 817.0
 margin_bottom = 118.0
 focus_neighbour_left = NodePath("../fullscreen")
 focus_neighbour_top = NodePath("../fullscreen")
@@ -134,14 +146,16 @@ focus_neighbour_right = NodePath("../rewind")
 focus_neighbour_bottom = NodePath("../rewind")
 focus_next = NodePath("../rewind")
 focus_previous = NodePath("../fullscreen")
+focus_mode = 0
 mouse_default_cursor_shape = 2
+enabled_focus_mode = 0
 text = "Borderless"
 flat = true
 script = ExtResource( 8 )
 
 [node name="rewind" type="CheckButton" parent="setting/TabContainer/Graphic"]
 margin_top = 122.0
-margin_right = 608.0
+margin_right = 817.0
 margin_bottom = 179.0
 focus_neighbour_left = NodePath("../borderless")
 focus_neighbour_top = NodePath("../borderless")
@@ -149,14 +163,16 @@ focus_neighbour_right = NodePath("../DynamicBackground")
 focus_neighbour_bottom = NodePath("../DynamicBackground")
 focus_next = NodePath("../DynamicBackground")
 focus_previous = NodePath("../borderless")
+focus_mode = 0
 mouse_default_cursor_shape = 2
+enabled_focus_mode = 0
 text = "Rewind effect on death"
 flat = true
 script = ExtResource( 8 )
 
 [node name="DynamicBackground" type="CheckButton" parent="setting/TabContainer/Graphic"]
 margin_top = 183.0
-margin_right = 608.0
+margin_right = 817.0
 margin_bottom = 240.0
 focus_neighbour_left = NodePath("../rewind")
 focus_neighbour_top = NodePath("../rewind")
@@ -164,14 +180,16 @@ focus_neighbour_right = NodePath("../particle")
 focus_neighbour_bottom = NodePath("../particle")
 focus_next = NodePath("../particle")
 focus_previous = NodePath("../rewind")
+focus_mode = 0
 mouse_default_cursor_shape = 2
+enabled_focus_mode = 0
 text = "Dynamic background"
 flat = true
 script = ExtResource( 8 )
 
 [node name="particle" type="CheckButton" parent="setting/TabContainer/Graphic"]
 margin_top = 244.0
-margin_right = 608.0
+margin_right = 817.0
 margin_bottom = 301.0
 focus_neighbour_left = NodePath("../DynamicBackground")
 focus_neighbour_top = NodePath("../DynamicBackground")
@@ -179,15 +197,17 @@ focus_neighbour_right = NodePath("../reset")
 focus_neighbour_bottom = NodePath("../reset")
 focus_next = NodePath("../reset")
 focus_previous = NodePath("../DynamicBackground")
+focus_mode = 0
 mouse_default_cursor_shape = 2
+enabled_focus_mode = 0
 text = "Full particles effect"
 flat = true
 script = ExtResource( 8 )
 
 [node name="reset" type="Button" parent="setting/TabContainer/Graphic"]
-margin_left = 476.0
+margin_left = 685.0
 margin_top = 305.0
-margin_right = 608.0
+margin_right = 817.0
 margin_bottom = 360.0
 focus_neighbour_left = NodePath("../particle")
 focus_neighbour_top = NodePath("../particle")
@@ -195,8 +215,10 @@ focus_neighbour_right = NodePath("../fullscreen")
 focus_neighbour_bottom = NodePath("../fullscreen")
 focus_next = NodePath("../fullscreen")
 focus_previous = NodePath("../particle")
+focus_mode = 0
 size_flags_horizontal = 8
 size_flags_vertical = 0
+enabled_focus_mode = 0
 text = "Reset"
 flat = true
 align = 2
@@ -218,7 +240,9 @@ margin_bottom = 55.0
 focus_neighbour_right = NodePath("../reset")
 focus_neighbour_bottom = NodePath("../reset")
 focus_next = NodePath("../reset")
+focus_mode = 0
 mouse_default_cursor_shape = 2
+enabled_focus_mode = 0
 text = "Drag:          %s"
 flat = true
 align = 0
@@ -231,7 +255,9 @@ margin_bottom = 110.0
 focus_neighbour_right = NodePath("../reset")
 focus_neighbour_bottom = NodePath("../reset")
 focus_next = NodePath("../reset")
+focus_mode = 0
 mouse_default_cursor_shape = 2
+enabled_focus_mode = 0
 text = "Bomb:          %s"
 flat = true
 align = 0
@@ -241,7 +267,9 @@ script = ExtResource( 8 )
 margin_top = 110.0
 margin_right = 809.0
 margin_bottom = 167.0
+focus_mode = 0
 size_flags_horizontal = 3
+enabled_focus_mode = 0
 text = "Raw Input"
 flat = true
 script = ExtResource( 8 )
@@ -258,6 +286,7 @@ script = ExtResource( 5 )
 margin_top = 216.0
 margin_right = 809.0
 margin_bottom = 232.0
+focus_mode = 0
 min_value = 0.1
 max_value = 2.0
 step = 0.1
@@ -407,6 +436,7 @@ margin_left = 1920.0
 margin_right = 3840.0
 margin_bottom = 1080.0
 script = ExtResource( 11 )
+players = [ ExtResource( 4 ) ]
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="level"]
 anchor_left = 1.0
@@ -434,7 +464,7 @@ margin_bottom = 904.0
 margin_right = 624.0
 margin_bottom = 49.0
 size_flags_vertical = 5
-text = "Score:	%010d"
+text = "Score:	%07d"
 script = ExtResource( 5 )
 
 [node name="Graze" type="Label" parent="level/HBoxContainer2/score"]
@@ -442,7 +472,7 @@ margin_top = 53.0
 margin_right = 624.0
 margin_bottom = 102.0
 size_flags_vertical = 5
-text = "Graze:	%06d"
+text = "Graze:	%07d"
 script = ExtResource( 5 )
 
 [node name="item" type="Label" parent="level/HBoxContainer2/score"]
@@ -451,7 +481,7 @@ margin_right = 624.0
 margin_bottom = 155.0
 size_flags_horizontal = 3
 size_flags_vertical = 5
-text = "Point:	%06d"
+text = "Point:	%07d"
 valign = 1
 script = ExtResource( 5 )
 
@@ -462,24 +492,40 @@ margin_bottom = 208.0
 text = "Retry count : %d"
 script = ExtResource( 5 )
 
-[node name="bomb" type="Label" parent="level/HBoxContainer2/score"]
+[node name="Label" type="Label" parent="level/HBoxContainer2/score"]
 margin_top = 212.0
 margin_right = 624.0
 margin_bottom = 261.0
-text = "Bomb : %d"
-script = ExtResource( 5 )
+text = "-------Game setting-------"
 
-[node name="duration" type="Label" parent="level/HBoxContainer2/score"]
+[node name="Label2" type="Label" parent="level/HBoxContainer2/score"]
 margin_top = 265.0
 margin_right = 624.0
 margin_bottom = 314.0
-text = "Deathbomb duration %1.2f s"
+text = "Shooting type:"
+
+[node name="ShootType" type="OptionButton" parent="level/HBoxContainer2/score"]
+margin_top = 318.0
+margin_right = 624.0
+margin_bottom = 373.0
+focus_mode = 0
+action_mode = 1
+enabled_focus_mode = 0
+text = "Homing"
+items = [ "Homing", null, false, 0, null, "Front Concentration", null, true, 1, null ]
+selected = 0
+
+[node name="duration" type="Label" parent="level/HBoxContainer2/score"]
+margin_top = 377.0
+margin_right = 624.0
+margin_bottom = 426.0
+text = "Deathdoor duration %1.2f s"
 script = ExtResource( 5 )
 
 [node name="DurationSlider" type="HSlider" parent="level/HBoxContainer2/score"]
-margin_top = 318.0
+margin_top = 430.0
 margin_right = 624.0
-margin_bottom = 334.0
+margin_bottom = 446.0
 min_value = 0.1
 max_value = 1.0
 step = 0.1
@@ -488,16 +534,16 @@ tick_count = 10
 ticks_on_borders = true
 
 [node name="speed" type="Label" parent="level/HBoxContainer2/score"]
-margin_top = 338.0
+margin_top = 450.0
 margin_right = 624.0
-margin_bottom = 387.0
+margin_bottom = 499.0
 text = "Game speed %d %%"
 script = ExtResource( 5 )
 
 [node name="SpeedSlider" type="HSlider" parent="level/HBoxContainer2/score"]
-margin_top = 391.0
+margin_top = 503.0
 margin_right = 624.0
-margin_bottom = 407.0
+margin_bottom = 519.0
 min_value = 0.5
 max_value = 2.0
 step = 0.1
@@ -506,9 +552,9 @@ tick_count = 16
 ticks_on_borders = true
 
 [node name="start" type="Button" parent="level/HBoxContainer2/score"]
-margin_top = 411.0
+margin_top = 523.0
 margin_right = 624.0
-margin_bottom = 466.0
+margin_bottom = 578.0
 text = "Start"
 script = ExtResource( 8 )
 

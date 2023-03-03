@@ -1,18 +1,22 @@
-extends Node2D
+extends Timer
 
-onready var timer := $Timer
-onready var init_pos := global_position
+onready var init_pos :Vector2
+var player
 
 func _ready():
-	get_tree().call_group('player_bullet', 'stop')
+	set_physics_process(false)
+	Global.can_shoot = false
 	
-func start():
-	timer.start()
+func start(time = wait_time):
+	.start()
+	player = Global.player
+	init_pos = player.global_position
+	set_physics_process(true)
 
-func _notification(what):
-	if what == CanvasItem.NOTIFICATION_TRANSFORM_CHANGED and init_pos != global_position:
+func _physics_process(_delta):
+	if player.global_position != init_pos:
 		Global.leveler.next_level()
-		timer.queue_free()
+		stop()
 
-func _on_Timer_timeout():
-	Global.leveler.add_child(Dialogic.start('/tutorial/move'))
+func _on_timeout():
+	add_child(Dialogic.start('/tutorial/move'))

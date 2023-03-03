@@ -1,5 +1,6 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=23 format=2]
 
+[ext_resource path="res://entity/Reimu/deathTimer.gd" type="Script" id=1]
 [ext_resource path="res://shader/UberItem.gdshader" type="Shader" id=2]
 [ext_resource path="res://entity/Reimu/reimu.gd" type="Script" id=3]
 [ext_resource path="res://entity/Bullet/BulletBasic.cs" type="Script" id=4]
@@ -288,7 +289,10 @@ wait_time = 0.333
 [node name="hitFX" type="AudioStreamPlayer" parent="."]
 
 [node name="DeathTimer" type="Timer" parent="."]
+pause_mode = 2
 one_shot = true
+script = ExtResource( 1 )
 
 [connection signal="timeout" from="bullet/Timer" to="bullet" method="SpawnBullet"]
 [connection signal="timeout" from="bullet2/Timer2" to="bullet2" method="SpawnBullet"]
+[connection signal="bomb" from="DeathTimer" to="." method="bomb"]

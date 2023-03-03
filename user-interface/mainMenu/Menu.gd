@@ -13,13 +13,13 @@ func _ready():
 
 func _on_settings_pressed():
 	var tween := create_tween()
-	tween.tween_property(camera, 'position', Vector2(-1920, 0), ani_length)
+	tween.tween_property(camera, 'position', settings.rect_position, ani_length)
 	tween.connect("finished", main, 'hide')
 	settings.show()
 
 func _on_back_pressed():
 	var tween := create_tween()
-	tween.tween_property(camera, 'position', Vector2.ZERO, ani_length)
+	tween.tween_property(camera, 'position', main.rect_position, ani_length)
 	tween.connect("finished", settings, 'hide')
 	tween.connect("finished", level, 'hide')
 	main.show()
@@ -29,6 +29,6 @@ func _on_quit_pressed():
 
 func _on_start_pressed():
 	var tween := create_tween()
-	tween.tween_property(camera, 'position', Vector2(1920, 0), ani_length)
+	tween.tween_property(camera, 'position', level.rect_position, ani_length)
 	tween.connect("finished", main, 'hide')
 	level.show()

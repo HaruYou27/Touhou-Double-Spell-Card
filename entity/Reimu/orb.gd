@@ -8,7 +8,7 @@ onready var previous_pos := global_position
 func _physics_process(_delta):
 	if previous_pos == global_position:
 		if not is_stopped:
-			create_tween().tween_property(self, 'position', Vector2.ZERO, .15)
+			create_tween().tween_property(self, 'position', Vector2.ZERO, .25)
 			is_stopped = true
 		return
 	

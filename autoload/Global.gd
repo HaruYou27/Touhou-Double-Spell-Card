@@ -1,5 +1,5 @@
 extends Node2D
-#The meditor, contain shared data and handle connection bettween nodes.
+#god
 
 signal bullet_graze
 signal item_collect(point)
@@ -13,8 +13,13 @@ var user_data : UserData
 var player : Player
 var score :Score
 
-var can_shoot := true
-var death_time := 0.3
+var can_shoot := true setget _set_shooting
+func _set_shooting(value:bool):
+	can_shoot = value
+	if value:
+		get_tree().call_group('player_bullet', 'start')
+	else:
+		get_tree().call_group('player_bullet', 'stop')
 
 const playground := Vector2(604, 906)
 const game_rect := Vector2(1920, 1080)

@@ -1,7 +1,6 @@
 extends Node2D
 class_name Leveler
 
-var shaking := 0.0
 var rewind
 
 export (Array) var levels : Array
@@ -16,7 +15,6 @@ onready var config :UserData = Global.user_data
 
 func _ready():
 	Global.connect("bomb_impact", self, 'screen_shake')
-	Global.connect('restart', self, 'restart')
 	
 	if config.rewind:
 		rewind = preload("res://level/base/recorder/Recorder.tscn").instance()
@@ -29,20 +27,7 @@ func _ready():
 		Global.score.retry += 1
 	level = get_node(level)
 	Global.leveler = self
-	
-func _process(delta):
-	if shaking <= 0.0:
-		position = Vector2(526, 88)
-		set_process(false)
-	else:
-		shaking -= delta
-		position += Vector2(rand_range(-1.0, 1.0), rand_range(-1.0, 1.0))
-
-func screen_shake():
-	shaking += .15
-	set_process(true)
-	screenfx.flash()
-	tree.call_group('enemy', 'Clear')
+	add_child(Global.player)
 
 func next_level():
 	if levels.size():
@@ -60,11 +45,13 @@ func next_level():
 
 func _on_Quit_pressed():
 	tree.paused = false
-	tree.change_scene("res://user-interface/mainMenu/Menu.tscn")
+	var tween := screenfx.fade2black()
+	tween.connect("finished", tree, 'change_scene', ["res://user-interface/mainMenu/Menu.tscn"])
 
 func restart():
 	tree.paused = false
 	if rewind:
 		rewind.rewind()
 	else:
-		tree.reload_current_scene()
+		var tween := screenfx.fade2black()
+		tween.connect("finished", tree, 'reload_current_scene')

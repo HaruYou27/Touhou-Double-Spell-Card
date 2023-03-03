@@ -18,7 +18,7 @@
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 40.0
-height = 1024.0
+height = 2048.0
 
 [node name="level" type="Node2D"]
 position = Vector2( 526, 88 )
@@ -143,6 +143,7 @@ script = ExtResource( 10 )
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
+color = Color( 1, 1, 1, 0.5 )
 script = ExtResource( 5 )
 
 [node name="ItemManager" type="Node2D" parent="."]
@@ -154,6 +155,7 @@ maxBullet = 4727
 [node name="PauseMenu" type="ColorRect" parent="."]
 pause_mode = 2
 visible = false
+modulate = Color( 1, 1, 1, 0 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_right = 604.0
