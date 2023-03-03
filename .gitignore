@@ -1,8 +1,4 @@
 *.import
-build/
 .mono/
-export.cfg
-export_presets.cfg
 *.vscode/
 *.translation
-unhandled-asset/en/.~lock.the-loop.docx#
