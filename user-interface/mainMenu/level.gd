@@ -9,12 +9,12 @@ extends Control
 @onready var death_duration :FormatLabel = $HBoxContainer2/score/duration
 @onready var shoot_type :OptionButton = $HBoxContainer2/score/ShootType
 
-var levels := []
-var header :LevelHeader
+var levels := [LevelHeader]
+var header : LevelHeader
 
-@export (Array) var players
+@export var players : Array[Player]
 
-func _ready():
+func _ready() -> void:
 	var i := 0
 	for level in Global.user_data.unlocked_levels:
 		var header :LevelHeader = load(level)
@@ -22,12 +22,12 @@ func _ready():
 		levels.append(header)
 		var button := UberButton.new()
 		button.text = header.title
-		button.connect("pressed",Callable(self,'_select_level').bind(i))
+		button.pressed.connect(Callable(self,'_select_level').bind(i))
 		
 		list.add_child(button)
 		i += 1
 		
-func _select_level(index):
+func _select_level(index:int) -> void:
 	header = levels[index]
 	preview.texture = header.preview
 	
@@ -39,7 +39,7 @@ func _select_level(index):
 	speed.update_label(score_data.game_speed)
 	shoot_type.selected = score_data.shoot_type
 
-func load_level():
+func load_level() -> void:
 	if not header:
 		return
 		

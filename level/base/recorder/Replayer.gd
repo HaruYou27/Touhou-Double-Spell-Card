@@ -8,32 +8,31 @@ var next_frame :ImageTexture
 @onready var tree := get_tree()
 @onready var fx :ColorRect = $fx
 @onready var viewport := get_viewport()
-@onready var dir := Directory.new()
+@onready var dir := DirAccess.open('user://')
 
 const path := 'user://%d.png'
 
-func _exit_tree():
+func _exit_tree() -> void:
 	if frame_count:
 		for _frame in range(frame_count):
 			dir.remove(path % frame_count)
 
-func _ready():
+func _ready() -> void:
 	set_process(false)
 	RenderingServer.canvas_item_set_z_index(fx.get_canvas_item(), 4096)
-	viewport.connect("size_changed",Callable(self,'_on_size_changed'))
-	dir.open('user://')
+	viewport.size_changed.connect(Callable(self,'_on_size_changed'))
 	_on_size_changed()
 	
-func _on_size_changed():
+func _on_size_changed() -> void:
 	scale = Global.game_rect / viewport.size
 	fx.size = viewport.size
 
-func _load_image():
+func _load_image() -> void:
 	var img := Image.new()
 	img.load(path % frame_count)
 	next_frame.create_from_image(img)
 
-func _process(delta):
+func _process(delta:float) -> void:
 	heat -= delta
 	if heat > 0:
 		return

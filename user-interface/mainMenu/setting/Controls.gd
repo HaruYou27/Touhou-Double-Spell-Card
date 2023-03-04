@@ -10,7 +10,7 @@ extends VBoxContainer
 
 var switch := false
 
-func _ready():
+func _ready() -> void:
 	if user_data.bomb_bind:
 		bomb.update_label(get_input_string(user_data.bomb_bind))
 	else:
@@ -24,7 +24,7 @@ func _ready():
 	raw.set_pressed_no_signal(user_data.raw_input)
 	sentivity.value = user_data.sentivity
 
-func _unhandled_input(event):
+func _unhandled_input(event:InputEvent) -> void:
 	if not event is InputEventMouseButton or not event is InputEventKey:
 		return
 	
@@ -37,7 +37,7 @@ func _unhandled_input(event):
 	
 	set_process_unhandled_input(false)
 
-func _on_controls_reset_pressed():
+func _on_controls_reset_pressed() -> void:
 	raw.button_pressed = true
 	sentivity.value = 1.0
 	
@@ -69,20 +69,20 @@ static func get_input_string(event:InputEvent) -> String:
 	
 	return 'Unknown'
 
-func _on_bomb_pressed():
+func _on_bomb_pressed() -> void:
 	bomb.update_label('Press a button')
 	switch = false
 	set_process_unhandled_input(true)
 
-func _on_drag_pressed():
+func _on_drag_pressed() -> void:
 	drag.update_label('Press a button')
 	switch = true
 	set_process_unhandled_input(true)
 
-func _on_sentivity_value_changed(value):
+func _on_sentivity_value_changed(value:float) -> void:
 	sentivityLabel.update_label(value)
 
-func _exit_tree():
+func _exit_tree() -> void:
 	user_data.sentivity = sentivity.value
-	user_data.raw_input = raw.pressed
+	user_data.raw_input = raw.button_pressed
 	

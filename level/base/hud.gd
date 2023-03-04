@@ -2,7 +2,7 @@ extends Sprite2D
 class_name HUD
 
 var score := 0
-var item := 0
+var item := 0.0
 var updating_item := false
 var graze := 0
 var updating_graze := false
@@ -19,7 +19,7 @@ var goal := 0
 
 @onready var multiplier := pow(Global.score.death_time, Engine.time_scale)
 
-func _ready():
+func _ready() -> void:
 	Global.connect("item_collect",Callable(self,"_set_item"))
 	Global.connect('bullet_graze',Callable(self,'_set_graze'))
 	
@@ -33,7 +33,7 @@ func _ready():
 	bomb_label.update_label(1)
 
 #There's no item in updating the score more than 1 per frame.
-func _set_item(value):
+func _set_item(value:float) -> void:
 	item += value
 	if updating_item:
 		return
@@ -41,7 +41,7 @@ func _set_item(value):
 	updating_item = true
 	call_deferred('_update_item')
 	
-func _update_item():
+func _update_item() -> void:
 	updating_item = false
 	item_label.update_label(item)
 
@@ -49,7 +49,7 @@ func _update_item():
 		return
 	_update_score()
 
-func _set_graze():
+func _set_graze() -> void:
 	graze += 10
 	if updating_graze:
 		return
@@ -57,7 +57,7 @@ func _set_graze():
 	updating_graze = true
 	call_deferred('_update_graze')
 
-func _update_graze():
+func _update_graze() -> void:
 	updating_graze = false
 	graze_label.update_label(graze)
 
@@ -65,7 +65,7 @@ func _update_graze():
 		return
 	_update_score()
 	
-func _update_score():
+func _update_score() -> void:
 	score = int(sqrt(graze * item) / multiplier)
 	score_label.update_label(score)
 	
@@ -77,5 +77,5 @@ func _update_score():
 		reward_sfx.play()
 		_update_bomb()
 
-func _update_bomb():
+func _update_bomb() -> void:
 	bomb_label.update_label(Global.player.bomb_count)

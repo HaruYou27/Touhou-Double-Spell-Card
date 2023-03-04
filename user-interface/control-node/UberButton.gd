@@ -1,8 +1,8 @@
 extends Button
 class_name UberButton
 
-@export (AudioStream) var focus_sfx
-@export (AudioStream) var press_sfx
+@export var focus_sfx : AudioStream
+@export var press_sfx : AudioStream
 
 @onready var template := text
 func update_label(value):

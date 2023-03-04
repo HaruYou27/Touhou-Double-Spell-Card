@@ -1,11 +1,11 @@
 extends Resource
 class_name LevelHeader
 
-@export (String) var title := 'Test Level'
-@export (Texture2D) var preview
-@export (PackedScene) var level
+@export var title := 'Test Level'
+@export var preview : ImageTexture
+@export var level : PackedScene
 
-var score :Score
+var score : Score
 var path := 'user://' + title + '.res'
 
 func load_score():

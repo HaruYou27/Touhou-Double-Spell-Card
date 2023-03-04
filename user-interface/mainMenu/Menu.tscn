@@ -1,9 +1,8 @@
-[gd_scene load_steps=11 format=3 uid="uid://bc4nkd6wbv6q3"]
+[gd_scene load_steps=10 format=3 uid="uid://bc4nkd6wbv6q3"]
 
 [ext_resource type="Script" path="res://user-interface/mainMenu/Menu.gd" id="1"]
 [ext_resource type="Script" path="res://user-interface/mainMenu/setting/Graphic.gd" id="2"]
 [ext_resource type="Theme" path="res://user-interface/resource/Default.tres" id="3"]
-[ext_resource type="PackedScene" uid="uid://cr6qdq3n4qsl5" path="res://entity/Reimu/reimuA.tscn" id="4"]
 [ext_resource type="Script" path="res://user-interface/control-node/FormatLabel.gd" id="5"]
 [ext_resource type="Script" path="res://user-interface/mainMenu/setting/Audio.gd" id="6"]
 [ext_resource type="Script" path="res://user-interface/control-node/UberButton.gd" id="8"]
@@ -355,7 +354,6 @@ offset_left = 1920.0
 offset_right = 3840.0
 offset_bottom = 1080.0
 script = ExtResource("11")
-players = [ExtResource("4")]
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="level"]
 layout_mode = 0

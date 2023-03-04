@@ -42,14 +42,14 @@ gravity = Vector3(0, 0, 0)
 
 [sub_resource type="ShaderMaterial" id="35"]
 shader = ExtResource("2")
-shader_parameter/rainbow = null
-shader_parameter/rainbow_frequency = 1.0
 shader_parameter/recolor = null
 shader_parameter/h = 1.0
 shader_parameter/s = 1.0
 shader_parameter/v = 1.0
+shader_parameter/rainbow = null
+shader_parameter/rainbow_frequency = 1.0
 shader_parameter/rotate = null
-shader_parameter/time_speed = 1.0
+shader_parameter/time_scale = 1.0
 shader_parameter/wobble = null
 shader_parameter/wobble_max = 1.25
 shader_parameter/wobble_min = 0.75
@@ -90,14 +90,14 @@ _data = {
 
 [sub_resource type="ShaderMaterial" id="32"]
 shader = ExtResource("2")
-shader_parameter/rainbow = null
-shader_parameter/rainbow_frequency = 1.0
 shader_parameter/recolor = null
 shader_parameter/h = 1.0
 shader_parameter/s = 1.0
 shader_parameter/v = 1.0
+shader_parameter/rainbow = null
+shader_parameter/rainbow_frequency = 1.0
 shader_parameter/rotate = null
-shader_parameter/time_speed = 1.0
+shader_parameter/time_scale = 1.0
 shader_parameter/wobble = null
 shader_parameter/wobble_max = 1.25
 shader_parameter/wobble_min = 0.75
