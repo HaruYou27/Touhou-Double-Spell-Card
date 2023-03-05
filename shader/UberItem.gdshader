@@ -1,24 +1,26 @@
 shader_type canvas_item;
 #pragma disable_preprocessor
 
+uniform float time_scale;
+uniform bool spin;
+uniform bool disable_modulate;
+uniform bool sin_alpha;
+
+group_uniforms displace;
+uniform bool displace;
+uniform float displace_strength = 5.0;
+
 group_uniforms hsv_adjust;
 uniform bool recolor;
-uniform float h: hint_range(0, 1) = 1;
-uniform float s: hint_range(0, 2) = 1;
-uniform float v: hint_range(0, 2) = 1;
-
+uniform float h: hint_range(0, 1) = 1.0;
+uniform float s: hint_range(0, 2) = 1.0;
+uniform float v: hint_range(0, 2) = 1.0;
 uniform bool rainbow;
-uniform float rainbow_frequency = 1.0;
 
-group_uniforms spin;
-uniform bool rotate;
-uniform float time_scale = 1.0;
-
+group_uniforms wobble;
 uniform bool wobble;
 uniform float wobble_max = 1.25;
 uniform float wobble_min = .75;
-
-uniform bool disable_modulate;
 
 vec3 rgb2hsv(vec3 c)
 {
@@ -48,23 +50,34 @@ float nah(float a)
 varying float rainbow_hue;
 void vertex()
 {
+	float time = TIME * time_scale;
+	
 	if (rainbow)
 	{
-    	rainbow_hue = abs(sin(TIME * rainbow_frequency)) + COLOR.a;
+    	rainbow_hue = abs(sin(time)) + COLOR.a;
 	}
-    if (rotate)
+    if (spin)
 	{
-    	float phi = TIME * time_scale * PI * sign(COLOR.a - .5);
+    	float phi = time * PI * sign(COLOR.a - .5);
         VERTEX *= mat2(vec2(cos(phi),-sin(phi)),
                        vec2(sin(phi),cos(phi)));
     }
 	if (wobble)
 	{
-		VERTEX *= wobble_min + abs(sin(TIME * time_scale + 1000.0*COLOR.a)) * (wobble_max - wobble_min);
+		VERTEX *= wobble_min + abs(sin(time + 1000.0*COLOR.a)) * (wobble_max - wobble_min);
 	}
 	if (disable_modulate)
 	{
 		COLOR.a = 1.0;
+	}
+	if (sin_alpha)
+	{
+		COLOR.a = sin(time);
+	}
+	if (displace)
+	{
+		VERTEX.x += sin(time) * displace_strength;
+		VERTEX.y += cos(time) * displace_strength;
 	}
 }
 void fragment()

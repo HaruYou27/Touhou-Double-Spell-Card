@@ -1,7 +1,7 @@
-[gd_scene load_steps=25 format=3 uid="uid://cr6qdq3n4qsl5"]
+[gd_scene load_steps=25 format=3]
 
 [ext_resource type="Script" path="res://entity/Reimu/deathTimer.gd" id="1"]
-[ext_resource type="Shader" path="res://shader/UberItem.gdshader" id="2"]
+[ext_resource type="Shader" path="res://tool/shader-generator/UberItem.gdshader" id="2"]
 [ext_resource type="Script" path="res://entity/Reimu/reimu.gd" id="3"]
 [ext_resource type="Script" path="res://entity/Bullet/BulletBasic.cs" id="4"]
 [ext_resource type="Script" path="res://entity/Reimu/graze.gd" id="4_x0778"]
