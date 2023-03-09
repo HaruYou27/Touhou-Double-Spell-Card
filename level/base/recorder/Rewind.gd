@@ -1,5 +1,6 @@
 
 extends Node
+class_name Rewind
 
 @onready var viewport := get_viewport()
 @onready var screenshot := viewport.get_texture()

@@ -1,5 +1,5 @@
 extends Node2D
 
-func start():
+func start() -> void:
 	$Timer.start()
 	$bullet/Timer.start()

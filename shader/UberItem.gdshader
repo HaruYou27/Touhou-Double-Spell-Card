@@ -56,6 +56,10 @@ void vertex()
 	{
     	rainbow_hue = abs(sin(time)) + COLOR.a;
 	}
+	else
+	{
+		rainbow_hue = 0.0;
+	}
     if (spin)
 	{
     	float phi = time * PI * sign(COLOR.a - .5);

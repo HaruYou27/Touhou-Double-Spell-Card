@@ -1,17 +1,17 @@
-[gd_scene load_steps=16 format=3 uid="uid://dyxh8r7iqx0tj"]
+[gd_scene load_steps=26 format=3]
 
 [ext_resource type="Script" path="res://user-interface/control-node/FormatLabel.gd" id="1"]
 [ext_resource type="Script" path="res://level/base/item-manager/ItemManager.cs" id="2"]
-[ext_resource type="Theme" path="res://user-interface/resource/Default.tres" id="3"]
+[ext_resource type="Theme" uid="uid://bifm2ugkhdhns" path="res://user-interface/resource/Default.tres" id="3"]
 [ext_resource type="Script" path="res://level/base/leveler.gd" id="4"]
 [ext_resource type="Script" path="res://user-interface/control-node/ScreenEffect.gd" id="5"]
 [ext_resource type="Script" path="res://user-interface/control-node/UberButton.gd" id="6"]
-[ext_resource type="Texture2D" uid="uid://chcj8r3xo57he" path="res://level/textures/hud.png" id="9"]
+[ext_resource type="FontFile" uid="uid://cybwwftllqbxu" path="res://user-interface/fonts/data/UbuntuMono-Regular.ttf" id="7_d506w"]
+[ext_resource type="Texture2D" uid="uid://chcj8r3xo57he" path="res://level/base/textures/hud.png" id="9"]
 [ext_resource type="Script" path="res://level/base/fps.gd" id="10"]
 [ext_resource type="Script" path="res://level/base/PauseMenu.gd" id="12"]
-[ext_resource type="Theme" path="res://level/base/resource/collection.theme" id="13"]
 [ext_resource type="Texture2D" uid="uid://bg5s4m34ufdy5" path="res://level/base/item-manager/point.png" id="14"]
-[ext_resource type="Theme" path="res://level/base/resource/score.theme" id="15"]
+[ext_resource type="Theme" uid="uid://hbymi15hqeje" path="res://level/base/resource/score.tres" id="15"]
 [ext_resource type="Shortcut" path="res://user-interface/resource/escape.tres" id="16"]
 [ext_resource type="Script" path="res://level/base/hud.gd" id="17"]
 
@@ -19,9 +19,210 @@
 radius = 40.0
 height = 2048.0
 
+[sub_resource type="FontFile" id="FontFile_u282i"]
+subpixel_positioning = 0
+msdf_pixel_range = 14
+msdf_size = 128
+fallbacks = Array[Font]([ExtResource("7_d506w")])
+face_index = null
+embolden = null
+transform = null
+cache/0/16/0/ascent = 0.0
+cache/0/16/0/descent = 0.0
+cache/0/16/0/underline_position = 0.0
+cache/0/16/0/underline_thickness = 0.0
+cache/0/16/0/scale = 1.0
+cache/0/16/0/glyphs/0/advance = Vector2(0, 0)
+cache/0/16/0/glyphs/0/offset = Vector2(0, 0)
+cache/0/16/0/glyphs/0/size = Vector2(0, 0)
+cache/0/16/0/glyphs/0/uv_rect = Rect2(0, 0, 0, 0)
+cache/0/16/0/glyphs/0/texture_idx = -1
+cache/0/16/0/kerning_overrides/16/0 = Vector2(0, 0)
+cache/0/16/0/kerning_overrides/64/0 = Vector2(0, 0)
+cache/0/16/0/kerning_overrides/32/0 = Vector2(0, 0)
+cache/0/16/0/kerning_overrides/48/0 = Vector2(0, 0)
+cache/0/64/0/ascent = 0.0
+cache/0/64/0/descent = 0.0
+cache/0/64/0/underline_position = 0.0
+cache/0/64/0/underline_thickness = 0.0
+cache/0/64/0/scale = 1.0
+cache/0/64/0/glyphs/0/advance = Vector2(0, 0)
+cache/0/64/0/glyphs/0/offset = Vector2(0, 0)
+cache/0/64/0/glyphs/0/size = Vector2(0, 0)
+cache/0/64/0/glyphs/0/uv_rect = Rect2(0, 0, 0, 0)
+cache/0/64/0/glyphs/0/texture_idx = -1
+cache/0/64/0/kerning_overrides/16/0 = Vector2(0, 0)
+cache/0/64/0/kerning_overrides/64/0 = Vector2(0, 0)
+cache/0/64/0/kerning_overrides/32/0 = Vector2(0, 0)
+cache/0/64/0/kerning_overrides/48/0 = Vector2(0, 0)
+cache/0/32/0/ascent = 0.0
+cache/0/32/0/descent = 0.0
+cache/0/32/0/underline_position = 0.0
+cache/0/32/0/underline_thickness = 0.0
+cache/0/32/0/scale = 1.0
+cache/0/32/0/glyphs/0/advance = Vector2(0, 0)
+cache/0/32/0/glyphs/0/offset = Vector2(0, 0)
+cache/0/32/0/glyphs/0/size = Vector2(0, 0)
+cache/0/32/0/glyphs/0/uv_rect = Rect2(0, 0, 0, 0)
+cache/0/32/0/glyphs/0/texture_idx = -1
+cache/0/32/0/kerning_overrides/16/0 = Vector2(0, 0)
+cache/0/32/0/kerning_overrides/64/0 = Vector2(0, 0)
+cache/0/32/0/kerning_overrides/32/0 = Vector2(0, 0)
+cache/0/32/0/kerning_overrides/48/0 = Vector2(0, 0)
+cache/0/48/0/ascent = 0.0
+cache/0/48/0/descent = 0.0
+cache/0/48/0/underline_position = 0.0
+cache/0/48/0/underline_thickness = 0.0
+cache/0/48/0/scale = 1.0
+cache/0/48/0/glyphs/0/advance = Vector2(0, 0)
+cache/0/48/0/glyphs/0/offset = Vector2(0, 0)
+cache/0/48/0/glyphs/0/size = Vector2(0, 0)
+cache/0/48/0/glyphs/0/uv_rect = Rect2(0, 0, 0, 0)
+cache/0/48/0/glyphs/0/texture_idx = -1
+cache/0/48/0/kerning_overrides/16/0 = Vector2(0, 0)
+cache/0/48/0/kerning_overrides/64/0 = Vector2(0, 0)
+cache/0/48/0/kerning_overrides/32/0 = Vector2(0, 0)
+cache/0/48/0/kerning_overrides/48/0 = Vector2(0, 0)
+
+[sub_resource type="Theme" id="Theme_4us48"]
+default_font = SubResource("FontFile_u282i")
+
+[sub_resource type="Animation" id="Animation_yyktx"]
+resource_name = "fade2black"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Node/hud/ScreenEffect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0.5), Color(0.0823529, 0.0823529, 0.0823529, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_ljdud"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Node/hud/ScreenEffect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.0823529, 0.0823529, 0.0823529, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_4t2o7"]
+resource_name = "flash"
+length = 0.15
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Node/hud/ScreenEffect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.15),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0.501961), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_mja1o"]
+_data = {
+"RESET": SubResource("Animation_ljdud"),
+"fade2black": SubResource("Animation_yyktx"),
+"flash": SubResource("Animation_4t2o7")
+}
+
+[sub_resource type="Animation" id="Animation_6qo7s"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PauseMenu:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("PauseMenu:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_dnb1f"]
+resource_name = "hide"
+length = 0.15
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PauseMenu:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.15),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("PauseMenu:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.15),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_uyo8v"]
+resource_name = "show"
+length = 0.15
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PauseMenu:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.15),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_36peq"]
+_data = {
+"RESET": SubResource("Animation_6qo7s"),
+"hide": SubResource("Animation_dnb1f"),
+"show": SubResource("Animation_uyo8v")
+}
+
 [node name="level" type="Node2D"]
 position = Vector2(526, 88)
 script = ExtResource("4")
+levels = null
 
 [node name="bulletBound" type="StaticBody2D" parent="."]
 visible = false
@@ -62,47 +263,48 @@ offset_left = 1232.0
 offset_top = 102.0
 offset_right = 1743.0
 offset_bottom = 527.0
+theme = ExtResource("3")
 
 [node name="HiScore" type="Label" parent="Node/hud/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 5
-theme = ExtResource("15")
-text = "Hi-Score:	%07d"
+text = "Hi-Score:	 %07d"
 script = ExtResource("1")
 
 [node name="Score" type="Label" parent="Node/hud/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 5
-theme = ExtResource("15")
-text = "Score:		%07d"
+text = "Score:		    %07d"
 script = ExtResource("1")
 
 [node name="Graze" type="Label" parent="Node/hud/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 5
-theme = ExtResource("13")
-text = "Graze:	%07d"
+theme = ExtResource("15")
+text = "Graze:	    %07d"
 script = ExtResource("1")
 
 [node name="item" type="Label" parent="Node/hud/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 5
-theme = ExtResource("13")
-text = "Point:	%07d"
+theme = ExtResource("15")
+text = "Point:    %07d"
 script = ExtResource("1")
 
 [node name="Bomb" type="Label" parent="Node/hud/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 7
+theme_override_colors/font_color = Color(0, 0.870588, 0, 1)
+theme_override_font_sizes/font_size = 84
 text = "Bomb:	%d"
 script = ExtResource("1")
 
 [node name="Goal" type="Label" parent="Node/hud/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 5
-theme = ExtResource("13")
-text = "Next:	%07d"
+theme = SubResource("Theme_4us48")
+text = "Next: 	%07d"
 script = ExtResource("1")
 
 [node name="pickup" type="AudioStreamPlayer" parent="Node/hud"]
@@ -115,11 +317,11 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -149.0
-offset_top = -59.0
-offset_right = -84.0
-offset_bottom = -9.0
-theme = ExtResource("13")
+offset_left = -186.0
+offset_top = -52.0
+grow_horizontal = 0
+grow_vertical = 0
+theme = ExtResource("3")
 text = "FPS: %d"
 script = ExtResource("10")
 
@@ -128,8 +330,15 @@ visible = false
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-color = Color(1, 1, 1, 0.5)
+mouse_filter = 2
+color = Color(0.0823529, 0.0823529, 0.0823529, 1)
 script = ExtResource("5")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Node/hud/ScreenEffect"]
+root_node = NodePath("../../../..")
+libraries = {
+"": SubResource("AnimationLibrary_mja1o")
+}
 
 [node name="ItemManager" type="Node2D" parent="."]
 script = ExtResource("2")
@@ -140,7 +349,7 @@ maxBullet = 4727
 [node name="PauseMenu" type="ColorRect" parent="."]
 process_mode = 2
 visible = false
-modulate = Color(1, 1, 1, 0)
+z_index = 4000
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -199,6 +408,12 @@ theme = ExtResource("3")
 text = "Quit"
 script = ExtResource("6")
 
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_36peq")
+}
+
+[connection signal="animation_finished" from="Node/hud/ScreenEffect/AnimationPlayer" to="Node/hud/ScreenEffect" method="_on_animation_player_animation_finished"]
 [connection signal="pressed" from="PauseMenu/VBoxContainer/Resume" to="PauseMenu" method="_on_Resume_pressed"]
 [connection signal="pressed" from="PauseMenu/VBoxContainer/Restart" to="." method="restart"]
-[connection signal="pressed" from="PauseMenu/VBoxContainer/Quit" to="." method="_on_Quit_pressed"]
+[connection signal="pressed" from="PauseMenu/VBoxContainer/Quit" to="PauseMenu" method="_on_Quit_pressed"]

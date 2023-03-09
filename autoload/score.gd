@@ -1,11 +1,13 @@
 extends Resource
 class_name Score
 
+@export_category('score')
 @export var retry := 0
 @export var score := 0
 @export var item := 0
 @export var graze := 0
 
+@export_category('settings')
 @export var death_time := .3
 @export var game_speed := 1.0
 @export var shoot_type := 0

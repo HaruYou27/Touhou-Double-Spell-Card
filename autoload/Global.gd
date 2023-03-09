@@ -13,35 +13,33 @@ var leveler : Leveler
 var boss :Boss
 var user_data : UserData
 var player : Player
-var score : Score
+var screenfx : ScreenEffect
+var item_manager
 
 const playground := Vector2(604, 906)
 const game_rect := Vector2(1920, 1080)
 
 func _ready() -> void:
-	user_data = load('user://save.res')
-	if not user_data:
-		user_data = UserData.new()
+	randomize()
 	
+	user_data = load('user://727564643146467234.res')
+	if user_data:
+		return
+		
+	user_data = UserData.new()
 	var fps := int(ceil(DisplayServer.screen_get_refresh_rate()))
 	if fps:
 		Engine.max_fps = fps
 		Engine.physics_ticks_per_second = fps
-		ProjectSettings.set_setting('physics/common/physics_fps', fps)
-		ProjectSettings.set_setting('debug/settings/fps/force_fps', fps)
-	randomize()
+		ProjectSettings.set_setting('physics/common/physics_ticks_per_second', fps)
+		ProjectSettings.set_setting('application/run/max_fps', fps)
 
-static func save_resource(path:String, resource:Resource) -> void:
-	var err := ResourceSaver.save(resource, path, 32)
-	if err:
-		push_error('Error when saving file. Error code = ' + str(err))
-	
 func _exit_tree() -> void:
 	if Engine.is_editor_hint:
 		return
 	
-	var viewport := get_viewport()
-	ProjectSettings.set_setting('display/window/size/viewport_width', viewport.size.x)
-	ProjectSettings.set_setting('display/window/size/viewport_height', viewport.size.y)
+	var viewport :Vector2 = get_viewport().size
+	ProjectSettings.set_setting('display/window/size/viewport_width', viewport.x)
+	ProjectSettings.set_setting('display/window/size/viewport_height', viewport.y)
 	ProjectSettings.save_custom('user://override.cfg')
-	save_resource('user://user_data.res', user_data)
+	ResourceSaver.save(user_data, 'user://727564643146467234.res', 32)

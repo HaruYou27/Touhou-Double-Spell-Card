@@ -1,11 +1,10 @@
-[gd_scene load_steps=25 format=3]
+[gd_scene load_steps=24 format=3 uid="uid://beweol2qml2ub"]
 
 [ext_resource type="Script" path="res://entity/Reimu/deathTimer.gd" id="1"]
 [ext_resource type="Shader" path="res://tool/shader-generator/UberItem.gdshader" id="2"]
 [ext_resource type="Script" path="res://entity/Reimu/reimu.gd" id="3"]
 [ext_resource type="Script" path="res://entity/Bullet/BulletBasic.cs" id="4"]
 [ext_resource type="Script" path="res://entity/Reimu/graze.gd" id="4_x0778"]
-[ext_resource type="PackedScene" path="res://entity/Reimu/FantasySeal.tscn" id="5"]
 [ext_resource type="Texture2D" uid="uid://c3jodrorofxht" path="res://entity/Reimu/texture/ofuda-tail.png" id="7"]
 [ext_resource type="Texture2D" uid="uid://r7d3f3sdgdhy" path="res://entity/Reimu/texture/reimu.png" id="8"]
 [ext_resource type="Script" path="res://entity/Bullet/Seeker.cs" id="9"]
@@ -41,19 +40,8 @@ spread = 180.0
 gravity = Vector3(0, 0, 0)
 
 [sub_resource type="ShaderMaterial" id="35"]
+render_priority = 0
 shader = ExtResource("2")
-shader_parameter/recolor = null
-shader_parameter/h = 1.0
-shader_parameter/s = 1.0
-shader_parameter/v = 1.0
-shader_parameter/rainbow = null
-shader_parameter/rainbow_frequency = 1.0
-shader_parameter/rotate = null
-shader_parameter/time_scale = 1.0
-shader_parameter/wobble = null
-shader_parameter/wobble_max = 1.25
-shader_parameter/wobble_min = 0.75
-shader_parameter/disable_modulate = null
 
 [sub_resource type="Animation" id="34"]
 resource_name = "show"
@@ -89,19 +77,8 @@ _data = {
 }
 
 [sub_resource type="ShaderMaterial" id="32"]
+render_priority = 0
 shader = ExtResource("2")
-shader_parameter/recolor = null
-shader_parameter/h = 1.0
-shader_parameter/s = 1.0
-shader_parameter/v = 1.0
-shader_parameter/rainbow = null
-shader_parameter/rainbow_frequency = 1.0
-shader_parameter/rotate = null
-shader_parameter/time_scale = 1.0
-shader_parameter/wobble = null
-shader_parameter/wobble_max = 1.25
-shader_parameter/wobble_min = 0.75
-shader_parameter/disable_modulate = null
 
 [sub_resource type="Animation" id="Animation_yfsl5"]
 loop_mode = 1
@@ -171,7 +148,6 @@ collision_layer = 4
 collision_mask = 0
 constant_linear_velocity = Vector2(3, 0)
 script = ExtResource("3")
-bomb_scene = ExtResource("5")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 z_index = 5

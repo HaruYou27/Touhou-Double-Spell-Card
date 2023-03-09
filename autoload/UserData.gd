@@ -13,7 +13,7 @@ class_name UserData
 @export var bomb_bind : InputEvent : set = _bind_bomb
 
 ##User data
-@export var unlocked_levels := PackedStringArray(["res://level/tutorial/tutorial.tres", "res://level/yukari/route-A/lunatic/yukari-A-lunatic.tres"])
+@export var scores := {}
 
 func _bind_drag(event:InputEvent) -> void:
 	InputMap.action_erase_events('drag')
@@ -25,3 +25,9 @@ func _bind_bomb(event:InputEvent) -> void:
 
 func _set_raw_input(value:bool) -> void:
 	Input.use_accumulated_input = value
+
+func unlock_level(key:String) -> void:
+	var score = Score.new()
+	var path := 'user://' + str(randi()) + '.res'
+	ResourceSaver.save(score, path)
+	scores[key] = path

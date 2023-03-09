@@ -11,6 +11,10 @@ class_name Player
 
 @onready var sentivity := user_data.sentivity
 var moving := false
+
+var bomb_scene := preload("res://entity/Reimu/FantasySeal.tscn")
+var bomb_count := 1
+@export var bullet_timer : Array[Timer]
 var can_shoot := true : set = _set_shooting
 func _set_shooting(value:bool) -> void:
 	can_shoot = value
@@ -23,10 +27,6 @@ func _set_shooting(value:bool) -> void:
 		orb_animator.speed_scale = .25
 		for timer in bullet_timer:
 			timer.stop()
-
-@export var bullet_timer : Array[Timer]
-@export var bomb_scene : PackedScene
-var bomb_count := 1
 
 func _ready() -> void:
 	death_timer.connect('timeout',Callable(Global.leveler,'restart'))

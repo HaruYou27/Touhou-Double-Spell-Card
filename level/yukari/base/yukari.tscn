@@ -1,12 +1,12 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=10 format=3]
 
-[ext_resource path="res://level/base/BossGauge.gd" type="Script" id=1]
-[ext_resource path="res://entity/utility/LockedNode2D.gd" type="Script" id=2]
-[ext_resource path="res://level/yukari/base/yukari.gd" type="Script" id=3]
-[ext_resource path="res://level/base/resource/boss-indicator.png" type="Texture2D" id=4]
-[ext_resource path="res://level/textures/over.png" type="Texture2D" id=5]
-[ext_resource path="res://level/textures/fill.png" type="Texture2D" id=6]
-[ext_resource path="res://level/yukari/base/texture/Yukari.png" type="Texture2D" id=7]
+[ext_resource type="Script" path="res://level/base/BossGauge.gd" id="1"]
+[ext_resource type="Script" path="res://entity/utility/LockedNode2D.gd" id="2"]
+[ext_resource type="Script" path="res://level/yukari/base/yukari.gd" id="3"]
+[ext_resource type="Texture2D" uid="uid://cnecndeyl8vpm" path="res://level/base/resource/boss-indicator.png" id="4"]
+[ext_resource type="Texture2D" uid="uid://cblh65sbr2x38" path="res://level/base/textures/over.png" id="5"]
+[ext_resource type="Texture2D" uid="uid://5uru3p04533u" path="res://level/base/textures/fill.png" id="6"]
+[ext_resource type="Texture2D" uid="uid://bn8nged18pm41" path="res://level/yukari/base/texture/Yukari.png" id="7"]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 77.0

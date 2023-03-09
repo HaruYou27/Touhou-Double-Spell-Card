@@ -27,7 +27,7 @@ func _ready() -> void:
 	Global.boss = self
 	
 func _start() -> void:
-	Global.leveler.level.start()
+	Global.leveler.level.start_level()
 	
 func _hit() -> void:
 	hp -= 1

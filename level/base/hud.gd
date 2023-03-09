@@ -14,7 +14,7 @@ var goal := 0
 @onready var item_label :FormatLabel = $VBoxContainer/item
 @onready var pickup_sfx : AudioStreamPlayer = $pickup
 @onready var bomb_label :FormatLabel = $VBoxContainer/Bomb
-@onready var reward_sfx :AudioStreamPlayer = $reward
+@onready var reward_sfx : AudioStreamPlayer = $reward
 @onready var goal_label :FormatLabel = $VBoxContainer/Goal
 
 @onready var multiplier := pow(Global.score.death_time, Engine.time_scale)
@@ -23,10 +23,6 @@ func _ready() -> void:
 	Global.connect("item_collect",Callable(self,"_set_item"))
 	Global.connect('bullet_graze',Callable(self,'_set_graze'))
 	
-	if Global.score:
-		hi_score_label.update_label(Global.score.score)
-	else:
-		hi_score_label.update_label(0)
 	score_label.update_label(0)
 	item_label.update_label(0)
 	goal_label.update_label(0)

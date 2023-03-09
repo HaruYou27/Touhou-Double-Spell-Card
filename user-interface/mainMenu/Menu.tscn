@@ -1,14 +1,21 @@
-[gd_scene load_steps=10 format=3 uid="uid://bc4nkd6wbv6q3"]
+[gd_scene load_steps=13 format=3 uid="uid://dkdhsvfdpbhyq"]
 
 [ext_resource type="Script" path="res://user-interface/mainMenu/Menu.gd" id="1"]
 [ext_resource type="Script" path="res://user-interface/mainMenu/setting/Graphic.gd" id="2"]
-[ext_resource type="Theme" path="res://user-interface/resource/Default.tres" id="3"]
+[ext_resource type="Theme" uid="uid://bifm2ugkhdhns" path="res://user-interface/resource/Default.tres" id="3"]
 [ext_resource type="Script" path="res://user-interface/control-node/FormatLabel.gd" id="5"]
 [ext_resource type="Script" path="res://user-interface/mainMenu/setting/Audio.gd" id="6"]
 [ext_resource type="Script" path="res://user-interface/control-node/UberButton.gd" id="8"]
 [ext_resource type="Script" path="res://user-interface/mainMenu/setting/Controls.gd" id="9"]
 [ext_resource type="Shortcut" path="res://user-interface/resource/escape.tres" id="10"]
+[ext_resource type="PackedScene" uid="uid://beweol2qml2ub" path="res://entity/Reimu/reimuA.tscn" id="10_uxqcx"]
 [ext_resource type="Script" path="res://user-interface/mainMenu/level.gd" id="11"]
+[ext_resource type="Script" path="res://user-interface/mainMenu/LevelHeader.gd" id="11_iry26"]
+
+[sub_resource type="Resource" id="Resource_t7vud"]
+script = ExtResource("11_iry26")
+title = "Tutorial"
+level = "res://level/tutorial/tutorial.tscn"
 
 [node name="menu" type="Control"]
 layout_mode = 3
@@ -236,6 +243,7 @@ max_value = 2.0
 step = 0.1
 value = 2.0
 allow_greater = true
+ticks_on_borders = true
 
 [node name="reset" type="Button" parent="setting/TabContainer/Controls"]
 layout_mode = 2
@@ -354,6 +362,8 @@ offset_left = 1920.0
 offset_right = 3840.0
 offset_bottom = 1080.0
 script = ExtResource("11")
+players = Array[PackedScene]([ExtResource("10_uxqcx")])
+levels = Array[ExtResource("11_iry26")]([SubResource("Resource_t7vud")])
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="level"]
 layout_mode = 0
@@ -421,7 +431,8 @@ layout_mode = 2
 min_value = 0.1
 max_value = 1.0
 step = 0.1
-value = 0.3
+value = 1.0
+allow_greater = true
 tick_count = 10
 ticks_on_borders = true
 
@@ -435,7 +446,8 @@ layout_mode = 2
 min_value = 0.5
 max_value = 2.0
 step = 0.1
-value = 1.0
+value = 2.0
+allow_greater = true
 tick_count = 16
 ticks_on_borders = true
 

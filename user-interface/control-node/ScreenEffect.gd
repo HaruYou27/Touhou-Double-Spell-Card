@@ -5,7 +5,8 @@ var shaking := 0.0
 
 func _ready() -> void:
 	set_process(false)
-	RenderingServer.canvas_item_set_z_index(get_canvas_item(), RenderingServer.CANVAS_ITEM_Z_MAX)
+	Global.connect("bomb_impact",Callable(self,'screen_shake'))
+	Global.screenfx = self
 
 func fade2black() -> Tween:
 	show()
