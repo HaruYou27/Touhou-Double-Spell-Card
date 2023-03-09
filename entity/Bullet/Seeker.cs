@@ -22,13 +22,13 @@ public partial class Seeker : BulletBasic
 
 	protected Node2D[] targets;
 	protected PhysicsShapeQueryParameters2D seekQuery = new PhysicsShapeQueryParameters2D();
-	private RID seekShape = PhysicsServer2D.CircleShapeCreate();
+	private Rid seekShape = PhysicsServer2D.CircleShapeCreate();
 
 	public override void _Ready() 
 	{
 		base._Ready();
 		seekQuery.ShapeRid = seekShape;
-		seekQuery.CollisionLayer = mask;
+		seekQuery.CollisionMask = mask;
 		targets = new Node2D[maxBullet];
 	}
 	protected override void SortBullet()
@@ -45,23 +45,27 @@ public partial class Seeker : BulletBasic
 		base._ExitTree();
 		PhysicsServer2D.FreeRid(seekShape);
 	}
-	protected override void Move(in float delta) 
+	protected override void Move(in double delta) 
 	{
-		if (targets[index] == null || !Object.IsInstanceValid(targets[index]))
+		if (targets[index] == null || !GodotObject.IsInstanceValid(targets[index]))
 		{
-			seekQuery.Transform3D = transforms[index];
+			seekQuery.Transform = transforms[index];
 			Godot.Collections.Dictionary seekResult = world.DirectSpaceState.GetRestInfo(seekQuery);
 			if (seekResult.Count != 0)
 			{
-				targets[index] = (Node2D)GD.InstanceFromId((ulong) (int)seekResult["collider_id"]);
+				targets[index] = (Node2D) GodotObject.InstanceFromId( (ulong) seekResult["collider_id"]);
 			}
+			base.Move(delta);
 		}
 		else
 		{
-			Vector2 desiredV = (targets[index].GlobalPosition - transforms[index].origin).Normalized() * speed;
-			velocities[index] += (desiredV - velocities[index]) / mass;
-			transforms[index].Rotation = velocities[index].Angle() + Mathf.Pi / 2;
+			Vector2 origin = transforms[index].Origin;
+			Vector2 velocity = velocities[index];
+
+			velocities[index] += ((targets[index].GlobalPosition - origin).Normalized() * speed - velocity) / mass;
+			transforms[index] = new Transform2D(velocity.Angle() + Mathf.Pi / 2,
+												origin + velocity * (float)delta);
+			RenderingServer.CanvasItemSetTransform(sprites[index], transforms[index]);
 		}
-		base.Move(delta);
 	}
 }

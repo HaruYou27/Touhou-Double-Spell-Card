@@ -2,13 +2,13 @@ using Godot;
 //Bullet that bounce off wall.
 public partial class Ricochet : BulletBasic 
 {
-    [Export] uint ricochet = 1;
-    protected uint[] ricochets;
+    [Export] long ricochet = 1;
+    protected long[] ricochets;
 
     public override void _Ready()
     {
         base._Ready();
-        ricochets = new uint[maxBullet];
+        ricochets = new long[maxBullet];
     }
     protected override void BulletConstructor() 
     {

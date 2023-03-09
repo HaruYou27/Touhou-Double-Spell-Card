@@ -12,13 +12,13 @@ public partial class ChargeBullet : BulletBasic
 	}
 	protected float acceleration;
 
-	protected override void Move(in float delta) 
+	protected override void Move(in double delta) 
 	{
 		Vector2 velocity = velocities[index];
 		float length = velocity.Length();
 		if (length <= finalSpeed)
 		{
-			velocities[index] = velocity.LimitLength(length - acceleration * delta);
+			velocities[index] = velocity.LimitLength( (float) (length - acceleration * delta) );
 		}
 		base.Move(delta);
 	}
