@@ -9,6 +9,8 @@ signal restart_level
 
 signal can_player_shoot(value)
 
+signal next_novel_line
+
 var leveler : Leveler
 var boss :Boss
 var user_data : UserData

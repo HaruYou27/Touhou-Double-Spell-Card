@@ -5,16 +5,17 @@ class_name Player
 @onready var focus_layer : AnimationPlayer = $focus/AnimationPlayer
 @onready var death_timer : Timer = $DeathTimer
 @onready var orb_animator : AnimationPlayer = $orbAnimator
+@onready var orb_bullet : Node2D = $bullet2
 
 @onready var tree := get_tree()
 @onready var user_data :UserData = Global.user_data
 
 @onready var sentivity := user_data.sentivity
 var moving := false
-
 var bomb_scene := preload("res://entity/Reimu/FantasySeal.tscn")
 var bomb_count := 1
 @export var bullet_timer : Array[Timer]
+
 var can_shoot := true : set = _set_shooting
 func _set_shooting(value:bool) -> void:
 	can_shoot = value
@@ -72,7 +73,7 @@ func bomb() -> void:
 	
 	collision_layer = 0
 	graze.collision_layer = 0
-	modulate = Color(1.0, 1.0, 1.0, .5)
+	modulate = Color(0.61960786581039, 0.61960786581039, 0.61960786581039)
 	if can_shoot:
 		for timer in bullet_timer:
 			timer.stop()

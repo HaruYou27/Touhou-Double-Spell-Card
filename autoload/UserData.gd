@@ -1,18 +1,23 @@
 extends Resource
 class_name UserData
 
-#Graphic
+@export_category('')
+@export var skip_seen := true
+@export var text_speed := .15
+@export var auto_mode := false
+
+@export_category('Graphic')
 @export var rewind := false
 @export var full_particle := true
 @export var dynamic_background := true
 
-#Controls
+@export_category("Controls")
 @export var sentivity := 1.0
 @export var raw_input := true : set = _set_raw_input
 @export var drag_bind : InputEvent : set = _bind_drag
 @export var bomb_bind : InputEvent : set = _bind_bomb
 
-##User data
+@export_category('User data')
 @export var scores := {}
 
 func _bind_drag(event:InputEvent) -> void:

@@ -5,4 +5,4 @@ signal bomb
 
 func _unhandled_input(event:InputEvent) -> void:
 	if event.is_action_pressed("bomb"):
-		emit_signal("bomb")
+		bomb.emit()
