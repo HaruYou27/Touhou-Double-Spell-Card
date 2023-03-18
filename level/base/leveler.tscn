@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://xu5280d0laou"]
+[gd_scene load_steps=25 format=3 uid="uid://xu5280d0laou"]
 
 [ext_resource type="Script" path="res://user-interface/control-node/FormatLabel.gd" id="1"]
 [ext_resource type="Script" path="res://level/base/item-manager/ItemManager.cs" id="2"]
@@ -8,7 +8,6 @@
 [ext_resource type="Script" path="res://user-interface/control-node/UberButton.gd" id="6"]
 [ext_resource type="FontFile" uid="uid://cybwwftllqbxu" path="res://user-interface/fonts/data/UbuntuMono-Regular.ttf" id="7_d506w"]
 [ext_resource type="Script" path="res://level/base/fps.gd" id="10"]
-[ext_resource type="Texture2D" uid="uid://cbtl2ubqr38lo" path="res://level/base/resource/Yin-yang-2.png" id="10_wpwqh"]
 [ext_resource type="Script" path="res://level/base/PauseMenu.gd" id="12"]
 [ext_resource type="Texture2D" uid="uid://bg5s4m34ufdy5" path="res://level/base/item-manager/point.png" id="14"]
 [ext_resource type="Theme" uid="uid://hbymi15hqeje" path="res://level/base/resource/score.tres" id="15"]
@@ -275,9 +274,8 @@ shape = SubResource("1")
 
 [node name="ItemManager" type="Node2D" parent="."]
 script = ExtResource("2")
-CollisionLayer = 21
-texture = ExtResource("14")
 maxBullet = 4727
+texture = ExtResource("14")
 
 [node name="PauseMenu" type="ColorRect" parent="."]
 process_mode = 2
@@ -358,21 +356,13 @@ theme = ExtResource("4_4a0vg")
 color = Color(0.231518, 0.231518, 0.231518, 1)
 script = ExtResource("17")
 
-[node name="TextureRect" type="TextureRect" parent="hud"]
-layout_mode = 0
-offset_right = 6040.0
-offset_bottom = 9060.0
-scale = Vector2(0.1, 0.1)
-texture = ExtResource("10_wpwqh")
-stretch_mode = 1
-
 [node name="VBoxContainer" type="VBoxContainer" parent="hud"]
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
 offset_left = 20.0
 offset_top = 27.0
-offset_right = -12.0
+offset_right = 405.0
 offset_bottom = 411.0
 grow_horizontal = 2
 
@@ -430,8 +420,8 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -186.0
-offset_top = -52.0
+offset_left = -142.0
+offset_top = -42.0
 grow_horizontal = 0
 grow_vertical = 0
 text = "FPS: %d"

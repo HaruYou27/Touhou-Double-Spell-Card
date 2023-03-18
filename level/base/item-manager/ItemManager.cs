@@ -36,25 +36,24 @@ public partial class ItemManager : BulletBasic
 			CreateItem(transform);
 		}
 	}
-	public virtual void CreateItem(Transform2D transform)
+	public virtual void CreateItem(in Transform2D transform)
 	{
-		transform.Rotation = GD.Randf() * Mathf.Tau;
-		transforms[activeIndex] = transform;
+		transforms[activeIndex] = transform.Rotated(GD.Randf() * Mathf.Tau);
 		velocities[activeIndex] = new Vector2(GD.Randf() * 17, 0).Rotated(transform.Rotation);
 		grazable[activeIndex] = false;
 		
-		RID sprite = sprites[activeIndex];
+		Rid sprite = sprites[activeIndex];
 		RenderingServer.CanvasItemSetVisible(sprite, true);
 		if (tick)
 		{
 			//Ensure that 50% of the items will rotate clockwise and vice versa.
 			//This is better than rng in my opinion, both in term of performance and visual.
-			RenderingServer.CanvasItemSetModulate(sprite, Color.ColorN("white"));
+			RenderingServer.CanvasItemSetModulate(sprite, new Color(1, 1, 1, 1));
 			tick = false;
 		}
 		else
 		{
-			RenderingServer.CanvasItemSetModulate(sprite, Color.ColorN("white", (float)0.4));
+			RenderingServer.CanvasItemSetModulate(sprite, new Color(1, 1, 1, (float)0.4));
 			tick = true;
 		}
 		activeIndex++;
@@ -63,9 +62,9 @@ public partial class ItemManager : BulletBasic
 	{
 		if (grazable[index])
 		{
-			Vector2 localPos = target.ToLocal(transforms[index].origin);
-			localPos -= localPos.Normalized() * delta * 72;
-			transforms[index].origin = target.ToGlobal(localPos);
+			Vector2 localPos = target.ToLocal(transforms[index].Origin);
+			localPos -= localPos.Normalized() * (float) delta * 72;
+			transforms[index].Origin = target.ToGlobal(localPos);
 			RenderingServer.CanvasItemSetTransform(sprites[index], transforms[index]);
 		}
 		else
@@ -73,16 +72,16 @@ public partial class ItemManager : BulletBasic
 			//Fake gravity acceleratetion.
 			//Or fake the player movement.
 			//It's just an illusion.
-			velocities[index].y += 27 * delta;
+			velocities[index].Y += 27 * (float) delta;
 			base.Move(delta);
 		}
 	}
 	protected override bool Collide(in Godot.Collections.Dictionary result)
 	{
-		int mask = (int) ((Vector2)result["linear_velocity"]).x;
+		int mask = (int) ((Vector2)result["linear_velocity"]).X;
 		if (mask == 4)
 		{
-			Global.EmitSignal("item_collect", (int) 904 - transforms[index].origin.y);
+			Global.EmitSignal("item_collect", (int) 904 - transforms[index].Origin.Y);
 		}
 		else if (mask == 8) 
 		{

@@ -1,13 +1,14 @@
 extends Control
 
 @onready var list :BoxContainer = $VBoxContainer/ScrollContainer/LevelList
-@onready var preview :TextureRect = $HBoxContainer2/preview
-@onready var score :FormatLabel = $HBoxContainer2/score/HiScore
-@onready var graze :FormatLabel = $HBoxContainer2/score/Graze
-@onready var item :FormatLabel = $HBoxContainer2/score/item
-@onready var game_speed :Slider = $HBoxContainer2/score/SpeedSlider
-@onready var death_duration :Slider = $HBoxContainer2/score/DurationSlider
-@onready var shoot_type :OptionButton = $HBoxContainer2/score/ShootType
+@onready var preview :TextureRect = $TabContainer/preview
+@onready var score :FormatLabel = $TabContainer/TabContainer/LevelInfo/HiScore
+@onready var graze :FormatLabel = $TabContainer/TabContainer/LevelInfo/Graze
+@onready var item :FormatLabel = $TabContainer/TabContainer/LevelInfo/item
+@onready var game_speed :Slider = $TabContainer/TabContainer/LevelInfo/SpeedSlider
+@onready var death_duration :Slider = $TabContainer/TabContainer/LevelInfo/duration
+@onready var shoot_type :OptionButton = $TabContainer/TabContainer/LevelInfo/ShootType
+@onready var container : TabContainer = $TabContainer
 
 @export var players : Array[PackedScene]
 @export var levels : Array[LevelHeader]
@@ -41,6 +42,9 @@ func load_level() -> void:
 		return
 		
 	Global.player = players[shoot_type.selected].instantiate()
-	header.score.save_setting(shoot_type.selected, $HBoxContainer2/score/DurationSlider.value)
-	Engine.time_scale = $HBoxContainer2/score/game_speedSlider.value
+	header.score.save_setting(shoot_type.selected, $TabContainer/TabContainer/LevelInfo/DurationSlider.value)
+	Engine.time_scale = $TabContainer/TabContainer/LevelInfo/game_speedSlider.value
 	get_tree().change_scene_to_file(header.level)
+
+func _on_info_toggler_toggled(button_pressed:bool) -> void:
+	container.current_tab = int(button_pressed)

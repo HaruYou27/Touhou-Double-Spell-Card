@@ -11,7 +11,6 @@ uniform float tile = 0.5;
 uniform float speed = 0.001;
 
 uniform float brightness = 0.002;
-uniform float darkmatter = 0.100;
 uniform float distfading = 0.650;
 uniform float saturation = 0.750;
 
@@ -45,9 +44,7 @@ void fragment()
 			a+=abs(length(p)-pa); // absolute sum of average change
 			pa=length(p);
 		}
-		lowp float dm=max(0.,darkmatter-a*a*.001); //dark matter
 		a = pow(a, 2.3); // add contrast
-		if (r>6) fade*=1.-dm; // dark matter, don't render near
 		v+=fade;
 		v+=vec3(s,s*s,s*s*s*s)*a*brightness*fade; // coloring based on distance
 		fade*=distfading; // distance fading
@@ -62,10 +59,10 @@ void fragment()
  	 	C.g = pow(C.g, 0.36); 
  	 	C.b = pow(C.b, 0.38); 
  	
-    vec4 L = C;   	
+    vec4 L = C;
     
-    COLOR.r = mix(L.r, SCurve(C.r), 0.7); 
-    COLOR.g = mix(L.g, SCurve(C.g), 1.0); 
-    COLOR.b = mix(L.b, SCurve(C.b), 0.2);     	
+    COLOR.r = mix(L.r, SCurve(C.r), 0.7);
+    COLOR.g = mix(L.g, SCurve(C.g), 1.0);
+    COLOR.b = mix(L.b, SCurve(C.b), 0.2);
 	
 }

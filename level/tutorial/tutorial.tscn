@@ -1,48 +1,50 @@
-[gd_scene load_steps=11 format=3 uid="uid://drugmoq3l634s"]
+[gd_scene load_steps=12 format=3 uid="uid://drugmoq3l634s"]
 
 [ext_resource type="Script" path="res://level/tutorial/item.gd" id="1"]
 [ext_resource type="Script" path="res://level/tutorial/Move.gd" id="4"]
 [ext_resource type="PackedScene" path="res://level/yukari/base/yukari.tscn" id="5"]
 [ext_resource type="Script" path="res://level/tutorial/bomb.gd" id="6"]
-[ext_resource type="PackedScene" path="res://level/base/leveler.tscn" id="7"]
+[ext_resource type="PackedScene" uid="uid://xu5280d0laou" path="res://level/base/leveler.tscn" id="7"]
 [ext_resource type="Script" path="res://entity/utility/TargetLocker.gd" id="8"]
 [ext_resource type="Texture2D" uid="uid://d1nkk7km71ule" path="res://level/yukari/base/texture/kunai1.png" id="9"]
 [ext_resource type="Script" path="res://level/tutorial/Dodge.gd" id="10"]
 [ext_resource type="Script" path="res://level/tutorial/reward.gd" id="10_f6l5m"]
 [ext_resource type="Script" path="res://entity/Bullet/BulletBasic.cs" id="11"]
+[ext_resource type="PackedScene" uid="uid://dlnh5twbgexsv" path="res://level/yukari/base/space-relaxed.tscn" id="11_6kjyc"]
 
 [node name="tutorial" type="Node2D"]
 
 [node name="level" parent="." instance=ExtResource("7")]
 
-[node name="yukari" parent="level" instance=ExtResource("5")]
+[node name="SpaceRelaxed" parent="level" instance=ExtResource("11_6kjyc")]
+
+[node name="yukari" parent="level/SpaceRelaxed" instance=ExtResource("5")]
 position = Vector2(201, -227)
 duration = 547.0
 
-[node name="Dodge" type="Node2D" parent="level/yukari"]
+[node name="Dodge" type="Node2D" parent="level/SpaceRelaxed/yukari"]
 script = ExtResource("10")
 
-[node name="bullet" type="Node2D" parent="level/yukari/Dodge"]
+[node name="bullet" type="Node2D" parent="level/SpaceRelaxed/yukari/Dodge"]
 script = ExtResource("11")
-CollisionLayer = 5
-texture = ExtResource("9")
 maxBullet = 27
 speed = 127.0
+texture = ExtResource("9")
 
-[node name="Timer" type="Timer" parent="level/yukari/Dodge/bullet"]
+[node name="Timer" type="Timer" parent="level/SpaceRelaxed/yukari/Dodge/bullet"]
 
-[node name="TargetLocker" type="Marker2D" parent="level/yukari/Dodge/bullet"]
+[node name="TargetLocker" type="Marker2D" parent="level/SpaceRelaxed/yukari/Dodge/bullet"]
 visible = false
 rotation = 1.5708
 script = ExtResource("8")
 
-[node name="Marker2D" type="Marker2D" parent="level/yukari/Dodge/bullet/TargetLocker"]
+[node name="Marker2D" type="Marker2D" parent="level/SpaceRelaxed/yukari/Dodge/bullet/TargetLocker"]
 rotation = 0.441876
 
-[node name="Position2D2" type="Marker2D" parent="level/yukari/Dodge/bullet/TargetLocker"]
+[node name="Position2D2" type="Marker2D" parent="level/SpaceRelaxed/yukari/Dodge/bullet/TargetLocker"]
 rotation = -0.441568
 
-[node name="Timer" type="Timer" parent="level/yukari/Dodge"]
+[node name="Timer" type="Timer" parent="level/SpaceRelaxed/yukari/Dodge"]
 wait_time = 7.0
 one_shot = true
 
@@ -62,7 +64,7 @@ script = ExtResource("4")
 [node name="reward" type="Node" parent="."]
 script = ExtResource("10_f6l5m")
 
-[connection signal="timeout" from="level/yukari/Dodge/bullet/Timer" to="level/yukari/Dodge/bullet" method="SpawnBullet"]
-[connection signal="timeout" from="level/yukari/Dodge/Timer" to="level" method="next_level"]
+[connection signal="timeout" from="level/SpaceRelaxed/yukari/Dodge/bullet/Timer" to="level/SpaceRelaxed/yukari/Dodge/bullet" method="SpawnBullet"]
+[connection signal="timeout" from="level/SpaceRelaxed/yukari/Dodge/Timer" to="level" method="next_level"]
 [connection signal="timeout" from="item" to="item" method="_on_item_timeout"]
 [connection signal="timeout" from="move" to="move" method="_on_timeout"]

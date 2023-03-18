@@ -1,0 +1,35 @@
+[gd_scene load_steps=6 format=3 uid="uid://dgyra4nfi7smw"]
+
+[ext_resource type="Shader" path="res://shader/background/moving-tiled.gdshader" id="1_qpim4"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ds4cd"]
+shader = ExtResource("1_qpim4")
+shader_parameter/velocity = Vector2(0, -0.1)
+
+[sub_resource type="Gradient" id="Gradient_2hf0v"]
+offsets = PackedFloat32Array(0, 0.384615, 0.622378)
+colors = PackedColorArray(0, 0, 0, 1, 1, 0.141176, 0.380392, 1, 0.89, 0.89, 0.89, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_ih0d4"]
+noise_type = 2
+seed = 727
+fractal_type = 3
+fractal_weighted_strength = 1.0
+cellular_jitter = 0.72
+cellular_return_type = 6
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_0y852"]
+width = 604
+height = 906
+generate_mipmaps = false
+seamless = true
+seamless_blend_skirt = 1.0
+color_ramp = SubResource("Gradient_2hf0v")
+noise = SubResource("FastNoiseLite_ih0d4")
+
+[node name="GapEyes" type="Sprite2D"]
+texture_filter = 2
+texture_repeat = 2
+material = SubResource("ShaderMaterial_ds4cd")
+texture = SubResource("NoiseTexture2D_0y852")
+centered = false
