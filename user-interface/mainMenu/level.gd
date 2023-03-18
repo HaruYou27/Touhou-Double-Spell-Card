@@ -1,6 +1,6 @@
 extends Control
 
-@onready var list :BoxContainer = $HBoxContainer2/list
+@onready var list :BoxContainer = $VBoxContainer/ScrollContainer/LevelList
 @onready var preview :TextureRect = $HBoxContainer2/preview
 @onready var score :FormatLabel = $HBoxContainer2/score/HiScore
 @onready var graze :FormatLabel = $HBoxContainer2/score/Graze

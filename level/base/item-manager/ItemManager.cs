@@ -59,7 +59,7 @@ public partial class ItemManager : BulletBasic
 		}
 		activeIndex++;
 	}
-	protected override void Move(in float delta)
+	protected override void Move(in double delta)
 	{
 		if (grazable[index])
 		{

@@ -19,7 +19,11 @@ level = "res://level/tutorial/tutorial.tscn"
 
 [node name="menu" type="Control"]
 layout_mode = 3
-anchors_preset = 0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 theme = ExtResource("1_hossq")
 script = ExtResource("1")
 
@@ -31,18 +35,23 @@ autoplay = true
 
 [node name="main" type="Control" parent="."]
 use_parent_material = true
-anchors_preset = 0
-offset_right = 1920.0
-offset_bottom = 1080.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="main" type="VBoxContainer" parent="main"]
-layout_mode = 0
+layout_mode = 1
+anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_left = 133.0
-offset_top = -955.0
-offset_right = 529.0
-offset_bottom = -565.0
+offset_left = 114.0
+offset_top = -815.0
+offset_right = 510.0
+offset_bottom = -425.0
+grow_vertical = 0
 
 [node name="start" type="Button" parent="main/main"]
 layout_mode = 2
@@ -91,105 +100,24 @@ text = "Quit"
 script = ExtResource("8")
 
 [node name="setting" type="Control" parent="."]
-custom_minimum_size = Vector2(1920, 1080)
+custom_minimum_size = Vector2(1208, 906)
 anchors_preset = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -1920.0
-offset_right = -1920.0
+offset_left = -1208.0
+offset_right = -1208.0
 
 [node name="TabContainer" type="TabContainer" parent="setting"]
-layout_mode = 0
+layout_mode = 1
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 130.0
 offset_top = 211.0
-offset_right = -965.0
-offset_bottom = -458.0
-
-[node name="Graphic" type="VBoxContainer" parent="setting/TabContainer"]
-visible = false
-layout_mode = 2
-script = ExtResource("2")
-
-[node name="fullscreen" type="CheckButton" parent="setting/TabContainer/Graphic"]
-layout_mode = 2
-focus_neighbor_left = NodePath("../reset")
-focus_neighbor_top = NodePath("../reset")
-focus_neighbor_right = NodePath("../borderless")
-focus_neighbor_bottom = NodePath("../borderless")
-focus_next = NodePath("../borderless")
-focus_previous = NodePath("../reset")
-focus_mode = 0
-mouse_default_cursor_shape = 2
-text = "Full Screen"
-script = ExtResource("8")
-
-[node name="borderless" type="CheckButton" parent="setting/TabContainer/Graphic"]
-layout_mode = 2
-focus_neighbor_left = NodePath("../fullscreen")
-focus_neighbor_top = NodePath("../fullscreen")
-focus_neighbor_right = NodePath("../rewind")
-focus_neighbor_bottom = NodePath("../rewind")
-focus_next = NodePath("../rewind")
-focus_previous = NodePath("../fullscreen")
-focus_mode = 0
-mouse_default_cursor_shape = 2
-text = "Borderless"
-script = ExtResource("8")
-
-[node name="rewind" type="CheckButton" parent="setting/TabContainer/Graphic"]
-layout_mode = 2
-focus_neighbor_left = NodePath("../borderless")
-focus_neighbor_top = NodePath("../borderless")
-focus_neighbor_right = NodePath("../DynamicBackground")
-focus_neighbor_bottom = NodePath("../DynamicBackground")
-focus_next = NodePath("../DynamicBackground")
-focus_previous = NodePath("../borderless")
-focus_mode = 0
-mouse_default_cursor_shape = 2
-text = "Rewind effect on death"
-script = ExtResource("8")
-
-[node name="DynamicBackground" type="CheckButton" parent="setting/TabContainer/Graphic"]
-layout_mode = 2
-focus_neighbor_left = NodePath("../rewind")
-focus_neighbor_top = NodePath("../rewind")
-focus_neighbor_right = NodePath("../particle")
-focus_neighbor_bottom = NodePath("../particle")
-focus_next = NodePath("../particle")
-focus_previous = NodePath("../rewind")
-focus_mode = 0
-mouse_default_cursor_shape = 2
-text = "Dynamic background"
-script = ExtResource("8")
-
-[node name="particle" type="CheckButton" parent="setting/TabContainer/Graphic"]
-layout_mode = 2
-focus_neighbor_left = NodePath("../DynamicBackground")
-focus_neighbor_top = NodePath("../DynamicBackground")
-focus_neighbor_right = NodePath("../reset")
-focus_neighbor_bottom = NodePath("../reset")
-focus_next = NodePath("../reset")
-focus_previous = NodePath("../DynamicBackground")
-focus_mode = 0
-mouse_default_cursor_shape = 2
-text = "Full particles effect"
-script = ExtResource("8")
-
-[node name="reset" type="Button" parent="setting/TabContainer/Graphic"]
-layout_mode = 2
-size_flags_horizontal = 8
-size_flags_vertical = 0
-focus_neighbor_left = NodePath("../particle")
-focus_neighbor_top = NodePath("../particle")
-focus_neighbor_right = NodePath("../fullscreen")
-focus_neighbor_bottom = NodePath("../fullscreen")
-focus_next = NodePath("../fullscreen")
-focus_previous = NodePath("../particle")
-focus_mode = 0
-text = "Reset"
-script = ExtResource("8")
+offset_right = -250.0
+offset_bottom = -307.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="Controls" type="VBoxContainer" parent="setting/TabContainer"]
 layout_mode = 2
@@ -232,7 +160,7 @@ focus_mode = 0
 min_value = 0.1
 max_value = 2.0
 step = 0.1
-value = 2.3
+value = 2.0
 allow_greater = true
 tick_count = 20
 ticks_on_borders = true
@@ -336,87 +264,214 @@ focus_previous = NodePath("../muteSFX")
 text = "Reset"
 script = ExtResource("8")
 
+[node name="Graphic" type="VBoxContainer" parent="setting/TabContainer"]
+visible = false
+layout_mode = 2
+script = ExtResource("2")
+
+[node name="fullscreen" type="CheckButton" parent="setting/TabContainer/Graphic"]
+layout_mode = 2
+focus_neighbor_left = NodePath("../reset")
+focus_neighbor_top = NodePath("../reset")
+focus_neighbor_right = NodePath("../borderless")
+focus_neighbor_bottom = NodePath("../borderless")
+focus_next = NodePath("../borderless")
+focus_previous = NodePath("../reset")
+focus_mode = 0
+mouse_default_cursor_shape = 2
+text = "Full Screen"
+script = ExtResource("8")
+
+[node name="borderless" type="CheckButton" parent="setting/TabContainer/Graphic"]
+layout_mode = 2
+focus_neighbor_left = NodePath("../fullscreen")
+focus_neighbor_top = NodePath("../fullscreen")
+focus_neighbor_right = NodePath("../rewind")
+focus_neighbor_bottom = NodePath("../rewind")
+focus_next = NodePath("../rewind")
+focus_previous = NodePath("../fullscreen")
+focus_mode = 0
+mouse_default_cursor_shape = 2
+text = "Borderless"
+script = ExtResource("8")
+
+[node name="rewind" type="CheckButton" parent="setting/TabContainer/Graphic"]
+layout_mode = 2
+focus_neighbor_left = NodePath("../borderless")
+focus_neighbor_top = NodePath("../borderless")
+focus_neighbor_right = NodePath("../DynamicBackground")
+focus_neighbor_bottom = NodePath("../DynamicBackground")
+focus_next = NodePath("../DynamicBackground")
+focus_previous = NodePath("../borderless")
+focus_mode = 0
+mouse_default_cursor_shape = 2
+text = "Rewind effect on death"
+script = ExtResource("8")
+
+[node name="DynamicBackground" type="CheckButton" parent="setting/TabContainer/Graphic"]
+layout_mode = 2
+focus_neighbor_left = NodePath("../rewind")
+focus_neighbor_top = NodePath("../rewind")
+focus_neighbor_right = NodePath("../particle")
+focus_neighbor_bottom = NodePath("../particle")
+focus_next = NodePath("../particle")
+focus_previous = NodePath("../rewind")
+focus_mode = 0
+mouse_default_cursor_shape = 2
+text = "Dynamic background"
+script = ExtResource("8")
+
+[node name="particle" type="CheckButton" parent="setting/TabContainer/Graphic"]
+layout_mode = 2
+focus_neighbor_left = NodePath("../DynamicBackground")
+focus_neighbor_top = NodePath("../DynamicBackground")
+focus_neighbor_right = NodePath("../reset")
+focus_neighbor_bottom = NodePath("../reset")
+focus_next = NodePath("../reset")
+focus_previous = NodePath("../DynamicBackground")
+focus_mode = 0
+mouse_default_cursor_shape = 2
+text = "Full particles effect"
+script = ExtResource("8")
+
+[node name="reset" type="Button" parent="setting/TabContainer/Graphic"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+focus_neighbor_left = NodePath("../particle")
+focus_neighbor_top = NodePath("../particle")
+focus_neighbor_right = NodePath("../fullscreen")
+focus_neighbor_bottom = NodePath("../fullscreen")
+focus_next = NodePath("../fullscreen")
+focus_previous = NodePath("../particle")
+focus_mode = 0
+text = "Reset"
+script = ExtResource("8")
+
 [node name="back" type="Button" parent="setting"]
 layout_mode = 0
-offset_left = 1695.0
-offset_top = 40.0
-offset_right = 1839.0
-offset_bottom = 89.0
+offset_left = 1007.0
+offset_top = 28.0
+offset_right = 1159.0
+offset_bottom = 85.0
 shortcut = ExtResource("10")
 text = "Back >"
 script = ExtResource("8")
 
 [node name="level" type="Control" parent="."]
 anchors_preset = 0
-offset_left = 1920.0
-offset_right = 3840.0
-offset_bottom = 1080.0
+offset_left = 1208.0
+offset_right = 2416.0
+offset_bottom = 906.0
 script = ExtResource("11")
 players = Array[PackedScene]([ExtResource("10_uxqcx")])
 levels = Array[ExtResource("11_iry26")]([SubResource("Resource_t7vud")])
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="level"]
+[node name="VBoxContainer" type="VBoxContainer" parent="level"]
 layout_mode = 0
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -1754.0
-offset_top = 138.0
-offset_right = -476.0
-offset_bottom = 1042.0
+offset_right = 604.0
+offset_bottom = 906.0
 
-[node name="list" type="VBoxContainer" parent="level/HBoxContainer2"]
+[node name="back" type="Button" parent="level/VBoxContainer"]
+layout_mode = 2
+shortcut = ExtResource("10")
+text = "< Back to main menu"
+script = ExtResource("8")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="level/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="LevelList" type="VBoxContainer" parent="level/VBoxContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="UberButton" type="CheckButton" parent="level/VBoxContainer"]
+layout_mode = 2
+text = "Show Score"
+script = ExtResource("8")
+
+[node name="start" type="Button" parent="level/VBoxContainer"]
+layout_mode = 2
+text = "Start"
+script = ExtResource("8")
+
+[node name="TabContainer" type="TabContainer" parent="level"]
+layout_mode = 0
+offset_left = 604.0
+offset_right = 1208.0
+offset_bottom = 906.0
+tabs_visible = false
+
+[node name="preview" type="TextureRect" parent="level/TabContainer"]
+custom_minimum_size = Vector2(604, 906)
 layout_mode = 2
 
-[node name="preview" type="TextureRect" parent="level/HBoxContainer2"]
-custom_minimum_size = Vector2(646, 904)
+[node name="TabContainer" type="TabContainer" parent="level/TabContainer"]
+visible = false
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="High Score" type="VBoxContainer" parent="level/TabContainer/TabContainer"]
 layout_mode = 2
 
-[node name="score" type="VBoxContainer" parent="level/HBoxContainer2"]
-layout_mode = 2
-
-[node name="HiScore" type="Label" parent="level/HBoxContainer2/score"]
+[node name="HiScore" type="Label" parent="level/TabContainer/TabContainer/High Score"]
 layout_mode = 2
 size_flags_vertical = 5
 text = "Score:	%07d"
 script = ExtResource("5")
 
-[node name="Graze" type="Label" parent="level/HBoxContainer2/score"]
+[node name="Graze" type="Label" parent="level/TabContainer/TabContainer/High Score"]
 layout_mode = 2
 size_flags_vertical = 5
 text = "Graze:	%07d"
 script = ExtResource("5")
 
-[node name="item" type="Label" parent="level/HBoxContainer2/score"]
+[node name="item" type="Label" parent="level/TabContainer/TabContainer/High Score"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 5
 text = "Point:	%07d"
 script = ExtResource("5")
 
-[node name="retry" type="Label" parent="level/HBoxContainer2/score"]
+[node name="retry" type="Label" parent="level/TabContainer/TabContainer/High Score"]
 layout_mode = 2
 text = "Retry count : %d"
 script = ExtResource("5")
 
-[node name="Label" type="Label" parent="level/HBoxContainer2/score"]
+[node name="ScrollContainer" type="ScrollContainer" parent="level/TabContainer/TabContainer/High Score"]
 layout_mode = 2
-text = "-------Game setting-------"
+size_flags_vertical = 3
 
-[node name="Label2" type="Label" parent="level/HBoxContainer2/score"]
+[node name="GridContainer" type="GridContainer" parent="level/TabContainer/TabContainer/High Score/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Modification" type="VBoxContainer" parent="level/TabContainer/TabContainer"]
+visible = false
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Label2" type="Label" parent="level/TabContainer/TabContainer/Modification"]
 layout_mode = 2
 text = "Shooting type:"
 
-[node name="ShootType" type="OptionButton" parent="level/HBoxContainer2/score"]
+[node name="ShootType" type="OptionButton" parent="level/TabContainer/TabContainer/Modification"]
 layout_mode = 2
 focus_mode = 0
 action_mode = 1
+item_count = 1
+popup/item_0/text = "Homing"
+popup/item_0/id = 0
 
-[node name="duration" type="Label" parent="level/HBoxContainer2/score"]
+[node name="duration" type="Label" parent="level/TabContainer/TabContainer/Modification"]
 layout_mode = 2
-text = "Deathdoor duration %1.2f s"
+text = "Death duration %1.2f s"
 script = ExtResource("5")
 
-[node name="DurationSlider" type="HSlider" parent="level/HBoxContainer2/score"]
+[node name="DurationSlider" type="HSlider" parent="level/TabContainer/TabContainer/Modification"]
 layout_mode = 2
 min_value = 0.1
 max_value = 1.0
@@ -426,12 +481,12 @@ allow_greater = true
 tick_count = 10
 ticks_on_borders = true
 
-[node name="speed" type="Label" parent="level/HBoxContainer2/score"]
+[node name="speed" type="Label" parent="level/TabContainer/TabContainer/Modification"]
 layout_mode = 2
 text = "Game speed %d %%"
 script = ExtResource("5")
 
-[node name="SpeedSlider" type="HSlider" parent="level/HBoxContainer2/score"]
+[node name="SpeedSlider" type="HSlider" parent="level/TabContainer/TabContainer/Modification"]
 layout_mode = 2
 min_value = 0.5
 max_value = 2.0
@@ -441,27 +496,9 @@ allow_greater = true
 tick_count = 16
 ticks_on_borders = true
 
-[node name="start" type="Button" parent="level/HBoxContainer2/score"]
-layout_mode = 2
-text = "Start"
-script = ExtResource("8")
-
-[node name="back" type="Button" parent="level"]
-layout_mode = 0
-offset_left = 87.0
-offset_top = 41.0
-offset_right = 243.0
-offset_bottom = 96.0
-shortcut = ExtResource("10")
-text = "< Back"
-script = ExtResource("8")
-
 [connection signal="pressed" from="main/main/start" to="." method="_on_start_pressed"]
 [connection signal="pressed" from="main/main/settings" to="." method="_on_settings_pressed"]
 [connection signal="pressed" from="main/main/quit" to="." method="_on_quit_pressed"]
-[connection signal="toggled" from="setting/TabContainer/Graphic/fullscreen" to="setting/TabContainer/Graphic" method="_on_fullscreen_toggled"]
-[connection signal="toggled" from="setting/TabContainer/Graphic/borderless" to="setting/TabContainer/Graphic" method="_on_borderless_toggled"]
-[connection signal="pressed" from="setting/TabContainer/Graphic/reset" to="setting/TabContainer/Graphic" method="_on_reset_pressed"]
 [connection signal="pressed" from="setting/TabContainer/Controls/drag" to="setting/TabContainer/Controls" method="_on_drag_pressed"]
 [connection signal="pressed" from="setting/TabContainer/Controls/bomb" to="setting/TabContainer/Controls" method="_on_bomb_pressed"]
 [connection signal="value_changed" from="setting/TabContainer/Controls/sentivity" to="setting/TabContainer/Controls" method="_on_sentivity_value_changed"]
@@ -471,6 +508,9 @@ script = ExtResource("8")
 [connection signal="value_changed" from="setting/TabContainer/Audio/sfx" to="setting/TabContainer/Audio" method="_on_sfx_value_changed"]
 [connection signal="toggled" from="setting/TabContainer/Audio/muteSFX" to="setting/TabContainer/Audio" method="_on_muteSFX_toggled"]
 [connection signal="pressed" from="setting/TabContainer/Audio/reset" to="setting/TabContainer/Audio" method="_on_audio_reset_pressed"]
+[connection signal="toggled" from="setting/TabContainer/Graphic/fullscreen" to="setting/TabContainer/Graphic" method="_on_fullscreen_toggled"]
+[connection signal="toggled" from="setting/TabContainer/Graphic/borderless" to="setting/TabContainer/Graphic" method="_on_borderless_toggled"]
+[connection signal="pressed" from="setting/TabContainer/Graphic/reset" to="setting/TabContainer/Graphic" method="_on_reset_pressed"]
 [connection signal="pressed" from="setting/back" to="." method="_on_back_pressed"]
-[connection signal="pressed" from="level/HBoxContainer2/score/start" to="level" method="load_level"]
-[connection signal="pressed" from="level/back" to="." method="_on_back_pressed"]
+[connection signal="pressed" from="level/VBoxContainer/back" to="." method="_on_back_pressed"]
+[connection signal="pressed" from="level/VBoxContainer/start" to="level" method="load_level"]

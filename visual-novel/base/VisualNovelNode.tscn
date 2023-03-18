@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=3 uid="uid://dgbmy4iaeb14u"]
+
+[ext_resource type="Script" path="res://visual-novel/base/VisualNovelNode.gd" id="1_j6nhe"]
+[ext_resource type="PackedScene" uid="uid://5qvtteclnwsm" path="res://visual-novel/base/text_box.tscn" id="2_1m7ob"]
+
+[node name="VisualNovelNode" type="TextureRect"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_j6nhe")
+textbox = ExtResource("2_1m7ob")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="GridContainer" type="GridContainer" parent="ScrollContainer"]
+layout_mode = 2
+columns = 3

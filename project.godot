@@ -54,13 +54,13 @@ variables={}
 
 [display]
 
-window/size/viewport_width=1920
-window/size/viewport_height=1080
+window/size/viewport_width=1208
+window/size/viewport_height=906
 window/size/window_width_override=1280
 window/size/window_height_override=720
-window/handheld/orientation="portrait"
+window/handheld/orientation=1
 window/vsync/vsync_mode=false
-window/stretch/mode="2d"
+window/stretch/mode="viewport"
 
 [dotnet]
 
