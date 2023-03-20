@@ -1,12 +1,11 @@
 shader_type canvas_item;
 
-uniform int iterations = 20;
+uniform int iterations = 10;
 uniform float formuparam = 1.00;
 
-uniform int volsteps = 20;
+uniform int volsteps = 10;
 uniform float stepsize = 0.1;
 
-uniform float zoom = 0.800;
 uniform float tile = 0.5;
 uniform float speed = 0.001;
 
@@ -28,7 +27,7 @@ float SCurve (float value) {
 
 void fragment()
 {
-	vec3 dir=vec3(UV*zoom,1.);
+	vec3 dir=vec3(UV,1.);
 	vec3 from=vec3(1.0,0.5,0.5);
 	from-=vec3(0.0, TIME * speed,0.0);
 	
@@ -39,11 +38,13 @@ void fragment()
 		lowp vec3 p=from+s*dir*0.5;
 		p = abs(vec3(tile)-mod(p,vec3(tile*2.))); // tiling fold
 		lowp float pa,a=pa=0.;
+		
 		for (int i=0; i<iterations; i++) { 
 			p=abs(p)/dot(p,p)-formuparam; // the magic formula
 			a+=abs(length(p)-pa); // absolute sum of average change
 			pa=length(p);
 		}
+		
 		a = pow(a, 2.3); // add contrast
 		v+=fade;
 		v+=vec3(s,s*s,s*s*s*s)*a*brightness*fade; // coloring based on distance

@@ -1,0 +1,9 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://p4yd8uwsglla"]
+
+[ext_resource type="FontFile" uid="uid://cybwwftllqbxu" path="res://user-interface/fonts/UbuntuMono-Regular.ttf" id="1_7kix1"]
+
+[resource]
+default_font = ExtResource("1_7kix1")
+default_font_size = 32
+Label/colors/font_outline_color = Color(0, 0, 0, 1)
+Label/constants/outline_size = 6

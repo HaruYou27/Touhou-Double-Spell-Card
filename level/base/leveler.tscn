@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://xu5280d0laou"]
+[gd_scene load_steps=25 format=3]
 
 [ext_resource type="Script" path="res://user-interface/control-node/FormatLabel.gd" id="1"]
 [ext_resource type="Script" path="res://level/base/item-manager/ItemManager.cs" id="2"]
@@ -6,7 +6,7 @@
 [ext_resource type="Theme" uid="uid://b1mkh3lfvyk2k" path="res://user-interface/resource/Mono-font.tres" id="4_4a0vg"]
 [ext_resource type="Script" path="res://user-interface/control-node/ScreenEffect.gd" id="5"]
 [ext_resource type="Script" path="res://user-interface/control-node/UberButton.gd" id="6"]
-[ext_resource type="FontFile" uid="uid://cybwwftllqbxu" path="res://user-interface/fonts/data/UbuntuMono-Regular.ttf" id="7_d506w"]
+[ext_resource type="FontFile" uid="uid://cybwwftllqbxu" path="res://user-interface/fonts/UbuntuMono-Regular.ttf" id="7_d506w"]
 [ext_resource type="Script" path="res://level/base/fps.gd" id="10"]
 [ext_resource type="Script" path="res://level/base/PauseMenu.gd" id="12"]
 [ext_resource type="Texture2D" uid="uid://bg5s4m34ufdy5" path="res://level/base/item-manager/point.png" id="14"]

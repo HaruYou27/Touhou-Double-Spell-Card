@@ -10,7 +10,7 @@ func _ready() -> void:
 
 func fade2black() -> Tween:
 	show()
-	size = Global.game_rect
+	size = global.game_rect
 	color = Color(0.129412, 0.129412, 0.129412)
 	var tween := create_tween()
 	tween.tween_property(self, 'color', Color(0.129412, 0.129412, 0.129412, 0), .5)

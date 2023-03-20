@@ -2,13 +2,13 @@
 
 [ext_resource type="Script" path="res://level/tutorial/item.gd" id="1"]
 [ext_resource type="Script" path="res://level/tutorial/Move.gd" id="4"]
-[ext_resource type="PackedScene" path="res://level/yukari/base/yukari.tscn" id="5"]
+[ext_resource type="PackedScene" uid="uid://bpl8hpj7mwtro" path="res://level/yukari/base/yukari.tscn" id="5"]
 [ext_resource type="Script" path="res://level/tutorial/bomb.gd" id="6"]
-[ext_resource type="PackedScene" uid="uid://xu5280d0laou" path="res://level/base/leveler.tscn" id="7"]
+[ext_resource type="PackedScene" path="res://level/base/leveler.tscn" id="7"]
 [ext_resource type="Script" path="res://entity/utility/TargetLocker.gd" id="8"]
 [ext_resource type="Texture2D" uid="uid://d1nkk7km71ule" path="res://level/yukari/base/texture/kunai1.png" id="9"]
+[ext_resource type="Theme" uid="uid://p4yd8uwsglla" path="res://user-interface/resource/Outlined.tres" id="9_a7k8h"]
 [ext_resource type="Script" path="res://level/tutorial/Dodge.gd" id="10"]
-[ext_resource type="Script" path="res://level/tutorial/reward.gd" id="10_f6l5m"]
 [ext_resource type="Script" path="res://entity/Bullet/BulletBasic.cs" id="11"]
 [ext_resource type="PackedScene" uid="uid://dlnh5twbgexsv" path="res://level/yukari/base/space-relaxed.tscn" id="11_6kjyc"]
 
@@ -19,15 +19,14 @@
 [node name="SpaceRelaxed" parent="level" instance=ExtResource("11_6kjyc")]
 
 [node name="yukari" parent="level/SpaceRelaxed" instance=ExtResource("5")]
-position = Vector2(201, -227)
-duration = 547.0
+position = Vector2(300, -189)
 
 [node name="Dodge" type="Node2D" parent="level/SpaceRelaxed/yukari"]
 script = ExtResource("10")
 
 [node name="bullet" type="Node2D" parent="level/SpaceRelaxed/yukari/Dodge"]
 script = ExtResource("11")
-maxBullet = 27
+maxBullet = 527
 speed = 127.0
 texture = ExtResource("9")
 
@@ -46,25 +45,65 @@ rotation = -0.441568
 
 [node name="Timer" type="Timer" parent="level/SpaceRelaxed/yukari/Dodge"]
 wait_time = 7.0
-one_shot = true
 
-[node name="item" type="Timer" parent="."]
-wait_time = 27.0
-one_shot = true
+[node name="guide" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme = ExtResource("9_a7k8h")
+
+[node name="item" type="Label" parent="guide"]
+visible = false
+layout_mode = 0
+offset_top = 600.0
+offset_right = 604.0
+offset_bottom = 636.0
+text = "Collect item to increase score."
+horizontal_alignment = 1
 script = ExtResource("1")
 
-[node name="bomb" type="Node" parent="."]
+[node name="Timer" type="Timer" parent="guide/item"]
+wait_time = 3.0
+one_shot = true
+
+[node name="bomb" type="Label" parent="guide"]
+visible = false
+layout_mode = 0
+offset_top = 600.0
+offset_right = 604.0
+offset_bottom = 636.0
+text = "Press %s Now !"
+horizontal_alignment = 1
 script = ExtResource("6")
 
-[node name="move" type="Timer" parent="."]
-wait_time = 7.0
-one_shot = true
+[node name="move" type="Label" parent="guide"]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = 580.0
+offset_right = 584.0
+offset_bottom = 616.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 6
+text = "Use mouse to drag character."
+horizontal_alignment = 1
 script = ExtResource("4")
 
-[node name="reward" type="Node" parent="."]
-script = ExtResource("10_f6l5m")
+[node name="Timer" type="Timer" parent="guide/move"]
+wait_time = 7.0
+one_shot = true
 
 [connection signal="timeout" from="level/SpaceRelaxed/yukari/Dodge/bullet/Timer" to="level/SpaceRelaxed/yukari/Dodge/bullet" method="SpawnBullet"]
-[connection signal="timeout" from="level/SpaceRelaxed/yukari/Dodge/Timer" to="level" method="next_level"]
-[connection signal="timeout" from="item" to="item" method="_on_item_timeout"]
-[connection signal="timeout" from="move" to="move" method="_on_timeout"]
+[connection signal="timeout" from="level/SpaceRelaxed/yukari/Dodge/Timer" to="level/SpaceRelaxed/yukari/Dodge" method="_on_timer_timeout"]
+[connection signal="timeout" from="guide/item/Timer" to="level" method="next_event"]
+[connection signal="timeout" from="guide/move/Timer" to="guide/move" method="show"]

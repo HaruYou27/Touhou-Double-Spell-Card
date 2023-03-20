@@ -1,6 +1,8 @@
-extends Timer
+extends Label
 
-@onready var init_pos :Vector2
+@onready var init_pos : Vector2
+@onready var timer : Timer = $Timer
+
 var player
 
 func _ready() -> void:
@@ -8,15 +10,12 @@ func _ready() -> void:
 	Global.can_shoot = false
 	
 func start_level() -> void:
-	start()
+	timer.start()
 	player = Global.player
 	init_pos = player.global_position
 	set_physics_process(true)
 
 func _physics_process(_delta) -> void:
 	if player.global_position != init_pos:
-		Global.leveler.next_level()
-		stop()
-
-func _on_timeout() -> void:
-	add_child(Dialogic.start('/tutorial/move'))
+		Global.leveler.next_event()
+		timer.stop()

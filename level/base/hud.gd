@@ -1,4 +1,4 @@
-extends Sprite2D
+extends ColorRect
 class_name HUD
 
 var score := 0

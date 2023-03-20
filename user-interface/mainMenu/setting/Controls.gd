@@ -12,12 +12,12 @@ var switch := false
 
 func _ready() -> void:
 	if user_data.bomb_bind:
-		bomb.update_label(get_input_string(user_data.bomb_bind))
+		bomb.update_label(global.get_input_string(user_data.bomb_bind))
 	else:
 		bomb.update_label('Mouse Right')
 		
 	if user_data.drag_bind:
-		drag.update_label(get_input_string(user_data.drag_bind))
+		drag.update_label(global.get_input_string(user_data.drag_bind))
 	else:
 		drag.update_label('Mouse Left')
 		
@@ -30,10 +30,10 @@ func _unhandled_input(event:InputEvent) -> void:
 	
 	if switch:
 		user_data.drag_bind = event
-		drag.update_label(get_input_string(event))
+		drag.update_label(global.get_input_string(event))
 	else:
 		user_data.bomb_bind = event
-		bomb.update_label(get_input_string(event))
+		bomb.update_label(global.get_input_string(event))
 	
 	set_process_unhandled_input(false)
 
@@ -54,20 +54,6 @@ func _on_controls_reset_pressed() -> void:
 	
 	bomb.update_label('Mouse Right')
 	drag.update_label('Mouse Left')
-
-static func get_input_string(event:InputEvent) -> String:
-	if event is InputEventKey:
-		return OS.get_keycode_string(event.keycode)
-	
-	match event.button_index:
-		1:
-			return 'Mouse Left'
-		2:
-			return 'Mouse Right'
-		3:
-			return 'Mouse Middle'
-	
-	return 'Unknown'
 
 func _on_bomb_pressed() -> void:
 	bomb.update_label('Press a button')

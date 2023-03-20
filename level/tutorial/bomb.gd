@@ -1,4 +1,4 @@
-extends Node
+extends Label
 
 func _ready() -> void:
 	var timer := Global.player.death_timer
@@ -6,8 +6,8 @@ func _ready() -> void:
 	timer.timeout.connect(Callable(self,'_alert').bind(),4)
 
 func _alert() -> void:
-	Global.connect("bomb_impact",Callable(self,"_tutorial_done"))
-	add_child(Dialogic.start('/tutorial/move'))
+	Global.bomb_impact.connect(Callable(self,"_tutorial_done"))
+	show()
 
 func _tutorial_done() -> void:
 	Global.player.death_timer.timeout.connect(Callable(Global.leveler,'restart'))

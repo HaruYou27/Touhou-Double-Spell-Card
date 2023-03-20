@@ -1,15 +1,21 @@
 extends Node2D
-#god
+class_name global
+##Signal bus Singleton, Global Variable, Static Helper Function, User setting.
 
+##Emited by bullet when intersect player's graze Area2D.
 signal bullet_graze
+
+##Emited by item when intersect player's hitbox (not item Area2D).
 signal item_collect(point)
+
+##Emited by player's bomb node. Wipe out everything on screen.
 signal bomb_impact
 
+##Emited by player on death, or restart button.
 signal restart_level
 
+##When you want to stop player from spamming bullet.
 signal can_player_shoot(value)
-
-signal next_novel_line
 
 var leveler : Leveler
 var boss :Boss
@@ -18,8 +24,26 @@ var player : Player
 var screenfx : ScreenEffect
 var item_manager
 
+##Play area rectangle.
 const playground := Vector2(604, 906)
-const game_rect := Vector2(1920, 1080)
+
+##Default resolution.
+const game_rect := Vector2(1208, 906)
+
+##Convert an InputEvent to String.
+static func get_input_string(event:InputEvent) -> String:
+	if event is InputEventKey:
+		return OS.get_keycode_string(event.keycode)
+	
+	match event.button_index:
+		1:
+			return 'Mouse Left'
+		2:
+			return 'Mouse Right'
+		3:
+			return 'Mouse Middle'
+	
+	return 'Unknown'
 
 func _ready() -> void:
 	randomize()
@@ -44,4 +68,4 @@ func _exit_tree() -> void:
 	ProjectSettings.set_setting('display/window/size/viewport_width', viewport.x)
 	ProjectSettings.set_setting('display/window/size/viewport_height', viewport.y)
 	ProjectSettings.save_custom('user://override.cfg')
-	ResourceSaver.save(user_data, 'user://727564643146467234.res', 32)
+	ResourceSaver.save(user_data, 'user://727564643146467234.res', ResourceSaver.FLAG_COMPRESS)

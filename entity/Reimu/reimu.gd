@@ -50,8 +50,8 @@ func _unhandled_input(event:InputEvent) -> void:
 	
 	if event is InputEventMouseMotion and moving:
 		global_position += event.relative * sentivity
-		position.x = clamp(position.x, 0.0, 604.0)
-		position.y = clamp(position.y, 0.0, 906.0)
+		position.x = clamp(position.x, 0.0, global.playground.x)
+		position.y = clamp(position.y, 0.0, global.playground.y)
 
 func _hit() -> void:
 	if tree.paused:

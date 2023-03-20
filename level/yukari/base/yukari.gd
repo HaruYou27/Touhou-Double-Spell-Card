@@ -1,43 +1,31 @@
 extends Area2D
 class_name Boss
 
-@export var point := 64
-@export var hp := 727
-@export var duration := 0.0
+signal start_event
 
-@onready var bomb_damage := hp / 2
-@onready var physics_layer := collision_layer
-@onready var gauge :TextureProgressBar = $Gauge
+@onready var bomb_damage := 0.0
+@onready var gauge : BossGauge = $Gauge
 
-var updating_gauge := false
-
-const boss_spot := Vector2(307, 222)
-
-func _ready() -> void:
-	collision_layer = 0
-	var tween :Tween
-	if hp:
-		tween = gauge.fill_gauge(hp)
+func setup(value:float, timer:bool) -> void:
+	monitorable = false
+	
+	var tween := create_tween()
+	if timer:
+		tween = gauge.fill_gauge(value)
+		tween.finished.connect(Callable(gauge,"timer_start"))
 	else:
-		tween = gauge.fill_gauge(duration)
-		tween.connect("finished",Callable(gauge,"_timer_start"))
-
-	tween.connect("finished",Callable(self,'_start'))
-	Global.connect("bomb_impact",Callable(self,"_set_hp").bind(bomb_damage))
+		tween = gauge.fill_gauge(value)
+		tween.finished.connect(Callable(self, '_set_monitorable').bind(true))
+		
+	tween.finished.connect(Callable(self, 'emit_signal').bind('start_event'))
+	Global.bomb_impact.connect(Callable(self,"_bomb_hit"))
 	Global.boss = self
 	
-func _start() -> void:
-	Global.leveler.level.start_level()
+func _bomb_hit() -> void:
+	gauge.value -= bomb_damage
+	_hit()
 	
 func _hit() -> void:
-	hp -= 1
-	if not hp:
-		Global.leveler.next_level()
-
-	if not updating_gauge:
-		updating_gauge = true
-		call_deferred('_update_gauge')
-	
-func _update_gauge() -> void:
-	gauge.value = hp
-	updating_gauge = false
+	gauge.value -= 1
+	if not gauge.value:
+		Global.leveler.next_event()

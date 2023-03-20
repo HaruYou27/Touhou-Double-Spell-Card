@@ -1,11 +1,7 @@
 extends TextureProgressBar
+class_name BossGauge
 
-func hide_gauge():
-	create_tween().tween_property(self, 'modulate', Color.TRANSPARENT, .5)
-
-func show_gauge():
-	create_tween().tween_property(self, 'modulate', Color.WHITE, .5)
-
+##Fill the gauge.
 func fill_gauge(val:float) -> Tween:
 	max_value = val
 	var tween := create_tween()
@@ -13,5 +9,6 @@ func fill_gauge(val:float) -> Tween:
 
 	return tween
 
-func _timer_start():
+##Tween the gauge.
+func timer_start():
 	create_tween().tween_property(self, 'value', 0.0, value)

@@ -1,17 +1,13 @@
 extends Node2D
 class_name LockedNode2D
+##Remain fixed at a value in 1 axie.
 
-@export (int) var value
-@export (bool) var locked_y
+##The fixed value.
+@export var value := 0
+@export var locked_y := false
 
-func _notification(what):
-	if what != CanvasItem.NOTIFICATION_TRANSFORM_CHANGED:
-		return
-	
+func _physics_process(_delta) -> void:
 	if locked_y:
 		global_position.y = value
 	else:
 		global_position.x = value
-
-func _ready():
-	set_notify_transform(true)

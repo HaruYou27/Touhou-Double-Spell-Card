@@ -265,6 +265,6 @@ public partial class BulletBasic : Node2D
 			RenderingServer.CanvasItemSetVisible(sprites[index], false);
 			if (index == lastIndex) {continue;}
 			SortBullet();
-}
 		}
 	}
+}
