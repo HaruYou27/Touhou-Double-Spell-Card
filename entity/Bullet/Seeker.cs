@@ -1,71 +1,74 @@
 using Godot;
 
-public partial class Seeker : BulletBasic 
+public partial class Seeker : BulletBasic
 {
 	//Bullets that chase nearby target.
 	[Export] protected float mass = 10;
-	[Export] protected float seekRadius 
+	[Export]
+	protected float seekRadius
 	{
-		set {PhysicsServer2D.ShapeSetData(seekShape, value);}
-		get {return (float)PhysicsServer2D.ShapeGetData(seekShape);}
+		set { PhysicsServer2D.ShapeSetData(seekShape, value); }
+		get { return (float)PhysicsServer2D.ShapeGetData(seekShape); }
 	}
-	[Export] bool seekAreas 
+	[Export]
+	bool seekAreas
 	{
-		set {seekQuery.CollideWithAreas = value;}
-		get {return seekQuery.CollideWithAreas;}
+		set { seekQuery.CollideWithAreas = value; }
+		get { return seekQuery.CollideWithAreas; }
 	}
-	[Export] bool seekBodies 
+	[Export]
+	bool seekBodies
 	{
-		set {seekQuery.CollideWithBodies = value;}
-		get {return seekQuery.CollideWithBodies;}
+		set { seekQuery.CollideWithBodies = value; }
+		get { return seekQuery.CollideWithBodies; }
 	}
 
-	protected Node2D[] targets;
 	protected PhysicsShapeQueryParameters2D seekQuery = new PhysicsShapeQueryParameters2D();
 	private Rid seekShape = PhysicsServer2D.CircleShapeCreate();
 
-	public override void _Ready() 
+	SeekBullet[] seekBullets;
+	protected class SeekBullet : Bullet
+	{
+		public Node2D target;
+	}
+
+	public override void _Ready()
 	{
 		base._Ready();
 		seekQuery.ShapeRid = seekShape;
 		seekQuery.CollisionMask = mask;
-		targets = new Node2D[maxBullet];
 	}
-	protected override void SortBullet()
+	protected override void BulletConstructor()
 	{
-		targets[index] = targets[lastIndex];
-		base.SortBullet();
+		seekBullets = new SeekBullet[maxBullet];
+		for (nint i = 0; i < maxBullet; i++)
+		{
+			bullets[i] = new SeekBullet();
+		}
+		bullets = seekBullets;
 	}
-	protected override void BulletConstructor() 
-	{
-		targets[activeIndex] = null;
-	}
-	public override void _ExitTree() 
+	public override void _ExitTree()
 	{
 		base._ExitTree();
 		PhysicsServer2D.FreeRid(seekShape);
 	}
-	protected override void Move(in double delta) 
+	protected override Transform2D Move(in float delta)
 	{
-		if (targets[index] == null || !GodotObject.IsInstanceValid(targets[index]))
+		SeekBullet bullet = seekBullets[index];
+		if (bullet.target == null || !GodotObject.IsInstanceValid(bullet.target))
 		{
-			seekQuery.Transform = transforms[index];
+			seekQuery.Transform = bullet.transform;
 			Godot.Collections.Dictionary seekResult = world.DirectSpaceState.GetRestInfo(seekQuery);
 			if (seekResult.Count != 0)
 			{
-				targets[index] = (Node2D) GodotObject.InstanceFromId( (ulong) seekResult["collider_id"]);
+				bullet.target = (Node2D)GodotObject.InstanceFromId((ulong)seekResult["collider_id"]);
 			}
-			base.Move(delta);
+			return base.Move(delta);
 		}
-		else
-		{
-			Vector2 origin = transforms[index].Origin;
-			Vector2 velocity = velocities[index];
-
-			velocities[index] += ((targets[index].GlobalPosition - origin).Normalized() * speed - velocity) / mass;
-			transforms[index] = new Transform2D(velocity.Angle() + Mathf.Pi / 2,
-												origin + velocity * (float)delta);
-			RenderingServer.CanvasItemSetTransform(sprites[index], transforms[index]);
-		}
+		bullet.velocity += ((bullet.target.GlobalPosition - bullet.transform.Origin).Normalized() * speed - bullet.velocity) / mass;
+		bullet.transform = new Transform2D(bullet.velocity.Angle() + Mathf.Pi / 2,
+										   bullet.transform.Origin + bullet.velocity * delta);
+		RenderingServer.CanvasItemSetTransform(bullet.sprite, bullet.transform);
+		return bullet.transform;
 	}
 }

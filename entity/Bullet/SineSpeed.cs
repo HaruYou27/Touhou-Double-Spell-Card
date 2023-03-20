@@ -3,19 +3,28 @@ using Godot;
 public partial class SineSpeed : BulletBasic 
 {
 	//Bullet that speed up and down by sine wave.
-	[Export] double frequency = 1;
-	protected double[] ages;
+	[Export] float frequency = 1;
 
-	protected override void SortBullet()
+	protected SineBullet[] sineBullets;
+	protected class SineBullet : Bullet
 	{
-		ages[index] = ages[lastIndex];
-		base.SortBullet();
+		public float age;
 	}
-	protected override void Move(in double delta)
+	protected override void BulletConstructor()
 	{
-		ages[index] += delta * frequency;
-		velocities[index] = velocities[index].Normalized() * speed * (float) Mathf.Abs(Mathf.Sin(ages[index]));
+		sineBullets = new SineBullet[maxBullet];
+		for (nint i = 0; i < maxBullet; i++)
+        {
+            bullets[i] = new SineBullet();
+        }
+		bullets = sineBullets;
+	}
+	protected override Transform2D Move(in float delta)
+	{
+		SineBullet bullet = sineBullets[index];
+		bullet.age += delta * frequency;
+		bullet.velocity = bullet.velocity.Normalized() * speed * Mathf.Abs(Mathf.Sin(bullet.age));
 		
-		base.Move(delta);
+		return base.Move(delta);
 	}
 }
