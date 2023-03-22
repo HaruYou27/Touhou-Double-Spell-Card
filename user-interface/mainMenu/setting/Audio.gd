@@ -18,16 +18,11 @@ func _ready() -> void:
 	sfx.value = AudioServer.get_bus_volume_db(1)
 	bgm.value = AudioServer.get_bus_volume_db(2)
 
-static func get_percentage(value:float) -> int:
-	return (value + 60) / 60 * 100
-
 func _on_sfx_value_changed(value:float) -> void:
 	AudioServer.set_bus_volume_db(1, value)
-	sfxLabel.update_label(get_percentage(value))
 
 func _on_bgm_value_changed(value:float) -> void:
 	AudioServer.set_bus_volume_db(2, value)
-	bgmLabel.update_label(get_percentage(value))
 
 func _exit_tree() -> void:
 	if not Engine.is_editor_hint():

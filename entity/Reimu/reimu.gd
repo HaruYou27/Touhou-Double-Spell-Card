@@ -30,11 +30,8 @@ func _set_shooting(value:bool) -> void:
 			timer.stop()
 
 func _ready() -> void:
-	death_timer.connect('timeout',Callable(Global.leveler,'restart'))
-	Global.connect("bomb_impact",Callable(self,'_bomb_impact'))
-	
-	death_timer.wait_time = Global.score.death_time
-	position = Vector2(307, 800)
+	death_timer.timeout.connect(Callable(Global, 'emit_signal').bind('restart_level'))
+	Global.bomb_impact.connect(Callable(self,'_bomb_impact'))
 	
 func _unhandled_input(event:InputEvent) -> void:
 	if event.is_action_released("bomb"):

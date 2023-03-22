@@ -43,7 +43,7 @@ public partial class Seeker : BulletBasic
 		seekBullets = new SeekBullet[maxBullet];
 		for (nint i = 0; i < maxBullet; i++)
 		{
-			bullets[i] = new SeekBullet();
+			seekBullets[i] = new SeekBullet();
 		}
 		bullets = seekBullets;
 	}

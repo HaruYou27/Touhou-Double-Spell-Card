@@ -11,6 +11,6 @@ func load_score() -> bool:
 	var user_data :UserData = Global.user_data
 	if user_data.scores.has(level):
 		score = load(user_data.scores[level])
-		return false
+		return true
 	
-	return true
+	return false

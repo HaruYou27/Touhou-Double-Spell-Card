@@ -1,34 +1,33 @@
-extends Node
+extends Control
 
-const ani_length := .5
+const ani_length := .25
 
-@onready var settings := $setting
-@onready var level := $level
-@onready var main := $main
-@onready var camera := $Camera2D
+var sub_menus : Array
+@onready var current_menu := $main
 
-func _ready() -> void:
-	settings.hide()
-	level.hide()
-
-func _on_settings_pressed() -> void:
-	var tween := create_tween()
-	tween.tween_property(camera, 'position', settings.position, ani_length)
-	tween.finished.connect(Callable(main, 'hide'))
-	settings.show()
-
-func _on_back_pressed() -> void:
-	var tween := create_tween()
-	tween.tween_property(camera, 'position', main.position, ani_length)
-	tween.finished.connect(Callable(settings, 'hide'))
-	tween.finished.connect(Callable(level, 'hide'))
-	main.show()
+func _ready():
+	var i := 0
+	for node in get_children():
+		if node is Control:
+			sub_menus.append(node)
+			node.hide()
+			node.modulate = Color.TRANSPARENT
+			
+	current_menu.show()
+	current_menu.modulate = Color.WHITE
 
 func _on_quit_pressed() -> void:
 	get_tree().quit()
 
-func _on_start_pressed() -> void:
+func _switch_menu(index:int) -> void:
 	var tween := create_tween()
-	tween.tween_property(camera, 'position', level.position, ani_length)
-	tween.finished.connect(Callable(main, 'hide'))
-	level.show()
+	tween.tween_property(current_menu, 'modulate', Color.TRANSPARENT, ani_length)
+	tween.finished.connect(Callable(current_menu, 'hide'))
+	current_menu = sub_menus[index]
+	
+	current_menu.show()
+	tween.tween_property(current_menu, 'modulate', Color.WHITE, ani_length)
+
+func _on_level_character(level:LevelHeader):
+	_switch_menu(3)
+	sub_menus[3].header = level

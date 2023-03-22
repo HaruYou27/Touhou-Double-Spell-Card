@@ -2,16 +2,13 @@ extends Node2D
 class_name Leveler
 ##Node that controls the current_event.
 
-##See [Rewind].
 var rewind : Rewind
 
-##See [Score].
 var score : Score
 
 ##Next level scene path.
 @export_file var next_level
 
-##See [SceneTree].
 @onready var tree := get_tree()
 
 @onready var hud :HUD = $Node/hud
@@ -32,6 +29,7 @@ func _ready() -> void:
 	Global.leveler = self
 	add_child(Global.player)
 
+##Level finisher.
 func finished() -> void:
 	if Engine.is_editor_hint:
 		return
@@ -40,6 +38,7 @@ func finished() -> void:
 	Global.user_data.unlock_level(next_level)
 	tree.change_scene_to(next_level)
 
+##Restart the level.
 func restart() -> void:
 	tree.paused = false
 	if rewind:

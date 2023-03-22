@@ -4,10 +4,11 @@ uniform int iterations = 10;
 uniform float formuparam = 1.00;
 
 uniform int volsteps = 10;
-uniform float stepsize = 0.1;
+uniform float stepsize = 0.2;
 
-uniform float tile = 0.5;
-uniform float speed = 0.001;
+uniform float zoom = 1.;
+uniform float tile = .5;
+uniform float speed = .001;
 
 uniform float brightness = 0.002;
 uniform float distfading = 0.650;
@@ -27,7 +28,7 @@ float SCurve (float value) {
 
 void fragment()
 {
-	vec3 dir=vec3(UV,1.);
+	vec3 dir=vec3(UV*0.001*zoom,1.);
 	vec3 from=vec3(1.0,0.5,0.5);
 	from-=vec3(0.0, TIME * speed,0.0);
 	

@@ -1,7 +1,7 @@
-[gd_resource type="Shortcut" load_steps=2 format=2]
+[gd_resource type="Shortcut" load_steps=2 format=3 uid="uid://cmfbyxixc4xv3"]
 
-[sub_resource type="InputEventAction" id=1]
-action = "pause"
+[sub_resource type="InputEventAction" id="InputEventAction_jj3oy"]
+action = &"pause"
 
 [resource]
-shortcut = SubResource( 1 )
+events = [SubResource("InputEventAction_jj3oy")]

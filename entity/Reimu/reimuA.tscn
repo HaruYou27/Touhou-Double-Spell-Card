@@ -85,8 +85,8 @@ shader_parameter/disable_modulate = null
 shader_parameter/sin_alpha = null
 shader_parameter/displace = null
 shader_parameter/displace_strength = 5.0
-shader_parameter/recolor = null
-shader_parameter/h = 1.0
+shader_parameter/recolor = true
+shader_parameter/h = 0.787
 shader_parameter/s = 1.0
 shader_parameter/v = 1.0
 shader_parameter/rainbow = null
@@ -155,7 +155,7 @@ _data = {
 "spin": SubResource("Animation_50kuu")
 }
 
-[node name="reimu" type="StaticBody2D"]
+[node name="Homing Shoot" type="StaticBody2D"]
 texture_filter = 1
 position = Vector2(0, 1)
 collision_layer = 4
@@ -181,7 +181,7 @@ shape = SubResource("27")
 one_way_collision_margin = 0.0
 
 [node name="graze" type="StaticBody2D" parent="."]
-process_mode = 2
+process_mode = 3
 collision_layer = 8
 collision_mask = 0
 constant_linear_velocity = Vector2(4, 0)
@@ -216,13 +216,11 @@ libraries = {
 [node name="bullet" type="Node2D" parent="."]
 position = Vector2(1, 4)
 script = ExtResource("4")
-CollideWithAreas = true
-CollisionLayer = 3
-texture = ExtResource("7")
 maxBullet = 57
 speed = 727.0
+CollideWithAreas = true
 Grazable = false
-zIndex = 1
+texture = ExtResource("7")
 
 [node name="Marker2D" type="Marker2D" parent="bullet"]
 position = Vector2(7, -38)
@@ -241,16 +239,13 @@ z_index = 6
 material = SubResource("32")
 rotation = -2.02055
 script = ExtResource("9")
-CollideWithAreas = true
-CollisionLayer = 3
-texture = ExtResource("13")
-maxBullet = 57
-speed = 727.0
-Grazable = false
-zIndex = 1
 seekRadius = 646.0
 seekAreas = true
-seekBodies = false
+maxBullet = 57
+speed = 727.0
+CollideWithAreas = true
+Grazable = false
+texture = ExtResource("13")
 
 [node name="YinyangOrb" type="Sprite2D" parent="bullet2"]
 position = Vector2(98, 0)
@@ -267,16 +262,13 @@ z_index = 6
 material = SubResource("32")
 rotation = 2.02055
 script = ExtResource("9")
-CollideWithAreas = true
-CollisionLayer = 3
-texture = ExtResource("13")
-maxBullet = 57
-speed = 727.0
-Grazable = false
-zIndex = 1
 seekRadius = 646.0
 seekAreas = true
-seekBodies = false
+maxBullet = 57
+speed = 727.0
+CollideWithAreas = true
+Grazable = false
+texture = ExtResource("13")
 
 [node name="YinyangOrb" type="Sprite2D" parent="bullet3"]
 position = Vector2(0, -132)
@@ -289,7 +281,7 @@ texture = ExtResource("11")
 [node name="hitFX" type="AudioStreamPlayer" parent="."]
 
 [node name="DeathTimer" type="Timer" parent="."]
-process_mode = 2
+process_mode = 3
 one_shot = true
 script = ExtResource("1")
 

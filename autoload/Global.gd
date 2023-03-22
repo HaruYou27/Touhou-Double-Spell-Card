@@ -48,11 +48,13 @@ static func get_input_string(event:InputEvent) -> String:
 func _ready() -> void:
 	randomize()
 	
-	user_data = load('user://727564643146467234.res')
+	user_data = load('user://1218622924.res')
 	if user_data:
 		return
 		
 	user_data = UserData.new()
+	user_data.unlock_level("res://level/tutorial/tutorial.tscn")
+	
 	var fps := int(ceil(DisplayServer.screen_get_refresh_rate()))
 	if fps:
 		Engine.max_fps = fps
@@ -68,4 +70,4 @@ func _exit_tree() -> void:
 	ProjectSettings.set_setting('display/window/size/viewport_width', viewport.x)
 	ProjectSettings.set_setting('display/window/size/viewport_height', viewport.y)
 	ProjectSettings.save_custom('user://override.cfg')
-	ResourceSaver.save(user_data, 'user://727564643146467234.res', ResourceSaver.FLAG_COMPRESS)
+	ResourceSaver.save(user_data, 'user://1218622924.res', ResourceSaver.FLAG_COMPRESS)

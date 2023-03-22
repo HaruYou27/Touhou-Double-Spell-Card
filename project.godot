@@ -10,7 +10,7 @@ config_version=5
 
 [application]
 
-config/name="Touhou Hakurei Paradox"
+config/name="Touhou Kuro Hakurei"
 config/description="Why i make bullet shmups game."
 run/main_scene="res://user-interface/mainMenu/Menu.tscn"
 config/features=PackedStringArray("4.0", "C#")
@@ -26,32 +26,6 @@ gdscript/warnings/unused_signal=false
 gdscript/warnings/return_value_discarded=false
 gdscript/warnings/integer_division=false
 
-[dialogic]
-
-editor/character_preview_mode=0
-editor/current_editor=&"HomePage"
-editor/current_resources={
-"Character Editor": "res://dialogic/character/yukari/yukari.dch",
-"Timeline Editor": "res://dialogic/timeline/tutorial/move.dtl"
-}
-editor/last/resources=["res://dialogic/character/yukari/yukari.dch"]
-history/history_system=false
-history/full_history=true
-history/text_history=true
-choices/autofocus_first=false
-choices/delay=0.2
-animations/join_default_length=0.5
-animations/leave_default_length=0.5
-animations/leave_default_wait=true
-animations/join_default_wait=true
-save/autosave_delay=60.0
-text/speed=0.01
-text/skippable=true
-text/autocontinue_delay=1.0
-glossary/default_case_sensitive=true
-layout/mode=0
-variables={}
-
 [display]
 
 window/size/viewport_width=1208
@@ -64,7 +38,7 @@ window/stretch/mode="viewport"
 
 [dotnet]
 
-project/assembly_name="Touhou Hakurei Paradox"
+project/assembly_name="Touhou Kuro Hakurei"
 
 [importer_defaults]
 
@@ -126,16 +100,6 @@ drag={
 2d_physics/layer_4="Graze"
 2d_physics/layer_5="Item"
 z_index={}
-z_index/z_index={
-"Not Set": 0,
-"Player Overlay 6": 6,
-"Player Sprite": 5
-}
-
-[mono]
-
-runtime/unhandled_exception_policy=1
-project/assembly_name="Touhou Entropy ~ Hakurei Chronos"
 
 [physics]
 
@@ -146,6 +110,7 @@ common/enable_object_picking=false
 [rendering]
 
 renderer/rendering_method="gl_compatibility"
+renderer/rendering_method.mobile="gl_compatibility"
 quality/intended_usage/framebuffer_allocation=0
 quality/intended_usage/framebuffer_allocation.mobile=1
 threads/thread_model=2

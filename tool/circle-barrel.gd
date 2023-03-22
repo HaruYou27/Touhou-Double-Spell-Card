@@ -10,10 +10,10 @@ class_name CircleBarrel
 #You can reparent all the child node after that.
 #Uncheck if you want to remove all the barrels (in case all the barrel is still children of this node)
 
-@export (bool) var add_node : set = _add_node
-@export (int) var barrels := 4
-@export (float) var bullet_scale := 1.0
-@export (int) var gizmo := 20
+@export var add_node := false : set = _add_node
+@export var barrels := 4
+@export var bullet_scale := 1.0
+@export var gizmo := 20
 
 func _ready():
 	shape = CircleShape2D.new()

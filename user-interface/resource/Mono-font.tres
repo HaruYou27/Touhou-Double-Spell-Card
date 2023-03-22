@@ -1,7 +1,46 @@
-[gd_resource type="Theme" load_steps=2 format=3 uid="uid://ns3m7fkxl25r"]
+[gd_resource type="Theme" load_steps=10 format=3 uid="uid://ns3m7fkxl25r"]
 
 [ext_resource type="FontFile" uid="uid://cybwwftllqbxu" path="res://user-interface/fonts/UbuntuMono-Regular.ttf" id="1_acyvx"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_fe5nw"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_dw2gy"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8uuvv"]
+content_margin_left = 10.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_t6s62"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8215d"]
+content_margin_left = 20.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_kxanc"]
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_svplj"]
+color = Color(1, 1, 1, 1)
+thickness = 4
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_t2tcq"]
+content_margin_left = 10.0
+content_margin_right = 10.0
 
 [resource]
 default_font = ExtResource("1_acyvx")
 default_font_size = 32
+Button/colors/font_hover_color = Color(0, 0.682353, 1, 1)
+Button/colors/font_hover_pressed_color = Color(1, 0.258824, 0.815686, 1)
+Button/colors/font_outline_color = Color(0, 0, 0, 1)
+Button/colors/font_pressed_color = Color(1, 0.380392, 0.380392, 1)
+Button/constants/outline_size = 6
+Button/styles/disabled = SubResource("StyleBoxEmpty_fe5nw")
+Button/styles/focus = SubResource("StyleBoxEmpty_dw2gy")
+Button/styles/hover = SubResource("StyleBoxEmpty_8uuvv")
+Button/styles/normal = SubResource("StyleBoxEmpty_t6s62")
+Button/styles/pressed = SubResource("StyleBoxEmpty_8215d")
+Label/colors/font_outline_color = Color(0, 0, 0, 1)
+Label/constants/outline_size = 6
+TabContainer/colors/font_outline_color = Color(0, 0, 0, 1)
+TabContainer/constants/outline_size = 6
+TabContainer/styles/panel = SubResource("StyleBoxEmpty_kxanc")
+TabContainer/styles/tab_selected = SubResource("StyleBoxLine_svplj")
+TabContainer/styles/tab_unselected = SubResource("StyleBoxEmpty_t2tcq")

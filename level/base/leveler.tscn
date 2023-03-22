@@ -1,22 +1,29 @@
-[gd_scene load_steps=25 format=3]
+[gd_scene load_steps=28 format=3 uid="uid://l6mrvvk8qpdc"]
 
 [ext_resource type="Script" path="res://user-interface/control-node/FormatLabel.gd" id="1"]
 [ext_resource type="Script" path="res://level/base/item-manager/ItemManager.cs" id="2"]
 [ext_resource type="Script" path="res://level/base/leveler.gd" id="4"]
-[ext_resource type="Theme" uid="uid://b1mkh3lfvyk2k" path="res://user-interface/resource/Mono-font.tres" id="4_4a0vg"]
+[ext_resource type="Theme" uid="uid://ns3m7fkxl25r" path="res://user-interface/resource/Mono-font.tres" id="4_4a0vg"]
 [ext_resource type="Script" path="res://user-interface/control-node/ScreenEffect.gd" id="5"]
 [ext_resource type="Script" path="res://user-interface/control-node/UberButton.gd" id="6"]
 [ext_resource type="FontFile" uid="uid://cybwwftllqbxu" path="res://user-interface/fonts/UbuntuMono-Regular.ttf" id="7_d506w"]
 [ext_resource type="Script" path="res://level/base/fps.gd" id="10"]
 [ext_resource type="Script" path="res://level/base/PauseMenu.gd" id="12"]
 [ext_resource type="Texture2D" uid="uid://bg5s4m34ufdy5" path="res://level/base/item-manager/point.png" id="14"]
-[ext_resource type="Theme" uid="uid://hbymi15hqeje" path="res://level/base/resource/score.tres" id="15"]
+[ext_resource type="Theme" uid="uid://pxre2auww4rb" path="res://level/base/resource/score.tres" id="15"]
 [ext_resource type="Shortcut" path="res://user-interface/resource/escape.tres" id="16"]
 [ext_resource type="Script" path="res://level/base/hud.gd" id="17"]
 
-[sub_resource type="CapsuleShape2D" id="1"]
-radius = 40.0
-height = 2048.0
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_5a814"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_u8032"]
+normal = Vector2(0, 1)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_1woir"]
+normal = Vector2(1, 0)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_pgwb8"]
+normal = Vector2(-1, 0)
 
 [sub_resource type="Animation" id="Animation_6qo7s"]
 length = 0.001
@@ -244,33 +251,26 @@ _data = {
 
 [node name="level" type="Node2D"]
 script = ExtResource("4")
-levels = null
 
-[node name="bulletBound" type="StaticBody2D" parent="."]
-visible = false
-position = Vector2(-239, 452)
+[node name="WorldBoundary" type="StaticBody2D" parent="."]
 collision_mask = 0
 constant_linear_velocity = Vector2(1, 0)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="bulletBound"]
-shape = SubResource("1")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldBoundary"]
+position = Vector2(302, 1106)
+shape = SubResource("WorldBoundaryShape2D_5a814")
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="bulletBound"]
-position = Vector2(1052, 0)
-shape = SubResource("1")
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="WorldBoundary"]
+position = Vector2(302, -200)
+shape = SubResource("WorldBoundaryShape2D_u8032")
 
-[node name="bulletBound2" type="StaticBody2D" parent="bulletBound"]
-position = Vector2(524, -592)
-rotation = 1.5708
-collision_mask = 0
-constant_linear_velocity = Vector2(1, 0)
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="WorldBoundary"]
+position = Vector2(-200, 453)
+shape = SubResource("WorldBoundaryShape2D_1woir")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="bulletBound/bulletBound2"]
-shape = SubResource("1")
-
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="bulletBound/bulletBound2"]
-position = Vector2(1182, 0)
-shape = SubResource("1")
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="WorldBoundary"]
+position = Vector2(804, 453)
+shape = SubResource("WorldBoundaryShape2D_pgwb8")
 
 [node name="ItemManager" type="Node2D" parent="."]
 script = ExtResource("2")
