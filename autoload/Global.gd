@@ -11,9 +11,6 @@ signal item_collect(point)
 ##Emited by player's bomb node. Wipe out everything on screen.
 signal bomb_impact
 
-##Emited by player on death, or restart button.
-signal restart_level
-
 ##When you want to stop player from spamming bullet.
 signal can_player_shoot(value)
 

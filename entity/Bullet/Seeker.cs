@@ -4,27 +4,10 @@ public partial class Seeker : BulletBasic
 {
 	//Bullets that chase nearby target.
 	[Export] protected float mass = 10;
-	[Export]
-	protected float seekRadius
-	{
-		set { PhysicsServer2D.ShapeSetData(seekShape, value); }
-		get { return (float)PhysicsServer2D.ShapeGetData(seekShape); }
-	}
-	[Export]
-	bool seekAreas
-	{
-		set { seekQuery.CollideWithAreas = value; }
-		get { return seekQuery.CollideWithAreas; }
-	}
-	[Export]
-	bool seekBodies
-	{
-		set { seekQuery.CollideWithBodies = value; }
-		get { return seekQuery.CollideWithBodies; }
-	}
-
-	protected PhysicsShapeQueryParameters2D seekQuery = new PhysicsShapeQueryParameters2D();
-	private Rid seekShape = PhysicsServer2D.CircleShapeCreate();
+	[Export(PropertyHint.Layers2DPhysics)] public uint SeekMask;
+	[Export] protected float seekRadius;
+	protected readonly PhysicsShapeQueryParameters2D seekQuery = new PhysicsShapeQueryParameters2D();
+	private readonly Rid seekShape = PhysicsServer2D.CircleShapeCreate();
 
 	SeekBullet[] seekBullets;
 	protected class SeekBullet : Bullet
@@ -34,9 +17,13 @@ public partial class Seeker : BulletBasic
 
 	public override void _Ready()
 	{
-		base._Ready();
 		seekQuery.ShapeRid = seekShape;
-		seekQuery.CollisionMask = mask;
+		PhysicsServer2D.ShapeSetData(seekShape, seekRadius);
+		seekQuery.CollideWithAreas = CollideWithAreas;
+		seekQuery.CollideWithBodies = CollideWithBodies;
+		seekQuery.CollisionMask = SeekMask;
+
+		base._Ready();
 	}
 	protected override void BulletConstructor()
 	{
@@ -55,7 +42,7 @@ public partial class Seeker : BulletBasic
 	protected override Transform2D Move(in float delta)
 	{
 		SeekBullet bullet = seekBullets[index];
-		if (bullet.target == null || !GodotObject.IsInstanceValid(bullet.target))
+		if (!GodotObject.IsInstanceValid(bullet.target))
 		{
 			seekQuery.Transform = bullet.transform;
 			Godot.Collections.Dictionary seekResult = world.DirectSpaceState.GetRestInfo(seekQuery);

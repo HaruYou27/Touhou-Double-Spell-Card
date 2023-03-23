@@ -1,7 +1,6 @@
 [gd_scene load_steps=25 format=3 uid="uid://beweol2qml2ub"]
 
 [ext_resource type="Script" path="res://entity/Reimu/deathTimer.gd" id="1"]
-[ext_resource type="Shader" path="res://tool/shader-generator/UberItem.gdshader" id="2"]
 [ext_resource type="Script" path="res://entity/Reimu/reimu.gd" id="3"]
 [ext_resource type="Script" path="res://entity/Bullet/BulletBasic.cs" id="4"]
 [ext_resource type="Script" path="res://entity/Reimu/graze.gd" id="4_x0778"]
@@ -41,8 +40,21 @@ spread = 180.0
 gravity = Vector3(0, 0, 0)
 
 [sub_resource type="ShaderMaterial" id="35"]
-render_priority = 0
-shader = ExtResource("2")
+shader = ExtResource("8_m1xjm")
+shader_parameter/time_scale = null
+shader_parameter/spin = null
+shader_parameter/disable_modulate = null
+shader_parameter/sin_alpha = null
+shader_parameter/displace = null
+shader_parameter/displace_strength = 5.0
+shader_parameter/recolor = true
+shader_parameter/h = 0.887
+shader_parameter/s = 1.0
+shader_parameter/v = 1.0
+shader_parameter/rainbow = null
+shader_parameter/wobble = null
+shader_parameter/wobble_max = 1.25
+shader_parameter/wobble_min = 0.75
 
 [sub_resource type="Animation" id="34"]
 resource_name = "show"
@@ -87,6 +99,23 @@ shader_parameter/displace = null
 shader_parameter/displace_strength = 5.0
 shader_parameter/recolor = true
 shader_parameter/h = 0.787
+shader_parameter/s = 1.0
+shader_parameter/v = 1.0
+shader_parameter/rainbow = null
+shader_parameter/wobble = null
+shader_parameter/wobble_max = 1.25
+shader_parameter/wobble_min = 0.75
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_17vv5"]
+shader = ExtResource("8_m1xjm")
+shader_parameter/time_scale = null
+shader_parameter/spin = null
+shader_parameter/disable_modulate = null
+shader_parameter/sin_alpha = null
+shader_parameter/displace = null
+shader_parameter/displace_strength = 5.0
+shader_parameter/recolor = true
+shader_parameter/h = 0.874
 shader_parameter/s = 1.0
 shader_parameter/v = 1.0
 shader_parameter/rainbow = null
@@ -157,14 +186,14 @@ _data = {
 
 [node name="Homing Shoot" type="StaticBody2D"]
 texture_filter = 1
-position = Vector2(0, 1)
 collision_layer = 4
 collision_mask = 0
 constant_linear_velocity = Vector2(3, 0)
 script = ExtResource("3")
+bullet_timer = [NodePath("Timer2"), NodePath("bullet/Timer")]
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-z_index = 5
+z_index = 10
 sprite_frames = SubResource("14")
 
 [node name="hitbox" type="CollisionShape2D" parent="."]
@@ -214,12 +243,14 @@ libraries = {
 }
 
 [node name="bullet" type="Node2D" parent="."]
+z_index = 6
 position = Vector2(1, 4)
 script = ExtResource("4")
 maxBullet = 57
 speed = 727.0
-CollideWithAreas = true
 Grazable = false
+CollideWithAreas = true
+CollisionMask = 3
 texture = ExtResource("7")
 
 [node name="Marker2D" type="Marker2D" parent="bullet"]
@@ -237,45 +268,51 @@ wait_time = 0.143
 [node name="bullet2" type="Node2D" parent="."]
 z_index = 6
 material = SubResource("32")
-rotation = -2.02055
+rotation = -6.28319
 script = ExtResource("9")
+SeekMask = 2
 seekRadius = 646.0
-seekAreas = true
 maxBullet = 57
 speed = 727.0
-CollideWithAreas = true
 Grazable = false
+CollideWithAreas = true
+CollisionMask = 3
 texture = ExtResource("13")
 
 [node name="YinyangOrb" type="Sprite2D" parent="bullet2"]
 position = Vector2(98, 0)
+rotation = -1.5708
 texture = ExtResource("11")
 flip_h = true
 
 [node name="YinyangOrb4" type="Sprite2D" parent="bullet2"]
 position = Vector2(-98, 0)
+rotation = -1.5708
 texture = ExtResource("11")
 flip_h = true
 
 [node name="bullet3" type="Node2D" parent="."]
 z_index = 6
-material = SubResource("32")
-rotation = 2.02055
+material = SubResource("ShaderMaterial_17vv5")
+rotation = 6.28319
 script = ExtResource("9")
+SeekMask = 2
 seekRadius = 646.0
-seekAreas = true
 maxBullet = 57
 speed = 727.0
-CollideWithAreas = true
 Grazable = false
+CollideWithAreas = true
+CollisionMask = 3
 texture = ExtResource("13")
 
 [node name="YinyangOrb" type="Sprite2D" parent="bullet3"]
 position = Vector2(0, -132)
+rotation = -1.5708
 texture = ExtResource("11")
 
 [node name="YinyangOrb4" type="Sprite2D" parent="bullet3"]
 position = Vector2(0, 132)
+rotation = -1.5708
 texture = ExtResource("11")
 
 [node name="hitFX" type="AudioStreamPlayer" parent="."]
@@ -286,7 +323,6 @@ one_shot = true
 script = ExtResource("1")
 
 [node name="orbAnimator" type="AnimationPlayer" parent="."]
-reset_on_save = false
 libraries = {
 "": SubResource("AnimationLibrary_wwnxa")
 }

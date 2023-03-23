@@ -14,24 +14,33 @@ class_name Player
 var moving := false
 var bomb_scene := preload("res://entity/Reimu/FantasySeal.tscn")
 var bomb_count := 1
-@export var bullet_timer : Array[Timer]
+@export var bullet_timer : Array
 
 var can_shoot := true : set = _set_shooting
 func _set_shooting(value:bool) -> void:
 	can_shoot = value
 	if value:
 		orb_animator.speed_scale = 1.0
-		for timer in bullet_timer:
-			timer.start()
+		for node in bullet_timer:
+			node.start()
 			
 	else:
 		orb_animator.speed_scale = .25
-		for timer in bullet_timer:
-			timer.stop()
+		for node in bullet_timer:
+			node.stop()
+
+func _on_death_timer_timeout() -> void:
+	Global.leveler.restart()
 
 func _ready() -> void:
-	death_timer.timeout.connect(Callable(Global, 'emit_signal').bind('restart_level'))
+	death_timer.timeout.connect(Callable(self, '_on_death_timer_timeout'))
 	Global.bomb_impact.connect(Callable(self,'_bomb_impact'))
+	orb_animator.play("spin")
+	
+	var nodes := []
+	for path in bullet_timer:
+		nodes.append(get_node(path))
+	bullet_timer = nodes
 	
 func _unhandled_input(event:InputEvent) -> void:
 	if event.is_action_released("bomb"):
@@ -83,6 +92,3 @@ func _bomb_impact() -> void:
 	collision_layer = 4
 	graze.collision_layer = 8
 	modulate = Color.WHITE
-	if can_shoot:
-		for timer in bullet_timer:
-			timer.start()

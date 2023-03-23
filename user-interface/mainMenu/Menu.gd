@@ -6,7 +6,6 @@ var sub_menus : Array
 @onready var current_menu := $main
 
 func _ready():
-	var i := 0
 	for node in get_children():
 		if node is Control:
 			sub_menus.append(node)

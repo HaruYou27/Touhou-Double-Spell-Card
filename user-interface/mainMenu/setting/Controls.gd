@@ -45,11 +45,11 @@ func _on_controls_reset_pressed() -> void:
 	InputMap.action_erase_events('drag')
 	
 	var b_bind := InputEventMouseButton.new()
-	b_bind.button_index = 2
+	b_bind.button_index = MOUSE_BUTTON_RIGHT
 	InputMap.action_add_event('bomb', b_bind)
 	
 	var d_bind := InputEventMouseButton.new()
-	d_bind.button_index = 1
+	d_bind.button_index = MOUSE_BUTTON_LEFT
 	InputMap.action_add_event('drag', d_bind)
 	
 	bomb.update_label('Mouse Right')

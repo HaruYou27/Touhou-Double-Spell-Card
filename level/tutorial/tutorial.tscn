@@ -4,19 +4,21 @@
 [ext_resource type="Script" path="res://level/tutorial/Move.gd" id="4"]
 [ext_resource type="PackedScene" uid="uid://bpl8hpj7mwtro" path="res://level/yukari/base/yukari.tscn" id="5"]
 [ext_resource type="Script" path="res://level/tutorial/bomb.gd" id="6"]
-[ext_resource type="PackedScene" path="res://level/base/leveler.tscn" id="7"]
+[ext_resource type="PackedScene" uid="uid://l6mrvvk8qpdc" path="res://level/base/leveler.tscn" id="7"]
 [ext_resource type="Script" path="res://entity/utility/TargetLocker.gd" id="8"]
+[ext_resource type="Theme" uid="uid://ns3m7fkxl25r" path="res://user-interface/resource/Mono-font.tres" id="8_kk8vw"]
 [ext_resource type="Texture2D" uid="uid://d1nkk7km71ule" path="res://level/yukari/base/texture/kunai1.png" id="9"]
-[ext_resource type="Theme" uid="uid://p4yd8uwsglla" path="res://user-interface/resource/Outlined.tres" id="9_a7k8h"]
 [ext_resource type="Script" path="res://level/tutorial/Dodge.gd" id="10"]
 [ext_resource type="Script" path="res://entity/Bullet/BulletBasic.cs" id="11"]
-[ext_resource type="PackedScene" uid="uid://dlnh5twbgexsv" path="res://level/yukari/base/space-relaxed.tscn" id="11_6kjyc"]
+[ext_resource type="PackedScene" uid="uid://cjhbh030iilrv" path="res://level/yukari/base/space-relaxed.tscn" id="11_6kjyc"]
 
 [node name="tutorial" type="Node2D"]
 
 [node name="level" parent="." instance=ExtResource("7")]
 
 [node name="SpaceRelaxed" parent="level" instance=ExtResource("11_6kjyc")]
+offset_right = 1208.0
+offset_bottom = 906.0
 
 [node name="yukari" parent="level/SpaceRelaxed" instance=ExtResource("5")]
 position = Vector2(300, -189)
@@ -51,7 +53,7 @@ layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
-theme = ExtResource("9_a7k8h")
+theme = ExtResource("8_kk8vw")
 
 [node name="item" type="Label" parent="guide"]
 visible = false

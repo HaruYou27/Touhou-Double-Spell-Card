@@ -5,9 +5,7 @@ extends Control
 @onready var list :Node = $VBoxcontainer
 @onready var spawn_location :Node2D = $Marker2D
 
-
 @export var players : Array[PackedScene]
-
 var nodes : Array
 
 var header : LevelHeader : set = _set_header
@@ -37,6 +35,7 @@ func _ready():
 func _preview(index:int) -> void:
 	for node in nodes:
 		node.hide()
+		node.can_shoot = false
 	
 	var node :Player = nodes[index]
 	node.can_shoot = true

@@ -1,9 +1,9 @@
-[gd_scene load_steps=23 format=3 uid="uid://b7islnmky4faj"]
+[gd_scene load_steps=22 format=3 uid="uid://cf4bi4asd23vr"]
 
 [ext_resource type="Script" path="res://user-interface/mainMenu/Menu.gd" id="1"]
 [ext_resource type="Theme" uid="uid://ns3m7fkxl25r" path="res://user-interface/resource/Mono-font.tres" id="1_hossq"]
 [ext_resource type="Script" path="res://user-interface/mainMenu/setting/Graphic.gd" id="2"]
-[ext_resource type="Script" path="res://tool/FocusedBoxContainer.gd" id="3_nrihh"]
+[ext_resource type="Shader" path="res://shader/background/universe.gdshader" id="3_oloh2"]
 [ext_resource type="Script" path="res://user-interface/control-node/FormatLabel.gd" id="5"]
 [ext_resource type="Script" path="res://user-interface/mainMenu/setting/Audio.gd" id="6"]
 [ext_resource type="Script" path="res://user-interface/control-node/UberButton.gd" id="8"]
@@ -12,24 +12,23 @@
 [ext_resource type="Shortcut" uid="uid://cmfbyxixc4xv3" path="res://user-interface/resource/escape.tres" id="10"]
 [ext_resource type="Script" path="res://user-interface/mainMenu/level.gd" id="11"]
 [ext_resource type="Script" path="res://user-interface/mainMenu/LevelHeader.gd" id="11_iry26"]
-[ext_resource type="Shader" path="res://shader/background/star-nest.gdshader" id="13_ip7i0"]
 [ext_resource type="Script" path="res://user-interface/mainMenu/character.gd" id="14_xksdf"]
 [ext_resource type="PackedScene" uid="uid://beweol2qml2ub" path="res://entity/Reimu/reimuA.tscn" id="15_else0"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_uaoct"]
-shader = ExtResource("13_ip7i0")
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_r0b15"]
+shader = ExtResource("3_oloh2")
 shader_parameter/iterations = 10
 shader_parameter/formuparam = 1.0
-shader_parameter/volsteps = 10
-shader_parameter/stepsize = 0.214
+shader_parameter/volsteps = 5
+shader_parameter/stepsize = 0.526
 shader_parameter/zoom = 1.0
 shader_parameter/tile = 0.5
-shader_parameter/speed = 0.011
-shader_parameter/brightness = 0.057
-shader_parameter/distfading = 0.65
-shader_parameter/saturation = 0.771
+shader_parameter/speed = 0.01
+shader_parameter/brightness = 0.036
+shader_parameter/distfading = 0.353
+shader_parameter/saturation = 0.75
 
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_uow3r"]
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_sctct"]
 size = Vector2(1208, 906)
 
 [sub_resource type="Resource" id="Resource_t7vud"]
@@ -37,15 +36,15 @@ script = ExtResource("11_iry26")
 title = "Tutorial"
 level = "res://level/tutorial/tutorial.tscn"
 
-[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_o74is"]
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_rshhe"]
 
-[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_17y68"]
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_ueefi"]
 normal = Vector2(0, 1)
 
-[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_unwyp"]
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_oaasq"]
 normal = Vector2(1, 0)
 
-[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_p44tm"]
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_k21gt"]
 normal = Vector2(-1, 0)
 
 [node name="menu" type="Control"]
@@ -59,12 +58,13 @@ grow_vertical = 2
 theme = ExtResource("1_hossq")
 script = ExtResource("1")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-material = SubResource("ShaderMaterial_uaoct")
-texture = SubResource("PlaceholderTexture2D_uow3r")
+[node name="bgImage" type="Sprite2D" parent="."]
+texture_filter = 1
+material = SubResource("ShaderMaterial_r0b15")
+texture = SubResource("PlaceholderTexture2D_sctct")
 centered = false
 
-[node name="Bgm" type="AudioStreamPlayer" parent="."]
+[node name="bgMusic" type="AudioStreamPlayer" parent="."]
 autoplay = true
 
 [node name="main" type="Control" parent="."]
@@ -86,7 +86,6 @@ offset_top = -96.0
 offset_right = 277.0
 offset_bottom = 48.0
 grow_vertical = 2
-script = ExtResource("3_nrihh")
 
 [node name="start" type="Button" parent="main/VBoxContainer"]
 layout_mode = 2
@@ -234,11 +233,11 @@ focus_neighbor_bottom = NodePath("../muteBGM")
 focus_next = NodePath("../muteBGM")
 focus_previous = NodePath("../reset")
 min_value = -60.0
-max_value = 30.0
+max_value = 0.0
 step = 0.6
 value = -60.0
 allow_lesser = true
-tick_count = 10
+tick_count = 13
 script = ExtResource("9_w2eo4")
 label = NodePath("../BgmLabel")
 
@@ -276,11 +275,11 @@ focus_neighbor_bottom = NodePath("../muteSFX")
 focus_next = NodePath("../muteSFX")
 focus_previous = NodePath("../muteBGM")
 min_value = -60.0
-max_value = 30.0
+max_value = 0.0
 step = 0.6
 value = -60.0
 allow_lesser = true
-tick_count = 10
+tick_count = 13
 script = ExtResource("9_w2eo4")
 label = NodePath("../SfxLabel")
 
@@ -551,29 +550,28 @@ script = ExtResource("9_w2eo4")
 label = NodePath("../speed")
 
 [node name="Marker2D" type="Marker2D" parent="character"]
-position = Vector2(906, 804)
+position = Vector2(906, 700)
 gizmo_extents = 145.4
 
-[node name="WorldBoundary" type="StaticBody2D" parent="character"]
-position = Vector2(604, 0)
+[node name="WorldBoundary2" type="StaticBody2D" parent="character"]
 collision_mask = 0
 constant_linear_velocity = Vector2(1, 0)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="character/WorldBoundary"]
-position = Vector2(302, 906)
-shape = SubResource("WorldBoundaryShape2D_o74is")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="character/WorldBoundary2"]
+position = Vector2(302, 1106)
+shape = SubResource("WorldBoundaryShape2D_rshhe")
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="character/WorldBoundary"]
-position = Vector2(302, 0)
-shape = SubResource("WorldBoundaryShape2D_17y68")
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="character/WorldBoundary2"]
+position = Vector2(302, -200)
+shape = SubResource("WorldBoundaryShape2D_ueefi")
 
-[node name="CollisionShape2D3" type="CollisionShape2D" parent="character/WorldBoundary"]
-position = Vector2(0, 453)
-shape = SubResource("WorldBoundaryShape2D_unwyp")
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="character/WorldBoundary2"]
+position = Vector2(-200, 453)
+shape = SubResource("WorldBoundaryShape2D_oaasq")
 
-[node name="CollisionShape2D4" type="CollisionShape2D" parent="character/WorldBoundary"]
-position = Vector2(604, 453)
-shape = SubResource("WorldBoundaryShape2D_p44tm")
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="character/WorldBoundary2"]
+position = Vector2(1408, 453)
+shape = SubResource("WorldBoundaryShape2D_k21gt")
 
 [connection signal="pressed" from="main/VBoxContainer/start" to="." method="_switch_menu" binds= [2]]
 [connection signal="pressed" from="main/VBoxContainer/settings" to="." method="_switch_menu" binds= [1]]

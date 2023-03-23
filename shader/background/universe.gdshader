@@ -3,8 +3,8 @@ shader_type canvas_item;
 uniform int iterations = 10;
 uniform float formuparam = 1.00;
 
-uniform int volsteps = 10;
-uniform float stepsize = 0.2;
+uniform int volsteps = 5;
+uniform float stepsize = 0.347;
 
 uniform float zoom = 1.;
 uniform float tile = .5;
@@ -28,19 +28,22 @@ float SCurve (float value) {
 
 void fragment()
 {
-	vec3 dir=vec3(UV*0.001*zoom,1.);
-	vec3 from=vec3(1.0,0.5,0.5);
+	//Direction and coord.
+	lowp vec3 dir=vec3(FRAGCOORD.xy*0.001*zoom,1.);
+	lowp vec3 from=vec3(1.0,0.5,0.5);
 	from-=vec3(0.0, TIME * speed,0.0);
 	
 	//volumetric rendering
-	float s=0.1,fade=1.;
-	vec3 v=vec3(0.);
-	for (int r=0; r<volsteps; r++) {
+	lowp float s=0.1,fade=1.;
+	lowp vec3 v=vec3(0.);
+	for (int r=0; r<volsteps; r++)
+	{
 		lowp vec3 p=from+s*dir*0.5;
 		p = abs(vec3(tile)-mod(p,vec3(tile*2.))); // tiling fold
 		lowp float pa,a=pa=0.;
 		
-		for (int i=0; i<iterations; i++) { 
+		for (int i=0; i<iterations; i++)
+		{ 
 			p=abs(p)/dot(p,p)-formuparam; // the magic formula
 			a+=abs(length(p)-pa); // absolute sum of average change
 			pa=length(p);
