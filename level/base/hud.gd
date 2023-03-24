@@ -1,12 +1,19 @@
 extends ColorRect
-class_name HUD
 
+var score_file : Score : set = _set_score_file
+func _set_score_file(file:Score) -> void:
+	score_file = file
+	hi_score_label.update_label(score_file.score)
+	multiplier = pow(Global.player.death_timer.wait_time, Engine.time_scale)
+	
 var score := 0
 var item := 0.0
 var updating_item := false
 var graze := 0
 var updating_graze := false
 var goal := 0
+
+var multiplier := 0.
 
 @onready var hi_score_label :FormatLabel = $VBoxContainer/HiScore
 @onready var score_label :FormatLabel = $VBoxContainer/Score
@@ -17,7 +24,13 @@ var goal := 0
 @onready var reward_sfx : AudioStreamPlayer = $reward
 @onready var goal_label :FormatLabel = $VBoxContainer/Goal
 
-@onready var multiplier := pow(Global.score.death_time, Engine.time_scale)
+func save_score() -> void:
+	if score_file.score > score:
+		score_file.score = score
+		score_file.graze = graze
+		score_file.item = item
+	
+	ResourceSaver.save(score_file, score_file.resource_path, ResourceSaver.FLAG_COMPRESS)
 
 func _ready() -> void:
 	Global.connect("item_collect",Callable(self,"_set_item"))

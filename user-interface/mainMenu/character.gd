@@ -3,7 +3,7 @@ extends Control
 @onready var death_timer :Slider = $VBoxcontainer/DurationSlider
 @onready var speed :Slider = $VBoxcontainer/SpeedSlider
 @onready var list :Node = $VBoxcontainer
-@onready var spawn_location :Node2D = $Marker2D
+@onready var spawn_location :Node2D = $preview
 
 @export var players : Array[PackedScene]
 var nodes : Array
@@ -18,7 +18,8 @@ func _ready():
 	var i:= 0
 	
 	for scene in players:
-		var node :Player = scene.instantiate()
+		var node :Node2D = scene.instantiate()
+		node.free_hitbox()
 		node.hide()
 		spawn_location.add_child(node)
 		
@@ -35,20 +36,14 @@ func _ready():
 func _preview(index:int) -> void:
 	for node in nodes:
 		node.hide()
-		node.can_shoot = false
+		node._set_shooting(false)
 	
-	var node :Player = nodes[index]
-	node.can_shoot = true
+	var node :Node = nodes[index]
+	node._set_shooting(true)
 	node.show()
 
 func _start(index:int) -> void:
-	var node :Player = nodes[index]
-	spawn_location.remove_child(node)
-	node.can_shoot = false
-	node.death_timer.wait_time = death_timer.value
-	Global.player = node
-	
-	header.score.death_time = death_timer.value
+	header.score.save_setting(death_timer.value, players[index])
 	Engine.time_scale = speed.value
 	
 	get_tree().change_scene_to_file(header.level)

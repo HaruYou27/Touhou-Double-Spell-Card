@@ -1,10 +1,11 @@
-[gd_scene load_steps=22 format=3 uid="uid://cf4bi4asd23vr"]
+[gd_scene load_steps=25 format=3 uid="uid://csrqvopy1f1tr"]
 
 [ext_resource type="Script" path="res://user-interface/mainMenu/Menu.gd" id="1"]
 [ext_resource type="Theme" uid="uid://ns3m7fkxl25r" path="res://user-interface/resource/Mono-font.tres" id="1_hossq"]
 [ext_resource type="Script" path="res://user-interface/mainMenu/setting/Graphic.gd" id="2"]
 [ext_resource type="Shader" path="res://shader/background/universe.gdshader" id="3_oloh2"]
 [ext_resource type="Script" path="res://user-interface/control-node/FormatLabel.gd" id="5"]
+[ext_resource type="FontFile" uid="uid://br2c5b35eg8d" path="res://user-interface/fonts/VNI-HL Thu fap.ttf" id="5_xkorh"]
 [ext_resource type="Script" path="res://user-interface/mainMenu/setting/Audio.gd" id="6"]
 [ext_resource type="Script" path="res://user-interface/control-node/UberButton.gd" id="8"]
 [ext_resource type="Script" path="res://user-interface/mainMenu/setting/Controls.gd" id="9"]
@@ -13,7 +14,8 @@
 [ext_resource type="Script" path="res://user-interface/mainMenu/level.gd" id="11"]
 [ext_resource type="Script" path="res://user-interface/mainMenu/LevelHeader.gd" id="11_iry26"]
 [ext_resource type="Script" path="res://user-interface/mainMenu/character.gd" id="14_xksdf"]
-[ext_resource type="PackedScene" uid="uid://beweol2qml2ub" path="res://entity/Reimu/reimuA.tscn" id="15_else0"]
+[ext_resource type="PackedScene" uid="uid://beweol2qml2ub" path="res://entity/Reimu/HomingShoot.tscn" id="15_else0"]
+[ext_resource type="Texture2D" uid="uid://r7d3f3sdgdhy" path="res://entity/Reimu/texture/reimu.png" id="15_j0376"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_r0b15"]
 shader = ExtResource("3_oloh2")
@@ -35,6 +37,17 @@ size = Vector2(1208, 906)
 script = ExtResource("11_iry26")
 title = "Tutorial"
 level = "res://level/tutorial/tutorial.tscn"
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_r72fe"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("15_j0376")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_rshhe"]
 
@@ -81,10 +94,10 @@ layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
-offset_left = 77.0
-offset_top = -96.0
-offset_right = 277.0
-offset_bottom = 48.0
+offset_left = 47.0
+offset_top = -68.0
+offset_right = 247.0
+offset_bottom = 76.0
 grow_vertical = 2
 
 [node name="start" type="Button" parent="main/VBoxContainer"]
@@ -136,6 +149,25 @@ mouse_default_cursor_shape = 2
 text = "Quit"
 alignment = 0
 script = ExtResource("8")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="main"]
+clip_contents = false
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -456.0
+offset_top = 50.0
+offset_right = 457.0
+offset_bottom = 376.0
+grow_horizontal = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 30
+theme_override_fonts/normal_font = ExtResource("5_xkorh")
+theme_override_font_sizes/normal_font_size = 128
+bbcode_enabled = true
+text = "[wave]Touhou
+		[outline_color=f][color=000]Kuro[/color][/outline_color] [color=ff4040]Hakurei[/color]"
 
 [node name="setting" type="Control" parent="."]
 visible = false
@@ -495,6 +527,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="character" type="Control" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -549,9 +582,9 @@ ticks_on_borders = true
 script = ExtResource("9_w2eo4")
 label = NodePath("../speed")
 
-[node name="Marker2D" type="Marker2D" parent="character"]
-position = Vector2(906, 700)
-gizmo_extents = 145.4
+[node name="preview" type="AnimatedSprite2D" parent="character"]
+position = Vector2(906, 600)
+sprite_frames = SubResource("SpriteFrames_r72fe")
 
 [node name="WorldBoundary2" type="StaticBody2D" parent="character"]
 collision_mask = 0

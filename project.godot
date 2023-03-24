@@ -20,17 +20,11 @@ config/icon="res://icon.png"
 
 Global="*res://autoload/Global.gd"
 
-[debug]
-
-gdscript/warnings/unused_signal=false
-gdscript/warnings/return_value_discarded=false
-gdscript/warnings/integer_division=false
-
 [display]
 
 window/size/viewport_width=1208
 window/size/viewport_height=906
-window/size/window_width_override=1280
+window/size/window_width_override=960
 window/size/window_height_override=720
 window/handheld/orientation=1
 window/vsync/vsync_mode=false
@@ -39,6 +33,11 @@ window/stretch/mode="viewport"
 [dotnet]
 
 project/assembly_name="Touhou Kuro Hakurei"
+
+[filesystem]
+
+import/blender/enabled=false
+import/fbx/enabled=false
 
 [importer_defaults]
 
@@ -91,28 +90,22 @@ drag={
 [layer_names]
 
 2d_physics/layer_1="Wall"
-3d_physics/layer_1="Reimu"
 2d_physics/layer_2="Enemy"
-3d_physics/layer_2="Oni-Reimu"
 2d_physics/layer_3="Player"
-3d_physics/layer_3="Meimu"
 2d_physics/layer_4="Graze"
 2d_physics/layer_5="Item"
 z_index={}
 
 [physics]
 
+2d/run_on_separate_thread=true
 2d/default_gravity=0
+2d/solver/solver_iterations=1
 common/enable_object_picking=false
-2d/run_on_thread=2
 
 [rendering]
 
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
-quality/intended_usage/framebuffer_allocation=0
-quality/intended_usage/framebuffer_allocation.mobile=1
-threads/thread_model=2
-misc/lossless_compression/webp_compression_level=9
-2d/options/use_software_skinning=false
-batching/options/single_rect_fallback=true
+2d/snap/snap_2d_transforms_to_pixel=true
+2d/snap/snap_2d_vertices_to_pixel=true

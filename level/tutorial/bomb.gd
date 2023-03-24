@@ -1,8 +1,10 @@
 extends Label
 
-func _ready() -> void:
+signal next_event
+
+func start_event() -> void:
 	var timer := Global.player.death_timer
-	timer.timeout.disconnect(Callable(Global.leveler,'restart'))
+	timer.timeout.disconnect(Callable(timer, '_on_timeout'))
 	timer.timeout.connect(Callable(self,'_alert').bind(),4)
 
 func _alert() -> void:
@@ -10,5 +12,5 @@ func _alert() -> void:
 	show()
 
 func _tutorial_done() -> void:
-	Global.player.death_timer.timeout.connect(Callable(Global.leveler,'restart'))
+	next_event.emit()
 	queue_free()

@@ -6,6 +6,10 @@ signal start_event
 @onready var bomb_damage := 0.0
 @onready var gauge : BossGauge = $Gauge
 
+func _ready() -> void:
+	Global.boss = self
+	Global.bomb_impact.connect(Callable(self,"_bomb_hit"))
+
 func setup(value:float, timer:bool) -> void:
 	monitorable = false
 	
@@ -18,8 +22,6 @@ func setup(value:float, timer:bool) -> void:
 		tween.finished.connect(Callable(self, '_set_monitorable').bind(true))
 		
 	tween.finished.connect(Callable(self, 'emit_signal').bind('start_event'))
-	Global.bomb_impact.connect(Callable(self,"_bomb_hit"))
-	Global.boss = self
 	
 func _bomb_hit() -> void:
 	gauge.value -= bomb_damage

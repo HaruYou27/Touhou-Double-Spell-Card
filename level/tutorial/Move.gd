@@ -1,5 +1,7 @@
 extends Label
 
+signal next_event
+
 @onready var init_pos : Vector2
 @onready var timer : Timer = $Timer
 
@@ -7,9 +9,9 @@ var player
 
 func _ready() -> void:
 	set_physics_process(false)
-	Global.can_shoot = false
+	Global.player.can_shoot = false
 	
-func start_level() -> void:
+func start_event() -> void:
 	timer.start()
 	player = Global.player
 	init_pos = player.global_position
@@ -17,5 +19,6 @@ func start_level() -> void:
 
 func _physics_process(_delta) -> void:
 	if player.global_position != init_pos:
-		Global.leveler.next_event()
 		timer.stop()
+		next_event.emit()
+		queue_free()

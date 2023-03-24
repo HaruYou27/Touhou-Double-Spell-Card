@@ -1,0 +1,203 @@
+[gd_scene load_steps=14 format=3 uid="uid://beweol2qml2ub"]
+
+[ext_resource type="Script" path="res://entity/Reimu/homing-shoot.gd" id="1_8gpw2"]
+[ext_resource type="Script" path="res://entity/Bullet/BulletBasic.cs" id="2_t1yrh"]
+[ext_resource type="Texture2D" uid="uid://c3jodrorofxht" path="res://entity/Reimu/texture/ofuda-tail.png" id="3_vbdbu"]
+[ext_resource type="Shader" path="res://shader/UberItem.gdshader" id="4_vbi1h"]
+[ext_resource type="Script" path="res://entity/Bullet/Seeker.cs" id="5_8pxuo"]
+[ext_resource type="Texture2D" uid="uid://dk5iw3idwfm40" path="res://entity/Reimu/texture/ofuda.png" id="6_ytpa5"]
+[ext_resource type="Texture2D" uid="uid://bxqtm4axxr5gl" path="res://entity/Reimu/texture/yinyangOrb.png" id="7_aereh"]
+[ext_resource type="PackedScene" uid="uid://brajcyeanc1p3" path="res://entity/Reimu/reimu.tscn" id="8_6flxy"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ah5ge"]
+shader = ExtResource("4_vbi1h")
+shader_parameter/time_scale = null
+shader_parameter/spin = null
+shader_parameter/disable_modulate = null
+shader_parameter/sin_alpha = null
+shader_parameter/displace = null
+shader_parameter/displace_strength = 5.0
+shader_parameter/recolor = true
+shader_parameter/h = 0.787
+shader_parameter/s = 1.0
+shader_parameter/v = 1.0
+shader_parameter/rainbow = null
+shader_parameter/wobble = null
+shader_parameter/wobble_max = 1.25
+shader_parameter/wobble_min = 0.75
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_tnuw6"]
+shader = ExtResource("4_vbi1h")
+shader_parameter/time_scale = null
+shader_parameter/spin = null
+shader_parameter/disable_modulate = null
+shader_parameter/sin_alpha = null
+shader_parameter/displace = null
+shader_parameter/displace_strength = 5.0
+shader_parameter/recolor = true
+shader_parameter/h = 0.874
+shader_parameter/s = 1.0
+shader_parameter/v = 1.0
+shader_parameter/rainbow = null
+shader_parameter/wobble = null
+shader_parameter/wobble_max = 1.25
+shader_parameter/wobble_min = 0.75
+
+[sub_resource type="Animation" id="Animation_yfsl5"]
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("HitBox/orb2:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [6.28319]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("HitBox/orb1:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-6.28319]
+}
+
+[sub_resource type="Animation" id="Animation_50kuu"]
+resource_name = "spin"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("HitBox/orb1:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, -6.28319]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("HitBox/orb2:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 6.28319]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_wwnxa"]
+_data = {
+"RESET": SubResource("Animation_yfsl5"),
+"spin": SubResource("Animation_50kuu")
+}
+
+[node name="Homing Shoot" type="Node2D"]
+script = ExtResource("1_8gpw2")
+
+[node name="HitBox" parent="." instance=ExtResource("8_6flxy")]
+
+[node name="bullet" type="Node2D" parent="HitBox"]
+z_index = 1
+position = Vector2(1, 4)
+script = ExtResource("2_t1yrh")
+maxBullet = 57
+speed = 727.0
+Grazable = false
+CollideWithAreas = true
+CollisionMask = 3
+texture = ExtResource("3_vbdbu")
+
+[node name="Marker2D" type="Marker2D" parent="HitBox/bullet"]
+position = Vector2(7, -38)
+rotation = -1.5708
+gizmo_extents = 51.7
+
+[node name="Position2D2" type="Marker2D" parent="HitBox/bullet"]
+position = Vector2(-7, -58)
+rotation = -1.5708
+gizmo_extents = 82.9
+
+[node name="Timer" type="Timer" parent="HitBox/bullet"]
+process_callback = 0
+wait_time = 0.143
+
+[node name="orb1" type="Node2D" parent="HitBox"]
+z_index = 1
+material = SubResource("ShaderMaterial_ah5ge")
+rotation = -6.28319
+script = ExtResource("5_8pxuo")
+SeekMask = 2
+seekRadius = 646.0
+maxBullet = 57
+speed = 727.0
+Grazable = false
+CollideWithAreas = true
+CollisionMask = 3
+texture = ExtResource("6_ytpa5")
+
+[node name="YinyangOrb" type="Sprite2D" parent="HitBox/orb1"]
+z_index = 9
+position = Vector2(98, 0)
+rotation = -1.5708
+texture = ExtResource("7_aereh")
+flip_h = true
+
+[node name="YinyangOrb4" type="Sprite2D" parent="HitBox/orb1"]
+z_index = 9
+position = Vector2(-98, 0)
+rotation = -1.5708
+texture = ExtResource("7_aereh")
+flip_h = true
+
+[node name="orb2" type="Node2D" parent="HitBox"]
+z_index = 1
+material = SubResource("ShaderMaterial_tnuw6")
+rotation = 6.28319
+script = ExtResource("5_8pxuo")
+SeekMask = 2
+seekRadius = 646.0
+maxBullet = 57
+speed = 727.0
+Grazable = false
+CollideWithAreas = true
+CollisionMask = 3
+texture = ExtResource("6_ytpa5")
+
+[node name="YinyangOrb" type="Sprite2D" parent="HitBox/orb2"]
+z_index = 9
+position = Vector2(0, -132)
+rotation = -1.5708
+texture = ExtResource("7_aereh")
+
+[node name="YinyangOrb4" type="Sprite2D" parent="HitBox/orb2"]
+z_index = 9
+position = Vector2(0, 132)
+rotation = -1.5708
+texture = ExtResource("7_aereh")
+
+[node name="Timer2" type="Timer" parent="HitBox"]
+process_callback = 0
+wait_time = 0.333
+
+[node name="orbAnimator" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_wwnxa")
+}
+
+[connection signal="set_shooting" from="HitBox" to="." method="_set_shooting"]
+[connection signal="timeout" from="HitBox/bullet/Timer" to="HitBox/bullet" method="SpawnBullet"]
+[connection signal="timeout" from="HitBox/Timer2" to="HitBox/orb1" method="SpawnBullet"]
+[connection signal="timeout" from="HitBox/Timer2" to="HitBox/orb2" method="SpawnBullet"]

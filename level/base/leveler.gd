@@ -4,15 +4,12 @@ class_name Leveler
 
 var rewind : Rewind
 
-var score : Score
-
 ##Next level scene path.
 @export_file var next_level
 
 @onready var tree := get_tree()
-
-@onready var hud :HUD = $Node/hud
-@onready var screenfx :ScreenEffect = $Node/hud/ScreenEffect
+@onready var hud := $hud
+@onready var screenfx :ScreenEffect = $hud/ScreenEffect
 @onready var user_data :UserData = Global.user_data
 
 func _ready() -> void:
@@ -23,18 +20,18 @@ func _ready() -> void:
 	var tween := screenfx.fade2black()
 	tween.finished.connect(Callable(screenfx,'set_size').bind(global.playground))
 	
-	score = user_data.scores[tree.current_scene.scene_file_path]
-	hud.hi_score_label.update_label(score.score)
+	var score = load(user_data.scores[tree.current_scene.scene_file_path])
+	add_child(score.player.instantiate())
+	hud.score_file = score
 	
 	Global.leveler = self
-	add_child(Global.player)
 
 ##Level finisher.
 func finished() -> void:
 	if Engine.is_editor_hint:
 		return
 	
-	Global.score.save_score()
+	hud.save_score()
 	Global.user_data.unlock_level(next_level)
 	tree.change_scene_to(next_level)
 

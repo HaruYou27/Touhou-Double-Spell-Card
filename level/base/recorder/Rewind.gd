@@ -2,10 +2,8 @@ extends Node
 class_name Rewind
 ##Just a very performance hungry visual effect.
 
-##See [ViewportTexture].
 @onready var screenshot := get_viewport().get_texture()
 
-##See [Thread].
 @onready var thread := Thread.new()
 
 ##Just does the opposite of this node, I'm too lazy for another doc.

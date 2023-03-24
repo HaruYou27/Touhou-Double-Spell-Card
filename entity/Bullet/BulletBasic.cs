@@ -3,6 +3,7 @@ using Godot;
 public partial class BulletBasic : Node2D
 {
 	//Bullet shared properties.
+	[Export] public bool dynamicBarrel;
 	[Export] public long maxBullet = 127; //Exceed the limit and no more bullet will be shoot out.
 	[Export] public float speed = 525;
 	[Export] public bool localRotation = true;
@@ -71,16 +72,19 @@ public partial class BulletBasic : Node2D
 		Global = GetNode("/root/Global");
 		Global.Connect("bomb_impact", new Callable(this, "Clear"));
 
-		Godot.Collections.Array<Node> Barrels = GetChildren();
-		for (int i = 0; i < Barrels.Count; i++)
+		if (!dynamicBarrel)
 		{
-			if (!(Barrels[i] is Node2D))
+			Godot.Collections.Array<Node> Barrels = GetChildren();
+			for (int i = 0; i < Barrels.Count; i++)
 			{
-				Barrels.RemoveAt(i);
+				if (!(Barrels[i] is Node2D))
+				{
+					Barrels.RemoveAt(i);
+				}
 			}
+			barrels = new Node2D[Barrels.Count];
+			Barrels.CopyTo(barrels, 0);
 		}
-		barrels = new Node2D[Barrels.Count];
-		Barrels.CopyTo(barrels, 0);
 		BulletConstructor();
 
 		Rect2 texRect = new Rect2(-textureSize / 2, textureSize);
@@ -113,6 +117,11 @@ public partial class BulletBasic : Node2D
 	}
 	public virtual void SpawnBullet()
 	{
+		if (dynamicBarrel)
+		{
+			barrels = new Node2D[GetChildCount()];
+			GetChildren().CopyTo(barrels, 0);
+		}
 		foreach (Node2D barrel in barrels)
 		{
 			if (activeIndex == maxBullet) { return; }
