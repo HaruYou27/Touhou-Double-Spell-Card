@@ -1,24 +1,34 @@
 extends ColorRect
-class_name ScreenEffect
 
 var shaking := 0.0
 
+const black := Color(0.129412, 0.129412, 0.129412)
+const black_trans := Color(black, 0.)
+
 func _ready() -> void:
+	hide()
+	mouse_filter = Control.MOUSE_FILTER_IGNORE
+	process_mode = Node.PROCESS_MODE_ALWAYS
 	set_process(false)
 	Global.connect("bomb_impact",Callable(self,'screen_shake'))
-	Global.screenfx = self
 
-func fade2black() -> Tween:
+func fade2black(reverse:=false) -> Tween:
 	show()
 	size = global.game_rect
-	color = Color(0.129412, 0.129412, 0.129412)
 	var tween := create_tween()
-	tween.tween_property(self, 'color', Color(0.129412, 0.129412, 0.129412, 0), .5)
+	if reverse:
+		color = black
+		tween.tween_property(self, 'color', black_trans, .5)
+	else:
+		color = black_trans
+		tween.tween_property(self, 'color', black, .5)
+		
 	tween.finished.connect(Callable(self,"hide"))
 	return tween
 
 func flash() -> void:
 	show()
+	size = global.playground
 	color = Color(1, 1, 1, .5)
 	var tween := create_tween()
 	tween.tween_property(self, 'color', Color.TRANSPARENT, .15)
@@ -26,11 +36,12 @@ func flash() -> void:
 
 func flash_red() -> void:
 	show()
+	size = global.game_rect
 	color = Color(0.996078, 0.203922, 0.203922, 0.592157)
 	
 func _process(delta:float) -> void:
 	if shaking <= 0.0:
-		Global.leveler.position = Vector2(526, 88)
+		Global.leveler.position = Vector2.ZERO
 		set_process(false)
 	else:
 		shaking -= delta

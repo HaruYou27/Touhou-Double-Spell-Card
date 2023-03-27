@@ -5,11 +5,10 @@ signal next_event
 @onready var init_pos : Vector2
 @onready var timer : Timer = $Timer
 
-var player
+var player : Player
 
 func _ready() -> void:
 	set_physics_process(false)
-	Global.player.can_shoot = false
 	
 func start_event() -> void:
 	timer.start()

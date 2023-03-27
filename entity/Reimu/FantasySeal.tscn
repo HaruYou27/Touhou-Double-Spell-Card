@@ -1,51 +1,140 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=18 format=3 uid="uid://bgl7jkxic7sv6"]
 
-[ext_resource path="res://entity/Reimu/seal-orb.tscn" type="PackedScene" id=1]
-[ext_resource path="res://entity/Reimu/FantasySeal.gd" type="Script" id=2]
-[ext_resource path="res://entity/utility/Particle.gd" type="Script" id=3]
-[ext_resource path="res://entity/enemy/phantom/fire_particle.png" type="Texture2D" id=4]
+[ext_resource type="Script" path="res://entity/Reimu/FantasySeal.gd" id="1_s4ud0"]
+[ext_resource type="Texture2D" uid="uid://dxsf3vpqsosf1" path="res://entity/enemy/phantom/fire_particle.png" id="1_ys8un"]
+[ext_resource type="Script" path="res://entity/utility/Particle.gd" id="2_fhjnj"]
+[ext_resource type="Script" path="res://entity/utility/particle/deathFX.gd" id="3_skyj2"]
 
-[sub_resource type="CanvasItemMaterial" id=2]
+[sub_resource type="CanvasItemMaterial" id="2"]
 blend_mode = 1
 
-[sub_resource type="ParticleProcessMaterial" id=25]
+[sub_resource type="Gradient" id="Gradient_fifpb"]
+offsets = PackedFloat32Array(0, 0.490566, 1)
+colors = PackedColorArray(1, 0, 0, 1, 0, 1, 0, 1, 0, 0, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_mfnsc"]
+gradient = SubResource("Gradient_fifpb")
+
+[sub_resource type="ParticleProcessMaterial" id="5"]
 emission_shape = 1
 emission_sphere_radius = 8.0
-flag_disable_z = true
-direction = Vector3( 0, 0, 0 )
+particle_flag_disable_z = true
+direction = Vector3(0, 0, 0)
+gravity = Vector3(0, 0, 0)
+angular_velocity_min = 388.8
+angular_velocity_max = 532.8
+orbit_velocity_min = 120.0
+orbit_velocity_max = 120.0
+color_ramp = SubResource("GradientTexture1D_mfnsc")
+attractor_interaction_enabled = false
+
+[sub_resource type="Gradient" id="Gradient_ji1ah"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_i6qu0"]
+gradient = SubResource("Gradient_ji1ah")
+
+[sub_resource type="ParticleProcessMaterial" id="6"]
+emission_shape = 1
+emission_sphere_radius = 8.0
+particle_flag_disable_z = true
+direction = Vector3(0, 0, 0)
+gravity = Vector3(0, 0, 0)
+angular_velocity_min = 518.4
+angular_velocity_max = 518.4
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+scale_min = 0.2
+scale_max = 0.2
+color_ramp = SubResource("GradientTexture1D_i6qu0")
+attractor_interaction_enabled = false
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_dc85f"]
+blend_mode = 1
+
+[sub_resource type="Gradient" id="Gradient_jjlym"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_sarv2"]
+gradient = SubResource("Gradient_jjlym")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_357pd"]
+emission_shape = 1
+emission_sphere_radius = 8.0
+particle_flag_disable_z = true
+direction = Vector3(0, 0, 0)
 spread = 180.0
-gravity = Vector3( 0, 0, 0 )
-initial_velocity = 727.0
-angular_velocity = 227.0
-orbit_velocity = 0.0
-orbit_velocity_random = 0.0
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 180.0
+initial_velocity_max = 260.0
+angular_velocity_min = 288.0
+angular_velocity_max = 288.0
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+color_ramp = SubResource("GradientTexture1D_sarv2")
 
-[node name="FantasySeal" type="Node"]
-script = ExtResource( 2 )
+[sub_resource type="CircleShape2D" id="CircleShape2D_pvvnu"]
+radius = 19.0
 
-[node name="rotator" type="Node2D" parent="."]
+[sub_resource type="CircleShape2D" id="CircleShape2D_43n76"]
+radius = 906.0
 
-[node name="seal" parent="rotator" instance=ExtResource( 1 )]
+[node name="FantasySeal" type="Area2D"]
+collision_layer = 0
+collision_mask = 2
+input_pickable = false
+monitorable = false
+script = ExtResource("1_s4ud0")
 
-[node name="seal2" parent="rotator" instance=ExtResource( 1 )]
-rotation = 1.5708
+[node name="orb" type="GPUParticles2D" parent="."]
+z_index = 5
+texture_filter = 1
+material = SubResource("2")
+amount = 16
+process_material = SubResource("5")
+texture = ExtResource("1_ys8un")
+preprocess = 1.0
+fixed_fps = 60
+local_coords = true
+draw_order = 0
+script = ExtResource("2_fhjnj")
 
-[node name="seal3" parent="rotator" instance=ExtResource( 1 )]
-rotation = -3.14159
-
-[node name="seal4" parent="rotator" instance=ExtResource( 1 )]
-rotation = -1.5708
+[node name="trail" type="GPUParticles2D" parent="orb"]
+material = SubResource("2")
+position = Vector2(0, -1)
+amount = 32
+process_material = SubResource("6")
+texture = ExtResource("1_ys8un")
+fixed_fps = 60
+script = ExtResource("2_fhjnj")
 
 [node name="explosion" type="GPUParticles2D" parent="."]
-material = SubResource( 2 )
-position = Vector2( 1, 0 )
+material = SubResource("CanvasItemMaterial_dc85f")
+position = Vector2(1, 1)
 emitting = false
-amount = 32
+amount = 64
+process_material = SubResource("ParticleProcessMaterial_357pd")
+texture = ExtResource("1_ys8un")
 lifetime = 2.0
 one_shot = true
-preprocess = 0.1
+speed_scale = 2.5
 explosiveness = 1.0
-randomness = 1.0
-process_material = SubResource( 25 )
-texture = ExtResource( 4 )
-script = ExtResource( 3 )
+fixed_fps = 60
+local_coords = true
+draw_order = 0
+script = ExtResource("3_skyj2")
+
+[node name="sfx" type="AudioStreamPlayer" parent="explosion"]
+bus = &"SFX"
+
+[node name="hitbox" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_pvvnu")
+
+[node name="SeekShape" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_43n76")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 2.0
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="timeout" from="Timer" to="." method="explode"]

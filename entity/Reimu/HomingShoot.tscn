@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://beweol2qml2ub"]
+[gd_scene load_steps=13 format=3 uid="uid://beweol2qml2ub"]
 
 [ext_resource type="Script" path="res://entity/Reimu/homing-shoot.gd" id="1_8gpw2"]
 [ext_resource type="Script" path="res://entity/Bullet/BulletBasic.cs" id="2_t1yrh"]
@@ -7,7 +7,6 @@
 [ext_resource type="Script" path="res://entity/Bullet/Seeker.cs" id="5_8pxuo"]
 [ext_resource type="Texture2D" uid="uid://dk5iw3idwfm40" path="res://entity/Reimu/texture/ofuda.png" id="6_ytpa5"]
 [ext_resource type="Texture2D" uid="uid://bxqtm4axxr5gl" path="res://entity/Reimu/texture/yinyangOrb.png" id="7_aereh"]
-[ext_resource type="PackedScene" uid="uid://brajcyeanc1p3" path="res://entity/Reimu/reimu.tscn" id="8_6flxy"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ah5ge"]
 shader = ExtResource("4_vbi1h")
@@ -48,7 +47,7 @@ loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("HitBox/orb2:rotation")
+tracks/0/path = NodePath("orb2:rotation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -60,7 +59,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("HitBox/orb1:rotation")
+tracks/1/path = NodePath("orb1:rotation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -76,7 +75,7 @@ loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("HitBox/orb1:rotation")
+tracks/0/path = NodePath("orb1:rotation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -88,7 +87,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("HitBox/orb2:rotation")
+tracks/1/path = NodePath("orb2:rotation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -107,9 +106,15 @@ _data = {
 [node name="Homing Shoot" type="Node2D"]
 script = ExtResource("1_8gpw2")
 
-[node name="HitBox" parent="." instance=ExtResource("8_6flxy")]
+[node name="Timer" type="Timer" parent="."]
+process_callback = 0
+wait_time = 0.143
 
-[node name="bullet" type="Node2D" parent="HitBox"]
+[node name="Timer2" type="Timer" parent="."]
+process_callback = 0
+wait_time = 0.333
+
+[node name="bullet" type="Node2D" parent="."]
 z_index = 1
 position = Vector2(1, 4)
 script = ExtResource("2_t1yrh")
@@ -120,21 +125,17 @@ CollideWithAreas = true
 CollisionMask = 3
 texture = ExtResource("3_vbdbu")
 
-[node name="Marker2D" type="Marker2D" parent="HitBox/bullet"]
+[node name="Marker2D" type="Marker2D" parent="bullet"]
 position = Vector2(7, -38)
 rotation = -1.5708
 gizmo_extents = 51.7
 
-[node name="Position2D2" type="Marker2D" parent="HitBox/bullet"]
+[node name="Position2D2" type="Marker2D" parent="bullet"]
 position = Vector2(-7, -58)
 rotation = -1.5708
 gizmo_extents = 82.9
 
-[node name="Timer" type="Timer" parent="HitBox/bullet"]
-process_callback = 0
-wait_time = 0.143
-
-[node name="orb1" type="Node2D" parent="HitBox"]
+[node name="orb1" type="Node2D" parent="."]
 z_index = 1
 material = SubResource("ShaderMaterial_ah5ge")
 rotation = -6.28319
@@ -148,21 +149,21 @@ CollideWithAreas = true
 CollisionMask = 3
 texture = ExtResource("6_ytpa5")
 
-[node name="YinyangOrb" type="Sprite2D" parent="HitBox/orb1"]
+[node name="YinyangOrb" type="Sprite2D" parent="orb1"]
 z_index = 9
 position = Vector2(98, 0)
 rotation = -1.5708
 texture = ExtResource("7_aereh")
 flip_h = true
 
-[node name="YinyangOrb4" type="Sprite2D" parent="HitBox/orb1"]
+[node name="YinyangOrb4" type="Sprite2D" parent="orb1"]
 z_index = 9
 position = Vector2(-98, 0)
 rotation = -1.5708
 texture = ExtResource("7_aereh")
 flip_h = true
 
-[node name="orb2" type="Node2D" parent="HitBox"]
+[node name="orb2" type="Node2D" parent="."]
 z_index = 1
 material = SubResource("ShaderMaterial_tnuw6")
 rotation = 6.28319
@@ -176,28 +177,23 @@ CollideWithAreas = true
 CollisionMask = 3
 texture = ExtResource("6_ytpa5")
 
-[node name="YinyangOrb" type="Sprite2D" parent="HitBox/orb2"]
+[node name="YinyangOrb" type="Sprite2D" parent="orb2"]
 z_index = 9
 position = Vector2(0, -132)
 rotation = -1.5708
 texture = ExtResource("7_aereh")
 
-[node name="YinyangOrb4" type="Sprite2D" parent="HitBox/orb2"]
+[node name="YinyangOrb4" type="Sprite2D" parent="orb2"]
 z_index = 9
 position = Vector2(0, 132)
 rotation = -1.5708
 texture = ExtResource("7_aereh")
-
-[node name="Timer2" type="Timer" parent="HitBox"]
-process_callback = 0
-wait_time = 0.333
 
 [node name="orbAnimator" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_wwnxa")
 }
 
-[connection signal="set_shooting" from="HitBox" to="." method="_set_shooting"]
-[connection signal="timeout" from="HitBox/bullet/Timer" to="HitBox/bullet" method="SpawnBullet"]
-[connection signal="timeout" from="HitBox/Timer2" to="HitBox/orb1" method="SpawnBullet"]
-[connection signal="timeout" from="HitBox/Timer2" to="HitBox/orb2" method="SpawnBullet"]
+[connection signal="timeout" from="Timer" to="bullet" method="SpawnBullet"]
+[connection signal="timeout" from="Timer2" to="orb1" method="SpawnBullet"]
+[connection signal="timeout" from="Timer2" to="orb2" method="SpawnBullet"]

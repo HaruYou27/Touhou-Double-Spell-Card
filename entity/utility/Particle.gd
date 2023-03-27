@@ -6,3 +6,4 @@ func _ready():
 		return
 		
 	amount /= 2
+	fixed_fps /= 2

@@ -1,11 +1,5 @@
 extends ColorRect
 
-var score_file : Score : set = _set_score_file
-func _set_score_file(file:Score) -> void:
-	score_file = file
-	hi_score_label.update_label(score_file.score)
-	multiplier = pow(Global.player.death_timer.wait_time, Engine.time_scale)
-	
 var score := 0
 var item := 0.0
 var updating_item := false
@@ -15,6 +9,7 @@ var goal := 0
 
 var multiplier := 0.
 
+@onready var score_file :Score = Global.score
 @onready var hi_score_label :FormatLabel = $VBoxContainer/HiScore
 @onready var score_label :FormatLabel = $VBoxContainer/Score
 @onready var graze_label :FormatLabel = $VBoxContainer/Graze
@@ -33,6 +28,9 @@ func save_score() -> void:
 	ResourceSaver.save(score_file, score_file.resource_path, ResourceSaver.FLAG_COMPRESS)
 
 func _ready() -> void:
+	hi_score_label.update_label(score_file.score)
+	multiplier = pow(Global.score.death_time, Engine.time_scale)
+	
 	Global.connect("item_collect",Callable(self,"_set_item"))
 	Global.connect('bullet_graze',Callable(self,'_set_graze'))
 	
@@ -40,9 +38,10 @@ func _ready() -> void:
 	item_label.update_label(0)
 	goal_label.update_label(0)
 	bomb_label.update_label(1)
+	graze_label.update_label(0)
 
-#There's no item in updating the score more than 1 per frame.
-func _set_item(value:float) -> void:
+#There's no point in updating the score more than 1 per frame.
+func _set_item(value:=1.) -> void:
 	item += value
 	if updating_item:
 		return

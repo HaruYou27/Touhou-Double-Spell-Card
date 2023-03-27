@@ -6,23 +6,38 @@ class_name global
 signal bullet_graze
 
 ##Emited by item when intersect player's hitbox (not item Area2D).
-signal item_collect(point)
+signal item_collect(value:float)
 
 ##Emited by player's bomb node. Wipe out everything on screen.
 signal bomb_impact
 
+signal can_player_shoot(value:bool)
+
 var leveler : Leveler
-var boss :Boss
+var boss : Boss
 var user_data : UserData
 var player : Player
-var screenfx : ScreenEffect
-var item_manager
+var score := Score.new()
 
 ##Play area rectangle.
 const playground := Vector2(604, 906)
 
 ##Default resolution.
 const game_rect := Vector2(1208, 906)
+
+@onready var tree := get_tree()
+
+func restart_scene() -> void:
+	ItemManager.Clear()
+	tree.paused = false
+	var tween :Tween = ScreenEffect.fade2black()
+	tween.finished.connect(Callable(tree, 'reload_current_scene'))
+	
+func change_scene(scene:String) -> void:
+	ItemManager.Clear()
+	tree.paused = false
+	var tween :Tween = ScreenEffect.fade2black()
+	tween.finished.connect(Callable(tree, 'change_scene_to_file').bind(scene))
 
 ##Convert an InputEvent to String.
 static func get_input_string(event:InputEvent) -> String:
@@ -60,8 +75,9 @@ func _exit_tree() -> void:
 	if Engine.is_editor_hint:
 		return
 	
-	var viewport :Vector2 = get_viewport().size
-	ProjectSettings.set_setting('display/window/size/viewport_width', viewport.x)
-	ProjectSettings.set_setting('display/window/size/viewport_height', viewport.y)
+	var window := get_window()
+	ProjectSettings.set_setting('display/window/size/viewport_width', window.size.x)
+	ProjectSettings.set_setting('display/window/size/viewport_height', window.size.y)
+	ProjectSettings.set_setting('display/window/size/mode', window.mode)
 	ProjectSettings.save_custom('user://override.cfg')
 	ResourceSaver.save(user_data, 'user://1218622924.res', ResourceSaver.FLAG_COMPRESS)

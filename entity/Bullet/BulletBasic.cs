@@ -20,13 +20,13 @@ public partial class BulletBasic : Node2D
 	//Visual.
 	[Export]
 	public Texture2D texture;
-	private Texture2D tex;
 
 	protected nint activeIndex = 0; //Current empty index, also bullet count.
 	protected nint index;
 	protected Node2D[] barrels;
 	protected static Node Global;
 	protected static World2D world;
+	protected static ItemManager itemManager;
 
 	protected Bullet[] bullets;
 	protected class Bullet
@@ -68,22 +68,15 @@ public partial class BulletBasic : Node2D
 		query.CollideWithBodies = CollideWithBodies;
 		query.CollisionMask = CollisionMask;
 
-		world = GetWorld2D();
-		Global = GetNode("/root/Global");
-		Global.Connect("bomb_impact", new Callable(this, "Clear"));
-
+		
+		if (Grazable)
+		{
+			Global.Connect("bomb_impact", new Callable(this, "Clear"));
+		}
 		if (!dynamicBarrel)
 		{
-			Godot.Collections.Array<Node> Barrels = GetChildren();
-			for (int i = 0; i < Barrels.Count; i++)
-			{
-				if (!(Barrels[i] is Node2D))
-				{
-					Barrels.RemoveAt(i);
-				}
-			}
-			barrels = new Node2D[Barrels.Count];
-			Barrels.CopyTo(barrels, 0);
+			barrels = new Node2D[GetChildCount()];
+			GetChildren().CopyTo(barrels, 0);
 		}
 		BulletConstructor();
 
@@ -94,6 +87,7 @@ public partial class BulletBasic : Node2D
 			Rid sprite = bullet.sprite;
 
 			RenderingServer.CanvasItemSetVisible(sprite, false);
+			RenderingServer.CanvasItemSetDefaultTextureFilter(sprite, RenderingServer.CanvasItemTextureFilter.Nearest);
 			RenderingServer.CanvasItemSetZIndex(sprite, ZIndex);
 			RenderingServer.CanvasItemSetParent(sprite, world.Canvas);
 			RenderingServer.CanvasItemSetLightMask(sprite, 0);
@@ -146,7 +140,7 @@ public partial class BulletBasic : Node2D
 	{
 		if (activeIndex == 0) { return; }
 
-		Vector2[] positions = new Vector2[maxBullet];
+		Vector2[] positions = new Vector2[activeIndex];
 		for (nint i = 0; i < activeIndex; i++)
 		{
 			Bullet bullet = bullets[i];
@@ -154,7 +148,7 @@ public partial class BulletBasic : Node2D
 			positions[i] = bullet.transform.Origin;
 		}
 		activeIndex = 0;
-		((ItemManager)Global.Get("leveler.item_manager")).ConvertBullet(positions);
+		itemManager.ConvertBullet(positions);
 	}
 	protected virtual Transform2D Move(in float delta)
 	{
@@ -193,14 +187,14 @@ public partial class BulletBasic : Node2D
 			Bullet bullet = bullets[index];
 			//Collision checking.
 			query.Transform = Move(delta32);
-			if (bullet.grazable) { query.CollisionMask = CollisionMask + 8; }
+			if (bullet.grazable) { query.CollisionMask = CollisionMask + 8;}
 			else { query.CollisionMask = CollisionMask; }
 
 			Godot.Collections.Dictionary result = world.DirectSpaceState.GetRestInfo(query);
-			if (result.Count == 0 || Collide(result)) { continue; }
+			if (result.Count == 0 || Collide(result)) {continue;}
 
 			RenderingServer.CanvasItemSetVisible(bullet.sprite, false);
-			if (index == lastIndex) { continue; }
+			if (index == lastIndex) {continue;}
 			//Sort from tail to head to minimize array access.
 			//Avoid memory leak in Godot server.
 			bullets[index] = bullets[lastIndex];

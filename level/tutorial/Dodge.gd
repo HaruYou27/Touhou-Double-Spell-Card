@@ -8,12 +8,12 @@ var harder := false
 
 func _ready() -> void:
 	set_physics_process(false)
-	Global.bomb_impact.connect(Callable(self, 'queue_free'))
 	
 func start_event() -> void:
 	$Timer.start()
 	timer.start()
 	set_physics_process(true)
+	Global.bomb_impact.connect(Callable(self, 'queue_free'))
 	
 func _physics_process(delta:float) -> void:
 	bullet.rotation += delta * TAU

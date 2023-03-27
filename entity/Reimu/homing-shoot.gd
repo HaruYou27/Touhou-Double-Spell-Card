@@ -1,17 +1,15 @@
 extends Node2D
 
-@onready var timer1 : Timer = $HitBox/bullet/Timer
-@onready var timer2 : Timer = $HitBox/Timer2
-@onready var orb1 : Node2D = $HitBox/orb1
-@onready var orb2 : Node2D = $HitBox/orb2
+@onready var timer1 : Timer = $Timer
+@onready var timer2 : Timer = $Timer2
+@onready var orb1 : Node2D = $orb1
+@onready var orb2 : Node2D = $orb2
 
 @onready var orb_animator : AnimationPlayer = $orbAnimator
 
-func free_hitbox() -> void:
-	$HitBox.queue_free()
-
 func _ready() -> void:
 	orb_animator.play("spin")
+	Global.can_player_shoot.connect(Callable(self, '_set_shooting'))
 
 func _set_shooting(value:bool) -> void:
 	if value:

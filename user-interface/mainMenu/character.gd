@@ -19,7 +19,6 @@ func _ready():
 	
 	for scene in players:
 		var node :Node2D = scene.instantiate()
-		node.free_hitbox()
 		node.hide()
 		spawn_location.add_child(node)
 		
@@ -38,12 +37,13 @@ func _preview(index:int) -> void:
 		node.hide()
 		node._set_shooting(false)
 	
-	var node :Node = nodes[index]
+	var node :Node2D = nodes[index]
 	node._set_shooting(true)
 	node.show()
 
 func _start(index:int) -> void:
 	header.score.save_setting(death_timer.value, players[index])
+	Global.score = header.score
 	Engine.time_scale = speed.value
 	
-	get_tree().change_scene_to_file(header.level)
+	Global.change_scene(header.level)
