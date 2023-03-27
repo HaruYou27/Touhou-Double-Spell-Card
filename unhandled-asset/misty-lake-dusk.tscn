@@ -1,0 +1,75 @@
+[gd_scene load_steps=14 format=3 uid="uid://csjocfg1vn4vn"]
+
+[ext_resource type="Shader" path="res://shader/background/moving-tiled.gdshader" id="1_wj8pp"]
+[ext_resource type="Texture2D" uid="uid://r7d3f3sdgdhy" path="res://entity/Reimu/texture/reimu.png" id="2_5ymgi"]
+
+[sub_resource type="Gradient" id="Gradient_eav0f"]
+offsets = PackedFloat32Array(0.229885, 1)
+colors = PackedColorArray(0.207843, 0.145098, 1, 1, 0.890196, 0.278431, 0, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_el2vm"]
+frequency = 0.005
+fractal_type = 2
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_lemsc"]
+width = 1208
+height = 906
+seamless = true
+color_ramp = SubResource("Gradient_eav0f")
+noise = SubResource("FastNoiseLite_el2vm")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vb1g8"]
+shader = ExtResource("1_wj8pp")
+shader_parameter/velocity = Vector2(0, -0.1)
+
+[sub_resource type="Gradient" id="Gradient_ro070"]
+offsets = PackedFloat32Array(0.281609, 1)
+colors = PackedColorArray(0, 0, 0, 0, 1, 1, 1, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_4e8k0"]
+frequency = 0.004
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_jheev"]
+width = 1208
+height = 906
+seamless = true
+color_ramp = SubResource("Gradient_ro070")
+noise = SubResource("FastNoiseLite_4e8k0")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_q7nkq"]
+shader = ExtResource("1_wj8pp")
+shader_parameter/velocity = Vector2(0, -0.2)
+
+[sub_resource type="Gradient" id="Gradient_tdyuk"]
+colors = PackedColorArray(0, 0, 0, 0, 1, 1, 1, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_03m11"]
+seed = 645
+frequency = 0.004
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_c8er6"]
+width = 1208
+height = 906
+seamless = true
+color_ramp = SubResource("Gradient_tdyuk")
+noise = SubResource("FastNoiseLite_03m11")
+
+[node name="misty-lake" type="Sprite2D"]
+texture_repeat = 2
+texture = SubResource("NoiseTexture2D_lemsc")
+centered = false
+
+[node name="fog" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_vb1g8")
+texture = SubResource("NoiseTexture2D_jheev")
+centered = false
+
+[node name="fogOverlay" type="Sprite2D" parent="."]
+z_index = 900
+material = SubResource("ShaderMaterial_q7nkq")
+texture = SubResource("NoiseTexture2D_c8er6")
+centered = false
+
+[node name="Reimu" type="Sprite2D" parent="."]
+position = Vector2(157, 736)
+texture = ExtResource("2_5ymgi")

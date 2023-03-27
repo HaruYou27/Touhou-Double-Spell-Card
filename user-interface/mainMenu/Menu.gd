@@ -6,12 +6,15 @@ var sub_menus : Array
 @onready var current_menu := $main
 
 func _ready():
-	for node in get_children():
+	var nodes := get_children()
+	nodes.remove_at(0)
+	
+	for node in nodes:
 		if node is Control:
 			sub_menus.append(node)
 			node.hide()
 			node.modulate = Color.TRANSPARENT
-			
+	
 	current_menu.show()
 	current_menu.modulate = Color.WHITE
 

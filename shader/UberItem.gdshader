@@ -51,38 +51,8 @@ varying float rainbow_hue;
 void vertex()
 {
 	float time = TIME * time_scale;
-	
-	if (rainbow)
-	{
-    	rainbow_hue = abs(sin(time)) + COLOR.a;
-	}
-	else
-	{
-		rainbow_hue = 0.0;
-	}
-    if (spin)
-	{
-    	float phi = time * PI * sign(COLOR.a - .5);
-        VERTEX *= mat2(vec2(cos(phi),-sin(phi)),
-                       vec2(sin(phi),cos(phi)));
-    }
-	if (wobble)
-	{
-		VERTEX *= wobble_min + abs(sin(time + 1000.0*COLOR.a)) * (wobble_max - wobble_min);
-	}
-	if (disable_modulate)
-	{
-		COLOR.a = 1.0;
-	}
-	if (sin_alpha)
-	{
-		COLOR.a = sin(time);
-	}
-	if (displace)
-	{
-		VERTEX.x += sin(time) * displace_strength;
-		VERTEX.y += cos(time) * displace_strength;
-	}
+	COLOR.a = cos(time);
+
 }
 void fragment()
 {

@@ -6,6 +6,7 @@ uniform float formuparam = 1.00;
 uniform int volsteps = 5;
 uniform float stepsize = 0.347;
 
+uniform vec2 iResolution;
 uniform float zoom = 1.;
 uniform float tile = .5;
 uniform float speed = .001;
@@ -29,7 +30,7 @@ float SCurve (float value) {
 void fragment()
 {
 	//Direction and coord.
-	lowp vec3 dir=vec3(FRAGCOORD.xy*0.001*zoom,1.);
+	lowp vec3 dir=vec3(UV.xy*zoom*0.001,1.);
 	lowp vec3 from=vec3(1.0,0.5,0.5);
 	from-=vec3(0.0, TIME * speed,0.0);
 	
