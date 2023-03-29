@@ -1,21 +1,41 @@
-[gd_scene load_steps=2 format=3 uid="uid://ef1dgjmgrhls"]
+[gd_scene load_steps=5 format=3 uid="uid://ef1dgjmgrhls"]
 
 [ext_resource type="Script" path="res://tool/shader-baker/ShaderBaker.gd" id="1"]
 
+[sub_resource type="Gradient" id="Gradient_eav0f"]
+offsets = PackedFloat32Array(0.00574713, 1)
+colors = PackedColorArray(0, 0.069, 0.09, 1, 0.1105, 0.16445, 0.65, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_el2vm"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_dtp2y"]
+width = 1208
+height = 906
+seamless = true
+color_ramp = SubResource("Gradient_eav0f")
+noise = SubResource("FastNoiseLite_el2vm")
+
 [node name="ShaderBaker" type="SubViewportContainer"]
-offset_top = -1.0
-offset_right = 604.0
-offset_bottom = 905.0
-script = ExtResource("1")
-
-[node name="SubViewport" type="SubViewport" parent="."]
-handle_input_locally = false
-size = Vector2i(604, 906)
-render_target_update_mode = 4
-
-[node name="shader" type="ColorRect" parent="SubViewport"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1")
+
+[node name="SubViewport" type="SubViewport" parent="."]
+handle_input_locally = false
+size = Vector2i(1208, 906)
+render_target_update_mode = 4
+
+[node name="shader" type="ColorRect" parent="SubViewport"]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="SubViewport"]
+texture = SubResource("NoiseTexture2D_dtp2y")
+centered = false

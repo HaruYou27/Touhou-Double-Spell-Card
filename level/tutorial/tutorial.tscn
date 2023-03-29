@@ -1,7 +1,7 @@
-[gd_scene load_steps=18 format=3 uid="uid://drugmoq3l634s"]
+[gd_scene load_steps=18 format=3]
 
 [ext_resource type="Script" path="res://level/tutorial/item.gd" id="1"]
-[ext_resource type="Texture2D" uid="uid://bn8nged18pm41" path="res://level/yukari/base/texture/Yukari.png" id="3_rxcrf"]
+[ext_resource type="Texture2D" uid="uid://bn8nged18pm41" path="res://entity/yukari/base/texture/Yukari.png" id="3_rxcrf"]
 [ext_resource type="Script" path="res://level/tutorial/Move.gd" id="4"]
 [ext_resource type="Shader" path="res://shader/UberItem.gdshader" id="5_ke7b2"]
 [ext_resource type="Script" path="res://level/tutorial/bomb.gd" id="6"]
@@ -10,7 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://cnecndeyl8vpm" path="res://level/base/resource/boss-indicator.png" id="7_02srm"]
 [ext_resource type="Script" path="res://entity/utility/LockedNode2D.gd" id="8_55grs"]
 [ext_resource type="Theme" uid="uid://ns3m7fkxl25r" path="res://user-interface/resource/Mono-font.tres" id="8_kk8vw"]
-[ext_resource type="Texture2D" uid="uid://d1nkk7km71ule" path="res://level/yukari/base/texture/kunai1.png" id="9"]
+[ext_resource type="Texture2D" uid="uid://d1nkk7km71ule" path="res://entity/yukari/base/texture/kunai1.png" id="9"]
 [ext_resource type="Script" path="res://level/tutorial/Dodge.gd" id="10"]
 [ext_resource type="Script" path="res://level/tutorial/entrance.gd" id="11_qdkc3"]
 [ext_resource type="PackedScene" uid="uid://brajcyeanc1p3" path="res://entity/Reimu/reimu.tscn" id="14_whhm7"]

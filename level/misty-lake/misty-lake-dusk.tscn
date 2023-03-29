@@ -1,14 +1,27 @@
-[gd_scene load_steps=15 format=3 uid="uid://d2pw0sngf15qw"]
+[gd_scene load_steps=17 format=3 uid="uid://cliv0usc0pt4p"]
 
-[ext_resource type="Shader" path="res://shader/background/moving-tiled.gdshader" id="1_1lswi"]
-[ext_resource type="Texture2D" uid="uid://gpltby5mx2rx" path="res://unhandled-asset/blood-moon.webp" id="1_i5otd"]
-[ext_resource type="Texture2D" uid="uid://r7d3f3sdgdhy" path="res://entity/Reimu/texture/reimu.png" id="2_avrlp"]
+[ext_resource type="Shader" path="res://shader/background/water.gdshader" id="1_cf5hr"]
+[ext_resource type="Shader" path="res://shader/background/moving-tiled.gdshader" id="2_ursuh"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_bs8bj"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_jacp6"]
+width = 1208
+height = 906
+generate_mipmaps = false
+noise = SubResource("FastNoiseLite_bs8bj")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_l552c"]
+shader = ExtResource("1_cf5hr")
+shader_parameter/water_speed = -1.0
+shader_parameter/wave_distortion = 0.2
+shader_parameter/wave_multiplyer = 6
+shader_parameter/noise_texture = SubResource("NoiseTexture2D_jacp6")
 
 [sub_resource type="Gradient" id="Gradient_eav0f"]
-colors = PackedColorArray(0.0498333, 0, 0.23, 1, 0.105, 0.105, 0.3, 1)
+colors = PackedColorArray(0, 0.766667, 1, 1, 0.670588, 0.164706, 0.227451, 1)
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_el2vm"]
-noise_type = 2
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_lemsc"]
 width = 1208
@@ -18,8 +31,8 @@ color_ramp = SubResource("Gradient_eav0f")
 noise = SubResource("FastNoiseLite_el2vm")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_vb1g8"]
-shader = ExtResource("1_1lswi")
-shader_parameter/velocity = Vector2(0, -0.1)
+shader = ExtResource("2_ursuh")
+shader_parameter/velocity = Vector2(0, -0.15)
 
 [sub_resource type="Gradient" id="Gradient_ro070"]
 offsets = PackedFloat32Array(0.281609, 1)
@@ -36,8 +49,8 @@ color_ramp = SubResource("Gradient_ro070")
 noise = SubResource("FastNoiseLite_4e8k0")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_q7nkq"]
-shader = ExtResource("1_1lswi")
-shader_parameter/velocity = Vector2(0, -0.2)
+shader = ExtResource("2_ursuh")
+shader_parameter/velocity = Vector2(0, -0.25)
 
 [sub_resource type="Gradient" id="Gradient_tdyuk"]
 colors = PackedColorArray(0, 0, 0, 0, 1, 1, 1, 1)
@@ -55,13 +68,9 @@ noise = SubResource("FastNoiseLite_03m11")
 
 [node name="Sprite2D" type="Sprite2D"]
 texture_repeat = 2
+material = SubResource("ShaderMaterial_l552c")
 texture = SubResource("NoiseTexture2D_lemsc")
 centered = false
-
-[node name="Blood-moon" type="Sprite2D" parent="."]
-position = Vector2(317, 141)
-scale = Vector2(2, 2)
-texture = ExtResource("1_i5otd")
 
 [node name="fog" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_vb1g8")
@@ -73,7 +82,3 @@ z_index = 900
 material = SubResource("ShaderMaterial_q7nkq")
 texture = SubResource("NoiseTexture2D_c8er6")
 centered = false
-
-[node name="Reimu" type="Sprite2D" parent="."]
-position = Vector2(157, 736)
-texture = ExtResource("2_avrlp")
