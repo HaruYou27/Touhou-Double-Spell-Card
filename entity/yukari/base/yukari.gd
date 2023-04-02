@@ -29,5 +29,5 @@ func _bomb_hit() -> void:
 	
 func _hit() -> void:
 	gauge.value -= 1
-	if not gauge.value:
+	if gauge.value <= 0:
 		Global.leveler.next_event()

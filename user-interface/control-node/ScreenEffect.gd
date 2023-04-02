@@ -1,6 +1,8 @@
 extends ColorRect
 
 var shaking := 0.0
+var shake_node : Node2D
+var tree := get_tree()
 
 const black := Color(0.129412, 0.129412, 0.129412)
 const black_trans := Color(black, 0.)
@@ -10,7 +12,7 @@ func _ready() -> void:
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	set_process(false)
-	Global.connect("bomb_impact",Callable(self,'screen_shake'))
+	Global.bomb_impact.connect(Callable(self,'screen_shake'))
 
 func fade2black(reverse:=false) -> Tween:
 	show()
@@ -49,5 +51,6 @@ func _process(delta:float) -> void:
 
 func screen_shake() -> void:
 	shaking += .15
+	shake_node = tree.current_scene
 	set_process(true)
 	flash()

@@ -3,11 +3,12 @@ extends Control
 const ani_length := .25
 
 var sub_menus : Array
-@onready var current_menu := $main
+
+@onready var bgm : AudioStreamPlayer = $bgm
+@onready var current_menu : Control = $main
 
 func _ready():
 	var nodes := get_children()
-	nodes.remove_at(0)
 	
 	for node in nodes:
 		if node is Control:
@@ -17,6 +18,9 @@ func _ready():
 	
 	current_menu.show()
 	current_menu.modulate = Color.WHITE
+	
+	for level in $level.levels:
+		
 
 func _on_quit_pressed() -> void:
 	get_tree().quit()

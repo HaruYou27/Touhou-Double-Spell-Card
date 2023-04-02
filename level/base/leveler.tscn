@@ -273,6 +273,19 @@ shortcut = ExtResource("16")
 text = "Resume"
 script = ExtResource("6")
 
+[node name="ScreenShoot" type="Button" parent="PauseMenu/VBoxContainer"]
+layout_mode = 2
+focus_neighbor_left = NodePath(".")
+focus_neighbor_top = NodePath(".")
+focus_neighbor_right = NodePath("../Restart")
+focus_neighbor_bottom = NodePath("../Restart")
+focus_next = NodePath("../Restart")
+focus_previous = NodePath(".")
+disabled = true
+shortcut = ExtResource("16")
+text = "Screenshoot Mode"
+script = ExtResource("6")
+
 [node name="Restart" type="Button" parent="PauseMenu/VBoxContainer"]
 layout_mode = 2
 focus_neighbor_left = NodePath(".")
@@ -389,5 +402,6 @@ text = "FPS: %d"
 script = ExtResource("10")
 
 [connection signal="pressed" from="PauseMenu/VBoxContainer/Resume" to="PauseMenu" method="_on_Resume_pressed"]
+[connection signal="pressed" from="PauseMenu/VBoxContainer/ScreenShoot" to="PauseMenu" method="_on_screen_shoot_pressed"]
 [connection signal="pressed" from="PauseMenu/VBoxContainer/Restart" to="PauseMenu" method="_on_restart_pressed"]
 [connection signal="pressed" from="PauseMenu/VBoxContainer/Quit" to="PauseMenu" method="_on_Quit_pressed"]

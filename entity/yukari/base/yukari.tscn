@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3]
+[gd_scene load_steps=10 format=3 uid="uid://0wjymkgq5tpq"]
 
 [ext_resource type="Script" path="res://level/base/BossGauge.gd" id="1"]
 [ext_resource type="Script" path="res://entity/utility/LockedNode2D.gd" id="2"]

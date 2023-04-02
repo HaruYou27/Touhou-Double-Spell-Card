@@ -77,4 +77,4 @@ func _on_bomb_spawner_timeout() -> void:
 	
 	var node : Node2D = bomb_scene.instantiate()
 	node.global_position = global_position
-	Global.leveler.add_child(node)
+	death_timer.add_child(node)

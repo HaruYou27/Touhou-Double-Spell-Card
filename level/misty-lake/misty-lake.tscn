@@ -16,16 +16,20 @@ shader = ExtResource("1_gnt6d")
 shader_parameter/water_speed = -1.0
 shader_parameter/wave_distortion = 0.2
 shader_parameter/wave_multiplyer = 6
+shader_parameter/velocity = Vector2(0, -0.1)
 shader_parameter/noise_texture = SubResource("NoiseTexture2D_qh6in")
 
 [sub_resource type="Gradient" id="Gradient_eav0f"]
 colors = PackedColorArray(0, 0.766667, 1, 1, 0.1105, 0.16445, 0.65, 1)
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_el2vm"]
+domain_warp_enabled = true
+domain_warp_type = 2
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_lemsc"]
 width = 1208
 height = 906
+generate_mipmaps = false
 seamless = true
 color_ramp = SubResource("Gradient_eav0f")
 noise = SubResource("FastNoiseLite_el2vm")
@@ -35,7 +39,6 @@ shader = ExtResource("2_kc78w")
 shader_parameter/velocity = Vector2(0, -0.15)
 
 [sub_resource type="Gradient" id="Gradient_ro070"]
-offsets = PackedFloat32Array(0.281609, 1)
 colors = PackedColorArray(0, 0, 0, 0, 1, 1, 1, 1)
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_4e8k0"]
@@ -44,6 +47,7 @@ frequency = 0.004
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_jheev"]
 width = 1208
 height = 906
+generate_mipmaps = false
 seamless = true
 color_ramp = SubResource("Gradient_ro070")
 noise = SubResource("FastNoiseLite_4e8k0")
@@ -62,23 +66,45 @@ frequency = 0.004
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_c8er6"]
 width = 1208
 height = 906
+generate_mipmaps = false
 seamless = true
 color_ramp = SubResource("Gradient_tdyuk")
 noise = SubResource("FastNoiseLite_03m11")
 
-[node name="Sprite2D" type="Sprite2D"]
+[node name="water" type="TextureRect"]
 texture_repeat = 2
 material = SubResource("ShaderMaterial_l552c")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
 texture = SubResource("NoiseTexture2D_lemsc")
-centered = false
+expand_mode = 1
+stretch_mode = 1
 
-[node name="fog" type="Sprite2D" parent="."]
+[node name="fog" type="TextureRect" parent="."]
 material = SubResource("ShaderMaterial_vb1g8")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 texture = SubResource("NoiseTexture2D_jheev")
-centered = false
+expand_mode = 1
+stretch_mode = 1
 
-[node name="fogOverlay" type="Sprite2D" parent="."]
+[node name="fogOverlay" type="TextureRect" parent="."]
 z_index = 900
 material = SubResource("ShaderMaterial_q7nkq")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 texture = SubResource("NoiseTexture2D_c8er6")
-centered = false
+expand_mode = 1
+stretch_mode = 1

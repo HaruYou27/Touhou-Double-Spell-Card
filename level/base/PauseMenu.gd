@@ -4,7 +4,10 @@ extends ColorRect
 @onready var resume :Button = $VBoxContainer/Resume
 @onready var animator :AnimationPlayer = $AnimationPlayer
 
-func _input(event):
+func _unhandled_input(event) -> void:
+	animator.play("show")
+
+func _input(event) -> void:
 	if event.is_action_pressed("ui_cancel"):
 		tree.paused = true
 		animator.play('show')
@@ -13,7 +16,7 @@ func _input(event):
 		accept_event()
 		Engine.time_scale = 1.0
 
-func _on_Resume_pressed():
+func _on_Resume_pressed() -> void:
 	resume.disabled = true
 	tree.paused = false
 	animator.play('hide')
@@ -25,3 +28,7 @@ func _on_Quit_pressed() -> void:
 
 func _on_restart_pressed():
 	Global.restart_scene()
+
+func _on_screen_shoot_pressed():
+	animator.play("hide")
+	

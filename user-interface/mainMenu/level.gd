@@ -1,9 +1,9 @@
 extends Control
 signal character(level:LevelHeader)
+signal preview(index:int)
 
 @onready var back : Button = $VBoxContainer/back
 @onready var list :BoxContainer = $VBoxContainer/ScrollContainer/LevelList
-@onready var preview :TextureRect = $TabContainer/preview
 @onready var score :FormatLabel = $TabContainer/TabContainer/LocalScore/HiScore
 @onready var graze :FormatLabel = $TabContainer/TabContainer/LocalScore/Graze
 @onready var item :FormatLabel = $TabContainer/TabContainer/LocalScore/item
@@ -36,7 +36,7 @@ func _select_level(index:int) -> void:
 	
 func _preview(index:int) -> void:
 	var header = levels[index]
-	preview.texture = header.preview
+	preview.emit(index)
 	
 	var score_data = header.score
 	score.update_label(score_data.score)

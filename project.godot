@@ -14,7 +14,6 @@ config/name="Touhou Kuro Hakurei"
 config/description="Why i make bullet shmups game."
 run/main_scene="res://user-interface/mainMenu/Menu.tscn"
 config/features=PackedStringArray("4.0", "C#")
-config/icon="res://icon.png"
 
 [autoload]
 

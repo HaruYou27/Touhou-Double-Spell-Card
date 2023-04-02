@@ -5,6 +5,13 @@ uniform float wave_distortion = 0.2;
 uniform int wave_multiplyer = 7;
 uniform sampler2D noise_texture : filter_nearest, repeat_enable;
 
+uniform vec2 velocity = vec2(0, -.1);
+
+void vertex()
+{
+	UV += TIME * velocity;
+}
+
 void fragment() {
 	// distorted reflections
 	vec2 water_uv = vec2(UV.x, UV.y * float(wave_multiplyer));
