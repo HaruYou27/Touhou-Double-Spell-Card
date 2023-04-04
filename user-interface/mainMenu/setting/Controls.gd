@@ -1,8 +1,8 @@
 extends VBoxContainer
 
-@onready var drag :UberButton = $drag
-@onready var bomb :UberButton = $bomb
-@onready var raw :UberButton = $raw
+@onready var drag :SFXButton = $drag
+@onready var bomb :SFXButton = $bomb
+@onready var raw :SFXToggler = $raw
 @onready var sentivity :HSlider = $sentivity
 @onready var sentivityLabel :FormatLabel = $SentivityLabel
 

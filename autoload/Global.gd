@@ -81,3 +81,5 @@ func _exit_tree() -> void:
 	ProjectSettings.set_setting('display/window/size/mode', window.mode)
 	ProjectSettings.save_custom('user://override.cfg')
 	ResourceSaver.save(user_data, 'user://1218622924.res', ResourceSaver.FLAG_COMPRESS)
+
+enum SHOT_TYPE

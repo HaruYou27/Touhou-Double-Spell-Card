@@ -1,26 +1,22 @@
-[gd_scene load_steps=21 format=3 uid="uid://csrqvopy1f1tr"]
+[gd_scene load_steps=22 format=3 uid="uid://d338vhpkky7r4"]
 
-[ext_resource type="Script" path="res://user-interface/mainMenu/Menu.gd" id="1"]
 [ext_resource type="Theme" uid="uid://ns3m7fkxl25r" path="res://user-interface/resource/Mono-font.tres" id="1_hossq"]
 [ext_resource type="Script" path="res://user-interface/mainMenu/setting/Graphic.gd" id="2"]
+[ext_resource type="PackedScene" uid="uid://d2pw0sngf15qw" path="res://level/misty-lake/misty-lake.tscn" id="3_wlge4"]
+[ext_resource type="Shortcut" uid="uid://c6fr744r5sr5n" path="res://user-interface/shortcut/previous.tres" id="4_4ovsh"]
+[ext_resource type="Script" path="res://user-interface/control-node/SFXButton.gd" id="4_4sjp2"]
+[ext_resource type="FontFile" uid="uid://c7ppp33ch6e5" path="res://user-interface/fonts/Vbutlong.ttf" id="4_k8t5h"]
 [ext_resource type="Script" path="res://user-interface/control-node/FormatLabel.gd" id="5"]
-[ext_resource type="FontFile" uid="uid://br2c5b35eg8d" path="res://user-interface/fonts/VNI-HL Thu fap.ttf" id="5_xkorh"]
+[ext_resource type="Script" path="res://user-interface/mainMenu/select-level/List.gd" id="5_j3ucw"]
 [ext_resource type="Script" path="res://user-interface/mainMenu/setting/Audio.gd" id="6"]
-[ext_resource type="Script" path="res://user-interface/control-node/UberButton.gd" id="8"]
+[ext_resource type="Shortcut" uid="uid://bks576c026a2i" path="res://user-interface/shortcut/next.tres" id="6_kivi2"]
+[ext_resource type="Shortcut" uid="uid://xs30oatyn1i6" path="res://user-interface/shortcut/enter.tres" id="7_qwjr5"]
 [ext_resource type="Script" path="res://user-interface/mainMenu/setting/Controls.gd" id="9"]
+[ext_resource type="Shortcut" uid="uid://bmk1du8tyow5e" path="res://user-interface/shortcut/space.tres" id="9_mbr3r"]
 [ext_resource type="Script" path="res://user-interface/control-node/PercentageSlider.gd" id="9_w2eo4"]
-[ext_resource type="Shortcut" uid="uid://cmfbyxixc4xv3" path="res://user-interface/resource/escape.tres" id="10"]
-[ext_resource type="Script" path="res://user-interface/mainMenu/level.gd" id="11"]
-[ext_resource type="Script" path="res://user-interface/mainMenu/LevelHeader.gd" id="11_iry26"]
-[ext_resource type="Script" path="res://user-interface/mainMenu/character.gd" id="14_xksdf"]
-[ext_resource type="PackedScene" uid="uid://beweol2qml2ub" path="res://entity/Reimu/HomingShoot.tscn" id="15_else0"]
+[ext_resource type="Script" path="res://user-interface/control-node/SFXToggler.gd" id="10_l7dsp"]
+[ext_resource type="Shortcut" uid="uid://cmfbyxixc4xv3" path="res://user-interface/shortcut/escape.tres" id="11_yyd2r"]
 [ext_resource type="Texture2D" uid="uid://r7d3f3sdgdhy" path="res://entity/Reimu/texture/reimu.png" id="15_j0376"]
-
-[sub_resource type="Resource" id="Resource_t7vud"]
-script = ExtResource("11_iry26")
-title = "Tutorial"
-preview_pos = 0.0
-level = "res://level/tutorial/tutorial.tscn"
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_rshhe"]
 
@@ -33,18 +29,32 @@ normal = Vector2(1, 0)
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_k21gt"]
 normal = Vector2(-1, 0)
 
-[node name="menu" type="Control"]
-layout_mode = 3
+[node name="Menu" type="TabContainer"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_hossq")
-script = ExtResource("1")
+tabs_visible = false
 
-[node name="main" type="Control" parent="."]
-use_parent_material = true
+[node name="SelectLevel" type="Control" parent="."]
+layout_mode = 2
+
+[node name="Background" type="TabContainer" parent="SelectLevel"]
+z_index = -4000
+layout_mode = 2
+offset_right = 1080.0
+grow_horizontal = 2
+grow_vertical = 2
+tabs_visible = false
+
+[node name="tutorial" type="Control" parent="SelectLevel/Background"]
+layout_mode = 2
+
+[node name="water" parent="SelectLevel/Background/tutorial" instance=ExtResource("3_wlge4")]
+
+[node name="VBoxContainer" type="VBoxContainer" parent="SelectLevel"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -52,95 +62,149 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="main"]
-layout_mode = 1
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_left = 47.0
-offset_top = -68.0
-offset_right = 247.0
-offset_bottom = 76.0
-grow_vertical = 2
-
-[node name="start" type="Button" parent="main/VBoxContainer"]
+[node name="List" type="OptionButton" parent="SelectLevel/VBoxContainer"]
 layout_mode = 2
-focus_neighbor_left = NodePath("../quit")
-focus_neighbor_top = NodePath("../quit")
-focus_previous = NodePath("../quit")
-focus_mode = 0
-mouse_default_cursor_shape = 2
-text = "Select level"
-alignment = 0
-script = ExtResource("8")
+theme_override_fonts/font = ExtResource("4_k8t5h")
+alignment = 1
+item_count = 1
+selected = 0
+popup/item_0/text = "Tutorial"
+popup/item_0/id = 0
+popup/item_0/disabled = true
+script = ExtResource("5_j3ucw")
 
-[node name="settings" type="Button" parent="main/VBoxContainer"]
+[node name="TabContainer" type="TabContainer" parent="SelectLevel/VBoxContainer"]
 layout_mode = 2
-focus_neighbor_right = NodePath("../credit")
-focus_neighbor_bottom = NodePath("../credit")
-focus_next = NodePath("../credit")
-focus_mode = 0
-mouse_default_cursor_shape = 2
-text = "Settings"
-alignment = 0
-script = ExtResource("8")
+size_flags_vertical = 3
+tabs_visible = false
 
-[node name="credit" type="Button" parent="main/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="SelectLevel/VBoxContainer/TabContainer"]
 layout_mode = 2
-focus_neighbor_left = NodePath("../settings")
-focus_neighbor_top = NodePath("../settings")
-focus_neighbor_right = NodePath("../quit")
-focus_neighbor_bottom = NodePath("../quit")
-focus_next = NodePath("../quit")
-focus_previous = NodePath("../settings")
-focus_mode = 0
-mouse_default_cursor_shape = 16
-text = "Credits"
-alignment = 0
-script = ExtResource("8")
+size_flags_vertical = 3
 
-[node name="quit" type="Button" parent="main/VBoxContainer"]
+[node name="previous" type="Button" parent="SelectLevel/VBoxContainer/TabContainer/HBoxContainer"]
 layout_mode = 2
-focus_neighbor_left = NodePath("../credit")
-focus_neighbor_top = NodePath("../credit")
-focus_neighbor_right = NodePath("../start")
-focus_neighbor_bottom = NodePath("../start")
-focus_next = NodePath("../start")
-focus_previous = NodePath("../credit")
-focus_mode = 0
-mouse_default_cursor_shape = 2
-text = "Quit"
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 128
+shortcut = ExtResource("4_4ovsh")
+text = "<"
+flat = true
 alignment = 0
-script = ExtResource("8")
+script = ExtResource("4_4sjp2")
+press_sfx = false
 
-[node name="RichTextLabel" type="RichTextLabel" parent="main"]
-clip_contents = false
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -456.0
-offset_top = 50.0
-offset_right = 457.0
-offset_bottom = 376.0
-grow_horizontal = 2
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 30
-theme_override_fonts/normal_font = ExtResource("5_xkorh")
-theme_override_font_sizes/normal_font_size = 128
-bbcode_enabled = true
-text = "[wave]Touhou
-		[outline_color=f][color=000]Kuro[/color][/outline_color] [color=ff4040]Hakurei[/color]"
+[node name="next" type="Button" parent="SelectLevel/VBoxContainer/TabContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 128
+shortcut = ExtResource("6_kivi2")
+text = ">"
+flat = true
+alignment = 2
+script = ExtResource("4_4sjp2")
+
+[node name="TabContainer" type="TabContainer" parent="SelectLevel/VBoxContainer/TabContainer"]
+visible = false
+layout_mode = 2
+
+[node name="Mod" type="VBoxContainer" parent="SelectLevel/VBoxContainer/TabContainer/TabContainer"]
+layout_mode = 2
+
+[node name="back" type="Button" parent="SelectLevel/VBoxContainer/TabContainer/TabContainer/Mod"]
+layout_mode = 2
+shortcut = ExtResource("11_yyd2r")
+text = "< Back"
+script = ExtResource("4_4sjp2")
+
+[node name="duration" type="Label" parent="SelectLevel/VBoxContainer/TabContainer/TabContainer/Mod"]
+layout_mode = 2
+text = "Deathdoor time %1.2f s"
+script = ExtResource("5")
+
+[node name="DurationSlider" type="HSlider" parent="SelectLevel/VBoxContainer/TabContainer/TabContainer/Mod"]
+layout_mode = 2
+min_value = 0.1
+max_value = 1.0
+step = 0.1
+value = 1.0
+allow_greater = true
+tick_count = 10
+ticks_on_borders = true
+
+[node name="speed" type="Label" parent="SelectLevel/VBoxContainer/TabContainer/TabContainer/Mod"]
+layout_mode = 2
+text = "Game speed %d %%"
+script = ExtResource("5")
+
+[node name="SpeedSlider" type="HSlider" parent="SelectLevel/VBoxContainer/TabContainer/TabContainer/Mod" node_paths=PackedStringArray("label")]
+layout_mode = 2
+min_value = 0.5
+max_value = 2.0
+step = 0.1
+value = 2.0
+allow_greater = true
+tick_count = 16
+ticks_on_borders = true
+script = ExtResource("9_w2eo4")
+label = NodePath("../speed")
+
+[node name="preview" type="Sprite2D" parent="SelectLevel/VBoxContainer/TabContainer/TabContainer/Mod"]
+z_index = 5
+position = Vector2(877, 563)
+texture = ExtResource("15_j0376")
+
+[node name="WorldBoundary2" type="StaticBody2D" parent="SelectLevel/VBoxContainer/TabContainer/TabContainer/Mod"]
+position = Vector2(0, -73)
+collision_mask = 0
+constant_linear_velocity = Vector2(1, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SelectLevel/VBoxContainer/TabContainer/TabContainer/Mod/WorldBoundary2"]
+position = Vector2(302, 1106)
+shape = SubResource("WorldBoundaryShape2D_rshhe")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="SelectLevel/VBoxContainer/TabContainer/TabContainer/Mod/WorldBoundary2"]
+position = Vector2(302, -200)
+shape = SubResource("WorldBoundaryShape2D_ueefi")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="SelectLevel/VBoxContainer/TabContainer/TabContainer/Mod/WorldBoundary2"]
+position = Vector2(-200, 453)
+shape = SubResource("WorldBoundaryShape2D_oaasq")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="SelectLevel/VBoxContainer/TabContainer/TabContainer/Mod/WorldBoundary2"]
+position = Vector2(1280, 453)
+shape = SubResource("WorldBoundaryShape2D_k21gt")
+
+[node name="Score" type="VBoxContainer" parent="SelectLevel/VBoxContainer/TabContainer/TabContainer"]
+visible = false
+layout_mode = 2
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="SelectLevel/VBoxContainer"]
+layout_mode = 2
+
+[node name="setting" type="Button" parent="SelectLevel/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Setting"
+script = ExtResource("4_4sjp2")
+
+[node name="start" type="Button" parent="SelectLevel/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+shortcut = ExtResource("7_qwjr5")
+text = "Enter"
+script = ExtResource("4_4sjp2")
+
+[node name="score" type="CheckButton" parent="SelectLevel/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+shortcut = ExtResource("9_mbr3r")
+text = "Xcore"
+script = ExtResource("10_l7dsp")
 
 [node name="setting" type="Control" parent="."]
 visible = false
-custom_minimum_size = Vector2(1208, 906)
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+layout_mode = 2
+theme = ExtResource("1_hossq")
 
 [node name="TabContainer" type="TabContainer" parent="setting"]
 layout_mode = 1
@@ -163,7 +227,7 @@ focus_mode = 0
 mouse_default_cursor_shape = 2
 text = "Drag:          %s"
 alignment = 0
-script = ExtResource("8")
+script = ExtResource("4_4sjp2")
 
 [node name="bomb" type="Button" parent="setting/TabContainer/Controls"]
 layout_mode = 2
@@ -174,14 +238,14 @@ focus_mode = 0
 mouse_default_cursor_shape = 2
 text = "Bomb:          %s"
 alignment = 0
-script = ExtResource("8")
+script = ExtResource("4_4sjp2")
 
 [node name="raw" type="CheckButton" parent="setting/TabContainer/Controls"]
 layout_mode = 2
 size_flags_horizontal = 3
 focus_mode = 0
 text = "Raw Input"
-script = ExtResource("8")
+script = ExtResource("10_l7dsp")
 
 [node name="SentivityLabel" type="Label" parent="setting/TabContainer/Controls"]
 layout_mode = 2
@@ -206,7 +270,7 @@ focus_neighbor_left = NodePath("../bomb")
 focus_neighbor_top = NodePath("../bomb")
 focus_previous = NodePath("../bomb")
 text = "Reset"
-script = ExtResource("8")
+script = ExtResource("4_4sjp2")
 
 [node name="Audio" type="VBoxContainer" parent="setting/TabContainer"]
 visible = false
@@ -230,9 +294,8 @@ focus_previous = NodePath("../reset")
 min_value = -60.0
 max_value = 0.0
 step = 0.6
-value = -60.0
 allow_lesser = true
-tick_count = 13
+tick_count = 10
 script = ExtResource("9_w2eo4")
 label = NodePath("../BgmLabel")
 
@@ -246,7 +309,8 @@ focus_neighbor_bottom = NodePath("../sfx")
 focus_next = NodePath("../sfx")
 focus_previous = NodePath("../bgm")
 text = "Mute "
-script = ExtResource("8")
+script = ExtResource("10_l7dsp")
+invert = true
 
 [node name="SfxLabel" type="Label" parent="setting/TabContainer/Audio"]
 layout_mode = 2
@@ -272,9 +336,8 @@ focus_previous = NodePath("../muteBGM")
 min_value = -60.0
 max_value = 0.0
 step = 0.6
-value = -60.0
 allow_lesser = true
-tick_count = 13
+tick_count = 10
 script = ExtResource("9_w2eo4")
 label = NodePath("../SfxLabel")
 
@@ -288,7 +351,8 @@ focus_neighbor_bottom = NodePath("../reset")
 focus_next = NodePath("../reset")
 focus_previous = NodePath("../sfx")
 text = "Mute "
-script = ExtResource("8")
+script = ExtResource("10_l7dsp")
+invert = true
 
 [node name="reset" type="Button" parent="setting/TabContainer/Audio"]
 layout_mode = 2
@@ -300,7 +364,8 @@ focus_neighbor_bottom = NodePath("../bgm")
 focus_next = NodePath("../bgm")
 focus_previous = NodePath("../muteSFX")
 text = "Reset"
-script = ExtResource("8")
+script = ExtResource("4_4sjp2")
+press_sfx = false
 
 [node name="Graphic" type="VBoxContainer" parent="setting/TabContainer"]
 visible = false
@@ -318,7 +383,7 @@ focus_previous = NodePath("../reset")
 focus_mode = 0
 mouse_default_cursor_shape = 2
 text = "Full Screen"
-script = ExtResource("8")
+script = ExtResource("10_l7dsp")
 
 [node name="borderless" type="CheckButton" parent="setting/TabContainer/Graphic"]
 layout_mode = 2
@@ -328,242 +393,44 @@ focus_previous = NodePath("../fullscreen")
 focus_mode = 0
 mouse_default_cursor_shape = 2
 text = "Borderless"
-script = ExtResource("8")
-
-[node name="DynamicBackground" type="CheckButton" parent="setting/TabContainer/Graphic"]
-layout_mode = 2
-focus_neighbor_right = NodePath("../particle")
-focus_neighbor_bottom = NodePath("../particle")
-focus_next = NodePath("../particle")
-focus_mode = 0
-mouse_default_cursor_shape = 2
-text = "Dynamic background"
-script = ExtResource("8")
-
-[node name="particle" type="CheckButton" parent="setting/TabContainer/Graphic"]
-layout_mode = 2
-focus_neighbor_left = NodePath("../DynamicBackground")
-focus_neighbor_top = NodePath("../DynamicBackground")
-focus_neighbor_right = NodePath("../reset")
-focus_neighbor_bottom = NodePath("../reset")
-focus_next = NodePath("../reset")
-focus_previous = NodePath("../DynamicBackground")
-focus_mode = 0
-mouse_default_cursor_shape = 2
-text = "Full particles effect"
-script = ExtResource("8")
+script = ExtResource("10_l7dsp")
 
 [node name="reset" type="Button" parent="setting/TabContainer/Graphic"]
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 0
-focus_neighbor_left = NodePath("../particle")
-focus_neighbor_top = NodePath("../particle")
 focus_neighbor_right = NodePath("../fullscreen")
 focus_neighbor_bottom = NodePath("../fullscreen")
 focus_next = NodePath("../fullscreen")
-focus_previous = NodePath("../particle")
 focus_mode = 0
 text = "Reset"
-script = ExtResource("8")
+script = ExtResource("4_4sjp2")
 
 [node name="back" type="Button" parent="setting"]
 layout_mode = 0
-offset_left = 1063.0
-offset_top = 28.0
-offset_right = 1159.0
-offset_bottom = 61.0
-shortcut = ExtResource("10")
+offset_left = 835.0
+offset_top = 25.0
+offset_right = 1035.0
+offset_bottom = 98.0
+shortcut = ExtResource("11_yyd2r")
 text = "Back >"
-script = ExtResource("8")
+script = ExtResource("4_4sjp2")
+press_sfx = false
 
-[node name="level" type="Control" parent="."]
-visible = false
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-script = ExtResource("11")
-levels = Array[ExtResource("11_iry26")]([SubResource("Resource_t7vud")])
-
-[node name="VBoxContainer" type="VBoxContainer" parent="level"]
-layout_mode = 0
-offset_left = 78.0
-offset_top = 31.0
-offset_right = 585.0
-offset_bottom = 876.0
-
-[node name="back" type="Button" parent="level/VBoxContainer"]
-layout_mode = 2
-shortcut = ExtResource("10")
-text = "< Back to main menu"
-script = ExtResource("8")
-
-[node name="ScrollContainer" type="ScrollContainer" parent="level/VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="LevelList" type="VBoxContainer" parent="level/VBoxContainer/ScrollContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="InfoToggler" type="CheckButton" parent="level/VBoxContainer"]
-layout_mode = 2
-text = "Show Score"
-script = ExtResource("8")
-
-[node name="TabContainer" type="TabContainer" parent="level"]
-layout_mode = 0
-offset_left = 604.0
-offset_right = 1208.0
-offset_bottom = 906.0
-
-[node name="LocalScore" type="VBoxContainer" parent="level/TabContainer"]
-layout_mode = 2
-
-[node name="HiScore" type="Label" parent="level/TabContainer/LocalScore"]
-layout_mode = 2
-size_flags_vertical = 5
-text = "Score:	%07d"
-script = ExtResource("5")
-
-[node name="Graze" type="Label" parent="level/TabContainer/LocalScore"]
-layout_mode = 2
-size_flags_vertical = 5
-text = "Graze:	%07d"
-script = ExtResource("5")
-
-[node name="item" type="Label" parent="level/TabContainer/LocalScore"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 5
-text = "Point:	%07d"
-script = ExtResource("5")
-
-[node name="retry" type="Label" parent="level/TabContainer/LocalScore"]
-layout_mode = 2
-text = "Retry count : %d"
-script = ExtResource("5")
-
-[node name="Label2" type="Label" parent="level/TabContainer/LocalScore"]
-layout_mode = 2
-size_flags_vertical = 8
-text = "Shooting type:"
-
-[node name="OnlineScore" type="ScrollContainer" parent="level/TabContainer"]
-visible = false
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="GridContainer" type="GridContainer" parent="level/TabContainer/OnlineScore"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="character" type="Control" parent="."]
-visible = false
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-script = ExtResource("14_xksdf")
-players = Array[PackedScene]([ExtResource("15_else0")])
-
-[node name="VBoxcontainer" type="VBoxContainer" parent="character"]
-layout_mode = 0
-offset_left = 29.0
-offset_top = 37.0
-offset_right = 574.0
-offset_bottom = 875.0
-
-[node name="back" type="Button" parent="character/VBoxcontainer"]
-layout_mode = 2
-shortcut = ExtResource("10")
-text = "< Back"
-script = ExtResource("8")
-
-[node name="duration" type="Label" parent="character/VBoxcontainer"]
-layout_mode = 2
-text = "Deathdoor time %1.2f s"
-script = ExtResource("5")
-
-[node name="DurationSlider" type="HSlider" parent="character/VBoxcontainer"]
-layout_mode = 2
-min_value = 0.1
-max_value = 1.0
-step = 0.1
-value = 1.0
-allow_greater = true
-tick_count = 10
-ticks_on_borders = true
-
-[node name="speed" type="Label" parent="character/VBoxcontainer"]
-layout_mode = 2
-text = "Game speed %d %%"
-script = ExtResource("5")
-
-[node name="SpeedSlider" type="HSlider" parent="character/VBoxcontainer" node_paths=PackedStringArray("label")]
-layout_mode = 2
-min_value = 0.5
-max_value = 2.0
-step = 0.1
-value = 2.0
-allow_greater = true
-tick_count = 16
-ticks_on_borders = true
-script = ExtResource("9_w2eo4")
-label = NodePath("../speed")
-
-[node name="preview" type="Sprite2D" parent="character"]
-z_index = 5
-position = Vector2(906, 600)
-texture = ExtResource("15_j0376")
-
-[node name="WorldBoundary2" type="StaticBody2D" parent="character"]
-collision_mask = 0
-constant_linear_velocity = Vector2(1, 0)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="character/WorldBoundary2"]
-position = Vector2(302, 1106)
-shape = SubResource("WorldBoundaryShape2D_rshhe")
-
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="character/WorldBoundary2"]
-position = Vector2(302, -200)
-shape = SubResource("WorldBoundaryShape2D_ueefi")
-
-[node name="CollisionShape2D3" type="CollisionShape2D" parent="character/WorldBoundary2"]
-position = Vector2(-200, 453)
-shape = SubResource("WorldBoundaryShape2D_oaasq")
-
-[node name="CollisionShape2D4" type="CollisionShape2D" parent="character/WorldBoundary2"]
-position = Vector2(1408, 453)
-shape = SubResource("WorldBoundaryShape2D_k21gt")
-
-[node name="bgm" type="AudioStreamPlayer" parent="."]
-bus = &"BGM"
-
-[connection signal="pressed" from="main/VBoxContainer/start" to="." method="_switch_menu"]
-[connection signal="pressed" from="main/VBoxContainer/settings" to="." method="_switch_menu"]
-[connection signal="pressed" from="main/VBoxContainer/quit" to="." method="_on_quit_pressed"]
-[connection signal="pressed" from="setting/TabContainer/Controls/drag" to="setting/TabContainer/Controls" method="_on_drag_pressed"]
-[connection signal="pressed" from="setting/TabContainer/Controls/bomb" to="setting/TabContainer/Controls" method="_on_bomb_pressed"]
-[connection signal="value_changed" from="setting/TabContainer/Controls/sentivity" to="setting/TabContainer/Controls" method="_on_sentivity_value_changed"]
-[connection signal="pressed" from="setting/TabContainer/Controls/reset" to="setting/TabContainer/Controls" method="_on_controls_reset_pressed"]
-[connection signal="value_changed" from="setting/TabContainer/Audio/bgm" to="setting/TabContainer/Audio" method="_on_bgm_value_changed"]
-[connection signal="toggled" from="setting/TabContainer/Audio/muteBGM" to="setting/TabContainer/Audio" method="_on_muteBGM_toggled"]
-[connection signal="value_changed" from="setting/TabContainer/Audio/sfx" to="setting/TabContainer/Audio" method="_on_sfx_value_changed"]
-[connection signal="toggled" from="setting/TabContainer/Audio/muteSFX" to="setting/TabContainer/Audio" method="_on_muteSFX_toggled"]
-[connection signal="pressed" from="setting/TabContainer/Audio/reset" to="setting/TabContainer/Audio" method="_on_audio_reset_pressed"]
-[connection signal="toggled" from="setting/TabContainer/Graphic/fullscreen" to="setting/TabContainer/Graphic" method="_on_fullscreen_toggled"]
-[connection signal="toggled" from="setting/TabContainer/Graphic/borderless" to="setting/TabContainer/Graphic" method="_on_borderless_toggled"]
-[connection signal="pressed" from="setting/TabContainer/Graphic/reset" to="setting/TabContainer/Graphic" method="_on_reset_pressed"]
-[connection signal="pressed" from="setting/back" to="." method="_switch_menu"]
-[connection signal="character" from="level" to="." method="_on_level_character"]
-[connection signal="pressed" from="level/VBoxContainer/back" to="." method="_switch_menu"]
-[connection signal="toggled" from="level/VBoxContainer/InfoToggler" to="level" method="_on_info_toggler_toggled"]
-[connection signal="value_changed" from="character/VBoxcontainer/DurationSlider" to="character/VBoxcontainer/duration" method="update_label"]
+[connection signal="item_selected" from="SelectLevel/VBoxContainer/List" to="SelectLevel/Background" method="set_current_tab"]
+[connection signal="pressed" from="SelectLevel/VBoxContainer/TabContainer/HBoxContainer/previous" to="SelectLevel/VBoxContainer/List" method="_on_select_pressed" binds= [-1]]
+[connection signal="pressed" from="SelectLevel/VBoxContainer/TabContainer/HBoxContainer/next" to="SelectLevel/VBoxContainer/List" method="_on_select_pressed" binds= [1]]
+[connection signal="value_changed" from="SelectLevel/VBoxContainer/TabContainer/TabContainer/Mod/DurationSlider" to="SelectLevel/VBoxContainer/TabContainer/TabContainer/Mod/duration" method="update_label"]
+[connection signal="pressed" from="SelectLevel/VBoxContainer/HBoxContainer2/setting" to="." method="set_current_tab" binds= [2]]
+[connection signal="pressed" from="setting/TabContainer/Controls/drag" to="setting/TabContainer/Controls" method="_on_drag_pressed" flags=18]
+[connection signal="pressed" from="setting/TabContainer/Controls/bomb" to="setting/TabContainer/Controls" method="_on_bomb_pressed" flags=18]
+[connection signal="value_changed" from="setting/TabContainer/Controls/sentivity" to="setting/TabContainer/Controls" method="_on_sentivity_value_changed" flags=18]
+[connection signal="pressed" from="setting/TabContainer/Controls/reset" to="setting/TabContainer/Controls" method="_on_controls_reset_pressed" flags=18]
+[connection signal="value_changed" from="setting/TabContainer/Audio/bgm" to="setting/TabContainer/Audio" method="_on_bgm_value_changed" flags=18]
+[connection signal="toggled" from="setting/TabContainer/Audio/muteBGM" to="setting/TabContainer/Audio" method="_on_muteBGM_toggled" flags=18]
+[connection signal="value_changed" from="setting/TabContainer/Audio/sfx" to="setting/TabContainer/Audio" method="_on_sfx_value_changed" flags=18]
+[connection signal="toggled" from="setting/TabContainer/Audio/muteSFX" to="setting/TabContainer/Audio" method="_on_muteSFX_toggled" flags=18]
+[connection signal="pressed" from="setting/TabContainer/Audio/reset" to="setting/TabContainer/Audio" method="_on_audio_reset_pressed" flags=18]
+[connection signal="toggled" from="setting/TabContainer/Graphic/fullscreen" to="setting/TabContainer/Graphic" method="_on_fullscreen_toggled" flags=18]
+[connection signal="toggled" from="setting/TabContainer/Graphic/borderless" to="setting/TabContainer/Graphic" method="_on_borderless_toggled" flags=18]
+[connection signal="pressed" from="setting/TabContainer/Graphic/reset" to="setting/TabContainer/Graphic" method="_on_reset_pressed" flags=18]

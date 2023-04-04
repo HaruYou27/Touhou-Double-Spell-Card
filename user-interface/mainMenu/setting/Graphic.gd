@@ -5,14 +5,10 @@ extends VBoxContainer
 
 @onready var fullscreen :Button = $fullscreen
 @onready var borderless :Button = $borderless
-@onready var DynamicBackground :Button = $DynamicBackground
-@onready var particle :Button = $particle
 
 func _ready() -> void:
 	fullscreen.set_pressed_no_signal(window.mode)
 	borderless.set_pressed_no_signal(window.borderless)
-	DynamicBackground.set_pressed_no_signal(config.dynamic_background)
-	particle.set_pressed_no_signal(config.full_particle)
 	
 func _on_fullscreen_toggled(button_pressed:bool) -> void:
 	if button_pressed:
@@ -25,11 +21,7 @@ func _on_borderless_toggled(button_pressed:bool) -> void:
 
 func _exit_tree() -> void:
 	ProjectSettings.set_setting('display/window/size/borderless', window.borderless)
-	config.dynamic_background = DynamicBackground.button_pressed
-	config.full_particle = particle.button_pressed
 
 func _on_reset_pressed() -> void:
 	fullscreen.button_pressed = false
 	borderless.button_pressed = false
-	particle.set_pressed_no_signal(true)
-	DynamicBackground.set_pressed_no_signal(true)

@@ -2,7 +2,8 @@ extends ColorRect
 
 var shaking := 0.0
 var shake_node : Node2D
-var tree := get_tree()
+
+@onready var tree := get_tree()
 
 const black := Color(0.129412, 0.129412, 0.129412)
 const black_trans := Color(black, 0.)

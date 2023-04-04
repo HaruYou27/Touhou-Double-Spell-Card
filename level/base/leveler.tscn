@@ -1,15 +1,15 @@
-[gd_scene load_steps=21 format=3 uid="uid://ik6a210k0se6"]
+[gd_scene load_steps=21 format=3 uid="uid://w7l53tufxn53"]
 
 [ext_resource type="Script" path="res://user-interface/control-node/FormatLabel.gd" id="1"]
 [ext_resource type="Script" path="res://level/base/leveler.gd" id="4"]
 [ext_resource type="Theme" uid="uid://ns3m7fkxl25r" path="res://user-interface/resource/Mono-font.tres" id="4_4a0vg"]
-[ext_resource type="Script" path="res://user-interface/control-node/UberButton.gd" id="6"]
+[ext_resource type="Shortcut" uid="uid://cmfbyxixc4xv3" path="res://user-interface/shortcut/escape.tres" id="4_amvrx"]
+[ext_resource type="Script" path="res://user-interface/control-node/SFXButton.gd" id="5_seuyc"]
+[ext_resource type="Theme" uid="uid://bh3pha2lkexv7" path="res://user-interface/resource/stroked.tres" id="6_2jyif"]
 [ext_resource type="FontFile" uid="uid://cybwwftllqbxu" path="res://user-interface/fonts/UbuntuMono-Regular.ttf" id="7_d506w"]
 [ext_resource type="Script" path="res://level/base/fps.gd" id="10"]
+[ext_resource type="AudioStream" uid="uid://bykr1yaisabfe" path="res://autoload/SoundEffect/ui/tick-.wav" id="10_ykt54"]
 [ext_resource type="Script" path="res://level/base/PauseMenu.gd" id="12"]
-[ext_resource type="Theme" uid="uid://pxre2auww4rb" path="res://level/base/resource/score.tres" id="15"]
-[ext_resource type="Shortcut" uid="uid://cmfbyxixc4xv3" path="res://user-interface/resource/escape.tres" id="16"]
-[ext_resource type="Script" path="res://level/base/hud.gd" id="17"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_5a814"]
 
@@ -27,7 +27,7 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("PauseMenu:modulate")
+tracks/0/path = NodePath("../PauseMenu:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -39,7 +39,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("PauseMenu:visible")
+tracks/1/path = NodePath("../PauseMenu:visible")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -55,7 +55,7 @@ length = 0.15
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("PauseMenu:visible")
+tracks/0/path = NodePath("../PauseMenu:visible")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -67,7 +67,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("PauseMenu:modulate")
+tracks/1/path = NodePath("../PauseMenu:modulate")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -83,7 +83,7 @@ length = 0.15
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("PauseMenu:modulate")
+tracks/0/path = NodePath("../PauseMenu:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -95,7 +95,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("PauseMenu:visible")
+tracks/1/path = NodePath("../PauseMenu:visible")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -138,6 +138,7 @@ cache/0/16/0/kerning_overrides/48/3 = Vector2(0, 0)
 cache/0/16/0/kerning_overrides/48/5 = Vector2(0, 0)
 cache/0/16/0/kerning_overrides/48/8 = Vector2(0, 0)
 cache/0/16/0/kerning_overrides/32/6 = Vector2(0, 0)
+cache/0/16/0/kerning_overrides/64/6 = Vector2(0, 0)
 cache/0/64/0/ascent = 0.0
 cache/0/64/0/descent = 0.0
 cache/0/64/0/underline_position = 0.0
@@ -156,6 +157,7 @@ cache/0/64/0/kerning_overrides/48/3 = Vector2(0, 0)
 cache/0/64/0/kerning_overrides/48/5 = Vector2(0, 0)
 cache/0/64/0/kerning_overrides/48/8 = Vector2(0, 0)
 cache/0/64/0/kerning_overrides/32/6 = Vector2(0, 0)
+cache/0/64/0/kerning_overrides/64/6 = Vector2(0, 0)
 cache/0/32/0/ascent = 0.0
 cache/0/32/0/descent = 0.0
 cache/0/32/0/underline_position = 0.0
@@ -174,6 +176,7 @@ cache/0/32/0/kerning_overrides/48/3 = Vector2(0, 0)
 cache/0/32/0/kerning_overrides/48/5 = Vector2(0, 0)
 cache/0/32/0/kerning_overrides/48/8 = Vector2(0, 0)
 cache/0/32/0/kerning_overrides/32/6 = Vector2(0, 0)
+cache/0/32/0/kerning_overrides/64/6 = Vector2(0, 0)
 cache/0/48/0/ascent = 0.0
 cache/0/48/0/descent = 0.0
 cache/0/48/0/underline_position = 0.0
@@ -192,6 +195,7 @@ cache/0/48/0/kerning_overrides/48/3 = Vector2(0, 0)
 cache/0/48/0/kerning_overrides/48/5 = Vector2(0, 0)
 cache/0/48/0/kerning_overrides/48/8 = Vector2(0, 0)
 cache/0/48/0/kerning_overrides/32/6 = Vector2(0, 0)
+cache/0/48/0/kerning_overrides/64/6 = Vector2(0, 0)
 cache/0/48/3/glyphs/0/offset = Vector2(0, 0)
 cache/0/48/3/glyphs/0/size = Vector2(0, 0)
 cache/0/48/3/glyphs/0/uv_rect = Rect2(0, 0, 0, 0)
@@ -208,11 +212,21 @@ cache/0/32/6/glyphs/0/offset = Vector2(0, 0)
 cache/0/32/6/glyphs/0/size = Vector2(0, 0)
 cache/0/32/6/glyphs/0/uv_rect = Rect2(0, 0, 0, 0)
 cache/0/32/6/glyphs/0/texture_idx = -1
+cache/0/64/6/glyphs/0/offset = Vector2(0, 0)
+cache/0/64/6/glyphs/0/size = Vector2(0, 0)
+cache/0/64/6/glyphs/0/uv_rect = Rect2(0, 0, 0, 0)
+cache/0/64/6/glyphs/0/texture_idx = -1
 
 [sub_resource type="Theme" id="Theme_4us48"]
 default_font = SubResource("FontFile_u282i")
 
-[node name="level" type="Node2D"]
+[node name="level" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("4")
 
 [node name="WorldBoundary" type="StaticBody2D" parent="."]
@@ -220,7 +234,7 @@ collision_mask = 0
 constant_linear_velocity = Vector2(1, 0)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="WorldBoundary"]
-position = Vector2(302, 1106)
+position = Vector2(302, 2120)
 shape = SubResource("WorldBoundaryShape2D_5a814")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="WorldBoundary"]
@@ -232,33 +246,36 @@ position = Vector2(-200, 453)
 shape = SubResource("WorldBoundaryShape2D_1woir")
 
 [node name="CollisionShape2D4" type="CollisionShape2D" parent="WorldBoundary"]
-position = Vector2(1408, 453)
+position = Vector2(1280, 453)
 shape = SubResource("WorldBoundaryShape2D_pgwb8")
 
 [node name="PauseMenu" type="ColorRect" parent="."]
 process_mode = 3
-visible = false
 z_index = 1000
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_right = 604.0
-offset_bottom = 906.0
+layout_mode = 2
+offset_right = 1080.0
+offset_bottom = 1620.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 3
 mouse_filter = 2
 theme = ExtResource("4_4a0vg")
 color = Color(0.129412, 0.129412, 0.129412, 0.690196)
 script = ExtResource("12")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PauseMenu"]
-layout_mode = 0
+layout_mode = 1
+anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -84.0
-offset_top = -73.5
-offset_right = 84.0
-offset_bottom = 73.5
+offset_left = -260.0
+offset_top = -152.0
+offset_right = 260.0
+offset_bottom = 152.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="Resume" type="Button" parent="PauseMenu/VBoxContainer"]
 layout_mode = 2
@@ -268,10 +285,9 @@ focus_neighbor_right = NodePath("../Restart")
 focus_neighbor_bottom = NodePath("../Restart")
 focus_next = NodePath("../Restart")
 focus_previous = NodePath(".")
-disabled = true
-shortcut = ExtResource("16")
+shortcut = ExtResource("4_amvrx")
 text = "Resume"
-script = ExtResource("6")
+script = ExtResource("5_seuyc")
 
 [node name="ScreenShoot" type="Button" parent="PauseMenu/VBoxContainer"]
 layout_mode = 2
@@ -281,10 +297,9 @@ focus_neighbor_right = NodePath("../Restart")
 focus_neighbor_bottom = NodePath("../Restart")
 focus_next = NodePath("../Restart")
 focus_previous = NodePath(".")
-disabled = true
-shortcut = ExtResource("16")
+shortcut = ExtResource("4_amvrx")
 text = "Screenshoot Mode"
-script = ExtResource("6")
+script = ExtResource("5_seuyc")
 
 [node name="Restart" type="Button" parent="PauseMenu/VBoxContainer"]
 layout_mode = 2
@@ -295,7 +310,7 @@ focus_neighbor_bottom = NodePath("../Quit")
 focus_next = NodePath("../Quit")
 focus_previous = NodePath(".")
 text = "Restart"
-script = ExtResource("6")
+script = ExtResource("5_seuyc")
 
 [node name="Quit" type="Button" parent="PauseMenu/VBoxContainer"]
 layout_mode = 2
@@ -305,8 +320,8 @@ focus_neighbor_right = NodePath("../Resume")
 focus_neighbor_bottom = NodePath("../Resume")
 focus_next = NodePath("../Resume")
 focus_previous = NodePath(".")
-text = "Quit"
-script = ExtResource("6")
+text = "Back to Menu"
+script = ExtResource("5_seuyc")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="PauseMenu"]
 root_node = NodePath("../..")
@@ -315,91 +330,75 @@ libraries = {
 }
 
 [node name="hud" type="ColorRect" parent="."]
-z_index = 1000
-anchors_preset = 11
-anchor_left = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 604.0
-offset_right = 1208.0
-offset_bottom = 906.0
-grow_horizontal = 0
-grow_vertical = 2
-mouse_filter = 1
-theme = ExtResource("4_4a0vg")
-color = Color(0.0823529, 0.0823529, 0.0823529, 0)
-script = ExtResource("17")
+custom_minimum_size = Vector2(0, 300)
+layout_mode = 2
+offset_top = 1620.0
+offset_right = 1080.0
+offset_bottom = 1920.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_vertical = 8
+mouse_filter = 2
+color = Color(0.129412, 0.129412, 0.129412, 0.690196)
 
 [node name="VBoxContainer" type="VBoxContainer" parent="hud"]
 layout_mode = 1
-anchors_preset = 10
+anchors_preset = 15
 anchor_right = 1.0
-offset_left = 20.0
-offset_top = 27.0
-offset_right = -248.0
-offset_bottom = 411.0
+anchor_bottom = 1.0
 grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("6_2jyif")
 
-[node name="HiScore" type="Label" parent="hud/VBoxContainer"]
+[node name="GridContainer" type="GridContainer" parent="hud/VBoxContainer"]
+layout_mode = 2
+columns = 2
+
+[node name="Bomb" type="Label" parent="hud/VBoxContainer/GridContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0.870588, 0, 1)
+text = "Bomb:	%d"
+vertical_alignment = 2
+script = ExtResource("1")
+
+[node name="Goal" type="Label" parent="hud/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme = SubResource("Theme_4us48")
+text = "Next:%07d"
+horizontal_alignment = 2
+script = ExtResource("1")
+
+[node name="graze" type="Label" parent="hud/VBoxContainer/GridContainer"]
 layout_mode = 2
 size_flags_vertical = 5
-text = "Hi-Score:	 %07d"
+text = "Graze: %07d"
+script = ExtResource("1")
+
+[node name="fps" type="Label" parent="hud/VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "FPS:%d"
+horizontal_alignment = 2
+script = ExtResource("10")
+
+[node name="pickup" type="AudioStreamPlayer" parent="hud/VBoxContainer"]
+stream = ExtResource("10_ykt54")
+bus = &"SFX"
+
+[node name="reward" type="AudioStreamPlayer" parent="hud/VBoxContainer"]
+
+[node name="Item" type="Label" parent="hud/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 5
+text = "Item:  %07d"
 script = ExtResource("1")
 
 [node name="Score" type="Label" parent="hud/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 5
-text = "Score:		   %07d"
+text = "Score: %07d"
 script = ExtResource("1")
-
-[node name="Graze" type="Label" parent="hud/VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 5
-theme = ExtResource("15")
-text = "Graze:	    %07d"
-script = ExtResource("1")
-
-[node name="item" type="Label" parent="hud/VBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 5
-theme = ExtResource("15")
-text = "Point:    %07d"
-script = ExtResource("1")
-
-[node name="Bomb" type="Label" parent="hud/VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 7
-theme_override_colors/font_color = Color(0, 0.870588, 0, 1)
-theme_override_font_sizes/font_size = 64
-text = "Bomb:	%d"
-vertical_alignment = 2
-script = ExtResource("1")
-
-[node name="Goal" type="Label" parent="hud/VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 5
-theme = SubResource("Theme_4us48")
-text = "Next: 	%07d"
-script = ExtResource("1")
-
-[node name="pickup" type="AudioStreamPlayer" parent="hud"]
-
-[node name="reward" type="AudioStreamPlayer" parent="hud"]
-
-[node name="fps" type="Label" parent="hud"]
-layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -142.0
-offset_top = -42.0
-grow_horizontal = 0
-grow_vertical = 0
-text = "FPS: %d"
-script = ExtResource("10")
 
 [connection signal="pressed" from="PauseMenu/VBoxContainer/Resume" to="PauseMenu" method="_on_Resume_pressed"]
 [connection signal="pressed" from="PauseMenu/VBoxContainer/ScreenShoot" to="PauseMenu" method="_on_screen_shoot_pressed"]

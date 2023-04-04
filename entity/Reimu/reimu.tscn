@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://brajcyeanc1p3"]
+[gd_scene load_steps=16 format=3 uid="uid://brajcyeanc1p3"]
 
 [ext_resource type="Script" path="res://entity/Reimu/reimu.gd" id="1_kx4gf"]
 [ext_resource type="Texture2D" uid="uid://r7d3f3sdgdhy" path="res://entity/Reimu/texture/reimu.png" id="2_yclxq"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://mw3uctnhsg0p" path="res://entity/Bullet/textures/smallOrb.png" id="4_qw3b0"]
 [ext_resource type="Shader" path="res://shader/UberItem.gdshader" id="4_uai7y"]
 [ext_resource type="Texture2D" uid="uid://dv7h11hcjacg2" path="res://entity/Reimu/texture/focus.png" id="5_faen8"]
+[ext_resource type="AudioStream" uid="uid://4t58xs4qdlkr" path="res://autoload/SoundEffect/ui/tick+.wav" id="5_i0nhh"]
 [ext_resource type="Script" path="res://entity/Reimu/deathTimer.gd" id="11_agxgh"]
 
 [sub_resource type="SpriteFrames" id="14"]
@@ -112,7 +113,7 @@ z_index = 9
 shape = SubResource("16")
 debug_color = Color(0.713726, 0.105882, 0.701961, 0.419608)
 
-[node name="grazeFX" type="GPUParticles2D" parent="graze"]
+[node name="vfx" type="GPUParticles2D" parent="graze"]
 modulate = Color(0.898039, 1, 0, 1)
 z_index = 4
 rotation = -0.00344996
@@ -123,9 +124,13 @@ speed_scale = 2.0
 fixed_fps = 60
 local_coords = true
 
-[node name="Timer" type="Timer" parent="graze/grazeFX"]
+[node name="Timer" type="Timer" parent="graze/vfx"]
 wait_time = 0.15
 one_shot = true
+
+[node name="sfx" type="AudioStreamPlayer" parent="graze"]
+stream = ExtResource("5_i0nhh")
+bus = &"SFX"
 
 [node name="focus" type="Sprite2D" parent="."]
 modulate = Color(1, 1, 1, 0)
@@ -149,6 +154,6 @@ script = ExtResource("11_agxgh")
 [node name="BombTimer" type="Timer" parent="."]
 wait_time = 0.25
 
-[connection signal="timeout" from="graze/grazeFX/Timer" to="graze/grazeFX" method="set_emitting" binds= [false]]
+[connection signal="timeout" from="graze/vfx/Timer" to="graze/vfx" method="set_emitting" binds= [false]]
 [connection signal="bomb" from="DeathTimer" to="." method="bomb"]
 [connection signal="timeout" from="BombTimer" to="." method="_on_bomb_spawner_timeout"]

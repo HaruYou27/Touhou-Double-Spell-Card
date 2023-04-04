@@ -1,6 +1,6 @@
 extends PathFollow2D
 
-@export (float) var duration
+@export var duration := 0.
 
 @onready var tween := create_tween()
 

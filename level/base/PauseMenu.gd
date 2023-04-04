@@ -4,17 +4,20 @@ extends ColorRect
 @onready var resume :Button = $VBoxContainer/Resume
 @onready var animator :AnimationPlayer = $AnimationPlayer
 
+func _ready() -> void:
+	set_process_unhandled_input(false)
+
 func _unhandled_input(event) -> void:
 	animator.play("show")
+	set_process_unhandled_input(false)
 
-func _input(event) -> void:
-	if event.is_action_pressed("ui_cancel"):
-		tree.paused = true
-		animator.play('show')
-		resume.call_deferred('set_disabled', false)
-		set_process_input(false)
-		accept_event()
-		Engine.time_scale = 1.0
+func _pause() -> void:
+	tree.paused = true
+	animator.play('show')
+	resume.call_deferred('set_disabled', false)
+	set_process_input(false)
+	accept_event()
+	Engine.time_scale = 1.0
 
 func _on_Resume_pressed() -> void:
 	resume.disabled = true
@@ -31,4 +34,4 @@ func _on_restart_pressed():
 
 func _on_screen_shoot_pressed():
 	animator.play("hide")
-	
+	set_process_unhandled_input(true)

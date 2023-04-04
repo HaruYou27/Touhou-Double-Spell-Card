@@ -1,4 +1,4 @@
-extends Particle
+extends GPUParticles2D
 
 func start():
 	emitting = true

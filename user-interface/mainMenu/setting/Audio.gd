@@ -12,8 +12,8 @@ func _ready() -> void:
 	if config:
 		AudioServer.set_bus_layout(config)
 	
-	mute_sfx.button_pressed = AudioServer.is_bus_mute(1)
-	mute_bgm.button_pressed = AudioServer.is_bus_mute(2)
+	mute_sfx.set_pressed_no_signal(AudioServer.is_bus_mute(1))
+	mute_bgm.set_pressed_no_signal(AudioServer.is_bus_mute(1))
 	
 	sfx.value = AudioServer.get_bus_volume_db(1)
 	bgm.value = AudioServer.get_bus_volume_db(2)
@@ -30,7 +30,7 @@ func _exit_tree() -> void:
 
 func _on_muteBGM_toggled(button_pressed:bool) -> void:
 	AudioServer.set_bus_mute(2, button_pressed)
-	bgm.editable = button_pressed
+	bgm.editable = not button_pressed
 
 func _on_audio_reset_pressed() -> void:
 	bgm.value = 0.0
@@ -40,4 +40,4 @@ func _on_audio_reset_pressed() -> void:
 
 func _on_muteSFX_toggled(button_pressed) -> void:
 	AudioServer.set_bus_mute(1, button_pressed)
-	sfx.editable = button_pressed
+	sfx.editable = not button_pressed

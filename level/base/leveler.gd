@@ -3,7 +3,7 @@ class_name Leveler
 ##Node that controls the current_event.
 
 ##Next level scene path.
-@export_file var next_level
+@export var next_level : PackedInt64Array
 
 @onready var tree := get_tree()
 @onready var hud := $hud
