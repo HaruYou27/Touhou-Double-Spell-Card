@@ -1,8 +1,8 @@
-[gd_scene load_steps=21 format=3 uid="uid://w7l53tufxn53"]
+[gd_scene load_steps=21 format=3]
 
 [ext_resource type="Script" path="res://user-interface/control-node/FormatLabel.gd" id="1"]
 [ext_resource type="Script" path="res://level/base/leveler.gd" id="4"]
-[ext_resource type="Theme" uid="uid://ns3m7fkxl25r" path="res://user-interface/resource/Mono-font.tres" id="4_4a0vg"]
+[ext_resource type="Theme" uid="uid://ns3m7fkxl25r" path="res://user-interface/resource/Menu.tres" id="4_4a0vg"]
 [ext_resource type="Shortcut" uid="uid://cmfbyxixc4xv3" path="res://user-interface/shortcut/escape.tres" id="4_amvrx"]
 [ext_resource type="Script" path="res://user-interface/control-node/SFXButton.gd" id="5_seuyc"]
 [ext_resource type="Theme" uid="uid://bh3pha2lkexv7" path="res://user-interface/resource/stroked.tres" id="6_2jyif"]

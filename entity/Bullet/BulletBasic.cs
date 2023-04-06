@@ -68,11 +68,6 @@ public partial class BulletBasic : Node2D
 		query.CollideWithBodies = CollideWithBodies;
 		query.CollisionMask = CollisionMask;
 
-		
-		if (Grazable)
-		{
-			Global.Connect("bomb_impact", new Callable(this, "Clear"));
-		}
 		if (!dynamicBarrel)
 		{
 			barrels = new Node2D[GetChildCount()];
@@ -130,7 +125,7 @@ public partial class BulletBasic : Node2D
 			{
 				bullet.velocity = new Vector2(speed, 0).Rotated(barrel.GlobalRotation);
 			}
-			bullet.transform = new Transform2D(bullet.velocity.Angle() + Mathf.Pi / 2, barrel.GlobalPosition);
+			bullet.transform = new Transform2D(bullet.velocity.Angle() + Mathf.Pi / 2, barrel.Scale, 0, barrel.GlobalPosition);
 			bullet.grazable = Grazable;
 
 			activeIndex++;
@@ -140,15 +135,11 @@ public partial class BulletBasic : Node2D
 	{
 		if (activeIndex == 0) { return; }
 
-		Vector2[] positions = new Vector2[activeIndex];
 		for (nint i = 0; i < activeIndex; i++)
 		{
-			Bullet bullet = bullets[i];
-			RenderingServer.CanvasItemSetVisible(bullet.sprite, false);
-			positions[i] = bullet.transform.Origin;
+			RenderingServer.CanvasItemSetVisible(bullets[i].sprite, false);
 		}
 		activeIndex = 0;
-		itemManager.ConvertBullet(positions);
 	}
 	protected virtual Transform2D Move(in float delta)
 	{
@@ -160,18 +151,29 @@ public partial class BulletBasic : Node2D
 	protected virtual bool Collide(in Godot.Collections.Dictionary result)
 	{
 		//Return true means the bullet will still alive.
-		if (((Vector2)result["linear_velocity"]).X == 1.0) { return false; }
-
-		if (query.CollisionMask == CollisionMask)
+		Bullet bullet = bullets[index];
+		switch ((int) ((Vector2)result["linear_velocity"]).X)
 		{
-			GodotObject collider = (GodotObject)GodotObject.InstanceFromId((ulong)result["collider_id"]);
-			collider.Call("_hit");
+			case 1:
+				//Hit the wall.
+				return false;
+			case 2:
+				//Hit Reimu's Kishin Orb.
+				//Turn into an item.
+				itemManager.SpawnItem(1, bullet.transform.Origin);
+				return false;
+		}
+
+		if (bullet.grazable)
+		{
+			bullet.grazable = false;
+			Global.EmitSignal("bullet_graze");
+			return true;
 		}
 		else
 		{
-			bullets[index].grazable = false;
-			Global.EmitSignal("bullet_graze");
-			return true;
+			GodotObject collider = (GodotObject)GodotObject.InstanceFromId((ulong)result["collider_id"]);
+			collider.Call("_hit");
 		}
 
 		return false;

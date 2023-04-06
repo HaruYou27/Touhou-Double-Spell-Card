@@ -62,7 +62,6 @@ func _ready() -> void:
 		return
 		
 	user_data = UserData.new()
-	user_data.unlock_level("res://level/tutorial/tutorial.tscn")
 	
 	var fps := int(ceil(DisplayServer.screen_get_refresh_rate()))
 	if fps:
@@ -81,5 +80,3 @@ func _exit_tree() -> void:
 	ProjectSettings.set_setting('display/window/size/mode', window.mode)
 	ProjectSettings.save_custom('user://override.cfg')
 	ResourceSaver.save(user_data, 'user://1218622924.res', ResourceSaver.FLAG_COMPRESS)
-
-enum SHOT_TYPE

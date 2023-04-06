@@ -1,0 +1,34 @@
+[gd_scene load_steps=4 format=3 uid="uid://carfvh4n76fbg"]
+
+[ext_resource type="Shader" path="res://shader/UberItem.gdshader" id="1_72m2b"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_b30k8"]
+shader = ExtResource("1_72m2b")
+shader_parameter/time_scale = 1.0
+shader_parameter/spin = true
+shader_parameter/disable_modulate = null
+shader_parameter/sin_alpha = false
+shader_parameter/displace = null
+shader_parameter/displace_strength = 5.0
+shader_parameter/recolor = null
+shader_parameter/h = 1.0
+shader_parameter/s = 1.0
+shader_parameter/v = 1.0
+shader_parameter/rainbow = null
+shader_parameter/wobble = null
+shader_parameter/wobble_max = 1.25
+shader_parameter/wobble_min = 0.75
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_5bis8"]
+radius = 500.0
+
+[node name="KishinOrb" type="StaticBody2D"]
+material = SubResource("ShaderMaterial_b30k8")
+collision_layer = 4
+collision_mask = 0
+constant_linear_velocity = Vector2(2, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_5bis8")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]

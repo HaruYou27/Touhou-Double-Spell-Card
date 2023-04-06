@@ -1,0 +1,83 @@
+[gd_resource type="Theme" load_steps=12 format=3 uid="uid://ns3m7fkxl25r"]
+
+[ext_resource type="FontFile" uid="uid://cybwwftllqbxu" path="res://user-interface/fonts/UbuntuMono-Regular.ttf" id="1_ms6ke"]
+[ext_resource type="FontFile" uid="uid://c7ppp33ch6e5" path="res://user-interface/fonts/Vbutlong.ttf" id="2_lfv8x"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_pfg2x"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8847t"]
+bg_color = Color(1, 0.22, 0.22, 0.501961)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mrshe"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.1, 0.1, 0.1, 0.6)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_a1btk"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.1, 0.1, 0.1, 0.6)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_t4jta"]
+content_margin_left = 10.0
+content_margin_top = 4.0
+content_margin_right = 10.0
+content_margin_bottom = 4.0
+bg_color = Color(0.1, 0.1, 0.1, 0.6)
+border_color = Color(1, 1, 1, 0.75)
+corner_detail = 1
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ykgtq"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_cox63"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_21j04"]
+content_margin_left = 10.0
+content_margin_top = 4.0
+content_margin_right = 10.0
+content_margin_bottom = 4.0
+bg_color = Color(0.1, 0.1, 0.1, 0.6)
+border_width_top = 10
+border_color = Color(1, 1, 1, 0.75)
+corner_detail = 1
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wvvcd"]
+
+[resource]
+default_font = ExtResource("1_ms6ke")
+default_font_size = 64
+Button/colors/font_hover_pressed_color = Color(1, 0.219608, 0.219608, 1)
+Button/colors/font_pressed_color = Color(1, 0.219608, 0.219608, 1)
+Button/styles/disabled = SubResource("StyleBoxEmpty_pfg2x")
+Button/styles/hover = SubResource("StyleBoxFlat_8847t")
+CheckButton/styles/hover = null
+CheckButton/styles/hover_pressed = null
+CheckButton/styles/normal = SubResource("StyleBoxFlat_mrshe")
+CheckButton/styles/pressed = SubResource("StyleBoxFlat_a1btk")
+Label/font_sizes/font_size = 64
+Label/fonts/font = ExtResource("1_ms6ke")
+Label/styles/normal = SubResource("StyleBoxFlat_t4jta")
+OptionButton/fonts/font = ExtResource("2_lfv8x")
+TabContainer/constants/icon_separation = 0
+TabContainer/constants/outline_size = 0
+TabContainer/constants/side_margin = 0
+TabContainer/font_sizes/font_size = 64
+TabContainer/fonts/font = ExtResource("1_ms6ke")
+TabContainer/styles/panel = SubResource("StyleBoxEmpty_ykgtq")
+TabContainer/styles/tab_disabled = SubResource("StyleBoxEmpty_cox63")
+TabContainer/styles/tab_selected = SubResource("StyleBoxFlat_21j04")
+TabContainer/styles/tabbar_background = SubResource("StyleBoxEmpty_wvvcd")

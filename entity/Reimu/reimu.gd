@@ -13,7 +13,6 @@ class_name Player
 
 @onready var sentivity := user_data.sentivity
 var moving := false
-var bomb_scene := preload("res://entity/Reimu/FantasySeal.tscn")
 var bomb_queue := 0
 var bomb_count := 1
 
@@ -27,7 +26,7 @@ func _hit() -> void:
 	tree.paused = true
 
 func _ready() -> void:
-	add_child(Global.score.shoot_type.instantiate())
+	#add_child(Global.score.shoot_type.instantiate())
 	Global.can_player_shoot.emit(true)
 	Global.player = self
 	ItemManager.target = self
@@ -75,6 +74,6 @@ func _on_bomb_spawner_timeout() -> void:
 		bomb_timer.stop()
 		hitbox.set_deferred("disabled", true)
 	
-	var node : Node2D = bomb_scene.instantiate()
+	"""var node : Node2D = bomb_scene.instantiate()
 	node.global_position = global_position
-	death_timer.add_child(node)
+	death_timer.add_child(node)"""

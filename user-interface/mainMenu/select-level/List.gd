@@ -1,7 +1,7 @@
 extends OptionButton
 
 func _ready() -> void:
-	var user_data := Global.user_data
+	var user_data : UserData = Global.user_data
 	for id in user_data.scores.keys():
 		set_item_disabled(get_item_index(id), false)
 
