@@ -1,7 +1,12 @@
 extends ColorRect
 ##Exclusive full screen effect.
 
-var shaking := 0.0
+var shaking := 0. : set = _shake
+func _shake(time:float) -> void:
+	shaking = time
+	set_process(true)
+
+var shake_node : Node2D
 
 @onready var tree := get_tree()
 
@@ -10,6 +15,14 @@ const black_trans := Color(black, 0.)
 
 func _ready() -> void:
 	set_process(false)
+	
+func _process(delta:float) -> void:
+	if shaking <= 0.:
+		set_process(false)
+		shake_node.position = Vector2.ZERO
+	else:
+		shaking -= delta
+		shake_node.position += Vector2(randf_range(-1., 1.), randf_range(-1., 1.))
 
 func fade2black(reverse:=false) -> Tween:
 	show()

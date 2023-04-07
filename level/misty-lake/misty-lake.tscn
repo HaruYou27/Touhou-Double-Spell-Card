@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://d2pw0sngf15qw"]
+[gd_scene load_steps=18 format=3 uid="uid://h7658p2ggdnm"]
 
 [ext_resource type="Shader" path="res://shader/background/water.gdshader" id="1_gnt6d"]
 [ext_resource type="Shader" path="res://shader/background/moving-tiled.gdshader" id="2_kc78w"]
@@ -33,6 +33,28 @@ generate_mipmaps = false
 seamless = true
 color_ramp = SubResource("Gradient_eav0f")
 noise = SubResource("FastNoiseLite_el2vm")
+
+[sub_resource type="GDScript" id="GDScript_235hn"]
+script/source = "extends Sprite2D
+class_name Background
+
+var overlays : Array[Sprite2D]
+@export var overlay_level := 2 : set = toggle_overlay
+
+func _ready() -> void:
+	for node in get_children():
+		if node is Sprite2D:
+			overlays.append(node)
+			
+func toggle_overlay(level:int) -> void:
+	var count := 0
+	for overlay in overlays:
+		if count < overlay_level:
+			overlay.show()
+			count += 1
+		else:
+			overlay.hide()
+"
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_vb1g8"]
 shader = ExtResource("2_kc78w")
@@ -76,6 +98,7 @@ texture_repeat = 2
 material = SubResource("ShaderMaterial_l552c")
 texture = SubResource("NoiseTexture2D_lemsc")
 centered = false
+script = SubResource("GDScript_235hn")
 
 [node name="fog" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_vb1g8")

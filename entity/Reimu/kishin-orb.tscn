@@ -1,13 +1,55 @@
-[gd_scene load_steps=4 format=3 uid="uid://carfvh4n76fbg"]
+[gd_scene load_steps=9 format=3 uid="uid://n3v3oy8xd0ls"]
 
 [ext_resource type="Shader" path="res://shader/UberItem.gdshader" id="1_72m2b"]
+[ext_resource type="Script" path="res://entity/Reimu/kishin-orb.gd" id="1_mje3d"]
+[ext_resource type="Texture2D" uid="uid://cdphctv3sy3ys" path="res://entity/Reimu/texture/YinYangOrb.webp" id="2_yojsb"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_b30k8"]
+[sub_resource type="Animation" id="Animation_noyik"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(540, 2420)]
+}
+
+[sub_resource type="Animation" id="Animation_abej3"]
+resource_name = "sweep"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(540, 2420), Vector2(540, -500)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_fwlhc"]
+_data = {
+"RESET": SubResource("Animation_noyik"),
+"sweep": SubResource("Animation_abej3")
+}
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_5bis8"]
+radius = 540.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_s1vud"]
 shader = ExtResource("1_72m2b")
 shader_parameter/time_scale = 1.0
 shader_parameter/spin = true
 shader_parameter/disable_modulate = null
-shader_parameter/sin_alpha = false
+shader_parameter/sin_alpha = null
 shader_parameter/displace = null
 shader_parameter/displace_strength = 5.0
 shader_parameter/recolor = null
@@ -19,16 +61,24 @@ shader_parameter/wobble = null
 shader_parameter/wobble_max = 1.25
 shader_parameter/wobble_min = 0.75
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_5bis8"]
-radius = 500.0
-
 [node name="KishinOrb" type="StaticBody2D"]
-material = SubResource("ShaderMaterial_b30k8")
+texture_filter = 1
+position = Vector2(540, 2420)
 collision_layer = 4
 collision_mask = 0
 constant_linear_velocity = Vector2(2, 0)
+script = ExtResource("1_mje3d")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_fwlhc")
+}
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_5bis8")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+[node name="KishinOrb" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_s1vud")
+texture = ExtResource("2_yojsb")
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

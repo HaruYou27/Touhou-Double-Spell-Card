@@ -8,8 +8,8 @@ signal bullet_graze
 ##Emited by item when intersect player's hitbox (not item Area2D).
 signal item_collect(value:float)
 
-##Emited by player's bomb node. Wipe out everything on screen.
-signal bomb_impact
+##Emited by player's bomb node when finished
+signal bomb_finished
 
 signal can_player_shoot(value:bool)
 
@@ -20,10 +20,10 @@ var player : Player
 var score := Score.new()
 
 ##Play area rectangle.
-const playground := Vector2(604, 906)
+const playground := Vector2i(1080, 1620)
 
 ##Default resolution.
-const game_rect := Vector2(1208, 906)
+const game_rect := Vector2i(1920, 1080)
 
 @onready var tree := get_tree()
 
@@ -33,11 +33,11 @@ func restart_scene() -> void:
 	var tween :Tween = ScreenEffect.fade2black()
 	tween.finished.connect(Callable(tree, 'reload_current_scene'))
 	
-func change_scene(scene:String) -> void:
+func change_scene(scene:PackedScene) -> void:
 	ItemManager.Clear()
 	tree.paused = false
 	var tween :Tween = ScreenEffect.fade2black()
-	tween.finished.connect(Callable(tree, 'change_scene_to_file').bind(scene))
+	tween.finished.connect(Callable(tree, 'change_scene_to_packed').bind(scene))
 
 ##Convert an InputEvent to String.
 static func get_input_string(event:InputEvent) -> String:

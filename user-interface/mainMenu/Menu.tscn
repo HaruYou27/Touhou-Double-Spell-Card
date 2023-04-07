@@ -1,15 +1,17 @@
-[gd_scene load_steps=22 format=3 uid="uid://c27e8jy80wt5p"]
+[gd_scene load_steps=28 format=3 uid="uid://cfpixrfrdpt8s"]
 
-[ext_resource type="Theme" uid="uid://ns3m7fkxl25r" path="res://user-interface/resource/Menu.tres" id="1_r0a5q"]
+[ext_resource type="Theme" uid="uid://brtb5yavfdl08" path="res://user-interface/resource/Menu.tres" id="1_r0a5q"]
 [ext_resource type="Script" path="res://user-interface/mainMenu/setting/Graphic.gd" id="2"]
-[ext_resource type="PackedScene" uid="uid://d2pw0sngf15qw" path="res://level/misty-lake/misty-lake.tscn" id="3_wlge4"]
+[ext_resource type="Script" path="res://user-interface/mainMenu/Background.gd" id="2_0gsum"]
+[ext_resource type="PackedScene" uid="uid://h7658p2ggdnm" path="res://level/misty-lake/misty-lake.tscn" id="3_wlge4"]
 [ext_resource type="Shortcut" uid="uid://c6fr744r5sr5n" path="res://user-interface/shortcut/previous.tres" id="4_4ovsh"]
 [ext_resource type="Script" path="res://user-interface/control-node/SFXButton.gd" id="4_4sjp2"]
+[ext_resource type="Script" path="res://user-interface/mainMenu/LevelList.gd" id="4_ahvgk"]
 [ext_resource type="Script" path="res://user-interface/control-node/FormatLabel.gd" id="5"]
-[ext_resource type="Script" path="res://user-interface/mainMenu/select-level/List.gd" id="5_j3ucw"]
 [ext_resource type="Script" path="res://user-interface/mainMenu/setting/Audio.gd" id="6"]
 [ext_resource type="Shortcut" uid="uid://bks576c026a2i" path="res://user-interface/shortcut/next.tres" id="6_kivi2"]
 [ext_resource type="Shortcut" uid="uid://xs30oatyn1i6" path="res://user-interface/shortcut/enter.tres" id="7_qwjr5"]
+[ext_resource type="Script" path="res://user-interface/mainMenu/Modification.gd" id="8_rklkf"]
 [ext_resource type="Script" path="res://user-interface/mainMenu/setting/Controls.gd" id="9"]
 [ext_resource type="Shortcut" uid="uid://bmk1du8tyow5e" path="res://user-interface/shortcut/space.tres" id="9_mbr3r"]
 [ext_resource type="Script" path="res://user-interface/control-node/PercentageSlider.gd" id="9_w2eo4"]
@@ -29,30 +31,167 @@ normal = Vector2(1, 0)
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_k21gt"]
 normal = Vector2(-1, 0)
 
-[node name="Menu" type="TabContainer"]
+[sub_resource type="Animation" id="Animation_pg05i"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("setting:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("setting:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("SelectLevel:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("SelectLevel:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_r3iau"]
+resource_name = "select level"
+length = 0.25
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SelectLevel:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(),
+"transitions": PackedFloat32Array(),
+"update": 1,
+"values": []
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("setting:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(),
+"transitions": PackedFloat32Array(),
+"update": 1,
+"values": []
+}
+
+[sub_resource type="Animation" id="Animation_hr3iq"]
+resource_name = "setting"
+length = 0.25
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("setting:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("setting:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.25),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("SelectLevel:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.25),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("SelectLevel:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.25),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_nvb3g"]
+_data = {
+"RESET": SubResource("Animation_pg05i"),
+"select level": SubResource("Animation_r3iau"),
+"setting": SubResource("Animation_hr3iq")
+}
+
+[node name="Menu" type="Control"]
+layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_r0a5q")
-tabs_visible = false
+
+[node name="Background" type="Node2D" parent="."]
+z_index = -4000
+script = ExtResource("2_0gsum")
+
+[node name="water" parent="Background" instance=ExtResource("3_wlge4")]
 
 [node name="SelectLevel" type="Control" parent="."]
-layout_mode = 2
-
-[node name="Background" type="TabContainer" parent="SelectLevel"]
-z_index = -4000
-layout_mode = 2
-offset_right = 1080.0
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-tabs_visible = false
-
-[node name="tutorial" type="Control" parent="SelectLevel/Background"]
-layout_mode = 2
-
-[node name="water" parent="SelectLevel/Background/tutorial" instance=ExtResource("3_wlge4")]
 
 [node name="VBoxContainer" type="VBoxContainer" parent="SelectLevel"]
 layout_mode = 1
@@ -62,7 +201,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="List" type="OptionButton" parent="SelectLevel/VBoxContainer"]
+[node name="LevelList" type="OptionButton" parent="SelectLevel/VBoxContainer"]
 layout_mode = 2
 alignment = 1
 item_count = 1
@@ -70,7 +209,7 @@ selected = 0
 popup/item_0/text = "Tutorial"
 popup/item_0/id = 0
 popup/item_0/disabled = true
-script = ExtResource("5_j3ucw")
+script = ExtResource("4_ahvgk")
 
 [node name="TabContainer" type="TabContainer" parent="SelectLevel/VBoxContainer"]
 layout_mode = 2
@@ -84,6 +223,7 @@ size_flags_vertical = 3
 [node name="previous" type="Button" parent="SelectLevel/VBoxContainer/TabContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+focus_mode = 0
 theme_override_font_sizes/font_size = 128
 shortcut = ExtResource("4_4ovsh")
 text = "<"
@@ -95,6 +235,7 @@ press_sfx = false
 [node name="next" type="Button" parent="SelectLevel/VBoxContainer/TabContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+focus_mode = 0
 theme_override_font_sizes/font_size = 128
 shortcut = ExtResource("6_kivi2")
 text = ">"
@@ -108,6 +249,7 @@ layout_mode = 2
 
 [node name="Modification" type="VBoxContainer" parent="SelectLevel/VBoxContainer/TabContainer/TabContainer"]
 layout_mode = 2
+script = ExtResource("8_rklkf")
 
 [node name="duration" type="Label" parent="SelectLevel/VBoxContainer/TabContainer/TabContainer/Modification"]
 layout_mode = 2
@@ -143,6 +285,7 @@ label = NodePath("../speed")
 
 [node name="ShotType" type="OptionButton" parent="SelectLevel/VBoxContainer/TabContainer/TabContainer/Modification"]
 layout_mode = 2
+size_flags_vertical = 10
 theme_override_font_sizes/font_size = 64
 alignment = 1
 item_count = 1
@@ -153,7 +296,7 @@ popup/item_0/id = 0
 [node name="preview" type="Sprite2D" parent="SelectLevel/VBoxContainer/TabContainer/TabContainer/Modification"]
 z_index = 5
 texture_filter = 1
-position = Vector2(540, 1186)
+position = Vector2(540, 1048)
 scale = Vector2(2, 2)
 texture = ExtResource("15_j0376")
 
@@ -189,6 +332,7 @@ layout_mode = 2
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="SelectLevel/VBoxContainer"]
 layout_mode = 2
+size_flags_vertical = 8
 
 [node name="setting" type="Button" parent="SelectLevel/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
@@ -212,19 +356,24 @@ alignment = 1
 script = ExtResource("10_l7dsp")
 
 [node name="setting" type="Control" parent="."]
-visible = false
-layout_mode = 2
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 37.0
+offset_top = 32.0
+offset_right = -21.0
+offset_bottom = -27.0
+grow_horizontal = 2
+grow_vertical = 2
 theme = ExtResource("1_r0a5q")
 
 [node name="TabContainer" type="TabContainer" parent="setting"]
 layout_mode = 1
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_left = 96.0
-offset_top = -415.0
-offset_right = 970.0
-offset_bottom = -138.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Controls" type="VBoxContainer" parent="setting/TabContainer"]
@@ -417,21 +566,31 @@ text = "Reset"
 script = ExtResource("4_4sjp2")
 
 [node name="back" type="Button" parent="setting"]
-layout_mode = 0
-offset_left = 835.0
-offset_top = 25.0
-offset_right = 1035.0
-offset_bottom = 98.0
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -200.0
+offset_top = -3.0
+offset_bottom = 70.0
+grow_horizontal = 0
 shortcut = ExtResource("11_yyd2r")
 text = "Back >"
 script = ExtResource("4_4sjp2")
 press_sfx = false
 
-[connection signal="item_selected" from="SelectLevel/VBoxContainer/List" to="SelectLevel/Background" method="set_current_tab"]
-[connection signal="pressed" from="SelectLevel/VBoxContainer/TabContainer/HBoxContainer/previous" to="SelectLevel/VBoxContainer/List" method="_on_select_pressed" binds= [-1]]
-[connection signal="pressed" from="SelectLevel/VBoxContainer/TabContainer/HBoxContainer/next" to="SelectLevel/VBoxContainer/List" method="_on_select_pressed" binds= [1]]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+reset_on_save = false
+libraries = {
+"": SubResource("AnimationLibrary_nvb3g")
+}
+
+[connection signal="pressed" from="SelectLevel/VBoxContainer/TabContainer/HBoxContainer/previous" to="SelectLevel/VBoxContainer/LevelList" method="_on_select_pressed" binds= [-1]]
+[connection signal="pressed" from="SelectLevel/VBoxContainer/TabContainer/HBoxContainer/next" to="SelectLevel/VBoxContainer/LevelList" method="_on_select_pressed" binds= [1]]
 [connection signal="value_changed" from="SelectLevel/VBoxContainer/TabContainer/TabContainer/Modification/DurationSlider" to="SelectLevel/VBoxContainer/TabContainer/TabContainer/Modification/duration" method="update_label"]
-[connection signal="pressed" from="SelectLevel/VBoxContainer/HBoxContainer2/setting" to="." method="set_current_tab" binds= [2]]
+[connection signal="pressed" from="SelectLevel/VBoxContainer/HBoxContainer2/setting" to="AnimationPlayer" method="play" binds= [&"setting"]]
+[connection signal="pressed" from="SelectLevel/VBoxContainer/HBoxContainer2/start" to="SelectLevel/VBoxContainer/LevelList" method="_on_start_pressed"]
+[connection signal="toggled" from="SelectLevel/VBoxContainer/HBoxContainer2/score" to="SelectLevel/VBoxContainer/TabContainer" method="set_current_tab"]
 [connection signal="pressed" from="setting/TabContainer/Controls/drag" to="setting/TabContainer/Controls" method="_on_drag_pressed" flags=18]
 [connection signal="pressed" from="setting/TabContainer/Controls/bomb" to="setting/TabContainer/Controls" method="_on_bomb_pressed" flags=18]
 [connection signal="value_changed" from="setting/TabContainer/Controls/sentivity" to="setting/TabContainer/Controls" method="_on_sentivity_value_changed" flags=18]
@@ -444,3 +603,4 @@ press_sfx = false
 [connection signal="toggled" from="setting/TabContainer/Graphic/fullscreen" to="setting/TabContainer/Graphic" method="_on_fullscreen_toggled" flags=18]
 [connection signal="toggled" from="setting/TabContainer/Graphic/borderless" to="setting/TabContainer/Graphic" method="_on_borderless_toggled" flags=18]
 [connection signal="pressed" from="setting/TabContainer/Graphic/reset" to="setting/TabContainer/Graphic" method="_on_reset_pressed" flags=18]
+[connection signal="pressed" from="setting/back" to="AnimationPlayer" method="play" binds= [&"select level"]]

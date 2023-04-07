@@ -1,7 +1,7 @@
-[gd_resource type="Theme" load_steps=12 format=3 uid="uid://ns3m7fkxl25r"]
+[gd_resource type="Theme" load_steps=13 format=3 uid="uid://brtb5yavfdl08"]
 
-[ext_resource type="FontFile" uid="uid://cybwwftllqbxu" path="res://user-interface/fonts/UbuntuMono-Regular.ttf" id="1_ms6ke"]
-[ext_resource type="FontFile" uid="uid://c7ppp33ch6e5" path="res://user-interface/fonts/Vbutlong.ttf" id="2_lfv8x"]
+[ext_resource type="FontFile" uid="uid://cybwwftllqbxu" path="res://user-interface/resource/UbuntuMono-Regular.ttf" id="1_ms6ke"]
+[ext_resource type="FontFile" uid="uid://c7ppp33ch6e5" path="res://user-interface/resource/Vbutlong.ttf" id="2_lfv8x"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_pfg2x"]
 
@@ -31,6 +31,20 @@ corner_radius_top_right = 3
 corner_radius_bottom_right = 3
 corner_radius_bottom_left = 3
 corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tfe2a"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.1, 0.1, 0.1, 0.6)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+expand_margin_top = 5.0
+expand_margin_bottom = 5.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_t4jta"]
 content_margin_left = 10.0
@@ -68,6 +82,7 @@ CheckButton/styles/hover = null
 CheckButton/styles/hover_pressed = null
 CheckButton/styles/normal = SubResource("StyleBoxFlat_mrshe")
 CheckButton/styles/pressed = SubResource("StyleBoxFlat_a1btk")
+HSlider/styles/slider = SubResource("StyleBoxFlat_tfe2a")
 Label/font_sizes/font_size = 64
 Label/fonts/font = ExtResource("1_ms6ke")
 Label/styles/normal = SubResource("StyleBoxFlat_t4jta")
