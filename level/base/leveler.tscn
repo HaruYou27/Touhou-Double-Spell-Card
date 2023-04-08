@@ -272,6 +272,7 @@ shape = SubResource("WorldBoundaryShape2D_pgwb8")
 
 [node name="PauseMenu" type="ColorRect" parent="."]
 process_mode = 3
+visible = false
 z_index = 2000
 layout_mode = 2
 offset_right = 1080.0
@@ -279,7 +280,6 @@ offset_bottom = 1620.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_vertical = 3
-mouse_filter = 2
 color = Color(0.129412, 0.129412, 0.129412, 0.690196)
 script = ExtResource("12")
 

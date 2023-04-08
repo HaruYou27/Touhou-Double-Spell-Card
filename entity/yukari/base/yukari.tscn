@@ -1,12 +1,13 @@
-[gd_scene load_steps=10 format=3 uid="uid://0wjymkgq5tpq"]
+[gd_scene load_steps=12 format=3 uid="uid://0wjymkgq5tpq"]
 
 [ext_resource type="Script" path="res://level/base/BossGauge.gd" id="1"]
 [ext_resource type="Script" path="res://entity/utility/LockedNode2D.gd" id="2"]
 [ext_resource type="Script" path="res://entity/yukari/base/yukari.gd" id="3"]
 [ext_resource type="Texture2D" uid="uid://cnecndeyl8vpm" path="res://level/base/resource/boss-indicator.png" id="4"]
-[ext_resource type="Texture2D" uid="uid://cblh65sbr2x38" path="res://level/base/resource/over.png" id="5"]
-[ext_resource type="Texture2D" uid="uid://5uru3p04533u" path="res://level/base/resource/fill.png" id="6"]
+[ext_resource type="Texture2D" uid="uid://5n4khvq72c6n" path="res://level/base/resource/overlay.png" id="5_vfwy3"]
+[ext_resource type="Texture2D" uid="uid://btxkd0tknueit" path="res://level/base/resource/fill.png" id="6"]
 [ext_resource type="Texture2D" uid="uid://bn8nged18pm41" path="res://entity/yukari/base/texture/Yukari.png" id="7"]
+[ext_resource type="Shader" path="res://shader/UberItem.gdshader" id="7_bbvgn"]
 
 [sub_resource type="SpriteFrames" id="2"]
 animations = [{
@@ -20,14 +21,30 @@ animations = [{
 }]
 
 [sub_resource type="CapsuleShape2D" id="1"]
-radius = 95.0
+radius = 72.0
 height = 256.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7vl2e"]
+shader = ExtResource("7_bbvgn")
+shader_parameter/time_scale = 0.25
+shader_parameter/spin = true
+shader_parameter/disable_modulate = null
+shader_parameter/sin_alpha = null
+shader_parameter/displace = false
+shader_parameter/displace_strength = 5.0
+shader_parameter/recolor = null
+shader_parameter/h = 1.0
+shader_parameter/s = 1.0
+shader_parameter/v = 1.0
+shader_parameter/rainbow = null
+shader_parameter/wobble = false
+shader_parameter/wobble_max = 1.25
+shader_parameter/wobble_min = 0.75
 
 [node name="yukari" type="Area2D"]
 texture_filter = 1
 collision_layer = 2
-collision_mask = 0
-monitoring = false
+collision_mask = 4
 monitorable = false
 script = ExtResource("3")
 
@@ -35,7 +52,7 @@ script = ExtResource("3")
 texture_filter = 2
 texture = ExtResource("4")
 script = ExtResource("2")
-value = 880
+value = 854
 locked_y = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
@@ -45,13 +62,33 @@ sprite_frames = SubResource("2")
 visible = false
 shape = SubResource("1")
 
-[node name="Gauge" type="TextureProgressBar" parent="."]
-offset_left = -154.0
-offset_top = -163.0
-offset_right = 154.0
-offset_bottom = -128.0
-value = 100.0
-fill_mode = 6
-texture_over = ExtResource("5")
+[node name="hp" type="TextureProgressBar" parent="."]
+offset_left = -207.0
+offset_top = -207.0
+offset_right = 621.0
+offset_bottom = 621.0
+scale = Vector2(0.5, 0.5)
+value = 80.0
+fill_mode = 5
 texture_progress = ExtResource("6")
+tint_progress = Color(1, 0.0509804, 0.0509804, 1)
+radial_fill_degrees = 180.0
 script = ExtResource("1")
+
+[node name="timer" type="TextureProgressBar" parent="hp"]
+layout_mode = 0
+offset_right = 828.0
+offset_bottom = 828.0
+value = 80.0
+fill_mode = 4
+texture_progress = ExtResource("6")
+tint_progress = Color(0.0509804, 0.494118, 1, 1)
+radial_fill_degrees = 180.0
+script = ExtResource("1")
+
+[node name="Sprite2D" type="Sprite2D" parent="hp"]
+material = SubResource("ShaderMaterial_7vl2e")
+position = Vector2(414, 414)
+texture = ExtResource("5_vfwy3")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

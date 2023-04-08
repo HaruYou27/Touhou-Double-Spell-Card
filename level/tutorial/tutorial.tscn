@@ -1,67 +1,104 @@
-[gd_scene load_steps=18 format=3]
+[gd_scene load_steps=24 format=3 uid="uid://c2a3e2pvbhtaq"]
 
 [ext_resource type="Script" path="res://level/tutorial/item.gd" id="1"]
-[ext_resource type="Texture2D" uid="uid://bn8nged18pm41" path="res://entity/yukari/base/texture/Yukari.png" id="3_rxcrf"]
+[ext_resource type="Shader" path="res://shader/background/water.gdshader" id="1_ufwp0"]
+[ext_resource type="Script" path="res://level/base/Background.gd" id="2_m4qbh"]
+[ext_resource type="Shader" path="res://shader/background/moving-tiled.gdshader" id="3_m4ip0"]
 [ext_resource type="Script" path="res://level/tutorial/Move.gd" id="4"]
-[ext_resource type="Shader" path="res://shader/UberItem.gdshader" id="5_ke7b2"]
 [ext_resource type="Script" path="res://level/tutorial/bomb.gd" id="6"]
-[ext_resource type="Script" path="res://entity/Bullet/SineAlpha.cs" id="6_hijr5"]
-[ext_resource type="PackedScene" uid="uid://w7l53tufxn53" path="res://level/base/leveler.tscn" id="7"]
-[ext_resource type="Texture2D" uid="uid://cnecndeyl8vpm" path="res://level/base/resource/boss-indicator.png" id="7_02srm"]
-[ext_resource type="Script" path="res://entity/utility/LockedNode2D.gd" id="8_55grs"]
-[ext_resource type="Theme" uid="uid://ns3m7fkxl25r" path="res://user-interface/resource/Menu.tres" id="8_kk8vw"]
-[ext_resource type="Texture2D" uid="uid://d1nkk7km71ule" path="res://entity/yukari/base/texture/kunai1.png" id="9"]
-[ext_resource type="Script" path="res://level/tutorial/Dodge.gd" id="10"]
-[ext_resource type="Script" path="res://level/tutorial/entrance.gd" id="11_qdkc3"]
+[ext_resource type="PackedScene" uid="uid://qarv562y6uqn" path="res://level/base/leveler.tscn" id="7"]
+[ext_resource type="Theme" uid="uid://brtb5yavfdl08" path="res://user-interface/resource/Menu.tres" id="8_kk8vw"]
 [ext_resource type="PackedScene" uid="uid://brajcyeanc1p3" path="res://entity/Reimu/reimu.tscn" id="14_whhm7"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_cw35l"]
-radius = 75.7
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_bs8bj"]
 
-[sub_resource type="SpriteFrames" id="2"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("3_rxcrf")
-}],
-"loop": true,
-"name": &"default",
-"speed": 5.0
-}]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_qh6in"]
+width = 1080
+height = 1920
+generate_mipmaps = false
+noise = SubResource("FastNoiseLite_bs8bj")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_u4t0o"]
-shader = ExtResource("5_ke7b2")
-shader_parameter/time_scale = 1.0
-shader_parameter/spin = null
-shader_parameter/disable_modulate = true
-shader_parameter/sin_alpha = null
-shader_parameter/displace = null
-shader_parameter/displace_strength = 5.0
-shader_parameter/recolor = true
-shader_parameter/h = 0.801
-shader_parameter/s = 1.0
-shader_parameter/v = 1.0
-shader_parameter/rainbow = true
-shader_parameter/wobble = null
-shader_parameter/wobble_max = 1.25
-shader_parameter/wobble_min = 0.75
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_l552c"]
+shader = ExtResource("1_ufwp0")
+shader_parameter/water_speed = -0.5
+shader_parameter/wave_distortion = 0.2
+shader_parameter/wave_multiplyer = 6
+shader_parameter/velocity = Vector2(0, -0.1)
+shader_parameter/noise_texture = SubResource("NoiseTexture2D_qh6in")
+
+[sub_resource type="Gradient" id="Gradient_eav0f"]
+colors = PackedColorArray(0, 0.766667, 1, 1, 0.1105, 0.16445, 0.65, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_el2vm"]
+domain_warp_enabled = true
+domain_warp_type = 2
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_lemsc"]
+width = 1080
+height = 1920
+generate_mipmaps = false
+seamless = true
+color_ramp = SubResource("Gradient_eav0f")
+noise = SubResource("FastNoiseLite_el2vm")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vb1g8"]
+shader = ExtResource("3_m4ip0")
+shader_parameter/velocity = Vector2(0, -0.15)
+
+[sub_resource type="Gradient" id="Gradient_ro070"]
+colors = PackedColorArray(0, 0, 0, 0, 1, 1, 1, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_4e8k0"]
+frequency = 0.004
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_jheev"]
+width = 1080
+height = 1920
+generate_mipmaps = false
+seamless = true
+color_ramp = SubResource("Gradient_ro070")
+noise = SubResource("FastNoiseLite_4e8k0")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_q7nkq"]
+shader = ExtResource("3_m4ip0")
+shader_parameter/velocity = Vector2(0, -0.25)
+
+[sub_resource type="Gradient" id="Gradient_tdyuk"]
+colors = PackedColorArray(0, 0, 0, 0, 1, 1, 1, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_03m11"]
+seed = 645
+frequency = 0.004
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_c8er6"]
+width = 1080
+height = 1920
+generate_mipmaps = false
+seamless = true
+color_ramp = SubResource("Gradient_tdyuk")
+noise = SubResource("FastNoiseLite_03m11")
 
 [node name="tutorial" type="Node2D"]
 
-[node name="level" parent="." instance=ExtResource("7")]
+[node name="water" type="Sprite2D" parent="."]
+texture_repeat = 2
+material = SubResource("ShaderMaterial_l552c")
+texture = SubResource("NoiseTexture2D_lemsc")
+centered = false
+script = ExtResource("2_m4qbh")
 
-[node name="ColorRect" type="ColorRect" parent="level"]
-visible = false
-z_index = -500
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_right = 1208.0
-offset_bottom = 906.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 1
-color = Color(0.231373, 0.231373, 0.231373, 0.321569)
+[node name="fog" type="Sprite2D" parent="water"]
+material = SubResource("ShaderMaterial_vb1g8")
+texture = SubResource("NoiseTexture2D_jheev")
+centered = false
+
+[node name="fogOverlay" type="Sprite2D" parent="water"]
+z_index = 900
+material = SubResource("ShaderMaterial_q7nkq")
+texture = SubResource("NoiseTexture2D_c8er6")
+centered = false
+
+[node name="level" parent="." instance=ExtResource("7")]
 
 [node name="guide" type="Control" parent="."]
 layout_mode = 3
@@ -120,103 +157,9 @@ script = ExtResource("4")
 wait_time = 5.0
 one_shot = true
 
-[node name="entrance" type="Area2D" parent="."]
-texture_filter = 1
-position = Vector2(302, 186)
-collision_layer = 2
-collision_mask = 0
-monitoring = false
-script = ExtResource("11_qdkc3")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="entrance"]
-shape = SubResource("CircleShape2D_cw35l")
-
-[node name="yukari" type="AnimatedSprite2D" parent="entrance"]
-position = Vector2(223, -332)
-sprite_frames = SubResource("2")
-
-[node name="Dodge" type="Node2D" parent="entrance/yukari"]
-script = ExtResource("10")
-
-[node name="bullet" type="Node2D" parent="entrance/yukari/Dodge"]
-z_index = 15
-material = SubResource("ShaderMaterial_u4t0o")
-script = ExtResource("6_hijr5")
-maxBullet = 272
-localRotation = false
-CollisionMask = 5
-texture = ExtResource("9")
-
-[node name="@@27712" type="Marker2D" parent="entrance/yukari/Dodge/bullet"]
-position = Vector2(-108, -1.52588e-05)
-rotation = -3.14159
-gizmo_extents = 20.0
-
-[node name="@@27713" type="Marker2D" parent="entrance/yukari/Dodge/bullet"]
-position = Vector2(-76.3675, -76.3675)
-rotation = -2.35619
-gizmo_extents = 20.0
-
-[node name="@@27714" type="Marker2D" parent="entrance/yukari/Dodge/bullet"]
-position = Vector2(0, -108)
-rotation = -1.5708
-gizmo_extents = 20.0
-
-[node name="@@27715" type="Marker2D" parent="entrance/yukari/Dodge/bullet"]
-position = Vector2(76.3675, -76.3676)
-rotation = -0.785398
-gizmo_extents = 20.0
-
-[node name="bullet2" type="Node2D" parent="entrance/yukari/Dodge"]
-z_index = 15
-material = SubResource("ShaderMaterial_u4t0o")
-script = ExtResource("6_hijr5")
-maxBullet = 272
-localRotation = false
-CollisionMask = 5
-texture = ExtResource("9")
-
-[node name="27708" type="Marker2D" parent="entrance/yukari/Dodge/bullet2"]
-position = Vector2(108, 0)
-gizmo_extents = 20.0
-
-[node name="27709" type="Marker2D" parent="entrance/yukari/Dodge/bullet2"]
-position = Vector2(76.3675, 76.3675)
-rotation = 0.785398
-gizmo_extents = 20.0
-
-[node name="27710" type="Marker2D" parent="entrance/yukari/Dodge/bullet2"]
-position = Vector2(0, 108)
-rotation = 1.5708
-gizmo_extents = 20.0
-
-[node name="27711" type="Marker2D" parent="entrance/yukari/Dodge/bullet2"]
-position = Vector2(-76.3675, 76.3675)
-rotation = 2.35619
-gizmo_extents = 20.0
-
-[node name="Timer" type="Timer" parent="entrance/yukari/Dodge"]
-wait_time = 7.0
-
-[node name="Timer2" type="Timer" parent="entrance/yukari/Dodge"]
-process_callback = 0
-wait_time = 0.1
-
-[node name="indicator" type="Sprite2D" parent="entrance/yukari"]
-texture_filter = 2
-texture = ExtResource("7_02srm")
-script = ExtResource("8_55grs")
-value = 880
-locked_y = true
-
 [node name="HitBox" parent="." instance=ExtResource("14_whhm7")]
+position = Vector2(540, 2090)
 
 [connection signal="timeout" from="guide/item/Timer" to="guide/item" method="show"]
 [connection signal="next_event" from="guide/bomb" to="guide/item" method="start_event"]
-[connection signal="next_event" from="guide/bomb" to="entrance/yukari/Dodge" method="queue_free"]
-[connection signal="next_event" from="guide/move" to="entrance/yukari/Dodge" method="start_event"]
 [connection signal="timeout" from="guide/move/Timer" to="guide/move" method="show"]
-[connection signal="next_event" from="entrance" to="guide/bomb" method="start_event"]
-[connection signal="next_event" from="entrance" to="guide/move" method="start_event"]
-[connection signal="timeout" from="entrance/yukari/Dodge/Timer" to="entrance/yukari/Dodge" method="_on_timer_timeout"]
-[connection signal="timeout" from="entrance/yukari/Dodge/Timer2" to="entrance/yukari/Dodge/bullet2" method="SpawnBullet"]

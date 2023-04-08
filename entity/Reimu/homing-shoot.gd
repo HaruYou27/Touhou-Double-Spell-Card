@@ -15,7 +15,7 @@ func _set_shooting(value:bool) -> void:
 	if value:
 		timer1.start()
 		timer2.start()
-		orb_animator.speed_scale = 1.
+		orb_animator.speed_scale = 1.25
 		orb1.modulate = Color.WHITE
 		orb2.modulate = orb1.modulate
 	else:

@@ -16,6 +16,8 @@ var moving := false
 var bomb_queue := 0
 var bomb_count := 1
 
+const bomb_scene := preload("res://entity/Reimu/kishin-orb.tscn")
+
 func _hit() -> void:
 	if tree.paused:
 		return
@@ -31,10 +33,9 @@ func _ready() -> void:
 	Global.player = self
 	ItemManager.target = self
 	set_process_unhandled_input(false)
-	global_position = Vector2(302, 1100)
 	
 	var tween := create_tween()
-	tween.tween_property(self, 'position', Vector2(302, 700), .5)
+	tween.tween_property(self, 'position', Vector2(540, 1425), .5)
 	tween.finished.connect(Callable(self, 'set_process_unhandled_input').bind(true))
 	
 func _unhandled_input(event:InputEvent) -> void:
@@ -74,6 +75,6 @@ func _on_bomb_spawner_timeout() -> void:
 		bomb_timer.stop()
 		hitbox.set_deferred("disabled", true)
 	
-	"""var node : Node2D = bomb_scene.instantiate()
+	var node : Node2D = bomb_scene.instantiate()
 	node.global_position = global_position
-	death_timer.add_child(node)"""
+	death_timer.add_child(node)

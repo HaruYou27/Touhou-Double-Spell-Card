@@ -1,7 +1,7 @@
 extends ColorRect
 
 var score := 0
-var item := 0.0
+var item := 0
 var updating_item := false
 var graze := 0
 var updating_graze := false
@@ -41,8 +41,8 @@ func _ready() -> void:
 	graze_label.update_label(0)
 
 #There's no point in updating the score more than 1 per frame.
-func _set_item(value:=1.) -> void:
-	item += value
+func _set_item() -> void:
+	item += 1
 	if updating_item:
 		return
 	

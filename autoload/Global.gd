@@ -6,7 +6,7 @@ class_name global
 signal bullet_graze
 
 ##Emited by item when intersect player's hitbox (not item Area2D).
-signal item_collect(value:float)
+signal item_collect
 
 ##Emited by player's bomb node when finished
 signal bomb_finished

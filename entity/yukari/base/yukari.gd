@@ -2,32 +2,59 @@ extends Area2D
 class_name Boss
 
 signal start_event
+signal next_event
 
-@onready var bomb_damage := 0.0
-@onready var gauge : BossGauge = $Gauge
+@onready var hp_bar : TextureProgressBar = $hp
+@onready var time_bar : TextureProgressBar = $hp/timer
+
+var point := 0
 
 func _ready() -> void:
 	Global.boss = self
-	Global.bomb_impact.connect(Callable(self,"_bomb_hit"))
 
-func setup(value:float, timer:bool) -> void:
+func setup(timer:float, p:int, hp:=0) -> void:
 	monitorable = false
+	point = p
 	
 	var tween := create_tween()
-	if timer:
-		tween = gauge.fill_gauge(value)
-		tween.finished.connect(Callable(gauge,"timer_start"))
+	time_bar.value = 0.
+	time_bar.max_value = timer
+	tween.tween_property(time_bar, 'value', timer, 1.)
+	tween.connect('finished', Callable(self, '_setup_finished()'))
+	
+	hp_bar.value = 0.
+	if hp:
+		hp_bar.max_value = hp
+		tween.parallel().tween_property(hp_bar, 'value', hp, 1.)
+		time_bar.radial_fill_degrees = 180.
 	else:
-		tween = gauge.fill_gauge(value)
-		tween.finished.connect(Callable(self, '_set_monitorable').bind(true))
-		
-	tween.finished.connect(Callable(self, 'emit_signal').bind('start_event'))
+		time_bar.radial_fill_degrees = 360.
 	
-func _bomb_hit() -> void:
-	gauge.value -= bomb_damage
-	_hit()
+func _setup_finished() -> void:
+	if hp_bar.value:
+		monitorable = true
+	var tween := create_tween()
+	tween.tween_property(time_bar, 'value', 0., time_bar.value)
 	
+	start_event.emit()
+
+func _timeout() -> void:
+	if not point or hp_bar.value:
+		return
+	else:
+		ItemManager.SpawnItem(point, global_position)
+		next_event.emit()
+
 func _hit() -> void:
-	gauge.value -= 1
-	if gauge.value <= 0:
-		Global.leveler.next_event()
+	hp_bar.value -= 1
+	if not hp_bar.value:
+		ItemManager.SpawnItem(point * time_bar.value / time_bar.max_value)
+		next_event.emit()
+
+func _on_body_entered(body):
+	if body is Player:
+		body._hit()
+	elif hp_bar.value:
+		hp_bar.value -= hp_bar.max_value / 2
+		point = 0
+		_hit()
