@@ -4,7 +4,7 @@ extends Timer
 signal bomb
 
 func _ready() -> void:
-	timeout.connect(Callable(self, '_on_timeout'))
+	timeout.connect(_on_timeout)
 
 func _unhandled_input(event:InputEvent) -> void:
 	if event.is_action_pressed("bomb"):

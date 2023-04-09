@@ -13,7 +13,7 @@ signal bomb_finished
 
 signal can_player_shoot(value:bool)
 
-var leveler : Leveler
+var hud : HUD
 var boss : Boss
 var user_data : UserData
 var player : Player
@@ -30,14 +30,14 @@ const game_rect := Vector2i(1920, 1080)
 func restart_scene() -> void:
 	ItemManager.Clear()
 	tree.paused = false
-	var tween :Tween = ScreenEffect.fade2black()
-	tween.finished.connect(Callable(tree, 'reload_current_scene'))
-	
+	var tween :Tween = VisualEffect.fade2black()
+	tween.finished.connect(tree.reload_current_scene)
+
 func change_scene(scene:PackedScene) -> void:
 	ItemManager.Clear()
 	tree.paused = false
-	var tween :Tween = ScreenEffect.fade2black()
-	tween.finished.connect(Callable(tree, 'change_scene_to_packed').bind(scene))
+	var tween :Tween = VisualEffect.fade2black()
+	tween.finished.connect(tree.change_scene_to_packed.bind(scene))
 
 ##Convert an InputEvent to String.
 static func get_input_string(event:InputEvent) -> String:
@@ -57,7 +57,7 @@ static func get_input_string(event:InputEvent) -> String:
 func _ready() -> void:
 	randomize()
 	
-	user_data = load('user://1218622924.res')
+	user_data = load('user://saveData.res')
 	if user_data:
 		return
 		
@@ -79,4 +79,4 @@ func _exit_tree() -> void:
 	ProjectSettings.set_setting('display/window/size/viewport_height', window.size.y)
 	ProjectSettings.set_setting('display/window/size/mode', window.mode)
 	ProjectSettings.save_custom('user://override.cfg')
-	ResourceSaver.save(user_data, 'user://1218622924.res', ResourceSaver.FLAG_COMPRESS)
+	ResourceSaver.save(user_data, 'user://saveData.res', ResourceSaver.FLAG_COMPRESS)

@@ -1,20 +1,18 @@
 extends Node2D
-class_name Leveler
 ##Node that controls the current_event.
 
 ##Next level scene path.
 @export var next_level : PackedInt64Array
 
-@export var shake_node : Node2D
+@export var current_scene : Node2D
 
 @onready var tree := get_tree()
 @onready var hud := $hud
 @onready var user_data :UserData = Global.user_data
 
 func _ready() -> void:
-	ScreenEffect.fade2black(true)
-	ScreenEffect.shake_node = shake_node
-	Global.leveler = self
+	VisualEffect.fade2black(true)
+	VisualEffect.current_scene = current_scene
 
 ##Level finisher.
 func finished() -> void:

@@ -1,23 +1,22 @@
 extends ColorRect
+class_name HUD
 
-var score := 0
+var score := 0.
 var item := 0
-var updating_item := false
 var graze := 0
-var updating_graze := false
 var goal := 0
+var updating_score := false
 
-var multiplier := 0.
+@onready var multiplier := Engine.time_scale / Global.score.death_time
 
 @onready var score_file :Score = Global.score
 @onready var hi_score_label :FormatLabel = $VBoxContainer/HiScore
 @onready var score_label :FormatLabel = $VBoxContainer/Score
-@onready var graze_label :FormatLabel = $VBoxContainer/Graze
-@onready var item_label :FormatLabel = $VBoxContainer/item
-@onready var pickup_sfx : AudioStreamPlayer = $pickup
-@onready var bomb_label :FormatLabel = $VBoxContainer/Bomb
-@onready var reward_sfx : AudioStreamPlayer = $reward
 @onready var goal_label :FormatLabel = $VBoxContainer/Goal
+@onready var bomb_label :FormatLabel = $VBoxContainer/HBoxContainer/Bomb
+
+@onready var pickup_sfx : AudioStreamPlayer = $pickup
+@onready var reward_sfx : AudioStreamPlayer = $reward
 
 func save_score() -> void:
 	if score_file.score > score:
@@ -29,53 +28,35 @@ func save_score() -> void:
 
 func _ready() -> void:
 	hi_score_label.update_label(score_file.score)
-	multiplier = pow(Global.score.death_time, Engine.time_scale)
 	
-	Global.connect("item_collect",Callable(self,"_set_item"))
-	Global.connect('bullet_graze',Callable(self,'_set_graze'))
+	Global.item_collect.connect(_add_item)
+	Global.bullet_graze.connect(_add_graze)
+	Global.hud = self
+	Global.bomb_finished.connect(_update_bomb)
 	
 	score_label.update_label(0)
-	item_label.update_label(0)
 	goal_label.update_label(0)
 	bomb_label.update_label(1)
-	graze_label.update_label(0)
 
 #There's no point in updating the score more than 1 per frame.
-func _set_item() -> void:
+func _add_item() -> void:
 	item += 1
-	if updating_item:
-		return
+	pickup_sfx.play()
+	update_score()
 	
-	updating_item = true
-	call_deferred('_update_item')
-	
-func _update_item() -> void:
-	updating_item = false
-	item_label.update_label(item)
+func _add_graze() -> void:
+	graze += 1
+	update_score()
 
-	if updating_graze:
+func update_score() -> void:
+	if updating_score:
 		return
-	_update_score()
+	updating_score = true
+	call_deferred('_update_score')
 
-func _set_graze() -> void:
-	graze += 10
-	if updating_graze:
-		return
-		
-	updating_graze = true
-	call_deferred('_update_graze')
-
-func _update_graze() -> void:
-	updating_graze = false
-	graze_label.update_label(graze)
-
-	if updating_item:
-		return
-	_update_score()
-	
 func _update_score() -> void:
-	score = int(sqrt(graze * item) / multiplier)
-	score_label.update_label(score)
+	score = sqrt(graze * item) * multiplier
+	score_label.update_label(int(score))
 	
 	var score_left = goal - score
 	if score_left < INF:

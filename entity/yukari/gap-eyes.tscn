@@ -19,15 +19,15 @@ cellular_jitter = 0.72
 cellular_return_type = 6
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_0y852"]
-width = 1208
-height = 906
+width = 1080
+height = 1920
 generate_mipmaps = false
 seamless = true
+seamless_blend_skirt = 1.0
 color_ramp = SubResource("Gradient_2hf0v")
 noise = SubResource("FastNoiseLite_ih0d4")
 
 [node name="GapEyes" type="Sprite2D"]
-texture_filter = 2
 texture_repeat = 2
 material = SubResource("ShaderMaterial_dw4yx")
 texture = SubResource("NoiseTexture2D_0y852")

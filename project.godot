@@ -19,7 +19,7 @@ config/features=PackedStringArray("4.0", "C#")
 
 Global="*res://autoload/Global.gd"
 ItemManager="*res://autoload/item-manager/item_manager.tscn"
-ScreenEffect="*res://autoload/screen_effect.tscn"
+VisualEffect="*res://autoload/VisualEffect.tscn"
 SoundEffect="*res://autoload/SoundEffect/sound_effect.tscn"
 
 [display]

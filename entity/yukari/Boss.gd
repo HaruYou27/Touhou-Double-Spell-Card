@@ -20,7 +20,7 @@ func setup(timer:float, p:int, hp:=0) -> void:
 	time_bar.value = 0.
 	time_bar.max_value = timer
 	tween.tween_property(time_bar, 'value', timer, 1.)
-	tween.connect('finished', Callable(self, '_setup_finished()'))
+	tween.finished.connect(_setup_finished)
 	
 	hp_bar.value = 0.
 	if hp:

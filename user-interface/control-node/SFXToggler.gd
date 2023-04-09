@@ -4,7 +4,7 @@ class_name SFXToggler
 @export var invert := false
 
 func _ready() -> void:
-	mouse_entered.connect(Callable(SoundEffect,"hover"))
+	mouse_entered.connect(SoundEffect.hover)
 
 func _toggled(button_pressed:bool) -> void:
 	if invert:

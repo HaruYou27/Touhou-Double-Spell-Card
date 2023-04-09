@@ -1,6 +1,6 @@
-[gd_scene load_steps=6 format=3 uid="uid://duxbv0tvjks73"]
+[gd_scene load_steps=6 format=3 uid="uid://bccikrpn36dt3"]
 
-[ext_resource type="Script" path="res://user-interface/control-node/ScreenEffect.gd" id="1_m1e8c"]
+[ext_resource type="Script" path="res://autoload/VisualEffect.gd" id="1_m267x"]
 
 [sub_resource type="Animation" id="Animation_ljdud"]
 length = 0.001
@@ -67,7 +67,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 color = Color(0.0823529, 0.0823529, 0.0823529, 1)
-script = ExtResource("1_m1e8c")
+script = ExtResource("1_m267x")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 root_node = NodePath("../..")

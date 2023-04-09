@@ -10,9 +10,9 @@ class_name Score
 @export_category('settings')
 @export var death_time := .3
 @export var game_speed := 1.
-@export var shoot_type := ''
+@export var shoot_type := preload("res://entity/Reimu/HomingShoot.tscn")
 
-func save_setting(wait_time:float, type:String) -> void:
+func save_setting(wait_time:float, type:PackedScene) -> void:
 	death_time = wait_time
 	shoot_type = type
 	game_speed = Engine.time_scale

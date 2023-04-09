@@ -9,7 +9,7 @@ extends Node2D
 
 func _ready() -> void:
 	orb_animator.play("spin")
-	Global.can_player_shoot.connect(Callable(self, '_set_shooting'))
+	Global.can_player_shoot.connect(_set_shooting)
 	
 func _set_shooting(value:bool) -> void:
 	if value:

@@ -8,5 +8,5 @@ func update_label(value) -> void:
 	text = template % value
 
 func _ready() -> void:
-	mouse_entered.connect(Callable(SoundEffect,"hover"))
-	pressed.connect(Callable(SoundEffect,"press").bind(press_sfx))
+	mouse_entered.connect(SoundEffect.hover)
+	pressed.connect(SoundEffect.press.bind(press_sfx))

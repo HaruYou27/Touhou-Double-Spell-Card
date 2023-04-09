@@ -1,12 +1,12 @@
-[gd_scene load_steps=16 format=3 uid="uid://brajcyeanc1p3"]
+[gd_scene load_steps=14 format=3 uid="uid://bk3kwqburghg8"]
 
-[ext_resource type="Script" path="res://entity/Reimu/reimu.gd" id="1_kx4gf"]
+[ext_resource type="Script" path="res://entity/Reimu/Player.gd" id="1_kx4gf"]
 [ext_resource type="Texture2D" uid="uid://r7d3f3sdgdhy" path="res://entity/Reimu/texture/reimu.png" id="2_yclxq"]
 [ext_resource type="Script" path="res://entity/Reimu/graze.gd" id="3_wdonn"]
 [ext_resource type="Texture2D" uid="uid://mw3uctnhsg0p" path="res://entity/Bullet/textures/smallOrb.png" id="4_qw3b0"]
 [ext_resource type="Shader" path="res://shader/UberItem.gdshader" id="4_uai7y"]
-[ext_resource type="Texture2D" uid="uid://dv7h11hcjacg2" path="res://entity/Reimu/texture/focus.png" id="5_faen8"]
 [ext_resource type="AudioStream" uid="uid://4t58xs4qdlkr" path="res://autoload/SoundEffect/ui/tick+.wav" id="5_i0nhh"]
+[ext_resource type="Texture2D" uid="uid://dv7h11hcjacg2" path="res://entity/Reimu/texture/hitbox.png" id="7_35mu5"]
 [ext_resource type="Script" path="res://entity/Reimu/deathTimer.gd" id="11_agxgh"]
 
 [sub_resource type="SpriteFrames" id="14"]
@@ -23,8 +23,9 @@ animations = [{
 [sub_resource type="CircleShape2D" id="7"]
 radius = 4.0
 
-[sub_resource type="CircleShape2D" id="16"]
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_sx7ua"]
 radius = 40.0
+height = 150.0
 
 [sub_resource type="ParticleProcessMaterial" id="25"]
 emission_shape = 1
@@ -36,7 +37,7 @@ radial_accel_max = -100.0
 scale_min = 0.5
 scale_max = 0.5
 
-[sub_resource type="ShaderMaterial" id="35"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3mne5"]
 shader = ExtResource("4_uai7y")
 shader_parameter/time_scale = null
 shader_parameter/spin = null
@@ -45,7 +46,7 @@ shader_parameter/sin_alpha = null
 shader_parameter/displace = null
 shader_parameter/displace_strength = 5.0
 shader_parameter/recolor = true
-shader_parameter/h = 0.887
+shader_parameter/h = 0.642
 shader_parameter/s = 1.0
 shader_parameter/v = 1.0
 shader_parameter/rainbow = null
@@ -53,40 +54,7 @@ shader_parameter/wobble = null
 shader_parameter/wobble_max = 1.25
 shader_parameter/wobble_min = 0.75
 
-[sub_resource type="Animation" id="34"]
-resource_name = "show"
-length = 0.25
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.249578),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:scale")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.249208),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(1.5, 1.5), Vector2(1, 1)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_xn0pm"]
-_data = {
-"show": SubResource("34")
-}
-
-[node name="HitBox" type="StaticBody2D"]
+[node name="Reimu" type="StaticBody2D"]
 texture_filter = 1
 scale = Vector2(2, 2)
 collision_layer = 4
@@ -96,9 +64,10 @@ script = ExtResource("1_kx4gf")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 z_index = 10
+position = Vector2(-0.5, 5)
 sprite_frames = SubResource("14")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="Hitbox" type="CollisionShape2D" parent="."]
 z_index = 10
 shape = SubResource("7")
 debug_color = Color(0, 1, 0.34902, 0.419608)
@@ -111,7 +80,7 @@ script = ExtResource("3_wdonn")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="graze"]
 z_index = 9
-shape = SubResource("16")
+shape = SubResource("CapsuleShape2D_sx7ua")
 debug_color = Color(0.713726, 0.105882, 0.701961, 0.419608)
 
 [node name="vfx" type="GPUParticles2D" parent="graze"]
@@ -133,18 +102,6 @@ one_shot = true
 stream = ExtResource("5_i0nhh")
 bus = &"SFX"
 
-[node name="focus" type="Sprite2D" parent="."]
-modulate = Color(1, 1, 1, 0)
-z_index = 6
-material = SubResource("35")
-scale = Vector2(1.5, 1.5)
-texture = ExtResource("5_faen8")
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="focus"]
-libraries = {
-"": SubResource("AnimationLibrary_xn0pm")
-}
-
 [node name="hitFX" type="AudioStreamPlayer" parent="."]
 
 [node name="DeathTimer" type="Timer" parent="."]
@@ -152,9 +109,10 @@ process_mode = 3
 one_shot = true
 script = ExtResource("11_agxgh")
 
-[node name="BombTimer" type="Timer" parent="."]
-wait_time = 0.25
+[node name="Hitbox2" type="Sprite2D" parent="."]
+z_index = 100
+material = SubResource("ShaderMaterial_3mne5")
+texture = ExtResource("7_35mu5")
 
 [connection signal="timeout" from="graze/vfx/Timer" to="graze/vfx" method="set_emitting" binds= [false]]
 [connection signal="bomb" from="DeathTimer" to="." method="bomb"]
-[connection signal="timeout" from="BombTimer" to="." method="_on_bomb_spawner_timeout"]

@@ -1,16 +1,22 @@
-extends Area2D
+extends Node2D
 class_name Enemy
 
-@export (int) var hp := 1
+signal die
 
-@onready var deathfx :Node2D = get_parent()
+@export var hp := 1
+@export var point := 0
 
-func _ready():
-	Global.connect("bomb_impact",Callable(deathfx,'queue_free'))
-
-func _hit():
+func _hit() -> void:
 	hp -= 1
-	if hp <= 0:
-		deathfx.global_position = global_position
-		deathfx.start()
+	if hp < 0:
+		ItemManager.SpawnItem(point, global_position)
+		VisualEffect.death_vfx(global_position)
+		die.emit()
 		queue_free()
+
+func _on_hitbox_body_entered(body):
+	if body is Player:
+		body._hit()
+	else:
+		hp = 0
+		_hit()
