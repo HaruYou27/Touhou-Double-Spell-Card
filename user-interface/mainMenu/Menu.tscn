@@ -1,16 +1,12 @@
-[gd_scene load_steps=29 format=3 uid="uid://cfpixrfrdpt8s"]
+[gd_scene load_steps=26 format=3 uid="uid://bdgkelyq8maa"]
 
 [ext_resource type="Theme" uid="uid://brtb5yavfdl08" path="res://user-interface/resource/Menu.tres" id="1_r0a5q"]
 [ext_resource type="Script" path="res://user-interface/mainMenu/setting/Graphic.gd" id="2"]
 [ext_resource type="Script" path="res://user-interface/mainMenu/Background.gd" id="2_0gsum"]
-[ext_resource type="PackedScene" uid="uid://h7658p2ggdnm" path="res://level/misty-lake/misty-lake.tscn" id="3_wlge4"]
-[ext_resource type="Shortcut" uid="uid://c6fr744r5sr5n" path="res://user-interface/shortcut/previous.tres" id="4_4ovsh"]
 [ext_resource type="Script" path="res://user-interface/control-node/SFXButton.gd" id="4_4sjp2"]
 [ext_resource type="Script" path="res://user-interface/mainMenu/LevelList.gd" id="4_ahvgk"]
-[ext_resource type="Script" path="res://user-interface/mainMenu/Preview.gd" id="4_uhndr"]
 [ext_resource type="Script" path="res://user-interface/control-node/FormatLabel.gd" id="5"]
 [ext_resource type="Script" path="res://user-interface/mainMenu/setting/Audio.gd" id="6"]
-[ext_resource type="Shortcut" uid="uid://bks576c026a2i" path="res://user-interface/shortcut/next.tres" id="6_kivi2"]
 [ext_resource type="Shortcut" uid="uid://xs30oatyn1i6" path="res://user-interface/shortcut/enter.tres" id="7_qwjr5"]
 [ext_resource type="Script" path="res://user-interface/mainMenu/Modification.gd" id="8_rklkf"]
 [ext_resource type="Script" path="res://user-interface/mainMenu/setting/Controls.gd" id="9"]
@@ -31,57 +27,6 @@ normal = Vector2(1, 0)
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_k21gt"]
 normal = Vector2(-1, 0)
-
-[sub_resource type="Animation" id="Animation_pg05i"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("setting:visible")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("setting:modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 0)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("SelectLevel:visible")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("SelectLevel:modulate")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 0)]
-}
 
 [sub_resource type="Animation" id="Animation_r3iau"]
 resource_name = "select level"
@@ -187,14 +132,72 @@ tracks/3/keys = {
 "values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
 }
 
+[sub_resource type="Animation" id="Animation_bevq5"]
+resource_name = "xcore_off"
+length = 0.25
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SelectLevel/VBoxContainer/Xcore/LocalScore:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("SelectLevel/VBoxContainer/Xcore/LocalScore:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.25),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("SelectLevel/VBoxContainer/Xcore/Online:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.25),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("SelectLevel/VBoxContainer/Xcore/Online:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.25),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_wts87"]
+resource_name = "xcore_on"
+length = 0.25
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_nvb3g"]
 _data = {
-"RESET": SubResource("Animation_pg05i"),
 "select level": SubResource("Animation_r3iau"),
-"setting": SubResource("Animation_hr3iq")
+"setting": SubResource("Animation_hr3iq"),
+"xcore_off": SubResource("Animation_bevq5"),
+"xcore_on": SubResource("Animation_wts87")
 }
 
 [node name="Menu" type="Control"]
+texture_filter = 1
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -207,13 +210,8 @@ theme = ExtResource("1_r0a5q")
 z_index = -4000
 script = ExtResource("2_0gsum")
 
-[node name="MistyLake" parent="Background" instance=ExtResource("3_wlge4")]
-
-[node name="Preview" type="Node2D" parent="."]
-z_index = -4000
-script = ExtResource("4_uhndr")
-
 [node name="SelectLevel" type="Control" parent="."]
+modulate = Color(1, 1, 1, 0)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -232,54 +230,56 @@ grow_vertical = 2
 [node name="LevelList" type="OptionButton" parent="SelectLevel/VBoxContainer"]
 layout_mode = 2
 alignment = 1
+item_count = 4
+selected = 2
+fit_to_longest_item = false
+popup/item_0/text = "Tutorial"
+popup/item_0/id = 1
+popup/item_1/text = ""
+popup/item_1/id = 0
+popup/item_1/separator = true
+popup/item_2/text = "Stage 1 Normal"
+popup/item_2/id = 11
+popup/item_3/text = "Stage 1 Hard"
+popup/item_3/id = 12
 script = ExtResource("4_ahvgk")
+popup/item_0/separator = false
+popup/item_0/text = "Tutorial"
+popup/item_0/icon = null
+popup/item_0/id = 1
+popup/item_0/disabled = false
+popup/item_1/text = ""
+popup/item_1/icon = null
+popup/item_1/id = 0
+popup/item_1/disabled = false
+popup/item_1/separator = true
+popup/item_2/text = "Stage 1 Normal"
+popup/item_2/icon = null
+popup/item_2/id = 11
+popup/item_2/disabled = false
+popup/item_2/separator = false
+popup/item_3/id = 12
+popup/item_3/text = "Stage 1 Hard"
 
-[node name="TabContainer" type="TabContainer" parent="SelectLevel/VBoxContainer"]
+[node name="Xcore" type="Control" parent="SelectLevel/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
-tabs_visible = false
 
-[node name="HBoxContainer" type="HBoxContainer" parent="SelectLevel/VBoxContainer/TabContainer"]
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="previous" type="Button" parent="SelectLevel/VBoxContainer/TabContainer/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-focus_mode = 0
-theme_override_font_sizes/font_size = 128
-shortcut = ExtResource("4_4ovsh")
-text = "<"
-flat = true
-alignment = 0
-script = ExtResource("4_4sjp2")
-press_sfx = false
-
-[node name="next" type="Button" parent="SelectLevel/VBoxContainer/TabContainer/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-focus_mode = 0
-theme_override_font_sizes/font_size = 128
-shortcut = ExtResource("6_kivi2")
-text = ">"
-flat = true
-alignment = 2
-script = ExtResource("4_4sjp2")
-
-[node name="TabContainer" type="TabContainer" parent="SelectLevel/VBoxContainer/TabContainer"]
-visible = false
-layout_mode = 2
-
-[node name="Modification" type="VBoxContainer" parent="SelectLevel/VBoxContainer/TabContainer/TabContainer"]
-layout_mode = 2
+[node name="LocalScore" type="VBoxContainer" parent="SelectLevel/VBoxContainer/Xcore"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("8_rklkf")
 
-[node name="duration" type="Label" parent="SelectLevel/VBoxContainer/TabContainer/TabContainer/Modification"]
+[node name="duration" type="Label" parent="SelectLevel/VBoxContainer/Xcore/LocalScore"]
 layout_mode = 2
 text = "Deathdoor time %1.2f s"
 script = ExtResource("5")
 
-[node name="DurationSlider" type="HSlider" parent="SelectLevel/VBoxContainer/TabContainer/TabContainer/Modification"]
+[node name="DurationSlider" type="HSlider" parent="SelectLevel/VBoxContainer/Xcore/LocalScore"]
 layout_mode = 2
 min_value = 0.1
 max_value = 1.0
@@ -289,12 +289,12 @@ allow_greater = true
 tick_count = 10
 ticks_on_borders = true
 
-[node name="speed" type="Label" parent="SelectLevel/VBoxContainer/TabContainer/TabContainer/Modification"]
+[node name="speed" type="Label" parent="SelectLevel/VBoxContainer/Xcore/LocalScore"]
 layout_mode = 2
 text = "Game speed %d %%"
 script = ExtResource("5")
 
-[node name="SpeedSlider" type="HSlider" parent="SelectLevel/VBoxContainer/TabContainer/TabContainer/Modification" node_paths=PackedStringArray("label")]
+[node name="SpeedSlider" type="HSlider" parent="SelectLevel/VBoxContainer/Xcore/LocalScore" node_paths=PackedStringArray("label")]
 layout_mode = 2
 min_value = 0.5
 max_value = 2.0
@@ -306,7 +306,7 @@ ticks_on_borders = true
 script = ExtResource("9_w2eo4")
 label = NodePath("../speed")
 
-[node name="ShotType" type="OptionButton" parent="SelectLevel/VBoxContainer/TabContainer/TabContainer/Modification"]
+[node name="ShotType" type="OptionButton" parent="SelectLevel/VBoxContainer/Xcore/LocalScore"]
 layout_mode = 2
 size_flags_vertical = 10
 theme_override_font_sizes/font_size = 64
@@ -316,41 +316,45 @@ selected = 0
 popup/item_0/text = "Homing"
 popup/item_0/id = 0
 
-[node name="preview" type="Sprite2D" parent="SelectLevel/VBoxContainer/TabContainer/TabContainer/Modification"]
+[node name="preview" type="Sprite2D" parent="SelectLevel/VBoxContainer/Xcore/LocalScore"]
 z_index = 5
 texture_filter = 1
 position = Vector2(540, 1048)
 scale = Vector2(2, 2)
 texture = ExtResource("15_j0376")
 
-[node name="Homing Shoot" parent="SelectLevel/VBoxContainer/TabContainer/TabContainer/Modification/preview" instance=ExtResource("12_jxj3b")]
+[node name="Homing Shoot" parent="SelectLevel/VBoxContainer/Xcore/LocalScore/preview" instance=ExtResource("12_jxj3b")]
 
-[node name="WorldBoundary2" type="StaticBody2D" parent="SelectLevel/VBoxContainer/TabContainer/TabContainer/Modification"]
+[node name="WorldBoundary2" type="StaticBody2D" parent="SelectLevel/VBoxContainer/Xcore/LocalScore"]
 position = Vector2(0, -73)
 collision_mask = 0
 constant_linear_velocity = Vector2(1, 0)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="SelectLevel/VBoxContainer/TabContainer/TabContainer/Modification/WorldBoundary2"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SelectLevel/VBoxContainer/Xcore/LocalScore/WorldBoundary2"]
 position = Vector2(302, 2120)
 shape = SubResource("WorldBoundaryShape2D_rshhe")
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="SelectLevel/VBoxContainer/TabContainer/TabContainer/Modification/WorldBoundary2"]
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="SelectLevel/VBoxContainer/Xcore/LocalScore/WorldBoundary2"]
 position = Vector2(302, -200)
 shape = SubResource("WorldBoundaryShape2D_ueefi")
 
-[node name="CollisionShape2D3" type="CollisionShape2D" parent="SelectLevel/VBoxContainer/TabContainer/TabContainer/Modification/WorldBoundary2"]
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="SelectLevel/VBoxContainer/Xcore/LocalScore/WorldBoundary2"]
 position = Vector2(-200, 453)
 shape = SubResource("WorldBoundaryShape2D_oaasq")
 
-[node name="CollisionShape2D4" type="CollisionShape2D" parent="SelectLevel/VBoxContainer/TabContainer/TabContainer/Modification/WorldBoundary2"]
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="SelectLevel/VBoxContainer/Xcore/LocalScore/WorldBoundary2"]
 position = Vector2(1280, 453)
 shape = SubResource("WorldBoundaryShape2D_k21gt")
 
-[node name="Score" type="VBoxContainer" parent="SelectLevel/VBoxContainer/TabContainer/TabContainer"]
+[node name="Online" type="VBoxContainer" parent="SelectLevel/VBoxContainer/Xcore"]
 visible = false
+modulate = Color(1, 1, 1, 0)
 layout_mode = 2
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 73.0
 
-[node name="ScrollContainer" type="ScrollContainer" parent="SelectLevel/VBoxContainer/TabContainer/TabContainer/Score"]
+[node name="ScrollContainer" type="ScrollContainer" parent="SelectLevel/VBoxContainer/Xcore/Online"]
 layout_mode = 2
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="SelectLevel/VBoxContainer"]
@@ -363,14 +367,14 @@ size_flags_horizontal = 3
 text = "Setting"
 script = ExtResource("4_4sjp2")
 
-[node name="start" type="Button" parent="SelectLevel/VBoxContainer/HBoxContainer2"]
+[node name="enter" type="Button" parent="SelectLevel/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
 size_flags_horizontal = 3
 shortcut = ExtResource("7_qwjr5")
 text = "Enter"
 script = ExtResource("4_4sjp2")
 
-[node name="score" type="CheckButton" parent="SelectLevel/VBoxContainer/HBoxContainer2"]
+[node name="xcore" type="CheckButton" parent="SelectLevel/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
 size_flags_horizontal = 3
 shortcut = ExtResource("9_mbr3r")
@@ -379,8 +383,6 @@ alignment = 1
 script = ExtResource("10_l7dsp")
 
 [node name="setting" type="Control" parent="."]
-visible = false
-modulate = Color(1, 1, 1, 0)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -610,12 +612,15 @@ libraries = {
 "": SubResource("AnimationLibrary_nvb3g")
 }
 
-[connection signal="pressed" from="SelectLevel/VBoxContainer/TabContainer/HBoxContainer/previous" to="SelectLevel/VBoxContainer/LevelList" method="_on_select_pressed" binds= [-1]]
-[connection signal="pressed" from="SelectLevel/VBoxContainer/TabContainer/HBoxContainer/next" to="SelectLevel/VBoxContainer/LevelList" method="_on_select_pressed" binds= [1]]
-[connection signal="value_changed" from="SelectLevel/VBoxContainer/TabContainer/TabContainer/Modification/DurationSlider" to="SelectLevel/VBoxContainer/TabContainer/TabContainer/Modification/duration" method="update_label"]
+[node name="bgMusic" type="AudioStreamPlayer" parent="."]
+
+[node name="Timer" type="Timer" parent="bgMusic"]
+one_shot = true
+
+[connection signal="item_selected" from="SelectLevel/VBoxContainer/LevelList" to="SelectLevel/VBoxContainer/LevelList" method="_on_item_selected"]
+[connection signal="value_changed" from="SelectLevel/VBoxContainer/Xcore/LocalScore/DurationSlider" to="SelectLevel/VBoxContainer/Xcore/LocalScore/duration" method="update_label"]
 [connection signal="pressed" from="SelectLevel/VBoxContainer/HBoxContainer2/setting" to="AnimationPlayer" method="play" binds= [&"setting"]]
-[connection signal="pressed" from="SelectLevel/VBoxContainer/HBoxContainer2/start" to="SelectLevel/VBoxContainer/LevelList" method="_on_start_pressed"]
-[connection signal="toggled" from="SelectLevel/VBoxContainer/HBoxContainer2/score" to="SelectLevel/VBoxContainer/TabContainer" method="set_current_tab"]
+[connection signal="toggled" from="SelectLevel/VBoxContainer/HBoxContainer2/xcore" to="SelectLevel/VBoxContainer/Xcore" method="set_current_tab"]
 [connection signal="pressed" from="setting/TabContainer/Controls/drag" to="setting/TabContainer/Controls" method="_on_drag_pressed" flags=18]
 [connection signal="pressed" from="setting/TabContainer/Controls/bomb" to="setting/TabContainer/Controls" method="_on_bomb_pressed" flags=18]
 [connection signal="value_changed" from="setting/TabContainer/Controls/sentivity" to="setting/TabContainer/Controls" method="_on_sentivity_value_changed" flags=18]

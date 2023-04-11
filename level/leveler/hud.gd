@@ -7,7 +7,7 @@ var graze := 0
 var goal := 0
 var updating_score := false
 
-@onready var multiplier := Engine.time_scale / Global.score.death_time
+@onready var multiplier := Engine.time_scale / Global.user_data.death_time
 
 @onready var score_file :Score = Global.score
 @onready var hi_score_label :FormatLabel = $VBoxContainer/HiScore
@@ -18,16 +18,9 @@ var updating_score := false
 @onready var pickup_sfx : AudioStreamPlayer = $pickup
 @onready var reward_sfx : AudioStreamPlayer = $reward
 
-func save_score() -> void:
-	if score_file.score > score:
-		score_file.score = score
-		score_file.graze = graze
-		score_file.item = item
-	
-	ResourceSaver.save(score_file, score_file.resource_path, ResourceSaver.FLAG_COMPRESS)
-
 func _ready() -> void:
 	hi_score_label.update_label(score_file.score)
+	score_file.attempt += 1
 	
 	Global.item_collect.connect(_add_item)
 	Global.bullet_graze.connect(_add_graze)

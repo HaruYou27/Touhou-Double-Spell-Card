@@ -17,13 +17,14 @@ var hud : HUD
 var boss : Boss
 var user_data : UserData
 var player : Player
-var score := Score.new()
 
 ##Play area rectangle.
 const playground := Vector2i(1080, 1620)
 
 ##Default resolution.
 const game_rect := Vector2i(1920, 1080)
+
+const main_menu := preload("res://user-interface/mainMenu/Menu.tscn")
 
 @onready var tree := get_tree()
 
@@ -61,7 +62,7 @@ func _ready() -> void:
 	if user_data:
 		return
 		
-	user_data = UserData.new()
+	user_data = preload("res://autoload/UserData.tres")
 	
 	var fps := int(ceil(DisplayServer.screen_get_refresh_rate()))
 	if fps:

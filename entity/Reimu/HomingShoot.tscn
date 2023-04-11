@@ -104,7 +104,7 @@ _data = {
 "spin": SubResource("Animation_50kuu")
 }
 
-[node name="Homing Shoot" type="Node2D"]
+[node name="Homing" type="Node2D"]
 texture_filter = 1
 script = ExtResource("1_8gpw2")
 

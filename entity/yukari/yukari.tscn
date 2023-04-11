@@ -1,11 +1,11 @@
 [gd_scene load_steps=12 format=3]
 
-[ext_resource type="Script" path="res://level/base/BossGauge.gd" id="1"]
+[ext_resource type="Script" path="res://level/leveler/BossGauge.gd" id="1"]
 [ext_resource type="Script" path="res://entity/utility/LockedNode2D.gd" id="2"]
 [ext_resource type="Script" path="res://entity/yukari/Boss.gd" id="3"]
-[ext_resource type="Texture2D" uid="uid://cnecndeyl8vpm" path="res://level/base/resource/boss-indicator.png" id="4"]
-[ext_resource type="Texture2D" uid="uid://5n4khvq72c6n" path="res://level/base/resource/overlay.png" id="5_vfwy3"]
-[ext_resource type="Texture2D" uid="uid://btxkd0tknueit" path="res://level/base/resource/fill.png" id="6"]
+[ext_resource type="Texture2D" uid="uid://cnecndeyl8vpm" path="res://level/leveler/resource/boss-indicator.png" id="4"]
+[ext_resource type="Texture2D" uid="uid://5n4khvq72c6n" path="res://level/leveler/resource/overlay.png" id="5_vfwy3"]
+[ext_resource type="Texture2D" uid="uid://btxkd0tknueit" path="res://level/leveler/resource/fill.png" id="6"]
 [ext_resource type="Texture2D" uid="uid://bn8nged18pm41" path="res://entity/yukari/texture/Yukari.png" id="7"]
 [ext_resource type="Shader" path="res://shader/UberItem.gdshader" id="7_bbvgn"]
 

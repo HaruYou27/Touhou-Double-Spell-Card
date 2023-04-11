@@ -1,0 +1,5 @@
+[gd_resource type="FastNoiseLite" format=3 uid="uid://2xur2pkmult8"]
+
+[resource]
+domain_warp_enabled = true
+domain_warp_type = 2

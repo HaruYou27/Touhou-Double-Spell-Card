@@ -25,8 +25,9 @@ func _hit() -> void:
 	tree.paused = true
 
 func _ready() -> void:
+	add_child(load(user_data.shoot_type).instantiate())
+	death_timer.wait_time = user_data.death_time
 	Global.bomb_finished.connect(_bomb_finished)
-	add_child(Global.score.shoot_type.instantiate())
 	Global.player = self
 	ItemManager.target = self
 	set_process_unhandled_input(false)

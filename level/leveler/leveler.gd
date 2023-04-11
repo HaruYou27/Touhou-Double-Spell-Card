@@ -2,7 +2,7 @@ extends Node2D
 ##Node that controls the current_event.
 
 ##Next level scene path.
-@export var next_level : PackedInt64Array
+@export var id := 0
 
 @export var current_scene : Node2D
 
@@ -13,12 +13,12 @@ extends Node2D
 func _ready() -> void:
 	VisualEffect.fade2black(true)
 	VisualEffect.current_scene = current_scene
+	user_data.last_level = id
 
 ##Level finisher.
 func finished() -> void:
 	if Engine.is_editor_hint:
 		return
 	
-	hud.save_score() 
-	Global.user_data.unlock_level(next_level)
-	tree.change_scene_to(next_level)
+	Global.change_scene(global.main_menu)
+	#next level

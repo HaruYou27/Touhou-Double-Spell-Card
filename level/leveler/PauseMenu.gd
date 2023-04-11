@@ -20,7 +20,7 @@ func _on_Resume_pressed() -> void:
 	Engine.time_scale = Global.score.game_speed
 	
 func _on_Quit_pressed() -> void:
-	Global.change_scene(preload("res://user-interface/mainMenu/Menu.tscn"))
+	Global.change_scene(global.main_menu)
 
 func _on_restart_pressed():
 	Global.restart_scene()

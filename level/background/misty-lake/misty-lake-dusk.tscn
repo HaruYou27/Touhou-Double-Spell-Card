@@ -1,0 +1,29 @@
+[gd_scene load_steps=7 format=3 uid="uid://cliv0usc0pt4p"]
+
+[ext_resource type="Material" uid="uid://vjuohgwk6djw" path="res://level/background/misty-lake/water.tres" id="1_o3g74"]
+[ext_resource type="FastNoiseLite" uid="uid://2xur2pkmult8" path="res://level/background/misty-lake/water-noise.tres" id="2_65tqf"]
+[ext_resource type="PackedScene" uid="uid://6tpq02g01rjo" path="res://level/background/misty-lake/fog.tscn" id="2_hvph4"]
+[ext_resource type="PackedScene" uid="uid://sxulpvgfbmwi" path="res://level/background/misty-lake/fog_overlay.tscn" id="3_l5v3h"]
+
+[sub_resource type="Gradient" id="Gradient_eav0f"]
+colors = PackedColorArray(0, 0.766667, 1, 1, 0.670588, 0.164706, 0.227451, 1)
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_lemsc"]
+width = 1080
+height = 1920
+generate_mipmaps = false
+seamless = true
+color_ramp = SubResource("Gradient_eav0f")
+noise = ExtResource("2_65tqf")
+
+[node name="water" type="Sprite2D"]
+texture_repeat = 2
+material = ExtResource("1_o3g74")
+texture = SubResource("NoiseTexture2D_lemsc")
+centered = false
+
+[node name="fog" parent="." instance=ExtResource("2_hvph4")]
+visible = false
+
+[node name="fogOverlay" parent="." instance=ExtResource("3_l5v3h")]
+visible = false

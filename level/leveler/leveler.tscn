@@ -1,15 +1,15 @@
-[gd_scene load_steps=26 format=3 uid="uid://qarv562y6uqn"]
+[gd_scene load_steps=26 format=3 uid="uid://v4hkdp74evpq"]
 
 [ext_resource type="Script" path="res://user-interface/control-node/FormatLabel.gd" id="1"]
-[ext_resource type="Script" path="res://level/base/leveler.gd" id="4"]
+[ext_resource type="Script" path="res://level/leveler/leveler.gd" id="4"]
 [ext_resource type="Theme" uid="uid://brtb5yavfdl08" path="res://user-interface/resource/Menu.tres" id="4_4a0vg"]
 [ext_resource type="Shortcut" uid="uid://cmfbyxixc4xv3" path="res://user-interface/shortcut/escape.tres" id="4_amvrx"]
 [ext_resource type="Script" path="res://user-interface/control-node/SFXButton.gd" id="5_seuyc"]
-[ext_resource type="Script" path="res://level/base/hud.gd" id="6_jvtoq"]
+[ext_resource type="Script" path="res://level/leveler/hud.gd" id="6_jvtoq"]
 [ext_resource type="FontFile" uid="uid://cybwwftllqbxu" path="res://user-interface/resource/UbuntuMono-Regular.ttf" id="7_d506w"]
-[ext_resource type="Script" path="res://level/base/fps.gd" id="10"]
+[ext_resource type="Script" path="res://level/leveler/fps.gd" id="10"]
 [ext_resource type="AudioStream" uid="uid://bykr1yaisabfe" path="res://autoload/SoundEffect/ui/tick-.wav" id="10_ykt54"]
-[ext_resource type="Script" path="res://level/base/PauseMenu.gd" id="12"]
+[ext_resource type="Script" path="res://level/leveler/PauseMenu.gd" id="12"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_pfg2x"]
 

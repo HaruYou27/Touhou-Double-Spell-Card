@@ -1,5 +1,6 @@
 shader_type canvas_item;
 #pragma disable_preprocessor
+
 uniform float time_scale;
 uniform bool spin;
 uniform bool disable_modulate;
