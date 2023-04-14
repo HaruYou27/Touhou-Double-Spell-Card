@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=13 format=3 uid="uid://brtb5yavfdl08"]
+[gd_resource type="Theme" load_steps=14 format=3 uid="uid://brtb5yavfdl08"]
 
 [ext_resource type="FontFile" uid="uid://cybwwftllqbxu" path="res://user-interface/resource/UbuntuMono-Regular.ttf" id="1_ms6ke"]
 [ext_resource type="FontFile" uid="uid://c7ppp33ch6e5" path="res://user-interface/resource/Vbutlong.ttf" id="2_lfv8x"]
@@ -7,6 +7,18 @@
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8847t"]
 bg_color = Color(1, 0.22, 0.22, 0.501961)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qwrtb"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.1, 0.1, 0.1, 0.6)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mrshe"]
 content_margin_left = 4.0
@@ -73,11 +85,12 @@ corner_detail = 1
 
 [resource]
 default_font = ExtResource("1_ms6ke")
-default_font_size = 64
+default_font_size = 70
 Button/colors/font_hover_pressed_color = Color(1, 0.219608, 0.219608, 1)
 Button/colors/font_pressed_color = Color(1, 0.219608, 0.219608, 1)
 Button/styles/disabled = SubResource("StyleBoxEmpty_pfg2x")
 Button/styles/hover = SubResource("StyleBoxFlat_8847t")
+Button/styles/normal = SubResource("StyleBoxFlat_qwrtb")
 CheckButton/styles/hover = null
 CheckButton/styles/hover_pressed = null
 CheckButton/styles/normal = SubResource("StyleBoxFlat_mrshe")

@@ -62,7 +62,7 @@ func _ready() -> void:
 	if user_data:
 		return
 		
-	user_data = preload("res://autoload/UserData.tres")
+	user_data = UserData.new()
 	
 	var fps := int(ceil(DisplayServer.screen_get_refresh_rate()))
 	if fps:

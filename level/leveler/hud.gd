@@ -7,9 +7,8 @@ var graze := 0
 var goal := 0
 var updating_score := false
 
-@onready var multiplier := Engine.time_scale / Global.user_data.death_time
+@onready var user_data := Global.user_data
 
-@onready var score_file :Score = Global.score
 @onready var hi_score_label :FormatLabel = $VBoxContainer/HiScore
 @onready var score_label :FormatLabel = $VBoxContainer/Score
 @onready var goal_label :FormatLabel = $VBoxContainer/Goal
@@ -19,8 +18,7 @@ var updating_score := false
 @onready var reward_sfx : AudioStreamPlayer = $reward
 
 func _ready() -> void:
-	hi_score_label.update_label(score_file.score)
-	score_file.attempt += 1
+	hi_score_label.update_label(user_data.scores.get(user_data.last_level, 0))
 	
 	Global.item_collect.connect(_add_item)
 	Global.bullet_graze.connect(_add_graze)
@@ -48,7 +46,7 @@ func update_score() -> void:
 	call_deferred('_update_score')
 
 func _update_score() -> void:
-	score = sqrt(graze * item) * multiplier
+	score = pow(graze * item, Engine.time_scale)
 	score_label.update_label(int(score))
 	
 	var score_left = goal - score

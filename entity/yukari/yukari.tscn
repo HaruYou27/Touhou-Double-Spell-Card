@@ -7,7 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://5n4khvq72c6n" path="res://level/leveler/resource/overlay.png" id="5_vfwy3"]
 [ext_resource type="Texture2D" uid="uid://btxkd0tknueit" path="res://level/leveler/resource/fill.png" id="6"]
 [ext_resource type="Texture2D" uid="uid://bn8nged18pm41" path="res://entity/yukari/texture/Yukari.png" id="7"]
-[ext_resource type="Shader" path="res://shader/UberItem.gdshader" id="7_bbvgn"]
+[ext_resource type="Shader" path="res://entity/UberItem.gdshader" id="7_bbvgn"]
 
 [sub_resource type="SpriteFrames" id="2"]
 animations = [{

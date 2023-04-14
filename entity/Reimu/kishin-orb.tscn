@@ -1,6 +1,6 @@
-[gd_scene load_steps=9 format=3 uid="uid://n3v3oy8xd0ls"]
+[gd_scene load_steps=9 format=3]
 
-[ext_resource type="Shader" path="res://shader/UberItem.gdshader" id="1_72m2b"]
+[ext_resource type="Shader" path="res://entity/UberItem.gdshader" id="1_72m2b"]
 [ext_resource type="Script" path="res://entity/Reimu/kishin-orb.gd" id="1_mje3d"]
 [ext_resource type="Texture2D" uid="uid://cdphctv3sy3ys" path="res://entity/Reimu/texture/YinYangOrb.webp" id="2_yojsb"]
 

@@ -8,12 +8,12 @@ class_name UserData
 @export_category("Controls")
 @export var sentivity := 1.2
 @export var raw_input := true : set = _set_raw_input
-@export var drag_bind : InputEvent : set = _bind_drag
-@export var bomb_bind : InputEvent : set = _bind_bomb
+@export var drag_bind := InputMap.action_get_events('drag')[0] : set = _bind_drag
+@export var bomb_bind := InputMap.action_get_events('bomb')[0] : set = _bind_bomb
+@export var bomb_button := false
 
 @export_category('User data')
 @export var death_time := .3
-@export var game_speed := 1.
 @export_file var shoot_type := "res://entity/Reimu/HomingShoot.tscn"
 
 @export var scores := {}

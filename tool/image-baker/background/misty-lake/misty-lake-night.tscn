@@ -1,10 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://c5xuq24pxs4i7"]
+[gd_scene load_steps=10 format=3]
 
-[ext_resource type="Material" uid="uid://vjuohgwk6djw" path="res://level/background/misty-lake/water.tres" id="1_brmxf"]
-[ext_resource type="Shader" path="res://shader/background/moving-tiled.gdshader" id="2_8vvfa"]
-[ext_resource type="FastNoiseLite" uid="uid://2xur2pkmult8" path="res://level/background/misty-lake/water-noise.tres" id="2_b07dc"]
-[ext_resource type="PackedScene" uid="uid://6tpq02g01rjo" path="res://level/background/misty-lake/fog.tscn" id="3_paoff"]
-[ext_resource type="PackedScene" uid="uid://sxulpvgfbmwi" path="res://level/background/misty-lake/fog_overlay.tscn" id="4_s1nx2"]
+[ext_resource type="Material" path="res://tool/image-baker/background/misty-lake/water.tres" id="1_brmxf"]
+[ext_resource type="Shader" path="res://tool/image-baker/background/shader/moving-tiled.gdshader" id="2_8vvfa"]
+[ext_resource type="FastNoiseLite" uid="uid://2xur2pkmult8" path="res://tool/image-baker/background/misty-lake/water-noise.tres" id="2_b07dc"]
+[ext_resource type="PackedScene" path="res://tool/image-baker/background/misty-lake/fog.tscn" id="3_paoff"]
+[ext_resource type="PackedScene" path="res://tool/image-baker/background/misty-lake/fog_overlay.tscn" id="4_s1nx2"]
 
 [sub_resource type="Gradient" id="Gradient_uawya"]
 offsets = PackedFloat32Array(0.00574713, 1)

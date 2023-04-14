@@ -1,202 +1,22 @@
-[gd_scene load_steps=26 format=3 uid="uid://bdgkelyq8maa"]
+[gd_scene load_steps=16 format=3]
 
-[ext_resource type="Theme" uid="uid://brtb5yavfdl08" path="res://user-interface/resource/Menu.tres" id="1_r0a5q"]
+[ext_resource type="Theme" uid="uid://brtb5yavfdl08" path="res://user-interface/resource/Menu.tres" id="1_fll5i"]
 [ext_resource type="Script" path="res://user-interface/mainMenu/setting/Graphic.gd" id="2"]
 [ext_resource type="Script" path="res://user-interface/mainMenu/Background.gd" id="2_0gsum"]
+[ext_resource type="Script" path="res://user-interface/mainMenu/Menu.gd" id="2_pnltk"]
+[ext_resource type="PackedScene" path="res://tool/image-baker/background/misty-lake/misty-lake.tscn" id="3_5u3a6"]
+[ext_resource type="Script" path="res://user-interface/mainMenu/LevelPreview.gd" id="4_3xpwk"]
 [ext_resource type="Script" path="res://user-interface/control-node/SFXButton.gd" id="4_4sjp2"]
-[ext_resource type="Script" path="res://user-interface/mainMenu/LevelList.gd" id="4_ahvgk"]
 [ext_resource type="Script" path="res://user-interface/control-node/FormatLabel.gd" id="5"]
 [ext_resource type="Script" path="res://user-interface/mainMenu/setting/Audio.gd" id="6"]
 [ext_resource type="Shortcut" uid="uid://xs30oatyn1i6" path="res://user-interface/shortcut/enter.tres" id="7_qwjr5"]
-[ext_resource type="Script" path="res://user-interface/mainMenu/Modification.gd" id="8_rklkf"]
 [ext_resource type="Script" path="res://user-interface/mainMenu/setting/Controls.gd" id="9"]
 [ext_resource type="Shortcut" uid="uid://bmk1du8tyow5e" path="res://user-interface/shortcut/space.tres" id="9_mbr3r"]
 [ext_resource type="Script" path="res://user-interface/control-node/PercentageSlider.gd" id="9_w2eo4"]
 [ext_resource type="Script" path="res://user-interface/control-node/SFXToggler.gd" id="10_l7dsp"]
 [ext_resource type="Shortcut" uid="uid://cmfbyxixc4xv3" path="res://user-interface/shortcut/escape.tres" id="11_yyd2r"]
-[ext_resource type="PackedScene" uid="uid://beweol2qml2ub" path="res://entity/Reimu/HomingShoot.tscn" id="12_jxj3b"]
-[ext_resource type="Texture2D" uid="uid://r7d3f3sdgdhy" path="res://entity/Reimu/texture/reimu.png" id="15_j0376"]
 
-[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_rshhe"]
-
-[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_ueefi"]
-normal = Vector2(0, 1)
-
-[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_oaasq"]
-normal = Vector2(1, 0)
-
-[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_k21gt"]
-normal = Vector2(-1, 0)
-
-[sub_resource type="Animation" id="Animation_r3iau"]
-resource_name = "select level"
-length = 0.25
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("SelectLevel:visible")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("setting:visible")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.2),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [true, false]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("setting:modulate")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.2),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("SelectLevel:modulate")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0, 0.2),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
-}
-
-[sub_resource type="Animation" id="Animation_hr3iq"]
-resource_name = "setting"
-length = 0.25
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("setting:visible")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("setting:modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.25),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("SelectLevel:visible")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.25),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [true, false]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("SelectLevel:modulate")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0, 0.25),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_bevq5"]
-resource_name = "xcore_off"
-length = 0.25
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("SelectLevel/VBoxContainer/Xcore/LocalScore:visible")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("SelectLevel/VBoxContainer/Xcore/LocalScore:modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.25),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("SelectLevel/VBoxContainer/Xcore/Online:visible")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.25),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [true, false]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("SelectLevel/VBoxContainer/Xcore/Online:modulate")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0, 0.25),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_wts87"]
-resource_name = "xcore_on"
-length = 0.25
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_nvb3g"]
-_data = {
-"select level": SubResource("Animation_r3iau"),
-"setting": SubResource("Animation_hr3iq"),
-"xcore_off": SubResource("Animation_bevq5"),
-"xcore_on": SubResource("Animation_wts87")
-}
-
-[node name="Menu" type="Control"]
+[node name="Menu" type="Control" node_paths=PackedStringArray("select_level", "setting")]
 texture_filter = 1
 layout_mode = 3
 anchors_preset = 15
@@ -204,14 +24,29 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("1_r0a5q")
+theme = ExtResource("1_fll5i")
+script = ExtResource("2_pnltk")
+select_level = NodePath("LevelSelection")
+setting = NodePath("setting")
 
-[node name="Background" type="Node2D" parent="."]
+[node name="Background" type="Node2D" parent="." node_paths=PackedStringArray("list")]
 z_index = -4000
 script = ExtResource("2_0gsum")
+list = NodePath("../LevelSelection/VBoxContainer/LevelList")
 
-[node name="SelectLevel" type="Control" parent="."]
-modulate = Color(1, 1, 1, 0)
+[node name="tutorial" parent="Background" node_paths=PackedStringArray("foreground") instance=ExtResource("3_5u3a6")]
+script = ExtResource("4_3xpwk")
+foreground = NodePath("foreground")
+
+[node name="foreground" type="Node2D" parent="Background/tutorial"]
+z_index = 1000
+
+[node name="Sprite2D" type="Sprite2D" parent="Background/tutorial/foreground"]
+position = Vector2(761, 1047)
+scale = Vector2(0.910715, 0.910715)
+
+[node name="LevelSelection" type="Control" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -219,7 +54,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="SelectLevel"]
+[node name="VBoxContainer" type="VBoxContainer" parent="LevelSelection"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -227,160 +62,67 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="LevelList" type="OptionButton" parent="SelectLevel/VBoxContainer"]
+[node name="LevelList" type="OptionButton" parent="LevelSelection/VBoxContainer"]
 layout_mode = 2
 alignment = 1
-item_count = 4
-selected = 2
-fit_to_longest_item = false
-popup/item_0/text = "Tutorial"
-popup/item_0/id = 1
-popup/item_1/text = ""
-popup/item_1/id = 0
-popup/item_1/separator = true
-popup/item_2/text = "Stage 1 Normal"
-popup/item_2/id = 11
-popup/item_3/text = "Stage 1 Hard"
-popup/item_3/id = 12
-script = ExtResource("4_ahvgk")
-popup/item_0/separator = false
-popup/item_0/text = "Tutorial"
-popup/item_0/icon = null
-popup/item_0/id = 1
-popup/item_0/disabled = false
-popup/item_1/text = ""
-popup/item_1/icon = null
-popup/item_1/id = 0
-popup/item_1/disabled = false
-popup/item_1/separator = true
-popup/item_2/text = "Stage 1 Normal"
-popup/item_2/icon = null
-popup/item_2/id = 11
-popup/item_2/disabled = false
-popup/item_2/separator = false
-popup/item_3/id = 12
-popup/item_3/text = "Stage 1 Hard"
 
-[node name="Xcore" type="Control" parent="SelectLevel/VBoxContainer"]
+[node name="Control" type="Control" parent="LevelSelection/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="LocalScore" type="VBoxContainer" parent="SelectLevel/VBoxContainer/Xcore"]
+[node name="SelectButton" type="HBoxContainer" parent="LevelSelection/VBoxContainer/Control"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("8_rklkf")
+size_flags_vertical = 3
 
-[node name="duration" type="Label" parent="SelectLevel/VBoxContainer/Xcore/LocalScore"]
+[node name="previous" type="Button" parent="LevelSelection/VBoxContainer/Control/SelectButton"]
 layout_mode = 2
-text = "Deathdoor time %1.2f s"
-script = ExtResource("5")
+size_flags_horizontal = 3
+text = "<"
+flat = true
+alignment = 0
 
-[node name="DurationSlider" type="HSlider" parent="SelectLevel/VBoxContainer/Xcore/LocalScore"]
+[node name="next" type="Button" parent="LevelSelection/VBoxContainer/Control/SelectButton"]
 layout_mode = 2
-min_value = 0.1
-max_value = 1.0
-step = 0.1
-value = 1.0
-allow_greater = true
-tick_count = 10
-ticks_on_borders = true
+size_flags_horizontal = 3
+text = ">"
+flat = true
+alignment = 2
 
-[node name="speed" type="Label" parent="SelectLevel/VBoxContainer/Xcore/LocalScore"]
-layout_mode = 2
-text = "Game speed %d %%"
-script = ExtResource("5")
-
-[node name="SpeedSlider" type="HSlider" parent="SelectLevel/VBoxContainer/Xcore/LocalScore" node_paths=PackedStringArray("label")]
-layout_mode = 2
-min_value = 0.5
-max_value = 2.0
-step = 0.1
-value = 2.0
-allow_greater = true
-tick_count = 16
-ticks_on_borders = true
-script = ExtResource("9_w2eo4")
-label = NodePath("../speed")
-
-[node name="ShotType" type="OptionButton" parent="SelectLevel/VBoxContainer/Xcore/LocalScore"]
-layout_mode = 2
-size_flags_vertical = 10
-theme_override_font_sizes/font_size = 64
-alignment = 1
-item_count = 1
-selected = 0
-popup/item_0/text = "Homing"
-popup/item_0/id = 0
-
-[node name="preview" type="Sprite2D" parent="SelectLevel/VBoxContainer/Xcore/LocalScore"]
-z_index = 5
-texture_filter = 1
-position = Vector2(540, 1048)
-scale = Vector2(2, 2)
-texture = ExtResource("15_j0376")
-
-[node name="Homing Shoot" parent="SelectLevel/VBoxContainer/Xcore/LocalScore/preview" instance=ExtResource("12_jxj3b")]
-
-[node name="WorldBoundary2" type="StaticBody2D" parent="SelectLevel/VBoxContainer/Xcore/LocalScore"]
-position = Vector2(0, -73)
-collision_mask = 0
-constant_linear_velocity = Vector2(1, 0)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="SelectLevel/VBoxContainer/Xcore/LocalScore/WorldBoundary2"]
-position = Vector2(302, 2120)
-shape = SubResource("WorldBoundaryShape2D_rshhe")
-
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="SelectLevel/VBoxContainer/Xcore/LocalScore/WorldBoundary2"]
-position = Vector2(302, -200)
-shape = SubResource("WorldBoundaryShape2D_ueefi")
-
-[node name="CollisionShape2D3" type="CollisionShape2D" parent="SelectLevel/VBoxContainer/Xcore/LocalScore/WorldBoundary2"]
-position = Vector2(-200, 453)
-shape = SubResource("WorldBoundaryShape2D_oaasq")
-
-[node name="CollisionShape2D4" type="CollisionShape2D" parent="SelectLevel/VBoxContainer/Xcore/LocalScore/WorldBoundary2"]
-position = Vector2(1280, 453)
-shape = SubResource("WorldBoundaryShape2D_k21gt")
-
-[node name="Online" type="VBoxContainer" parent="SelectLevel/VBoxContainer/Xcore"]
-visible = false
-modulate = Color(1, 1, 1, 0)
-layout_mode = 2
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = 73.0
-
-[node name="ScrollContainer" type="ScrollContainer" parent="SelectLevel/VBoxContainer/Xcore/Online"]
-layout_mode = 2
-
-[node name="HBoxContainer2" type="HBoxContainer" parent="SelectLevel/VBoxContainer"]
+[node name="SpecialButton" type="HBoxContainer" parent="LevelSelection/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 8
 
-[node name="setting" type="Button" parent="SelectLevel/VBoxContainer/HBoxContainer2"]
+[node name="setting" type="Button" parent="LevelSelection/VBoxContainer/SpecialButton"]
 layout_mode = 2
 size_flags_horizontal = 3
+shortcut = ExtResource("11_yyd2r")
 text = "Setting"
 script = ExtResource("4_4sjp2")
 
-[node name="enter" type="Button" parent="SelectLevel/VBoxContainer/HBoxContainer2"]
+[node name="enter" type="Button" parent="LevelSelection/VBoxContainer/SpecialButton"]
 layout_mode = 2
 size_flags_horizontal = 3
 shortcut = ExtResource("7_qwjr5")
 text = "Enter"
 script = ExtResource("4_4sjp2")
 
-[node name="xcore" type="CheckButton" parent="SelectLevel/VBoxContainer/HBoxContainer2"]
+[node name="xcore" type="CheckButton" parent="LevelSelection/VBoxContainer/SpecialButton"]
 layout_mode = 2
 size_flags_horizontal = 3
 shortcut = ExtResource("9_mbr3r")
 text = "Xcore"
 alignment = 1
 script = ExtResource("10_l7dsp")
+
+[node name="HiScore" type="Label" parent="LevelSelection/VBoxContainer"]
+layout_mode = 2
+text = "Hi-Score: %07d"
+script = ExtResource("5")
 
 [node name="setting" type="Control" parent="."]
 layout_mode = 1
@@ -393,17 +135,34 @@ offset_right = -21.0
 offset_bottom = -27.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("1_r0a5q")
 
 [node name="TabContainer" type="TabContainer" parent="setting"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 5.0
+offset_top = 73.0
+offset_right = 5.0
+offset_bottom = 73.0
 grow_horizontal = 2
 grow_vertical = 2
 
+[node name="Gameplay" type="VBoxContainer" parent="setting/TabContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="setting/TabContainer/Gameplay"]
+layout_mode = 2
+text = "Game Speed: %d%%"
+script = ExtResource("5")
+
+[node name="GameSpeed" type="HSlider" parent="setting/TabContainer/Gameplay" node_paths=PackedStringArray("label")]
+layout_mode = 2
+script = ExtResource("9_w2eo4")
+label = NodePath("../Label")
+
 [node name="Controls" type="VBoxContainer" parent="setting/TabContainer"]
+visible = false
 layout_mode = 2
 script = ExtResource("9")
 
@@ -597,30 +356,23 @@ layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -200.0
-offset_top = -3.0
-offset_bottom = 70.0
+offset_left = -212.0
+offset_top = -20.0
+offset_right = 6.0
+offset_bottom = 59.0
 grow_horizontal = 0
 shortcut = ExtResource("11_yyd2r")
 text = "Back >"
 script = ExtResource("4_4sjp2")
 press_sfx = false
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-reset_on_save = false
-libraries = {
-"": SubResource("AnimationLibrary_nvb3g")
-}
-
-[node name="bgMusic" type="AudioStreamPlayer" parent="."]
-
-[node name="Timer" type="Timer" parent="bgMusic"]
-one_shot = true
-
-[connection signal="item_selected" from="SelectLevel/VBoxContainer/LevelList" to="SelectLevel/VBoxContainer/LevelList" method="_on_item_selected"]
-[connection signal="value_changed" from="SelectLevel/VBoxContainer/Xcore/LocalScore/DurationSlider" to="SelectLevel/VBoxContainer/Xcore/LocalScore/duration" method="update_label"]
-[connection signal="pressed" from="SelectLevel/VBoxContainer/HBoxContainer2/setting" to="AnimationPlayer" method="play" binds= [&"setting"]]
-[connection signal="toggled" from="SelectLevel/VBoxContainer/HBoxContainer2/xcore" to="SelectLevel/VBoxContainer/Xcore" method="set_current_tab"]
+[connection signal="item_selected" from="LevelSelection/VBoxContainer/LevelList" to="Background" method="_on_level_list_item_selected"]
+[connection signal="pressed" from="LevelSelection/VBoxContainer/Control/SelectButton/previous" to="Background" method="_on_previous_pressed"]
+[connection signal="pressed" from="LevelSelection/VBoxContainer/Control/SelectButton/next" to="Background" method="_on_next_pressed"]
+[connection signal="pressed" from="LevelSelection/VBoxContainer/SpecialButton/setting" to="." method="_on_setting_pressed"]
+[connection signal="pressed" from="LevelSelection/VBoxContainer/SpecialButton/setting" to="Background" method="_hide_foreground"]
+[connection signal="pressed" from="LevelSelection/VBoxContainer/SpecialButton/enter" to="Background" method="_on_enter_pressed"]
+[connection signal="pressed" from="LevelSelection/VBoxContainer/SpecialButton/xcore" to="Background" method="_hide_foreground"]
 [connection signal="pressed" from="setting/TabContainer/Controls/drag" to="setting/TabContainer/Controls" method="_on_drag_pressed" flags=18]
 [connection signal="pressed" from="setting/TabContainer/Controls/bomb" to="setting/TabContainer/Controls" method="_on_bomb_pressed" flags=18]
 [connection signal="value_changed" from="setting/TabContainer/Controls/sentivity" to="setting/TabContainer/Controls" method="_on_sentivity_value_changed" flags=18]
@@ -633,4 +385,3 @@ one_shot = true
 [connection signal="toggled" from="setting/TabContainer/Graphic/fullscreen" to="setting/TabContainer/Graphic" method="_on_fullscreen_toggled" flags=18]
 [connection signal="toggled" from="setting/TabContainer/Graphic/borderless" to="setting/TabContainer/Graphic" method="_on_borderless_toggled" flags=18]
 [connection signal="pressed" from="setting/TabContainer/Graphic/reset" to="setting/TabContainer/Graphic" method="_on_reset_pressed" flags=18]
-[connection signal="pressed" from="setting/back" to="AnimationPlayer" method="play" binds= [&"select level"]]

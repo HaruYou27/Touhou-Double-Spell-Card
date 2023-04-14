@@ -1,6 +1,6 @@
-[gd_scene load_steps=6 format=3 uid="uid://sxulpvgfbmwi"]
+[gd_scene load_steps=6 format=3]
 
-[ext_resource type="Shader" path="res://shader/background/moving-tiled.gdshader" id="1_ctavd"]
+[ext_resource type="Shader" path="res://tool/image-baker/background/shader/moving-tiled.gdshader" id="1_ctavd"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_q7nkq"]
 shader = ExtResource("1_ctavd")

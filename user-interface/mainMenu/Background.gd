@@ -1,32 +1,73 @@
 extends Node2D
-##Some fancy harmless crossfade animation.
 
-var current_preview : Node2D
-var new_preview : Node2D
-
+var previews : Array[LevelPreview]
+var current : LevelPreview
+var new : LevelPreview
 var changing := false
 
-func change_preview(preview:LevelPreview) -> void:
+@onready var idx := Global.user_data.last_level
+@onready var size := get_child_count()
+
+@export var previous : Button
+@export var next : Button
+@export var list : OptionButton
+
+func _ready() -> void:
+	for node in get_children():
+		if node is LevelPreview:
+			previews.append(node)
+			node.hide()
+			list.add_item(node.title)
+	current = previews[idx]
+	current.show()
+
+func _hide_foreground() -> void:
 	if changing:
-		#Avoid any thing weird happen when user abuse the code.
-		#Better nothing happend than a unexpected error.
-		#Since it's rare (I wonder who would change the level in less than .25 sec)
-		#I'm too lazy for a better solution.
-		#Should naturally recover the next time it triggered.
+		return
+	
+	current.hide_foreground()
+
+func change_preview() -> void:
+	changing = true
+	new = previews[idx]
+	new.show()
+	new.modulate = Color.TRANSPARENT
+	
+	var tween := create_tween()
+	tween.tween_property(new, 'modulate', Color.WHITE, .25)
+	tween.tween_property(current, 'modulate', Color.TRANSPARENT, .25)
+	tween.finished.connect(_on_change_preview_finished)
+
+func _on_change_preview_finished() -> void:
+	changing = false
+	current.hide()
+	current = new
+
+func _on_previous_pressed() -> void:
+	if changing:
 		return
 		
-	changing = true
-	new_preview = preview.node_preview
-	add_child(new_preview)
-	var tween := create_tween()
-	tween.tween_property(current_preview, 'modulate', Color.TRANSPARENT, .25)
+	idx -= 1
+	change_preview()
+
+func _on_next_pressed() -> void:
+	if changing:
+		return
+		
+	idx += 1
+	if idx == size:
+		idx = 0
 	
-	new_preview.modulate = Color.TRANSPARENT
-	tween.tween_property(new_preview, 'modulate', Color.WHITE, .25)
-	
-	tween.finished.connect(_change_finished)
-	
-func _change_finished() -> void:
-	remove_child(current_preview)
-	current_preview = new_preview
-	changing = false
+	change_preview()
+
+func _on_enter_pressed() -> void:
+	Global.user_data.last_level = idx
+	Global.change_scene(current.level_scene)
+
+func _on_level_list_item_selected(index:int) -> void:
+	if changing:
+		list.select(idx)
+		return
+		
+	idx = index
+	change_preview()

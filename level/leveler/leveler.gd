@@ -13,7 +13,6 @@ extends Node2D
 func _ready() -> void:
 	VisualEffect.fade2black(true)
 	VisualEffect.current_scene = current_scene
-	user_data.last_level = id
 
 ##Level finisher.
 func finished() -> void:
@@ -21,4 +20,3 @@ func finished() -> void:
 		return
 	
 	Global.change_scene(global.main_menu)
-	#next level

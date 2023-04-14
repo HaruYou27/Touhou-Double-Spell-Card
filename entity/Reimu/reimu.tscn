@@ -1,13 +1,13 @@
-[gd_scene load_steps=14 format=3 uid="uid://bk3kwqburghg8"]
+[gd_scene load_steps=14 format=3]
 
 [ext_resource type="Script" path="res://entity/Reimu/Player.gd" id="1_kx4gf"]
 [ext_resource type="Texture2D" uid="uid://r7d3f3sdgdhy" path="res://entity/Reimu/texture/reimu.png" id="2_yclxq"]
 [ext_resource type="Script" path="res://entity/Reimu/graze.gd" id="3_wdonn"]
 [ext_resource type="Texture2D" uid="uid://mw3uctnhsg0p" path="res://entity/Bullet/textures/smallOrb.png" id="4_qw3b0"]
-[ext_resource type="Shader" path="res://shader/UberItem.gdshader" id="4_uai7y"]
+[ext_resource type="Shader" path="res://entity/UberItem.gdshader" id="4_uai7y"]
 [ext_resource type="AudioStream" uid="uid://4t58xs4qdlkr" path="res://autoload/SoundEffect/ui/tick+.wav" id="5_i0nhh"]
+[ext_resource type="Script" path="res://entity/Reimu/DeathTimer.gd" id="6_wbd73"]
 [ext_resource type="Texture2D" uid="uid://dv7h11hcjacg2" path="res://entity/Reimu/texture/hitbox.png" id="7_35mu5"]
-[ext_resource type="Script" path="res://entity/Reimu/deathTimer.gd" id="11_agxgh"]
 
 [sub_resource type="SpriteFrames" id="14"]
 animations = [{
@@ -106,8 +106,9 @@ bus = &"SFX"
 
 [node name="DeathTimer" type="Timer" parent="."]
 process_mode = 3
+wait_time = 0.2
 one_shot = true
-script = ExtResource("11_agxgh")
+script = ExtResource("6_wbd73")
 
 [node name="Hitbox2" type="Sprite2D" parent="."]
 z_index = 100
@@ -116,3 +117,4 @@ texture = ExtResource("7_35mu5")
 
 [connection signal="timeout" from="graze/vfx/Timer" to="graze/vfx" method="set_emitting" binds= [false]]
 [connection signal="bomb" from="DeathTimer" to="." method="bomb"]
+[connection signal="timeout" from="DeathTimer" to="DeathTimer" method="_on_timeout"]

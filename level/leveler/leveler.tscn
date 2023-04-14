@@ -378,13 +378,13 @@ grow_vertical = 2
 [node name="HiScore" type="Label" parent="hud/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 5
-text = "Hi-Score: %07d"
+text = "Hi-Score: %018d"
 script = ExtResource("1")
 
 [node name="Score" type="Label" parent="hud/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 5
-text = "Score:    %07d"
+text = "Score:    %018d"
 script = ExtResource("1")
 
 [node name="Goal" type="Label" parent="hud/VBoxContainer"]
@@ -392,7 +392,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
 theme = SubResource("Theme_4us48")
-text = "Next:     %07d"
+text = "Next:     %018d"
 script = ExtResource("1")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="hud/VBoxContainer"]
@@ -401,7 +401,7 @@ layout_mode = 2
 [node name="Bomb" type="Label" parent="hud/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_colors/font_color = Color(0, 0.870588, 0, 1)
+theme_override_colors/font_color = Color(1, 0.2, 0.2, 1)
 text = "Bomb:	%d"
 vertical_alignment = 2
 script = ExtResource("1")

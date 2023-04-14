@@ -26,7 +26,6 @@ func _hit() -> void:
 
 func _ready() -> void:
 	add_child(load(user_data.shoot_type).instantiate())
-	death_timer.wait_time = user_data.death_time
 	Global.bomb_finished.connect(_bomb_finished)
 	Global.player = self
 	ItemManager.target = self
@@ -48,7 +47,7 @@ func _already() -> void:
 func _unhandled_input(event:InputEvent) -> void:
 	moving = event.is_action_pressed('drag')
 	
-	if event is InputEventMouseMotion and moving:
+	if (event is InputEventMouseMotion and moving) or event is InputEventScreenDrag:
 		global_position += event.relative * sentivity
 		position.x = clamp(position.x, 0.0, global.playground.x)
 		position.y = clamp(position.y, 0.0, global.playground.y)
