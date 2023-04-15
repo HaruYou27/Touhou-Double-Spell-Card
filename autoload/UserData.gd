@@ -14,7 +14,7 @@ class_name UserData
 
 @export_category('User data')
 @export var death_time := .3
-@export_file var shoot_type := "res://entity/Reimu/HomingShoot.tscn"
+@export var shoot_type := "res://entity/Reimu/HomingShoot.tscn"
 
 @export var scores := {}
 @export var last_level := 0

@@ -13,7 +13,7 @@ var moving := false
 var can_bomb := false
 var bomb_count := 1
 
-const bomb_scene := preload("res://entity/Reimu/kishin-orb.tscn")
+@export var bomb_scene : PackedScene
 
 func _hit() -> void:
 	if tree.paused:
@@ -64,5 +64,5 @@ func bomb() -> void:
 	set_process_unhandled_input(true)
 	hitbox.set_deferred("disabled", true)
 
-	var node := bomb_scene.instantiate()
-	VisualEffect.current_scene.add_child(node)
+	#var node := bomb_scene.instantiate()
+	#VisualEffect.current_scene.add_child(node)

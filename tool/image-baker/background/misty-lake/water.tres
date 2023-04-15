@@ -12,6 +12,7 @@ noise = SubResource("FastNoiseLite_bs8bj")
 
 [resource]
 shader = ExtResource("1_uyxy8")
+shader_parameter/water_opacity = 0.5
 shader_parameter/water_speed = -0.5
 shader_parameter/wave_distortion = 0.2
 shader_parameter/wave_multiplyer = 7

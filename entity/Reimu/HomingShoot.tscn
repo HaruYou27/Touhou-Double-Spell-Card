@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3]
+[gd_scene load_steps=13 format=3 uid="uid://dm5utudhjx2xi"]
 
 [ext_resource type="Script" path="res://entity/Reimu/homing-shoot.gd" id="1_8gpw2"]
 [ext_resource type="Script" path="res://entity/Bullet/BulletBasic.cs" id="2_t1yrh"]

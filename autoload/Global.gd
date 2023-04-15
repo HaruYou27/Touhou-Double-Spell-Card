@@ -24,7 +24,7 @@ const playground := Vector2i(1080, 1620)
 ##Default resolution.
 const game_rect := Vector2i(1920, 1080)
 
-const main_menu := preload("res://user-interface/mainMenu/Menu.tscn")
+const main_menu := "res://user-interface/mainMenu/Menu.tscn"
 
 @onready var tree := get_tree()
 
@@ -34,11 +34,11 @@ func restart_scene() -> void:
 	var tween :Tween = VisualEffect.fade2black()
 	tween.finished.connect(tree.reload_current_scene)
 
-func change_scene(scene:PackedScene) -> void:
+func change_scene(scene:String) -> void:
 	ItemManager.Clear()
 	tree.paused = false
 	var tween :Tween = VisualEffect.fade2black()
-	tween.finished.connect(tree.change_scene_to_packed.bind(scene))
+	tween.finished.connect(tree.change_scene_to_file.bind(scene))
 
 ##Convert an InputEvent to String.
 static func get_input_string(event:InputEvent) -> String:
