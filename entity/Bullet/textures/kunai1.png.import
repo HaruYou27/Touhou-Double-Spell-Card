@@ -2,20 +2,20 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c16de8jl47tkf"
-path="res://.godot/imported/water-noise.webp-a06642bdaca772f900a69bd63a16e7d2.ctex"
+uid="uid://d1nkk7km71ule"
+path="res://.godot/imported/kunai1.png-f8f7a9578c643a223aef6877e0e56e40.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://level/background/misty-lake/water-noise.webp"
-dest_files=["res://.godot/imported/water-noise.webp-a06642bdaca772f900a69bd63a16e7d2.ctex"]
+source_file="res://entity/Bullet/textures/kunai1.png"
+dest_files=["res://.godot/imported/kunai1.png-f8f7a9578c643a223aef6877e0e56e40.ctex"]
 
 [params]
 
-compress/mode=4
+compress/mode=0
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1
@@ -25,7 +25,7 @@ mipmaps/generate=false
 mipmaps/limit=-1
 roughness/mode=0
 roughness/src_normal=""
-process/fix_alpha_border=false
+process/fix_alpha_border=true
 process/premult_alpha=false
 process/normal_map_invert_y=false
 process/hdr_as_srgb=false

@@ -1,9 +1,9 @@
 [gd_scene load_steps=24 format=3]
 
 [ext_resource type="Script" path="res://level/tutorial/item.gd" id="1"]
-[ext_resource type="Shader" path="res://tool/image-baker/background/shader/water.gdshader" id="1_ufwp0"]
+[ext_resource type="Shader" path="res://level/background/shader/water.gdshader" id="1_ufwp0"]
 [ext_resource type="Script" path="res://level/leveler/Background.gd" id="2_m4qbh"]
-[ext_resource type="Shader" path="res://tool/image-baker/background/shader/moving-tiled.gdshader" id="3_m4ip0"]
+[ext_resource type="Shader" path="res://level/background/shader/moving-tiled.gdshader" id="3_m4ip0"]
 [ext_resource type="Script" path="res://level/tutorial/Move.gd" id="4"]
 [ext_resource type="Script" path="res://level/tutorial/bomb.gd" id="6"]
 [ext_resource type="PackedScene" uid="uid://v4hkdp74evpq" path="res://level/leveler/leveler.tscn" id="7"]

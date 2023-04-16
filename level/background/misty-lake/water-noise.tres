@@ -2,6 +2,7 @@
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_bgebx"]
 seed = 727
+frequency = 0.002
 domain_warp_enabled = true
 domain_warp_type = 2
 

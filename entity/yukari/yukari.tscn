@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3]
+[gd_scene load_steps=12 format=3 uid="uid://byn3o8k1x6ybp"]
 
 [ext_resource type="Script" path="res://level/leveler/BossGauge.gd" id="1"]
 [ext_resource type="Script" path="res://entity/utility/LockedNode2D.gd" id="2"]
@@ -52,7 +52,7 @@ script = ExtResource("3")
 texture_filter = 2
 texture = ExtResource("4")
 script = ExtResource("2")
-value = 854
+value = 1594
 locked_y = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]

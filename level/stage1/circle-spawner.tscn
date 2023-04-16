@@ -1,0 +1,52 @@
+[gd_scene load_steps=5 format=3 uid="uid://bevioo11dclgs"]
+
+[ext_resource type="Shader" path="res://entity/UberItem.gdshader" id="1_nwaxh"]
+[ext_resource type="Script" path="res://entity/Bullet/BulletBasic.cs" id="2_p555y"]
+[ext_resource type="Texture2D" uid="uid://d1nkk7km71ule" path="res://entity/Bullet/textures/kunai1.png" id="3_w2aim"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_o2d6k"]
+shader = ExtResource("1_nwaxh")
+shader_parameter/time_scale = null
+shader_parameter/spin = null
+shader_parameter/disable_modulate = null
+shader_parameter/sin_alpha = null
+shader_parameter/displace = null
+shader_parameter/displace_strength = 5.0
+shader_parameter/recolor = true
+shader_parameter/h = 0.757
+shader_parameter/s = 1.0
+shader_parameter/v = 1.0
+shader_parameter/rainbow = null
+shader_parameter/wobble = null
+shader_parameter/wobble_max = 1.25
+shader_parameter/wobble_min = 0.75
+
+[node name="spawner" type="Node2D"]
+z_index = 4
+material = SubResource("ShaderMaterial_o2d6k")
+script = ExtResource("2_p555y")
+localRotation = false
+texture = ExtResource("3_w2aim")
+
+[node name="41408" type="Marker2D" parent="."]
+position = Vector2(128, 0)
+scale = Vector2(2, 2)
+gizmo_extents = 20.0
+
+[node name="41409" type="Marker2D" parent="."]
+position = Vector2(0, 128)
+rotation = 1.5708
+scale = Vector2(2, 2)
+gizmo_extents = 20.0
+
+[node name="41410" type="Marker2D" parent="."]
+position = Vector2(-128, -3.05176e-05)
+rotation = -3.14159
+scale = Vector2(2, 2)
+gizmo_extents = 20.0
+
+[node name="41411" type="Marker2D" parent="."]
+position = Vector2(0, -128)
+rotation = -1.5708
+scale = Vector2(2, 2)
+gizmo_extents = 20.0

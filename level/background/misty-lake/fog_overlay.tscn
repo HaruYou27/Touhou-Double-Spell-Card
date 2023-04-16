@@ -1,0 +1,33 @@
+[gd_scene load_steps=7 format=3 uid="uid://tvw1a1nufa7g"]
+
+[ext_resource type="Shader" path="res://level/background/shader/noise-colorize.gdshader" id="1_1lu6v"]
+
+[sub_resource type="Gradient" id="Gradient_eg1jf"]
+colors = PackedColorArray(0.560784, 0.788235, 1, 1, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_3ycqc"]
+gradient = SubResource("Gradient_eg1jf")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_crap5"]
+shader = ExtResource("1_1lu6v")
+shader_parameter/velocity = Vector2(0, -0.2)
+shader_parameter/color_map = SubResource("GradientTexture1D_3ycqc")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_he6ry"]
+seed = 252
+frequency = 0.001
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_cvunb"]
+width = 1080
+height = 1920
+generate_mipmaps = false
+seamless = true
+seamless_blend_skirt = 0.2
+noise = SubResource("FastNoiseLite_he6ry")
+
+[node name="FogOverlay" type="Sprite2D"]
+z_index = 900
+texture_repeat = 2
+material = SubResource("ShaderMaterial_crap5")
+texture = SubResource("NoiseTexture2D_cvunb")
+centered = false

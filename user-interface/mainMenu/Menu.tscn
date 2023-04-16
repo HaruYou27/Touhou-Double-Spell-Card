@@ -1,12 +1,11 @@
-[gd_scene load_steps=16 format=3]
+[gd_scene load_steps=15 format=3 uid="uid://b2vamn7mlhuxc"]
 
 [ext_resource type="Theme" uid="uid://brtb5yavfdl08" path="res://user-interface/resource/Menu.tres" id="1_fll5i"]
 [ext_resource type="Script" path="res://user-interface/mainMenu/setting/Graphic.gd" id="2"]
 [ext_resource type="Script" path="res://user-interface/mainMenu/Background.gd" id="2_0gsum"]
 [ext_resource type="Script" path="res://user-interface/mainMenu/Menu.gd" id="2_pnltk"]
-[ext_resource type="PackedScene" path="res://tool/image-baker/background/misty-lake/misty-lake.tscn" id="3_5u3a6"]
-[ext_resource type="Script" path="res://user-interface/mainMenu/LevelPreview.gd" id="4_3xpwk"]
 [ext_resource type="Script" path="res://user-interface/control-node/SFXButton.gd" id="4_4sjp2"]
+[ext_resource type="PackedScene" uid="uid://cnqflylyb858f" path="res://level/background/misty-lake/misty-lake.tscn" id="4_bojkh"]
 [ext_resource type="Script" path="res://user-interface/control-node/FormatLabel.gd" id="5"]
 [ext_resource type="Script" path="res://user-interface/mainMenu/setting/Audio.gd" id="6"]
 [ext_resource type="Shortcut" uid="uid://xs30oatyn1i6" path="res://user-interface/shortcut/enter.tres" id="7_qwjr5"]
@@ -34,16 +33,7 @@ z_index = -4000
 script = ExtResource("2_0gsum")
 list = NodePath("../LevelSelection/VBoxContainer/LevelList")
 
-[node name="tutorial" parent="Background" node_paths=PackedStringArray("foreground") instance=ExtResource("3_5u3a6")]
-script = ExtResource("4_3xpwk")
-foreground = NodePath("foreground")
-
-[node name="foreground" type="Node2D" parent="Background/tutorial"]
-z_index = 1000
-
-[node name="Sprite2D" type="Sprite2D" parent="Background/tutorial/foreground"]
-position = Vector2(761, 1047)
-scale = Vector2(0.910715, 0.910715)
+[node name="MistyLake" parent="Background" instance=ExtResource("4_bojkh")]
 
 [node name="LevelSelection" type="Control" parent="."]
 visible = false
@@ -158,6 +148,8 @@ script = ExtResource("5")
 
 [node name="GameSpeed" type="HSlider" parent="setting/TabContainer/Gameplay" node_paths=PackedStringArray("label")]
 layout_mode = 2
+tick_count = 10
+ticks_on_borders = true
 script = ExtResource("9_w2eo4")
 label = NodePath("../Label")
 

@@ -1,0 +1,92 @@
+[gd_scene load_steps=14 format=3 uid="uid://d4ic7oocviptv"]
+
+[ext_resource type="PackedScene" uid="uid://v4hkdp74evpq" path="res://level/leveler/leveler.tscn" id="1_umtlo"]
+[ext_resource type="Shader" path="res://level/background/shader/water.gdshader" id="2_wlmew"]
+[ext_resource type="Texture2D" uid="uid://clt15wekn0gcj" path="res://level/background/misty-lake/fog-noise.tres" id="3_8f37f"]
+[ext_resource type="Texture2D" uid="uid://bgh4r80tk5o7v" path="res://level/background/misty-lake/water-noise.tres" id="3_saoe8"]
+[ext_resource type="PackedScene" uid="uid://bi8tm7bd1smp6" path="res://level/background/misty-lake/fog.tscn" id="4_trpfx"]
+[ext_resource type="PackedScene" uid="uid://tvw1a1nufa7g" path="res://level/background/misty-lake/fog_overlay.tscn" id="5_c13xg"]
+[ext_resource type="PackedScene" uid="uid://byn3o8k1x6ybp" path="res://entity/yukari/yukari.tscn" id="6_tx2jr"]
+[ext_resource type="Script" path="res://level/stage1/SpinShot.gd" id="7_n3tf1"]
+[ext_resource type="PackedScene" uid="uid://bevioo11dclgs" path="res://level/stage1/circle-spawner.tscn" id="8_gs73q"]
+
+[sub_resource type="Gradient" id="Gradient_kdyaa"]
+colors = PackedColorArray(0, 0.766667, 1, 1, 0.1105, 0.16445, 0.65, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_5ksx4"]
+gradient = SubResource("Gradient_kdyaa")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_ved6o"]
+viewport_path = NodePath("SubViewportContainer/SubViewport")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ubk73"]
+resource_local_to_scene = true
+shader = ExtResource("2_wlmew")
+shader_parameter/water_opacity = 0.5
+shader_parameter/water_velocity = Vector2(0, 0.5)
+shader_parameter/wave_distortion = 0.2
+shader_parameter/wave_multiplyer = -7.0
+shader_parameter/velocity = Vector2(0, -0.1)
+shader_parameter/reflection = SubResource("ViewportTexture_ved6o")
+shader_parameter/noise_texture = ExtResource("3_8f37f")
+shader_parameter/color_map = SubResource("GradientTexture1D_5ksx4")
+
+[node name="Stage1" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MistyLake" type="Sprite2D" parent="."]
+texture_repeat = 2
+material = SubResource("ShaderMaterial_ubk73")
+texture = ExtResource("3_saoe8")
+centered = false
+
+[node name="fog" parent="MistyLake" instance=ExtResource("4_trpfx")]
+
+[node name="FogOverlay" parent="MistyLake" instance=ExtResource("5_c13xg")]
+visible = false
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
+disable_3d = true
+transparent_bg = true
+handle_input_locally = false
+canvas_item_default_texture_filter = 0
+size = Vector2i(1080, 1920)
+render_target_update_mode = 4
+
+[node name="yukari" parent="SubViewportContainer/SubViewport" instance=ExtResource("6_tx2jr")]
+position = Vector2(540, 500)
+scale = Vector2(1.5, 1.5)
+
+[node name="SpinShot" type="Node2D" parent="SubViewportContainer/SubViewport/yukari" node_paths=PackedStringArray("clockwise", "counter_clockwise")]
+script = ExtResource("7_n3tf1")
+clockwise = NodePath("spawner")
+counter_clockwise = NodePath("spawner2")
+
+[node name="spawner" parent="SubViewportContainer/SubViewport/yukari/SpinShot" instance=ExtResource("8_gs73q")]
+
+[node name="spawner2" parent="SubViewportContainer/SubViewport/yukari/SpinShot" instance=ExtResource("8_gs73q")]
+rotation = 0.785398
+
+[node name="Timer" type="Timer" parent="SubViewportContainer/SubViewport/yukari/SpinShot"]
+wait_time = 0.1
+autostart = true
+
+[node name="level" parent="." instance=ExtResource("1_umtlo")]
+layout_mode = 1
+
+[connection signal="timeout" from="SubViewportContainer/SubViewport/yukari/SpinShot/Timer" to="SubViewportContainer/SubViewport/yukari/SpinShot/spawner" method="SpawnBullet"]
+[connection signal="timeout" from="SubViewportContainer/SubViewport/yukari/SpinShot/Timer" to="SubViewportContainer/SubViewport/yukari/SpinShot/spawner2" method="SpawnBullet"]

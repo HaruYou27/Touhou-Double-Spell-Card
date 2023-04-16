@@ -1,8 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://dbarmq4s1yimn"]
+[gd_scene load_steps=2 format=3 uid="uid://bxwgp67wcl574"]
 
 [ext_resource type="Script" path="res://tool/image-baker/ViewportBaker.gd" id="1_b81fs"]
-[ext_resource type="Texture2D" uid="uid://bgh4r80tk5o7v" path="res://tool/image-baker/background/misty-lake/water-noise.tres" id="2_1ylyk"]
-[ext_resource type="Script" path="res://tool/image-baker/NoiseBaker.gd" id="2_c4ur4"]
 
 [node name="ImageBaker" type="Control"]
 layout_mode = 3
@@ -36,8 +34,3 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-
-[node name="NoiseBaker" type="Sprite2D" parent="."]
-texture = ExtResource("2_1ylyk")
-centered = false
-script = ExtResource("2_c4ur4")

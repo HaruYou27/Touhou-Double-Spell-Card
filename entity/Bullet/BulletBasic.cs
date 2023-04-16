@@ -25,8 +25,8 @@ public partial class BulletBasic : Node2D
 	protected nint index;
 	protected Node2D[] barrels;
 	protected static Node Global;
-	protected static World2D world;
 	protected static ItemManager itemManager;
+	protected static World2D world;
 
 	protected Bullet[] bullets;
 	protected class Bullet
@@ -77,6 +77,7 @@ public partial class BulletBasic : Node2D
 
 		Rect2 texRect = new Rect2(-textureSize / 2, textureSize);
 		Rid textureRid = texture.GetRid();
+		Rid canvas = GetWorld2D().Canvas;
 		foreach (Bullet bullet in bullets)
 		{
 			Rid sprite = bullet.sprite;
@@ -84,7 +85,7 @@ public partial class BulletBasic : Node2D
 			RenderingServer.CanvasItemSetVisible(sprite, false);
 			RenderingServer.CanvasItemSetDefaultTextureFilter(sprite, RenderingServer.CanvasItemTextureFilter.Nearest);
 			RenderingServer.CanvasItemSetZIndex(sprite, ZIndex);
-			RenderingServer.CanvasItemSetParent(sprite, world.Canvas);
+			RenderingServer.CanvasItemSetParent(sprite, canvas);
 			RenderingServer.CanvasItemSetLightMask(sprite, 0);
 			RenderingServer.CanvasItemAddTextureRect(sprite, texRect, textureRid);
 			if (Material != null)

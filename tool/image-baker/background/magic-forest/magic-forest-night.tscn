@@ -1,6 +1,6 @@
 [gd_scene load_steps=15 format=3]
 
-[ext_resource type="Shader" path="res://tool/image-baker/background/shader/moving-tiled.gdshader" id="1_887fg"]
+[ext_resource type="Shader" path="res://level/background/shader/moving-tiled.gdshader" id="1_887fg"]
 [ext_resource type="Shader" path="res://tool/image-baker/background/shader/blinking.gdshader" id="2_1y08b"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_cbc3b"]

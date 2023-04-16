@@ -1,4 +1,4 @@
-extends Node2D
+extends Control
 ##Node that controls the current_event.
 
 ##Next level scene path.
