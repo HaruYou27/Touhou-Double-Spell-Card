@@ -11,8 +11,8 @@ gradient = SubResource("Gradient_kdyaa")
 
 [sub_resource type="Gradient" id="Gradient_psdhy"]
 interpolation_mode = 1
-offsets = PackedFloat32Array(0.830645)
-colors = PackedColorArray(0, 0, 0, 0)
+offsets = PackedFloat32Array(0.435484)
+colors = PackedColorArray(1, 1, 1, 0)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_qpldh"]
 gradient = SubResource("Gradient_psdhy")
@@ -20,11 +20,11 @@ width = 1
 
 [resource]
 shader = ExtResource("1_2hurw")
+shader_parameter/reflection = SubResource("GradientTexture1D_qpldh")
+shader_parameter/water_velocity = Vector2(0, -0.2)
 shader_parameter/water_opacity = 0.5
-shader_parameter/water_velocity = Vector2(0, 0.5)
+shader_parameter/color_map = SubResource("GradientTexture1D_5ksx4")
+shader_parameter/wave_velocity = Vector2(0, 2)
 shader_parameter/wave_distortion = 0.2
 shader_parameter/wave_multiplyer = -7.0
-shader_parameter/velocity = Vector2(0, -0.1)
-shader_parameter/reflection = SubResource("GradientTexture1D_qpldh")
 shader_parameter/noise_texture = ExtResource("2_ajkrt")
-shader_parameter/color_map = SubResource("GradientTexture1D_5ksx4")

@@ -3,7 +3,7 @@
 [ext_resource type="Shader" path="res://level/background/shader/noise-colorize.gdshader" id="1_1lu6v"]
 
 [sub_resource type="Gradient" id="Gradient_eg1jf"]
-colors = PackedColorArray(0.560784, 0.788235, 1, 1, 0, 0, 0, 0)
+colors = PackedColorArray(0.831373, 0.917647, 1, 1, 0, 0, 0, 0)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_3ycqc"]
 gradient = SubResource("Gradient_eg1jf")

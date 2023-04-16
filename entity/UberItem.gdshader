@@ -84,9 +84,9 @@ void fragment()
 	if (recolor)
 	{
 		vec3 colorhsv = rgb2hsv(COLOR.rgb);
-		float boolean = when_lt(colorhsv.y, 0.11);
+		float is_white = when_lt(colorhsv.y, 0.11);
 		colorhsv *= vec3(1, s, v);
 		colorhsv.x += h + rainbow_hue;
-		COLOR.rgb = COLOR.rgb * boolean + hsv2rgb(colorhsv) * nah(boolean);
+		COLOR.rgb = COLOR.rgb * is_white + hsv2rgb(colorhsv) * nah(is_white);
 	}
 }

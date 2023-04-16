@@ -22,14 +22,14 @@ viewport_path = NodePath("SubViewportContainer/SubViewport")
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ubk73"]
 resource_local_to_scene = true
 shader = ExtResource("2_wlmew")
+shader_parameter/reflection = SubResource("ViewportTexture_ved6o")
+shader_parameter/water_velocity = Vector2(0, -0.2)
 shader_parameter/water_opacity = 0.5
-shader_parameter/water_velocity = Vector2(0, 0.5)
+shader_parameter/color_map = SubResource("GradientTexture1D_5ksx4")
+shader_parameter/wave_velocity = Vector2(0, 2)
 shader_parameter/wave_distortion = 0.2
 shader_parameter/wave_multiplyer = -7.0
-shader_parameter/velocity = Vector2(0, -0.1)
-shader_parameter/reflection = SubResource("ViewportTexture_ved6o")
 shader_parameter/noise_texture = ExtResource("3_8f37f")
-shader_parameter/color_map = SubResource("GradientTexture1D_5ksx4")
 
 [node name="Stage1" type="Control"]
 layout_mode = 3

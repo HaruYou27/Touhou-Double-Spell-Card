@@ -1,13 +1,15 @@
-[gd_scene load_steps=15 format=3 uid="uid://b2vamn7mlhuxc"]
+[gd_scene load_steps=17 format=3 uid="uid://b2vamn7mlhuxc"]
 
 [ext_resource type="Theme" uid="uid://brtb5yavfdl08" path="res://user-interface/resource/Menu.tres" id="1_fll5i"]
 [ext_resource type="Script" path="res://user-interface/mainMenu/setting/Graphic.gd" id="2"]
 [ext_resource type="Script" path="res://user-interface/mainMenu/Background.gd" id="2_0gsum"]
 [ext_resource type="Script" path="res://user-interface/mainMenu/Menu.gd" id="2_pnltk"]
 [ext_resource type="Script" path="res://user-interface/control-node/SFXButton.gd" id="4_4sjp2"]
-[ext_resource type="PackedScene" uid="uid://cnqflylyb858f" path="res://level/background/misty-lake/misty-lake.tscn" id="4_bojkh"]
+[ext_resource type="Material" uid="uid://bdovnbfdf6ss3" path="res://level/background/misty-lake/water-day.tres" id="4_f83vx"]
 [ext_resource type="Script" path="res://user-interface/control-node/FormatLabel.gd" id="5"]
+[ext_resource type="Texture2D" uid="uid://bgh4r80tk5o7v" path="res://level/background/misty-lake/water-noise.tres" id="5_pv030"]
 [ext_resource type="Script" path="res://user-interface/mainMenu/setting/Audio.gd" id="6"]
+[ext_resource type="PackedScene" uid="uid://bi8tm7bd1smp6" path="res://level/background/misty-lake/fog.tscn" id="6_7alci"]
 [ext_resource type="Shortcut" uid="uid://xs30oatyn1i6" path="res://user-interface/shortcut/enter.tres" id="7_qwjr5"]
 [ext_resource type="Script" path="res://user-interface/mainMenu/setting/Controls.gd" id="9"]
 [ext_resource type="Shortcut" uid="uid://bmk1du8tyow5e" path="res://user-interface/shortcut/space.tres" id="9_mbr3r"]
@@ -33,7 +35,14 @@ z_index = -4000
 script = ExtResource("2_0gsum")
 list = NodePath("../LevelSelection/VBoxContainer/LevelList")
 
-[node name="MistyLake" parent="Background" instance=ExtResource("4_bojkh")]
+[node name="MistyLake" type="Sprite2D" parent="Background"]
+texture_repeat = 2
+material = ExtResource("4_f83vx")
+texture = ExtResource("5_pv030")
+centered = false
+
+[node name="fog" parent="Background/MistyLake" instance=ExtResource("6_7alci")]
+visible = false
 
 [node name="LevelSelection" type="Control" parent="."]
 visible = false
