@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c3jodrorofxht"
-path="res://.godot/imported/ofuda-tail.png-5a15790cf6213234d28dfce1d6f03af1.ctex"
+uid="uid://dv7h11hcjacg2"
+path="res://.godot/imported/hitbox.png-6262883c58fdaa36514211516fc9b36f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://entity/Reimu/texture/ofuda-tail.png"
-dest_files=["res://.godot/imported/ofuda-tail.png-5a15790cf6213234d28dfce1d6f03af1.ctex"]
+source_file="res://entity/Reimu/resource/hitbox.png"
+dest_files=["res://.godot/imported/hitbox.png-6262883c58fdaa36514211516fc9b36f.ctex"]
 
 [params]
 
@@ -20,12 +20,12 @@ compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1
 compress/normal_map=0
-compress/channel_pack=0
+compress/channel_pack=1
 mipmaps/generate=false
 mipmaps/limit=-1
 roughness/mode=0
 roughness/src_normal=""
-process/fix_alpha_border=false
+process/fix_alpha_border=true
 process/premult_alpha=false
 process/normal_map_invert_y=false
 process/hdr_as_srgb=false

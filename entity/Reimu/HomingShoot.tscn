@@ -1,25 +1,21 @@
-[gd_scene load_steps=13 format=3 uid="uid://dm5utudhjx2xi"]
+[gd_scene load_steps=14 format=3 uid="uid://b8m48l0fqybgj"]
 
 [ext_resource type="Script" path="res://entity/Reimu/homing-shoot.gd" id="1_8gpw2"]
 [ext_resource type="Script" path="res://entity/Bullet/BulletBasic.cs" id="2_t1yrh"]
-[ext_resource type="Texture2D" uid="uid://c3jodrorofxht" path="res://entity/Reimu/texture/ofuda-tail.png" id="3_vbdbu"]
+[ext_resource type="Texture2D" uid="uid://c3jodrorofxht" path="res://entity/Reimu/resource/ofuda-tail.png" id="3_84nb1"]
 [ext_resource type="Shader" path="res://entity/UberItem.gdshader" id="4_vbi1h"]
 [ext_resource type="Script" path="res://entity/Bullet/Seeker.cs" id="5_8pxuo"]
-[ext_resource type="Texture2D" uid="uid://dk5iw3idwfm40" path="res://entity/Reimu/texture/ofuda.png" id="6_ytpa5"]
-[ext_resource type="Texture2D" uid="uid://cdphctv3sy3ys" path="res://entity/Reimu/texture/YinYangOrb.webp" id="7_dqu2h"]
+[ext_resource type="Texture2D" uid="uid://dk5iw3idwfm40" path="res://entity/Reimu/resource/ofuda.png" id="6_mtfk8"]
+[ext_resource type="Material" uid="uid://df8i0wskbdmia" path="res://entity/Reimu/resource/yinYangOrb.tres" id="7_ctfpj"]
+[ext_resource type="Texture2D" uid="uid://cdphctv3sy3ys" path="res://entity/Reimu/resource/YinYangOrb.webp" id="8_2ue3e"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ah5ge"]
 shader = ExtResource("4_vbi1h")
 shader_parameter/time_scale = null
 shader_parameter/spin = null
-shader_parameter/disable_modulate = null
+shader_parameter/alpha_offset = null
 shader_parameter/sin_alpha = null
 shader_parameter/displace = null
-shader_parameter/displace_strength = 5.0
-shader_parameter/recolor = true
-shader_parameter/h = 0.787
-shader_parameter/s = 1.0
-shader_parameter/v = 1.0
 shader_parameter/rainbow = null
 shader_parameter/wobble = null
 shader_parameter/wobble_max = 1.25
@@ -29,14 +25,9 @@ shader_parameter/wobble_min = 0.75
 shader = ExtResource("4_vbi1h")
 shader_parameter/time_scale = null
 shader_parameter/spin = null
-shader_parameter/disable_modulate = null
+shader_parameter/alpha_offset = null
 shader_parameter/sin_alpha = null
 shader_parameter/displace = null
-shader_parameter/displace_strength = 5.0
-shader_parameter/recolor = true
-shader_parameter/h = 0.874
-shader_parameter/s = 1.0
-shader_parameter/v = 1.0
 shader_parameter/rainbow = null
 shader_parameter/wobble = null
 shader_parameter/wobble_max = 1.25
@@ -105,7 +96,6 @@ _data = {
 }
 
 [node name="Homing" type="Node2D"]
-texture_filter = 1
 script = ExtResource("1_8gpw2")
 
 [node name="Timer" type="Timer" parent="."]
@@ -124,7 +114,7 @@ speed = 727.0
 Grazable = false
 CollideWithAreas = true
 CollisionMask = 3
-texture = ExtResource("3_vbdbu")
+texture = ExtResource("3_84nb1")
 
 [node name="Marker2D" type="Marker2D" parent="bullet"]
 position = Vector2(7, -38)
@@ -148,22 +138,24 @@ speed = 727.0
 Grazable = false
 CollideWithAreas = true
 CollisionMask = 3
-texture = ExtResource("6_ytpa5")
+texture = ExtResource("6_mtfk8")
 
 [node name="YinyangOrb" type="Sprite2D" parent="orb1"]
 z_index = 9
+material = ExtResource("7_ctfpj")
 position = Vector2(98, 0)
 rotation = -1.5708
 scale = Vector2(0.032, 0.032)
-texture = ExtResource("7_dqu2h")
+texture = ExtResource("8_2ue3e")
 flip_h = true
 
 [node name="YinyangOrb4" type="Sprite2D" parent="orb1"]
 z_index = 9
+material = ExtResource("7_ctfpj")
 position = Vector2(-98, 0)
 rotation = -1.5708
 scale = Vector2(0.032, 0.032)
-texture = ExtResource("7_dqu2h")
+texture = ExtResource("8_2ue3e")
 flip_h = true
 
 [node name="orb2" type="Node2D" parent="."]
@@ -178,21 +170,23 @@ speed = 727.0
 Grazable = false
 CollideWithAreas = true
 CollisionMask = 3
-texture = ExtResource("6_ytpa5")
+texture = ExtResource("6_mtfk8")
 
 [node name="YinyangOrb" type="Sprite2D" parent="orb2"]
 z_index = 9
+material = ExtResource("7_ctfpj")
 position = Vector2(0, -132)
 rotation = -1.5708
 scale = Vector2(0.032, 0.032)
-texture = ExtResource("7_dqu2h")
+texture = ExtResource("8_2ue3e")
 
 [node name="YinyangOrb4" type="Sprite2D" parent="orb2"]
 z_index = 9
+material = ExtResource("7_ctfpj")
 position = Vector2(0, 132)
 rotation = -1.5708
 scale = Vector2(0.032, 0.032)
-texture = ExtResource("7_dqu2h")
+texture = ExtResource("8_2ue3e")
 
 [node name="orbAnimator" type="AnimationPlayer" parent="."]
 libraries = {

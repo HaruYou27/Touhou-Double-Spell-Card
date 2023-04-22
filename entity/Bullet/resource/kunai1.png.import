@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://d1nkk7km71ule"
-path="res://.godot/imported/kunai1.png-f8f7a9578c643a223aef6877e0e56e40.ctex"
+path="res://.godot/imported/kunai1.png-5e0964d03bb80f9737d7d9b3418eae5f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://entity/Bullet/textures/kunai1.png"
-dest_files=["res://.godot/imported/kunai1.png-f8f7a9578c643a223aef6877e0e56e40.ctex"]
+source_file="res://entity/Bullet/resource/kunai1.png"
+dest_files=["res://.godot/imported/kunai1.png-5e0964d03bb80f9737d7d9b3418eae5f.ctex"]
 
 [params]
 

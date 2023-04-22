@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bars4ruk0fbnh"
-path="res://.godot/imported/rice.png-1f1137ffa2a04f46666594ac87e44683.ctex"
+uid="uid://mw3uctnhsg0p"
+path="res://.godot/imported/smallOrb.png-b52310490447282380efba5a025aff31.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://entity/Bullet/textures/rice.png"
-dest_files=["res://.godot/imported/rice.png-1f1137ffa2a04f46666594ac87e44683.ctex"]
+source_file="res://entity/Bullet/resource/smallOrb.png"
+dest_files=["res://.godot/imported/smallOrb.png-b52310490447282380efba5a025aff31.ctex"]
 
 [params]
 

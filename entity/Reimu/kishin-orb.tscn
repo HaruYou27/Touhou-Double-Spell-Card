@@ -2,7 +2,7 @@
 
 [ext_resource type="Shader" path="res://entity/UberItem.gdshader" id="1_72m2b"]
 [ext_resource type="Script" path="res://entity/Reimu/kishin-orb.gd" id="1_mje3d"]
-[ext_resource type="Texture2D" uid="uid://cdphctv3sy3ys" path="res://entity/Reimu/texture/YinYangOrb.webp" id="2_yojsb"]
+[ext_resource type="Texture2D" uid="uid://cdphctv3sy3ys" path="res://entity/Reimu/resource/YinYangOrb.webp" id="2_yojsb"]
 
 [sub_resource type="Animation" id="Animation_noyik"]
 length = 0.001
