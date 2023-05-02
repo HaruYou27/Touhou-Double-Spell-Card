@@ -1,9 +1,9 @@
-[gd_scene load_steps=26 format=3 uid="uid://v4hkdp74evpq"]
+[gd_scene load_steps=26 format=3]
 
 [ext_resource type="Script" path="res://user-interface/control-node/FormatLabel.gd" id="1"]
 [ext_resource type="Script" path="res://level/leveler/leveler.gd" id="4"]
 [ext_resource type="Theme" uid="uid://brtb5yavfdl08" path="res://user-interface/resource/Menu.tres" id="4_4a0vg"]
-[ext_resource type="Shortcut" uid="uid://cmfbyxixc4xv3" path="res://user-interface/shortcut/escape.tres" id="4_amvrx"]
+[ext_resource type="Shortcut" uid="uid://cmfbyxixc4xv3" path="res://user-interface/resource/shortcut/escape.tres" id="4_amvrx"]
 [ext_resource type="Script" path="res://user-interface/control-node/SFXButton.gd" id="5_seuyc"]
 [ext_resource type="Script" path="res://level/leveler/hud.gd" id="6_jvtoq"]
 [ext_resource type="FontFile" uid="uid://cybwwftllqbxu" path="res://user-interface/resource/UbuntuMono-Regular.ttf" id="7_d506w"]

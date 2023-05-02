@@ -1,6 +1,6 @@
-[gd_scene load_steps=17 format=3 uid="uid://b2vamn7mlhuxc"]
+[gd_scene load_steps=17 format=3 uid="uid://vjusfjpoumu8"]
 
-[ext_resource type="Theme" uid="uid://brtb5yavfdl08" path="res://user-interface/resource/Menu.tres" id="1_fll5i"]
+[ext_resource type="Theme" uid="uid://dj4ebybx0hjc5" path="res://user-interface/resource/Menu.tres" id="1_fll5i"]
 [ext_resource type="Script" path="res://user-interface/mainMenu/setting/Graphic.gd" id="2"]
 [ext_resource type="Script" path="res://user-interface/mainMenu/Background.gd" id="2_0gsum"]
 [ext_resource type="Script" path="res://user-interface/mainMenu/Menu.gd" id="2_pnltk"]
@@ -10,14 +10,14 @@
 [ext_resource type="Texture2D" uid="uid://bgh4r80tk5o7v" path="res://level/background/misty-lake/water-noise.tres" id="5_pv030"]
 [ext_resource type="Script" path="res://user-interface/mainMenu/setting/Audio.gd" id="6"]
 [ext_resource type="PackedScene" uid="uid://bi8tm7bd1smp6" path="res://level/background/misty-lake/fog.tscn" id="6_7alci"]
-[ext_resource type="Shortcut" uid="uid://xs30oatyn1i6" path="res://user-interface/shortcut/enter.tres" id="7_qwjr5"]
 [ext_resource type="Script" path="res://user-interface/mainMenu/setting/Controls.gd" id="9"]
-[ext_resource type="Shortcut" uid="uid://bmk1du8tyow5e" path="res://user-interface/shortcut/space.tres" id="9_mbr3r"]
 [ext_resource type="Script" path="res://user-interface/control-node/PercentageSlider.gd" id="9_w2eo4"]
 [ext_resource type="Script" path="res://user-interface/control-node/SFXToggler.gd" id="10_l7dsp"]
-[ext_resource type="Shortcut" uid="uid://cmfbyxixc4xv3" path="res://user-interface/shortcut/escape.tres" id="11_yyd2r"]
+[ext_resource type="Shortcut" uid="uid://cmfbyxixc4xv3" path="res://user-interface/resource/shortcut/escape.tres" id="14_x5ahu"]
+[ext_resource type="Script" path="res://user-interface/mainMenu/host/Host.gd" id="15_ooej7"]
+[ext_resource type="PackedScene" uid="uid://iykb7o0b5uxe" path="res://entity/Reimu/yinyang_orb.tscn" id="16_fjfmc"]
 
-[node name="Menu" type="Control" node_paths=PackedStringArray("select_level", "setting")]
+[node name="Menu" type="Control"]
 texture_filter = 1
 layout_mode = 3
 anchors_preset = 15
@@ -27,14 +27,12 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_fll5i")
 script = ExtResource("2_pnltk")
-select_level = NodePath("LevelSelection")
-setting = NodePath("setting")
 
 [node name="Background" type="Node2D" parent="." node_paths=PackedStringArray("list")]
 self_modulate = Color(1, 0, 0.0156863, 1)
 z_index = -4000
 script = ExtResource("2_0gsum")
-list = NodePath("../LevelSelection/VBoxContainer/LevelList")
+list = NodePath("")
 
 [node name="MistyLake" type="Sprite2D" parent="Background"]
 texture_repeat = 2
@@ -43,9 +41,8 @@ texture = ExtResource("5_pv030")
 centered = false
 
 [node name="fog" parent="Background/MistyLake" instance=ExtResource("6_7alci")]
-visible = false
 
-[node name="LevelSelection" type="Control" parent="."]
+[node name="GameMode" type="VBoxContainer" parent="."]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -54,83 +51,67 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="LevelSelection"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="LevelList" type="OptionButton" parent="LevelSelection/VBoxContainer"]
+[node name="OptionButton" type="OptionButton" parent="GameMode"]
 layout_mode = 2
 alignment = 1
+item_count = 3
+selected = 1
+popup/item_0/text = "Single Reimu"
+popup/item_0/id = 0
+popup/item_1/text = "Co-op Reimu & Marisa "
+popup/item_1/id = 1
+popup/item_2/text = "Single Marisa"
+popup/item_2/id = 2
 
-[node name="Control" type="Control" parent="LevelSelection/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="GameMode"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="SelectButton" type="HBoxContainer" parent="LevelSelection/VBoxContainer/Control"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_vertical = 3
-
-[node name="previous" type="Button" parent="LevelSelection/VBoxContainer/Control/SelectButton"]
+[node name="Button" type="Button" parent="GameMode/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "<"
 flat = true
 alignment = 0
+script = ExtResource("4_4sjp2")
 
-[node name="next" type="Button" parent="LevelSelection/VBoxContainer/Control/SelectButton"]
+[node name="Button2" type="Button" parent="GameMode/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = ">"
 flat = true
 alignment = 2
-
-[node name="SpecialButton" type="HBoxContainer" parent="LevelSelection/VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 8
-
-[node name="setting" type="Button" parent="LevelSelection/VBoxContainer/SpecialButton"]
-layout_mode = 2
-size_flags_horizontal = 3
-shortcut = ExtResource("11_yyd2r")
-text = "Setting"
 script = ExtResource("4_4sjp2")
 
-[node name="enter" type="Button" parent="LevelSelection/VBoxContainer/SpecialButton"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="GameMode"]
+layout_mode = 2
+
+[node name="SFXButton" type="Button" parent="GameMode/HBoxContainer2"]
 layout_mode = 2
 size_flags_horizontal = 3
-shortcut = ExtResource("7_qwjr5")
+text = "Settings"
+script = ExtResource("4_4sjp2")
+
+[node name="SFXButton2" type="Button" parent="GameMode/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
 text = "Enter"
 script = ExtResource("4_4sjp2")
 
-[node name="xcore" type="CheckButton" parent="LevelSelection/VBoxContainer/SpecialButton"]
+[node name="SFXButton3" type="Button" parent="GameMode/HBoxContainer2"]
 layout_mode = 2
 size_flags_horizontal = 3
-shortcut = ExtResource("9_mbr3r")
-text = "Xcore"
-alignment = 1
-script = ExtResource("10_l7dsp")
-
-[node name="HiScore" type="Label" parent="LevelSelection/VBoxContainer"]
-layout_mode = 2
-text = "Hi-Score: %07d"
-script = ExtResource("5")
+text = "Credits"
+script = ExtResource("4_4sjp2")
 
 [node name="setting" type="Control" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 37.0
-offset_top = 32.0
+offset_top = 159.0
 offset_right = -21.0
 offset_bottom = -27.0
 grow_horizontal = 2
@@ -138,15 +119,10 @@ grow_vertical = 2
 
 [node name="TabContainer" type="TabContainer" parent="setting"]
 layout_mode = 1
-anchors_preset = 15
+anchors_preset = 10
 anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 5.0
-offset_top = 73.0
-offset_right = 5.0
-offset_bottom = 73.0
+offset_bottom = 169.0
 grow_horizontal = 2
-grow_vertical = 2
 
 [node name="Gameplay" type="VBoxContainer" parent="setting/TabContainer"]
 layout_mode = 2
@@ -172,7 +148,7 @@ script = ExtResource("9")
 layout_mode = 2
 focus_mode = 0
 mouse_default_cursor_shape = 2
-text = "Drag:          %s"
+text = "Drag: %s"
 alignment = 0
 script = ExtResource("4_4sjp2")
 
@@ -183,16 +159,9 @@ focus_neighbor_bottom = NodePath("../reset")
 focus_next = NodePath("../reset")
 focus_mode = 0
 mouse_default_cursor_shape = 2
-text = "Bomb:          %s"
+text = "Bomb: %s"
 alignment = 0
 script = ExtResource("4_4sjp2")
-
-[node name="raw" type="CheckButton" parent="setting/TabContainer/Controls"]
-layout_mode = 2
-size_flags_horizontal = 3
-focus_mode = 0
-text = "Raw Input"
-script = ExtResource("10_l7dsp")
 
 [node name="SentivityLabel" type="Label" parent="setting/TabContainer/Controls"]
 layout_mode = 2
@@ -210,9 +179,16 @@ allow_greater = true
 tick_count = 20
 ticks_on_borders = true
 
+[node name="raw" type="CheckButton" parent="setting/TabContainer/Controls"]
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+text = "Raw Input"
+script = ExtResource("10_l7dsp")
+
 [node name="reset" type="Button" parent="setting/TabContainer/Controls"]
 layout_mode = 2
-size_flags_horizontal = 8
+size_flags_horizontal = 0
 focus_neighbor_left = NodePath("../bomb")
 focus_neighbor_top = NodePath("../bomb")
 focus_previous = NodePath("../bomb")
@@ -249,12 +225,6 @@ label = NodePath("../BgmLabel")
 [node name="muteBGM" type="CheckButton" parent="setting/TabContainer/Audio"]
 layout_mode = 2
 size_flags_horizontal = 8
-focus_neighbor_left = NodePath("../bgm")
-focus_neighbor_top = NodePath("../bgm")
-focus_neighbor_right = NodePath("../sfx")
-focus_neighbor_bottom = NodePath("../sfx")
-focus_next = NodePath("../sfx")
-focus_previous = NodePath("../bgm")
 text = "Mute "
 script = ExtResource("10_l7dsp")
 invert = true
@@ -358,23 +328,121 @@ layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -212.0
-offset_top = -20.0
-offset_right = 6.0
-offset_bottom = 59.0
+offset_left = -226.0
+offset_top = -125.0
+offset_right = -8.0
+offset_bottom = -46.0
 grow_horizontal = 0
-shortcut = ExtResource("11_yyd2r")
+shortcut = ExtResource("14_x5ahu")
 text = "Back >"
 script = ExtResource("4_4sjp2")
 press_sfx = false
 
-[connection signal="item_selected" from="LevelSelection/VBoxContainer/LevelList" to="Background" method="_on_level_list_item_selected"]
-[connection signal="pressed" from="LevelSelection/VBoxContainer/Control/SelectButton/previous" to="Background" method="_on_previous_pressed"]
-[connection signal="pressed" from="LevelSelection/VBoxContainer/Control/SelectButton/next" to="Background" method="_on_next_pressed"]
-[connection signal="pressed" from="LevelSelection/VBoxContainer/SpecialButton/setting" to="." method="_on_setting_pressed"]
-[connection signal="pressed" from="LevelSelection/VBoxContainer/SpecialButton/setting" to="Background" method="_hide_foreground"]
-[connection signal="pressed" from="LevelSelection/VBoxContainer/SpecialButton/enter" to="Background" method="_on_enter_pressed"]
-[connection signal="pressed" from="LevelSelection/VBoxContainer/SpecialButton/xcore" to="Background" method="_hide_foreground"]
+[node name="NetworkMode" type="VBoxContainer" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="hBox" type="HBoxContainer" parent="NetworkMode"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="host" type="Button" parent="NetworkMode/hBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Host"
+flat = true
+script = ExtResource("4_4sjp2")
+
+[node name="join" type="Button" parent="NetworkMode/hBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Join"
+flat = true
+script = ExtResource("4_4sjp2")
+
+[node name="back" type="Button" parent="NetworkMode"]
+layout_mode = 2
+text = "Return to main menu"
+script = ExtResource("4_4sjp2")
+
+[node name="Join" type="VBoxContainer" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="back2" type="Button" parent="Join"]
+layout_mode = 2
+text = "Back to main menu"
+script = ExtResource("4_4sjp2")
+
+[node name="ItemList" type="ItemList" parent="Join"]
+layout_mode = 2
+size_flags_vertical = 3
+item_count = 1
+item_0/text = "192.168.100.2"
+
+[node name="ManualConnect" type="HBoxContainer" parent="Join"]
+layout_mode = 2
+
+[node name="LineEdit" type="LineEdit" parent="Join/ManualConnect"]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "IP address.."
+
+[node name="LineEdit2" type="LineEdit" parent="Join/ManualConnect"]
+layout_mode = 2
+placeholder_text = "port"
+
+[node name="SFXButton" type="Button" parent="Join"]
+layout_mode = 2
+disabled = true
+text = "Connect"
+script = ExtResource("4_4sjp2")
+
+[node name="Host" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBox" type="VBoxContainer" parent="Host" node_paths=PackedStringArray("address")]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -267.0
+offset_bottom = -111.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("15_ooej7")
+address = NodePath("address")
+
+[node name="address" type="Label" parent="Host/VBox"]
+layout_mode = 2
+text = "IP: %s Port: %d"
+script = ExtResource("5")
+
+[node name="wait" type="Label" parent="Host/VBox"]
+layout_mode = 2
+text = "Waiting for player$s"
+script = ExtResource("5")
+
+[node name="YinyangOrb" parent="." instance=ExtResource("16_fjfmc")]
+position = Vector2(540, 1013)
+scale = Vector2(0.2, 0.2)
+
 [connection signal="pressed" from="setting/TabContainer/Controls/drag" to="setting/TabContainer/Controls" method="_on_drag_pressed" flags=18]
 [connection signal="pressed" from="setting/TabContainer/Controls/bomb" to="setting/TabContainer/Controls" method="_on_bomb_pressed" flags=18]
 [connection signal="value_changed" from="setting/TabContainer/Controls/sentivity" to="setting/TabContainer/Controls" method="_on_sentivity_value_changed" flags=18]

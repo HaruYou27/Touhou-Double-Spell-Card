@@ -10,10 +10,10 @@ config_version=5
 
 [application]
 
-config/name="Touhou Kuro Hakurei"
+config/name="Touhou: 赤 & 黒, Doppelgänger"
 config/description="Why i make bullet shmups game."
-run/main_scene="res://user-interface/mainMenu/Menu.tscn"
-config/features=PackedStringArray("4.0", "C#")
+run/main_scene="res://level/stage1/stage_1.tscn"
+config/features=PackedStringArray("4.0")
 
 [autoload]
 
@@ -110,7 +110,6 @@ common/enable_object_picking=false
 
 [rendering]
 
-textures/canvas_textures/default_texture_filter=0
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
 2d/snap/snap_2d_transforms_to_pixel=true

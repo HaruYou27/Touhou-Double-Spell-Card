@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3]
+[gd_scene load_steps=25 format=3 uid="uid://bk08ga1mfcleb"]
 
 [ext_resource type="Script" path="res://entity/Reimu/Player.gd" id="1_kx4gf"]
 [ext_resource type="Texture2D" uid="uid://r7d3f3sdgdhy" path="res://entity/Reimu/resource/reimu.png" id="2_yclxq"]
@@ -8,6 +8,12 @@
 [ext_resource type="AudioStream" uid="uid://4t58xs4qdlkr" path="res://autoload/SoundEffect/ui/tick+.wav" id="5_i0nhh"]
 [ext_resource type="Script" path="res://entity/Reimu/DeathTimer.gd" id="6_wbd73"]
 [ext_resource type="Texture2D" uid="uid://dv7h11hcjacg2" path="res://entity/Reimu/resource/hitbox.png" id="7_35mu5"]
+[ext_resource type="Script" path="res://entity/Reimu/homing-shoot.gd" id="9_e2so6"]
+[ext_resource type="Script" path="res://entity/Bullet/BulletBasic.cs" id="10_8trdp"]
+[ext_resource type="Texture2D" uid="uid://c3jodrorofxht" path="res://entity/Reimu/resource/ofuda-tail.png" id="11_ag87i"]
+[ext_resource type="Script" path="res://entity/Bullet/Seeker.cs" id="12_0inkt"]
+[ext_resource type="Texture2D" uid="uid://dk5iw3idwfm40" path="res://entity/Reimu/resource/ofuda.png" id="13_art5d"]
+[ext_resource type="PackedScene" uid="uid://iykb7o0b5uxe" path="res://entity/Reimu/yinyang_orb.tscn" id="14_kgn3t"]
 
 [sub_resource type="SpriteFrames" id="14"]
 animations = [{
@@ -41,21 +47,101 @@ scale_max = 0.5
 shader = ExtResource("4_uai7y")
 shader_parameter/time_scale = null
 shader_parameter/spin = null
-shader_parameter/disable_modulate = null
+shader_parameter/alpha_offset = null
 shader_parameter/sin_alpha = null
-shader_parameter/displace = null
-shader_parameter/displace_strength = 5.0
-shader_parameter/recolor = true
-shader_parameter/h = 0.642
-shader_parameter/s = 1.0
-shader_parameter/v = 1.0
+shader_parameter/displace = 0.0
 shader_parameter/rainbow = null
 shader_parameter/wobble = null
 shader_parameter/wobble_max = 1.25
 shader_parameter/wobble_min = 0.75
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ah5ge"]
+shader = ExtResource("4_uai7y")
+shader_parameter/time_scale = null
+shader_parameter/spin = null
+shader_parameter/alpha_offset = null
+shader_parameter/sin_alpha = null
+shader_parameter/displace = 0.0
+shader_parameter/rainbow = null
+shader_parameter/wobble = null
+shader_parameter/wobble_max = 1.25
+shader_parameter/wobble_min = 0.75
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_tnuw6"]
+shader = ExtResource("4_uai7y")
+shader_parameter/time_scale = null
+shader_parameter/spin = null
+shader_parameter/alpha_offset = null
+shader_parameter/sin_alpha = null
+shader_parameter/displace = 0.0
+shader_parameter/rainbow = null
+shader_parameter/wobble = null
+shader_parameter/wobble_max = 1.25
+shader_parameter/wobble_min = 0.75
+
+[sub_resource type="Animation" id="Animation_yfsl5"]
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("orb2:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [6.28319]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("orb1:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-6.28319]
+}
+
+[sub_resource type="Animation" id="Animation_50kuu"]
+resource_name = "spin"
+length = 2.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("orb1:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [6.28319, -6.28319]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("orb2:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 6.28319]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_wwnxa"]
+_data = {
+"RESET": SubResource("Animation_yfsl5"),
+"spin": SubResource("Animation_50kuu")
+}
+
 [node name="Reimu" type="StaticBody2D"]
-texture_filter = 1
 scale = Vector2(2, 2)
 collision_layer = 4
 collision_mask = 0
@@ -115,6 +201,89 @@ z_index = 100
 material = SubResource("ShaderMaterial_3mne5")
 texture = ExtResource("7_35mu5")
 
+[node name="Homing" type="Node2D" parent="."]
+script = ExtResource("9_e2so6")
+
+[node name="Timer" type="Timer" parent="Homing"]
+process_callback = 0
+wait_time = 0.143
+
+[node name="Timer2" type="Timer" parent="Homing"]
+process_callback = 0
+wait_time = 0.333
+
+[node name="bullet" type="Node2D" parent="Homing"]
+z_index = 1
+script = ExtResource("10_8trdp")
+maxBullet = 272
+speed = 727.0
+Grazable = false
+CollideWithAreas = true
+CollisionMask = 3
+texture = ExtResource("11_ag87i")
+
+[node name="Marker2D" type="Marker2D" parent="Homing/bullet"]
+position = Vector2(7, -38)
+rotation = -1.5708
+gizmo_extents = 51.7
+
+[node name="Position2D2" type="Marker2D" parent="Homing/bullet"]
+position = Vector2(-7, -58)
+rotation = -1.5708
+gizmo_extents = 82.9
+
+[node name="orb1" type="Node2D" parent="Homing"]
+z_index = 1
+material = SubResource("ShaderMaterial_ah5ge")
+rotation = -6.28319
+script = ExtResource("12_0inkt")
+SeekMask = 2
+seekRadius = 500.0
+maxBullet = 57
+speed = 727.0
+Grazable = false
+CollideWithAreas = true
+CollisionMask = 3
+texture = ExtResource("13_art5d")
+
+[node name="YinyangOrb" parent="Homing/orb1" instance=ExtResource("14_kgn3t")]
+position = Vector2(98, 0)
+flip_h = false
+
+[node name="YinyangOrb2" parent="Homing/orb1" instance=ExtResource("14_kgn3t")]
+position = Vector2(-98, 0)
+flip_h = false
+
+[node name="orb2" type="Node2D" parent="Homing"]
+z_index = 1
+material = SubResource("ShaderMaterial_tnuw6")
+rotation = 6.28319
+script = ExtResource("12_0inkt")
+SeekMask = 2
+seekRadius = 500.0
+maxBullet = 272
+speed = 727.0
+Grazable = false
+CollideWithAreas = true
+CollisionMask = 3
+texture = ExtResource("13_art5d")
+
+[node name="YinyangOrb2" parent="Homing/orb2" instance=ExtResource("14_kgn3t")]
+position = Vector2(0, -132)
+flip_h = false
+
+[node name="YinyangOrb3" parent="Homing/orb2" instance=ExtResource("14_kgn3t")]
+position = Vector2(0, 132)
+flip_h = false
+
+[node name="orbAnimator" type="AnimationPlayer" parent="Homing"]
+libraries = {
+"": SubResource("AnimationLibrary_wwnxa")
+}
+
 [connection signal="timeout" from="graze/vfx/Timer" to="graze/vfx" method="set_emitting" binds= [false]]
 [connection signal="bomb" from="DeathTimer" to="." method="bomb"]
 [connection signal="timeout" from="DeathTimer" to="DeathTimer" method="_on_timeout"]
+[connection signal="timeout" from="Homing/Timer" to="Homing/bullet" method="SpawnBullet" flags=18]
+[connection signal="timeout" from="Homing/Timer2" to="Homing/orb1" method="SpawnBullet" flags=18]
+[connection signal="timeout" from="Homing/Timer2" to="Homing/orb2" method="SpawnBullet" flags=18]

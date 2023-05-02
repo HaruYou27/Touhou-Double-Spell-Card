@@ -1,6 +1,7 @@
 extends StaticBody2D
 class_name Player
 
+@onready var sprite : AnimatedSprite2D = $AnimatedSprite2D
 @onready var death_timer : Timer = $DeathTimer
 @onready var hitbox : CollisionShape2D = $Hitbox
 
@@ -9,6 +10,7 @@ class_name Player
 
 @onready var sentivity := user_data.sentivity
 
+var is_left := false
 var moving := false
 var can_bomb := false
 var bomb_count := 1
@@ -51,6 +53,24 @@ func _unhandled_input(event:InputEvent) -> void:
 		global_position += event.relative * sentivity
 		position.x = clamp(position.x, 0.0, global.playground.x)
 		position.y = clamp(position.y, 0.0, global.playground.y)
+		
+		change_direction(event.relative.angle())
+		if is_multiplayer_authority():
+			rpc('_update_position')
+		
+func change_direction(angle:float):
+		if angle <= PI / 2 and angle < -PI/2 and is_left:
+			#Right
+			sprite.play()
+			is_left = false
+		elif not is_left:
+			sprite.play()
+			is_left = true
+
+@rpc("unreliable_ordered")
+func _update_position(pos:Vector2) -> void:
+	create_tween().tween_property(self, 'global_position', pos, .1)
+	change_direction(pos.angle())
 
 func bomb() -> void:
 	if not bomb_count and can_bomb:
@@ -64,5 +84,5 @@ func bomb() -> void:
 	set_process_unhandled_input(true)
 	hitbox.set_deferred("disabled", true)
 
-	#var node := bomb_scene.instantiate()
-	#VisualEffect.current_scene.add_child(node)
+	var node := bomb_scene.instantiate()
+	VisualEffect.current_scene.add_child(node)

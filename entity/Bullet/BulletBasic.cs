@@ -121,12 +121,13 @@ public partial class BulletBasic : Node2D
 			if (localRotation)
 			{
 				bullet.velocity = new Vector2(speed, 0).Rotated(barrel.Rotation);
+				bullet.transform = barrel.Transform.RotatedLocal(Mathf.Pi/2);
 			}
 			else
 			{
 				bullet.velocity = new Vector2(speed, 0).Rotated(barrel.GlobalRotation);
+				bullet.transform = barrel.GlobalTransform.RotatedLocal(Mathf.Pi/2);
 			}
-			bullet.transform = new Transform2D(bullet.velocity.Angle() + Mathf.Pi / 2, barrel.Scale, 0, barrel.GlobalPosition);
 			bullet.grazable = Grazable;
 
 			activeIndex++;
@@ -146,7 +147,6 @@ public partial class BulletBasic : Node2D
 	{
 		Bullet bullet = bullets[index];
 		bullet.transform.Origin += bullet.velocity * delta;
-		RenderingServer.CanvasItemSetTransform(bullet.sprite, bullet.transform);
 		return bullet.transform;
 	}
 	protected virtual bool Collide(in Godot.Collections.Dictionary result)
@@ -190,6 +190,7 @@ public partial class BulletBasic : Node2D
 			Bullet bullet = bullets[index];
 			//Collision checking.
 			query.Transform = Move(delta32);
+			RenderingServer.CanvasItemSetTransform(bullet.sprite, query.Transform);
 			if (bullet.grazable) { query.CollisionMask = CollisionMask + 8;}
 			else { query.CollisionMask = CollisionMask; }
 
@@ -208,3 +209,4 @@ public partial class BulletBasic : Node2D
 		}
 	}
 }
+

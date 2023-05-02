@@ -44,7 +44,7 @@ public partial class Seeker : BulletBasic
 		SeekBullet bullet = seekBullets[index];
 		if (!GodotObject.IsInstanceValid(bullet.target))
 		{
-			seekQuery.Transform = bullet.transform;
+			seekQuery.Transform = new Transform2D(0, bullet.transform.Origin);
 			Godot.Collections.Dictionary seekResult = world.DirectSpaceState.GetRestInfo(seekQuery);
 			if (seekResult.Count != 0)
 			{
@@ -52,10 +52,10 @@ public partial class Seeker : BulletBasic
 			}
 			return base.Move(delta);
 		}
-		bullet.velocity += ((bullet.target.GlobalPosition - bullet.transform.Origin).Normalized() * speed - bullet.velocity) / mass;
-		bullet.transform = new Transform2D(bullet.velocity.Angle() + Mathf.Pi / 2,
-										   bullet.transform.Origin + bullet.velocity * delta);
-		RenderingServer.CanvasItemSetTransform(bullet.sprite, bullet.transform);
+		float direction = bullet.transform.Origin.AngleTo(bullet.target.GlobalPosition);
+		bullet.velocity = bullet.velocity.Rotated(direction / mass);
+		bullet.transform.Origin += bullet.velocity * delta;
+		bullet.transform = bullet.transform.Rotated(direction);
 		return bullet.transform;
 	}
 }
