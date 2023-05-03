@@ -2,6 +2,16 @@ extends Node2D
 class_name global
 ##Signal bus Singleton, Global Variable, Static Helper Function, User setting.
 
+var user_data : UserData
+func _ready() -> void:
+	randomize()
+	
+	user_data = load('user://saveData.res')
+	if user_data:
+		return
+		
+	user_data = UserData.new()
+
 ##Emited by bullet when intersect player's graze Area2D.
 signal bullet_graze
 
@@ -11,11 +21,11 @@ signal item_collect
 ##Emited by player's bomb node when finished
 signal bomb_finished
 
+##When you want to stop player from spamming bullets.
 signal can_player_shoot(value:bool)
 
 var hud : HUD
 var boss : Boss
-var user_data : UserData
 var player : Player
 
 ##Play area rectangle.
@@ -27,13 +37,11 @@ const game_rect := Vector2i(1920, 1080)
 const main_menu := "res://user-interface/mainMenu/Menu.tscn"
 
 @onready var tree := get_tree()
-
 func restart_scene() -> void:
 	ItemManager.Clear()
 	tree.paused = false
 	var tween :Tween = VisualEffect.fade2black()
 	tween.finished.connect(tree.reload_current_scene)
-
 func change_scene(scene:String) -> void:
 	ItemManager.Clear()
 	tree.paused = false
@@ -55,22 +63,7 @@ static func get_input_string(event:InputEvent) -> String:
 	
 	return 'Unknown'
 
-func _ready() -> void:
-	randomize()
-	
-	user_data = load('user://saveData.res')
-	if user_data:
-		return
-		
-	user_data = UserData.new()
-	
-	var fps := int(ceil(DisplayServer.screen_get_refresh_rate()))
-	if fps:
-		Engine.max_fps = fps
-		Engine.physics_ticks_per_second = fps
-		ProjectSettings.set_setting('physics/common/physics_ticks_per_second', fps)
-		ProjectSettings.set_setting('application/run/max_fps', fps)
-
+##Save user config.
 func _exit_tree() -> void:
 	if Engine.is_editor_hint:
 		return

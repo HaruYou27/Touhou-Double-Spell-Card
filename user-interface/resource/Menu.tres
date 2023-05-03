@@ -1,11 +1,11 @@
-[gd_resource type="Theme" load_steps=16 format=3 uid="uid://dj4ebybx0hjc5"]
+[gd_resource type="Theme" load_steps=16 format=3 uid="uid://brdgebvp25tns"]
 
+[ext_resource type="StyleBox" uid="uid://b5kvpaf4hpcyr" path="res://user-interface/resource/gray.tres" id="1_a6pvn"]
 [ext_resource type="FontFile" uid="uid://cybwwftllqbxu" path="res://user-interface/resource/UbuntuMono-Regular.ttf" id="1_ms6ke"]
-[ext_resource type="StyleBox" uid="uid://b5kvpaf4hpcyr" path="res://user-interface/resource/button-hover.tres" id="1_nwxov"]
-[ext_resource type="StyleBox" uid="uid://bljqcvjdws526" path="res://user-interface/resource/button-normal.tres" id="2_akxqs"]
 [ext_resource type="FontFile" uid="uid://c7ppp33ch6e5" path="res://user-interface/resource/Vbutlong.ttf" id="2_lfv8x"]
-[ext_resource type="Texture2D" uid="uid://ch4a7v6dmf8m1" path="res://user-interface/resource/yin-yang.svg" id="3_16oh1"]
-[ext_resource type="Texture2D" uid="uid://xcyk7ildsriv" path="res://user-interface/resource/yang-yin.svg" id="4_ge10g"]
+[ext_resource type="StyleBox" uid="uid://bljqcvjdws526" path="res://user-interface/resource/black.tres" id="2_wiqqr"]
+[ext_resource type="Texture2D" uid="uid://b5vq2lueygi1x" path="res://user-interface/resource/yin-yang.webp" id="3_87y3p"]
+[ext_resource type="Texture2D" uid="uid://bqsut82rlkfee" path="res://user-interface/resource/yang-yin.webp" id="4_sucvh"]
 
 [sub_resource type="Gradient" id="Gradient_3ncev"]
 offsets = PackedFloat32Array(0)
@@ -71,11 +71,11 @@ default_font = ExtResource("1_ms6ke")
 default_font_size = 70
 Button/colors/font_hover_pressed_color = Color(1, 0.219608, 0.219608, 1)
 Button/colors/font_pressed_color = Color(1, 0.219608, 0.219608, 1)
-Button/styles/hover = ExtResource("1_nwxov")
-Button/styles/normal = ExtResource("2_akxqs")
-Button/styles/pressed = ExtResource("2_akxqs")
-HSlider/icons/grabber = ExtResource("3_16oh1")
-HSlider/icons/grabber_highlight = ExtResource("4_ge10g")
+Button/styles/hover = ExtResource("1_a6pvn")
+Button/styles/normal = ExtResource("2_wiqqr")
+Button/styles/pressed = ExtResource("2_wiqqr")
+HSlider/icons/grabber = ExtResource("3_87y3p")
+HSlider/icons/grabber_highlight = ExtResource("4_sucvh")
 HSlider/icons/tick = SubResource("GradientTexture2D_0efry")
 HSlider/styles/grabber_area = SubResource("StyleBoxFlat_5ns6c")
 HSlider/styles/grabber_area_highlight = SubResource("StyleBoxFlat_6jsy5")

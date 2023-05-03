@@ -5,8 +5,12 @@
 [ext_resource type="AudioStream" uid="uid://dlbathqk2uyqy" path="res://autoload/SoundEffect/ui/press-.wav" id="3_g7kf6"]
 [ext_resource type="AudioStream" uid="uid://c0gbantbfid7s" path="res://autoload/SoundEffect/ui/press+.wav" id="4_wlvim"]
 
-[node name="SoundEffect" type="Node"]
+[node name="SoundEffect" type="Node" node_paths=PackedStringArray("tick0", "press0", "press1", "voice")]
 script = ExtResource("1_12ptu")
+tick0 = NodePath("tick0")
+press0 = NodePath("press0")
+press1 = NodePath("press1")
+voice = NodePath("VoicePlayback")
 
 [node name="tick0" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("2_bltju")
@@ -18,3 +22,6 @@ bus = &"SFX"
 [node name="press1" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("4_wlvim")
 bus = &"SFX"
+
+[node name="VoicePlayback" type="AudioStreamPlayer" parent="."]
+mix_target = 2

@@ -2,6 +2,6 @@
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
     <EnableDynamicLoading>true</EnableDynamicLoading>
-    <RootNamespace>TouhouKuroHakurei</RootNamespace>
+    <RootNamespace>TouhouRedandBlack</RootNamespace>
   </PropertyGroup>
 </Project>

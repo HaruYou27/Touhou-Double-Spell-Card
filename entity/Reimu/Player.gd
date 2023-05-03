@@ -1,22 +1,18 @@
 extends StaticBody2D
 class_name Player
 
-@onready var sprite : AnimatedSprite2D = $AnimatedSprite2D
-@onready var death_timer : Timer = $DeathTimer
-@onready var hitbox : CollisionShape2D = $Hitbox
+func _ready() -> void:
+	Global.bomb_finished.connect(_bomb_finished)
+	Global.player = self
+	ItemManager.target = self
+	set_process_unhandled_input(false)
+	
+	var tween := create_tween()
+	tween.tween_property(self, 'position', Vector2(540, 1425), .5)
+	tween.finished.connect(_already)
 
 @onready var tree := get_tree()
-@onready var user_data :UserData = Global.user_data
-
-@onready var sentivity := user_data.sentivity
-
-var is_left := false
-var moving := false
-var can_bomb := false
-var bomb_count := 1
-
-@export var bomb_scene : PackedScene
-
+@onready var death_timer : Timer = $DeathTimer
 func _hit() -> void:
 	if tree.paused:
 		return
@@ -26,17 +22,7 @@ func _hit() -> void:
 	death_timer.start()
 	tree.paused = true
 
-func _ready() -> void:
-	add_child(load(user_data.shoot_type).instantiate())
-	Global.bomb_finished.connect(_bomb_finished)
-	Global.player = self
-	ItemManager.target = self
-	set_process_unhandled_input(false)
-	
-	var tween := create_tween()
-	tween.tween_property(self, 'position', Vector2(540, 1425), .5)
-	tween.finished.connect(_already)
-	
+@onready var hitbox : CollisionShape2D = $Hitbox
 func _bomb_finished() -> void:
 	hitbox.set_deferred('disabled', false)
 	can_bomb = true
@@ -46,6 +32,9 @@ func _already() -> void:
 	Global.can_player_shoot.emit(true)
 	can_bomb = true
 	
+var is_left := false
+var moving := false
+@onready var sentivity := Global.user_data.sentivity
 func _unhandled_input(event:InputEvent) -> void:
 	moving = event.is_action_pressed('drag')
 	
@@ -58,6 +47,7 @@ func _unhandled_input(event:InputEvent) -> void:
 		if is_multiplayer_authority():
 			rpc('_update_position')
 		
+@onready var sprite : AnimatedSprite2D = $AnimatedSprite2D
 func change_direction(angle:float):
 		if angle <= PI / 2 and angle < -PI/2 and is_left:
 			#Right
@@ -67,11 +57,14 @@ func change_direction(angle:float):
 			sprite.play()
 			is_left = true
 
-@rpc("unreliable_ordered")
+@rpc
 func _update_position(pos:Vector2) -> void:
 	create_tween().tween_property(self, 'global_position', pos, .1)
 	change_direction(pos.angle())
 
+var can_bomb := false
+var bomb_count := 1
+@export var bomb_scene : PackedScene
 func bomb() -> void:
 	if not bomb_count and can_bomb:
 		return

@@ -1,15 +1,37 @@
-extends Control
+extends AcceptDialog
 
-@export var address : FormatLabel
+@export var timer : Timer
 
-func host():
-	var ip := IP.get_local_addresses()
-	if not ip.size():
-		return
+@onready var broadcast := PacketPeerUDP.new()
+func _ready() -> void:
+	get_ok_button().pressed.connect(_on_cancel_pressed)
 	
-	var enet := ENetMultiplayerPeer.new()
-	var port := 8000
-	while enet.create_server(port, 1):
-		port += 1
+	broadcast.set_broadcast_enabled(true)
+	broadcast.set_dest_address('255.255.255.255', 7272)
+
+func _on_cancel_pressed() -> void:
+	multiplayer.multiplayer_peer.close()
+	timer.stop()
+	hide()
+
+var message
+var text : String
+var count := 0
+func _on_timer_timeout():
+	if count == 4:
+		dialog_text = text
+		count = 0
+	else:
+		dialog_text += '.'
+		count += 1
 	
-	address.update_label([ip[0], port])
+	broadcast.put_var(message)
+
+@onready var template := dialog_text
+func wait_for_client(value:Array) -> void:
+	dialog_text = template % value
+	text = dialog_text
+	message = value
+	
+	timer.start()
+	show()

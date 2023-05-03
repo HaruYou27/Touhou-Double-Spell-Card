@@ -1,0 +1,258 @@
+[gd_scene load_steps=9 format=3 uid="uid://diu5vnxcvjpnd"]
+
+[ext_resource type="Script" path="res://user-interface/control-node/FormatLabel.gd" id="1_orj6g"]
+[ext_resource type="Script" path="res://user-interface/control-node/PercentageSlider.gd" id="2_n2q07"]
+[ext_resource type="Script" path="res://user-interface/mainMenu/setting/Controls.gd" id="3_cddnt"]
+[ext_resource type="Script" path="res://user-interface/control-node/SFXButton.gd" id="4_lpvlm"]
+[ext_resource type="Script" path="res://user-interface/control-node/SFXToggler.gd" id="5_afot3"]
+[ext_resource type="Script" path="res://user-interface/mainMenu/setting/Audio.gd" id="6_kkswt"]
+[ext_resource type="Script" path="res://user-interface/mainMenu/setting/Graphic.gd" id="7_fw6m6"]
+[ext_resource type="Shortcut" uid="uid://cmfbyxixc4xv3" path="res://user-interface/resource/shortcut/escape.tres" id="8_5yxxk"]
+
+[node name="setting" type="Control"]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 37.0
+offset_top = 159.0
+offset_right = -21.0
+offset_bottom = -27.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TabContainer" type="TabContainer" parent="."]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 169.0
+grow_horizontal = 2
+
+[node name="Gameplay" type="VBoxContainer" parent="TabContainer"]
+visible = false
+layout_mode = 2
+
+[node name="Label" type="Label" parent="TabContainer/Gameplay"]
+layout_mode = 2
+text = "Game Speed: %d%%"
+script = ExtResource("1_orj6g")
+
+[node name="GameSpeed" type="HSlider" parent="TabContainer/Gameplay" node_paths=PackedStringArray("label")]
+layout_mode = 2
+tick_count = 10
+ticks_on_borders = true
+script = ExtResource("2_n2q07")
+label = NodePath("../Label")
+
+[node name="Controls" type="VBoxContainer" parent="TabContainer"]
+visible = false
+layout_mode = 2
+script = ExtResource("3_cddnt")
+
+[node name="drag" type="Button" parent="TabContainer/Controls"]
+layout_mode = 2
+focus_mode = 0
+mouse_default_cursor_shape = 2
+text = "Drag: %s"
+alignment = 0
+script = ExtResource("4_lpvlm")
+
+[node name="bomb" type="Button" parent="TabContainer/Controls"]
+layout_mode = 2
+focus_neighbor_right = NodePath("../reset")
+focus_neighbor_bottom = NodePath("../reset")
+focus_next = NodePath("../reset")
+focus_mode = 0
+mouse_default_cursor_shape = 2
+text = "Bomb: %s"
+alignment = 0
+script = ExtResource("4_lpvlm")
+
+[node name="SentivityLabel" type="Label" parent="TabContainer/Controls"]
+layout_mode = 2
+text = "Input sentivity : %1.1f"
+script = ExtResource("1_orj6g")
+
+[node name="sentivity" type="HSlider" parent="TabContainer/Controls"]
+layout_mode = 2
+focus_mode = 0
+min_value = 0.1
+max_value = 2.0
+step = 0.1
+value = 2.0
+allow_greater = true
+tick_count = 20
+ticks_on_borders = true
+
+[node name="raw" type="CheckButton" parent="TabContainer/Controls"]
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+text = "Raw Input"
+script = ExtResource("5_afot3")
+
+[node name="reset" type="Button" parent="TabContainer/Controls"]
+layout_mode = 2
+size_flags_horizontal = 0
+focus_neighbor_left = NodePath("../bomb")
+focus_neighbor_top = NodePath("../bomb")
+focus_previous = NodePath("../bomb")
+text = "Reset"
+script = ExtResource("4_lpvlm")
+
+[node name="Audio" type="VBoxContainer" parent="TabContainer"]
+visible = false
+layout_mode = 2
+script = ExtResource("6_kkswt")
+
+[node name="BgmLabel" type="Label" parent="TabContainer/Audio"]
+layout_mode = 2
+text = "Music: %d %%"
+script = ExtResource("1_orj6g")
+
+[node name="bgm" type="HSlider" parent="TabContainer/Audio" node_paths=PackedStringArray("label")]
+layout_mode = 2
+size_flags_vertical = 1
+focus_neighbor_left = NodePath("../reset")
+focus_neighbor_top = NodePath("../reset")
+focus_neighbor_right = NodePath("../muteBGM")
+focus_neighbor_bottom = NodePath("../muteBGM")
+focus_next = NodePath("../muteBGM")
+focus_previous = NodePath("../reset")
+min_value = -60.0
+max_value = 0.0
+step = 0.6
+allow_lesser = true
+tick_count = 10
+script = ExtResource("2_n2q07")
+label = NodePath("../BgmLabel")
+
+[node name="muteBGM" type="CheckButton" parent="TabContainer/Audio"]
+layout_mode = 2
+size_flags_horizontal = 8
+text = "Mute "
+script = ExtResource("5_afot3")
+invert = true
+
+[node name="SfxLabel" type="Label" parent="TabContainer/Audio"]
+layout_mode = 2
+focus_neighbor_left = NodePath("../bgm")
+focus_neighbor_top = NodePath("../bgm")
+focus_neighbor_right = NodePath("../muteSFX")
+focus_neighbor_bottom = NodePath("../muteSFX")
+focus_next = NodePath("../muteSFX")
+focus_previous = NodePath("../bgm")
+text = "Sound Effect: %d %%"
+script = ExtResource("1_orj6g")
+
+[node name="sfx" type="HSlider" parent="TabContainer/Audio" node_paths=PackedStringArray("label")]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+focus_neighbor_left = NodePath("../muteBGM")
+focus_neighbor_top = NodePath("../muteBGM")
+focus_neighbor_right = NodePath("../muteSFX")
+focus_neighbor_bottom = NodePath("../muteSFX")
+focus_next = NodePath("../muteSFX")
+focus_previous = NodePath("../muteBGM")
+min_value = -60.0
+max_value = 0.0
+step = 0.6
+allow_lesser = true
+tick_count = 10
+script = ExtResource("2_n2q07")
+label = NodePath("../SfxLabel")
+
+[node name="muteSFX" type="CheckButton" parent="TabContainer/Audio"]
+layout_mode = 2
+size_flags_horizontal = 8
+focus_neighbor_left = NodePath("../sfx")
+focus_neighbor_top = NodePath("../sfx")
+focus_neighbor_right = NodePath("../reset")
+focus_neighbor_bottom = NodePath("../reset")
+focus_next = NodePath("../reset")
+focus_previous = NodePath("../sfx")
+text = "Mute "
+script = ExtResource("5_afot3")
+invert = true
+
+[node name="reset" type="Button" parent="TabContainer/Audio"]
+layout_mode = 2
+size_flags_horizontal = 8
+focus_neighbor_left = NodePath("../muteSFX")
+focus_neighbor_top = NodePath("../muteSFX")
+focus_neighbor_right = NodePath("../bgm")
+focus_neighbor_bottom = NodePath("../bgm")
+focus_next = NodePath("../bgm")
+focus_previous = NodePath("../muteSFX")
+text = "Reset"
+script = ExtResource("4_lpvlm")
+press_sfx = false
+
+[node name="Graphic" type="VBoxContainer" parent="TabContainer"]
+visible = false
+layout_mode = 2
+script = ExtResource("7_fw6m6")
+
+[node name="fullscreen" type="CheckButton" parent="TabContainer/Graphic"]
+layout_mode = 2
+focus_neighbor_left = NodePath("../reset")
+focus_neighbor_top = NodePath("../reset")
+focus_neighbor_right = NodePath("../borderless")
+focus_neighbor_bottom = NodePath("../borderless")
+focus_next = NodePath("../borderless")
+focus_previous = NodePath("../reset")
+focus_mode = 0
+mouse_default_cursor_shape = 2
+text = "Full Screen"
+script = ExtResource("5_afot3")
+
+[node name="borderless" type="CheckButton" parent="TabContainer/Graphic"]
+layout_mode = 2
+focus_neighbor_left = NodePath("../fullscreen")
+focus_neighbor_top = NodePath("../fullscreen")
+focus_previous = NodePath("../fullscreen")
+focus_mode = 0
+mouse_default_cursor_shape = 2
+text = "Borderless"
+script = ExtResource("5_afot3")
+
+[node name="reset" type="Button" parent="TabContainer/Graphic"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+focus_neighbor_right = NodePath("../fullscreen")
+focus_neighbor_bottom = NodePath("../fullscreen")
+focus_next = NodePath("../fullscreen")
+focus_mode = 0
+text = "Reset"
+script = ExtResource("4_lpvlm")
+
+[node name="back" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -226.0
+offset_top = -125.0
+offset_right = -8.0
+offset_bottom = -46.0
+grow_horizontal = 0
+shortcut = ExtResource("8_5yxxk")
+text = "Back >"
+script = ExtResource("4_lpvlm")
+press_sfx = false
+
+[connection signal="pressed" from="TabContainer/Controls/drag" to="TabContainer/Controls" method="_on_drag_pressed" flags=18]
+[connection signal="pressed" from="TabContainer/Controls/bomb" to="TabContainer/Controls" method="_on_bomb_pressed" flags=18]
+[connection signal="value_changed" from="TabContainer/Controls/sentivity" to="TabContainer/Controls" method="_on_sentivity_value_changed" flags=18]
+[connection signal="pressed" from="TabContainer/Controls/reset" to="TabContainer/Controls" method="_on_controls_reset_pressed" flags=18]
+[connection signal="value_changed" from="TabContainer/Audio/bgm" to="TabContainer/Audio" method="_on_bgm_value_changed" flags=18]
+[connection signal="toggled" from="TabContainer/Audio/muteBGM" to="TabContainer/Audio" method="_on_muteBGM_toggled" flags=18]
+[connection signal="value_changed" from="TabContainer/Audio/sfx" to="TabContainer/Audio" method="_on_sfx_value_changed" flags=18]
+[connection signal="toggled" from="TabContainer/Audio/muteSFX" to="TabContainer/Audio" method="_on_muteSFX_toggled" flags=18]
+[connection signal="pressed" from="TabContainer/Audio/reset" to="TabContainer/Audio" method="_on_audio_reset_pressed" flags=18]
+[connection signal="toggled" from="TabContainer/Graphic/fullscreen" to="TabContainer/Graphic" method="_on_fullscreen_toggled" flags=18]
+[connection signal="toggled" from="TabContainer/Graphic/borderless" to="TabContainer/Graphic" method="_on_borderless_toggled" flags=18]
+[connection signal="pressed" from="TabContainer/Graphic/reset" to="TabContainer/Graphic" method="_on_reset_pressed" flags=18]

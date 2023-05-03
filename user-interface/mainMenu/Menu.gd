@@ -1,1 +1,8 @@
-extends Control
+extends VBoxContainer
+
+@export var modes : OptionButton
+@export var host_join : AcceptDialog
+func _on_enter_pressed():
+	match modes.selected:
+		1:
+			host_join.show()
