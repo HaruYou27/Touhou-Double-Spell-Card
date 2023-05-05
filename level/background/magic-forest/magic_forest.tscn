@@ -1,0 +1,16 @@
+[gd_scene load_steps=5 format=3 uid="uid://cnbehoie6tmgs"]
+
+[ext_resource type="Shader" path="res://level/background/noise-colorize.gdshader" id="1_x3aaq"]
+[ext_resource type="Texture2D" uid="uid://cm41qte6csxuq" path="res://level/background/magic-forest/tree-color.tres" id="2_33r1x"]
+[ext_resource type="Texture2D" uid="uid://clus86pnqv0ln" path="res://level/background/magic-forest/tree-noise.tres" id="3_iwkqw"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_20f7e"]
+shader = ExtResource("1_x3aaq")
+shader_parameter/velocity = Vector2(0, -0.1)
+shader_parameter/color_map = ExtResource("2_33r1x")
+
+[node name="MagicForest" type="Sprite2D"]
+texture_repeat = 3
+material = SubResource("ShaderMaterial_20f7e")
+texture = ExtResource("3_iwkqw")
+centered = false

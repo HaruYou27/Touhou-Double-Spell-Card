@@ -1,0 +1,18 @@
+[gd_scene load_steps=5 format=3 uid="uid://bsrn475jkgyqh"]
+
+[ext_resource type="Texture2D" uid="uid://do4q5gagfniy0" path="res://level/background/fire-hell/lava.tres" id="1_amyse"]
+[ext_resource type="Shader" path="res://level/background/fire-hell/lava.gdshader" id="1_uuyw5"]
+[ext_resource type="Texture2D" uid="uid://bgh4r80tk5o7v" path="res://level/background/misty-lake/water-noise.tres" id="2_jpiae"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hs1bl"]
+shader = ExtResource("1_uuyw5")
+shader_parameter/velocity = Vector2(0, -0.1)
+shader_parameter/lava_speed = 1.0
+shader_parameter/lava_chunk = 10.0
+shader_parameter/color_map = ExtResource("1_amyse")
+
+[node name="FireHell" type="Sprite2D"]
+texture_repeat = 2
+material = SubResource("ShaderMaterial_hs1bl")
+texture = ExtResource("2_jpiae")
+centered = false

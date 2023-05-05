@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="439.3577"
+   height="439.35773"
+   viewBox="0 0 439.3577 439.35773"
+   version="1.1"
+   id="svg5"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="px"
+     showgrid="false"
+     showguides="true">
+    <inkscape:grid
+       type="xygrid"
+       id="grid8425" />
+  </sodipodi:namedview>
+  <defs
+     id="defs2" />
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-245.67062,-136.14838)">
+    <rect
+       style="fill:#1875ff;fill-opacity:1;stroke:#1875ff;stroke-width:20;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal"
+       id="rect1229"
+       width="419.35773"
+       height="419.35773"
+       x="255.67062"
+       y="-565.5061"
+       transform="scale(1,-1)" />
+    <rect
+       style="display:inline;fill:none;fill-opacity:1;stroke:#ffffff;stroke-width:10.4117;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect8418"
+       width="371.37415"
+       height="371.37415"
+       x="279.66241"
+       y="-541.51428"
+       transform="scale(1,-1)" />
+    <text
+       xml:space="preserve"
+       style="font-size:408.506px;display:inline;fill:#ffffff;fill-opacity:1;stroke-width:6.12761"
+       x="334.62756"
+       y="501.66388"
+       id="text8159"><tspan
+         sodipodi:role="line"
+         id="tspan8157"
+         x="334.62756"
+         y="501.66388"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:408.506px;font-family:monospace;-inkscape-font-specification:monospace;stroke-width:6.12761">P</tspan></text>
+  </g>
+</svg>

@@ -1,20 +1,7 @@
-[gd_resource type="ShaderMaterial" load_steps=5 format=3 uid="uid://ct8awxxhbyyon"]
+[gd_resource type="GradientTexture1D" load_steps=2 format=3 uid="uid://coq45et7pnhnx"]
 
-[ext_resource type="Shader" path="res://level/background/shader/water.gdshader" id="1_lkds1"]
-[ext_resource type="Texture2D" uid="uid://clt15wekn0gcj" path="res://level/background/misty-lake/fog-noise.tres" id="2_5lydi"]
-
-[sub_resource type="Gradient" id="Gradient_51wj0"]
+[sub_resource type="Gradient" id="Gradient_ru15q"]
 colors = PackedColorArray(0, 0.07, 0.09, 1, 0.11, 0.16, 0.65, 1)
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_7abtt"]
-gradient = SubResource("Gradient_51wj0")
-
 [resource]
-shader = ExtResource("1_lkds1")
-shader_parameter/water_opacity = 0.5
-shader_parameter/water_velocity = Vector2(0, 0.5)
-shader_parameter/wave_distortion = 0.2
-shader_parameter/wave_multiplyer = -7.0
-shader_parameter/velocity = Vector2(0, -0.1)
-shader_parameter/noise_texture = ExtResource("2_5lydi")
-shader_parameter/color_map = SubResource("GradientTexture1D_7abtt")
+gradient = SubResource("Gradient_ru15q")

@@ -34,4 +34,4 @@ func wait_for_client(value:Array) -> void:
 	message = value
 	
 	timer.start()
-	show()
+	popup()

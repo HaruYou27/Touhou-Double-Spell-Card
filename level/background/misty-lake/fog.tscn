@@ -1,6 +1,6 @@
-[gd_scene load_steps=6 format=3 uid="uid://bi8tm7bd1smp6"]
+[gd_scene load_steps=6 format=3]
 
-[ext_resource type="Shader" path="res://level/background/shader/noise-colorize.gdshader" id="1_6012a"]
+[ext_resource type="Shader" path="res://level/background/noise-colorize.gdshader" id="1_6012a"]
 [ext_resource type="Texture2D" uid="uid://clt15wekn0gcj" path="res://level/background/misty-lake/fog-noise.tres" id="2_y8qhq"]
 
 [sub_resource type="Gradient" id="Gradient_6hvbg"]

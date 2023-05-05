@@ -1,6 +1,7 @@
-[gd_scene load_steps=9 format=3 uid="uid://diu5vnxcvjpnd"]
+[gd_scene load_steps=10 format=3]
 
 [ext_resource type="Script" path="res://user-interface/control-node/FormatLabel.gd" id="1_orj6g"]
+[ext_resource type="Theme" path="res://user-interface/resource/theme/Menu.tres" id="1_q0dw6"]
 [ext_resource type="Script" path="res://user-interface/control-node/PercentageSlider.gd" id="2_n2q07"]
 [ext_resource type="Script" path="res://user-interface/mainMenu/setting/Controls.gd" id="3_cddnt"]
 [ext_resource type="Script" path="res://user-interface/control-node/SFXButton.gd" id="4_lpvlm"]
@@ -10,7 +11,6 @@
 [ext_resource type="Shortcut" uid="uid://cmfbyxixc4xv3" path="res://user-interface/resource/shortcut/escape.tres" id="8_5yxxk"]
 
 [node name="setting" type="Control"]
-visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -21,6 +21,7 @@ offset_right = -21.0
 offset_bottom = -27.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_q0dw6")
 
 [node name="TabContainer" type="TabContainer" parent="."]
 layout_mode = 1
@@ -30,7 +31,6 @@ offset_bottom = 169.0
 grow_horizontal = 2
 
 [node name="Gameplay" type="VBoxContainer" parent="TabContainer"]
-visible = false
 layout_mode = 2
 
 [node name="Label" type="Label" parent="TabContainer/Gameplay"]

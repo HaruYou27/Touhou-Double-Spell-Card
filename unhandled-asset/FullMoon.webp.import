@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ces1yqucrnger"
-path="res://.godot/imported/Yin_and_Yang_symbol.svg-0d90428c08b2e4fac0cfb23408575353.ctex"
+uid="uid://6teg035plr0c"
+path="res://.godot/imported/FullMoon.webp-60cf5724a658c94ff5646b332109595b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://entity/Reimu/resource/Yin_and_Yang_symbol.svg"
-dest_files=["res://.godot/imported/Yin_and_Yang_symbol.svg-0d90428c08b2e4fac0cfb23408575353.ctex"]
+source_file="res://unhandled-asset/FullMoon.webp"
+dest_files=["res://.godot/imported/FullMoon.webp-60cf5724a658c94ff5646b332109595b.ctex"]
 
 [params]
 
@@ -32,6 +32,3 @@ process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
 detect_3d/compress_to=1
-svg/scale=4.0
-editor/scale_with_editor_scale=false
-editor/convert_colors_with_editor_theme=false

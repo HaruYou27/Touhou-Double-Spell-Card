@@ -1,9 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://cnqflylyb858f"]
+[gd_scene load_steps=5 format=3 uid="uid://bgq54jk8363af"]
 
-[ext_resource type="Material" uid="uid://bdovnbfdf6ss3" path="res://level/background/misty-lake/water-day.tres" id="1_aoxc2"]
+[ext_resource type="Material" uid="uid://cmha5bg3fe54n" path="res://level/background/misty-lake/water-day.tres" id="1_aoxc2"]
 [ext_resource type="Texture2D" uid="uid://bgh4r80tk5o7v" path="res://level/background/misty-lake/water-noise.tres" id="1_k0tgf"]
-[ext_resource type="PackedScene" uid="uid://bi8tm7bd1smp6" path="res://level/background/misty-lake/fog.tscn" id="3_sjwyr"]
-[ext_resource type="PackedScene" uid="uid://tvw1a1nufa7g" path="res://level/background/misty-lake/fog_overlay.tscn" id="4_gm5k5"]
+[ext_resource type="PackedScene" path="res://level/background/misty-lake/fog.tscn" id="3_sjwyr"]
+[ext_resource type="PackedScene" uid="uid://b57hui4ry7jev" path="res://level/background/misty-lake/fog_overlay.tscn" id="4_gm5k5"]
 
 [node name="MistyLake" type="Sprite2D"]
 texture_repeat = 2

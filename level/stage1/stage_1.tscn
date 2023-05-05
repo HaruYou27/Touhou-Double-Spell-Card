@@ -1,11 +1,11 @@
-[gd_scene load_steps=13 format=3 uid="uid://d4ic7oocviptv"]
+[gd_scene load_steps=13 format=3 uid="uid://b50t804edfb8r"]
 
-[ext_resource type="Material" uid="uid://cshbahph0oq1r" path="res://level/stage1/stage_1.tres" id="1_fviuk"]
-[ext_resource type="PackedScene" uid="uid://v4hkdp74evpq" path="res://level/leveler/leveler.tscn" id="1_umtlo"]
+[ext_resource type="Material" path="res://level/stage1/stage_1.tres" id="1_fviuk"]
+[ext_resource type="PackedScene" uid="uid://bfvb372sca8m2" path="res://level/leveler/leveler.tscn" id="1_umtlo"]
 [ext_resource type="Texture2D" uid="uid://bgh4r80tk5o7v" path="res://level/background/misty-lake/water-noise.tres" id="3_saoe8"]
-[ext_resource type="PackedScene" uid="uid://bi8tm7bd1smp6" path="res://level/background/misty-lake/fog.tscn" id="4_trpfx"]
-[ext_resource type="PackedScene" uid="uid://tvw1a1nufa7g" path="res://level/background/misty-lake/fog_overlay.tscn" id="5_c13xg"]
-[ext_resource type="PackedScene" uid="uid://byn3o8k1x6ybp" path="res://entity/yukari/yukari.tscn" id="6_tx2jr"]
+[ext_resource type="PackedScene" path="res://level/background/misty-lake/fog.tscn" id="4_trpfx"]
+[ext_resource type="PackedScene" path="res://level/background/misty-lake/fog_overlay.tscn" id="5_c13xg"]
+[ext_resource type="PackedScene" path="res://entity/yukari/yukari.tscn" id="6_tx2jr"]
 [ext_resource type="Script" path="res://level/stage1/SpinShot.gd" id="7_n3tf1"]
 [ext_resource type="PackedScene" uid="uid://dqvxgihivuulj" path="res://level/stage1/circle-spawner.tscn" id="8_gs73q"]
 
@@ -105,7 +105,6 @@ centered = false
 [node name="fog" parent="MistyLake" instance=ExtResource("4_trpfx")]
 
 [node name="FogOverlay" parent="MistyLake" instance=ExtResource("5_c13xg")]
-visible = false
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="."]
 layout_mode = 1

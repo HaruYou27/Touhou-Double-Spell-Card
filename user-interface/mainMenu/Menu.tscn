@@ -1,14 +1,14 @@
-[gd_scene load_steps=10 format=3 uid="uid://vjusfjpoumu8"]
+[gd_scene load_steps=10 format=3]
 
-[ext_resource type="Theme" uid="uid://brdgebvp25tns" path="res://user-interface/resource/Menu.tres" id="1_fll5i"]
+[ext_resource type="Theme" path="res://user-interface/resource/theme/Menu.tres" id="1_fll5i"]
 [ext_resource type="Script" path="res://user-interface/mainMenu/Menu.gd" id="2_pnltk"]
 [ext_resource type="Script" path="res://user-interface/control-node/SFXButton.gd" id="4_4sjp2"]
-[ext_resource type="Material" uid="uid://bdovnbfdf6ss3" path="res://level/background/misty-lake/water-day.tres" id="4_f83vx"]
+[ext_resource type="Material" uid="uid://cmha5bg3fe54n" path="res://level/background/misty-lake/water-day.tres" id="4_f83vx"]
 [ext_resource type="Texture2D" uid="uid://bgh4r80tk5o7v" path="res://level/background/misty-lake/water-noise.tres" id="5_pv030"]
-[ext_resource type="PackedScene" uid="uid://bi8tm7bd1smp6" path="res://level/background/misty-lake/fog.tscn" id="6_7alci"]
-[ext_resource type="Theme" uid="uid://c4snce1vwmyeo" path="res://user-interface/resource/popup.tres" id="7_1l57k"]
+[ext_resource type="PackedScene" path="res://level/background/misty-lake/fog.tscn" id="6_7alci"]
+[ext_resource type="Theme" path="res://user-interface/resource/theme/popup.tres" id="7_1l57k"]
 [ext_resource type="Script" path="res://user-interface/mainMenu/HostorJoin.gd" id="8_f7cl3"]
-[ext_resource type="Script" path="res://user-interface/mainMenu/host/Host.gd" id="15_ooej7"]
+[ext_resource type="Script" path="res://user-interface/mainMenu/Host.gd" id="9_tgpgl"]
 
 [node name="Menu" type="VBoxContainer" node_paths=PackedStringArray("modes", "host_join")]
 anchors_preset = 15
@@ -18,7 +18,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_fll5i")
 script = ExtResource("2_pnltk")
-modes = NodePath("OptionButton")
+modes = NodePath("modes")
 host_join = NodePath("HostorJoin")
 
 [node name="Background" type="Node2D" parent="."]
@@ -33,7 +33,7 @@ centered = false
 
 [node name="fog" parent="Background/MistyLake" instance=ExtResource("6_7alci")]
 
-[node name="OptionButton" type="OptionButton" parent="."]
+[node name="modes" type="OptionButton" parent="."]
 layout_mode = 2
 alignment = 1
 item_count = 3
@@ -86,7 +86,7 @@ size_flags_horizontal = 3
 text = "Credits"
 script = ExtResource("4_4sjp2")
 
-[node name="HostorJoin" type="ConfirmationDialog" parent="."]
+[node name="HostorJoin" type="ConfirmationDialog" parent="." node_paths=PackedStringArray("waiting", "network_error")]
 transparent_bg = true
 initial_position = 2
 title = ""
@@ -105,8 +105,10 @@ dialog_hide_on_ok = false
 dialog_autowrap = true
 cancel_button_text = "Host"
 script = ExtResource("8_f7cl3")
+waiting = NodePath("../host")
+network_error = NodePath("../NetworkError")
 
-[node name="Waiting" type="AcceptDialog" parent="."]
+[node name="host" type="AcceptDialog" parent="."]
 disable_3d = true
 transparent_bg = true
 initial_position = 2
@@ -124,9 +126,9 @@ IP: %s
 Port: %d
 Waiting for player"
 dialog_autowrap = true
-script = ExtResource("15_ooej7")
+script = ExtResource("9_tgpgl")
 
-[node name="Broadcast" type="Timer" parent="Waiting"]
+[node name="Broadcast" type="Timer" parent="host"]
 
 [node name="NetworkError" type="AcceptDialog" parent="."]
 disable_3d = true
@@ -144,4 +146,4 @@ dialog_text = "Please check your network connection"
 dialog_autowrap = true
 
 [connection signal="pressed" from="HBoxContainer2/enter" to="." method="_on_enter_pressed"]
-[connection signal="timeout" from="Waiting/Broadcast" to="Waiting" method="_on_broadcast_timeout"]
+[connection signal="timeout" from="host/Broadcast" to="host" method="_on_broadcast_timeout"]

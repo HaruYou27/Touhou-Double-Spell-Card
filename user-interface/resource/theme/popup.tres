@@ -1,7 +1,7 @@
-[gd_resource type="Theme" load_steps=6 format=3 uid="uid://c4snce1vwmyeo"]
+[gd_resource type="Theme" load_steps=6 format=3]
 
-[ext_resource type="FontFile" uid="uid://cybwwftllqbxu" path="res://user-interface/resource/UbuntuMono-Regular.ttf" id="1_cisrd"]
-[ext_resource type="StyleBox" uid="uid://b1chcearqpmj4" path="res://user-interface/resource/rounded-edge.tres" id="1_dnl13"]
+[ext_resource type="FontFile" uid="uid://cybwwftllqbxu" path="res://user-interface/resource/font/UbuntuMono-Regular.ttf" id="1_cisrd"]
+[ext_resource type="StyleBox" uid="uid://b1chcearqpmj4" path="res://user-interface/resource/theme/rounded-edge.tres" id="1_dnl13"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jh3yt"]
 
@@ -11,7 +11,7 @@
 
 [resource]
 default_font = ExtResource("1_cisrd")
-default_font_size = 72
+default_font_size = 64
 AcceptDialog/styles/panel = ExtResource("1_dnl13")
 Button/styles/hover = SubResource("StyleBoxEmpty_jh3yt")
 Button/styles/normal = SubResource("StyleBoxEmpty_hluph")

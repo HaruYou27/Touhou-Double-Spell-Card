@@ -1,14 +1,14 @@
 [gd_scene load_steps=24 format=3]
 
 [ext_resource type="Script" path="res://level/tutorial/item.gd" id="1"]
-[ext_resource type="Shader" path="res://level/background/shader/water.gdshader" id="1_ufwp0"]
+[ext_resource type="Shader" path="res://level/background/misty-lake/water.gdshader" id="1_ufwp0"]
 [ext_resource type="Script" path="res://level/leveler/Background.gd" id="2_m4qbh"]
-[ext_resource type="Shader" path="res://level/background/shader/moving-tiled.gdshader" id="3_m4ip0"]
+[ext_resource type="Shader" path="res://level/background/moving-tiled.gdshader" id="3_m4ip0"]
 [ext_resource type="Script" path="res://level/tutorial/Move.gd" id="4"]
 [ext_resource type="Script" path="res://level/tutorial/bomb.gd" id="6"]
-[ext_resource type="PackedScene" uid="uid://v4hkdp74evpq" path="res://level/leveler/leveler.tscn" id="7"]
-[ext_resource type="Theme" uid="uid://brtb5yavfdl08" path="res://user-interface/resource/Menu.tres" id="8_kk8vw"]
-[ext_resource type="PackedScene" path="res://entity/Reimu/reimu.tscn" id="9_gxck1"]
+[ext_resource type="PackedScene" uid="uid://bfvb372sca8m2" path="res://level/leveler/leveler.tscn" id="7"]
+[ext_resource type="Theme" uid="uid://dxmwch8d4tvvj" path="res://user-interface/resource/theme/Menu.tres" id="8_kk8vw"]
+[ext_resource type="PackedScene" uid="uid://bk08ga1mfcleb" path="res://entity/Reimu/reimu.tscn" id="9_gxck1"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_bs8bj"]
 

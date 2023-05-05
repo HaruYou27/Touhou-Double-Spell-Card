@@ -1,0 +1,110 @@
+[gd_resource type="Theme" load_steps=18 format=3 uid="uid://dxmwch8d4tvvj"]
+
+[ext_resource type="StyleBox" uid="uid://b5kvpaf4hpcyr" path="res://user-interface/resource/theme/gray.tres" id="1_a6pvn"]
+[ext_resource type="FontFile" uid="uid://cybwwftllqbxu" path="res://user-interface/resource/font/UbuntuMono-Regular.ttf" id="1_ms6ke"]
+[ext_resource type="StyleBox" uid="uid://bljqcvjdws526" path="res://user-interface/resource/theme/black.tres" id="2_wiqqr"]
+[ext_resource type="Texture2D" uid="uid://b5vq2lueygi1x" path="res://user-interface/resource/icon/yin-yang.webp" id="3_aoe8i"]
+[ext_resource type="Texture2D" uid="uid://bqsut82rlkfee" path="res://user-interface/resource/icon/yang-yin.webp" id="4_tvo7n"]
+[ext_resource type="Texture2D" uid="uid://6cnx37ycnior" path="res://user-interface/resource/icon/yinyang32.webp" id="6_meiee"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5ns6c"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(1, 1, 1, 0.4)
+corner_radius_top_left = 40
+corner_radius_top_right = 40
+corner_radius_bottom_right = 40
+corner_radius_bottom_left = 40
+corner_detail = 3
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6jsy5"]
+bg_color = Color(1, 1, 1, 0.65098)
+corner_radius_top_left = 40
+corner_radius_top_right = 40
+corner_radius_bottom_right = 40
+corner_radius_bottom_left = 40
+corner_detail = 3
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1os1l"]
+content_margin_left = 20.0
+content_margin_top = 20.0
+content_margin_right = 20.0
+content_margin_bottom = 20.0
+bg_color = Color(0.1, 0.1, 0.1, 0.6)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+corner_detail = 3
+anti_aliasing = false
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_nq71b"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_t4jta"]
+content_margin_left = 10.0
+content_margin_top = 4.0
+content_margin_right = 10.0
+content_margin_bottom = 4.0
+bg_color = Color(0.1, 0.1, 0.1, 0.6)
+border_color = Color(1, 1, 1, 0.75)
+corner_detail = 1
+
+[sub_resource type="ImageTexture" id="ImageTexture_mc3jj"]
+
+[sub_resource type="ImageTexture" id="ImageTexture_igeo7"]
+
+[sub_resource type="ImageTexture" id="ImageTexture_75tuk"]
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_w3de7"]
+content_margin_left = 4.0
+content_margin_top = 0.0
+content_margin_right = 4.0
+content_margin_bottom = 0.0
+color = Color(0.5, 0.5, 0.5, 1)
+thickness = 5
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8xl4n"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_21j04"]
+content_margin_left = 10.0
+content_margin_top = 4.0
+content_margin_right = 10.0
+content_margin_bottom = 4.0
+bg_color = Color(0.1, 0.1, 0.1, 0.6)
+border_width_top = 10
+border_color = Color(1, 1, 1, 0.75)
+corner_detail = 1
+anti_aliasing = false
+
+[resource]
+default_font = ExtResource("1_ms6ke")
+default_font_size = 64
+Button/colors/font_hover_pressed_color = Color(1, 0.219608, 0.219608, 1)
+Button/colors/font_pressed_color = Color(1, 0.219608, 0.219608, 1)
+Button/styles/hover = ExtResource("1_a6pvn")
+Button/styles/normal = ExtResource("2_wiqqr")
+Button/styles/pressed = ExtResource("2_wiqqr")
+HSlider/icons/grabber = ExtResource("3_aoe8i")
+HSlider/icons/grabber_highlight = ExtResource("4_tvo7n")
+HSlider/styles/grabber_area = SubResource("StyleBoxFlat_5ns6c")
+HSlider/styles/grabber_area_highlight = SubResource("StyleBoxFlat_6jsy5")
+HSlider/styles/slider = SubResource("StyleBoxFlat_1os1l")
+ItemList/colors/font_color = Color(1, 1, 1, 1)
+ItemList/styles/panel = SubResource("StyleBoxEmpty_nq71b")
+Label/font_sizes/font_size = 64
+Label/fonts/font = ExtResource("1_ms6ke")
+Label/styles/normal = SubResource("StyleBoxFlat_t4jta")
+PopupMenu/icons/radio_checked = ExtResource("6_meiee")
+PopupMenu/icons/radio_checked_disabled = SubResource("ImageTexture_mc3jj")
+PopupMenu/icons/radio_unchecked = SubResource("ImageTexture_igeo7")
+PopupMenu/icons/radio_unchecked_disabled = SubResource("ImageTexture_75tuk")
+PopupMenu/styles/hover = ExtResource("1_a6pvn")
+PopupMenu/styles/panel = ExtResource("2_wiqqr")
+PopupMenu/styles/separator = SubResource("StyleBoxLine_w3de7")
+TabContainer/font_sizes/font_size = 64
+TabContainer/fonts/font = ExtResource("1_ms6ke")
+TabContainer/styles/panel = SubResource("StyleBoxEmpty_8xl4n")
+TabContainer/styles/tab_selected = SubResource("StyleBoxFlat_21j04")
+TooltipPanel/styles/panel = ExtResource("2_wiqqr")

@@ -7,20 +7,24 @@ var goal := 0
 
 @onready var user_data := Global.user_data
 
-@onready var hi_score_label :FormatLabel = $VBoxContainer/HiScore
-@onready var score_label :FormatLabel = $VBoxContainer/Score
-@onready var goal_label :FormatLabel = $VBoxContainer/Goal
-@onready var bomb_label :FormatLabel = $VBoxContainer/HBoxContainer/Bomb
+@export var fps_label : FormatLabel
+@onready var peer2 : ENetPacketPeer = multiplayer.multiplayer_peer.get_peer(2)
+func _process(_delta):
+	fps_label.update_label(Performance.get_monitor(Performance.TIME_FPS))
+	ping_label.update_label(peer2.get_statistic(ENetPacketPeer.PEER_ROUND_TRIP_TIME))
 
-@onready var pickup_sfx : AudioStreamPlayer = $pickup
-@onready var reward_sfx : AudioStreamPlayer = $reward
-
-@onready var is_multiplayer := bool(multiplayer.multiplayer_peer.get_connection_status())
+@export var hi_score_label : FormatLabel
+@export var ping_label : FormatLabel
 func _ready() -> void:
-	if multiplayer.multiplayer_peer.get_connection_status():
-		hi_score_label.template = 'P2-Score: %018d'
+	if multiplayer.has_multiplayer_peer():
+		if is_multiplayer_authority():
+			hi_score_label.template = 'P2-Score: %018d'
+		else:
+			hi_score_label.template = 'P1-Score: %018d'
+			
 		hi_score_label.update_label(0)
 	else:
+		ping_label.queue_free()
 		hi_score_label.update_label(user_data.scores.get(user_data.last_level, 0))
 	
 	Global.item_collect.connect(_add_item)
@@ -32,10 +36,12 @@ func _ready() -> void:
 	goal_label.update_label(0)
 	bomb_label.update_label(1)
 
+@export var bomb_label :FormatLabel
 func _update_bomb() -> void:
 	bomb_label.update_label(Global.player.bomb_count)
 
 #There's no point in updating the score more than 1 per frame.
+@export var pickup_sfx : AudioStreamPlayer
 func _add_item() -> void:
 	item += 1
 	pickup_sfx.play()
@@ -52,6 +58,10 @@ func update_score() -> void:
 		return
 	updating_score = true
 	call_deferred('_update_score')
+	
+@export var reward_sfx : AudioStreamPlayer
+@export var score_label :FormatLabel
+@export var goal_label :FormatLabel
 func _update_score() -> void:
 	score = pow(graze * item, Engine.time_scale)
 	score_label.update_label(int(score))

@@ -2,13 +2,13 @@
 
 importer="font_data_dynamic"
 type="FontFile"
-uid="uid://c7ppp33ch6e5"
-path="res://.godot/imported/Vbutlong.ttf-a055dd769546c70c1102d47751b89376.fontdata"
+uid="uid://cybwwftllqbxu"
+path="res://.godot/imported/UbuntuMono-Regular.ttf-df96ca25a7d5fccb9ca0a27a7b3c3fa3.fontdata"
 
 [deps]
 
-source_file="res://user-interface/resource/Vbutlong.ttf"
-dest_files=["res://.godot/imported/Vbutlong.ttf-a055dd769546c70c1102d47751b89376.fontdata"]
+source_file="res://user-interface/resource/font/UbuntuMono-Regular.ttf"
+dest_files=["res://.godot/imported/UbuntuMono-Regular.ttf-df96ca25a7d5fccb9ca0a27a7b3c3fa3.fontdata"]
 
 [params]
 

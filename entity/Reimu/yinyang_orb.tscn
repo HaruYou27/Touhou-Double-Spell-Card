@@ -1,7 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://iykb7o0b5uxe"]
+[gd_scene load_steps=3 format=3]
 
 [ext_resource type="Material" uid="uid://df8i0wskbdmia" path="res://entity/Reimu/resource/yinYangOrb.tres" id="1_4aqhq"]
-[ext_resource type="Texture2D" uid="uid://bqsut82rlkfee" path="res://user-interface/resource/yang-yin.webp" id="2_vq1c8"]
+[ext_resource type="Texture2D" uid="uid://bqsut82rlkfee" path="res://user-interface/resource/icon/yang-yin.webp" id="2_vq1c8"]
 
 [node name="YinyangOrb" type="Sprite2D"]
 z_index = 9

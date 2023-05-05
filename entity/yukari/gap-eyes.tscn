@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3]
 
-[ext_resource type="Shader" path="res://level/background/shader/moving-tiled.gdshader" id="1_qpim4"]
+[ext_resource type="Shader" path="res://level/background/moving-tiled.gdshader" id="1_qpim4"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_dw4yx"]
 shader = ExtResource("1_qpim4")

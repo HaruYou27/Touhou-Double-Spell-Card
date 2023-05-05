@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://mw3uctnhsg0p"
-path="res://.godot/imported/smallOrb.png-b52310490447282380efba5a025aff31.ctex"
+uid="uid://bqsut82rlkfee"
+path="res://.godot/imported/yang-yin.webp-89d29dfe4f4c974a8e6e99d8e6a0a4c0.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://entity/Bullet/resource/smallOrb.png"
-dest_files=["res://.godot/imported/smallOrb.png-b52310490447282380efba5a025aff31.ctex"]
+source_file="res://user-interface/resource/icon/yang-yin.webp"
+dest_files=["res://.godot/imported/yang-yin.webp-89d29dfe4f4c974a8e6e99d8e6a0a4c0.ctex"]
 
 [params]
 
@@ -20,7 +20,7 @@ compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1
 compress/normal_map=0
-compress/channel_pack=0
+compress/channel_pack=1
 mipmaps/generate=false
 mipmaps/limit=-1
 roughness/mode=0
