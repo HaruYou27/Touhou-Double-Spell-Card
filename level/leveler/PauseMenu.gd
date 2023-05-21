@@ -31,8 +31,11 @@ func _on_screen_shoot_pressed():
 
 func _on_pause_pressed():
 	pause.hide()
-	tree.paused = true
 	animator.play('show')
 	set_process_input(false)
 	accept_event()
+	
+	if multiplayer.has_multiplayer_peer():
+		return
 	Engine.time_scale = 1.0
+	tree.paused = true

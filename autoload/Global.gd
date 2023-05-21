@@ -63,6 +63,23 @@ static func get_input_string(event:InputEvent) -> String:
 	
 	return 'Unknown'
 
+##Difference in absolute time between the two clocks.
+var offset := 0
+func sync_clock() -> void:
+	offset = Time.get_ticks_msec()
+	rpc('sync_host_clock')
+	
+@rpc("any_peer", "reliable")
+func sync_host_clock() -> void:
+	rpc('calculate_offset', Time.get_ticks_msec())
+	
+@rpc("reliable")
+func calculate_offset(host_time:int) -> void:
+	offset = (2*host_time - Time.get_ticks_msec() - offset) / 2
+	
+func get_host_time() -> int:
+	return Time.get_ticks_msec() + offset
+
 ##Save user config.
 func _exit_tree() -> void:
 	if Engine.is_editor_hint:

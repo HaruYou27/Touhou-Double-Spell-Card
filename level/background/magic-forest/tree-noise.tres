@@ -4,7 +4,7 @@
 noise_type = 0
 frequency = 0.005
 domain_warp_enabled = true
-domain_warp_type = 1
+domain_warp_type = 2
 domain_warp_fractal_type = 2
 
 [resource]

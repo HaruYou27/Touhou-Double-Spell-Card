@@ -1,33 +1,26 @@
-[gd_scene load_steps=25 format=3 uid="uid://bk08ga1mfcleb"]
+[gd_scene load_steps=21 format=3 uid="uid://bk08ga1mfcleb"]
 
 [ext_resource type="Script" path="res://entity/Reimu/Player.gd" id="1_kx4gf"]
-[ext_resource type="Texture2D" uid="uid://r7d3f3sdgdhy" path="res://entity/Reimu/resource/reimu.png" id="2_yclxq"]
+[ext_resource type="PackedScene" path="res://entity/Reimu/kishin-orb.tscn" id="2_o0f4p"]
 [ext_resource type="Script" path="res://entity/Reimu/graze.gd" id="3_wdonn"]
-[ext_resource type="Texture2D" uid="uid://mw3uctnhsg0p" path="res://entity/Bullet/resource/smallOrb.png" id="4_qw3b0"]
 [ext_resource type="Shader" path="res://entity/UberItem.gdshader" id="4_uai7y"]
 [ext_resource type="AudioStream" uid="uid://4t58xs4qdlkr" path="res://autoload/SoundEffect/ui/tick+.wav" id="5_i0nhh"]
 [ext_resource type="Script" path="res://entity/Reimu/DeathTimer.gd" id="6_wbd73"]
-[ext_resource type="Texture2D" uid="uid://dv7h11hcjacg2" path="res://entity/Reimu/resource/hitbox.png" id="7_35mu5"]
 [ext_resource type="Script" path="res://entity/Reimu/homing-shoot.gd" id="9_e2so6"]
 [ext_resource type="Script" path="res://entity/Bullet/BulletBasic.cs" id="10_8trdp"]
-[ext_resource type="Texture2D" uid="uid://c3jodrorofxht" path="res://entity/Reimu/resource/ofuda-tail.png" id="11_ag87i"]
 [ext_resource type="Script" path="res://entity/Bullet/Seeker.cs" id="12_0inkt"]
-[ext_resource type="Texture2D" uid="uid://dk5iw3idwfm40" path="res://entity/Reimu/resource/ofuda.png" id="13_art5d"]
-[ext_resource type="PackedScene" uid="uid://iykb7o0b5uxe" path="res://entity/Reimu/yinyang_orb.tscn" id="14_kgn3t"]
+[ext_resource type="PackedScene" path="res://entity/Reimu/yinyang_orb.tscn" id="14_kgn3t"]
 
 [sub_resource type="SpriteFrames" id="14"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("2_yclxq")
+"texture": null
 }],
 "loop": true,
 "name": &"default",
 "speed": 5.0
 }]
-
-[sub_resource type="CircleShape2D" id="7"]
-radius = 4.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_sx7ua"]
 radius = 40.0
@@ -42,6 +35,9 @@ radial_accel_min = -100.0
 radial_accel_max = -100.0
 scale_min = 0.5
 scale_max = 0.5
+
+[sub_resource type="CircleShape2D" id="7"]
+radius = 4.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_3mne5"]
 shader = ExtResource("4_uai7y")
@@ -141,22 +137,21 @@ _data = {
 "spin": SubResource("Animation_50kuu")
 }
 
-[node name="Reimu" type="StaticBody2D"]
+[node name="Reimu" type="StaticBody2D" node_paths=PackedStringArray("death_timer", "hitbox", "sprite")]
 scale = Vector2(2, 2)
 collision_layer = 4
 collision_mask = 0
 constant_linear_velocity = Vector2(3, 0)
 script = ExtResource("1_kx4gf")
+death_timer = NodePath("DeathTimer")
+hitbox = NodePath("Hitbox")
+sprite = NodePath("AnimatedSprite2D")
+bomb_scene = ExtResource("2_o0f4p")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 z_index = 10
 position = Vector2(-0.5, 5)
 sprite_frames = SubResource("14")
-
-[node name="Hitbox" type="CollisionShape2D" parent="."]
-z_index = 10
-shape = SubResource("7")
-debug_color = Color(0, 1, 0.34902, 0.419608)
 
 [node name="graze" type="StaticBody2D" parent="."]
 collision_layer = 8
@@ -175,7 +170,6 @@ z_index = 4
 rotation = -0.00344996
 emitting = false
 process_material = SubResource("25")
-texture = ExtResource("4_qw3b0")
 speed_scale = 2.0
 fixed_fps = 60
 local_coords = true
@@ -196,13 +190,22 @@ wait_time = 0.2
 one_shot = true
 script = ExtResource("6_wbd73")
 
+[node name="Hitbox" type="CollisionShape2D" parent="."]
+z_index = 10
+shape = SubResource("7")
+debug_color = Color(0, 1, 0.34902, 0.419608)
+
 [node name="Hitbox2" type="Sprite2D" parent="."]
 z_index = 100
 material = SubResource("ShaderMaterial_3mne5")
-texture = ExtResource("7_35mu5")
 
-[node name="Homing" type="Node2D" parent="."]
+[node name="Homing" type="Node2D" parent="." node_paths=PackedStringArray("timer1", "timer2", "orb1", "orb2", "orb_animator")]
 script = ExtResource("9_e2so6")
+timer1 = NodePath("Timer")
+timer2 = NodePath("Timer2")
+orb1 = NodePath("orb1")
+orb2 = NodePath("orb2")
+orb_animator = NodePath("orbAnimator")
 
 [node name="Timer" type="Timer" parent="Homing"]
 process_callback = 0
@@ -220,7 +223,6 @@ speed = 727.0
 Grazable = false
 CollideWithAreas = true
 CollisionMask = 3
-texture = ExtResource("11_ag87i")
 
 [node name="Marker2D" type="Marker2D" parent="Homing/bullet"]
 position = Vector2(7, -38)
@@ -244,7 +246,6 @@ speed = 727.0
 Grazable = false
 CollideWithAreas = true
 CollisionMask = 3
-texture = ExtResource("13_art5d")
 
 [node name="YinyangOrb" parent="Homing/orb1" instance=ExtResource("14_kgn3t")]
 position = Vector2(98, 0)
@@ -266,7 +267,6 @@ speed = 727.0
 Grazable = false
 CollideWithAreas = true
 CollisionMask = 3
-texture = ExtResource("13_art5d")
 
 [node name="YinyangOrb2" parent="Homing/orb2" instance=ExtResource("14_kgn3t")]
 position = Vector2(0, -132)

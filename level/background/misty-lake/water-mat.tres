@@ -1,0 +1,21 @@
+[gd_resource type="ShaderMaterial" load_steps=5 format=3 uid="uid://ca7e6iskdhovg"]
+
+[ext_resource type="Shader" path="res://level/background/misty-lake/water.gdshader" id="1_v5mm0"]
+[ext_resource type="Texture2D" uid="uid://eriecmar2l3j" path="res://level/background/misty-lake/water-day.tres" id="2_cc2p6"]
+
+[sub_resource type="Gradient" id="Gradient_v5dpm"]
+offsets = PackedFloat32Array(1)
+colors = PackedColorArray(1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_kvrk1"]
+gradient = SubResource("Gradient_v5dpm")
+
+[resource]
+shader = ExtResource("1_v5mm0")
+shader_parameter/reflection = SubResource("GradientTexture1D_kvrk1")
+shader_parameter/water_velocity = Vector2(0, -0.2)
+shader_parameter/water_opacity = 1.0
+shader_parameter/color_map = ExtResource("2_cc2p6")
+shader_parameter/wave_velocity = Vector2(0, 2)
+shader_parameter/wave_distortion = 0.2
+shader_parameter/wave_multiplyer = -7.0

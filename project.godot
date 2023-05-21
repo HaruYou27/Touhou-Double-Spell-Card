@@ -10,7 +10,7 @@ config_version=5
 
 [application]
 
-config/name="Touhou: 赤 & 黒, Doppelgänger"
+config/name="Touhou: Double Spell Card"
 config/description="Why i make bullet shmups game."
 run/main_scene="res://user-interface/mainMenu/Menu.tscn"
 config/features=PackedStringArray("4.0")
@@ -39,7 +39,7 @@ window/vsync/vsync_mode=false
 
 [dotnet]
 
-project/assembly_name="Touhou Red and Black"
+project/assembly_name="Touhou: Double Spell Card"
 
 [filesystem]
 

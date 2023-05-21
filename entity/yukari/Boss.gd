@@ -4,14 +4,13 @@ class_name Boss
 signal start_event
 signal next_event
 
-@onready var hp_bar : TextureProgressBar = $hp
-@onready var time_bar : TextureProgressBar = $hp/timer
-
 var point := 0
 
 func _ready() -> void:
 	Global.boss = self
 
+@export var hp_bar : TextureProgressBar
+@export var time_bar : TextureProgressBar
 func setup(timer:float, p:int, hp:=0) -> void:
 	monitorable = false
 	point = p
@@ -45,8 +44,10 @@ func _timeout() -> void:
 		ItemManager.SpawnItem(point, global_position)
 		next_event.emit()
 
+@rpc("any_peer")
 func _hit() -> void:
 	hp_bar.value -= 1
+	rpc('_hit')
 	if not hp_bar.value:
 		ItemManager.SpawnItem(point * time_bar.value / time_bar.max_value)
 		next_event.emit()

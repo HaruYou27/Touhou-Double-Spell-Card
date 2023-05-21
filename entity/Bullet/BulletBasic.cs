@@ -15,7 +15,6 @@ public partial class BulletBasic : Node2D
 	[Export] public bool CollideWithBodies = true;
 	[Export(PropertyHint.Layers2DPhysics)] public uint CollisionMask = 1;
 	protected readonly PhysicsShapeQueryParameters2D query = new PhysicsShapeQueryParameters2D();
-	protected Rid hitbox;
 
 	//Visual.
 	[Export]

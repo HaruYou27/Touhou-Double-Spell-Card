@@ -1,11 +1,11 @@
 extends Node2D
 
-@onready var timer1 : Timer = $Timer
-@onready var timer2 : Timer = $Timer2
-@onready var orb1 : Node2D = $orb1
-@onready var orb2 : Node2D = $orb2
+@export var timer1 : Timer
+@export var timer2 : Timer
+@export var orb1 : Node2D
+@export var orb2 : Node2D
 
-@onready var orb_animator : AnimationPlayer = $orbAnimator
+@export var orb_animator : AnimationPlayer
 
 func _ready() -> void:
 	orb_animator.play("spin")

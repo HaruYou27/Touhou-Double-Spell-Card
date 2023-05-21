@@ -3,8 +3,8 @@
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_bgebx"]
 seed = 727
 frequency = 0.002
-domain_warp_enabled = true
 domain_warp_type = 2
+domain_warp_frequency = 0.478
 
 [resource]
 width = 1080

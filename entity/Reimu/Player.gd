@@ -5,31 +5,20 @@ func _ready() -> void:
 	Global.bomb_finished.connect(_bomb_finished)
 	Global.player = self
 	ItemManager.target = self
-	set_process_unhandled_input(false)
-	
-	var tween := create_tween()
-	tween.tween_property(self, 'position', Vector2(540, 1425), .5)
-	tween.finished.connect(_already)
+	Global.can_player_shoot.emit(true)
 
-@onready var tree := get_tree()
-@onready var death_timer : Timer = $DeathTimer
+@export var death_timer : Timer
 func _hit() -> void:
-	if tree.paused:
+	if is_multiplayer_authority():
 		return
 	
 	set_process_unhandled_input(false)
 	VisualEffect.flash_red()
 	death_timer.start()
-	tree.paused = true
 
-@onready var hitbox : CollisionShape2D = $Hitbox
+@export var hitbox : CollisionShape2D
 func _bomb_finished() -> void:
 	hitbox.set_deferred('disabled', false)
-	can_bomb = true
-	
-func _already() -> void:
-	set_process_unhandled_input(true)
-	Global.can_player_shoot.emit(true)
 	can_bomb = true
 	
 var is_left := false
@@ -47,7 +36,7 @@ func _unhandled_input(event:InputEvent) -> void:
 		if is_multiplayer_authority():
 			rpc('_update_position')
 		
-@onready var sprite : AnimatedSprite2D = $AnimatedSprite2D
+@export var sprite : AnimatedSprite2D
 func change_direction(angle:float):
 		if angle <= PI / 2 and angle < -PI/2 and is_left:
 			#Right
@@ -73,7 +62,6 @@ func bomb() -> void:
 	can_bomb = false
 	VisualEffect.hide()
 	death_timer.stop()
-	tree.paused = false
 	set_process_unhandled_input(true)
 	hitbox.set_deferred("disabled", true)
 

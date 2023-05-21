@@ -15,6 +15,9 @@ class_name UserData
 @export_category("Controls")
 @export var sentivity := 1.2
 @export var raw_input := true : set = _set_raw_input
+func _set_raw_input(value:bool) -> void:
+	Input.use_accumulated_input = value
+	
 @export var drag_bind := InputMap.action_get_events('drag')[0] : set = _bind_drag
 func _bind_drag(event:InputEvent) -> void:
 	InputMap.action_erase_events('drag')
@@ -39,11 +42,4 @@ func _bind_voice(event:InputEvent) -> void:
 @export var shoot_type := "res://entity/Reimu/HomingShoot.tscn"
 
 @export var scores := {}
-@export var last_level := 0
-
-
-	
-
-
-func _set_raw_input(value:bool) -> void:
-	Input.use_accumulated_input = value
+@export var last_level : String

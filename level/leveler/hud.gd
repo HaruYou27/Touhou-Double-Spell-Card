@@ -36,7 +36,7 @@ func _ready() -> void:
 	goal_label.update_label(0)
 	bomb_label.update_label(1)
 
-@export var bomb_label :FormatLabel
+@export var bomb_label : FormatLabel
 func _update_bomb() -> void:
 	bomb_label.update_label(Global.player.bomb_count)
 
@@ -60,8 +60,8 @@ func update_score() -> void:
 	call_deferred('_update_score')
 	
 @export var reward_sfx : AudioStreamPlayer
-@export var score_label :FormatLabel
-@export var goal_label :FormatLabel
+@export var score_label : FormatLabel
+@export var goal_label : FormatLabel
 func _update_score() -> void:
 	score = pow(graze * item, Engine.time_scale)
 	score_label.update_label(int(score))
