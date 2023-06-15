@@ -8,7 +8,7 @@
 [ext_resource type="Script" path="res://level/tutorial/bomb.gd" id="6"]
 [ext_resource type="PackedScene" uid="uid://bfvb372sca8m2" path="res://level/leveler/leveler.tscn" id="7"]
 [ext_resource type="Theme" uid="uid://dxmwch8d4tvvj" path="res://user-interface/resource/theme/Menu.tres" id="8_kk8vw"]
-[ext_resource type="PackedScene" uid="uid://bk08ga1mfcleb" path="res://entity/Reimu/reimu.tscn" id="9_gxck1"]
+[ext_resource type="PackedScene" uid="uid://bk08ga1mfcleb" path="res://entity/player/reimu/reimu.tscn" id="9_gxck1"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_bs8bj"]
 

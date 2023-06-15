@@ -1,39 +1,26 @@
 extends Node2D
 class_name global
-##Signal bus Singleton, Global Variable, Static Helper Function, User setting.
+##god
 
-var user_data : UserData
-func _ready() -> void:
-	randomize()
-	
-	user_data = load('user://saveData.res')
-	if user_data:
-		return
-		
-	user_data = UserData.new()
-
+############ GLOBAL GAMEPLAY
 ##Emited by bullet when intersect player's graze Area2D.
 signal bullet_graze
 
 ##Emited by item when intersect player's hitbox (not item Area2D).
 signal item_collect
 
-##Emited by player's bomb node when finished
-signal bomb_finished
-
-##When you want to stop player from spamming bullets.
-signal can_player_shoot(value:bool)
-
 var hud : HUD
 var boss : Boss
-var player : Player
+var players : Array[Player]
 
 ##Play area rectangle.
-const playground := Vector2i(1080, 1620)
+const playground := Vector2i(540, 790)
 
 ##Default resolution.
-const game_rect := Vector2i(1920, 1080)
+const game_rect := Vector2i(540, 960)
+#######################
 
+################ USER INTERFACE
 const main_menu := "res://user-interface/mainMenu/Menu.tscn"
 
 @onready var tree := get_tree()
@@ -47,6 +34,7 @@ func change_scene(scene:String) -> void:
 	tree.paused = false
 	var tween :Tween = VisualEffect.fade2black()
 	tween.finished.connect(tree.change_scene_to_file.bind(scene))
+
 
 ##Convert an InputEvent to String.
 static func get_input_string(event:InputEvent) -> String:
@@ -62,7 +50,9 @@ static func get_input_string(event:InputEvent) -> String:
 			return 'Mouse Middle'
 	
 	return 'Unknown'
+####################
 
+######## NETWORKING
 ##Difference in absolute time between the two clocks.
 var offset := 0
 func sync_clock() -> void:
@@ -79,7 +69,19 @@ func calculate_offset(host_time:int) -> void:
 	
 func get_host_time() -> int:
 	return Time.get_ticks_msec() + offset
+###########
 
+########## USER CONFIG
+var user_data : UserData
+func _ready() -> void:
+	randomize()
+	
+	user_data = load('user://saveData.res')
+	if user_data:
+		return
+		
+	user_data = UserData.new()
+	
 ##Save user config.
 func _exit_tree() -> void:
 	if Engine.is_editor_hint:
@@ -91,3 +93,4 @@ func _exit_tree() -> void:
 	ProjectSettings.set_setting('display/window/size/mode', window.mode)
 	ProjectSettings.save_custom('user://override.cfg')
 	ResourceSaver.save(user_data, 'user://saveData.res', ResourceSaver.FLAG_COMPRESS)
+###############

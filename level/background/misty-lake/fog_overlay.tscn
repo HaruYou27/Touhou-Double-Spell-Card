@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3]
+[gd_scene load_steps=6 format=3 uid="uid://uiwkegjhrq51"]
 
 [ext_resource type="Shader" path="res://level/background/noise-colorize.gdshader" id="1_1lu6v"]
 [ext_resource type="Texture2D" uid="uid://clt15wekn0gcj" path="res://level/background/misty-lake/fog-noise.tres" id="2_mkobp"]

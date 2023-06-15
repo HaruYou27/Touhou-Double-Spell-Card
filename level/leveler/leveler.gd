@@ -9,7 +9,11 @@ extends Control
 func _ready() -> void:
 	VisualEffect.fade2black(true)
 	VisualEffect.current_scene = root_node
+	for player in Global.players:
+		root_node.add_child(player)
 
+
+############ NEED REWRITE
 @export var first_event : Node
 func sync_start() -> void:
 	rpc('game_started', Time.get_ticks_msec())

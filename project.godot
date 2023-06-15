@@ -10,10 +10,10 @@ config_version=5
 
 [application]
 
-config/name="Touhou: Double Spell Card"
+config/name="Touhou Double Spell Card"
 config/description="Why i make bullet shmups game."
 run/main_scene="res://user-interface/mainMenu/Menu.tscn"
-config/features=PackedStringArray("4.0")
+config/features=PackedStringArray("4.0", "C#")
 run/max_fps=60
 
 [audio]
@@ -29,17 +29,15 @@ SoundEffect="*res://autoload/SoundEffect/sound_effect.tscn"
 
 [display]
 
-window/size/viewport_width=1080
-window/size/viewport_height=1920
-window/size/window_width_override=405
-window/size/window_height_override=720
+window/size/viewport_width=540
+window/size/viewport_height=960
 window/stretch/mode="viewport"
 window/handheld/orientation=1
 window/vsync/vsync_mode=false
 
 [dotnet]
 
-project/assembly_name="Touhou: Double Spell Card"
+project/assembly_name="Touhou Double Spell Card"
 
 [filesystem]
 
@@ -125,6 +123,7 @@ common/enable_object_picking=false
 
 [rendering]
 
+textures/canvas_textures/default_texture_filter=0
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
 2d/snap/snap_2d_transforms_to_pixel=true

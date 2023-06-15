@@ -2,11 +2,11 @@
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_tkmk3"]
 seed = 272
-frequency = 0.001
+frequency = 0.002
 
 [resource]
-width = 1080
-height = 1920
+width = 540
+height = 960
 generate_mipmaps = false
 seamless = true
 seamless_blend_skirt = 0.2

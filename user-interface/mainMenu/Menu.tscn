@@ -1,16 +1,41 @@
-[gd_scene load_steps=10 format=3 uid="uid://bcscmtllfgmex"]
+[gd_scene load_steps=18 format=3 uid="uid://bcscmtllfgmex"]
 
 [ext_resource type="Theme" uid="uid://dxmwch8d4tvvj" path="res://user-interface/resource/theme/Menu.tres" id="1_fll5i"]
 [ext_resource type="Script" path="res://user-interface/mainMenu/Menu.gd" id="2_pnltk"]
-[ext_resource type="Material" uid="uid://ca7e6iskdhovg" path="res://level/background/misty-lake/water-mat.tres" id="3_hxprb"]
+[ext_resource type="Script" path="res://user-interface/mainMenu/main/main.gd" id="3_l0u8q"]
 [ext_resource type="Script" path="res://user-interface/control-node/SFXButton.gd" id="4_4sjp2"]
-[ext_resource type="Texture2D" uid="uid://bgh4r80tk5o7v" path="res://level/background/misty-lake/water-noise.tres" id="5_pv030"]
-[ext_resource type="PackedScene" path="res://level/background/misty-lake/fog.tscn" id="6_7alci"]
-[ext_resource type="Theme" path="res://user-interface/resource/theme/popup.tres" id="7_1l57k"]
-[ext_resource type="Script" path="res://user-interface/mainMenu/HostorJoin.gd" id="8_f7cl3"]
-[ext_resource type="Script" path="res://user-interface/mainMenu/Host.gd" id="9_tgpgl"]
+[ext_resource type="Script" path="res://user-interface/control-node/FormatLabel.gd" id="5_ri88w"]
+[ext_resource type="Script" path="res://user-interface/mainMenu/main/HostorJoin.gd" id="5_sukpw"]
+[ext_resource type="Script" path="res://user-interface/control-node/PercentageSlider.gd" id="6_j86yi"]
+[ext_resource type="Script" path="res://user-interface/mainMenu/setting/Controls.gd" id="7_anqx0"]
+[ext_resource type="Script" path="res://user-interface/control-node/SFXToggler.gd" id="8_mpgu8"]
+[ext_resource type="Script" path="res://user-interface/mainMenu/setting/Audio.gd" id="9_6doe2"]
+[ext_resource type="Script" path="res://user-interface/mainMenu/setting/Graphic.gd" id="10_djpsy"]
+[ext_resource type="Shortcut" uid="uid://cmfbyxixc4xv3" path="res://user-interface/resource/shortcut/escape.tres" id="11_g1ugt"]
+[ext_resource type="Texture2D" uid="uid://f57p0cr44ri7" path="res://entity/player/reimu/resource/kishin.webp" id="13_n0ypk"]
+[ext_resource type="Shader" path="res://entity/UberItem.gdshader" id="13_uyfbp"]
 
-[node name="Menu" type="VBoxContainer" node_paths=PackedStringArray("modes", "host_join")]
+[sub_resource type="Gradient" id="Gradient_7d20i"]
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_ykthq"]
+gradient = SubResource("Gradient_7d20i")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_etwut"]
+shader = ExtResource("13_uyfbp")
+shader_parameter/time_scale = 1.0
+shader_parameter/spin = false
+shader_parameter/alpha_offset = null
+shader_parameter/sin_alpha = null
+shader_parameter/displace = 0.0
+shader_parameter/rainbow = null
+shader_parameter/color_map = SubResource("GradientTexture1D_ykthq")
+shader_parameter/wobble = null
+shader_parameter/wobble_max = 1.25
+shader_parameter/wobble_min = 0.75
+
+[node name="Menu" type="Control"]
+texture_filter = 2
+layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -18,130 +43,463 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_fll5i")
 script = ExtResource("2_pnltk")
-modes = NodePath("modes")
-host_join = NodePath("HostorJoin")
 
-[node name="Background" type="Node2D" parent="."]
-self_modulate = Color(1, 0, 0.0156863, 1)
-z_index = -4000
+[node name="main" type="VBoxContainer" parent="."]
+visible = false
+texture_filter = 2
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -270.0
+offset_top = -136.0
+offset_right = 270.0
+offset_bottom = 136.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("3_l0u8q")
 
-[node name="MistyLake" type="Sprite2D" parent="Background"]
-texture_repeat = 2
-material = ExtResource("3_hxprb")
-texture = ExtResource("5_pv030")
-centered = false
-
-[node name="fog" parent="Background/MistyLake" instance=ExtResource("6_7alci")]
-
-[node name="modes" type="OptionButton" parent="."]
-layout_mode = 2
-alignment = 1
-item_count = 3
-selected = 1
-popup/item_0/text = "Single Reimu"
-popup/item_0/id = 0
-popup/item_1/text = "Co-op Reimu & Marisa "
-popup/item_1/id = 1
-popup/item_2/text = "Single Marisa"
-popup/item_2/id = 2
-
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="Button" type="Button" parent="HBoxContainer"]
+[node name="solo" type="Button" parent="main"]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "<"
-flat = true
-alignment = 0
+text = "Solo"
 script = ExtResource("4_4sjp2")
 
-[node name="Button2" type="Button" parent="HBoxContainer"]
+[node name="coop" type="Button" parent="main"]
 layout_mode = 2
 size_flags_horizontal = 3
-text = ">"
-flat = true
-alignment = 2
+text = "Co-op"
 script = ExtResource("4_4sjp2")
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="."]
-layout_mode = 2
-
-[node name="setting" type="Button" parent="HBoxContainer2"]
+[node name="setting" type="Button" parent="main"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Settings"
 script = ExtResource("4_4sjp2")
 
-[node name="enter" type="Button" parent="HBoxContainer2"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Enter"
-script = ExtResource("4_4sjp2")
-
-[node name="credits" type="Button" parent="HBoxContainer2"]
+[node name="credits" type="Button" parent="main"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Credits"
 script = ExtResource("4_4sjp2")
 
-[node name="HostorJoin" type="ConfirmationDialog" parent="."]
+[node name="HostOrJoin" type="ConfirmationDialog" parent="main"]
 transparent_bg = true
-initial_position = 2
 title = ""
-size = Vector2i(720, 350)
-wrap_controls = false
-transient = false
-exclusive = false
+size = Vector2i(500, 195)
 borderless = true
 always_on_top = true
 transparent = true
-popup_window = true
-theme = ExtResource("7_1l57k")
+max_size = Vector2i(500, 960)
 ok_button_text = "Join"
-dialog_text = "Please connect to the same network with your friend."
+dialog_text = "Better host hardware = Better experience"
 dialog_hide_on_ok = false
+dialog_close_on_escape = false
 dialog_autowrap = true
 cancel_button_text = "Host"
-script = ExtResource("8_f7cl3")
+script = ExtResource("5_sukpw")
 
-[node name="host" type="AcceptDialog" parent="."]
-disable_3d = true
+[node name="ConnectMethod" type="ConfirmationDialog" parent="main"]
 transparent_bg = true
-initial_position = 2
 title = ""
-size = Vector2i(720, 497)
-wrap_controls = false
-transient = false
+size = Vector2i(500, 339)
 borderless = true
 always_on_top = true
 transparent = true
-theme = ExtResource("7_1l57k")
-ok_button_text = "Cancel"
-dialog_text = "Please connect to the same network
-IP: %s
-Port: %d
-Waiting for player"
+max_size = Vector2i(500, 960)
+ok_button_text = "WebRTC"
+dialog_text = "Enet: Recommened if connect to the same network or port forwarding.
+WebRTC: Always work"
+dialog_hide_on_ok = false
+dialog_close_on_escape = false
 dialog_autowrap = true
-script = ExtResource("9_tgpgl")
+cancel_button_text = "Enet"
+script = ExtResource("5_sukpw")
 
-[node name="Broadcast" type="Timer" parent="host"]
+[node name="EnetHost" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -92.5
+offset_bottom = 92.5
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="NetworkError" type="AcceptDialog" parent="."]
-disable_3d = true
-transparent_bg = true
-initial_position = 2
-size = Vector2i(720, 300)
-wrap_controls = false
-transient = false
-exclusive = false
-borderless = true
-always_on_top = true
-transparent = true
-theme = ExtResource("7_1l57k")
-dialog_text = "Please check your network connection"
-dialog_autowrap = true
+[node name="back" type="Button" parent="EnetHost"]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "< Back"
+script = ExtResource("4_4sjp2")
 
-[connection signal="pressed" from="HBoxContainer2/enter" to="." method="_on_enter_pressed"]
-[connection signal="timeout" from="host/Broadcast" to="host" method="_on_broadcast_timeout"]
+[node name="ip" type="Label" parent="EnetHost"]
+layout_mode = 2
+text = "IP Adress: %s"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="EnetHost"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="EnetHost/HBoxContainer"]
+layout_mode = 2
+text = "Port:"
+
+[node name="port" type="LineEdit" parent="EnetHost/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "6567"
+placeholder_text = "6567"
+
+[node name="host" type="Button" parent="EnetHost"]
+layout_mode = 2
+text = "Host Party"
+script = ExtResource("4_4sjp2")
+
+[node name="EnetJoin" type="VBoxContainer" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="back" type="Button" parent="EnetJoin"]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "< Back"
+script = ExtResource("4_4sjp2")
+
+[node name="ItemList" type="ItemList" parent="EnetJoin"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="EnetJoin"]
+layout_mode = 2
+
+[node name="LineEdit" type="LineEdit" parent="EnetJoin/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "192.168.100.xxx"
+
+[node name="LineEdit2" type="LineEdit" parent="EnetJoin/HBoxContainer"]
+layout_mode = 2
+text = "6567"
+placeholder_text = "6567"
+
+[node name="join" type="Button" parent="EnetJoin"]
+layout_mode = 2
+text = "Join Party"
+script = ExtResource("4_4sjp2")
+
+[node name="setting" type="VBoxContainer" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="back" type="Button" parent="setting"]
+layout_mode = 2
+size_flags_horizontal = 0
+shortcut = ExtResource("11_g1ugt")
+text = "< Back"
+script = ExtResource("4_4sjp2")
+press_sfx = false
+
+[node name="TabContainer" type="TabContainer" parent="setting"]
+layout_mode = 2
+
+[node name="Controls" type="VBoxContainer" parent="setting/TabContainer"]
+layout_mode = 2
+script = ExtResource("7_anqx0")
+
+[node name="drag" type="Button" parent="setting/TabContainer/Controls"]
+layout_mode = 2
+focus_mode = 0
+mouse_default_cursor_shape = 2
+text = "Drag: %s"
+alignment = 0
+script = ExtResource("4_4sjp2")
+
+[node name="bomb" type="Button" parent="setting/TabContainer/Controls"]
+layout_mode = 2
+focus_neighbor_right = NodePath("../reset")
+focus_neighbor_bottom = NodePath("../reset")
+focus_next = NodePath("../reset")
+focus_mode = 0
+mouse_default_cursor_shape = 2
+text = "Bomb: %s"
+alignment = 0
+script = ExtResource("4_4sjp2")
+
+[node name="SentivityLabel" type="Label" parent="setting/TabContainer/Controls"]
+layout_mode = 2
+text = "Input sentivity : %1.1f"
+script = ExtResource("5_ri88w")
+
+[node name="sentivity" type="HSlider" parent="setting/TabContainer/Controls"]
+layout_mode = 2
+focus_mode = 0
+min_value = 0.1
+max_value = 2.0
+step = 0.1
+value = 2.0
+allow_greater = true
+tick_count = 20
+ticks_on_borders = true
+
+[node name="raw" type="CheckButton" parent="setting/TabContainer/Controls"]
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+text = "Raw Input"
+script = ExtResource("8_mpgu8")
+
+[node name="reset" type="Button" parent="setting/TabContainer/Controls"]
+layout_mode = 2
+size_flags_horizontal = 0
+focus_neighbor_left = NodePath("../bomb")
+focus_neighbor_top = NodePath("../bomb")
+focus_previous = NodePath("../bomb")
+text = "Reset"
+script = ExtResource("4_4sjp2")
+
+[node name="Audio" type="VBoxContainer" parent="setting/TabContainer"]
+visible = false
+layout_mode = 2
+script = ExtResource("9_6doe2")
+
+[node name="BgmLabel" type="Label" parent="setting/TabContainer/Audio"]
+layout_mode = 2
+text = "Music: %d %%"
+script = ExtResource("5_ri88w")
+
+[node name="bgm" type="HSlider" parent="setting/TabContainer/Audio" node_paths=PackedStringArray("label")]
+layout_mode = 2
+size_flags_vertical = 1
+focus_neighbor_left = NodePath("../reset")
+focus_neighbor_top = NodePath("../reset")
+focus_neighbor_right = NodePath("../muteBGM")
+focus_neighbor_bottom = NodePath("../muteBGM")
+focus_next = NodePath("../muteBGM")
+focus_previous = NodePath("../reset")
+min_value = -60.0
+max_value = 0.0
+step = 0.6
+allow_lesser = true
+tick_count = 10
+script = ExtResource("6_j86yi")
+label = NodePath("../BgmLabel")
+
+[node name="muteBGM" type="CheckButton" parent="setting/TabContainer/Audio"]
+layout_mode = 2
+size_flags_horizontal = 8
+text = "Mute "
+script = ExtResource("8_mpgu8")
+invert = true
+
+[node name="SfxLabel" type="Label" parent="setting/TabContainer/Audio"]
+layout_mode = 2
+focus_neighbor_left = NodePath("../bgm")
+focus_neighbor_top = NodePath("../bgm")
+focus_neighbor_right = NodePath("../muteSFX")
+focus_neighbor_bottom = NodePath("../muteSFX")
+focus_next = NodePath("../muteSFX")
+focus_previous = NodePath("../bgm")
+text = "Sound Effect: %d %%"
+script = ExtResource("5_ri88w")
+
+[node name="sfx" type="HSlider" parent="setting/TabContainer/Audio" node_paths=PackedStringArray("label")]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+focus_neighbor_left = NodePath("../muteBGM")
+focus_neighbor_top = NodePath("../muteBGM")
+focus_neighbor_right = NodePath("../muteSFX")
+focus_neighbor_bottom = NodePath("../muteSFX")
+focus_next = NodePath("../muteSFX")
+focus_previous = NodePath("../muteBGM")
+min_value = -60.0
+max_value = 0.0
+step = 0.6
+allow_lesser = true
+tick_count = 10
+script = ExtResource("6_j86yi")
+label = NodePath("../SfxLabel")
+
+[node name="muteSFX" type="CheckButton" parent="setting/TabContainer/Audio"]
+layout_mode = 2
+size_flags_horizontal = 8
+focus_neighbor_left = NodePath("../sfx")
+focus_neighbor_top = NodePath("../sfx")
+focus_neighbor_right = NodePath("../reset")
+focus_neighbor_bottom = NodePath("../reset")
+focus_next = NodePath("../reset")
+focus_previous = NodePath("../sfx")
+text = "Mute "
+script = ExtResource("8_mpgu8")
+invert = true
+
+[node name="reset" type="Button" parent="setting/TabContainer/Audio"]
+layout_mode = 2
+size_flags_horizontal = 8
+focus_neighbor_left = NodePath("../muteSFX")
+focus_neighbor_top = NodePath("../muteSFX")
+focus_neighbor_right = NodePath("../bgm")
+focus_neighbor_bottom = NodePath("../bgm")
+focus_next = NodePath("../bgm")
+focus_previous = NodePath("../muteSFX")
+text = "Reset"
+script = ExtResource("4_4sjp2")
+press_sfx = false
+
+[node name="Graphic" type="VBoxContainer" parent="setting/TabContainer"]
+visible = false
+layout_mode = 2
+script = ExtResource("10_djpsy")
+
+[node name="fullscreen" type="CheckButton" parent="setting/TabContainer/Graphic"]
+layout_mode = 2
+focus_neighbor_left = NodePath("../reset")
+focus_neighbor_top = NodePath("../reset")
+focus_neighbor_right = NodePath("../borderless")
+focus_neighbor_bottom = NodePath("../borderless")
+focus_next = NodePath("../borderless")
+focus_previous = NodePath("../reset")
+focus_mode = 0
+mouse_default_cursor_shape = 2
+text = "Full Screen"
+script = ExtResource("8_mpgu8")
+
+[node name="borderless" type="CheckButton" parent="setting/TabContainer/Graphic"]
+layout_mode = 2
+focus_neighbor_left = NodePath("../fullscreen")
+focus_neighbor_top = NodePath("../fullscreen")
+focus_previous = NodePath("../fullscreen")
+focus_mode = 0
+mouse_default_cursor_shape = 2
+text = "Borderless"
+script = ExtResource("8_mpgu8")
+
+[node name="reset" type="Button" parent="setting/TabContainer/Graphic"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+focus_neighbor_right = NodePath("../fullscreen")
+focus_neighbor_bottom = NodePath("../fullscreen")
+focus_next = NodePath("../fullscreen")
+focus_mode = 0
+text = "Reset"
+script = ExtResource("4_4sjp2")
+
+[node name="level" type="VBoxContainer" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="back" type="Button" parent="level"]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "< Back"
+script = ExtResource("4_4sjp2")
+
+[node name="OptionButton" type="OptionButton" parent="level"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="level"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="previous" type="Button" parent="level/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "<"
+flat = true
+alignment = 0
+
+[node name="next" type="Button" parent="level/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = ">"
+flat = true
+alignment = 2
+
+[node name="Button" type="Button" parent="level"]
+layout_mode = 2
+text = "Challenge Accept"
+script = ExtResource("4_4sjp2")
+
+[node name="character" type="VBoxContainer" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="back" type="Button" parent="character"]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "< Back"
+script = ExtResource("4_4sjp2")
+
+[node name="OptionButton" type="OptionButton" parent="character"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="character"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="previous" type="Button" parent="character/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "<"
+flat = true
+alignment = 0
+
+[node name="next" type="Button" parent="character/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = ">"
+flat = true
+alignment = 2
+
+[node name="Button" type="Button" parent="character"]
+layout_mode = 2
+text = "I choose you"
+script = ExtResource("4_4sjp2")
+
+[node name="lobby" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Kishin" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_etwut")
+position = Vector2(265, 655)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("13_n0ypk")
+
+[connection signal="pressed" from="main/setting" to="." method="change_menu" binds= [&"setting"]]
+[connection signal="pressed" from="setting/TabContainer/Controls/drag" to="setting/TabContainer/Controls" method="_on_drag_pressed" flags=18]
+[connection signal="pressed" from="setting/TabContainer/Controls/bomb" to="setting/TabContainer/Controls" method="_on_bomb_pressed" flags=18]
+[connection signal="value_changed" from="setting/TabContainer/Controls/sentivity" to="setting/TabContainer/Controls" method="_on_sentivity_value_changed" flags=18]
+[connection signal="pressed" from="setting/TabContainer/Controls/reset" to="setting/TabContainer/Controls" method="_on_controls_reset_pressed" flags=18]
+[connection signal="value_changed" from="setting/TabContainer/Audio/bgm" to="setting/TabContainer/Audio" method="_on_bgm_value_changed" flags=18]
+[connection signal="toggled" from="setting/TabContainer/Audio/muteBGM" to="setting/TabContainer/Audio" method="_on_muteBGM_toggled" flags=18]
+[connection signal="value_changed" from="setting/TabContainer/Audio/sfx" to="setting/TabContainer/Audio" method="_on_sfx_value_changed" flags=18]
+[connection signal="toggled" from="setting/TabContainer/Audio/muteSFX" to="setting/TabContainer/Audio" method="_on_muteSFX_toggled" flags=18]
+[connection signal="pressed" from="setting/TabContainer/Audio/reset" to="setting/TabContainer/Audio" method="_on_audio_reset_pressed" flags=18]
+[connection signal="toggled" from="setting/TabContainer/Graphic/fullscreen" to="setting/TabContainer/Graphic" method="_on_fullscreen_toggled" flags=18]
+[connection signal="toggled" from="setting/TabContainer/Graphic/borderless" to="setting/TabContainer/Graphic" method="_on_borderless_toggled" flags=18]
+[connection signal="pressed" from="setting/TabContainer/Graphic/reset" to="setting/TabContainer/Graphic" method="_on_reset_pressed" flags=18]

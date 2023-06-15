@@ -10,7 +10,7 @@ public partial class BulletBasic : Node2D
 	[Export] public bool Grazable = true;
 
 	//Query properties
-	[Export] public Shape2D shape;
+	[Export] public Shape2D hitbox;
 	[Export] public bool CollideWithAreas = false;
 	[Export] public bool CollideWithBodies = true;
 	[Export(PropertyHint.Layers2DPhysics)] public uint CollisionMask = 1;
@@ -47,22 +47,7 @@ public partial class BulletBasic : Node2D
 	public override void _Ready()
 	{
 		Vector2 textureSize = texture.GetSize();
-
-		if (shape != null)
-		{
-			query.Shape = shape;
-		}
-		else if (textureSize.X == textureSize.Y)
-		{
-			hitbox = PhysicsServer2D.CircleShapeCreate();
-			PhysicsServer2D.ShapeSetData(hitbox, textureSize.X / 2);
-		}
-		else
-		{
-			hitbox = PhysicsServer2D.CapsuleShapeCreate();
-			PhysicsServer2D.ShapeSetData(hitbox, new Vector2(textureSize.X / 2, textureSize.Y - textureSize.X));
-		}
-		query.ShapeRid = hitbox;
+		query.Shape = hitbox;
 		query.CollideWithAreas = CollideWithAreas;
 		query.CollideWithBodies = CollideWithBodies;
 		query.CollisionMask = CollisionMask;
@@ -102,7 +87,6 @@ public partial class BulletBasic : Node2D
 		{
 			RenderingServer.FreeRid(bullet.sprite);
 		}
-		PhysicsServer2D.FreeRid(hitbox);
 	}
 	public virtual void SpawnBullet()
 	{

@@ -2,7 +2,6 @@ using Godot;
 
 public partial class ItemManager : BulletBasic
 {
-	protected Node2D target;
 	protected bool tick = false;
 
 	public override void _Ready()
