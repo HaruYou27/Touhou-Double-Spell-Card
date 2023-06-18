@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://bk08ga1mfcleb"]
+[gd_scene load_steps=19 format=3 uid="uid://bk08ga1mfcleb"]
 
 [ext_resource type="PackedScene" uid="uid://ffnff8ahyxxn" path="res://entity/player/reimu/reimu_sprite.tscn" id="1_gp5d6"]
 [ext_resource type="PackedScene" uid="uid://c34lwlqwsc4ve" path="res://entity/player/player.tscn" id="4_ftqh1"]
@@ -8,8 +8,7 @@
 [ext_resource type="Material" uid="uid://df8i0wskbdmia" path="res://entity/player/reimu/resource/yinYangOrb.tres" id="7_np48j"]
 [ext_resource type="Texture2D" uid="uid://f57p0cr44ri7" path="res://entity/player/reimu/resource/kishin.webp" id="8_2l12v"]
 [ext_resource type="Script" path="res://entity/player/reimu/homing-shoot.gd" id="8_y4qu3"]
-[ext_resource type="Script" path="res://entity/bullet/BulletBasic.cs" id="9_j26ov"]
-[ext_resource type="Shader" path="res://entity/UberItem.gdshader" id="10_2prrg"]
+[ext_resource type="Texture2D" uid="uid://cu2ufhkx3vayf" path="res://entity/player/reimu/resource/ofuda.png" id="9_w5him"]
 [ext_resource type="Script" path="res://entity/bullet/Seeker.cs" id="11_rfqio"]
 [ext_resource type="PackedScene" uid="uid://bsa0xvb26o22u" path="res://entity/player/reimu/yinyang_orb.tscn" id="12_1m530"]
 
@@ -20,17 +19,9 @@ radius = 2.0
 radius = 40.0
 height = 150.0
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ah5ge"]
-shader = ExtResource("10_2prrg")
-shader_parameter/time_scale = null
-shader_parameter/spin = null
-shader_parameter/alpha_offset = null
-shader_parameter/sin_alpha = null
-shader_parameter/displace = 0.0
-shader_parameter/rainbow = null
-shader_parameter/wobble = null
-shader_parameter/wobble_max = 1.25
-shader_parameter/wobble_min = 0.75
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_jhqk4"]
+radius = 8.0
+height = 32.0
 
 [sub_resource type="Animation" id="Animation_noyik"]
 length = 0.001
@@ -96,54 +87,45 @@ z_index = 9
 shape = SubResource("CapsuleShape2D_sx7ua")
 debug_color = Color(0.713726, 0.105882, 0.701961, 0.419608)
 
-[node name="Homing" type="Node2D" parent="Player" node_paths=PackedStringArray("timer1", "timer2")]
+[node name="Homing" type="Node2D" parent="Player"]
 script = ExtResource("8_y4qu3")
-timer1 = NodePath("Timer")
-timer2 = NodePath("Timer2")
+shader_mat = ExtResource("7_np48j")
 
 [node name="Timer" type="Timer" parent="Player/Homing"]
 process_callback = 0
-wait_time = 0.2
-
-[node name="Timer2" type="Timer" parent="Player/Homing"]
-process_callback = 0
-wait_time = 0.4
+wait_time = 0.267
 
 [node name="bullet" type="Node2D" parent="Player/Homing"]
 z_index = 1
-script = ExtResource("9_j26ov")
-maxBullet = 272
-speed = 727.0
+script = ExtResource("11_rfqio")
+SeekMask = 2
+seekRadius = 270.0
+maxBullet = 72
 Grazable = false
-CollideWithAreas = true
+hitbox = SubResource("CapsuleShape2D_jhqk4")
 CollisionMask = 3
+texture = ExtResource("9_w5him")
+
+[node name="YinyangOrb" parent="Player/Homing/bullet" instance=ExtResource("12_1m530")]
+position = Vector2(72, 0)
+rotation = -1.5708
+flip_v = true
+
+[node name="YinyangOrb2" parent="Player/Homing/bullet" instance=ExtResource("12_1m530")]
+texture_filter = 1
+position = Vector2(-72, 0)
+rotation = -1.5708
+flip_h = false
 
 [node name="Marker2D" type="Marker2D" parent="Player/Homing/bullet"]
-position = Vector2(7, -38)
+position = Vector2(13.0002, -39.9999)
 rotation = -1.5708
 gizmo_extents = 51.7
 
 [node name="Position2D2" type="Marker2D" parent="Player/Homing/bullet"]
-position = Vector2(-7, -58)
+position = Vector2(-12.9998, -54.0001)
 rotation = -1.5708
 gizmo_extents = 82.9
-
-[node name="orb1" type="Node2D" parent="Player/Homing"]
-z_index = 1
-material = SubResource("ShaderMaterial_ah5ge")
-rotation = -6.28319
-script = ExtResource("11_rfqio")
-SeekMask = 2
-seekRadius = 500.0
-
-[node name="YinyangOrb" parent="Player/Homing/orb1" instance=ExtResource("12_1m530")]
-position = Vector2(72, 0)
-flip_v = true
-
-[node name="YinyangOrb2" parent="Player/Homing/orb1" instance=ExtResource("12_1m530")]
-texture_filter = 1
-position = Vector2(-72, 0)
-flip_h = false
 
 [node name="KishinOrb" type="StaticBody2D" parent="."]
 visible = false
@@ -170,6 +152,5 @@ texture = ExtResource("8_2l12v")
 [connection signal="kaboom" from="Player" to="KishinOrb" method="_on_player_kaboom"]
 [connection signal="open_fire" from="Player" to="Player/Homing" method="_open_fire"]
 [connection signal="stop_fire" from="Player" to="Player/Homing" method="_stop_fire"]
-[connection signal="timeout" from="Player/Homing/Timer" to="Player/Homing/bullet" method="SpawnBullet" flags=18]
-[connection signal="timeout" from="Player/Homing/Timer2" to="Player/Homing/orb1" method="SpawnBullet" flags=18]
+[connection signal="timeout" from="Player/Homing/Timer" to="Player/Homing/bullet" method="SpawnBullet"]
 [connection signal="animation_finished" from="KishinOrb/AnimationPlayer" to="KishinOrb" method="_on_animation_player_animation_finished"]

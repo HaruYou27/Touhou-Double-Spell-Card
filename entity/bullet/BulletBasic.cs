@@ -6,7 +6,7 @@ public partial class BulletBasic : Node2D
 	[Export] public bool dynamicBarrel;
 	[Export] public long maxBullet = 127; //Exceed the limit and no more bullet will be shoot out.
 	[Export] public float speed = 525;
-	[Export] public bool localRotation = true;
+	[Export] public bool localRotation;
 	[Export] public bool Grazable = true;
 
 	//Query properties
@@ -46,7 +46,6 @@ public partial class BulletBasic : Node2D
 	}
 	public override void _Ready()
 	{
-		Vector2 textureSize = texture.GetSize();
 		query.Shape = hitbox;
 		query.CollideWithAreas = CollideWithAreas;
 		query.CollideWithBodies = CollideWithBodies;
@@ -59,7 +58,7 @@ public partial class BulletBasic : Node2D
 		}
 		BulletConstructor();
 
-		Rect2 texRect = new Rect2(-textureSize / 2, textureSize);
+		Rect2 texRect = new Rect2(-texture.GetSize() / 2, texture.GetSize());
 		Rid textureRid = texture.GetRid();
 		Rid canvas = GetWorld2D().Canvas;
 		foreach (Bullet bullet in bullets)
@@ -104,7 +103,7 @@ public partial class BulletBasic : Node2D
 			if (localRotation)
 			{
 				bullet.velocity = new Vector2(speed, 0).Rotated(barrel.Rotation);
-				bullet.transform = barrel.Transform.RotatedLocal(Mathf.Pi/2);
+				bullet.transform = new Transform2D(barrel.Rotation - Mathf.Pi/2, barrel.GlobalPosition);
 			}
 			else
 			{

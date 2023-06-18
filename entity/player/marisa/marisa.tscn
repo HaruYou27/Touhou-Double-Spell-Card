@@ -1,16 +1,89 @@
-[gd_scene load_steps=8 format=3 uid="uid://of6l83moa38k"]
+[gd_scene load_steps=23 format=3 uid="uid://of6l83moa38k"]
 
 [ext_resource type="PackedScene" uid="uid://c34lwlqwsc4ve" path="res://entity/player/player.tscn" id="1_vjhba"]
 [ext_resource type="Texture2D" uid="uid://bkym7gv6hfekh" path="res://entity/player/marisa/resource/uncutmari.png" id="2_cw10b"]
 [ext_resource type="PackedScene" uid="uid://cex3540cp47lm" path="res://entity/player/graze.tscn" id="2_jex7f"]
+[ext_resource type="Shader" path="res://level/background/noise-colorize.gdshader" id="3_tsm56"]
+[ext_resource type="Script" path="res://entity/player/marisa/lazer.gd" id="3_y660y"]
+[ext_resource type="Shader" path="res://entity/bullet/resource/BulletGlow.gdshader" id="4_ht7cp"]
+[ext_resource type="Texture2D" uid="uid://dxsf3vpqsosf1" path="res://entity/enemy/phantom/fire_particle.png" id="6_8ttm4"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ttfkj"]
 
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_ky2hm"]
-frequency = 0.4952
+[sub_resource type="Gradient" id="Gradient_nfr8b"]
+colors = PackedColorArray(0, 0.262745, 0.658824, 0, 1, 1, 1, 1)
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_7jwlf"]
-noise = SubResource("FastNoiseLite_ky2hm")
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_bvv6u"]
+gradient = SubResource("Gradient_nfr8b")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xkttb"]
+shader = ExtResource("3_tsm56")
+shader_parameter/velocity = Vector2(-1, 0)
+shader_parameter/color_map = SubResource("GradientTexture1D_bvv6u")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_vo6gu"]
+frequency = 0.03
+fractal_octaves = 1
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_kk8r3"]
+width = 960
+height = 32
+noise = SubResource("FastNoiseLite_vo6gu")
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_eweoi"]
+gradient = SubResource("Gradient_nfr8b")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ilqob"]
+shader = ExtResource("4_ht7cp")
+shader_parameter/time_scale = null
+shader_parameter/spin = null
+shader_parameter/alpha_offset = null
+shader_parameter/sin_alpha = null
+shader_parameter/displace = 0.0
+shader_parameter/rainbow = null
+shader_parameter/color_map = SubResource("GradientTexture1D_eweoi")
+shader_parameter/wobble = null
+shader_parameter/wobble_max = 1.25
+shader_parameter/wobble_min = 0.75
+
+[sub_resource type="Gradient" id="Gradient_8pqvy"]
+offsets = PackedFloat32Array(0, 0.345794, 0.64486, 1)
+colors = PackedColorArray(0, 0, 0, 0, 0.466181, 0.466181, 0.466181, 1, 0.466667, 0.466667, 0.466667, 1, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_u5d4h"]
+gradient = SubResource("Gradient_8pqvy")
+width = 960
+height = 52
+fill_to = Vector2(0, 1)
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_b6wdc"]
+blend_mode = 1
+light_mode = 1
+
+[sub_resource type="Gradient" id="Gradient_vfnk4"]
+colors = PackedColorArray(0.2565, 0.418317, 0.95, 1, 0.254902, 0.419608, 0.94902, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_j4e4t"]
+gradient = SubResource("Gradient_vfnk4")
+width = 32
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_rvtdp"]
+emission_shape = 3
+emission_box_extents = Vector3(40, -480, 0)
+particle_flag_disable_z = true
+direction = Vector3(0, 1, 0)
+spread = 0.0
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 42.25
+initial_velocity_max = 126.75
+angular_velocity_min = 111.55
+angular_velocity_max = 273.8
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+scale_min = 0.1
+scale_max = 0.3
+color_ramp = SubResource("GradientTexture1D_j4e4t")
+hue_variation_max = 0.03
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_cyht7"]
 animations = [{
@@ -24,6 +97,7 @@ animations = [{
 }]
 
 [node name="Marisa" type="Node2D"]
+texture_filter = 1
 
 [node name="Player" parent="." instance=ExtResource("1_vjhba")]
 
@@ -33,18 +107,65 @@ shape = SubResource("CircleShape2D_ttfkj")
 [node name="graze" parent="Player" instance=ExtResource("2_jex7f")]
 
 [node name="lazer" type="Node2D" parent="Player"]
-position = Vector2(-1, 1)
+z_index = 1
+position = Vector2(0, -64)
+script = ExtResource("3_y660y")
 
 [node name="RayCast2D" type="RayCast2D" parent="Player/lazer"]
-position = Vector2(-10, -70)
+position = Vector2(-15, 0)
+enabled = false
+exclude_parent = false
 target_position = Vector2(0, -960)
+collision_mask = 2
+collide_with_areas = true
+collide_with_bodies = false
 
-[node name="Line2D" type="Line2D" parent="Player/lazer/RayCast2D"]
+[node name="RayCast2D2" type="RayCast2D" parent="Player/lazer"]
+position = Vector2(15, 0)
+enabled = false
+exclude_parent = false
+target_position = Vector2(0, -960)
+collision_mask = 2
+collide_with_areas = true
+collide_with_bodies = false
+
+[node name="Line2D" type="Line2D" parent="Player/lazer"]
 texture_filter = 1
 texture_repeat = 2
+material = SubResource("ShaderMaterial_xkttb")
 points = PackedVector2Array(0, 0, 0, -960)
-texture = SubResource("NoiseTexture2D_7jwlf")
-texture_mode = 2
+width = 32.0
+texture = SubResource("NoiseTexture2D_kk8r3")
+texture_mode = 1
+sharp_limit = 0.0
+round_precision = 1
+
+[node name="Line2D2" type="Line2D" parent="Player/lazer"]
+texture_filter = 1
+texture_repeat = 2
+material = SubResource("ShaderMaterial_ilqob")
+points = PackedVector2Array(0, 0, 0, -960)
+width = 64.0
+texture = SubResource("GradientTexture2D_u5d4h")
+texture_mode = 1
+
+[node name="BeamParticle" type="GPUParticles2D" parent="Player/lazer"]
+material = SubResource("CanvasItemMaterial_b6wdc")
+position = Vector2(0, -480)
+amount = 64
+process_material = SubResource("ParticleProcessMaterial_rvtdp")
+texture = ExtResource("6_8ttm4")
+visibility_rect = Rect2(-32, 480, 64, -960)
+draw_order = 0
+
+[node name="Timer" type="Timer" parent="Player/lazer"]
+process_callback = 0
+wait_time = 0.067
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Player"]
+z_index = 10
 sprite_frames = SubResource("SpriteFrames_cyht7")
+
+[connection signal="open_fire" from="Player" to="Player/lazer" method="_on_player_open_fire"]
+[connection signal="stop_fire" from="Player" to="Player/lazer" method="_on_player_stop_fire"]
+[connection signal="timeout" from="Player/lazer/Timer" to="Player/lazer" method="_on_timer_timeout"]
