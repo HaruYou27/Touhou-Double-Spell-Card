@@ -6,4 +6,4 @@ extends SubViewport
 @onready var texture := get_texture()
 
 func _bake(_value) -> void:
-	print(texture.get_image().save_webp("res://tool/image-baker/", true))
+	print(texture.get_image().save_webp("res://tool/image-baker/baked.webp", true))

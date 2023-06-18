@@ -1,0 +1,23 @@
+[gd_resource type="ShaderMaterial" load_steps=4 format=3 uid="uid://df8i0wskbdmia"]
+
+[ext_resource type="Shader" path="res://entity/UberItem.gdshader" id="1_v6llp"]
+
+[sub_resource type="Gradient" id="Gradient_561th"]
+colors = PackedColorArray(1, 0.3, 0.3, 0, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_obk0t"]
+gradient = SubResource("Gradient_561th")
+width = 32
+
+[resource]
+shader = ExtResource("1_v6llp")
+shader_parameter/time_scale = 1.0
+shader_parameter/spin = true
+shader_parameter/alpha_offset = null
+shader_parameter/sin_alpha = null
+shader_parameter/displace = 0.0
+shader_parameter/rainbow = false
+shader_parameter/color_map = SubResource("GradientTexture1D_obk0t")
+shader_parameter/wobble = false
+shader_parameter/wobble_max = 1.25
+shader_parameter/wobble_min = 0.75

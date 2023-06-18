@@ -6,26 +6,17 @@ var item := 0
 var goal := 0
 
 @onready var user_data := Global.user_data
-
-@export var fps_label : FormatLabel
-@onready var peer2 : ENetPacketPeer = multiplayer.multiplayer_peer.get_peer(2)
-func _process(_delta):
-	fps_label.update_label(Performance.get_monitor(Performance.TIME_FPS))
-	ping_label.update_label(peer2.get_statistic(ENetPacketPeer.PEER_ROUND_TRIP_TIME))
-
 @export var hi_score_label : FormatLabel
-@export var ping_label : FormatLabel
 func _ready() -> void:
 	if multiplayer.has_multiplayer_peer():
 		if is_multiplayer_authority():
-			hi_score_label.template = 'P2-Score: %018d'
+			hi_score_label.template = 'P2-Score: %034d'
 		else:
-			hi_score_label.template = 'P1-Score: %018d'
+			hi_score_label.template = 'P1-Score: %034d'
 			
 		hi_score_label.update_label(0)
 	else:
-		ping_label.queue_free()
-		hi_score_label.update_label(user_data.scores.get(user_data.last_level, 0))
+		$VBoxContainer/HBoxContainer/ping.queue_free()
 	
 	Global.item_collect.connect(_add_item)
 	Global.bullet_graze.connect(_add_graze)
@@ -41,10 +32,9 @@ func _update_bomb() -> void:
 	bomb_label.update_label(Global.player.bomb_count)
 
 #There's no point in updating the score more than 1 per frame.
-@export var pickup_sfx : AudioStreamPlayer
 func _add_item() -> void:
 	item += 1
-	pickup_sfx.play()
+	SoundEffect.hover()
 	update_score()
 	
 var graze := 0

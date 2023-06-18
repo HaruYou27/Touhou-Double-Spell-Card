@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://bfvb372sca8m2" path="res://level/leveler/leveler.tscn" id="1_umtlo"]
 [ext_resource type="Texture2D" uid="uid://bgh4r80tk5o7v" path="res://level/background/misty-lake/water-noise.tres" id="3_saoe8"]
 [ext_resource type="PackedScene" path="res://level/background/misty-lake/fog.tscn" id="4_trpfx"]
-[ext_resource type="PackedScene" path="res://level/background/misty-lake/fog_overlay.tscn" id="5_c13xg"]
+[ext_resource type="PackedScene" uid="uid://uiwkegjhrq51" path="res://level/background/misty-lake/fog_overlay.tscn" id="5_c13xg"]
 [ext_resource type="PackedScene" path="res://entity/yukari/yukari.tscn" id="6_tx2jr"]
 [ext_resource type="Script" path="res://level/stage1/SpinShot.gd" id="7_n3tf1"]
 [ext_resource type="PackedScene" uid="uid://dqvxgihivuulj" path="res://level/stage1/circle-spawner.tscn" id="8_gs73q"]

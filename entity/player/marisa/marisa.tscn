@@ -1,0 +1,50 @@
+[gd_scene load_steps=8 format=3 uid="uid://of6l83moa38k"]
+
+[ext_resource type="PackedScene" uid="uid://c34lwlqwsc4ve" path="res://entity/player/player.tscn" id="1_vjhba"]
+[ext_resource type="Texture2D" uid="uid://bkym7gv6hfekh" path="res://entity/player/marisa/resource/uncutmari.png" id="2_cw10b"]
+[ext_resource type="PackedScene" uid="uid://cex3540cp47lm" path="res://entity/player/graze.tscn" id="2_jex7f"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ttfkj"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_ky2hm"]
+frequency = 0.4952
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_7jwlf"]
+noise = SubResource("FastNoiseLite_ky2hm")
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_cyht7"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_cw10b")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Marisa" type="Node2D"]
+
+[node name="Player" parent="." instance=ExtResource("1_vjhba")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
+shape = SubResource("CircleShape2D_ttfkj")
+
+[node name="graze" parent="Player" instance=ExtResource("2_jex7f")]
+
+[node name="lazer" type="Node2D" parent="Player"]
+position = Vector2(-1, 1)
+
+[node name="RayCast2D" type="RayCast2D" parent="Player/lazer"]
+position = Vector2(-10, -70)
+target_position = Vector2(0, -960)
+
+[node name="Line2D" type="Line2D" parent="Player/lazer/RayCast2D"]
+texture_filter = 1
+texture_repeat = 2
+points = PackedVector2Array(0, 0, 0, -960)
+texture = SubResource("NoiseTexture2D_7jwlf")
+texture_mode = 2
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Player"]
+sprite_frames = SubResource("SpriteFrames_cyht7")

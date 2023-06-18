@@ -8,8 +8,8 @@ domain_warp_type = 2
 domain_warp_fractal_type = 2
 
 [resource]
-width = 1080
-height = 1920
+width = 540
+height = 960
 generate_mipmaps = false
 seamless = true
 noise = SubResource("FastNoiseLite_x73ht")

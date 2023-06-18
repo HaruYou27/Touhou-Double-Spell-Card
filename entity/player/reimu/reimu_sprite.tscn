@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://ffnff8ahyxxn"]
+
+[ext_resource type="Texture2D" uid="uid://buebd6qcu3l03" path="res://entity/player/reimu/resource/reimu.png" id="1_s8n35"]
+
+[sub_resource type="SpriteFrames" id="14"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_s8n35")
+}],
+"loop": true,
+"name": &"new_animation",
+"speed": 5.0
+}]
+
+[node name="ReimuSprite" type="AnimatedSprite2D"]
+z_index = 10
+position = Vector2(1, 8)
+sprite_frames = SubResource("14")
+animation = &"new_animation"

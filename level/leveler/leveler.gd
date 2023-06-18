@@ -9,9 +9,10 @@ extends Control
 func _ready() -> void:
 	VisualEffect.fade2black(true)
 	VisualEffect.current_scene = root_node
-	for player in Global.players:
-		root_node.add_child(player)
-
+	
+	add_child(Global.player1)
+	if is_instance_valid(Global.player2):
+		add_child(Global.player2)
 
 ############ NEED REWRITE
 @export var first_event : Node

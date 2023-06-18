@@ -15,23 +15,12 @@ const black := Color(0.129412, 0.129412, 0.129412)
 const black_trans := Color(black, 0.)
 const death_scene := preload("res://entity/utility/particle/deathFX.tscn")
 
+
 func death_vfx(pos:Vector2) -> void:
 	var vfx := death_scene.instantiate()
 	current_scene.add_child(vfx)
 	vfx.global_position = pos
 	vfx.emitting = true
-
-func _ready() -> void:
-	set_process(false)
-	
-func _process(delta:float) -> void:
-	if shaking <= 0.:
-		set_process(false)
-		current_scene.position = Vector2.ZERO
-		shaking = 0.
-	else:
-		shaking -= delta
-		current_scene.position += Vector2(randf_range(-1., 1.), randf_range(-1., 1.))
 
 ##For use with [Tween].
 func _set_bgm_volume(value:float) -> void:

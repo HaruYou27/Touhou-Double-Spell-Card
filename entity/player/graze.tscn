@@ -1,0 +1,40 @@
+[gd_scene load_steps=4 format=3 uid="uid://cex3540cp47lm"]
+
+[ext_resource type="Script" path="res://entity/player/graze.gd" id="1_doa5g"]
+[ext_resource type="AudioStream" uid="uid://4t58xs4qdlkr" path="res://autoload/SoundEffect/ui/tick+.wav" id="2_tulhb"]
+
+[sub_resource type="ParticleProcessMaterial" id="25"]
+emission_shape = 1
+emission_sphere_radius = 80.0
+direction = Vector3(0, 0, 0)
+gravity = Vector3(0, 0, 0)
+radial_accel_min = -100.0
+radial_accel_max = -100.0
+scale_min = 0.5
+scale_max = 0.5
+
+[node name="graze" type="StaticBody2D"]
+collision_layer = 8
+collision_mask = 0
+constant_linear_velocity = Vector2(4, 0)
+script = ExtResource("1_doa5g")
+
+[node name="vfx" type="GPUParticles2D" parent="."]
+modulate = Color(0.898039, 1, 0, 1)
+z_index = 4
+rotation = -0.00344996
+emitting = false
+process_material = SubResource("25")
+speed_scale = 2.0
+fixed_fps = 60
+local_coords = true
+
+[node name="Timer" type="Timer" parent="vfx"]
+wait_time = 0.15
+one_shot = true
+
+[node name="sfx" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_tulhb")
+bus = &"SFX"
+
+[connection signal="timeout" from="vfx/Timer" to="vfx" method="set_emitting"]

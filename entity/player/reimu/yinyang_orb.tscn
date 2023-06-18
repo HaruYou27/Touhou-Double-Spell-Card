@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://bsa0xvb26o22u"]
+
+[ext_resource type="Material" uid="uid://df8i0wskbdmia" path="res://entity/player/reimu/resource/yinYangOrb.tres" id="1_4aqhq"]
+[ext_resource type="Texture2D" uid="uid://b6xwy4gq5pc85" path="res://user-interface/resource/icon/yang-yin.png" id="2_42px1"]
+
+[node name="YinyangOrb" type="Sprite2D"]
+z_index = 9
+material = ExtResource("1_4aqhq")
+texture = ExtResource("2_42px1")
+flip_h = true

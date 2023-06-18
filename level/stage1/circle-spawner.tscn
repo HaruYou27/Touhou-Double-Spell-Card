@@ -1,8 +1,8 @@
 [gd_scene load_steps=7 format=3 uid="uid://dqvxgihivuulj"]
 
 [ext_resource type="Shader" path="res://entity/UberItem.gdshader" id="1_nwaxh"]
-[ext_resource type="Script" path="res://entity/Bullet/BulletBasic.cs" id="2_p555y"]
-[ext_resource type="Texture2D" uid="uid://d1nkk7km71ule" path="res://entity/Bullet/resource/kunai1.png" id="3_w2aim"]
+[ext_resource type="Script" path="res://entity/bullet/BulletBasic.cs" id="2_p555y"]
+[ext_resource type="Texture2D" uid="uid://d1nkk7km71ule" path="res://entity/bullet/resource/kunai1.png" id="3_w2aim"]
 
 [sub_resource type="Gradient" id="Gradient_rqw5a"]
 colors = PackedColorArray(1, 0, 0.8, 1, 1, 1, 1, 1)

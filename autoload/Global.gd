@@ -11,17 +11,18 @@ signal item_collect
 
 var hud : HUD
 var boss : Boss
-var players : Array[Player]
+var player1 : Player
+var player2 : Player
 
 ##Play area rectangle.
-const playground := Vector2i(540, 790)
+const playground := Vector2i(406, 720)
 
 ##Default resolution.
-const game_rect := Vector2i(540, 960)
+const game_rect := Vector2i(406, 720)
 #######################
 
 ################ USER INTERFACE
-const main_menu := "res://user-interface/mainMenu/Menu.tscn"
+const main_menu := "res://user-interface/lobby/lobby.tscn"
 
 @onready var tree := get_tree()
 func restart_scene() -> void:

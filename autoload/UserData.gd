@@ -42,4 +42,3 @@ func _bind_voice(event:InputEvent) -> void:
 @export var shoot_type := "res://entity/Reimu/HomingShoot.tscn"
 
 @export var scores := {}
-@export var last_level : String
