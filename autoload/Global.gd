@@ -22,16 +22,14 @@ const game_rect := Vector2i(406, 720)
 #######################
 
 ################ USER INTERFACE
-const main_menu := "res://user-interface/lobby/lobby.tscn"
+const lobby := "res://user-interface/lobby/lobby.tscn"
 
 @onready var tree := get_tree()
 func restart_scene() -> void:
-	ItemManager.Clear()
 	tree.paused = false
 	var tween :Tween = VisualEffect.fade2black()
 	tween.finished.connect(tree.reload_current_scene)
 func change_scene(scene:String) -> void:
-	ItemManager.Clear()
 	tree.paused = false
 	var tween :Tween = VisualEffect.fade2black()
 	tween.finished.connect(tree.change_scene_to_file.bind(scene))

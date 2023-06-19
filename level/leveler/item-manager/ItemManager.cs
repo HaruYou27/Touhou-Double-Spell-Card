@@ -17,6 +17,7 @@ public partial class ItemManager : BulletBasic
 		//Prevents crash if for any reason something accidently call this function.
 		//Use SpawnItem() instead.
 		//The Greatest downfall of inhernitence btw.
+		//But it also not worth to abstract the hell out or use composition.
 	}
 	public virtual void SpawnItem(in int point, Vector2 position)
 	{

@@ -41,7 +41,7 @@ func _timeout() -> void:
 	if not point or hp_bar.value:
 		return
 	else:
-		ItemManager.SpawnItem(point, global_position)
+		#ItemManager.SpawnItem(point, global_position)
 		next_event.emit()
 
 @rpc("any_peer")
@@ -49,7 +49,7 @@ func _hit() -> void:
 	hp_bar.value -= 1
 	rpc('_hit')
 	if not hp_bar.value:
-		ItemManager.SpawnItem(point * time_bar.value / time_bar.max_value)
+		#ItemManager.SpawnItem(point * time_bar.value / time_bar.max_value)
 		next_event.emit()
 
 func _on_body_entered(body):

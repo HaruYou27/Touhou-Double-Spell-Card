@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://bfvb372sca8m2"]
+[gd_scene load_steps=17 format=3 uid="uid://bfvb372sca8m2"]
 
 [ext_resource type="Script" path="res://user-interface/control-node/FormatLabel.gd" id="1"]
 [ext_resource type="Theme" uid="uid://blprm8j3o32j7" path="res://level/leveler/resource/score.tres" id="1_year7"]
@@ -11,6 +11,7 @@
 [ext_resource type="Theme" uid="uid://dxmwch8d4tvvj" path="res://user-interface/resource/theme/Menu.tres" id="10_s3j35"]
 [ext_resource type="AudioStream" uid="uid://bykr1yaisabfe" path="res://autoload/SoundEffect/ui/tick-.wav" id="10_ykt54"]
 [ext_resource type="Script" path="res://level/leveler/PauseMenu.gd" id="12"]
+[ext_resource type="PackedScene" path="res://level/leveler/item-manager/item_manager.tscn" id="12_aeay7"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_5a814"]
 
@@ -23,96 +24,6 @@ normal = Vector2(1, 0)
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_pgwb8"]
 normal = Vector2(-1, 0)
 
-[sub_resource type="Animation" id="Animation_6qo7s"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("../PauseMenu:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("../PauseMenu:visible")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-
-[sub_resource type="Animation" id="Animation_dnb1f"]
-resource_name = "hide"
-length = 0.15
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("../PauseMenu:visible")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.15),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [true, false]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("../PauseMenu:modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.15),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_uyo8v"]
-resource_name = "show"
-length = 0.15
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("../PauseMenu:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.15),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("../PauseMenu:visible")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_36peq"]
-_data = {
-"RESET": SubResource("Animation_6qo7s"),
-"hide": SubResource("Animation_dnb1f"),
-"show": SubResource("Animation_uyo8v")
-}
-
 [node name="level" type="Control"]
 texture_filter = 2
 layout_mode = 3
@@ -121,8 +32,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("1_year7")
 script = ExtResource("4")
+id = null
 
 [node name="WorldBoundary" type="StaticBody2D" parent="."]
 collision_mask = 0
@@ -146,14 +57,15 @@ shape = SubResource("WorldBoundaryShape2D_pgwb8")
 
 [node name="PauseMenu" type="ColorRect" parent="."]
 process_mode = 3
-visible = false
 z_index = 2000
-layout_mode = 2
-offset_right = 1080.0
-offset_bottom = 1620.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_vertical = 3
+theme = ExtResource("10_s3j35")
 color = Color(0.129412, 0.129412, 0.129412, 0.690196)
 script = ExtResource("12")
 
@@ -215,12 +127,6 @@ focus_previous = NodePath(".")
 text = "Back to Menu"
 script = ExtResource("5_seuyc")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="PauseMenu"]
-root_node = NodePath("../..")
-libraries = {
-"": SubResource("AnimationLibrary_36peq")
-}
-
 [node name="hud" type="ColorRect" parent="." node_paths=PackedStringArray("hi_score_label", "bomb_label", "reward_sfx", "score_label", "goal_label")]
 z_index = 2000
 custom_minimum_size = Vector2(540, 120)
@@ -233,6 +139,7 @@ grow_horizontal = 2
 grow_vertical = 0
 size_flags_vertical = 8
 mouse_filter = 2
+theme = ExtResource("1_year7")
 color = Color(0.129412, 0.129412, 0.129412, 0.690196)
 script = ExtResource("6_jvtoq")
 hi_score_label = NodePath("VBoxContainer/HiScore")
@@ -311,6 +218,8 @@ grow_horizontal = 0
 theme = ExtResource("10_s3j35")
 shortcut = ExtResource("4_amvrx")
 text = "||"
+
+[node name="ItemManager" parent="." instance=ExtResource("12_aeay7")]
 
 [connection signal="pressed" from="PauseMenu/VBoxContainer/Resume" to="PauseMenu" method="_on_Resume_pressed"]
 [connection signal="pressed" from="PauseMenu/VBoxContainer/ScreenShoot2" to="PauseMenu" method="_on_screen_shoot_pressed"]

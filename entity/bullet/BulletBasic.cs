@@ -141,7 +141,7 @@ public partial class BulletBasic : Node2D
 				//Hit the wall.
 				return false;
 			case 2:
-				//Hit Reimu's Kishin Orb.
+				//Hit Player spellcard
 				//Turn into an item.
 				itemManager.SpawnItem(1, bullet.transform.Origin);
 				return false;
@@ -170,12 +170,13 @@ public partial class BulletBasic : Node2D
 		for (index = lastIndex; index >= 0; index--)
 		{
 			Bullet bullet = bullets[index];
-			//Collision checking.
 			query.Transform = Move(delta32);
 			RenderingServer.CanvasItemSetTransform(bullet.sprite, query.Transform);
 			if (bullet.grazable) { query.CollisionMask = CollisionMask + 8;}
 			else { query.CollisionMask = CollisionMask; }
 
+			//Since most bullet hit wall, get_rest_info provide a faster way to check (linear_velocity).
+			//Tho it did make harder to get collider object, but the bullet rarely hit the target anyways.
 			Godot.Collections.Dictionary result = world.DirectSpaceState.GetRestInfo(query);
 			if (result.Count == 0 || Collide(result)) {continue;}
 

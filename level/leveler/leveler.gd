@@ -32,4 +32,4 @@ func finished() -> void:
 	if Engine.is_editor_hint:
 		return
 	
-	Global.change_scene(global.main_menu)
+	Global.change_scene(global.lobby)

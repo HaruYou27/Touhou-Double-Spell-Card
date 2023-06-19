@@ -13,7 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://bsa0xvb26o22u" path="res://entity/player/reimu/yinyang_orb.tscn" id="12_1m530"]
 
 [sub_resource type="CircleShape2D" id="7"]
-radius = 2.0
+radius = 3.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_sx7ua"]
 radius = 40.0
@@ -77,6 +77,7 @@ shape = SubResource("7")
 debug_color = Color(0, 1, 0.34902, 0.419608)
 
 [node name="Hitbox2" type="Sprite2D" parent="Player/Hitbox"]
+show_behind_parent = true
 z_index = 100
 texture = ExtResource("7_hytxk")
 
@@ -123,7 +124,7 @@ rotation = -1.5708
 gizmo_extents = 51.7
 
 [node name="Position2D2" type="Marker2D" parent="Player/Homing/bullet"]
-position = Vector2(-12.9998, -54.0001)
+position = Vector2(-13, -40)
 rotation = -1.5708
 gizmo_extents = 82.9
 

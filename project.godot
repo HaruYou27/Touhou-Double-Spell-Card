@@ -23,7 +23,6 @@ driver/enable_input=true
 [autoload]
 
 Global="*res://autoload/Global.gd"
-ItemManager="*res://level/leveler/item-manager/item_manager.tscn"
 VisualEffect="*res://autoload/VisualEffect.tscn"
 SoundEffect="*res://autoload/SoundEffect/sound_effect.tscn"
 
