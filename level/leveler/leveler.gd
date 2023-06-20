@@ -10,7 +10,8 @@ func _ready() -> void:
 	VisualEffect.fade2black(true)
 	VisualEffect.current_scene = root_node
 	
-	add_child(Global.player1)
+	if is_instance_valid(Global.player1):
+		add_child(Global.player1)
 	if is_instance_valid(Global.player2):
 		add_child(Global.player2)
 

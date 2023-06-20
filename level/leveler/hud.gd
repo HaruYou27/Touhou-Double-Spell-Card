@@ -8,27 +8,25 @@ var goal := 0
 @onready var user_data := Global.user_data
 @export var hi_score_label : FormatLabel
 func _ready() -> void:
-	if multiplayer.has_multiplayer_peer():
+	if is_instance_valid(Global.player2):
 		if is_multiplayer_authority():
-			hi_score_label.template = 'P2-Score: %034d'
+			hi_score_label.template = 'P2-Score: %09d'
 		else:
-			hi_score_label.template = 'P1-Score: %034d'
-			
-		hi_score_label.update_label(0)
+			hi_score_label.template = 'P1-Score: %09d'
 	else:
 		$VBoxContainer/HBoxContainer/ping.queue_free()
+		hi_score_label.update_label(0)
 	
 	Global.item_collect.connect(_add_item)
 	Global.bullet_graze.connect(_add_graze)
 	Global.hud = self
-	Global.bomb_finished.connect(_update_bomb)
 	
 	score_label.update_label(0)
 	goal_label.update_label(0)
 	bomb_label.update_label(1)
 
 @export var bomb_label : FormatLabel
-func _update_bomb() -> void:
+func update_bomb() -> void:
 	bomb_label.update_label(Global.player.bomb_count)
 
 #There's no point in updating the score more than 1 per frame.
@@ -63,7 +61,7 @@ func _update_score() -> void:
 	else:
 		Global.player.bomb_count += 1
 		reward_sfx.play()
-		_update_bomb()
+		update_bomb()
 
 @rpc("any_peer")
 func _update_p2_score(value:int) -> void:

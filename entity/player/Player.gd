@@ -49,6 +49,7 @@ func bomb() -> void:
 	stop_fire.emit()
 	VisualEffect.hide()
 	death_timer.stop()
+	Global.hud.update_bomb()
 	
 	kaboom.emit()
 

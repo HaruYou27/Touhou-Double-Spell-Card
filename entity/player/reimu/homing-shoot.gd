@@ -13,4 +13,3 @@ func _stop_fire() -> void:
 	timer.stop()
 	shader_mat.set_shader_parameter("time_scale", 1.)
 	modulate.a = .5
-

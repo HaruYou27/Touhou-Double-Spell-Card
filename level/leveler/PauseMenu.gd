@@ -1,14 +1,13 @@
 extends ColorRect
 
 @onready var tree := get_tree()
-@onready var animator :AnimationPlayer = $AnimationPlayer
 @onready var pause : Button = $"../pause"
 
 func _ready() -> void:
 	set_process_unhandled_input(false)
 
 func _unhandled_input(event) -> void:
-	if event is InputEventAction:
+	if event is InputEventKey or event is InputEventMouseButton or event is InputEventScreenTouch:
 		show()
 		set_process_unhandled_input(false)
 

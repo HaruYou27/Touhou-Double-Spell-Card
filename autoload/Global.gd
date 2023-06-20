@@ -29,11 +29,12 @@ func restart_scene() -> void:
 	tree.paused = false
 	var tween :Tween = VisualEffect.fade2black()
 	tween.finished.connect(tree.reload_current_scene)
+	ItemManager.Clear()
 func change_scene(scene:String) -> void:
 	tree.paused = false
 	var tween :Tween = VisualEffect.fade2black()
 	tween.finished.connect(tree.change_scene_to_file.bind(scene))
-
+	ItemManager.Clear()
 
 ##Convert an InputEvent to String.
 static func get_input_string(event:InputEvent) -> String:

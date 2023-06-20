@@ -4,12 +4,12 @@
 [ext_resource type="PackedScene" uid="uid://c34lwlqwsc4ve" path="res://entity/player/player.tscn" id="4_ftqh1"]
 [ext_resource type="PackedScene" uid="uid://cex3540cp47lm" path="res://entity/player/graze.tscn" id="5_sq1so"]
 [ext_resource type="Script" path="res://entity/player/reimu/kishin-orb.gd" id="6_aunb2"]
+[ext_resource type="Script" path="res://entity/bullet/BulletBasic.cs" id="7_1stsf"]
 [ext_resource type="Texture2D" uid="uid://cx7ewf38kbh34" path="res://entity/player/reimu/resource/reimu-hitbox.png" id="7_hytxk"]
 [ext_resource type="Material" uid="uid://df8i0wskbdmia" path="res://entity/player/reimu/resource/yinYangOrb.tres" id="7_np48j"]
 [ext_resource type="Texture2D" uid="uid://f57p0cr44ri7" path="res://entity/player/reimu/resource/kishin.webp" id="8_2l12v"]
 [ext_resource type="Script" path="res://entity/player/reimu/homing-shoot.gd" id="8_y4qu3"]
 [ext_resource type="Texture2D" uid="uid://cu2ufhkx3vayf" path="res://entity/player/reimu/resource/ofuda.png" id="9_w5him"]
-[ext_resource type="Script" path="res://entity/bullet/Seeker.cs" id="11_rfqio"]
 [ext_resource type="PackedScene" uid="uid://bsa0xvb26o22u" path="res://entity/player/reimu/yinyang_orb.tscn" id="12_1m530"]
 
 [sub_resource type="CircleShape2D" id="7"]
@@ -19,8 +19,8 @@ radius = 3.0
 radius = 40.0
 height = 150.0
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_jhqk4"]
-radius = 8.0
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_gxxsf"]
+radius = 16.0
 height = 32.0
 
 [sub_resource type="Animation" id="Animation_noyik"]
@@ -72,13 +72,12 @@ hitbox = NodePath("Hitbox")
 position = Vector2(0, 8)
 
 [node name="Hitbox" type="CollisionShape2D" parent="Player"]
-z_index = 10
+z_index = 100
 shape = SubResource("7")
 debug_color = Color(0, 1, 0.34902, 0.419608)
 
 [node name="Hitbox2" type="Sprite2D" parent="Player/Hitbox"]
 show_behind_parent = true
-z_index = 100
 texture = ExtResource("7_hytxk")
 
 [node name="graze" parent="Player" instance=ExtResource("5_sq1so")]
@@ -98,12 +97,10 @@ wait_time = 0.267
 
 [node name="bullet" type="Node2D" parent="Player/Homing"]
 z_index = 1
-script = ExtResource("11_rfqio")
-SeekMask = 2
-seekRadius = 270.0
+script = ExtResource("7_1stsf")
 maxBullet = 72
 Grazable = false
-hitbox = SubResource("CapsuleShape2D_jhqk4")
+hitbox = SubResource("CapsuleShape2D_gxxsf")
 CollisionMask = 3
 texture = ExtResource("9_w5him")
 

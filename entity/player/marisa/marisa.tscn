@@ -1,7 +1,8 @@
-[gd_scene load_steps=33 format=3 uid="uid://of6l83moa38k"]
+[gd_scene load_steps=35 format=3 uid="uid://of6l83moa38k"]
 
 [ext_resource type="PackedScene" uid="uid://c34lwlqwsc4ve" path="res://entity/player/player.tscn" id="1_vjhba"]
 [ext_resource type="Texture2D" uid="uid://bkym7gv6hfekh" path="res://entity/player/marisa/resource/uncutmari.png" id="2_cw10b"]
+[ext_resource type="Texture2D" uid="uid://c7k6r1xgk2xii" path="res://entity/player/marisa/resource/marisa-hitbox.png" id="2_h730r"]
 [ext_resource type="PackedScene" uid="uid://cex3540cp47lm" path="res://entity/player/graze.tscn" id="2_jex7f"]
 [ext_resource type="Shader" path="res://level/background/noise-colorize.gdshader" id="3_tsm56"]
 [ext_resource type="Script" path="res://entity/player/marisa/MasterSpark.gd" id="3_vv674"]
@@ -10,6 +11,11 @@
 [ext_resource type="Texture2D" uid="uid://dxsf3vpqsosf1" path="res://entity/enemy/phantom/fire_particle.png" id="6_8ttm4"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ttfkj"]
+radius = 6.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_imnki"]
+radius = 51.0
+height = 194.0
 
 [sub_resource type="Gradient" id="Gradient_nfr8b"]
 colors = PackedColorArray(0, 0.262745, 0.658824, 0, 1, 1, 1, 1)
@@ -434,12 +440,21 @@ animations = [{
 [node name="Marisa" type="Node2D"]
 texture_filter = 1
 
-[node name="Player" parent="." instance=ExtResource("1_vjhba")]
+[node name="Player" parent="." node_paths=PackedStringArray("hitbox") instance=ExtResource("1_vjhba")]
+hitbox = NodePath("Hitbox")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
+[node name="Hitbox" type="CollisionShape2D" parent="Player"]
+z_index = 100
+position = Vector2(0, -12)
 shape = SubResource("CircleShape2D_ttfkj")
 
+[node name="Hitbox" type="Sprite2D" parent="Player/Hitbox"]
+texture = ExtResource("2_h730r")
+
 [node name="graze" parent="Player" instance=ExtResource("2_jex7f")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player/graze"]
+shape = SubResource("CapsuleShape2D_imnki")
 
 [node name="MasterSpark" type="Node2D" parent="Player"]
 position = Vector2(-153, -1091)
@@ -474,7 +489,7 @@ sharp_limit = 0.0
 round_precision = 16
 
 [node name="CollisionParticle" type="GPUParticles2D" parent="Player/MasterSpark/beam2/glow2"]
-z_index = 100
+z_index = 3000
 z_as_relative = false
 material = SubResource("CanvasItemMaterial_68bxu")
 position = Vector2(0, -859)
@@ -487,7 +502,7 @@ visibility_rect = Rect2(-100, -20, 200, 172)
 local_coords = true
 
 [node name="BeamParticle" type="GPUParticles2D" parent="Player/MasterSpark/beam2/glow2"]
-z_index = 100
+z_index = 3000
 z_as_relative = false
 material = SubResource("CanvasItemMaterial_b6wdc")
 position = Vector2(0, -480)

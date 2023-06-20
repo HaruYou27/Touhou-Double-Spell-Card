@@ -12,7 +12,6 @@ func _change_level(next:bool) -> void:
 	else:
 		idx -= 1
 	background.get_child(idx).show()
-	
 
 @onready var previewer := $Previewer
 func animate(previous:Node2D) -> void:

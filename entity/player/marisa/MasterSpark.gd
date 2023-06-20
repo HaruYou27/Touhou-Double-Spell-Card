@@ -17,7 +17,8 @@ func _ready():
 @onready var collision_particle := $beam2/glow2/CollisionParticle
 var cooldown := .0
 func _physics_process(delta:float) -> void:
-	cooldown -= delta
+	if cooldown >= 0:
+		cooldown -= delta
 	
 	for ray in rays:
 		if ray.is_colliding():
@@ -26,6 +27,11 @@ func _physics_process(delta:float) -> void:
 				beam.points[1].y = abs(collision_particle.position.y)
 			beam_particle.position.y = collision_particle.position.y / 2
 			beam_particle.process_material.emission_box_extents.y = beam_particle.position.y
+			
+			if cooldown <= 0:
+				ray.get_collider()._hit()
+				cooldown += 0.033333333333333
+			return
 			
 @onready var spark_timer := $Spark/SparkTimer
 @onready var spark_hitbox := $Spark/SparkHitbox

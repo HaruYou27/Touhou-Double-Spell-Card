@@ -1,0 +1,29 @@
+[gd_scene load_steps=6 format=3 uid="uid://c3rxoiw7os1of"]
+
+[ext_resource type="Shader" path="res://entity/UberItem.gdshader" id="1_4wje6"]
+[ext_resource type="Script" path="res://autoload/item-manager/ItemManager.cs" id="2_8jya1"]
+[ext_resource type="Texture2D" uid="uid://ccgackr4sld8n" path="res://autoload/item-manager/point.png" id="3_r2yry"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4ux2n"]
+shader = ExtResource("1_4wje6")
+shader_parameter/time_scale = 0.5
+shader_parameter/spin = true
+shader_parameter/alpha_offset = null
+shader_parameter/sin_alpha = null
+shader_parameter/displace = 0.0
+shader_parameter/rainbow = null
+shader_parameter/wobble = null
+shader_parameter/wobble_max = 1.25
+shader_parameter/wobble_min = 0.75
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_l6dcm"]
+radius = 15.0
+
+[node name="ItemManager" type="Node2D"]
+material = SubResource("ShaderMaterial_4ux2n")
+script = ExtResource("2_8jya1")
+maxBullet = 2727
+Grazable = false
+hitbox = SubResource("CircleShape2D_l6dcm")
+CollisionMask = 9
+texture = ExtResource("3_r2yry")
