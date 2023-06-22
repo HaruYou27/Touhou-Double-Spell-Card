@@ -10,11 +10,9 @@ uniform float displace = 0.0;
 group_uniforms colorize;
 uniform sampler2D color_map;
 uniform bool rainbow;
-uniform sampler2D rainbow_map;
 
 group_uniforms wobble;
 uniform bool wobble;
-uniform float wobble_max = 1.25;
 uniform float wobble_min = .75;
 
 varying float time;
@@ -25,7 +23,7 @@ void vertex()
 	if (alpha_offset)
 	{
 		time *= sign(COLOR.a - .5);
-		time += 100000.0 * COLOR.a;
+		time += 100.0 * COLOR.a;
 		COLOR.a = 1.0;
 	}
     if (spin)
@@ -36,16 +34,11 @@ void vertex()
     }
 	if (wobble)
 	{
-		VERTEX *= wobble_min + abs(sin(time + 1000.0*COLOR.a)) * (wobble_max - wobble_min);
+		VERTEX *= wobble_min + abs(sin(time + 1000.0*COLOR.a)) * (1.0 - wobble_min);
 	}
 	if (sin_alpha)
 	{
 		COLOR.a = sin(time);
-	}
-	if (displace > 0.0)
-	{
-		VERTEX.x += sin(time) * displace;
-		VERTEX.y += cos(time) * displace;
 	}
 }
 void fragment()
@@ -54,6 +47,6 @@ void fragment()
 	COLOR.rgb = texture(color_map, uv).rgb;
 	if (rainbow)
 	{
-		COLOR.rgb = mix(COLOR.rgb, texture(rainbow_map, uv + time).rgb, uv.r);
+		COLOR.rgb = mix(COLOR.rgb, texture(color_map, uv + time).rgb, uv.r);
 	}
 }

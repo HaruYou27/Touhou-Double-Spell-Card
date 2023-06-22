@@ -16,4 +16,3 @@ func change_menu(id:NodePath) -> void:
 func _change_finished() -> void:
 	current_menu.hide()
 	current_menu = next_menu
- 

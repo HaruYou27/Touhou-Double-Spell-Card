@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://bcscmtllfgmex"]
+[gd_scene load_steps=25 format=3 uid="uid://bcscmtllfgmex"]
 
 [ext_resource type="Theme" uid="uid://dxmwch8d4tvvj" path="res://user-interface/resource/theme/Menu.tres" id="1_fll5i"]
 [ext_resource type="Shader" path="res://level/background/misty-lake/water.gdshader" id="2_e4p0q"]
@@ -9,8 +9,9 @@
 [ext_resource type="Texture2D" uid="uid://bgh4r80tk5o7v" path="res://level/background/misty-lake/water-noise.tres" id="5_740wl"]
 [ext_resource type="Script" path="res://user-interface/control-node/FormatLabel.gd" id="5_ri88w"]
 [ext_resource type="Script" path="res://user-interface/control-node/SFXConfirmDialog.gd" id="5_t8t83"]
-[ext_resource type="Script" path="res://user-interface/mainMenu/enet-host/EnetHost.gd" id="6_6rxan"]
 [ext_resource type="Script" path="res://user-interface/mainMenu/MistyLake.gd" id="6_plkip"]
+[ext_resource type="Script" path="res://user-interface/mainMenu/Host.gd" id="10_xx2k5"]
+[ext_resource type="Script" path="res://user-interface/mainMenu/Join.gd" id="12_15o4i"]
 [ext_resource type="Texture2D" uid="uid://f57p0cr44ri7" path="res://entity/player/reimu/resource/kishin.webp" id="13_n0ypk"]
 [ext_resource type="Shader" path="res://entity/UberItem.gdshader" id="13_uyfbp"]
 [ext_resource type="FontFile" uid="uid://c7ppp33ch6e5" path="res://user-interface/resource/font/Vbutlong.ttf" id="14_fdwt6"]
@@ -29,25 +30,110 @@ shader_parameter/wave_velocity = Vector2(0, 1)
 shader_parameter/wave_distortion = 0.2
 shader_parameter/wave_multiplyer = -5.0
 
-[sub_resource type="Gradient" id="Gradient_7d20i"]
+[sub_resource type="Animation" id="Animation_o46ky"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("host:disabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("host:text")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["Waiting for connection"]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../Kishin:material:shader_parameter/spin")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_ykthq"]
-gradient = SubResource("Gradient_7d20i")
+[sub_resource type="Animation" id="Animation_cp3fs"]
+resource_name = "waitting"
+length = 4.0
+loop_mode = 1
+step = 1.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("host:disabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("host:text")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1, 2, 3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": ["Waiting for connection", "Waiting for connection.", "Waiting for connection..", "Waiting for connection..."]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../Kishin:material:shader_parameter/spin")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_etwut"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_h3542"]
+_data = {
+"RESET": SubResource("Animation_o46ky"),
+"waitting": SubResource("Animation_cp3fs")
+}
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6ke7n"]
+
+[sub_resource type="Gradient" id="Gradient_v0glb"]
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_ra6s6"]
+gradient = SubResource("Gradient_v0glb")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_u7e0v"]
 shader = ExtResource("13_uyfbp")
 shader_parameter/time_scale = 1.0
 shader_parameter/spin = false
 shader_parameter/alpha_offset = null
 shader_parameter/sin_alpha = null
-shader_parameter/displace = 0.0
 shader_parameter/rainbow = null
-shader_parameter/color_map = SubResource("GradientTexture1D_ykthq")
+shader_parameter/color_map = SubResource("GradientTexture1D_ra6s6")
 shader_parameter/wobble = null
-shader_parameter/wobble_max = 1.25
 shader_parameter/wobble_min = 0.75
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6ke7n"]
 
 [node name="Menu" type="Control"]
 texture_filter = 2
@@ -69,6 +155,7 @@ centered = false
 script = ExtResource("6_plkip")
 
 [node name="main" type="VBoxContainer" parent="."]
+visible = false
 texture_filter = 2
 layout_mode = 1
 anchors_preset = 8
@@ -130,7 +217,7 @@ script = ExtResource("5_t8t83")
 [node name="error" type="AcceptDialog" parent="main"]
 initial_position = 1
 title = "Network error"
-size = Vector2i(500, 162)
+size = Vector2i(500, 174)
 exclusive = false
 always_on_top = true
 transparent = true
@@ -139,57 +226,84 @@ max_size = Vector2i(500, 32768)
 dialog_text = "Please check your network connection."
 dialog_autowrap = true
 
-[node name="EnetHost" type="VBoxContainer" parent="." node_paths=PackedStringArray("port", "host_button")]
-visible = false
+[node name="Host" type="VBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = 14
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-offset_top = -92.5
-offset_bottom = 92.5
+offset_top = -132.0
+offset_bottom = 480.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("6_6rxan")
-port = NodePath("HBoxContainer/port")
-host_button = NodePath("host")
+script = ExtResource("10_xx2k5")
 
-[node name="back" type="Button" parent="EnetHost"]
+[node name="back" type="Button" parent="Host"]
 layout_mode = 2
 size_flags_horizontal = 0
 text = "< Back"
 script = ExtResource("4_4sjp2")
 
-[node name="ip" type="Label" parent="EnetHost"]
+[node name="HBoxContainer" type="GridContainer" parent="Host"]
 layout_mode = 2
-text = "IP Adress: %s"
+columns = 2
+
+[node name="Label2" type="Label" parent="Host/HBoxContainer"]
+layout_mode = 2
+text = "IP:"
 script = ExtResource("5_ri88w")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="EnetHost"]
+[node name="ip" type="LineEdit" parent="Host/HBoxContainer"]
 layout_mode = 2
+placeholder_text = "Error getting IP address !"
+max_length = 39
+editable = false
+virtual_keyboard_enabled = false
+middle_mouse_paste_enabled = false
+select_all_on_focus = true
 
-[node name="Label" type="Label" parent="EnetHost/HBoxContainer"]
+[node name="Label" type="Label" parent="Host/HBoxContainer"]
 layout_mode = 2
 text = "Port:"
 
-[node name="port" type="LineEdit" parent="EnetHost/HBoxContainer"]
+[node name="port" type="LineEdit" parent="Host/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "6567"
 placeholder_text = "6567"
+max_length = 5
+select_all_on_focus = true
 
-[node name="host" type="Button" parent="EnetHost"]
+[node name="Label3" type="Label" parent="Host/HBoxContainer"]
 layout_mode = 2
-text = "Host Party"
+text = "Offer"
+
+[node name="offer" type="LineEdit" parent="Host/HBoxContainer"]
+layout_mode = 2
+editable = false
+virtual_keyboard_enabled = false
+middle_mouse_paste_enabled = false
+select_all_on_focus = true
+
+[node name="host" type="Button" parent="Host"]
+layout_mode = 2
+disabled = true
+text = "Waiting for connection"
 script = ExtResource("4_4sjp2")
 
-[node name="Kishin" type="Sprite2D" parent="EnetHost"]
-material = SubResource("ShaderMaterial_etwut")
-position = Vector2(265, 280)
-scale = Vector2(0.2, 0.2)
-texture = ExtResource("13_n0ypk")
+[node name="Label" type="Label" parent="Host"]
+layout_mode = 2
+size_flags_vertical = 10
+text = "Tip: Try a different port if not working. If still doesn't work, let your friend host.
+*Offer* only work if internet connection is available."
+autowrap_mode = 3
 
-[node name="EnetJoin" type="VBoxContainer" parent="."]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Host"]
+libraries = {
+"": SubResource("AnimationLibrary_h3542")
+}
+
+[node name="Join" type="VBoxContainer" parent="."]
 visible = false
 layout_mode = 1
 anchors_preset = 14
@@ -200,32 +314,35 @@ offset_top = -81.0
 offset_bottom = 81.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("12_15o4i")
 
-[node name="back" type="Button" parent="EnetJoin"]
+[node name="back" type="Button" parent="Join"]
 layout_mode = 2
 size_flags_horizontal = 0
 text = "< Back"
 script = ExtResource("4_4sjp2")
 
-[node name="ItemList" type="ItemList" parent="EnetJoin"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Join"]
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="EnetJoin"]
-layout_mode = 2
-
-[node name="LineEdit" type="LineEdit" parent="EnetJoin/HBoxContainer"]
+[node name="ip" type="LineEdit" parent="Join/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-placeholder_text = "IP address"
+placeholder_text = "Paste your friend IP address:"
 
-[node name="LineEdit2" type="LineEdit" parent="EnetJoin/HBoxContainer"]
+[node name="port" type="LineEdit" parent="Join/HBoxContainer"]
 layout_mode = 2
 text = "6567"
 placeholder_text = "6567"
 
-[node name="join" type="Button" parent="EnetJoin"]
+[node name="offer" type="LineEdit" parent="Join"]
 layout_mode = 2
-text = "Join Party"
+placeholder_text = "Or your friend *Offer*:"
+
+[node name="join" type="Button" parent="Join"]
+layout_mode = 2
+disabled = true
+text = "Please fill in IP or Offer"
 script = ExtResource("4_4sjp2")
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="."]
@@ -235,6 +352,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 stretch = true
 
 [node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
@@ -270,9 +388,23 @@ theme_override_font_sizes/font_size = 70
 theme_override_styles/normal = SubResource("StyleBoxEmpty_6ke7n")
 text = "Double"
 
-[connection signal="pressed" from="main/solo" to="." method="change_menu" binds= [NodePath("../../lobby")]]
+[node name="Kishin" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_u7e0v")
+position = Vector2(270, 682)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("13_n0ypk")
+
+[connection signal="pressed" from="main/solo" to="main" method="_on_solo_pressed"]
 [connection signal="pressed" from="main/coop" to="main" method="_on_coop_pressed"]
 [connection signal="canceled" from="main/HostOrJoin" to="main" method="_on_host_or_join_canceled"]
 [connection signal="confirmed" from="main/HostOrJoin" to="main" method="_on_host_or_join_confirmed"]
-[connection signal="pressed" from="EnetHost/back" to="EnetHost" method="_on_back_pressed"]
-[connection signal="pressed" from="EnetHost/host" to="EnetHost" method="_on_host_pressed"]
+[connection signal="pressed" from="Host/back" to="Host" method="_on_back_pressed"]
+[connection signal="pressed" from="Host/back" to="." method="change_menu" binds= [NodePath("../../main")]]
+[connection signal="text_changed" from="Host/HBoxContainer/port" to="Host" method="_on_port_text_changed"]
+[connection signal="pressed" from="Host/host" to="Host" method="_on_host_pressed"]
+[connection signal="pressed" from="Join/back" to="Join" method="_on_back_pressed"]
+[connection signal="pressed" from="Join/back" to="." method="change_menu" binds= [NodePath("../../main")]]
+[connection signal="text_changed" from="Join/HBoxContainer/ip" to="Join" method="_on_ip_text_changed"]
+[connection signal="text_changed" from="Join/HBoxContainer/port" to="Join" method="_on_port_text_changed"]
+[connection signal="text_changed" from="Join/offer" to="Join" method="_on_offer_text_changed"]
+[connection signal="pressed" from="Join/join" to="Join" method="_on_join_pressed"]

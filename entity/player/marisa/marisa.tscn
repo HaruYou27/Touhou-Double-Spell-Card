@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://of6l83moa38k"]
+[gd_scene load_steps=33 format=3 uid="uid://of6l83moa38k"]
 
 [ext_resource type="PackedScene" uid="uid://c34lwlqwsc4ve" path="res://entity/player/player.tscn" id="1_vjhba"]
 [ext_resource type="Texture2D" uid="uid://bkym7gv6hfekh" path="res://entity/player/marisa/resource/uncutmari.png" id="2_cw10b"]
@@ -9,6 +9,10 @@
 [ext_resource type="Shader" path="res://entity/bullet/resource/BulletGlow.gdshader" id="4_ht7cp"]
 [ext_resource type="Texture2D" uid="uid://cwm35yxq5ojxd" path="res://entity/player/marisa/resource/laser-texture.tres" id="5_e3y87"]
 [ext_resource type="Texture2D" uid="uid://dxsf3vpqsosf1" path="res://entity/enemy/phantom/fire_particle.png" id="6_8ttm4"]
+[ext_resource type="Curve" uid="uid://co021w3tfbtd8" path="res://entity/player/marisa/resource/laser-curve.tres" id="6_ket6f"]
+[ext_resource type="Texture2D" uid="uid://d2wacgirqsjjn" path="res://entity/white-trans.tres" id="8_gxd18"]
+[ext_resource type="Material" uid="uid://dox27ncd2r5o3" path="res://entity/glow.tres" id="8_oal0d"]
+[ext_resource type="PackedScene" uid="uid://bsnqtgxxjmolk" path="res://entity/player/marisa/ray_cast.tscn" id="12_1qmyi"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ttfkj"]
 radius = 6.0
@@ -25,12 +29,8 @@ gradient = SubResource("Gradient_nfr8b")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_xkttb"]
 shader = ExtResource("3_tsm56")
-shader_parameter/velocity = Vector2(-2, 0)
+shader_parameter/velocity = Vector2(-1, 0)
 shader_parameter/color_map = SubResource("GradientTexture1D_bvv6u")
-
-[sub_resource type="Curve" id="Curve_v1djm"]
-_data = [Vector2(0, 0.496599), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
-point_count = 2
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_eweoi"]
 gradient = SubResource("Gradient_nfr8b")
@@ -48,10 +48,6 @@ shader_parameter/wobble = null
 shader_parameter/wobble_max = 1.25
 shader_parameter/wobble_min = 0.75
 
-[sub_resource type="Curve" id="Curve_kt4av"]
-_data = [Vector2(0, 0.496599), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
-point_count = 2
-
 [sub_resource type="Gradient" id="Gradient_8pqvy"]
 offsets = PackedFloat32Array(0, 0.345794, 0.64486, 1)
 colors = PackedColorArray(0, 0, 0, 0, 0.466181, 0.466181, 0.466181, 1, 0.466667, 0.466667, 0.466667, 1, 0, 0, 0, 0)
@@ -61,16 +57,6 @@ gradient = SubResource("Gradient_8pqvy")
 width = 960
 height = 470
 fill_to = Vector2(0, 1)
-
-[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_68bxu"]
-blend_mode = 1
-
-[sub_resource type="Gradient" id="Gradient_l3w6q"]
-colors = PackedColorArray(0.2565, 0.418317, 0.95, 1, 0.254902, 0.419608, 0.94902, 0)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_1cs6f"]
-gradient = SubResource("Gradient_l3w6q")
-width = 32
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_pud3s"]
 emission_shape = 1
@@ -85,12 +71,9 @@ angular_velocity_max = 273.8
 orbit_velocity_min = 0.0
 orbit_velocity_max = 0.0
 scale_min = 0.5
-color_ramp = SubResource("GradientTexture1D_1cs6f")
+color = Color(0.254902, 0.419608, 0.94902, 1)
+color_ramp = ExtResource("8_gxd18")
 hue_variation_max = 0.03
-
-[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_b6wdc"]
-blend_mode = 1
-light_mode = 1
 
 [sub_resource type="Gradient" id="Gradient_vfnk4"]
 colors = PackedColorArray(0.2565, 0.418317, 0.95, 1, 0.254902, 0.419608, 0.94902, 0)
@@ -214,18 +197,6 @@ tracks/7/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [true]
-}
-tracks/8/type = "value"
-tracks/8/imported = false
-tracks/8/enabled = true
-tracks/8/path = NodePath("RayCast2D/RayCast2D2:position")
-tracks/8/interp = 1
-tracks/8/loop_wrap = true
-tracks/8/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(-8, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_65s67"]
@@ -467,7 +438,7 @@ material = SubResource("ShaderMaterial_xkttb")
 position = Vector2(154, 995)
 points = PackedVector2Array(0, 0, 0, -960)
 width = 0.0
-width_curve = SubResource("Curve_v1djm")
+width_curve = ExtResource("6_ket6f")
 texture = ExtResource("5_e3y87")
 texture_mode = 1
 begin_cap_mode = 2
@@ -481,7 +452,7 @@ material = SubResource("ShaderMaterial_ilqob")
 position = Vector2(0, -7)
 points = PackedVector2Array(0, 0, 0, -960)
 width = 0.0
-width_curve = SubResource("Curve_kt4av")
+width_curve = ExtResource("6_ket6f")
 texture = SubResource("GradientTexture2D_u5d4h")
 texture_mode = 1
 begin_cap_mode = 2
@@ -491,7 +462,7 @@ round_precision = 16
 [node name="CollisionParticle" type="GPUParticles2D" parent="Player/MasterSpark/beam2/glow2"]
 z_index = 3000
 z_as_relative = false
-material = SubResource("CanvasItemMaterial_68bxu")
+material = ExtResource("8_oal0d")
 position = Vector2(0, -859)
 emitting = false
 amount = 16
@@ -504,7 +475,7 @@ local_coords = true
 [node name="BeamParticle" type="GPUParticles2D" parent="Player/MasterSpark/beam2/glow2"]
 z_index = 3000
 z_as_relative = false
-material = SubResource("CanvasItemMaterial_b6wdc")
+material = ExtResource("8_oal0d")
 position = Vector2(0, -480)
 emitting = false
 amount = 128
@@ -513,32 +484,13 @@ texture = ExtResource("6_8ttm4")
 visibility_rect = Rect2(-32, 480, 64, -960)
 draw_order = 0
 
-[node name="RayCast2D" type="RayCast2D" parent="Player/MasterSpark"]
+[node name="RayCast2D" parent="Player/MasterSpark" instance=ExtResource("12_1qmyi")]
 position = Vector2(154, 1002)
-enabled = false
-exclude_parent = false
-target_position = Vector2(0, -960)
-collision_mask = 2
-collide_with_areas = true
-collide_with_bodies = false
 
-[node name="RayCast2D2" type="RayCast2D" parent="Player/MasterSpark/RayCast2D"]
-position = Vector2(-8, 0)
-enabled = false
-exclude_parent = false
-target_position = Vector2(0, -960)
-collision_mask = 2
-collide_with_areas = true
-collide_with_bodies = false
+[node name="RayCast2D2" parent="Player/MasterSpark/RayCast2D" instance=ExtResource("12_1qmyi")]
 
-[node name="RayCast2D3" type="RayCast2D" parent="Player/MasterSpark/RayCast2D"]
-position = Vector2(8, 0)
-enabled = false
-exclude_parent = false
-target_position = Vector2(0, -960)
-collision_mask = 2
-collide_with_areas = true
-collide_with_bodies = false
+[node name="RayCast2D3" parent="Player/MasterSpark/RayCast2D" instance=ExtResource("12_1qmyi")]
+position = Vector2(-13, 0)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Player/MasterSpark"]
 libraries = {

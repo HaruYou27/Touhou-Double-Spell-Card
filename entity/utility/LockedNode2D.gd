@@ -6,7 +6,7 @@ class_name LockedNode2D
 @export var value := 0
 @export var locked_y := false
 
-func _process(_delta) -> void:
+func _physics_process(_delta) -> void:
 	if locked_y:
 		global_position.y = value
 	else:

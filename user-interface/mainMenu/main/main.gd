@@ -14,4 +14,7 @@ func _on_host_or_join_canceled():
 func _on_host_or_join_confirmed():
 	root.change_menu(NodePath("EnetJoin"))
 
-var root := get_tree().current_scene
+@onready var root := get_tree().current_scene
+
+func _on_solo_pressed():
+	Global.change_scene(global.lobby)

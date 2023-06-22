@@ -453,7 +453,6 @@ layout_mode = 2
 size_flags_vertical = 3
 
 [node name="Level" type="VBoxContainer" parent="Previewer/lobby/TabContainer"]
-visible = false
 layout_mode = 2
 
 [node name="OptionButton" type="OptionButton" parent="Previewer/lobby/TabContainer/Level"]
@@ -752,6 +751,7 @@ text = "Reset"
 script = ExtResource("2_37nfa")
 
 [node name="Character" type="VBoxContainer" parent="Previewer/lobby/TabContainer"]
+visible = false
 layout_mode = 2
 script = ExtResource("17_kpbrr")
 
@@ -761,7 +761,6 @@ layout_mode = 2
 tabs_visible = false
 
 [node name="Control" type="Control" parent="Previewer/lobby/TabContainer/Character/Preview"]
-visible = false
 layout_mode = 2
 
 [node name="ReimuSprite" parent="Previewer/lobby/TabContainer/Character/Preview/Control" instance=ExtResource("4_07fsl")]
@@ -812,6 +811,7 @@ process_callback = 0
 wait_time = 0.267
 
 [node name="Control2" type="Control" parent="Previewer/lobby/TabContainer/Character/Preview"]
+visible = false
 layout_mode = 2
 
 [node name="Marisa" type="AnimatedSprite2D" parent="Previewer/lobby/TabContainer/Character/Preview/Control2"]

@@ -89,7 +89,6 @@ debug_color = Color(0.713726, 0.105882, 0.701961, 0.419608)
 
 [node name="Homing" type="Node2D" parent="Player"]
 script = ExtResource("8_y4qu3")
-shader_mat = ExtResource("7_np48j")
 
 [node name="Timer" type="Timer" parent="Player/Homing"]
 process_callback = 0
@@ -99,6 +98,7 @@ wait_time = 0.267
 z_index = 1
 script = ExtResource("7_1stsf")
 maxBullet = 72
+speed = 727.0
 Grazable = false
 hitbox = SubResource("CapsuleShape2D_gxxsf")
 CollisionMask = 3
