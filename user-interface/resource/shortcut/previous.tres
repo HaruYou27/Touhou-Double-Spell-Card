@@ -1,7 +1,0 @@
-[gd_resource type="Shortcut" load_steps=2 format=3 uid="uid://c6fr744r5sr5n"]
-
-[sub_resource type="InputEventAction" id="InputEventAction_c1o7y"]
-action = &"ui_left"
-
-[resource]
-events = [SubResource("InputEventAction_c1o7y")]

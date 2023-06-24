@@ -1,20 +1,25 @@
-[gd_scene load_steps=25 format=3 uid="uid://bcscmtllfgmex"]
+[gd_scene load_steps=35 format=3 uid="uid://bcscmtllfgmex"]
 
 [ext_resource type="Theme" uid="uid://dxmwch8d4tvvj" path="res://user-interface/resource/theme/Menu.tres" id="1_fll5i"]
 [ext_resource type="Shader" path="res://level/background/misty-lake/water.gdshader" id="2_e4p0q"]
 [ext_resource type="Script" path="res://user-interface/mainMenu/Menu.gd" id="2_pnltk"]
-[ext_resource type="Script" path="res://user-interface/mainMenu/main/main.gd" id="3_l0u8q"]
 [ext_resource type="Script" path="res://user-interface/control-node/SFXButton.gd" id="4_4sjp2"]
 [ext_resource type="Texture2D" uid="uid://eriecmar2l3j" path="res://level/background/misty-lake/water-day.tres" id="4_c77u2"]
 [ext_resource type="Texture2D" uid="uid://bgh4r80tk5o7v" path="res://level/background/misty-lake/water-noise.tres" id="5_740wl"]
-[ext_resource type="Script" path="res://user-interface/control-node/FormatLabel.gd" id="5_ri88w"]
-[ext_resource type="Script" path="res://user-interface/control-node/SFXConfirmDialog.gd" id="5_t8t83"]
-[ext_resource type="Script" path="res://user-interface/mainMenu/MistyLake.gd" id="6_plkip"]
-[ext_resource type="Script" path="res://user-interface/mainMenu/Host.gd" id="10_xx2k5"]
-[ext_resource type="Script" path="res://user-interface/mainMenu/Join.gd" id="12_15o4i"]
-[ext_resource type="Texture2D" uid="uid://f57p0cr44ri7" path="res://entity/player/reimu/resource/kishin.webp" id="13_n0ypk"]
-[ext_resource type="Shader" path="res://entity/UberItem.gdshader" id="13_uyfbp"]
+[ext_resource type="Shortcut" uid="uid://ctyij10r0l1ly" path="res://user-interface/resource/shortcut/1.tres" id="8_j2dc5"]
+[ext_resource type="Shortcut" uid="uid://dt16jmboepp4k" path="res://user-interface/resource/shortcut/2.tres" id="10_mu27k"]
+[ext_resource type="Shortcut" uid="uid://bcrumydhtp6h7" path="res://user-interface/resource/shortcut/3.tres" id="11_2tfm1"]
+[ext_resource type="Shortcut" uid="uid://4f8bjowu8qyx" path="res://user-interface/resource/shortcut/4.tres" id="12_kncoo"]
+[ext_resource type="Shortcut" uid="uid://0tqixtxtuj0m" path="res://user-interface/resource/shortcut/5.tres" id="13_w5ctg"]
 [ext_resource type="FontFile" uid="uid://c7ppp33ch6e5" path="res://user-interface/resource/font/Vbutlong.ttf" id="14_fdwt6"]
+[ext_resource type="Script" path="res://user-interface/mainMenu/EnetHost.gd" id="14_ix6yc"]
+[ext_resource type="Script" path="res://user-interface/control-node/SFXAcceptDialog.gd" id="14_prvet"]
+[ext_resource type="PackedScene" uid="uid://ct54eirbcf4pb" path="res://user-interface/back.tscn" id="14_sene6"]
+[ext_resource type="Script" path="res://user-interface/control-node/SFXConfirmDialog.gd" id="15_ok3rl"]
+[ext_resource type="StyleBox" uid="uid://bljqcvjdws526" path="res://user-interface/resource/theme/black.tres" id="16_7kqrr"]
+[ext_resource type="Script" path="res://user-interface/mainMenu/EnetJoin.gd" id="16_23h4f"]
+[ext_resource type="Script" path="res://user-interface/mainMenu/WebRtcHost.gd" id="16_ub6jj"]
+[ext_resource type="Shortcut" uid="uid://xs30oatyn1i6" path="res://user-interface/resource/shortcut/enter.tres" id="17_3rmfx"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_0np8g"]
 viewport_path = NodePath("SubViewportContainer/SubViewport")
@@ -30,6 +35,76 @@ shader_parameter/wave_velocity = Vector2(0, 1)
 shader_parameter/wave_distortion = 0.2
 shader_parameter/wave_multiplyer = -5.0
 
+[sub_resource type="Animation" id="Animation_cdonq"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:material:shader_parameter/color_map:gradient:colors")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [PackedColorArray(1, 1, 1, 1, 0.1105, 0.16445, 0.65, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_mmw0i"]
+resource_name = "day"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:material:shader_parameter/color_map:gradient:colors")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [PackedColorArray(1, 1, 1, 1, 0.1105, 0.16445, 0.65, 1), PackedColorArray(0, 0.768627, 1, 1, 0.1105, 0.16445, 0.65, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_m2vyk"]
+resource_name = "dusk"
+step = 1.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:material:shader_parameter/color_map:gradient:colors")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [PackedColorArray(0, 0.768627, 1, 1, 0.1105, 0.16445, 0.65, 1), PackedColorArray(1, 0.560784, 0.509804, 1, 0.1105, 0.16445, 0.65, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_mshww"]
+resource_name = "night"
+step = 1.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:material:shader_parameter/color_map:gradient:colors")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [PackedColorArray(1, 0.560784, 0.509804, 1, 0.1105, 0.16445, 0.65, 1), PackedColorArray(0.1105, 0.16445, 0.65, 1, 0, 0.129, 0.18, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_atxya"]
+_data = {
+"RESET": SubResource("Animation_cdonq"),
+"day": SubResource("Animation_mmw0i"),
+"dusk": SubResource("Animation_m2vyk"),
+"night": SubResource("Animation_mshww")
+}
+
 [sub_resource type="Animation" id="Animation_o46ky"]
 length = 0.001
 tracks/0/type = "value"
@@ -42,7 +117,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [true]
+"values": [false]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -54,19 +129,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": ["Waiting for connection"]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("../Kishin:material:shader_parameter/spin")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
+"values": ["Host Party"]
 }
 
 [sub_resource type="Animation" id="Animation_cp3fs"]
@@ -98,18 +161,6 @@ tracks/1/keys = {
 "update": 1,
 "values": ["Waiting for connection", "Waiting for connection.", "Waiting for connection..", "Waiting for connection..."]
 }
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("../Kishin:material:shader_parameter/spin")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_h3542"]
 _data = {
@@ -117,23 +168,45 @@ _data = {
 "waitting": SubResource("Animation_cp3fs")
 }
 
+[sub_resource type="Animation" id="Animation_s48o5"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Join:text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": ["Join Party"]
+}
+
+[sub_resource type="Animation" id="Animation_j5e3v"]
+resource_name = "connecting"
+length = 6.0
+step = 1.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Join:text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 2, 3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": ["Connecting", "Connecting.", "Connecting..", "Connecting..."]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_at5y1"]
+_data = {
+"RESET": SubResource("Animation_s48o5"),
+"connecting": SubResource("Animation_j5e3v")
+}
+
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6ke7n"]
-
-[sub_resource type="Gradient" id="Gradient_v0glb"]
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_ra6s6"]
-gradient = SubResource("Gradient_v0glb")
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_u7e0v"]
-shader = ExtResource("13_uyfbp")
-shader_parameter/time_scale = 1.0
-shader_parameter/spin = false
-shader_parameter/alpha_offset = null
-shader_parameter/sin_alpha = null
-shader_parameter/rainbow = null
-shader_parameter/color_map = SubResource("GradientTexture1D_ra6s6")
-shader_parameter/wobble = null
-shader_parameter/wobble_min = 0.75
 
 [node name="Menu" type="Control"]
 texture_filter = 2
@@ -152,10 +225,13 @@ texture_repeat = 2
 material = SubResource("ShaderMaterial_fx67d")
 texture = ExtResource("5_740wl")
 centered = false
-script = ExtResource("6_plkip")
 
-[node name="main" type="VBoxContainer" parent="."]
-visible = false
+[node name="AnimationPlayer" type="AnimationPlayer" parent="MistyLake"]
+libraries = {
+"": SubResource("AnimationLibrary_atxya")
+}
+
+[node name="Main" type="VBoxContainer" parent="."]
 texture_filter = 2
 layout_mode = 1
 anchors_preset = 8
@@ -169,64 +245,61 @@ offset_right = 270.0
 offset_bottom = 136.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("3_l0u8q")
 
-[node name="solo" type="Button" parent="main"]
+[node name="solo" type="Button" parent="Main"]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Solo"
+shortcut = ExtResource("8_j2dc5")
+text = "1.Solo"
 script = ExtResource("4_4sjp2")
 
-[node name="coop" type="Button" parent="main"]
+[node name="host" type="Button" parent="Main"]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Co-op"
+shortcut = ExtResource("10_mu27k")
+text = "2.Host a game"
 script = ExtResource("4_4sjp2")
 
-[node name="credits" type="Button" parent="main"]
+[node name="join" type="Button" parent="Main"]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Credits"
+shortcut = ExtResource("11_2tfm1")
+text = "3.Join a game"
 script = ExtResource("4_4sjp2")
 
-[node name="language" type="Button" parent="main"]
+[node name="credits" type="Button" parent="Main"]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Language"
+shortcut = ExtResource("12_kncoo")
+text = "4.Credits"
 script = ExtResource("4_4sjp2")
 
-[node name="HostOrJoin" type="ConfirmationDialog" parent="main"]
+[node name="language" type="Button" parent="Main"]
+layout_mode = 2
+size_flags_horizontal = 3
+shortcut = ExtResource("13_w5ctg")
+text = "5.Language"
+script = ExtResource("4_4sjp2")
+
+[node name="ConnectionMethod" type="ConfirmationDialog" parent="Main"]
+disable_3d = true
 transparent_bg = true
+snap_2d_transforms_to_pixel = true
+snap_2d_vertices_to_pixel = true
 initial_position = 1
-title = ""
-size = Vector2i(500, 195)
-exclusive = false
+size = Vector2i(500, 215)
 borderless = true
 always_on_top = true
 transparent = true
-popup_window = true
-max_size = Vector2i(500, 960)
-ok_button_text = "Join"
-dialog_text = "Better host hardware = Better experience (usually)"
-dialog_hide_on_ok = false
-dialog_close_on_escape = false
+ok_button_text = "WebRTC"
+dialog_text = "Enet: Fast and Simple. But only work in LAN or port fowarding
+WebRTC: More tricky but works."
 dialog_autowrap = true
-cancel_button_text = "Host"
-script = ExtResource("5_t8t83")
+cancel_button_text = "Enet"
+script = ExtResource("15_ok3rl")
 
-[node name="error" type="AcceptDialog" parent="main"]
-initial_position = 1
-title = "Network error"
-size = Vector2i(500, 174)
-exclusive = false
-always_on_top = true
-transparent = true
-popup_window = true
-max_size = Vector2i(500, 32768)
-dialog_text = "Please check your network connection."
-dialog_autowrap = true
-
-[node name="Host" type="VBoxContainer" parent="."]
+[node name="EnetHost" type="VBoxContainer" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 14
 anchor_top = 0.5
@@ -236,25 +309,17 @@ offset_top = -132.0
 offset_bottom = 480.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("10_xx2k5")
+script = ExtResource("14_ix6yc")
 
-[node name="back" type="Button" parent="Host"]
+[node name="back" parent="EnetHost" instance=ExtResource("14_sene6")]
 layout_mode = 2
-size_flags_horizontal = 0
-text = "< Back"
-script = ExtResource("4_4sjp2")
 
-[node name="HBoxContainer" type="GridContainer" parent="Host"]
+[node name="HBoxContainer" type="HBoxContainer" parent="EnetHost"]
 layout_mode = 2
-columns = 2
 
-[node name="Label2" type="Label" parent="Host/HBoxContainer"]
+[node name="ip" type="LineEdit" parent="EnetHost/HBoxContainer"]
 layout_mode = 2
-text = "IP:"
-script = ExtResource("5_ri88w")
-
-[node name="ip" type="LineEdit" parent="Host/HBoxContainer"]
-layout_mode = 2
+size_flags_horizontal = 3
 placeholder_text = "Error getting IP address !"
 max_length = 39
 editable = false
@@ -262,90 +327,172 @@ virtual_keyboard_enabled = false
 middle_mouse_paste_enabled = false
 select_all_on_focus = true
 
-[node name="Label" type="Label" parent="Host/HBoxContainer"]
+[node name="port" type="LineEdit" parent="EnetHost/HBoxContainer"]
 layout_mode = 2
-text = "Port:"
-
-[node name="port" type="LineEdit" parent="Host/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
 text = "6567"
 placeholder_text = "6567"
 max_length = 5
 select_all_on_focus = true
 
-[node name="Label3" type="Label" parent="Host/HBoxContainer"]
+[node name="host" type="Button" parent="EnetHost"]
 layout_mode = 2
-text = "Offer"
-
-[node name="offer" type="LineEdit" parent="Host/HBoxContainer"]
-layout_mode = 2
-editable = false
-virtual_keyboard_enabled = false
-middle_mouse_paste_enabled = false
-select_all_on_focus = true
-
-[node name="host" type="Button" parent="Host"]
-layout_mode = 2
-disabled = true
-text = "Waiting for connection"
+text = "Host Party"
 script = ExtResource("4_4sjp2")
 
-[node name="Label" type="Label" parent="Host"]
+[node name="Label" type="Label" parent="EnetHost"]
 layout_mode = 2
 size_flags_vertical = 10
 text = "Tip: Try a different port if not working. If still doesn't work, let your friend host.
-*Offer* only work if internet connection is available."
+"
 autowrap_mode = 3
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Host"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="EnetHost"]
 libraries = {
 "": SubResource("AnimationLibrary_h3542")
 }
 
-[node name="Join" type="VBoxContainer" parent="."]
+[node name="Timer" type="Timer" parent="EnetHost"]
+wait_time = 3.0
+
+[node name="EnetJoin" type="VBoxContainer" parent="."]
 visible = false
 layout_mode = 1
 anchors_preset = 14
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-offset_top = -81.0
-offset_bottom = 81.0
+offset_top = -117.0
+offset_bottom = 483.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("12_15o4i")
+script = ExtResource("16_23h4f")
 
-[node name="back" type="Button" parent="Join"]
-layout_mode = 2
-size_flags_horizontal = 0
-text = "< Back"
-script = ExtResource("4_4sjp2")
-
-[node name="HBoxContainer" type="HBoxContainer" parent="Join"]
+[node name="back" parent="EnetJoin" instance=ExtResource("14_sene6")]
 layout_mode = 2
 
-[node name="ip" type="LineEdit" parent="Join/HBoxContainer"]
+[node name="ItemList" type="ItemList" parent="EnetJoin"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="EnetJoin"]
+layout_mode = 2
+
+[node name="ip" type="LineEdit" parent="EnetJoin/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 placeholder_text = "Paste your friend IP address:"
+max_length = 35
+clear_button_enabled = true
 
-[node name="port" type="LineEdit" parent="Join/HBoxContainer"]
+[node name="port" type="LineEdit" parent="EnetJoin/HBoxContainer"]
 layout_mode = 2
 text = "6567"
 placeholder_text = "6567"
 
-[node name="offer" type="LineEdit" parent="Join"]
+[node name="Join" type="Button" parent="EnetJoin"]
 layout_mode = 2
-placeholder_text = "Or your friend *Offer*:"
+text = "Join Party"
+script = ExtResource("4_4sjp2")
 
-[node name="join" type="Button" parent="Join"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="EnetJoin"]
+libraries = {
+"": SubResource("AnimationLibrary_at5y1")
+}
+
+[node name="Timer" type="Timer" parent="EnetJoin"]
+
+[node name="WebRtcHost" type="VBoxContainer" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -105.0
+offset_bottom = 481.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("16_ub6jj")
+
+[node name="back" parent="WebRtcHost" instance=ExtResource("14_sene6")]
 layout_mode = 2
-disabled = true
-text = "Please fill in IP or Offer"
+
+[node name="Offer" type="LineEdit" parent="WebRtcHost"]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "Preparing your *Offer*..."
+editable = false
+select_all_on_focus = true
+
+[node name="Label" type="Label" parent="WebRtcHost"]
+layout_mode = 2
+text = "Copy your *Offer* above and send it to your friend."
+autowrap_mode = 3
+
+[node name="ReplyOffer" type="LineEdit" parent="WebRtcHost"]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "Paste your friend *Offer* here"
+select_all_on_focus = true
+
+[node name="WebRtcJoin" type="VBoxContainer" parent="."]
+visible = false
+layout_mode = 2
+offset_top = 337.0
+offset_right = 40.0
+offset_bottom = 377.0
+
+[node name="back" parent="WebRtcJoin" instance=ExtResource("14_sene6")]
+layout_mode = 2
+
+[node name="Credits" type="VBoxContainer" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="back" parent="Credits" instance=ExtResource("14_sene6")]
+layout_mode = 2
+
+[node name="TabContainer" type="TabContainer" parent="Credits"]
+layout_mode = 2
+size_flags_vertical = 3
+tab_alignment = 2
+
+[node name="Author" type="RichTextLabel" parent="Credits/TabContainer"]
+layout_mode = 2
+theme_override_styles/normal = ExtResource("16_7kqrr")
+text = "aasf"
+
+[node name="Licenses" type="RichTextLabel" parent="Credits/TabContainer"]
+visible = false
+layout_mode = 2
+theme_override_styles/normal = ExtResource("16_7kqrr")
+text = "s"
+
+[node name="Language" type="VBoxContainer" parent="."]
+visible = false
+layout_mode = 2
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="back" parent="Language" instance=ExtResource("14_sene6")]
+layout_mode = 2
+
+[node name="ItemList" type="ItemList" parent="Language"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="enter" type="Button" parent="Language"]
+layout_mode = 2
+shortcut = ExtResource("17_3rmfx")
 script = ExtResource("4_4sjp2")
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -359,13 +506,17 @@ stretch = true
 disable_3d = true
 transparent_bg = true
 handle_input_locally = false
+snap_2d_transforms_to_pixel = true
+snap_2d_vertices_to_pixel = true
 size = Vector2i(540, 960)
-render_target_update_mode = 4
+render_target_update_mode = 0
 
 [node name="RichTextLabel" type="RichTextLabel" parent="SubViewportContainer/SubViewport"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 10.0
+offset_right = 10.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/outline_size = 10
@@ -388,23 +539,40 @@ theme_override_font_sizes/font_size = 70
 theme_override_styles/normal = SubResource("StyleBoxEmpty_6ke7n")
 text = "Double"
 
-[node name="Kishin" type="Sprite2D" parent="."]
-material = SubResource("ShaderMaterial_u7e0v")
-position = Vector2(270, 682)
-scale = Vector2(0.1, 0.1)
-texture = ExtResource("13_n0ypk")
+[node name="error" type="AcceptDialog" parent="."]
+disable_3d = true
+transparent_bg = true
+snap_2d_transforms_to_pixel = true
+snap_2d_vertices_to_pixel = true
+initial_position = 1
+title = "Network error"
+size = Vector2i(500, 200)
+exclusive = false
+borderless = true
+always_on_top = true
+transparent = true
+popup_window = true
+max_size = Vector2i(500, 32768)
+dialog_autowrap = true
+script = ExtResource("14_prvet")
 
-[connection signal="pressed" from="main/solo" to="main" method="_on_solo_pressed"]
-[connection signal="pressed" from="main/coop" to="main" method="_on_coop_pressed"]
-[connection signal="canceled" from="main/HostOrJoin" to="main" method="_on_host_or_join_canceled"]
-[connection signal="confirmed" from="main/HostOrJoin" to="main" method="_on_host_or_join_confirmed"]
-[connection signal="pressed" from="Host/back" to="Host" method="_on_back_pressed"]
-[connection signal="pressed" from="Host/back" to="." method="change_menu" binds= [NodePath("../../main")]]
-[connection signal="text_changed" from="Host/HBoxContainer/port" to="Host" method="_on_port_text_changed"]
-[connection signal="pressed" from="Host/host" to="Host" method="_on_host_pressed"]
-[connection signal="pressed" from="Join/back" to="Join" method="_on_back_pressed"]
-[connection signal="pressed" from="Join/back" to="." method="change_menu" binds= [NodePath("../../main")]]
-[connection signal="text_changed" from="Join/HBoxContainer/ip" to="Join" method="_on_ip_text_changed"]
-[connection signal="text_changed" from="Join/HBoxContainer/port" to="Join" method="_on_port_text_changed"]
-[connection signal="text_changed" from="Join/offer" to="Join" method="_on_offer_text_changed"]
-[connection signal="pressed" from="Join/join" to="Join" method="_on_join_pressed"]
+[connection signal="pressed" from="Main/solo" to="." method="_on_solo_pressed"]
+[connection signal="pressed" from="Main/host" to="." method="_on_host_pressed"]
+[connection signal="pressed" from="Main/join" to="." method="_on_join_pressed"]
+[connection signal="pressed" from="Main/credits" to="." method="_on_credits_pressed"]
+[connection signal="pressed" from="Main/language" to="." method="_on_language_pressed"]
+[connection signal="canceled" from="Main/ConnectionMethod" to="." method="_on_connection_method_canceled"]
+[connection signal="confirmed" from="Main/ConnectionMethod" to="." method="_on_connection_method_confirmed"]
+[connection signal="pressed" from="EnetHost/back" to="." method="_on_back_pressed"]
+[connection signal="text_changed" from="EnetHost/HBoxContainer/port" to="EnetHost" method="_on_port_text_changed"]
+[connection signal="pressed" from="EnetHost/host" to="EnetHost" method="_on_host_pressed"]
+[connection signal="timeout" from="EnetHost/Timer" to="EnetHost" method="_on_timer_timeout"]
+[connection signal="pressed" from="EnetJoin/back" to="." method="_on_back_pressed"]
+[connection signal="item_clicked" from="EnetJoin/ItemList" to="EnetJoin" method="_on_item_list_item_clicked"]
+[connection signal="text_changed" from="EnetJoin/HBoxContainer/port" to="EnetJoin" method="_on_port_text_changed"]
+[connection signal="pressed" from="EnetJoin/Join" to="EnetJoin" method="_on_join_pressed"]
+[connection signal="timeout" from="EnetJoin/Timer" to="EnetJoin" method="_on_timer_timeout"]
+[connection signal="pressed" from="WebRtcHost/back" to="." method="_on_back_pressed"]
+[connection signal="pressed" from="WebRtcJoin/back" to="." method="_on_back_pressed"]
+[connection signal="pressed" from="Credits/back" to="." method="_on_back_pressed"]
+[connection signal="pressed" from="Language/back" to="." method="_on_back_pressed"]
