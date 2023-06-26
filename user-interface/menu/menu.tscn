@@ -1,0 +1,1486 @@
+[gd_scene load_steps=58 format=3 uid="uid://bn5nhkofewyh8"]
+
+[ext_resource type="Theme" uid="uid://dotibkyt5mm7v" path="res://user-interface/menu/theme/menu.tres" id="1_vx63d"]
+[ext_resource type="Script" path="res://user-interface/control-node/SFXButton.gd" id="3_wn432"]
+[ext_resource type="Script" path="res://user-interface/control-node/FormatLabel.gd" id="4_h21eu"]
+[ext_resource type="PackedScene" uid="uid://bsf3tthvg8rot" path="res://user-interface/menu/settings/reset.tscn" id="5_nrino"]
+[ext_resource type="Script" path="res://user-interface/control-node/SFXToggler.gd" id="5_vnfn8"]
+[ext_resource type="Script" path="res://user-interface/menu/settings/audio.gd" id="6_8l51l"]
+[ext_resource type="Script" path="res://user-interface/control-node/PercentageSlider.gd" id="8_b5jhj"]
+[ext_resource type="Script" path="res://user-interface/menu/settings/graphic.tres.gd" id="8_uia1o"]
+[ext_resource type="FontFile" uid="uid://c7ppp33ch6e5" path="res://user-interface/resource/font/Vbutlong.ttf" id="10_qmh8v"]
+[ext_resource type="FontFile" uid="uid://dxj7w5h2hhvec" path="res://user-interface/resource/font/NotoSansMono-Regular.ttf" id="11_51w8a"]
+[ext_resource type="Texture2D" uid="uid://ccgackr4sld8n" path="res://autoload/item-manager/point.png" id="13_28gra"]
+[ext_resource type="Texture2D" uid="uid://cx7ewf38kbh34" path="res://entity/player/reimu/resource/reimu-hitbox.png" id="14_8kxqp"]
+[ext_resource type="PackedScene" uid="uid://bk08ga1mfcleb" path="res://entity/player/reimu/reimu.tscn" id="16_o0h3l"]
+[ext_resource type="PackedScene" uid="uid://ffnff8ahyxxn" path="res://entity/player/reimu/reimu_sprite.tscn" id="17_3eq3m"]
+[ext_resource type="Script" path="res://entity/bullet/Seeker.cs" id="19_2j5r6"]
+[ext_resource type="Texture2D" uid="uid://cu2ufhkx3vayf" path="res://entity/player/reimu/resource/ofuda.png" id="20_tslrj"]
+[ext_resource type="PackedScene" uid="uid://bsa0xvb26o22u" path="res://entity/player/reimu/yinyang_orb.tscn" id="21_jahto"]
+[ext_resource type="Texture2D" uid="uid://bkym7gv6hfekh" path="res://entity/player/marisa/resource/uncutmari.png" id="22_qco63"]
+[ext_resource type="Shader" path="res://level/background/noise-colorize.gdshader" id="24_oka33"]
+[ext_resource type="Texture2D" uid="uid://cwm35yxq5ojxd" path="res://entity/player/marisa/resource/laser-texture.tres" id="25_b00sl"]
+[ext_resource type="Shader" path="res://entity/bullet/resource/BulletGlow.gdshader" id="26_85e12"]
+[ext_resource type="Texture2D" uid="uid://dxsf3vpqsosf1" path="res://entity/enemy/phantom/fire_particle.png" id="27_aqtxu"]
+[ext_resource type="Texture2D" uid="uid://c7k6r1xgk2xii" path="res://entity/player/marisa/resource/marisa-hitbox.png" id="28_l8ygb"]
+
+[sub_resource type="GDScript" id="GDScript_18mvs"]
+script/source = "extends VBoxContainer
+
+@onready var drag :SFXButton = $drag
+@onready var bomb :SFXButton = $bomb
+@onready var raw :SFXToggler = $raw
+@onready var sentivity :HSlider = $sentivity
+@onready var sentivityLabel :FormatLabel = $SentivityLabel
+
+@onready var user_data :UserData = Global.user_data
+
+var switch := false
+
+func _ready() -> void:
+	bomb.update_label(global.get_input_string(user_data.bomb_bind))
+	drag.update_label(global.get_input_string(user_data.drag_bind))
+	raw.set_pressed_no_signal(user_data.raw_input)
+	sentivity.value = user_data.sentivity
+
+func _unhandled_input(event:InputEvent) -> void:
+	if not (event is InputEventMouseButton or event is InputEventKey):
+		return
+	
+	if switch:
+		user_data.drag_bind = event
+		drag.update_label(global.get_input_string(event))
+	else:
+		user_data.bomb_bind = event
+		bomb.update_label(global.get_input_string(event))
+	
+	set_process_unhandled_input(false)
+
+func _on_bomb_pressed() -> void:
+	bomb.update_label('Press a button')
+	switch = false
+	set_process_unhandled_input(true)
+
+func _on_drag_pressed() -> void:
+	drag.update_label('Press a button')
+	switch = true
+	set_process_unhandled_input(true)
+
+func _on_sentivity_value_changed(value:float) -> void:
+	sentivityLabel.update_label(value)
+
+func _exit_tree() -> void:
+	user_data.sentivity = sentivity.value
+	user_data.raw_input = raw.button_pressed
+
+func _on_reset_pressed():
+	raw.button_pressed = true
+	sentivity.value = 1.0
+	InputMap.load_from_project_settings()
+	bomb.update_label(global.get_input_string(user_data.bomb_bind))
+	drag.update_label(global.get_input_string(user_data.drag_bind))
+"
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_15cds"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+bg_color = Color(0.101961, 0.101961, 0.101961, 0.501961)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+corner_detail = 4
+
+[sub_resource type="GDScript" id="GDScript_ud3jd"]
+script/source = "extends RichTextLabel
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	pass
+"
+
+[sub_resource type="GDScript" id="GDScript_thp2o"]
+script/source = "extends Node2D
+
+@onready var characters := $Preview
+
+func _change_character(next:bool) -> void:
+	if next:
+		characters.current_tab += 1
+	else:
+		characters.current_tab -= 1
+
+func _exit_tree() -> void:
+	Global.player1 = characters.get_child(characters.current_tab).get_meta('scene').instantiate()
+	rpc('set_p2_character', characters.current_tab)
+
+@rpc('reliable')
+func set_p2_character(idx:int) -> void:
+	Global.player2 = characters.get_child(idx).get_meta('scene').instantiate()
+"
+
+[sub_resource type="GDScript" id="GDScript_201ki"]
+script/source = "extends AnimatedSprite2D
+
+func _ready() -> void:
+	visibility_changed.connect(_visibility_changed)
+
+@onready var bullet := $bullet
+@onready var timer := $Timer
+func _visibility_changed() -> void:
+	if visible:
+		timer.start()
+	else:
+		timer.stop()
+		bullet.Clear()
+"
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ut74g"]
+radius = 8.0
+height = 32.0
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_7ry75"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("22_qco63")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="GDScript" id="GDScript_y2fou"]
+script/source = "extends AnimatedSprite2D
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	visibility_changed.connect(_visibility_changed)
+	
+@onready var animator := $MasterSpark/AnimationPlayer
+func _visibility_changed() -> void:
+	if visible:
+		animator.play(\"open_fire\")
+	else:
+		animator.stop()
+		animator.seek(0., true)
+"
+
+[sub_resource type="Gradient" id="Gradient_4jwyn"]
+colors = PackedColorArray(0, 0.262745, 0.658824, 0, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_bvv6u"]
+gradient = SubResource("Gradient_4jwyn")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_y1xq4"]
+shader = ExtResource("24_oka33")
+shader_parameter/velocity = Vector2(-1, 0)
+shader_parameter/color_map = SubResource("GradientTexture1D_bvv6u")
+
+[sub_resource type="Curve" id="Curve_s8ddt"]
+_data = [Vector2(0, 0.496599), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_eweoi"]
+gradient = SubResource("Gradient_4jwyn")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qr3qo"]
+shader = ExtResource("26_85e12")
+shader_parameter/time_scale = null
+shader_parameter/alpha_offset = null
+shader_parameter/spin = null
+shader_parameter/sin_alpha = null
+shader_parameter/wobble = null
+shader_parameter/wobble_min = 0.75
+shader_parameter/color_map = SubResource("GradientTexture1D_eweoi")
+
+[sub_resource type="Curve" id="Curve_f152w"]
+_data = [Vector2(0, 0.496599), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_8pqvy"]
+offsets = PackedFloat32Array(0, 0.345794, 0.64486, 1)
+colors = PackedColorArray(0, 0, 0, 0, 0.466181, 0.466181, 0.466181, 1, 0.466667, 0.466667, 0.466667, 1, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_4s8ve"]
+gradient = SubResource("Gradient_8pqvy")
+width = 960
+height = 470
+fill_to = Vector2(0, 1)
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_qloao"]
+blend_mode = 1
+light_mode = 1
+
+[sub_resource type="Gradient" id="Gradient_ceyqm"]
+colors = PackedColorArray(0.2565, 0.418317, 0.95, 1, 0.254902, 0.419608, 0.94902, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_j4e4t"]
+gradient = SubResource("Gradient_ceyqm")
+width = 32
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_3moko"]
+emission_shape = 3
+emission_box_extents = Vector3(40, -480, 0)
+particle_flag_disable_z = true
+direction = Vector3(0, 1, 0)
+spread = 0.0
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 42.25
+initial_velocity_max = 126.75
+angular_velocity_min = 111.55
+angular_velocity_max = 273.8
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+scale_min = 0.1
+scale_max = 0.2
+color_ramp = SubResource("GradientTexture1D_j4e4t")
+hue_variation_max = 0.03
+
+[sub_resource type="Animation" id="Animation_d3sxi"]
+resource_name = "Master Spark"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("beam2:width")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [32.0, 270.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("beam2:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(154, 995), Vector2(154, 942)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("beam2/glow2:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, -7), Vector2(0, -51)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("beam2/glow2:width")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [64.0, 470.0]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("beam2/glow2/BeamParticle:process_material:emission_box_extents")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(40, -480, 0), Vector3(235, -480, 0)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("beam2/glow2/BeamParticle:speed_scale")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.0, 2.0]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("beam2:material:shader_parameter/velocity")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-1, 0), Vector2(-2, 0)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("beam2/glow2/BeamParticle:emitting")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("RayCast2D/RayCast2D2:position")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-8, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_65s67"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("beam2:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(154, 942)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("beam2:width")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("beam2/glow2:width")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("beam2/glow2/BeamParticle:emitting")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("beam2/glow2/BeamParticle:process_material:emission_box_extents")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(40, -480, 0)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("beam2:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(154, 995)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("beam2/glow2:position")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -7)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("beam2/glow2/BeamParticle:speed_scale")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+
+[sub_resource type="Animation" id="Animation_vr8oi"]
+resource_name = "open_fire"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("beam2:width")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 32.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("beam2/glow2:width")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 64.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("beam2/glow2/BeamParticle:emitting")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("beam2/glow2/BeamParticle:process_material:emission_box_extents")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(40, -480, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("beam2:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(154, 995)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("beam2/glow2:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -7)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("beam2/glow2/BeamParticle:speed_scale")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_huuam"]
+_data = {
+"Master Spark": SubResource("Animation_d3sxi"),
+"RESET": SubResource("Animation_65s67"),
+"open_fire": SubResource("Animation_vr8oi")
+}
+
+[sub_resource type="GDScript" id="GDScript_kwpbj"]
+script/source = "extends VBoxContainer
+
+var server := ENetMultiplayerPeer.new()
+func  _ready() -> void:
+	visibility_changed.connect(_visibility_changed)
+	server.peer_connected.connect(_peer_connected)
+	socket.set_broadcast_enabled(true)
+	socket.set_dest_address(\"255.255.255.255\", 4343)
+	update_ip()
+	
+func _visibility_changed() -> void:
+	if visible:
+		return
+	
+	animator.play(\"RESET\")
+	server.close()
+	server_info.clear()
+	update_ip()
+
+@onready var host := $host
+@onready var animator := $AnimationPlayer
+@onready var timer := $Timer
+func _on_host_pressed() -> void:
+	var err := server.create_server(port, 1)
+	if err:
+		host.text = 'Error ' + error_string(err)
+		server.close()
+		return
+	animator.play(\"waitting\")
+	server_info.append(port)
+	server_info.append(ip.text)
+	timer.start()
+	
+var server_info := []
+func _peer_connected() -> void:
+	multiplayer.multiplayer_peer = server
+	Global.change_scene(global.lobby)
+	
+@onready var ip := $HBoxContainer/ip
+func update_ip() -> void:
+	var ips := IP.get_local_addresses()
+	if ips.is_empty():
+		host.disabled = true
+		return
+	host.disabled = false
+	ip.text = ips[0]
+
+var port := 0
+func _on_port_text_changed(new_text:String):
+	port = int(new_text)
+	host.disabled = port <= 1024 or port >= 65536
+
+var socket := PacketPeerUDP.new()
+func _on_timer_timeout():
+	socket.put_var(server_info)
+"
+
+[sub_resource type="Animation" id="Animation_o46ky"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("host:disabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("host:text")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["Host Party"]
+}
+
+[sub_resource type="Animation" id="Animation_cp3fs"]
+resource_name = "waitting"
+length = 4.0
+loop_mode = 1
+step = 1.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("host:disabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("host:text")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1, 2, 3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": ["Waiting for connection", "Waiting for connection.", "Waiting for connection..", "Waiting for connection..."]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_h3542"]
+_data = {
+"RESET": SubResource("Animation_o46ky"),
+"waitting": SubResource("Animation_cp3fs")
+}
+
+[sub_resource type="GDScript" id="GDScript_sm1va"]
+script/source = "extends VBoxContainer
+
+@onready var client := ENetMultiplayerPeer.new()
+@onready var animator := $AnimationPlayer
+@onready var timer := $Timer
+func _ready() -> void:
+	client.peer_connected.connect(_peer_connected)
+	socket.bind(4343, '255.255.255.255')
+	visibility_changed.connect(_visibility_changed)
+	
+func _visibility_changed() -> void:
+	if visible:
+		timer.start()
+		return
+	
+	client.close()
+	ip.clear()
+	port_label.text = '6567'
+	server_list.clear()
+	list.clear()
+	animator.play(\"RESET\")
+	timer.stop()
+
+@onready var ip := $HBoxContainer/ip
+@onready var port_label := $HBoxContainer/port
+@onready var join_button := $Join
+func join(ip_addr:String, port_num:int):
+	var err := client.create_client(ip_addr, port_num)
+	animator.play(\"connecting\")
+	if err == ERR_ALREADY_IN_USE:
+		client.close()
+		join(ip_addr, port_num)
+	else:
+		animator.stop()
+		join_button.text = 'Error ' + error_string(err)
+
+func _peer_connected() -> void:
+	multiplayer.multiplayer_peer = client
+	Global.change_scene(global.lobby)
+
+var port := 0
+func _on_port_text_changed(new_text):
+	port = int(new_text)
+	if port <= 1024 or port >= 65536:
+		join_button.disabled = true
+		join_button.text = 'Invaild port'
+		return
+	else:
+		join_button.disabled = false
+		join_button.text = 'Join Party'
+
+@onready var list := $ItemList
+var server_list := {}
+var socket := PacketPeerUDP.new()
+func _on_timer_timeout() -> void:
+	for server in server_list:
+		if server[3] >= 5:
+			server_list.erase(server[1])
+			list.remove_item(server[2])
+		else:
+			server[3] += 1
+	
+	for packet in range(socket.get_available_packet_count()):
+		var server_info : Array = socket.get_var()
+		
+		if not server_info[0] is int or not server_info[1] is String:
+			continue
+		
+		if server_list.has(server_info[1]):
+			var old_info : Array = server_list[server_info[1]]
+			old_info[0] = server_info[0]
+			old_info[3] = 0
+			continue
+			
+		server_info.append(list.add_item(server_info[1]))
+		server_info.append(0)
+		server_list[server_info[1]] = server_info
+
+func _on_item_list_item_clicked(index, _at_position, _mouse_button_index) -> void:
+	var ip_addr : String = list.get_item_text(index)
+	join(ip_addr, server_list[ip_addr][0])
+
+func _on_join_pressed() -> void:
+	join(ip.text, port)
+"
+
+[sub_resource type="Animation" id="Animation_s48o5"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Join:text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": ["Join Party"]
+}
+
+[sub_resource type="Animation" id="Animation_j5e3v"]
+resource_name = "connecting"
+length = 6.0
+step = 1.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Join:text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 2, 3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": ["Connecting", "Connecting.", "Connecting..", "Connecting..."]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_at5y1"]
+_data = {
+"RESET": SubResource("Animation_s48o5"),
+"connecting": SubResource("Animation_j5e3v")
+}
+
+[sub_resource type="GDScript" id="GDScript_xwohh"]
+script/source = "extends VBoxContainer
+
+var webrtc := WebRTCMultiplayerPeer.new()
+var peer := WebRTCPeerConnection.new()
+
+func _ready() -> void:
+	visibility_changed.connect(_visibility_changed)
+	peer.ice_candidate_created.connect(_add_ice)
+	peer.session_description_created.connect(_add_sdp)
+	
+func host() -> void:
+	pass
+	
+func _visibility_changed() -> void:
+	if visible:
+		peer.initialize(global.ice_server)
+		webrtc.create_mesh(1)
+		webrtc.add_peer(peer, 1)
+		peer.create_offer()
+		return
+	offer.clear()
+	Offer.clear()
+	webrtc.close()
+	peer.close()
+
+@onready var Offer := $Offer
+var offer := []
+func _add_ice(media:String, index:int, Name:String) -> void:
+	peer.add_ice_candidate(media, index, Name)
+	
+	offer.append(index)
+	offer.append(media)
+	offer.append(Name)
+	
+	prepare_offer()
+	
+func _add_sdp(type:String, sdp:String) -> void:
+	peer.set_local_description(type, sdp)
+	
+	offer.append(type)
+	offer.append(sdp)
+	
+	prepare_offer()
+	
+func prepare_offer() -> void:
+	print(offer)
+	if offer.size() != 5:
+		return
+	Offer.text = var_to_str(offer)
+"
+
+[node name="Menu" type="VBoxContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_vx63d")
+
+[node name="background" type="Node2D" parent="."]
+
+[node name="TabContainer" type="TabContainer" parent="."]
+layout_mode = 2
+size_flags_vertical = 3
+tabs_visible = false
+
+[node name="Settings" type="TabContainer" parent="TabContainer"]
+layout_mode = 2
+
+[node name="Controls" type="VBoxContainer" parent="TabContainer/Settings"]
+visible = false
+layout_mode = 2
+script = SubResource("GDScript_18mvs")
+
+[node name="drag" type="Button" parent="TabContainer/Settings/Controls"]
+layout_mode = 2
+focus_mode = 0
+mouse_default_cursor_shape = 2
+text = "Drag: %s"
+alignment = 0
+script = ExtResource("3_wn432")
+
+[node name="bomb" type="Button" parent="TabContainer/Settings/Controls"]
+layout_mode = 2
+focus_neighbor_right = NodePath("../reset")
+focus_neighbor_bottom = NodePath("../reset")
+focus_next = NodePath("../reset")
+focus_mode = 0
+mouse_default_cursor_shape = 2
+text = "Bomb: %s"
+alignment = 0
+script = ExtResource("3_wn432")
+
+[node name="SentivityLabel" type="Label" parent="TabContainer/Settings/Controls"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Input sentivity : %1.1f"
+script = ExtResource("4_h21eu")
+
+[node name="sentivity" type="HSlider" parent="TabContainer/Settings/Controls"]
+layout_mode = 2
+focus_mode = 0
+min_value = 0.1
+max_value = 2.0
+step = 0.1
+value = 2.0
+allow_greater = true
+tick_count = 20
+ticks_on_borders = true
+
+[node name="raw" type="CheckButton" parent="TabContainer/Settings/Controls"]
+layout_mode = 2
+focus_mode = 0
+text = "Raw Input"
+script = ExtResource("5_vnfn8")
+
+[node name="reset" parent="TabContainer/Settings/Controls" instance=ExtResource("5_nrino")]
+layout_mode = 2
+
+[node name="Audio" type="VBoxContainer" parent="TabContainer/Settings"]
+visible = false
+layout_mode = 2
+script = ExtResource("6_8l51l")
+
+[node name="BgmLabel" type="Label" parent="TabContainer/Settings/Audio"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Music: %d %%"
+script = ExtResource("4_h21eu")
+
+[node name="bgm" type="HSlider" parent="TabContainer/Settings/Audio" node_paths=PackedStringArray("label")]
+layout_mode = 2
+size_flags_vertical = 1
+min_value = -60.0
+max_value = 0.0
+step = 0.6
+allow_lesser = true
+tick_count = 10
+script = ExtResource("8_b5jhj")
+label = NodePath("../BgmLabel")
+
+[node name="SfxLabel" type="Label" parent="TabContainer/Settings/Audio"]
+layout_mode = 2
+size_flags_horizontal = 4
+focus_neighbor_left = NodePath("../bgm")
+focus_neighbor_top = NodePath("../bgm")
+focus_previous = NodePath("../bgm")
+text = "Sound Effect: %d %%"
+script = ExtResource("4_h21eu")
+
+[node name="sfx" type="HSlider" parent="TabContainer/Settings/Audio" node_paths=PackedStringArray("label")]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+min_value = -60.0
+max_value = 0.0
+step = 0.6
+allow_lesser = true
+tick_count = 10
+script = ExtResource("8_b5jhj")
+label = NodePath("../SfxLabel")
+
+[node name="micLabel" type="Label" parent="TabContainer/Settings/Audio"]
+layout_mode = 2
+size_flags_horizontal = 4
+focus_neighbor_left = NodePath("../bgm")
+focus_neighbor_top = NodePath("../bgm")
+focus_previous = NodePath("../bgm")
+text = "Microphone: %d %%"
+script = ExtResource("4_h21eu")
+
+[node name="mic" type="HSlider" parent="TabContainer/Settings/Audio" node_paths=PackedStringArray("label")]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+min_value = -60.0
+max_value = 0.0
+step = 0.6
+allow_lesser = true
+tick_count = 10
+script = ExtResource("8_b5jhj")
+label = NodePath("../micLabel")
+
+[node name="voiceLabel" type="Label" parent="TabContainer/Settings/Audio"]
+layout_mode = 2
+size_flags_horizontal = 4
+focus_neighbor_left = NodePath("../bgm")
+focus_neighbor_top = NodePath("../bgm")
+focus_previous = NodePath("../bgm")
+text = "Voice: %d %%"
+script = ExtResource("4_h21eu")
+
+[node name="voice" type="HSlider" parent="TabContainer/Settings/Audio" node_paths=PackedStringArray("label")]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+min_value = -60.0
+max_value = 0.0
+step = 0.6
+allow_lesser = true
+tick_count = 10
+script = ExtResource("8_b5jhj")
+label = NodePath("../voiceLabel")
+
+[node name="reset" parent="TabContainer/Settings/Audio" instance=ExtResource("5_nrino")]
+layout_mode = 2
+
+[node name="Graphic" type="VBoxContainer" parent="TabContainer/Settings"]
+layout_mode = 2
+script = ExtResource("8_uia1o")
+
+[node name="fullscreen" type="CheckButton" parent="TabContainer/Settings/Graphic"]
+layout_mode = 2
+focus_neighbor_right = NodePath("../borderless")
+focus_neighbor_bottom = NodePath("../borderless")
+focus_next = NodePath("../borderless")
+focus_mode = 0
+mouse_default_cursor_shape = 2
+text = "Full Screen"
+script = ExtResource("5_vnfn8")
+
+[node name="borderless" type="CheckButton" parent="TabContainer/Settings/Graphic"]
+layout_mode = 2
+focus_neighbor_left = NodePath("../fullscreen")
+focus_neighbor_top = NodePath("../fullscreen")
+focus_previous = NodePath("../fullscreen")
+focus_mode = 0
+mouse_default_cursor_shape = 2
+text = "Borderless"
+script = ExtResource("5_vnfn8")
+
+[node name="reset" parent="TabContainer/Settings/Graphic" instance=ExtResource("5_nrino")]
+layout_mode = 2
+
+[node name="play" type="TabContainer" parent="TabContainer"]
+visible = false
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+
+[node name="Level" type="VBoxContainer" parent="TabContainer/play"]
+layout_mode = 2
+
+[node name="OptionButton" type="OptionButton" parent="TabContainer/play/Level"]
+layout_mode = 2
+alignment = 1
+item_count = 1
+selected = 0
+popup/item_0/text = "Test level"
+popup/item_0/id = 0
+
+[node name="LeftRightButton" type="HBoxContainer" parent="TabContainer/play/Level"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="previous" type="Button" parent="TabContainer/play/Level/LeftRightButton"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 32
+text = "<"
+flat = true
+alignment = 0
+script = ExtResource("3_wn432")
+press_sfx = false
+
+[node name="next" type="Button" parent="TabContainer/play/Level/LeftRightButton"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 32
+text = ">"
+flat = true
+alignment = 2
+script = ExtResource("3_wn432")
+
+[node name="enter" type="Button" parent="TabContainer/play/Level"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 48
+text = "Challenge Accept"
+script = ExtResource("3_wn432")
+
+[node name="Score" type="TabContainer" parent="TabContainer/play"]
+visible = false
+layout_mode = 2
+tab_alignment = 2
+
+[node name="Local" type="RichTextLabel" parent="TabContainer/play/Score"]
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("10_qmh8v")
+theme_override_fonts/mono_font = ExtResource("11_51w8a")
+theme_override_font_sizes/normal_font_size = 64
+theme_override_font_sizes/mono_font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_15cds")
+bbcode_enabled = true
+text = "Personal Best:
+[code][color=ff7085]Score:%09d[/color]
+[color=147dfa]  Item:  %06d[/color]
+ [color=63c259] Graze: %06d[/color]
+[color=ffb273]Try count: %d[/color]
+Game speed %d%%[/code]
+Partner Score:
+[code]%s
+[color=ff7085]Score:%09d[/color]
+[color=147dfa]  Item:  %06d[/color]
+ [color=63c259] Graze: %06d[/color]"
+autowrap_mode = 0
+script = SubResource("GDScript_ud3jd")
+
+[node name="Point" type="Sprite2D" parent="TabContainer/play/Score/Local"]
+texture_filter = 1
+position = Vector2(25, 199)
+scale = Vector2(2, 2)
+texture = ExtResource("13_28gra")
+
+[node name="Reimu-hitbox" type="Sprite2D" parent="TabContainer/play/Score/Local/Point"]
+texture_filter = 1
+position = Vector2(0, 22.5)
+scale = Vector2(2, 2)
+texture = ExtResource("14_8kxqp")
+
+[node name="Point2" type="Sprite2D" parent="TabContainer/play/Score/Local/Point"]
+texture_filter = 1
+position = Vector2(-1.5, 195.5)
+texture = ExtResource("13_28gra")
+
+[node name="Reimu-hitbox2" type="Sprite2D" parent="TabContainer/play/Score/Local/Point/Point2"]
+texture_filter = 1
+position = Vector2(0, 22.5)
+scale = Vector2(2, 2)
+texture = ExtResource("14_8kxqp")
+
+[node name="Internet" type="Label" parent="TabContainer/play/Score"]
+visible = false
+layout_mode = 2
+text = "Not yet implemented"
+
+[node name="Character" type="VBoxContainer" parent="TabContainer/play"]
+visible = false
+layout_mode = 2
+script = SubResource("GDScript_thp2o")
+
+[node name="Preview" type="TabContainer" parent="TabContainer/play/Character"]
+texture_filter = 1
+layout_mode = 2
+tabs_visible = false
+
+[node name="Reimu" type="Control" parent="TabContainer/play/Character/Preview"]
+layout_mode = 2
+metadata/scene = ExtResource("16_o0h3l")
+
+[node name="ReimuSprite" parent="TabContainer/play/Character/Preview/Reimu" instance=ExtResource("17_3eq3m")]
+position = Vector2(270, 642)
+scale = Vector2(2, 2)
+script = SubResource("GDScript_201ki")
+
+[node name="Hitbox2" type="Sprite2D" parent="TabContainer/play/Character/Preview/Reimu/ReimuSprite"]
+z_index = 100
+position = Vector2(0, -8)
+texture = ExtResource("14_8kxqp")
+
+[node name="bullet" type="Node2D" parent="TabContainer/play/Character/Preview/Reimu/ReimuSprite"]
+z_index = 1
+position = Vector2(0, -8)
+script = ExtResource("19_2j5r6")
+SeekMask = 2
+seekRadius = 270.0
+maxBullet = 72
+Grazable = false
+hitbox = SubResource("CapsuleShape2D_ut74g")
+CollisionMask = 3
+texture = ExtResource("20_tslrj")
+
+[node name="YinyangOrb" parent="TabContainer/play/Character/Preview/Reimu/ReimuSprite/bullet" instance=ExtResource("21_jahto")]
+position = Vector2(72, 0)
+rotation = -1.5708
+flip_v = true
+
+[node name="YinyangOrb2" parent="TabContainer/play/Character/Preview/Reimu/ReimuSprite/bullet" instance=ExtResource("21_jahto")]
+texture_filter = 1
+position = Vector2(-72, 0)
+rotation = -1.5708
+flip_h = false
+
+[node name="Marker2D" type="Marker2D" parent="TabContainer/play/Character/Preview/Reimu/ReimuSprite/bullet"]
+position = Vector2(13.0002, -39.9999)
+rotation = -1.5708
+gizmo_extents = 51.7
+
+[node name="Position2D2" type="Marker2D" parent="TabContainer/play/Character/Preview/Reimu/ReimuSprite/bullet"]
+position = Vector2(-13, -40)
+rotation = -1.5708
+gizmo_extents = 82.9
+
+[node name="Timer" type="Timer" parent="TabContainer/play/Character/Preview/Reimu/ReimuSprite"]
+process_callback = 0
+wait_time = 0.267
+
+[node name="Marisa" type="Control" parent="TabContainer/play/Character/Preview"]
+visible = false
+layout_mode = 2
+
+[node name="Marisa" type="AnimatedSprite2D" parent="TabContainer/play/Character/Preview/Marisa"]
+z_index = 10
+position = Vector2(270, 592)
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_7ry75")
+script = SubResource("GDScript_y2fou")
+
+[node name="MasterSpark" type="Node2D" parent="TabContainer/play/Character/Preview/Marisa/Marisa"]
+position = Vector2(-153, -1091)
+
+[node name="beam2" type="Line2D" parent="TabContainer/play/Character/Preview/Marisa/Marisa/MasterSpark"]
+texture_filter = 1
+texture_repeat = 2
+material = SubResource("ShaderMaterial_y1xq4")
+position = Vector2(154, 995)
+points = PackedVector2Array(0, 0, 0, -960)
+width = 0.0
+width_curve = SubResource("Curve_s8ddt")
+texture = ExtResource("25_b00sl")
+texture_mode = 1
+begin_cap_mode = 2
+sharp_limit = 0.0
+round_precision = 16
+
+[node name="glow2" type="Line2D" parent="TabContainer/play/Character/Preview/Marisa/Marisa/MasterSpark/beam2"]
+texture_filter = 1
+texture_repeat = 2
+material = SubResource("ShaderMaterial_qr3qo")
+position = Vector2(0, -7)
+points = PackedVector2Array(0, 0, 0, -960)
+width = 0.0
+width_curve = SubResource("Curve_f152w")
+texture = SubResource("GradientTexture2D_4s8ve")
+texture_mode = 1
+begin_cap_mode = 2
+sharp_limit = 0.0
+round_precision = 16
+
+[node name="BeamParticle" type="GPUParticles2D" parent="TabContainer/play/Character/Preview/Marisa/Marisa/MasterSpark/beam2/glow2"]
+z_index = 100
+z_as_relative = false
+material = SubResource("CanvasItemMaterial_qloao")
+position = Vector2(0, -480)
+emitting = false
+amount = 128
+process_material = SubResource("ParticleProcessMaterial_3moko")
+texture = ExtResource("27_aqtxu")
+visibility_rect = Rect2(-32, 480, 64, -960)
+draw_order = 0
+
+[node name="RayCast2D" type="RayCast2D" parent="TabContainer/play/Character/Preview/Marisa/Marisa/MasterSpark"]
+position = Vector2(154, 1002)
+enabled = false
+exclude_parent = false
+target_position = Vector2(0, -960)
+collision_mask = 2
+collide_with_areas = true
+collide_with_bodies = false
+
+[node name="RayCast2D2" type="RayCast2D" parent="TabContainer/play/Character/Preview/Marisa/Marisa/MasterSpark/RayCast2D"]
+position = Vector2(-8, 0)
+enabled = false
+exclude_parent = false
+target_position = Vector2(0, -960)
+collision_mask = 2
+collide_with_areas = true
+collide_with_bodies = false
+
+[node name="RayCast2D3" type="RayCast2D" parent="TabContainer/play/Character/Preview/Marisa/Marisa/MasterSpark/RayCast2D"]
+position = Vector2(8, 0)
+enabled = false
+exclude_parent = false
+target_position = Vector2(0, -960)
+collision_mask = 2
+collide_with_areas = true
+collide_with_bodies = false
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="TabContainer/play/Character/Preview/Marisa/Marisa/MasterSpark"]
+libraries = {
+"": SubResource("AnimationLibrary_huuam")
+}
+
+[node name="Marisa-hitbox" type="Sprite2D" parent="TabContainer/play/Character/Preview/Marisa/Marisa"]
+position = Vector2(-0.5, -10.5)
+texture = ExtResource("28_l8ygb")
+
+[node name="OptionButton" type="OptionButton" parent="TabContainer/play/Character"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("10_qmh8v")
+theme_override_font_sizes/font_size = 48
+alignment = 1
+item_count = 2
+selected = 0
+popup/item_0/text = "Reimu Hakurei"
+popup/item_0/id = 0
+popup/item_1/text = "Marisa"
+popup/item_1/id = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TabContainer/play/Character"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="previous" type="Button" parent="TabContainer/play/Character/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "<"
+flat = true
+alignment = 0
+
+[node name="next" type="Button" parent="TabContainer/play/Character/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = ">"
+flat = true
+alignment = 2
+
+[node name="multiplayer" type="TabContainer" parent="TabContainer"]
+visible = false
+layout_mode = 2
+
+[node name="EnetHost" type="Control" parent="TabContainer/multiplayer"]
+layout_mode = 2
+
+[node name="EnetHost2" type="Label" parent="TabContainer/multiplayer/EnetHost"]
+visible = false
+layout_mode = 0
+offset_left = 125.0
+offset_top = 30.0
+offset_right = 483.0
+offset_bottom = 170.0
+text = "Enet Host"
+
+[node name="EnetHost" type="VBoxContainer" parent="TabContainer/multiplayer/EnetHost"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -603.0
+offset_bottom = -295.0
+grow_horizontal = 2
+grow_vertical = 0
+script = SubResource("GDScript_kwpbj")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TabContainer/multiplayer/EnetHost/EnetHost"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ip" type="LineEdit" parent="TabContainer/multiplayer/EnetHost/EnetHost/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 24
+placeholder_text = "Error getting IP address !"
+max_length = 39
+editable = false
+virtual_keyboard_enabled = false
+middle_mouse_paste_enabled = false
+select_all_on_focus = true
+
+[node name="port" type="LineEdit" parent="TabContainer/multiplayer/EnetHost/EnetHost/HBoxContainer"]
+layout_mode = 2
+text = "6567"
+placeholder_text = "6567"
+max_length = 5
+select_all_on_focus = true
+
+[node name="host" type="Button" parent="TabContainer/multiplayer/EnetHost/EnetHost"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 3
+text = "Host Party"
+script = ExtResource("3_wn432")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="TabContainer/multiplayer/EnetHost/EnetHost"]
+libraries = {
+"": SubResource("AnimationLibrary_h3542")
+}
+
+[node name="Timer" type="Timer" parent="TabContainer/multiplayer/EnetHost/EnetHost"]
+wait_time = 3.0
+
+[node name="tip" type="Label" parent="TabContainer/multiplayer/EnetHost"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -96.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_vertical = 10
+theme_override_font_sizes/font_size = 24
+text = "Tip: Try a different port if not working. If still doesn't work, let your friend host.
+"
+autowrap_mode = 3
+
+[node name="EnetJoin" type="VBoxContainer" parent="TabContainer/multiplayer"]
+visible = false
+layout_mode = 2
+script = SubResource("GDScript_sm1va")
+
+[node name="ItemList" type="ItemList" parent="TabContainer/multiplayer/EnetJoin"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TabContainer/multiplayer/EnetJoin"]
+layout_mode = 2
+
+[node name="ip" type="LineEdit" parent="TabContainer/multiplayer/EnetJoin/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "Paste your friend IP address:"
+max_length = 35
+clear_button_enabled = true
+
+[node name="port" type="LineEdit" parent="TabContainer/multiplayer/EnetJoin/HBoxContainer"]
+layout_mode = 2
+text = "6567"
+placeholder_text = "6567"
+
+[node name="Join" type="Button" parent="TabContainer/multiplayer/EnetJoin"]
+layout_mode = 2
+text = "Join Party"
+script = ExtResource("3_wn432")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="TabContainer/multiplayer/EnetJoin"]
+libraries = {
+"": SubResource("AnimationLibrary_at5y1")
+}
+
+[node name="Timer" type="Timer" parent="TabContainer/multiplayer/EnetJoin"]
+
+[node name="WebRtc" type="VBoxContainer" parent="TabContainer/multiplayer"]
+visible = false
+layout_mode = 2
+script = SubResource("GDScript_xwohh")
+
+[node name="Offer" type="LineEdit" parent="TabContainer/multiplayer/WebRtc"]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "Preparing your *Offer*..."
+editable = false
+select_all_on_focus = true
+
+[node name="Label" type="Label" parent="TabContainer/multiplayer/WebRtc"]
+layout_mode = 2
+text = "Copy your *Offer* above and send it to your friend."
+autowrap_mode = 3
+
+[node name="ReplyOffer" type="LineEdit" parent="TabContainer/multiplayer/WebRtc"]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "Paste your friend *Offer* here"
+select_all_on_focus = true
+
+[node name="TabBar" type="TabBar" parent="."]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+tab_count = 4
+tab_0/title = "Settings"
+tab_1/title = "Play"
+tab_2/title = "Multiplayer"
+tab_3/title = "About"
+
+[connection signal="pressed" from="TabContainer/Settings/Controls/drag" to="TabContainer/Settings/Controls" method="_on_drag_pressed" flags=18]
+[connection signal="pressed" from="TabContainer/Settings/Controls/bomb" to="TabContainer/Settings/Controls" method="_on_bomb_pressed" flags=18]
+[connection signal="value_changed" from="TabContainer/Settings/Controls/sentivity" to="TabContainer/Settings/Controls" method="_on_sentivity_value_changed" flags=18]
+[connection signal="pressed" from="TabContainer/Settings/Controls/reset" to="TabContainer/Settings/Controls" method="_on_reset_pressed"]
+[connection signal="value_changed" from="TabContainer/Settings/Audio/bgm" to="TabContainer/Settings/Audio" method="_on_bgm_value_changed" flags=18]
+[connection signal="value_changed" from="TabContainer/Settings/Audio/sfx" to="TabContainer/Settings/Audio" method="_on_sfx_value_changed" flags=18]
+[connection signal="value_changed" from="TabContainer/Settings/Audio/mic" to="TabContainer/Settings/Audio" method="_on_mic_value_changed"]
+[connection signal="value_changed" from="TabContainer/Settings/Audio/voice" to="TabContainer/Settings/Audio" method="_on_voice_value_changed"]
+[connection signal="pressed" from="TabContainer/Settings/Audio/reset" to="TabContainer/Settings/Audio" method="_on_reset_pressed"]
+[connection signal="toggled" from="TabContainer/Settings/Graphic/fullscreen" to="TabContainer/Settings/Graphic" method="_on_fullscreen_toggled" flags=18]
+[connection signal="toggled" from="TabContainer/Settings/Graphic/borderless" to="TabContainer/Settings/Graphic" method="_on_borderless_toggled" flags=18]
+[connection signal="pressed" from="TabContainer/Settings/Graphic/reset" to="TabContainer/Settings/Graphic" method="_on_reset_pressed"]
+[connection signal="timeout" from="TabContainer/play/Character/Preview/Reimu/ReimuSprite/Timer" to="TabContainer/play/Character/Preview/Reimu/ReimuSprite/bullet" method="SpawnBullet"]
+[connection signal="pressed" from="TabContainer/play/Character/HBoxContainer/previous" to="TabContainer/play/Character" method="_change_character"]
+[connection signal="pressed" from="TabContainer/play/Character/HBoxContainer/next" to="TabContainer/play/Character" method="_change_character"]
+[connection signal="text_changed" from="TabContainer/multiplayer/EnetHost/EnetHost/HBoxContainer/port" to="TabContainer/multiplayer/EnetHost/EnetHost" method="_on_port_text_changed"]
+[connection signal="pressed" from="TabContainer/multiplayer/EnetHost/EnetHost/host" to="TabContainer/multiplayer/EnetHost/EnetHost" method="_on_host_pressed"]
+[connection signal="timeout" from="TabContainer/multiplayer/EnetHost/EnetHost/Timer" to="TabContainer/multiplayer/EnetHost/EnetHost" method="_on_timer_timeout"]
+[connection signal="item_clicked" from="TabContainer/multiplayer/EnetJoin/ItemList" to="TabContainer/multiplayer/EnetJoin" method="_on_item_list_item_clicked"]
+[connection signal="text_changed" from="TabContainer/multiplayer/EnetJoin/HBoxContainer/port" to="TabContainer/multiplayer/EnetJoin" method="_on_port_text_changed"]
+[connection signal="pressed" from="TabContainer/multiplayer/EnetJoin/Join" to="TabContainer/multiplayer/EnetJoin" method="_on_join_pressed"]
+[connection signal="timeout" from="TabContainer/multiplayer/EnetJoin/Timer" to="TabContainer/multiplayer/EnetJoin" method="_on_timer_timeout"]

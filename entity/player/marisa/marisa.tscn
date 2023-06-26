@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://of6l83moa38k"]
+[gd_scene load_steps=32 format=3 uid="uid://of6l83moa38k"]
 
 [ext_resource type="PackedScene" uid="uid://c34lwlqwsc4ve" path="res://entity/player/player.tscn" id="1_vjhba"]
 [ext_resource type="Texture2D" uid="uid://bkym7gv6hfekh" path="res://entity/player/marisa/resource/uncutmari.png" id="2_cw10b"]
@@ -9,7 +9,6 @@
 [ext_resource type="Shader" path="res://entity/bullet/resource/BulletGlow.gdshader" id="4_ht7cp"]
 [ext_resource type="Texture2D" uid="uid://cwm35yxq5ojxd" path="res://entity/player/marisa/resource/laser-texture.tres" id="5_e3y87"]
 [ext_resource type="Texture2D" uid="uid://dxsf3vpqsosf1" path="res://entity/enemy/phantom/fire_particle.png" id="6_8ttm4"]
-[ext_resource type="Curve" uid="uid://co021w3tfbtd8" path="res://entity/player/marisa/resource/laser-curve.tres" id="6_ket6f"]
 [ext_resource type="Texture2D" uid="uid://d2wacgirqsjjn" path="res://entity/white-trans.tres" id="8_gxd18"]
 [ext_resource type="Material" uid="uid://dox27ncd2r5o3" path="res://entity/glow.tres" id="8_oal0d"]
 [ext_resource type="PackedScene" uid="uid://bsnqtgxxjmolk" path="res://entity/player/marisa/ray_cast.tscn" id="12_1qmyi"]
@@ -45,7 +44,6 @@ shader_parameter/displace = 0.0
 shader_parameter/rainbow = null
 shader_parameter/color_map = SubResource("GradientTexture1D_eweoi")
 shader_parameter/wobble = null
-shader_parameter/wobble_max = 1.25
 shader_parameter/wobble_min = 0.75
 
 [sub_resource type="Gradient" id="Gradient_8pqvy"]
@@ -124,43 +122,43 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0, 1),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(154, 995), Vector2(154, 942)]
+"values": [Vector2(154, 995), Vector2(154, 865)]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("beam2/glow2:position")
+tracks/2/path = NodePath("beam2/glow2/BeamParticle:emitting")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(0, -7), Vector2(0, -51)]
+"values": [true]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("beam2/glow2:width")
+tracks/3/path = NodePath("beam2/glow2:position")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
 "times": PackedFloat32Array(0, 1),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [64.0, 470.0]
+"values": [Vector2(0, -48), Vector2(0, -95)]
 }
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("beam2/glow2/BeamParticle:process_material:emission_box_extents")
+tracks/4/path = NodePath("beam2/glow2:width")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
 "times": PackedFloat32Array(0, 1),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector3(40, -480, 0), Vector3(235, -480, 0)]
+"values": [128.0, 470.0]
 }
 tracks/5/type = "value"
 tracks/5/imported = false
@@ -177,26 +175,62 @@ tracks/5/keys = {
 tracks/6/type = "value"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("beam2:material:shader_parameter/velocity")
+tracks/6/path = NodePath("beam2/glow2/BeamParticle:process_material:emission_box_extents")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
 "times": PackedFloat32Array(0, 1),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(-1, 0), Vector2(-2, 0)]
+"values": [Vector3(40, -480, 0), Vector3(235, -480, 0)]
 }
 tracks/7/type = "value"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("beam2/glow2/BeamParticle:emitting")
+tracks/7/path = NodePath("beam2/glow2/BeamParticle:speed_scale")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.0, 2.0]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("beam2/glow2/BeamParticle:process_material:scale_min")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
+"update": 0,
+"values": [0.1]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("beam2/glow2/BeamParticle:process_material:scale_max")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.2]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("beam2/glow2/BeamParticle:position")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, -422), Vector2(0, -266)]
 }
 
 [sub_resource type="Animation" id="Animation_65s67"]
@@ -228,62 +262,62 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("beam2/glow2:width")
+tracks/2/path = NodePath("beam2/glow2/BeamParticle:speed_scale")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [0.0]
+"values": [1.0]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("beam2/glow2/BeamParticle:emitting")
+tracks/3/path = NodePath("beam2/glow2:width")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
+"update": 0,
+"values": [0.0]
 }
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("beam2/glow2/BeamParticle:process_material:emission_box_extents")
+tracks/4/path = NodePath("beam2/glow2:position")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector3(40, -480, 0)]
+"values": [Vector2(0, -7)]
 }
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("beam2:position")
+tracks/5/path = NodePath("beam2/glow2/BeamParticle:emitting")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(154, 995)]
+"values": [false]
 }
 tracks/6/type = "value"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("beam2/glow2:position")
+tracks/6/path = NodePath("beam2/glow2/BeamParticle:process_material:emission_box_extents")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(0, -7)]
+"values": [Vector3(40, -480, 0)]
 }
 tracks/7/type = "value"
 tracks/7/imported = false
@@ -296,6 +330,42 @@ tracks/7/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [1.0]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("beam2/glow2/BeamParticle:process_material:scale_min")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.1]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("beam2/glow2/BeamParticle:process_material:scale_max")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.2]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("beam2/glow2/BeamParticle:position")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -422)]
 }
 
 [sub_resource type="Animation" id="Animation_vr8oi"]
@@ -316,26 +386,26 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("beam2/glow2:width")
+tracks/1/path = NodePath("beam2/glow2/BeamParticle:speed_scale")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [0.0, 64.0]
+"values": [1.0]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("beam2/glow2/BeamParticle:emitting")
+tracks/2/path = NodePath("beam2/glow2:width")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.2),
+"times": PackedFloat32Array(0, 0.5),
 "transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [false, true]
+"update": 0,
+"values": [0.0, 128.0]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
@@ -352,14 +422,14 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("beam2:position")
+tracks/4/path = NodePath("beam2/glow2/BeamParticle:emitting")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(154, 995)]
+"values": [false, true]
 }
 tracks/5/type = "value"
 tracks/5/imported = false
@@ -368,22 +438,10 @@ tracks/5/path = NodePath("beam2/glow2:position")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(0, -7)]
-}
-tracks/6/type = "value"
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/path = NodePath("beam2/glow2/BeamParticle:speed_scale")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [1.0]
+"values": [Vector2(0, 8), Vector2(0, -47)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_huuam"]
@@ -394,7 +452,7 @@ _data = {
 }
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_s1f2m"]
-radius = 130.0
+radius = 134.0
 height = 1024.0
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_cyht7"]
@@ -410,6 +468,7 @@ animations = [{
 
 [node name="Marisa" type="Node2D"]
 texture_filter = 1
+position = Vector2(119, -25)
 
 [node name="Player" parent="." node_paths=PackedStringArray("hitbox") instance=ExtResource("1_vjhba")]
 hitbox = NodePath("Hitbox")
@@ -435,10 +494,9 @@ script = ExtResource("3_vv674")
 texture_filter = 1
 texture_repeat = 2
 material = SubResource("ShaderMaterial_xkttb")
-position = Vector2(154, 995)
+position = Vector2(154, 942)
 points = PackedVector2Array(0, 0, 0, -960)
 width = 0.0
-width_curve = ExtResource("6_ket6f")
 texture = ExtResource("5_e3y87")
 texture_mode = 1
 begin_cap_mode = 2
@@ -452,9 +510,8 @@ material = SubResource("ShaderMaterial_ilqob")
 position = Vector2(0, -7)
 points = PackedVector2Array(0, 0, 0, -960)
 width = 0.0
-width_curve = ExtResource("6_ket6f")
 texture = SubResource("GradientTexture2D_u5d4h")
-texture_mode = 1
+texture_mode = 2
 begin_cap_mode = 2
 sharp_limit = 0.0
 round_precision = 16
@@ -476,12 +533,12 @@ local_coords = true
 z_index = 3000
 z_as_relative = false
 material = ExtResource("8_oal0d")
-position = Vector2(0, -480)
+position = Vector2(0, -422)
 emitting = false
 amount = 128
 process_material = SubResource("ParticleProcessMaterial_rvtdp")
 texture = ExtResource("6_8ttm4")
-visibility_rect = Rect2(-32, 480, 64, -960)
+visibility_rect = Rect2(-270, 480, 540, -960)
 draw_order = 0
 
 [node name="RayCast2D" parent="Player/MasterSpark" instance=ExtResource("12_1qmyi")]
@@ -503,7 +560,7 @@ collision_mask = 0
 constant_linear_velocity = Vector2(2, 0)
 
 [node name="SparkHitbox" type="CollisionShape2D" parent="Player/MasterSpark/Spark"]
-position = Vector2(154, 494)
+position = Vector2(154, 492)
 shape = SubResource("CapsuleShape2D_s1f2m")
 disabled = true
 

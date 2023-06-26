@@ -17,7 +17,7 @@ func press(pitch:bool) -> void:
 		press0.play()
 
 
-@onready var recorder : AudioEffectRecord = AudioServer.get_bus_effect(3, 1)
+@onready var recorder : AudioEffectRecord = AudioServer.get_bus_effect(4, 1)
 func _process(_delta) -> void:
 	rpc('_play_voice', recorder.get_recording())
 

@@ -23,10 +23,9 @@ const game_rect := Vector2i(406, 720)
 
 ################ USER INTERFACE
 const lobby := "res://user-interface/lobby/lobby.tscn"
-const ice_server := { 
-	"iceServers" : [
-		{ "urls": [
-			'stun.l.google.com:19302',
+const ice_server := {
+		"iceServers": [ { "urls": [
+			"stun:stun.l.google.com:19302",
 			'stun1.l.google.com:19302',
 			'stun2.l.google.com:19302',
 			'stun3.l.google.com:19302',
@@ -39,11 +38,8 @@ const ice_server := {
 			'stun.voiparound.com',
 			'stun.voipbuster.com',
 			'stun.voipstunt.com',
-			'stun.voxgratia.org',
-			]
-		}
-	]
-}
+			'stun.voxgratia.org',] } ]
+	}
 
 @onready var tree := get_tree()
 func restart_scene() -> void:

@@ -38,7 +38,6 @@ func _bind_voice(event:InputEvent) -> void:
 	voice_bind = event
 
 @export_category('User data')
-@export var death_time := .3
 @export var shoot_type := "res://entity/Reimu/HomingShoot.tscn"
 
 @export var scores := {}

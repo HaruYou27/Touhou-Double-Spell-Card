@@ -1,0 +1,55 @@
+[gd_resource type="Theme" load_steps=12 format=3 uid="uid://dotibkyt5mm7v"]
+
+[ext_resource type="StyleBox" uid="uid://cebpd4om8pydp" path="res://user-interface/menu/theme/black-lefted.tres" id="1_r1gl7"]
+[ext_resource type="FontFile" uid="uid://cc78r22h75c20" path="res://user-interface/resource/font/NotoSerif-Regular.ttf" id="1_sdo2j"]
+[ext_resource type="StyleBox" uid="uid://bp6kfebep5pa7" path="res://user-interface/menu/theme/black-rounded.tres" id="2_fbp55"]
+[ext_resource type="StyleBox" uid="uid://bs28grumjmq8h" path="res://user-interface/menu/theme/white-rounded.tres" id="3_sh83s"]
+[ext_resource type="Texture2D" uid="uid://dc0jiyy1bbkxg" path="res://user-interface/resource/icon/yin-yang.png" id="4_f6wv7"]
+[ext_resource type="Texture2D" uid="uid://by8c0xsen7656" path="res://user-interface/resource/icon/yin-yang-h.png" id="5_knu4t"]
+[ext_resource type="Texture2D" uid="uid://bpfs1qrrcpysu" path="res://user-interface/resource/icon/yang-yin.png" id="6_ieens"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_f2yet"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lvb2d"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+bg_color = Color(1, 1, 1, 0.6)
+border_width_left = 5
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 5
+corner_detail = 3
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bih4n"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+bg_color = Color(0.1, 0.1, 0.1, 0.6)
+border_width_bottom = 5
+border_color = Color(1, 1, 1, 0.75)
+corner_detail = 1
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2nys1"]
+
+[resource]
+default_font = ExtResource("1_sdo2j")
+default_font_size = 24
+Button/colors/font_hover_color = Color(0.819608, 0, 0, 1)
+Button/colors/font_hover_pressed_color = Color(0.819608, 0.352941, 0.352941, 1)
+Button/colors/font_pressed_color = Color(0.819608, 0, 0, 1)
+Button/styles/focus = SubResource("StyleBoxEmpty_f2yet")
+Button/styles/hover = ExtResource("1_r1gl7")
+Button/styles/normal = ExtResource("2_fbp55")
+Button/styles/pressed = ExtResource("3_sh83s")
+CheckButton/styles/hover_pressed = SubResource("StyleBoxFlat_lvb2d")
+HSlider/icons/grabber = ExtResource("4_f6wv7")
+HSlider/icons/grabber_disabled = ExtResource("5_knu4t")
+HSlider/icons/grabber_highlight = ExtResource("6_ieens")
+Label/styles/normal = ExtResource("2_fbp55")
+TabBar/styles/tab_selected = SubResource("StyleBoxFlat_bih4n")
+TabContainer/styles/panel = SubResource("StyleBoxEmpty_2nys1")

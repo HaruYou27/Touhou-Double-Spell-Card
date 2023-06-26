@@ -2,23 +2,18 @@ shader_type canvas_item;
 render_mode blend_add;
 
 uniform float time_scale;
-uniform bool spin;
 uniform bool alpha_offset;
+uniform bool spin;
 uniform bool sin_alpha;
-uniform float displace = 0.0;
-
-group_uniforms colorize;
 uniform sampler2D color_map;
-uniform bool rainbow;
-
-group_uniforms wobble;
 uniform bool wobble;
-uniform float wobble_min = .75;
+uniform float wobble_min = 1.;
 
-varying float time;
+varying vec2 uv;
 void vertex()
 {
-	time = TIME * time_scale;
+	float time = TIME * time_scale;
+	uv = vec2(abs(sin(time)));
 
 	if (alpha_offset)
 	{
@@ -34,7 +29,7 @@ void vertex()
     }
 	if (wobble)
 	{
-		VERTEX *= wobble_min + abs(sin(time + 1000.0*COLOR.a)) * (1.0 - wobble_min);
+		VERTEX *= wobble_min + abs(sin(time)) * (1.0 - wobble_min);
 	}
 	if (sin_alpha)
 	{
@@ -43,10 +38,6 @@ void vertex()
 }
 void fragment()
 {
-	vec2 uv = COLOR.rg;
-	COLOR.rgb = texture(color_map, uv).rgb;
-	if (rainbow)
-	{
-		COLOR.rgb = mix(COLOR.rgb, texture(color_map, uv + time).rgb, uv.r);
-	}
+	//shift color through time across color map - mix it with white color.
+	COLOR.rgb = mix(texture(color_map, uv).rgb, vec3(1.), COLOR.r);
 }
