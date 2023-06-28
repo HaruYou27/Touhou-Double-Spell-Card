@@ -177,7 +177,6 @@ debug_color = Color(0.713726, 0.105882, 0.701961, 0.419608)
 [node name="Homing" type="Node2D" parent="Player"]
 
 [node name="Timer" type="Timer" parent="Player/Homing"]
-process_callback = 0
 wait_time = 0.267
 autostart = true
 

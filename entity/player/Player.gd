@@ -15,10 +15,21 @@ func _hit() -> void:
 	death_timer.start()
 ####################
 
-##################### MOVEMENT
+var can_bomb := false
+var bomb_count := 3
 @onready var sentivity := Global.user_data.sentivity
+@onready var toggle_move := Global.user_data.toggle_move
+var can_move := false
 func _unhandled_input(event:InputEvent) -> void:
-	if (event is InputEventMouseMotion and Input.is_action_pressed("drag")) or event is InputEventScreenDrag:
+	if toggle_move and event.is_action_pressed("drag"):
+		can_move = not can_move
+		return
+		
+	elif event.is_action_pressed("drag"):
+		can_move = true
+		return
+	
+	if (event is InputEventMouseMotion and can_move) or event is InputEventScreenDrag:
 		global_position += event.relative * sentivity
 		position.x = clamp(position.x, 0.0, global.playground.x)
 		position.y = clamp(position.y, 0.0, global.playground.y)
@@ -26,35 +37,27 @@ func _unhandled_input(event:InputEvent) -> void:
 		if is_multiplayer_authority():
 			rpc('_update_position')
 	elif event.is_action_pressed("bomb"):
-		bomb()
+		if not bomb_count and can_bomb:
+			return
+		
+		bomb_count -= 1
+		can_bomb = false
+		VisualEffect.hide()
+		death_timer.stop()
+		Global.hud.update_bomb()
+	
+		set_process_unhandled_input(true)
+		hitbox.hide()
+		hitbox.set_deferred("disabled", true)
+		
+		kaboom.emit()
+		rpc('bomb_go_off', Time.get_ticks_msec())
 
 @rpc
 func _update_position(pos:Vector2) -> void:
 	create_tween().tween_property(self, 'global_position', pos, .1)
-#############################
 
-
-############### BOMBING
-var can_bomb := false
-var bomb_count := 1
 signal kaboom
-func bomb() -> void:
-	if not bomb_count and can_bomb:
-		return
-	
-	bomb_count -= 1
-	can_bomb = false
-	VisualEffect.hide()
-	death_timer.stop()
-	Global.hud.update_bomb()
-
-	set_process_unhandled_input(true)
-	hitbox.hide()
-	hitbox.set_deferred("disabled", true)
-	
-	kaboom.emit()
-	rpc('bomb_go_off', Time.get_ticks_msec())
-		
 @rpc("reliable")
 func bomb_go_off(host_time:int) -> void:
 	kaboom.emit((host_time - Global.get_host_time()) / 1000)

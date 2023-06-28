@@ -12,7 +12,6 @@ class_name CircleBarrel
 
 @export var add_node := false : set = _add_node
 @export var barrels := 4
-@export var bullet_scale := 1.0
 @export var gizmo := 20
 
 func _ready():
@@ -28,7 +27,6 @@ func _add_node(value:bool):
 			add_child(node)
 			node.position = Vector2(shape.radius, 0).rotated(angle)
 			node.rotation = angle
-			node.scale = Vector2(bullet_scale, bullet_scale)
 			node.gizmo_extents = gizmo
 			
 			angle += deltaR

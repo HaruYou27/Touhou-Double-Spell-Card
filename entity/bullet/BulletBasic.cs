@@ -3,6 +3,7 @@ using Godot;
 public partial class BulletBasic : Node2D
 {
 	//Bullet shared properties.
+	[Export] public StringName barrelGroup;
 	[Export] public long maxBullet = 127; //Exceed the limit and no more bullet will be shoot out.
 	[Export] public float speed = 525;
 	[Export] public bool localRotation;
@@ -24,6 +25,7 @@ public partial class BulletBasic : Node2D
 	protected static Node Global;
 	protected static ItemManager itemManager;
 	protected static World2D world;
+	protected static SceneTree tree;
 
 	protected Bullet[] bullets;
 	protected class Bullet
@@ -82,7 +84,16 @@ public partial class BulletBasic : Node2D
 	}
 	public void SpawnBullet()
 	{
-		foreach (Node2D barrel in GetChildren())
+		Godot.Collections.Array<Node> barrels;
+		if (barrelGroup == null)
+		{
+			barrels = GetChildren();
+		}
+		else
+		{
+			barrels = tree.GetNodesInGroup(barrelGroup);
+		}
+		foreach (Node2D barrel in barrels)
 		{
 			if (activeIndex == maxBullet) { return; }
 			Bullet bullet = bullets[activeIndex];
@@ -112,15 +123,19 @@ public partial class BulletBasic : Node2D
 				bullet.transform = new Transform2D(barrel.GlobalRotation - Mathf.Pi/2, bulletScale, 0, barrel.GlobalPosition);
 			}
 	}
-	public void Clear()
+	public Vector2[] Clear()
 	{
-		if (activeIndex == 0) { return; }
+		if (activeIndex == 0) { return null; }
 
+		Vector2[] positions = new Vector2[activeIndex];
 		for (nint i = 0; i < activeIndex; i++)
 		{
-			RenderingServer.CanvasItemSetVisible(bullets[i].sprite, false);
+			Bullet bullet = bullets[i];
+			RenderingServer.CanvasItemSetVisible(bullet.sprite, false);
+			positions[i] = bullet.transform.Origin;
 		}
 		activeIndex = 0;
+		return positions;
 	}
 	protected virtual Transform2D Move(in float delta)
 	{

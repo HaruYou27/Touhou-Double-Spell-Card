@@ -1,4 +1,5 @@
-extends Marker2D
+extends Node2D
+class_name TargetLocker
 
 func _track() -> void:
 	var direction1 : Vector2

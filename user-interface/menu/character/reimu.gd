@@ -6,7 +6,7 @@ func _ready() -> void:
 @onready var bullet := $bullet
 @onready var timer := $Timer
 func _visibility_changed() -> void:
-	if visible:
+	if is_visible_in_tree():
 		timer.start()
 	else:
 		timer.stop()

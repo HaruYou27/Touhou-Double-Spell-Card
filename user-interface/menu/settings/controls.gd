@@ -16,7 +16,6 @@ func _ready() -> void:
 	drag.update_label(global.get_input_string(user_data.drag_bind))
 	raw.set_pressed_no_signal(user_data.raw_input)
 	sentivity.value = user_data.sentivity
-	hold.button_pressed = user_data.hold_move
 
 func _unhandled_input(event:InputEvent) -> void:
 	if not (event is InputEventMouseButton or event is InputEventKey):

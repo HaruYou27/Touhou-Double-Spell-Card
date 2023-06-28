@@ -8,11 +8,12 @@ public partial class ItemManager : BulletBasic
 	{
 		world = GetWorld2D();
 		Global = GetNode("/root/Global");
+		tree = GetTree();
 		itemManager = this;
 
 		base._Ready();
 	}
-	public virtual void SpawnItem(int point, Vector2 position)
+	public void SpawnItem(int point, Vector2 position)
 	{
 		for (nint i = 0; i < point; i++)
 		{
@@ -52,5 +53,19 @@ public partial class ItemManager : BulletBasic
 			Global.EmitSignal("item_collect");
 		}
 		return false;
+	}
+	public void ConvertBullet()
+	{
+		Godot.Collections.Array<Node> bullets = tree.GetNodesInGroup("Enemy Bullet");
+		foreach (BulletBasic bullet in bullets)
+		{
+			Vector2[] positions = bullet.Clear();
+			if (positions == null) { continue; }
+
+			foreach (Vector2 pos in positions)
+			{
+				SpawnItem(1, pos);
+			}
+		}
 	}
 }

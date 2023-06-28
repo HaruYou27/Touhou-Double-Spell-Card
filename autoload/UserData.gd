@@ -14,6 +14,7 @@ class_name UserData
 
 @export_category("Controls")
 @export var sentivity := 1.2
+@export var toggle_move := false
 @export var raw_input := true : set = _set_raw_input
 func _set_raw_input(value:bool) -> void:
 	Input.use_accumulated_input = value

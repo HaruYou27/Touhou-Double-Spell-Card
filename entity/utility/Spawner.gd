@@ -1,8 +1,9 @@
 extends Node
 
-@export var scene1 : PackedScene
-@export var scene2 : PackedScene
+@export var scene : PackedScene
 @export var container : Node
+
+@onready var tree := get_tree()
 
 var tick := false
 func _on_timer_timeout():
@@ -11,7 +12,7 @@ func _on_timer_timeout():
 	else:
 		tick = true
 		
-	var enemy :PathFollower2D = scene1.instantiate()
+	var enemy :PathFollower2D = scene.instantiate()
 	enemy.reverse = tick
 	container.add_child(enemy)
-	
+	tree.call_group("Enemy 0", "_track")

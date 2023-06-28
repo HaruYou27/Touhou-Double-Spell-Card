@@ -1,11 +1,11 @@
-[gd_scene load_steps=17 format=3 uid="uid://bxvy3qa8esorq"]
+[gd_scene load_steps=12 format=3 uid="uid://bxvy3qa8esorq"]
 
 [ext_resource type="Shader" path="res://level/background/misty-lake/water.gdshader" id="1_5h8xj"]
 [ext_resource type="Script" path="res://entity/utility/Spawner.gd" id="1_fv3k8"]
 [ext_resource type="Texture2D" uid="uid://eriecmar2l3j" path="res://level/background/misty-lake/water-day.tres" id="2_su2rp"]
-[ext_resource type="Script" path="res://entity/bullet/BulletBasic.cs" id="3_4x5yy"]
 [ext_resource type="Texture2D" uid="uid://bgh4r80tk5o7v" path="res://level/background/misty-lake/water-noise.tres" id="3_6g7e0"]
-[ext_resource type="Shader" path="res://entity/bullet/resource/BulletGlow.gdshader" id="6_q0quh"]
+[ext_resource type="Script" path="res://level/test/opening1.gd" id="4_86fwn"]
+[ext_resource type="PackedScene" uid="uid://duxqllhcbuvfa" path="res://level/test/corner.tscn" id="8_1a0fm"]
 [ext_resource type="PackedScene" uid="uid://6wuhmc2p8byc" path="res://level/background/misty-lake/fog.tscn" id="8_ixvn3"]
 [ext_resource type="PackedScene" uid="uid://uiwkegjhrq51" path="res://level/background/misty-lake/fog_overlay.tscn" id="9_v1onv"]
 
@@ -23,35 +23,11 @@ shader_parameter/wave_velocity = Vector2(0, 2)
 shader_parameter/wave_distortion = 0.2
 shader_parameter/wave_multiplyer = -6.0
 
-[sub_resource type="Gradient" id="Gradient_du4et"]
-offsets = PackedFloat32Array(0)
-colors = PackedColorArray(1, 0.657667, 0.21, 1)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_kpbpm"]
-gradient = SubResource("Gradient_du4et")
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_tjbbl"]
-shader = ExtResource("6_q0quh")
-shader_parameter/time_scale = 4.0
-shader_parameter/alpha_offset = null
-shader_parameter/spin = null
-shader_parameter/sin_alpha = null
-shader_parameter/wobble = true
-shader_parameter/wobble_min = 0.75
-shader_parameter/color_map = SubResource("GradientTexture1D_kpbpm")
-
-[sub_resource type="Curve2D" id="Curve2D_ifuo7"]
+[sub_resource type="Curve2D" id="Curve2D_7y75u"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, 269, 103.999, -150.375, -15.0054, 150.375, 15.0054, 720.998, -428.003, 79.519, 34.8751, -79.519, -34.8751, 422.997, -896.002, -34.7961, 10.9088, 34.7961, -10.9088, 324.996, -1172)
+"points": PackedVector2Array(0, 0, 0, 0, -88, 315, -60.0678, -33.371, 60.0678, 33.371, 104, 214, 206.489, -19.6541, -206.489, 19.6541, 238, 559, -182.076, -213.9, 182.076, 213.9, 460, 232, 0, 0, 0, 0, 674, 440)
 }
-point_count = 4
-
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_56smx"]
-radius = 32.0
-height = 64.0
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_478p6"]
-load_path = "res://.godot/imported/rice.png-6518178869896dfcfaf53193a9cdbd47.ctex"
+point_count = 5
 
 [node name="test level" type="Node2D"]
 
@@ -76,28 +52,35 @@ snap_2d_transforms_to_pixel = true
 size = Vector2i(540, 960)
 render_target_update_mode = 4
 
-[node name="Spawner" type="Node2D" parent="SubViewportContainer/SubViewport" node_paths=PackedStringArray("container")]
-scale = Vector2(0.5, 0.5)
+[node name="opening1" type="Node2D" parent="SubViewportContainer/SubViewport"]
+script = ExtResource("4_86fwn")
+paths = Array[NodePath]([NodePath("corner"), NodePath("corner2"), NodePath("LevelTimer"), NodePath("Spawner1/Timer")])
+
+[node name="Spawner1" type="Node2D" parent="SubViewportContainer/SubViewport/opening1" node_paths=PackedStringArray("container")]
 script = ExtResource("1_fv3k8")
-container = NodePath("Opening")
+container = NodePath("")
 
-[node name="Timer" type="Timer" parent="SubViewportContainer/SubViewport/Spawner"]
-wait_time = 0.5
-autostart = true
+[node name="Timer" type="Timer" parent="SubViewportContainer/SubViewport/opening1/Spawner1"]
 
-[node name="Opening" type="Path2D" parent="SubViewportContainer/SubViewport/Spawner"]
-z_index = 2
-material = SubResource("ShaderMaterial_tjbbl")
-position = Vector2(0, -121)
-rotation = 1.5708
-curve = SubResource("Curve2D_ifuo7")
-script = ExtResource("3_4x5yy")
-hitbox = SubResource("CapsuleShape2D_56smx")
-texture = SubResource("CompressedTexture2D_478p6")
+[node name="corner" parent="SubViewportContainer/SubViewport/opening1" instance=ExtResource("8_1a0fm")]
+
+[node name="corner2" parent="SubViewportContainer/SubViewport/opening1" instance=ExtResource("8_1a0fm")]
+rotation = 3.14159
+scale = Vector2(1, -1)
+
+[node name="LevelTimer" type="Timer" parent="SubViewportContainer/SubViewport/opening1"]
+wait_time = 20.0
+one_shot = true
 
 [node name="fog" parent="." instance=ExtResource("8_ixvn3")]
+visible = false
 
-[node name="FogOverlay" parent="fog" instance=ExtResource("9_v1onv")]
+[node name="FogOverlay" parent="." instance=ExtResource("9_v1onv")]
+visible = false
 
-[connection signal="timeout" from="SubViewportContainer/SubViewport/Spawner/Timer" to="SubViewportContainer/SubViewport/Spawner" method="_on_timer_timeout"]
-[connection signal="timeout" from="SubViewportContainer/SubViewport/Spawner/Timer" to="SubViewportContainer/SubViewport/Spawner/Opening" method="SpawnBullet"]
+[node name="Path2D" type="Path2D" parent="."]
+position = Vector2(-13, 5)
+curve = SubResource("Curve2D_7y75u")
+
+[connection signal="timeout" from="SubViewportContainer/SubViewport/opening1/Spawner1/Timer" to="SubViewportContainer/SubViewport/opening1/Spawner1" method="_on_timer_timeout"]
+[connection signal="timeout" from="SubViewportContainer/SubViewport/opening1/LevelTimer" to="SubViewportContainer/SubViewport/opening1" method="_on_level_timer_timeout"]

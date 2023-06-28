@@ -1,0 +1,202 @@
+[gd_scene load_steps=15 format=3 uid="uid://duxqllhcbuvfa"]
+
+[ext_resource type="Script" path="res://level/test/corner.gd" id="1_1qbkf"]
+[ext_resource type="Texture2D" uid="uid://cqt1oe248vvwn" path="res://entity/enemy/fairy/resource/Fairy.2.png" id="1_s8as5"]
+[ext_resource type="Script" path="res://entity/bullet/BulletBasic.cs" id="2_x3ptr"]
+[ext_resource type="Texture2D" uid="uid://dilcwhuq6brnv" path="res://entity/bullet/resource/ball.png" id="3_ifd2q"]
+[ext_resource type="PackedScene" uid="uid://dtlscerig62nv" path="res://entity/enemy/enemy.tscn" id="3_qrdfc"]
+
+[sub_resource type="Animation" id="Animation_xqh2k"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-35, 34)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("bullet:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_ujsfu"]
+resource_name = "enter"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-35, 34), Vector2(80, 95)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_pjhur"]
+_data = {
+"RESET": SubResource("Animation_xqh2k"),
+"enter": SubResource("Animation_ujsfu")
+}
+
+[sub_resource type="Shader" id="Shader_surpq"]
+code = "shader_type canvas_item;
+render_mode blend_add;
+
+uniform float time_scale;
+uniform bool alpha_offset;
+uniform bool spin;
+uniform bool sin_alpha;
+uniform sampler2D color_map;
+uniform bool wobble;
+uniform float wobble_min = .75;
+
+varying vec2 uv;
+void vertex()
+{
+	float time = TIME * time_scale;
+	uv = vec2(abs(sin(time)));
+
+	if (alpha_offset)
+	{
+		time *= sign(COLOR.a - .5);
+		time += 100.0 * COLOR.a;
+		COLOR.a = 1.0;
+	}
+    if (spin)
+	{
+    	float phi = time * PI;
+        VERTEX *= mat2(vec2(cos(phi),-sin(phi)),
+                       vec2(sin(phi),cos(phi)));
+    }
+	if (wobble)
+	{
+		VERTEX *= wobble_min + abs(sin(time)) * (1.0 - wobble_min);
+	}
+	if (sin_alpha)
+	{
+		COLOR.a = sin(time);
+	}
+}
+void fragment()
+{
+	//shift color through time across color map - mix it with white color.
+	COLOR.rgb = mix(texture(color_map, uv).rgb, vec3(1.), COLOR.r);
+}"
+
+[sub_resource type="Gradient" id="Gradient_tmxgo"]
+colors = PackedColorArray(1, 0.21, 0.921, 1, 0.21, 0.447, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_h32f3"]
+gradient = SubResource("Gradient_tmxgo")
+width = 32
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_j2viv"]
+shader = SubResource("Shader_surpq")
+shader_parameter/time_scale = 4.0
+shader_parameter/alpha_offset = false
+shader_parameter/spin = null
+shader_parameter/sin_alpha = null
+shader_parameter/wobble = true
+shader_parameter/wobble_min = 0.75
+shader_parameter/color_map = SubResource("GradientTexture1D_h32f3")
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_il42m"]
+radius = 64.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0el8c"]
+radius = 42.0476
+
+[node name="corner" type="Node2D"]
+position = Vector2(-35, 34)
+script = ExtResource("1_1qbkf")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_pjhur")
+}
+
+[node name="bullet" type="Node2D" parent="." groups=["Enemy Bullet"]]
+material = SubResource("ShaderMaterial_j2viv")
+script = ExtResource("2_x3ptr")
+localRotation = true
+bulletScale = Vector2(0.5, 0.5)
+hitbox = SubResource("CircleShape2D_il42m")
+CollisionMask = 5
+texture = ExtResource("3_ifd2q")
+
+[node name="@@60535" type="Marker2D" parent="bullet"]
+position = Vector2(29.6752, -20.6248)
+rotation = -0.607375
+gizmo_extents = 20.0
+
+[node name="@@60536" type="Marker2D" parent="bullet"]
+position = Vector2(35.3091, -7.69862)
+rotation = -0.214675
+gizmo_extents = 20.0
+
+[node name="@@60537" type="Marker2D" parent="bullet"]
+position = Vector2(35.5675, 6.3996)
+rotation = 0.178024
+gizmo_extents = 20.0
+
+[node name="@@60538" type="Marker2D" parent="bullet"]
+position = Vector2(30.411, 19.5235)
+rotation = 0.570723
+gizmo_extents = 20.0
+
+[node name="@@60539" type="Marker2D" parent="bullet"]
+position = Vector2(20.6248, 29.6752)
+rotation = 0.963422
+gizmo_extents = 20.0
+
+[node name="@@60540" type="Marker2D" parent="bullet"]
+position = Vector2(7.69862, 35.3091)
+rotation = 1.35612
+gizmo_extents = 20.0
+
+[node name="@@60541" type="Marker2D" parent="bullet"]
+position = Vector2(-6.3996, 35.5675)
+rotation = 1.74882
+gizmo_extents = 20.0
+
+[node name="@@60542" type="Marker2D" parent="bullet"]
+position = Vector2(-19.5235, 30.411)
+rotation = 2.14152
+gizmo_extents = 20.0
+
+[node name="Fairy2" type="Sprite2D" parent="."]
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("1_s8as5")
+
+[node name="Enemy" parent="." instance=ExtResource("3_qrdfc")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy"]
+shape = SubResource("CircleShape2D_0el8c")
+
+[node name="RecoverTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[node name="BulletTimer" type="Timer" parent="."]
+wait_time = 0.5
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
+[connection signal="died" from="Enemy" to="." method="_on_enemy_died"]
+[connection signal="timeout" from="RecoverTimer" to="." method="_on_recover_timer_timeout"]
+[connection signal="timeout" from="BulletTimer" to="bullet" method="SpawnBullet"]

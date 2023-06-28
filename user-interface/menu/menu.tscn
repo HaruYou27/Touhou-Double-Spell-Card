@@ -1,4 +1,4 @@
-[gd_scene load_steps=60 format=3 uid="uid://bn5nhkofewyh8"]
+[gd_scene load_steps=61 format=3 uid="uid://bn5nhkofewyh8"]
 
 [ext_resource type="Theme" uid="uid://dotibkyt5mm7v" path="res://user-interface/menu/theme/menu.tres" id="1_vx63d"]
 [ext_resource type="Script" path="res://user-interface/menu/settings/Generic.gd" id="2_dgpou"]
@@ -551,6 +551,9 @@ _data = {
 "connecting": SubResource("Animation_j5e3v")
 }
 
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_spvc6"]
+normal = Vector2(0, 1)
+
 [node name="Menu" type="VBoxContainer"]
 anchors_preset = 15
 anchor_right = 1.0
@@ -567,6 +570,7 @@ size_flags_vertical = 3
 tabs_visible = false
 
 [node name="play" type="TabContainer" parent="TabContainer"]
+visible = false
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
 
@@ -683,6 +687,7 @@ layout_mode = 2
 metadata/scene = ExtResource("16_o0h3l")
 
 [node name="ReimuSprite" parent="TabContainer/play/Character/Preview/Reimu" instance=ExtResource("17_3eq3m")]
+z_index = -5
 position = Vector2(270, 642)
 scale = Vector2(2, 2)
 script = ExtResource("16_0qxxx")
@@ -693,7 +698,7 @@ position = Vector2(0, -8)
 texture = ExtResource("14_8kxqp")
 
 [node name="bullet" type="Node2D" parent="TabContainer/play/Character/Preview/Reimu/ReimuSprite"]
-z_index = 1
+z_index = -2
 position = Vector2(0, -8)
 script = ExtResource("19_2j5r6")
 SeekMask = 2
@@ -850,11 +855,11 @@ flat = true
 alignment = 2
 
 [node name="Settings" type="TabContainer" parent="TabContainer"]
-visible = false
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
 
 [node name="Generic" type="VBoxContainer" parent="TabContainer/Settings"]
+visible = false
 layout_mode = 2
 script = ExtResource("2_dgpou")
 
@@ -938,7 +943,6 @@ script = ExtResource("5_vnfn8")
 layout_mode = 2
 
 [node name="Audio" type="VBoxContainer" parent="TabContainer/Settings"]
-visible = false
 layout_mode = 2
 script = ExtResource("6_8l51l")
 
@@ -954,7 +958,8 @@ size_flags_vertical = 1
 min_value = -60.0
 max_value = 0.0
 step = 0.6
-allow_lesser = true
+value = 1.2
+allow_greater = true
 tick_count = 10
 script = ExtResource("8_b5jhj")
 label = NodePath("../BgmLabel")
@@ -1227,6 +1232,14 @@ tab_1/title = "Settings"
 tab_2/title = "Multiplayer"
 tab_3/title = "About"
 
+[node name="WorldBoundary" type="StaticBody2D" parent="."]
+collision_mask = 0
+constant_linear_velocity = Vector2(1, 0)
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="WorldBoundary"]
+position = Vector2(302, -200)
+shape = SubResource("WorldBoundaryShape2D_spvc6")
+
 [connection signal="timeout" from="TabContainer/play/Character/Preview/Reimu/ReimuSprite/Timer" to="TabContainer/play/Character/Preview/Reimu/ReimuSprite/bullet" method="SpawnBullet"]
 [connection signal="pressed" from="TabContainer/play/Character/HBoxContainer/previous" to="TabContainer/play/Character" method="_change_character"]
 [connection signal="pressed" from="TabContainer/play/Character/HBoxContainer/next" to="TabContainer/play/Character" method="_change_character"]
@@ -1251,3 +1264,4 @@ tab_3/title = "About"
 [connection signal="text_changed" from="TabContainer/multiplayer/EnetJoin/EnetJoin/HBoxContainer/port" to="TabContainer/multiplayer/EnetJoin/EnetJoin" method="_on_port_text_changed"]
 [connection signal="pressed" from="TabContainer/multiplayer/EnetJoin/EnetJoin/Join" to="TabContainer/multiplayer/EnetJoin/EnetJoin" method="_on_join_pressed"]
 [connection signal="timeout" from="TabContainer/multiplayer/EnetJoin/EnetJoin/Timer" to="TabContainer/multiplayer/EnetJoin/EnetJoin" method="_on_timer_timeout"]
+[connection signal="tab_changed" from="TabBar" to="TabContainer" method="set_current_tab"]

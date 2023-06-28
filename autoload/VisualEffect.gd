@@ -1,23 +1,16 @@
 extends ColorRect
 ##Exclusive full screen effect.
 
-var current_scene : Node2D
+var current_scene : Node
 var bgm_volume := 0.
 
 @onready var tree := get_tree()
 
 const black := Color(0.129412, 0.129412, 0.129412)
 const black_trans := Color(black, 0.)
-const death_scene := preload("res://entity/utility/particle/deathFX.tscn")
 
 func _ready() -> void:
 	current_scene = tree.current_scene
-
-func death_vfx(pos:Vector2) -> void:
-	var vfx := death_scene.instantiate()
-	current_scene.add_child(vfx)
-	vfx.global_position = pos
-	vfx.emitting = true
 
 ##For use with [Tween].
 func _set_bgm_volume(value:float) -> void:

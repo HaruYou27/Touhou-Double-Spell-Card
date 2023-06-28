@@ -49,7 +49,7 @@ func _on_port_text_changed(new_text):
 		join_button.disabled = false
 		join_button.text = 'Join Party'
 
-@onready var list := $ItemList
+@onready var list := $"../ItemList"
 var server_list := {}
 var socket := PacketPeerUDP.new()
 func _on_timer_timeout() -> void:

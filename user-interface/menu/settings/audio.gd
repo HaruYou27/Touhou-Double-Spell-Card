@@ -4,7 +4,8 @@ func _ready() -> void:
 	var user_data :AudioBusLayout = load('user://audio_override.res')
 	if user_data:
 		AudioServer.set_bus_layout(user_data)
-	
+		print('override')
+		
 	sfx.value = AudioServer.get_bus_volume_db(1)
 	bgm.value = AudioServer.get_bus_volume_db(2)
 	voice.value = AudioServer.get_bus_volume_db(3)
@@ -12,19 +13,19 @@ func _ready() -> void:
 
 @onready var sfx :HSlider = $sfx
 func _on_sfx_value_changed(value:float) -> void:
-	AudioServer.set_bus_volume_db(1, value)
+	AudioServer.set_bus_volume_db(0, value)
 
 @onready var bgm :HSlider = $bgm
 func _on_bgm_value_changed(value:float) -> void:
-	AudioServer.set_bus_volume_db(2, value)
+	AudioServer.set_bus_volume_db(1, value)
 
 @onready var voice := $voice
 func _on_voice_value_changed(value:float) -> void:
-	AudioServer.set_bus_volume_db(3, value)
+	AudioServer.set_bus_volume_db(2, value)
 	
 @onready var mic := $mic
 func _on_mic_value_changed(value:float) -> void:
-	AudioServer.set_bus_volume_db(4, value)
+	AudioServer.set_bus_volume_db(3, value)
 
 func _exit_tree() -> void:
 	if not Engine.is_editor_hint():

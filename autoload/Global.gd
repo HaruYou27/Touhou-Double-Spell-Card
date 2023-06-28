@@ -48,6 +48,7 @@ func restart_scene() -> void:
 	ItemManager.Clear()
 func change_scene(scene:String) -> void:
 	tree.paused = false
+	Engine.time_scale = 1.
 	var tween :Tween = VisualEffect.fade2black()
 	tween.finished.connect(tree.change_scene_to_file.bind(scene))
 	ItemManager.Clear()
