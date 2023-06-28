@@ -17,7 +17,7 @@
 [ext_resource type="Script" path="res://user-interface/menu/character/reimu.gd" id="16_0qxxx"]
 [ext_resource type="PackedScene" uid="uid://bk08ga1mfcleb" path="res://entity/player/reimu/reimu.tscn" id="16_o0h3l"]
 [ext_resource type="PackedScene" uid="uid://ffnff8ahyxxn" path="res://entity/player/reimu/reimu_sprite.tscn" id="17_3eq3m"]
-[ext_resource type="Script" path="res://entity/bullet/Seeker.cs" id="19_2j5r6"]
+[ext_resource type="Script" path="res://entity/player/reimu/Seeker.cs" id="19_2j5r6"]
 [ext_resource type="Texture2D" uid="uid://cu2ufhkx3vayf" path="res://entity/player/reimu/resource/ofuda.png" id="20_tslrj"]
 [ext_resource type="PackedScene" uid="uid://bsa0xvb26o22u" path="res://entity/player/reimu/yinyang_orb.tscn" id="21_jahto"]
 [ext_resource type="Script" path="res://user-interface/menu/character/marisa.gd" id="21_va0sy"]

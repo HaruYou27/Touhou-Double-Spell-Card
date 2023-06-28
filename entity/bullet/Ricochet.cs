@@ -26,7 +26,7 @@ public partial class Ricochet : BulletBasic
 	protected override bool Collide(in Godot.Collections.Dictionary result) 
 	{
 		RicochetBullet bullet = ricochetBullets[index];
-		if (bullet.ricochet > 0) {
+		if (bullet.ricochet > 0 && (int) ((Vector2)result["linear_velocity"]).X == 1) {
 			bullet.velocity = bullet.velocity.Bounce((Vector2)result["normal"]);
 			bullet.transform = new Transform2D(bullet.velocity.Angle() + Mathf.Pi / 2, bullet.transform.Origin);
 			bullet.ricochet--;

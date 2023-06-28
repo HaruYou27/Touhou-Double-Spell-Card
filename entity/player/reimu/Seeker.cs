@@ -25,6 +25,22 @@ public partial class Seeker : BulletBasic
 
 		base._Ready();
 	}
+	protected override bool Collide(in Godot.Collections.Dictionary result)
+	{
+		//Return true means the bullet will still alive.
+		Bullet bullet = bullets[index];
+		if ((int) ((Vector2)result["linear_velocity"]).X == 1)
+		{
+			//Hit the wall.
+			return false;
+		}
+		else
+		{
+			GodotObject collider = (GodotObject)GodotObject.InstanceFromId((ulong)result["collider_id"]);
+			collider.Call("_hit");
+		}
+		return false;
+	}
 	protected override void BulletConstructor()
 	{
 		seekBullets = new SeekBullet[maxBullet];

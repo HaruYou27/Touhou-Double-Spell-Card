@@ -27,6 +27,8 @@ monitoring = false
 shape = SubResource("CircleShape2D_noovt")
 
 [node name="barrel" type="Marker2D" parent="."]
+rotation = 1.5708
+gizmo_extents = 238.9
 script = ExtResource("3_unje3")
 
 [connection signal="body_entered" from="hitbox" to="." method="_on_hitbox_body_entered"]

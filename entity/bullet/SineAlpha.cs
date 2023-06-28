@@ -3,10 +3,9 @@ using Godot;
 public partial class SineAlpha : BulletBasic 
 {
 	//Bullet that change it's alpha value by sine wave (For shader use).
-    public override void SpawnBullet()
+    protected override void ResetCanvasItem()
     {
-        base.SpawnBullet();
-		RenderingServer.CanvasItemSetModulate(bullets[activeIndex-1].sprite, new Color(1, 1, 1, Mathf.Abs(Mathf.Sin(Time.GetTicksMsec()))));
+		  RenderingServer.CanvasItemSetModulate(bullets[activeIndex-1].sprite, new Color(1, 1, 1, Mathf.Abs(Mathf.Sin(Time.GetTicksMsec()))));
     }
 }
 

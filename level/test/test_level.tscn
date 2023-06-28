@@ -56,7 +56,6 @@ load_path = "res://.godot/imported/rice.png-6518178869896dfcfaf53193a9cdbd47.cte
 [node name="test level" type="Node2D"]
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-visible = false
 texture_repeat = 2
 material = SubResource("ShaderMaterial_r8js3")
 texture = ExtResource("3_6g7e0")
@@ -97,7 +96,6 @@ hitbox = SubResource("CapsuleShape2D_56smx")
 texture = SubResource("CompressedTexture2D_478p6")
 
 [node name="fog" parent="." instance=ExtResource("8_ixvn3")]
-visible = false
 
 [node name="FogOverlay" parent="fog" instance=ExtResource("9_v1onv")]
 

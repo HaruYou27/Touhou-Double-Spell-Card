@@ -3,7 +3,6 @@ using Godot;
 public partial class BulletBasic : Node2D
 {
 	//Bullet shared properties.
-	public Godot.Collections.Array<Node> barrels;
 	[Export] public long maxBullet = 127; //Exceed the limit and no more bullet will be shoot out.
 	[Export] public float speed = 525;
 	[Export] public bool localRotation;
@@ -45,11 +44,6 @@ public partial class BulletBasic : Node2D
 	}
 	public override void _Ready()
 	{
-		if (barrels == null)
-		{
-			barrels = GetChildren();
-		}
-
 		query.Shape = hitbox;
 		query.CollideWithAreas = CollideWithAreas;
 		query.CollideWithBodies = CollideWithBodies;
@@ -86,30 +80,39 @@ public partial class BulletBasic : Node2D
 			RenderingServer.FreeRid(bullet.sprite);
 		}
 	}
-	public virtual void SpawnBullet()
+	public void SpawnBullet()
 	{
-		foreach (Node2D barrel in barrels)
+		foreach (Node2D barrel in GetChildren())
 		{
 			if (activeIndex == maxBullet) { return; }
 			Bullet bullet = bullets[activeIndex];
 			RenderingServer.CanvasItemSetVisible(bullet.sprite, true);
 
-			if (localRotation)
-			{
-				bullet.velocity = new Vector2(speed, 0).Rotated(barrel.Rotation);
-				bullet.transform = new Transform2D(barrel.Rotation - Mathf.Pi/2, bulletScale, 0, barrel.GlobalPosition);
-			}
-			else
-			{
-				bullet.velocity = new Vector2(speed, 0).Rotated(barrel.GlobalRotation);
-				bullet.transform = new Transform2D(barrel.GlobalRotation - Mathf.Pi/2, bulletScale, 0, barrel.GlobalPosition);
-			}
+			ResetCanvasItem();
+			ResetBulletTransform(barrel);
+			
 			bullet.grazable = Grazable;
 
 			activeIndex++;
 		}
 	}
-	public virtual void Clear()
+	protected virtual void ResetCanvasItem() {}
+	protected virtual void ResetBulletTransform(in Node2D barrel)
+	{
+		Bullet bullet = bullets[activeIndex];
+		//Has to separate bullet velocity and transform because Capsule collision shape in Godot is vertical fuck it.
+		if (localRotation)
+			{
+				bullet.velocity = new Vector2(speed, 0).Rotated(barrel.Rotation);
+				bullet.transform = new Transform2D(barrel.Rotation - Mathf.Pi/2, bulletScale, 0, barrel.GlobalPosition);
+			}
+		else
+			{
+				bullet.velocity = new Vector2(speed, 0).Rotated(barrel.GlobalRotation);
+				bullet.transform = new Transform2D(barrel.GlobalRotation - Mathf.Pi/2, bulletScale, 0, barrel.GlobalPosition);
+			}
+	}
+	public void Clear()
 	{
 		if (activeIndex == 0) { return; }
 
