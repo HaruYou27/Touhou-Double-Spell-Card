@@ -1,47 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://c34lwlqwsc4ve"]
+[gd_scene load_steps=3 format=3 uid="uid://c34lwlqwsc4ve"]
 
 [ext_resource type="Script" path="res://entity/player/Player.gd" id="1_ty0s5"]
 [ext_resource type="Script" path="res://entity/player/reimu/DeathTimer.gd" id="5_r3t62"]
 
-[sub_resource type="Animation" id="Animation_lkbtn"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(153, 1091)]
-}
-
-[sub_resource type="Animation" id="Animation_s17vg"]
-resource_name = "spawn"
-length = 0.5
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(153, 1091), Vector2(153, 820)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_gx4gh"]
-_data = {
-"RESET": SubResource("Animation_lkbtn"),
-"spawn": SubResource("Animation_s17vg")
-}
-
 [node name="Player" type="StaticBody2D" node_paths=PackedStringArray("hitbox")]
-position = Vector2(153, 1091)
 collision_layer = 4
 collision_mask = 0
 constant_linear_velocity = Vector2(3, 0)
@@ -56,11 +18,8 @@ wait_time = 0.2
 one_shot = true
 script = ExtResource("5_r3t62")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-"": SubResource("AnimationLibrary_gx4gh")
-}
+[node name="RecoverTimer" type="Timer" parent="."]
 
 [connection signal="bomb" from="DeathTimer" to="." method="bomb"]
-[connection signal="timeout" from="DeathTimer" to="DeathTimer" method="_on_timeout"]
-[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
+[connection signal="timeout" from="DeathTimer" to="." method="_on_death_timer_timeout"]
+[connection signal="timeout" from="RecoverTimer" to="." method="_on_recover_timer_timeout"]

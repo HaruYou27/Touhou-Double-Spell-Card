@@ -1,11 +1,6 @@
 extends ColorRect
 ##Exclusive full screen effect.
 
-var shaking := 0. : set = _shake
-func _shake(time:float) -> void:
-	shaking += time
-	set_process(true)
-
 var current_scene : Node2D
 var bgm_volume := 0.
 
@@ -15,6 +10,8 @@ const black := Color(0.129412, 0.129412, 0.129412)
 const black_trans := Color(black, 0.)
 const death_scene := preload("res://entity/utility/particle/deathFX.tscn")
 
+func _ready() -> void:
+	current_scene = tree.current_scene
 
 func death_vfx(pos:Vector2) -> void:
 	var vfx := death_scene.instantiate()

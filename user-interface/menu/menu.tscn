@@ -1,6 +1,7 @@
-[gd_scene load_steps=58 format=3 uid="uid://bn5nhkofewyh8"]
+[gd_scene load_steps=60 format=3 uid="uid://bn5nhkofewyh8"]
 
 [ext_resource type="Theme" uid="uid://dotibkyt5mm7v" path="res://user-interface/menu/theme/menu.tres" id="1_vx63d"]
+[ext_resource type="Script" path="res://user-interface/menu/settings/Generic.gd" id="2_dgpou"]
 [ext_resource type="Script" path="res://user-interface/control-node/SFXButton.gd" id="3_wn432"]
 [ext_resource type="Script" path="res://user-interface/control-node/FormatLabel.gd" id="4_h21eu"]
 [ext_resource type="PackedScene" uid="uid://bsf3tthvg8rot" path="res://user-interface/menu/settings/reset.tscn" id="5_nrino"]
@@ -11,75 +12,26 @@
 [ext_resource type="FontFile" uid="uid://c7ppp33ch6e5" path="res://user-interface/resource/font/Vbutlong.ttf" id="10_qmh8v"]
 [ext_resource type="FontFile" uid="uid://dxj7w5h2hhvec" path="res://user-interface/resource/font/NotoSansMono-Regular.ttf" id="11_51w8a"]
 [ext_resource type="Texture2D" uid="uid://ccgackr4sld8n" path="res://autoload/item-manager/point.png" id="13_28gra"]
+[ext_resource type="Script" path="res://user-interface/menu/character/character.gd" id="13_rskvb"]
 [ext_resource type="Texture2D" uid="uid://cx7ewf38kbh34" path="res://entity/player/reimu/resource/reimu-hitbox.png" id="14_8kxqp"]
+[ext_resource type="Script" path="res://user-interface/menu/character/reimu.gd" id="16_0qxxx"]
 [ext_resource type="PackedScene" uid="uid://bk08ga1mfcleb" path="res://entity/player/reimu/reimu.tscn" id="16_o0h3l"]
 [ext_resource type="PackedScene" uid="uid://ffnff8ahyxxn" path="res://entity/player/reimu/reimu_sprite.tscn" id="17_3eq3m"]
 [ext_resource type="Script" path="res://entity/bullet/Seeker.cs" id="19_2j5r6"]
 [ext_resource type="Texture2D" uid="uid://cu2ufhkx3vayf" path="res://entity/player/reimu/resource/ofuda.png" id="20_tslrj"]
 [ext_resource type="PackedScene" uid="uid://bsa0xvb26o22u" path="res://entity/player/reimu/yinyang_orb.tscn" id="21_jahto"]
+[ext_resource type="Script" path="res://user-interface/menu/character/marisa.gd" id="21_va0sy"]
 [ext_resource type="Texture2D" uid="uid://bkym7gv6hfekh" path="res://entity/player/marisa/resource/uncutmari.png" id="22_qco63"]
+[ext_resource type="Script" path="res://user-interface/menu/speed.gd" id="23_5r066"]
+[ext_resource type="Script" path="res://user-interface/menu/settings/controls.gd" id="24_hwgke"]
 [ext_resource type="Shader" path="res://level/background/noise-colorize.gdshader" id="24_oka33"]
 [ext_resource type="Texture2D" uid="uid://cwm35yxq5ojxd" path="res://entity/player/marisa/resource/laser-texture.tres" id="25_b00sl"]
 [ext_resource type="Shader" path="res://entity/bullet/resource/BulletGlow.gdshader" id="26_85e12"]
+[ext_resource type="Script" path="res://user-interface/menu/EnetHost.gd" id="26_wbk6w"]
+[ext_resource type="Script" path="res://user-interface/menu/EnetJoin.gd" id="27_1hjwn"]
 [ext_resource type="Texture2D" uid="uid://dxsf3vpqsosf1" path="res://entity/enemy/phantom/fire_particle.png" id="27_aqtxu"]
 [ext_resource type="Texture2D" uid="uid://c7k6r1xgk2xii" path="res://entity/player/marisa/resource/marisa-hitbox.png" id="28_l8ygb"]
-
-[sub_resource type="GDScript" id="GDScript_18mvs"]
-script/source = "extends VBoxContainer
-
-@onready var drag :SFXButton = $drag
-@onready var bomb :SFXButton = $bomb
-@onready var raw :SFXToggler = $raw
-@onready var sentivity :HSlider = $sentivity
-@onready var sentivityLabel :FormatLabel = $SentivityLabel
-
-@onready var user_data :UserData = Global.user_data
-
-var switch := false
-
-func _ready() -> void:
-	bomb.update_label(global.get_input_string(user_data.bomb_bind))
-	drag.update_label(global.get_input_string(user_data.drag_bind))
-	raw.set_pressed_no_signal(user_data.raw_input)
-	sentivity.value = user_data.sentivity
-
-func _unhandled_input(event:InputEvent) -> void:
-	if not (event is InputEventMouseButton or event is InputEventKey):
-		return
-	
-	if switch:
-		user_data.drag_bind = event
-		drag.update_label(global.get_input_string(event))
-	else:
-		user_data.bomb_bind = event
-		bomb.update_label(global.get_input_string(event))
-	
-	set_process_unhandled_input(false)
-
-func _on_bomb_pressed() -> void:
-	bomb.update_label('Press a button')
-	switch = false
-	set_process_unhandled_input(true)
-
-func _on_drag_pressed() -> void:
-	drag.update_label('Press a button')
-	switch = true
-	set_process_unhandled_input(true)
-
-func _on_sentivity_value_changed(value:float) -> void:
-	sentivityLabel.update_label(value)
-
-func _exit_tree() -> void:
-	user_data.sentivity = sentivity.value
-	user_data.raw_input = raw.button_pressed
-
-func _on_reset_pressed():
-	raw.button_pressed = true
-	sentivity.value = 1.0
-	InputMap.load_from_project_settings()
-	bomb.update_label(global.get_input_string(user_data.bomb_bind))
-	drag.update_label(global.get_input_string(user_data.drag_bind))
-"
+[ext_resource type="Script" path="res://user-interface/menu/WebRtc.gd" id="28_w5xwc"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_15cds"]
 content_margin_left = 10.0
@@ -107,42 +59,6 @@ func _process(delta):
 	pass
 "
 
-[sub_resource type="GDScript" id="GDScript_thp2o"]
-script/source = "extends Node2D
-
-@onready var characters := $Preview
-
-func _change_character(next:bool) -> void:
-	if next:
-		characters.current_tab += 1
-	else:
-		characters.current_tab -= 1
-
-func _exit_tree() -> void:
-	Global.player1 = characters.get_child(characters.current_tab).get_meta('scene').instantiate()
-	rpc('set_p2_character', characters.current_tab)
-
-@rpc('reliable')
-func set_p2_character(idx:int) -> void:
-	Global.player2 = characters.get_child(idx).get_meta('scene').instantiate()
-"
-
-[sub_resource type="GDScript" id="GDScript_201ki"]
-script/source = "extends AnimatedSprite2D
-
-func _ready() -> void:
-	visibility_changed.connect(_visibility_changed)
-
-@onready var bullet := $bullet
-@onready var timer := $Timer
-func _visibility_changed() -> void:
-	if visible:
-		timer.start()
-	else:
-		timer.stop()
-		bullet.Clear()
-"
-
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ut74g"]
 radius = 8.0
 height = 32.0
@@ -157,23 +73,6 @@ animations = [{
 "name": &"default",
 "speed": 5.0
 }]
-
-[sub_resource type="GDScript" id="GDScript_y2fou"]
-script/source = "extends AnimatedSprite2D
-
-
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	visibility_changed.connect(_visibility_changed)
-	
-@onready var animator := $MasterSpark/AnimationPlayer
-func _visibility_changed() -> void:
-	if visible:
-		animator.play(\"open_fire\")
-	else:
-		animator.stop()
-		animator.seek(0., true)
-"
 
 [sub_resource type="Gradient" id="Gradient_4jwyn"]
 colors = PackedColorArray(0, 0.262745, 0.658824, 0, 1, 1, 1, 1)
@@ -551,64 +450,6 @@ _data = {
 "open_fire": SubResource("Animation_vr8oi")
 }
 
-[sub_resource type="GDScript" id="GDScript_kwpbj"]
-script/source = "extends VBoxContainer
-
-var server := ENetMultiplayerPeer.new()
-func  _ready() -> void:
-	visibility_changed.connect(_visibility_changed)
-	server.peer_connected.connect(_peer_connected)
-	socket.set_broadcast_enabled(true)
-	socket.set_dest_address(\"255.255.255.255\", 4343)
-	update_ip()
-	
-func _visibility_changed() -> void:
-	if visible:
-		return
-	
-	animator.play(\"RESET\")
-	server.close()
-	server_info.clear()
-	update_ip()
-
-@onready var host := $host
-@onready var animator := $AnimationPlayer
-@onready var timer := $Timer
-func _on_host_pressed() -> void:
-	var err := server.create_server(port, 1)
-	if err:
-		host.text = 'Error ' + error_string(err)
-		server.close()
-		return
-	animator.play(\"waitting\")
-	server_info.append(port)
-	server_info.append(ip.text)
-	timer.start()
-	
-var server_info := []
-func _peer_connected() -> void:
-	multiplayer.multiplayer_peer = server
-	Global.change_scene(global.lobby)
-	
-@onready var ip := $HBoxContainer/ip
-func update_ip() -> void:
-	var ips := IP.get_local_addresses()
-	if ips.is_empty():
-		host.disabled = true
-		return
-	host.disabled = false
-	ip.text = ips[0]
-
-var port := 0
-func _on_port_text_changed(new_text:String):
-	port = int(new_text)
-	host.disabled = port <= 1024 or port >= 65536
-
-var socket := PacketPeerUDP.new()
-func _on_timer_timeout():
-	socket.put_var(server_info)
-"
-
 [sub_resource type="Animation" id="Animation_o46ky"]
 length = 0.001
 tracks/0/type = "value"
@@ -672,93 +513,6 @@ _data = {
 "waitting": SubResource("Animation_cp3fs")
 }
 
-[sub_resource type="GDScript" id="GDScript_sm1va"]
-script/source = "extends VBoxContainer
-
-@onready var client := ENetMultiplayerPeer.new()
-@onready var animator := $AnimationPlayer
-@onready var timer := $Timer
-func _ready() -> void:
-	client.peer_connected.connect(_peer_connected)
-	socket.bind(4343, '255.255.255.255')
-	visibility_changed.connect(_visibility_changed)
-	
-func _visibility_changed() -> void:
-	if visible:
-		timer.start()
-		return
-	
-	client.close()
-	ip.clear()
-	port_label.text = '6567'
-	server_list.clear()
-	list.clear()
-	animator.play(\"RESET\")
-	timer.stop()
-
-@onready var ip := $HBoxContainer/ip
-@onready var port_label := $HBoxContainer/port
-@onready var join_button := $Join
-func join(ip_addr:String, port_num:int):
-	var err := client.create_client(ip_addr, port_num)
-	animator.play(\"connecting\")
-	if err == ERR_ALREADY_IN_USE:
-		client.close()
-		join(ip_addr, port_num)
-	else:
-		animator.stop()
-		join_button.text = 'Error ' + error_string(err)
-
-func _peer_connected() -> void:
-	multiplayer.multiplayer_peer = client
-	Global.change_scene(global.lobby)
-
-var port := 0
-func _on_port_text_changed(new_text):
-	port = int(new_text)
-	if port <= 1024 or port >= 65536:
-		join_button.disabled = true
-		join_button.text = 'Invaild port'
-		return
-	else:
-		join_button.disabled = false
-		join_button.text = 'Join Party'
-
-@onready var list := $ItemList
-var server_list := {}
-var socket := PacketPeerUDP.new()
-func _on_timer_timeout() -> void:
-	for server in server_list:
-		if server[3] >= 5:
-			server_list.erase(server[1])
-			list.remove_item(server[2])
-		else:
-			server[3] += 1
-	
-	for packet in range(socket.get_available_packet_count()):
-		var server_info : Array = socket.get_var()
-		
-		if not server_info[0] is int or not server_info[1] is String:
-			continue
-		
-		if server_list.has(server_info[1]):
-			var old_info : Array = server_list[server_info[1]]
-			old_info[0] = server_info[0]
-			old_info[3] = 0
-			continue
-			
-		server_info.append(list.add_item(server_info[1]))
-		server_info.append(0)
-		server_list[server_info[1]] = server_info
-
-func _on_item_list_item_clicked(index, _at_position, _mouse_button_index) -> void:
-	var ip_addr : String = list.get_item_text(index)
-	join(ip_addr, server_list[ip_addr][0])
-
-func _on_join_pressed() -> void:
-	join(ip.text, port)
-"
-
 [sub_resource type="Animation" id="Animation_s48o5"]
 length = 0.001
 tracks/0/type = "value"
@@ -797,58 +551,6 @@ _data = {
 "connecting": SubResource("Animation_j5e3v")
 }
 
-[sub_resource type="GDScript" id="GDScript_xwohh"]
-script/source = "extends VBoxContainer
-
-var webrtc := WebRTCMultiplayerPeer.new()
-var peer := WebRTCPeerConnection.new()
-
-func _ready() -> void:
-	visibility_changed.connect(_visibility_changed)
-	peer.ice_candidate_created.connect(_add_ice)
-	peer.session_description_created.connect(_add_sdp)
-	
-func host() -> void:
-	pass
-	
-func _visibility_changed() -> void:
-	if visible:
-		peer.initialize(global.ice_server)
-		webrtc.create_mesh(1)
-		webrtc.add_peer(peer, 1)
-		peer.create_offer()
-		return
-	offer.clear()
-	Offer.clear()
-	webrtc.close()
-	peer.close()
-
-@onready var Offer := $Offer
-var offer := []
-func _add_ice(media:String, index:int, Name:String) -> void:
-	peer.add_ice_candidate(media, index, Name)
-	
-	offer.append(index)
-	offer.append(media)
-	offer.append(Name)
-	
-	prepare_offer()
-	
-func _add_sdp(type:String, sdp:String) -> void:
-	peer.set_local_description(type, sdp)
-	
-	offer.append(type)
-	offer.append(sdp)
-	
-	prepare_offer()
-	
-func prepare_offer() -> void:
-	print(offer)
-	if offer.size() != 5:
-		return
-	Offer.text = var_to_str(offer)
-"
-
 [node name="Menu" type="VBoxContainer"]
 anchors_preset = 15
 anchor_right = 1.0
@@ -864,13 +566,331 @@ layout_mode = 2
 size_flags_vertical = 3
 tabs_visible = false
 
-[node name="Settings" type="TabContainer" parent="TabContainer"]
+[node name="play" type="TabContainer" parent="TabContainer"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 32
+
+[node name="Level" type="VBoxContainer" parent="TabContainer/play"]
+layout_mode = 2
+
+[node name="OptionButton" type="OptionButton" parent="TabContainer/play/Level"]
+layout_mode = 2
+alignment = 1
+item_count = 1
+selected = 0
+popup/item_0/text = "Test level"
+popup/item_0/id = 0
+
+[node name="LeftRightButton" type="HBoxContainer" parent="TabContainer/play/Level"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="previous" type="Button" parent="TabContainer/play/Level/LeftRightButton"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 32
+text = "<"
+flat = true
+alignment = 0
+script = ExtResource("3_wn432")
+press_sfx = false
+
+[node name="next" type="Button" parent="TabContainer/play/Level/LeftRightButton"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 32
+text = ">"
+flat = true
+alignment = 2
+script = ExtResource("3_wn432")
+
+[node name="enter" type="Button" parent="TabContainer/play/Level"]
+custom_minimum_size = Vector2(500, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("10_qmh8v")
+theme_override_font_sizes/font_size = 48
+text = "Challenge Accept"
+script = ExtResource("3_wn432")
+
+[node name="Score" type="TabContainer" parent="TabContainer/play"]
+visible = false
+layout_mode = 2
+tab_alignment = 2
+
+[node name="Local" type="RichTextLabel" parent="TabContainer/play/Score"]
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("10_qmh8v")
+theme_override_fonts/mono_font = ExtResource("11_51w8a")
+theme_override_font_sizes/normal_font_size = 64
+theme_override_font_sizes/mono_font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_15cds")
+bbcode_enabled = true
+text = "Personal Best:
+[code][color=ff7085]Score:%09d[/color]
+[color=147dfa]  Item:  %06d[/color]
+ [color=63c259] Graze: %06d[/color]
+[color=ffb273]Try count: %d[/color]
+Game speed %d%%[/code]
+Partner Score:
+[code]%s
+[color=ff7085]Score:%09d[/color]
+[color=147dfa]  Item:  %06d[/color]
+ [color=63c259] Graze: %06d[/color]"
+autowrap_mode = 0
+script = SubResource("GDScript_ud3jd")
+
+[node name="Point" type="Sprite2D" parent="TabContainer/play/Score/Local"]
+texture_filter = 1
+position = Vector2(25, 199)
+scale = Vector2(2, 2)
+texture = ExtResource("13_28gra")
+
+[node name="Reimu-hitbox" type="Sprite2D" parent="TabContainer/play/Score/Local/Point"]
+texture_filter = 1
+position = Vector2(0, 22.5)
+scale = Vector2(2, 2)
+texture = ExtResource("14_8kxqp")
+
+[node name="Point2" type="Sprite2D" parent="TabContainer/play/Score/Local/Point"]
+texture_filter = 1
+position = Vector2(-1.5, 195.5)
+texture = ExtResource("13_28gra")
+
+[node name="Reimu-hitbox2" type="Sprite2D" parent="TabContainer/play/Score/Local/Point/Point2"]
+texture_filter = 1
+position = Vector2(0, 22.5)
+scale = Vector2(2, 2)
+texture = ExtResource("14_8kxqp")
+
+[node name="Internet" type="Label" parent="TabContainer/play/Score"]
+visible = false
+layout_mode = 2
+text = "Not yet implemented"
+
+[node name="Character" type="VBoxContainer" parent="TabContainer/play"]
+visible = false
+layout_mode = 2
+script = ExtResource("13_rskvb")
+
+[node name="Preview" type="TabContainer" parent="TabContainer/play/Character"]
+texture_filter = 1
+layout_mode = 2
+tabs_visible = false
+
+[node name="Reimu" type="Control" parent="TabContainer/play/Character/Preview"]
+layout_mode = 2
+metadata/scene = ExtResource("16_o0h3l")
+
+[node name="ReimuSprite" parent="TabContainer/play/Character/Preview/Reimu" instance=ExtResource("17_3eq3m")]
+position = Vector2(270, 642)
+scale = Vector2(2, 2)
+script = ExtResource("16_0qxxx")
+
+[node name="Hitbox2" type="Sprite2D" parent="TabContainer/play/Character/Preview/Reimu/ReimuSprite"]
+z_index = 100
+position = Vector2(0, -8)
+texture = ExtResource("14_8kxqp")
+
+[node name="bullet" type="Node2D" parent="TabContainer/play/Character/Preview/Reimu/ReimuSprite"]
+z_index = 1
+position = Vector2(0, -8)
+script = ExtResource("19_2j5r6")
+SeekMask = 2
+seekRadius = 270.0
+maxBullet = 72
+Grazable = false
+hitbox = SubResource("CapsuleShape2D_ut74g")
+CollisionMask = 3
+texture = ExtResource("20_tslrj")
+
+[node name="YinyangOrb" parent="TabContainer/play/Character/Preview/Reimu/ReimuSprite/bullet" instance=ExtResource("21_jahto")]
+position = Vector2(72, 0)
+rotation = -1.5708
+flip_v = true
+
+[node name="YinyangOrb2" parent="TabContainer/play/Character/Preview/Reimu/ReimuSprite/bullet" instance=ExtResource("21_jahto")]
+texture_filter = 1
+position = Vector2(-72, 0)
+rotation = -1.5708
+flip_h = false
+
+[node name="Marker2D" type="Marker2D" parent="TabContainer/play/Character/Preview/Reimu/ReimuSprite/bullet"]
+position = Vector2(13.0002, -39.9999)
+rotation = -1.5708
+gizmo_extents = 51.7
+
+[node name="Position2D2" type="Marker2D" parent="TabContainer/play/Character/Preview/Reimu/ReimuSprite/bullet"]
+position = Vector2(-13, -40)
+rotation = -1.5708
+gizmo_extents = 82.9
+
+[node name="Timer" type="Timer" parent="TabContainer/play/Character/Preview/Reimu/ReimuSprite"]
+process_callback = 0
+wait_time = 0.267
+
+[node name="Marisa" type="Control" parent="TabContainer/play/Character/Preview"]
+visible = false
+layout_mode = 2
+
+[node name="Marisa" type="AnimatedSprite2D" parent="TabContainer/play/Character/Preview/Marisa"]
+z_index = 10
+position = Vector2(270, 592)
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_7ry75")
+script = ExtResource("21_va0sy")
+
+[node name="MasterSpark" type="Node2D" parent="TabContainer/play/Character/Preview/Marisa/Marisa"]
+position = Vector2(-153, -1091)
+
+[node name="beam2" type="Line2D" parent="TabContainer/play/Character/Preview/Marisa/Marisa/MasterSpark"]
+texture_filter = 1
+texture_repeat = 2
+material = SubResource("ShaderMaterial_y1xq4")
+position = Vector2(154, 995)
+points = PackedVector2Array(0, 0, 0, -960)
+width = 0.0
+width_curve = SubResource("Curve_s8ddt")
+texture = ExtResource("25_b00sl")
+texture_mode = 1
+begin_cap_mode = 2
+sharp_limit = 0.0
+round_precision = 16
+
+[node name="glow2" type="Line2D" parent="TabContainer/play/Character/Preview/Marisa/Marisa/MasterSpark/beam2"]
+texture_filter = 1
+texture_repeat = 2
+material = SubResource("ShaderMaterial_qr3qo")
+position = Vector2(0, -7)
+points = PackedVector2Array(0, 0, 0, -960)
+width = 0.0
+width_curve = SubResource("Curve_f152w")
+texture = SubResource("GradientTexture2D_4s8ve")
+texture_mode = 1
+begin_cap_mode = 2
+sharp_limit = 0.0
+round_precision = 16
+
+[node name="BeamParticle" type="GPUParticles2D" parent="TabContainer/play/Character/Preview/Marisa/Marisa/MasterSpark/beam2/glow2"]
+z_index = 100
+z_as_relative = false
+material = SubResource("CanvasItemMaterial_qloao")
+position = Vector2(0, -480)
+emitting = false
+amount = 128
+process_material = SubResource("ParticleProcessMaterial_3moko")
+texture = ExtResource("27_aqtxu")
+visibility_rect = Rect2(-32, 480, 64, -960)
+draw_order = 0
+
+[node name="RayCast2D" type="RayCast2D" parent="TabContainer/play/Character/Preview/Marisa/Marisa/MasterSpark"]
+position = Vector2(154, 1002)
+enabled = false
+exclude_parent = false
+target_position = Vector2(0, -960)
+collision_mask = 2
+collide_with_areas = true
+collide_with_bodies = false
+
+[node name="RayCast2D2" type="RayCast2D" parent="TabContainer/play/Character/Preview/Marisa/Marisa/MasterSpark/RayCast2D"]
+position = Vector2(-8, 0)
+enabled = false
+exclude_parent = false
+target_position = Vector2(0, -960)
+collision_mask = 2
+collide_with_areas = true
+collide_with_bodies = false
+
+[node name="RayCast2D3" type="RayCast2D" parent="TabContainer/play/Character/Preview/Marisa/Marisa/MasterSpark/RayCast2D"]
+position = Vector2(8, 0)
+enabled = false
+exclude_parent = false
+target_position = Vector2(0, -960)
+collision_mask = 2
+collide_with_areas = true
+collide_with_bodies = false
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="TabContainer/play/Character/Preview/Marisa/Marisa/MasterSpark"]
+libraries = {
+"": SubResource("AnimationLibrary_huuam")
+}
+
+[node name="Marisa-hitbox" type="Sprite2D" parent="TabContainer/play/Character/Preview/Marisa/Marisa"]
+position = Vector2(-0.5, -10.5)
+texture = ExtResource("28_l8ygb")
+
+[node name="OptionButton" type="OptionButton" parent="TabContainer/play/Character"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("10_qmh8v")
+theme_override_font_sizes/font_size = 48
+alignment = 1
+item_count = 2
+selected = 0
+popup/item_0/text = "Reimu Hakurei"
+popup/item_0/id = 0
+popup/item_1/text = "Marisa Kirisame"
+popup/item_1/id = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TabContainer/play/Character"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="previous" type="Button" parent="TabContainer/play/Character/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "<"
+flat = true
+alignment = 0
+
+[node name="next" type="Button" parent="TabContainer/play/Character/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = ">"
+flat = true
+alignment = 2
+
+[node name="Settings" type="TabContainer" parent="TabContainer"]
+visible = false
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+
+[node name="Generic" type="VBoxContainer" parent="TabContainer/Settings"]
+layout_mode = 2
+script = ExtResource("2_dgpou")
+
+[node name="language" type="OptionButton" parent="TabContainer/Settings/Generic"]
+layout_mode = 2
+item_count = 1
+selected = 0
+popup/item_0/text = "Language: English"
+popup/item_0/id = 0
+
+[node name="Label" type="Label" parent="TabContainer/Settings/Generic"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Time scale: %d %%"
+script = ExtResource("4_h21eu")
+
+[node name="speed" type="HSlider" parent="TabContainer/Settings/Generic" node_paths=PackedStringArray("label")]
+layout_mode = 2
+min_value = 0.5
+max_value = 2.0
+step = 0.1
+value = 2.0
+allow_greater = true
+script = ExtResource("23_5r066")
+label = NodePath("../Label")
 
 [node name="Controls" type="VBoxContainer" parent="TabContainer/Settings"]
 visible = false
 layout_mode = 2
-script = SubResource("GDScript_18mvs")
+script = ExtResource("24_hwgke")
+
+[node name="hold" type="CheckButton" parent="TabContainer/Settings/Controls"]
+layout_mode = 2
+focus_mode = 0
+text = "Hold %s to move"
+script = ExtResource("5_vnfn8")
 
 [node name="drag" type="Button" parent="TabContainer/Settings/Controls"]
 layout_mode = 2
@@ -1006,6 +1026,7 @@ label = NodePath("../voiceLabel")
 layout_mode = 2
 
 [node name="Graphic" type="VBoxContainer" parent="TabContainer/Settings"]
+visible = false
 layout_mode = 2
 script = ExtResource("8_uia1o")
 
@@ -1029,290 +1050,28 @@ mouse_default_cursor_shape = 2
 text = "Borderless"
 script = ExtResource("5_vnfn8")
 
+[node name="particle" type="CheckButton" parent="TabContainer/Settings/Graphic"]
+layout_mode = 2
+focus_neighbor_left = NodePath("../fullscreen")
+focus_neighbor_top = NodePath("../fullscreen")
+focus_previous = NodePath("../fullscreen")
+focus_mode = 0
+mouse_default_cursor_shape = 2
+text = "Full particle effect"
+script = ExtResource("5_vnfn8")
+
+[node name="background" type="CheckButton" parent="TabContainer/Settings/Graphic"]
+layout_mode = 2
+focus_neighbor_left = NodePath("../fullscreen")
+focus_neighbor_top = NodePath("../fullscreen")
+focus_previous = NodePath("../fullscreen")
+focus_mode = 0
+mouse_default_cursor_shape = 2
+text = "Dynamic Background"
+script = ExtResource("5_vnfn8")
+
 [node name="reset" parent="TabContainer/Settings/Graphic" instance=ExtResource("5_nrino")]
 layout_mode = 2
-
-[node name="play" type="TabContainer" parent="TabContainer"]
-visible = false
-layout_mode = 2
-theme_override_font_sizes/font_size = 32
-
-[node name="Level" type="VBoxContainer" parent="TabContainer/play"]
-layout_mode = 2
-
-[node name="OptionButton" type="OptionButton" parent="TabContainer/play/Level"]
-layout_mode = 2
-alignment = 1
-item_count = 1
-selected = 0
-popup/item_0/text = "Test level"
-popup/item_0/id = 0
-
-[node name="LeftRightButton" type="HBoxContainer" parent="TabContainer/play/Level"]
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="previous" type="Button" parent="TabContainer/play/Level/LeftRightButton"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_font_sizes/font_size = 32
-text = "<"
-flat = true
-alignment = 0
-script = ExtResource("3_wn432")
-press_sfx = false
-
-[node name="next" type="Button" parent="TabContainer/play/Level/LeftRightButton"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_font_sizes/font_size = 32
-text = ">"
-flat = true
-alignment = 2
-script = ExtResource("3_wn432")
-
-[node name="enter" type="Button" parent="TabContainer/play/Level"]
-layout_mode = 2
-size_flags_horizontal = 4
-theme_override_font_sizes/font_size = 48
-text = "Challenge Accept"
-script = ExtResource("3_wn432")
-
-[node name="Score" type="TabContainer" parent="TabContainer/play"]
-visible = false
-layout_mode = 2
-tab_alignment = 2
-
-[node name="Local" type="RichTextLabel" parent="TabContainer/play/Score"]
-layout_mode = 2
-theme_override_fonts/normal_font = ExtResource("10_qmh8v")
-theme_override_fonts/mono_font = ExtResource("11_51w8a")
-theme_override_font_sizes/normal_font_size = 64
-theme_override_font_sizes/mono_font_size = 32
-theme_override_styles/normal = SubResource("StyleBoxFlat_15cds")
-bbcode_enabled = true
-text = "Personal Best:
-[code][color=ff7085]Score:%09d[/color]
-[color=147dfa]  Item:  %06d[/color]
- [color=63c259] Graze: %06d[/color]
-[color=ffb273]Try count: %d[/color]
-Game speed %d%%[/code]
-Partner Score:
-[code]%s
-[color=ff7085]Score:%09d[/color]
-[color=147dfa]  Item:  %06d[/color]
- [color=63c259] Graze: %06d[/color]"
-autowrap_mode = 0
-script = SubResource("GDScript_ud3jd")
-
-[node name="Point" type="Sprite2D" parent="TabContainer/play/Score/Local"]
-texture_filter = 1
-position = Vector2(25, 199)
-scale = Vector2(2, 2)
-texture = ExtResource("13_28gra")
-
-[node name="Reimu-hitbox" type="Sprite2D" parent="TabContainer/play/Score/Local/Point"]
-texture_filter = 1
-position = Vector2(0, 22.5)
-scale = Vector2(2, 2)
-texture = ExtResource("14_8kxqp")
-
-[node name="Point2" type="Sprite2D" parent="TabContainer/play/Score/Local/Point"]
-texture_filter = 1
-position = Vector2(-1.5, 195.5)
-texture = ExtResource("13_28gra")
-
-[node name="Reimu-hitbox2" type="Sprite2D" parent="TabContainer/play/Score/Local/Point/Point2"]
-texture_filter = 1
-position = Vector2(0, 22.5)
-scale = Vector2(2, 2)
-texture = ExtResource("14_8kxqp")
-
-[node name="Internet" type="Label" parent="TabContainer/play/Score"]
-visible = false
-layout_mode = 2
-text = "Not yet implemented"
-
-[node name="Character" type="VBoxContainer" parent="TabContainer/play"]
-visible = false
-layout_mode = 2
-script = SubResource("GDScript_thp2o")
-
-[node name="Preview" type="TabContainer" parent="TabContainer/play/Character"]
-texture_filter = 1
-layout_mode = 2
-tabs_visible = false
-
-[node name="Reimu" type="Control" parent="TabContainer/play/Character/Preview"]
-layout_mode = 2
-metadata/scene = ExtResource("16_o0h3l")
-
-[node name="ReimuSprite" parent="TabContainer/play/Character/Preview/Reimu" instance=ExtResource("17_3eq3m")]
-position = Vector2(270, 642)
-scale = Vector2(2, 2)
-script = SubResource("GDScript_201ki")
-
-[node name="Hitbox2" type="Sprite2D" parent="TabContainer/play/Character/Preview/Reimu/ReimuSprite"]
-z_index = 100
-position = Vector2(0, -8)
-texture = ExtResource("14_8kxqp")
-
-[node name="bullet" type="Node2D" parent="TabContainer/play/Character/Preview/Reimu/ReimuSprite"]
-z_index = 1
-position = Vector2(0, -8)
-script = ExtResource("19_2j5r6")
-SeekMask = 2
-seekRadius = 270.0
-maxBullet = 72
-Grazable = false
-hitbox = SubResource("CapsuleShape2D_ut74g")
-CollisionMask = 3
-texture = ExtResource("20_tslrj")
-
-[node name="YinyangOrb" parent="TabContainer/play/Character/Preview/Reimu/ReimuSprite/bullet" instance=ExtResource("21_jahto")]
-position = Vector2(72, 0)
-rotation = -1.5708
-flip_v = true
-
-[node name="YinyangOrb2" parent="TabContainer/play/Character/Preview/Reimu/ReimuSprite/bullet" instance=ExtResource("21_jahto")]
-texture_filter = 1
-position = Vector2(-72, 0)
-rotation = -1.5708
-flip_h = false
-
-[node name="Marker2D" type="Marker2D" parent="TabContainer/play/Character/Preview/Reimu/ReimuSprite/bullet"]
-position = Vector2(13.0002, -39.9999)
-rotation = -1.5708
-gizmo_extents = 51.7
-
-[node name="Position2D2" type="Marker2D" parent="TabContainer/play/Character/Preview/Reimu/ReimuSprite/bullet"]
-position = Vector2(-13, -40)
-rotation = -1.5708
-gizmo_extents = 82.9
-
-[node name="Timer" type="Timer" parent="TabContainer/play/Character/Preview/Reimu/ReimuSprite"]
-process_callback = 0
-wait_time = 0.267
-
-[node name="Marisa" type="Control" parent="TabContainer/play/Character/Preview"]
-visible = false
-layout_mode = 2
-
-[node name="Marisa" type="AnimatedSprite2D" parent="TabContainer/play/Character/Preview/Marisa"]
-z_index = 10
-position = Vector2(270, 592)
-scale = Vector2(2, 2)
-sprite_frames = SubResource("SpriteFrames_7ry75")
-script = SubResource("GDScript_y2fou")
-
-[node name="MasterSpark" type="Node2D" parent="TabContainer/play/Character/Preview/Marisa/Marisa"]
-position = Vector2(-153, -1091)
-
-[node name="beam2" type="Line2D" parent="TabContainer/play/Character/Preview/Marisa/Marisa/MasterSpark"]
-texture_filter = 1
-texture_repeat = 2
-material = SubResource("ShaderMaterial_y1xq4")
-position = Vector2(154, 995)
-points = PackedVector2Array(0, 0, 0, -960)
-width = 0.0
-width_curve = SubResource("Curve_s8ddt")
-texture = ExtResource("25_b00sl")
-texture_mode = 1
-begin_cap_mode = 2
-sharp_limit = 0.0
-round_precision = 16
-
-[node name="glow2" type="Line2D" parent="TabContainer/play/Character/Preview/Marisa/Marisa/MasterSpark/beam2"]
-texture_filter = 1
-texture_repeat = 2
-material = SubResource("ShaderMaterial_qr3qo")
-position = Vector2(0, -7)
-points = PackedVector2Array(0, 0, 0, -960)
-width = 0.0
-width_curve = SubResource("Curve_f152w")
-texture = SubResource("GradientTexture2D_4s8ve")
-texture_mode = 1
-begin_cap_mode = 2
-sharp_limit = 0.0
-round_precision = 16
-
-[node name="BeamParticle" type="GPUParticles2D" parent="TabContainer/play/Character/Preview/Marisa/Marisa/MasterSpark/beam2/glow2"]
-z_index = 100
-z_as_relative = false
-material = SubResource("CanvasItemMaterial_qloao")
-position = Vector2(0, -480)
-emitting = false
-amount = 128
-process_material = SubResource("ParticleProcessMaterial_3moko")
-texture = ExtResource("27_aqtxu")
-visibility_rect = Rect2(-32, 480, 64, -960)
-draw_order = 0
-
-[node name="RayCast2D" type="RayCast2D" parent="TabContainer/play/Character/Preview/Marisa/Marisa/MasterSpark"]
-position = Vector2(154, 1002)
-enabled = false
-exclude_parent = false
-target_position = Vector2(0, -960)
-collision_mask = 2
-collide_with_areas = true
-collide_with_bodies = false
-
-[node name="RayCast2D2" type="RayCast2D" parent="TabContainer/play/Character/Preview/Marisa/Marisa/MasterSpark/RayCast2D"]
-position = Vector2(-8, 0)
-enabled = false
-exclude_parent = false
-target_position = Vector2(0, -960)
-collision_mask = 2
-collide_with_areas = true
-collide_with_bodies = false
-
-[node name="RayCast2D3" type="RayCast2D" parent="TabContainer/play/Character/Preview/Marisa/Marisa/MasterSpark/RayCast2D"]
-position = Vector2(8, 0)
-enabled = false
-exclude_parent = false
-target_position = Vector2(0, -960)
-collision_mask = 2
-collide_with_areas = true
-collide_with_bodies = false
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="TabContainer/play/Character/Preview/Marisa/Marisa/MasterSpark"]
-libraries = {
-"": SubResource("AnimationLibrary_huuam")
-}
-
-[node name="Marisa-hitbox" type="Sprite2D" parent="TabContainer/play/Character/Preview/Marisa/Marisa"]
-position = Vector2(-0.5, -10.5)
-texture = ExtResource("28_l8ygb")
-
-[node name="OptionButton" type="OptionButton" parent="TabContainer/play/Character"]
-layout_mode = 2
-theme_override_fonts/font = ExtResource("10_qmh8v")
-theme_override_font_sizes/font_size = 48
-alignment = 1
-item_count = 2
-selected = 0
-popup/item_0/text = "Reimu Hakurei"
-popup/item_0/id = 0
-popup/item_1/text = "Marisa"
-popup/item_1/id = 1
-
-[node name="HBoxContainer" type="HBoxContainer" parent="TabContainer/play/Character"]
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="previous" type="Button" parent="TabContainer/play/Character/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "<"
-flat = true
-alignment = 0
-
-[node name="next" type="Button" parent="TabContainer/play/Character/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = ">"
-flat = true
-alignment = 2
 
 [node name="multiplayer" type="TabContainer" parent="TabContainer"]
 visible = false
@@ -1337,25 +1096,23 @@ anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_top = -603.0
-offset_bottom = -295.0
+offset_bottom = -375.0
 grow_horizontal = 2
 grow_vertical = 0
-script = SubResource("GDScript_kwpbj")
+script = ExtResource("26_wbk6w")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="TabContainer/multiplayer/EnetHost/EnetHost"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="ip" type="LineEdit" parent="TabContainer/multiplayer/EnetHost/EnetHost/HBoxContainer"]
+[node name="ip" type="TextEdit" parent="TabContainer/multiplayer/EnetHost/EnetHost/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 24
 placeholder_text = "Error getting IP address !"
-max_length = 39
 editable = false
 virtual_keyboard_enabled = false
 middle_mouse_paste_enabled = false
-select_all_on_focus = true
 
 [node name="port" type="LineEdit" parent="TabContainer/multiplayer/EnetHost/EnetHost/HBoxContainer"]
 layout_mode = 2
@@ -1365,6 +1122,7 @@ max_length = 5
 select_all_on_focus = true
 
 [node name="host" type="Button" parent="TabContainer/multiplayer/EnetHost/EnetHost"]
+custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 3
@@ -1394,46 +1152,53 @@ text = "Tip: Try a different port if not working. If still doesn't work, let you
 "
 autowrap_mode = 3
 
-[node name="EnetJoin" type="VBoxContainer" parent="TabContainer/multiplayer"]
+[node name="EnetJoin" type="VSplitContainer" parent="TabContainer/multiplayer"]
 visible = false
 layout_mode = 2
-script = SubResource("GDScript_sm1va")
 
 [node name="ItemList" type="ItemList" parent="TabContainer/multiplayer/EnetJoin"]
 layout_mode = 2
 size_flags_vertical = 3
+auto_height = true
 
-[node name="HBoxContainer" type="HBoxContainer" parent="TabContainer/multiplayer/EnetJoin"]
+[node name="EnetJoin" type="VBoxContainer" parent="TabContainer/multiplayer/EnetJoin"]
 layout_mode = 2
+size_flags_vertical = 3
+script = ExtResource("27_1hjwn")
 
-[node name="ip" type="LineEdit" parent="TabContainer/multiplayer/EnetJoin/HBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="TabContainer/multiplayer/EnetJoin/EnetJoin"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ip" type="TextEdit" parent="TabContainer/multiplayer/EnetJoin/EnetJoin/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 placeholder_text = "Paste your friend IP address:"
-max_length = 35
-clear_button_enabled = true
 
-[node name="port" type="LineEdit" parent="TabContainer/multiplayer/EnetJoin/HBoxContainer"]
+[node name="port" type="LineEdit" parent="TabContainer/multiplayer/EnetJoin/EnetJoin/HBoxContainer"]
 layout_mode = 2
 text = "6567"
 placeholder_text = "6567"
 
-[node name="Join" type="Button" parent="TabContainer/multiplayer/EnetJoin"]
+[node name="Join" type="Button" parent="TabContainer/multiplayer/EnetJoin/EnetJoin"]
+custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 3
 text = "Join Party"
 script = ExtResource("3_wn432")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="TabContainer/multiplayer/EnetJoin"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="TabContainer/multiplayer/EnetJoin/EnetJoin"]
 libraries = {
 "": SubResource("AnimationLibrary_at5y1")
 }
 
-[node name="Timer" type="Timer" parent="TabContainer/multiplayer/EnetJoin"]
+[node name="Timer" type="Timer" parent="TabContainer/multiplayer/EnetJoin/EnetJoin"]
 
 [node name="WebRtc" type="VBoxContainer" parent="TabContainer/multiplayer"]
 visible = false
 layout_mode = 2
-script = SubResource("GDScript_xwohh")
+script = ExtResource("28_w5xwc")
 
 [node name="Offer" type="LineEdit" parent="TabContainer/multiplayer/WebRtc"]
 layout_mode = 2
@@ -1457,11 +1222,16 @@ select_all_on_focus = true
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
 tab_count = 4
-tab_0/title = "Settings"
-tab_1/title = "Play"
+tab_0/title = "Play"
+tab_1/title = "Settings"
 tab_2/title = "Multiplayer"
 tab_3/title = "About"
 
+[connection signal="timeout" from="TabContainer/play/Character/Preview/Reimu/ReimuSprite/Timer" to="TabContainer/play/Character/Preview/Reimu/ReimuSprite/bullet" method="SpawnBullet"]
+[connection signal="pressed" from="TabContainer/play/Character/HBoxContainer/previous" to="TabContainer/play/Character" method="_change_character"]
+[connection signal="pressed" from="TabContainer/play/Character/HBoxContainer/next" to="TabContainer/play/Character" method="_change_character"]
+[connection signal="item_selected" from="TabContainer/Settings/Generic/language" to="TabContainer/Settings/Generic" method="_on_language_item_selected"]
+[connection signal="toggled" from="TabContainer/Settings/Controls/hold" to="TabContainer/Settings/Controls" method="_on_hold_toggled"]
 [connection signal="pressed" from="TabContainer/Settings/Controls/drag" to="TabContainer/Settings/Controls" method="_on_drag_pressed" flags=18]
 [connection signal="pressed" from="TabContainer/Settings/Controls/bomb" to="TabContainer/Settings/Controls" method="_on_bomb_pressed" flags=18]
 [connection signal="value_changed" from="TabContainer/Settings/Controls/sentivity" to="TabContainer/Settings/Controls" method="_on_sentivity_value_changed" flags=18]
@@ -1474,13 +1244,10 @@ tab_3/title = "About"
 [connection signal="toggled" from="TabContainer/Settings/Graphic/fullscreen" to="TabContainer/Settings/Graphic" method="_on_fullscreen_toggled" flags=18]
 [connection signal="toggled" from="TabContainer/Settings/Graphic/borderless" to="TabContainer/Settings/Graphic" method="_on_borderless_toggled" flags=18]
 [connection signal="pressed" from="TabContainer/Settings/Graphic/reset" to="TabContainer/Settings/Graphic" method="_on_reset_pressed"]
-[connection signal="timeout" from="TabContainer/play/Character/Preview/Reimu/ReimuSprite/Timer" to="TabContainer/play/Character/Preview/Reimu/ReimuSprite/bullet" method="SpawnBullet"]
-[connection signal="pressed" from="TabContainer/play/Character/HBoxContainer/previous" to="TabContainer/play/Character" method="_change_character"]
-[connection signal="pressed" from="TabContainer/play/Character/HBoxContainer/next" to="TabContainer/play/Character" method="_change_character"]
 [connection signal="text_changed" from="TabContainer/multiplayer/EnetHost/EnetHost/HBoxContainer/port" to="TabContainer/multiplayer/EnetHost/EnetHost" method="_on_port_text_changed"]
 [connection signal="pressed" from="TabContainer/multiplayer/EnetHost/EnetHost/host" to="TabContainer/multiplayer/EnetHost/EnetHost" method="_on_host_pressed"]
 [connection signal="timeout" from="TabContainer/multiplayer/EnetHost/EnetHost/Timer" to="TabContainer/multiplayer/EnetHost/EnetHost" method="_on_timer_timeout"]
-[connection signal="item_clicked" from="TabContainer/multiplayer/EnetJoin/ItemList" to="TabContainer/multiplayer/EnetJoin" method="_on_item_list_item_clicked"]
-[connection signal="text_changed" from="TabContainer/multiplayer/EnetJoin/HBoxContainer/port" to="TabContainer/multiplayer/EnetJoin" method="_on_port_text_changed"]
-[connection signal="pressed" from="TabContainer/multiplayer/EnetJoin/Join" to="TabContainer/multiplayer/EnetJoin" method="_on_join_pressed"]
-[connection signal="timeout" from="TabContainer/multiplayer/EnetJoin/Timer" to="TabContainer/multiplayer/EnetJoin" method="_on_timer_timeout"]
+[connection signal="item_clicked" from="TabContainer/multiplayer/EnetJoin/ItemList" to="TabContainer/multiplayer/EnetJoin/EnetJoin" method="_on_item_list_item_clicked"]
+[connection signal="text_changed" from="TabContainer/multiplayer/EnetJoin/EnetJoin/HBoxContainer/port" to="TabContainer/multiplayer/EnetJoin/EnetJoin" method="_on_port_text_changed"]
+[connection signal="pressed" from="TabContainer/multiplayer/EnetJoin/EnetJoin/Join" to="TabContainer/multiplayer/EnetJoin/EnetJoin" method="_on_join_pressed"]
+[connection signal="timeout" from="TabContainer/multiplayer/EnetJoin/EnetJoin/Timer" to="TabContainer/multiplayer/EnetJoin/EnetJoin" method="_on_timer_timeout"]

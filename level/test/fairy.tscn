@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=3 uid="uid://qcqdhn5ssewn"]
+
+[ext_resource type="Script" path="res://entity/utility/PathFollower2D.gd" id="1_c4kee"]
+[ext_resource type="Texture2D" uid="uid://ejrqvn5h5jxu" path="res://entity/enemy/fairy/resource/Fairy.1.png" id="2_mpil1"]
+[ext_resource type="Script" path="res://entity/utility/TargetLocker.gd" id="3_unje3"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_noovt"]
+radius = 28.0
+
+[node name="Fairy" type="PathFollow2D"]
+rotates = false
+cubic_interp = false
+loop = false
+lookahead = 1.0
+script = ExtResource("1_c4kee")
+time = 5.0
+
+[node name="Fairy1" type="Sprite2D" parent="."]
+texture = ExtResource("2_mpil1")
+
+[node name="hitbox" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 0
+monitoring = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hitbox"]
+shape = SubResource("CircleShape2D_noovt")
+
+[node name="barrel" type="Marker2D" parent="."]
+script = ExtResource("3_unje3")
+
+[connection signal="body_entered" from="hitbox" to="." method="_on_hitbox_body_entered"]

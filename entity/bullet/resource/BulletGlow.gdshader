@@ -7,7 +7,7 @@ uniform bool spin;
 uniform bool sin_alpha;
 uniform sampler2D color_map;
 uniform bool wobble;
-uniform float wobble_min = 1.;
+uniform float wobble_min = .75;
 
 varying vec2 uv;
 void vertex()

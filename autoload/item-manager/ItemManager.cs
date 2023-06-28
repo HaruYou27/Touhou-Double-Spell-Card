@@ -19,7 +19,7 @@ public partial class ItemManager : BulletBasic
 		//The Greatest downfall of inhernitence btw.
 		//But it also not worth to abstract the hell out or use composition.
 	}
-	public virtual void SpawnItem(in int point, Vector2 position)
+	public virtual void SpawnItem(int point, Vector2 position)
 	{
 		for (nint i = 0; i < point; i++)
 		{

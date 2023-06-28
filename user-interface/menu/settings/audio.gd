@@ -1,9 +1,9 @@
 extends VBoxContainer
 
 func _ready() -> void:
-	var config :AudioBusLayout = load('user://audio_override.res')
-	if config:
-		AudioServer.set_bus_layout(config)
+	var user_data :AudioBusLayout = load('user://audio_override.res')
+	if user_data:
+		AudioServer.set_bus_layout(user_data)
 	
 	sfx.value = AudioServer.get_bus_volume_db(1)
 	bgm.value = AudioServer.get_bus_volume_db(2)
@@ -26,16 +26,12 @@ func _on_voice_value_changed(value:float) -> void:
 func _on_mic_value_changed(value:float) -> void:
 	AudioServer.set_bus_volume_db(4, value)
 
-func _on_audio_reset_pressed() -> void:
-	bgm.value = .0
-	sfx.value = .0
-	voice.value = .0
-	mic.value = .0
-	
 func _exit_tree() -> void:
 	if not Engine.is_editor_hint():
 		ResourceSaver.save(AudioServer.generate_bus_layout(), 'user://audio_override.res')
 
-
 func _on_reset_pressed():
-	pass # Replace with function body.
+	bgm.value = .0
+	sfx.value = .0
+	voice.value = .0
+	mic.value = .0

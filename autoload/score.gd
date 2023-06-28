@@ -9,6 +9,6 @@ class_name Score
 @export var try_count := 0
 
 @export_category('Partner HiScore')
-@export var partner := 'u solo'
+@export var partner := ''
 @export var partner_item := 0
 @export var partner_graze := 0

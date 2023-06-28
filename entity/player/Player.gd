@@ -1,22 +1,18 @@
 extends StaticBody2D
 class_name Player
 
-signal open_fire
-signal stop_fire
-@onready var animator := $AnimationPlayer
 func _ready() -> void:
 	if not is_multiplayer_authority():
 		set_process_unhandled_input(false)
 		hitbox.queue_free()
-	animator.play("spawn")
 
 ############## COLLISION
 @onready var death_timer := $DeathTimer
 func _hit() -> void:
 	set_process_unhandled_input(false)
+	hitbox.set_deferred('disabled', false)
 	VisualEffect.flash_red()
 	death_timer.start()
-	stop_fire.emit()
 ####################
 
 ##################### MOVEMENT
@@ -29,6 +25,8 @@ func _unhandled_input(event:InputEvent) -> void:
 		
 		if is_multiplayer_authority():
 			rpc('_update_position')
+	elif event.is_action_pressed("bomb"):
+		bomb()
 
 @rpc
 func _update_position(pos:Vector2) -> void:
@@ -46,26 +44,35 @@ func bomb() -> void:
 	
 	bomb_count -= 1
 	can_bomb = false
-	stop_fire.emit()
 	VisualEffect.hide()
 	death_timer.stop()
 	Global.hud.update_bomb()
+
+	set_process_unhandled_input(true)
+	hitbox.hide()
+	hitbox.set_deferred("disabled", true)
 	
 	kaboom.emit()
-
-	if is_multiplayer_authority():
-		set_process_unhandled_input(true)
-		hitbox.hide()
-		hitbox.set_deferred("disabled", true)
+	rpc('bomb_go_off', Time.get_ticks_msec())
+		
+@rpc("reliable")
+func bomb_go_off(host_time:int) -> void:
+	kaboom.emit((host_time - Global.get_host_time()) / 1000)
 	
 @export var hitbox : CollisionShape2D
 func _bomb_finished() -> void:
-	if is_multiplayer_authority():
-		hitbox.show()
-		hitbox.set_deferred('disabled', false)
+	hitbox.show()
+	hitbox.set_deferred('disabled', false)
 	can_bomb = true
-	open_fire.emit()
 #####################
 
-func _on_animation_player_animation_finished(anim_name):
-	open_fire.emit()
+func _on_recover_timer_timeout():
+	modulate = Color.WHITE
+	hitbox.set_deferred('disabled', false)
+
+@onready var recover_timer := $RecoverTimer
+func _on_death_timer_timeout():
+	set_process_unhandled_input(true)
+	modulate = Color(Color.WHITE, .5)
+	Global.hud.player_died()
+	recover_timer.start()

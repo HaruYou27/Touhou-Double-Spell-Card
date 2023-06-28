@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://bk08ga1mfcleb"]
+[gd_scene load_steps=22 format=3 uid="uid://bk08ga1mfcleb"]
 
 [ext_resource type="PackedScene" uid="uid://ffnff8ahyxxn" path="res://entity/player/reimu/reimu_sprite.tscn" id="1_gp5d6"]
 [ext_resource type="PackedScene" uid="uid://c34lwlqwsc4ve" path="res://entity/player/player.tscn" id="4_ftqh1"]
@@ -8,9 +8,11 @@
 [ext_resource type="Texture2D" uid="uid://cx7ewf38kbh34" path="res://entity/player/reimu/resource/reimu-hitbox.png" id="7_hytxk"]
 [ext_resource type="Material" uid="uid://df8i0wskbdmia" path="res://entity/player/reimu/resource/yinYangOrb.tres" id="7_np48j"]
 [ext_resource type="Texture2D" uid="uid://f57p0cr44ri7" path="res://entity/player/reimu/resource/kishin.webp" id="8_2l12v"]
-[ext_resource type="Script" path="res://entity/player/reimu/homing-shoot.gd" id="8_y4qu3"]
 [ext_resource type="Texture2D" uid="uid://cu2ufhkx3vayf" path="res://entity/player/reimu/resource/ofuda.png" id="9_w5him"]
 [ext_resource type="PackedScene" uid="uid://bsa0xvb26o22u" path="res://entity/player/reimu/yinyang_orb.tscn" id="12_1m530"]
+[ext_resource type="Material" uid="uid://dox27ncd2r5o3" path="res://entity/glow.tres" id="12_83ts8"]
+[ext_resource type="Texture2D" uid="uid://d2wacgirqsjjn" path="res://entity/white-trans.tres" id="13_kms7i"]
+[ext_resource type="Texture2D" uid="uid://dxsf3vpqsosf1" path="res://entity/enemy/phantom/fire_particle.png" id="14_gd3kh"]
 
 [sub_resource type="CircleShape2D" id="7"]
 radius = 3.0
@@ -35,7 +37,43 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(540, 2420)]
+"values": [Vector2(270, 1230)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("YinyangOrb2:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("GPUParticles2D:emitting")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("hitbox:disabled")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
 }
 
 [sub_resource type="Animation" id="Animation_abej3"]
@@ -53,6 +91,42 @@ tracks/0/keys = {
 "update": 0,
 "values": [Vector2(270, 1230), Vector2(270, -270)]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("YinyangOrb2:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("GPUParticles2D:emitting")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("hitbox:disabled")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_fwlhc"]
 _data = {
@@ -62,6 +136,19 @@ _data = {
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_5bis8"]
 radius = 270.0
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_vu8gb"]
+particle_flag_disable_z = true
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 28.17
+initial_velocity_max = 56.34
+angular_velocity_min = 283.94
+angular_velocity_max = 588.17
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+scale_min = 0.5
+color = Color(1, 0.227451, 0.0588235, 1)
+color_ramp = ExtResource("13_kms7i")
 
 [node name="Reimu" type="Node2D"]
 
@@ -88,17 +175,18 @@ shape = SubResource("CapsuleShape2D_sx7ua")
 debug_color = Color(0.713726, 0.105882, 0.701961, 0.419608)
 
 [node name="Homing" type="Node2D" parent="Player"]
-script = ExtResource("8_y4qu3")
 
 [node name="Timer" type="Timer" parent="Player/Homing"]
 process_callback = 0
 wait_time = 0.267
+autostart = true
 
 [node name="bullet" type="Node2D" parent="Player/Homing"]
 z_index = 1
 script = ExtResource("7_1stsf")
 maxBullet = 72
 speed = 727.0
+localRotation = true
 Grazable = false
 hitbox = SubResource("CapsuleShape2D_gxxsf")
 CollisionMask = 3
@@ -126,9 +214,8 @@ rotation = -1.5708
 gizmo_extents = 82.9
 
 [node name="KishinOrb" type="StaticBody2D" parent="."]
-visible = false
 texture_filter = 2
-position = Vector2(540, 2420)
+position = Vector2(270, 1230)
 collision_layer = 4
 collision_mask = 0
 constant_linear_velocity = Vector2(2, 0)
@@ -143,12 +230,24 @@ libraries = {
 shape = SubResource("CircleShape2D_5bis8")
 disabled = true
 
-[node name="KishinOrb" type="Sprite2D" parent="KishinOrb"]
+[node name="YinyangOrb2" type="Sprite2D" parent="KishinOrb"]
+visible = false
+z_index = 3000
+texture_filter = 1
 material = ExtResource("7_np48j")
+rotation = 1.5708
 texture = ExtResource("8_2l12v")
 
+[node name="GPUParticles2D" type="GPUParticles2D" parent="KishinOrb"]
+z_index = -1
+material = ExtResource("12_83ts8")
+rotation = 1.5708
+scale = Vector2(16, 16)
+emitting = false
+amount = 128
+process_material = SubResource("ParticleProcessMaterial_vu8gb")
+texture = ExtResource("14_gd3kh")
+
 [connection signal="kaboom" from="Player" to="KishinOrb" method="_on_player_kaboom"]
-[connection signal="open_fire" from="Player" to="Player/Homing" method="_open_fire"]
-[connection signal="stop_fire" from="Player" to="Player/Homing" method="_stop_fire"]
 [connection signal="timeout" from="Player/Homing/Timer" to="Player/Homing/bullet" method="SpawnBullet"]
 [connection signal="animation_finished" from="KishinOrb/AnimationPlayer" to="KishinOrb" method="_on_animation_player_animation_finished"]

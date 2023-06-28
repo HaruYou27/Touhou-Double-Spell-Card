@@ -26,7 +26,7 @@ void fragment()
 	float noise = texture(TEXTURE, wave_uv).x * wave_distortion;
 	
 	vec4 water_color = texture(color_map, texture(TEXTURE, vec2(water_uv.x + noise, water_uv.y)).rg);
-	vec4 reflect_color = texture(reflection, vec2(UV.x + noise, UV.y-0.1));
+	vec4 reflect_color = texture(reflection, vec2(UV.x + noise, UV.y - .1));
 	
 	COLOR = mix(water_color, reflect_color, min(water_opacity, sign(reflect_color.a)));
 }

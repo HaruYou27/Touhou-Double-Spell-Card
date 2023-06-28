@@ -7,14 +7,9 @@
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_4ux2n"]
 shader = ExtResource("1_4wje6")
 shader_parameter/time_scale = 0.5
-shader_parameter/spin = true
 shader_parameter/alpha_offset = null
+shader_parameter/spin = true
 shader_parameter/sin_alpha = null
-shader_parameter/displace = 0.0
-shader_parameter/rainbow = null
-shader_parameter/wobble = null
-shader_parameter/wobble_max = 1.25
-shader_parameter/wobble_min = 0.75
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_l6dcm"]
 radius = 15.0

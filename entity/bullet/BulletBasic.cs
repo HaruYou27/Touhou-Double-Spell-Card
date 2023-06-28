@@ -3,11 +3,12 @@ using Godot;
 public partial class BulletBasic : Node2D
 {
 	//Bullet shared properties.
-	[Export] public bool dynamicBarrel;
+	public Godot.Collections.Array<Node> barrels;
 	[Export] public long maxBullet = 127; //Exceed the limit and no more bullet will be shoot out.
 	[Export] public float speed = 525;
 	[Export] public bool localRotation;
 	[Export] public bool Grazable = true;
+	[Export] public Vector2 bulletScale = Vector2.One;
 
 	//Query properties
 	[Export] public Shape2D hitbox;
@@ -17,12 +18,10 @@ public partial class BulletBasic : Node2D
 	protected readonly PhysicsShapeQueryParameters2D query = new PhysicsShapeQueryParameters2D();
 
 	//Visual.
-	[Export]
-	public Texture2D texture;
+	[Export] public Texture2D texture;
 
 	protected nint activeIndex = 0; //Current empty index, also bullet count.
 	protected nint index;
-	protected Node2D[] barrels;
 	protected static Node Global;
 	protected static ItemManager itemManager;
 	protected static World2D world;
@@ -46,16 +45,16 @@ public partial class BulletBasic : Node2D
 	}
 	public override void _Ready()
 	{
+		if (barrels == null)
+		{
+			barrels = GetChildren();
+		}
+
 		query.Shape = hitbox;
 		query.CollideWithAreas = CollideWithAreas;
 		query.CollideWithBodies = CollideWithBodies;
 		query.CollisionMask = CollisionMask;
 
-		if (!dynamicBarrel)
-		{
-			barrels = new Node2D[GetChildCount()];
-			GetChildren().CopyTo(barrels, 0);
-		}
 		BulletConstructor();
 
 		Rect2 texRect = new Rect2(-texture.GetSize() / 2, texture.GetSize());
@@ -89,11 +88,6 @@ public partial class BulletBasic : Node2D
 	}
 	public virtual void SpawnBullet()
 	{
-		if (dynamicBarrel)
-		{
-			barrels = new Node2D[GetChildCount()];
-			GetChildren().CopyTo(barrels, 0);
-		}
 		foreach (Node2D barrel in barrels)
 		{
 			if (activeIndex == maxBullet) { return; }
@@ -103,12 +97,12 @@ public partial class BulletBasic : Node2D
 			if (localRotation)
 			{
 				bullet.velocity = new Vector2(speed, 0).Rotated(barrel.Rotation);
-				bullet.transform = new Transform2D(barrel.Rotation - Mathf.Pi/2, barrel.GlobalPosition);
+				bullet.transform = new Transform2D(barrel.Rotation - Mathf.Pi/2, bulletScale, 0, barrel.GlobalPosition);
 			}
 			else
 			{
 				bullet.velocity = new Vector2(speed, 0).Rotated(barrel.GlobalRotation);
-				bullet.transform = barrel.GlobalTransform.RotatedLocal(Mathf.Pi/2);
+				bullet.transform = new Transform2D(barrel.GlobalRotation - Mathf.Pi/2, bulletScale, 0, barrel.GlobalPosition);
 			}
 			bullet.grazable = Grazable;
 
@@ -192,4 +186,3 @@ public partial class BulletBasic : Node2D
 		}
 	}
 }
-

@@ -10,7 +10,6 @@ signal bullet_graze
 signal item_collect
 
 var hud : HUD
-var boss : Boss
 var player1 : Player
 var player2 : Player
 

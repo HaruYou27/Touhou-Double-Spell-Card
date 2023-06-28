@@ -1,15 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://1uj0io3x7tlt"]
+[gd_scene load_steps=5 format=3 uid="uid://1uj0io3x7tlt"]
 
 [ext_resource type="Texture2D" uid="uid://dxsf3vpqsosf1" path="res://entity/enemy/phantom/fire_particle.png" id="1"]
+[ext_resource type="Texture2D" uid="uid://d2wacgirqsjjn" path="res://entity/white-trans.tres" id="1_lwh6j"]
 
 [sub_resource type="CanvasItemMaterial" id="3"]
 blend_mode = 1
-
-[sub_resource type="Gradient" id="Gradient_x2oo5"]
-colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_sarv2"]
-gradient = SubResource("Gradient_x2oo5")
 
 [sub_resource type="ParticleProcessMaterial" id="4"]
 emission_shape = 1
@@ -24,12 +19,14 @@ angular_velocity_min = 288.0
 angular_velocity_max = 417.6
 orbit_velocity_min = 0.0
 orbit_velocity_max = 0.0
-color_ramp = SubResource("GradientTexture1D_sarv2")
+scale_min = 0.5
+color_ramp = ExtResource("1_lwh6j")
 
 [node name="explosion" type="GPUParticles2D"]
 material = SubResource("3")
 position = Vector2(1, 1)
 emitting = false
+amount = 16
 process_material = SubResource("4")
 texture = ExtResource("1")
 one_shot = true

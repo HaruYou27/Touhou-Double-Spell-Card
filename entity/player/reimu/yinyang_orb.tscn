@@ -31,6 +31,7 @@ flip_h = true
 script = ExtResource("3_d6in8")
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+z_index = -1
 material = ExtResource("4_y0tvi")
 scale = Vector2(16, 16)
 amount = 32

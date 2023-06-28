@@ -1,10 +1,6 @@
 extends ColorRect
 class_name HUD
 
-var score := 0.
-var item := 0
-var goal := 0
-
 @onready var user_data := Global.user_data
 @export var hi_score_label : FormatLabel
 func _ready() -> void:
@@ -22,7 +18,6 @@ func _ready() -> void:
 	Global.hud = self
 	
 	score_label.update_label(0)
-	goal_label.update_label(0)
 	bomb_label.update_label(1)
 
 @export var bomb_label : FormatLabel
@@ -30,6 +25,7 @@ func update_bomb() -> void:
 	bomb_label.update_label(Global.player.bomb_count)
 
 #There's no point in updating the score more than 1 per frame.
+var item := 0
 func _add_item() -> void:
 	item += 1
 	SoundEffect.hover()
@@ -49,20 +45,15 @@ func update_score() -> void:
 	
 @export var reward_sfx : AudioStreamPlayer
 @export var score_label : FormatLabel
-@export var goal_label : FormatLabel
 func _update_score() -> void:
-	score = pow(graze * item, Engine.time_scale)
+	var score = graze * item * Engine.time_scale
 	score_label.update_label(int(score))
 	rpc('_update_p2_score', score)
-	
-	var score_left = goal - score
-	if score_left < INF:
-		goal_label.update_label(score_left)
-	else:
-		Global.player.bomb_count += 1
-		reward_sfx.play()
-		update_bomb()
 
 @rpc("any_peer")
 func _update_p2_score(value:int) -> void:
 	hi_score_label.update_label(value)
+
+func player_died() -> void:
+	item /= 2
+	graze /= 2

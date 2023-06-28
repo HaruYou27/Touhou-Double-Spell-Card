@@ -1,0 +1,31 @@
+[gd_scene load_steps=4 format=3 uid="uid://ba35rjntkw78b"]
+
+[ext_resource type="Texture2D" uid="uid://ejrqvn5h5jxu" path="res://entity/enemy/fairy/resource/Fairy.1.png" id="1_fwu6o"]
+[ext_resource type="Script" path="res://entity/utility/PathFollower2D.gd" id="1_maj1y"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_noovt"]
+radius = 28.0
+
+[node name="Fairy" type="PathFollow2D"]
+scale = Vector2(0.5, 0.5)
+rotates = false
+cubic_interp = false
+loop = false
+lookahead = 1.0
+script = ExtResource("1_maj1y")
+time = 5.0
+
+[node name="Fairy1" type="Sprite2D" parent="."]
+rotation = -1.5708
+scale = Vector2(2, 2)
+texture = ExtResource("1_fwu6o")
+
+[node name="hitbox" type="Area2D" parent="Fairy1"]
+collision_layer = 2
+collision_mask = 0
+monitoring = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Fairy1/hitbox"]
+shape = SubResource("CircleShape2D_noovt")
+
+[connection signal="body_entered" from="Fairy1/hitbox" to="." method="_on_hitbox_body_entered"]

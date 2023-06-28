@@ -8,6 +8,7 @@ colors = PackedColorArray(0.831373, 0.917647, 1, 1, 0, 0, 0, 0)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_3ycqc"]
 gradient = SubResource("Gradient_eg1jf")
+width = 64
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_crap5"]
 shader = ExtResource("1_1lu6v")
