@@ -1,0 +1,51 @@
+[gd_scene load_steps=6 format=3 uid="uid://dtlscerig62nv"]
+
+[ext_resource type="Script" path="res://entity/enemy/base/enemy.gd" id="1_a5f4m"]
+[ext_resource type="Texture2D" uid="uid://d2wacgirqsjjn" path="res://entity/white-trans.tres" id="2_y6mhs"]
+[ext_resource type="Texture2D" uid="uid://dxsf3vpqsosf1" path="res://entity/enemy/phantom/fire_particle.png" id="3_wx2nh"]
+
+[sub_resource type="CanvasItemMaterial" id="3"]
+blend_mode = 1
+
+[sub_resource type="ParticleProcessMaterial" id="4"]
+emission_shape = 1
+emission_sphere_radius = 8.0
+particle_flag_disable_z = true
+direction = Vector3(0, 0, 0)
+spread = 180.0
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 100.0
+initial_velocity_max = 100.0
+angular_velocity_min = 288.0
+angular_velocity_max = 417.6
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+scale_min = 0.5
+color_ramp = ExtResource("2_y6mhs")
+
+[node name="Enemy" type="Area2D"]
+collision_layer = 2
+collision_mask = 0
+monitoring = false
+script = ExtResource("1_a5f4m")
+
+[node name="explosion" type="GPUParticles2D" parent="."]
+material = SubResource("3")
+position = Vector2(1, 1)
+emitting = false
+amount = 16
+process_material = SubResource("4")
+texture = ExtResource("3_wx2nh")
+one_shot = true
+explosiveness = 1.0
+local_coords = true
+draw_order = 0
+
+[node name="sfx" type="AudioStreamPlayer" parent="explosion"]
+autoplay = true
+bus = &"SFX"
+
+[node name="Timer" type="Timer" parent="explosion"]
+one_shot = true
+
+[connection signal="timeout" from="explosion/Timer" to="." method="_on_timer_timeout"]

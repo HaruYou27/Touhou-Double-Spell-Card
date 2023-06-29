@@ -13,7 +13,10 @@ var switch := false
 
 func _ready() -> void:
 	bomb.update_label(global.get_input_string(user_data.bomb_bind))
-	drag.update_label(global.get_input_string(user_data.drag_bind))
+	var drag_name := global.get_input_string(user_data.drag_bind)
+	drag.update_label(drag_name)
+	hold.update_label(drag_name)
+	
 	raw.set_pressed_no_signal(user_data.raw_input)
 	sentivity.value = user_data.sentivity
 
@@ -23,7 +26,9 @@ func _unhandled_input(event:InputEvent) -> void:
 	
 	if switch:
 		user_data.drag_bind = event
-		drag.update_label(global.get_input_string(event))
+		var event_name := global.get_input_string(event)
+		drag.update_label(event_name)
+		hold.update_label(event_name)
 	else:
 		user_data.bomb_bind = event
 		bomb.update_label(global.get_input_string(event))

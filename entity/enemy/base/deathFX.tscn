@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://dxsf3vpqsosf1" path="res://entity/enemy/phantom/fire_particle.png" id="1"]
 [ext_resource type="Texture2D" uid="uid://d2wacgirqsjjn" path="res://entity/white-trans.tres" id="1_lwh6j"]
-[ext_resource type="Script" path="res://entity/utility/particle/deathFX.gd" id="3_56c5m"]
+[ext_resource type="Script" path="res://entity/enemy/base/deathFX.gd" id="3_56c5m"]
 
 [sub_resource type="CanvasItemMaterial" id="3"]
 blend_mode = 1
@@ -39,3 +39,8 @@ script = ExtResource("3_56c5m")
 [node name="sfx" type="AudioStreamPlayer" parent="."]
 autoplay = true
 bus = &"SFX"
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

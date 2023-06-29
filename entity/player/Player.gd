@@ -21,12 +21,11 @@ var bomb_count := 3
 @onready var toggle_move := Global.user_data.toggle_move
 var can_move := false
 func _unhandled_input(event:InputEvent) -> void:
-	if toggle_move and event.is_action_pressed("drag"):
-		can_move = not can_move
-		return
-		
-	elif event.is_action_pressed("drag"):
-		can_move = true
+	if event.is_action_pressed("drag"):
+		if toggle_move:
+			can_move = not can_move
+		else:
+			can_move = true
 		return
 	
 	if (event is InputEventMouseMotion and can_move) or event is InputEventScreenDrag:
@@ -36,24 +35,9 @@ func _unhandled_input(event:InputEvent) -> void:
 		
 		if is_multiplayer_authority():
 			rpc('_update_position')
-	elif event.is_action_pressed("bomb"):
-		if not bomb_count and can_bomb:
-			return
-		
-		bomb_count -= 1
-		can_bomb = false
-		VisualEffect.hide()
-		death_timer.stop()
-		Global.hud.update_bomb()
-	
-		set_process_unhandled_input(true)
-		hitbox.hide()
-		hitbox.set_deferred("disabled", true)
-		
-		kaboom.emit()
-		rpc('bomb_go_off', Time.get_ticks_msec())
+	elif event.is_action_pressed("bomb") or event is InputEventPanGesture:
+		bomb()
 
-@rpc
 func _update_position(pos:Vector2) -> void:
 	create_tween().tween_property(self, 'global_position', pos, .1)
 
@@ -79,3 +63,21 @@ func _on_death_timer_timeout():
 	modulate = Color(Color.WHITE, .5)
 	Global.hud.player_died()
 	recover_timer.start()
+
+
+func bomb():
+	if not bomb_count and can_bomb:
+			return
+		
+	bomb_count -= 1
+	can_bomb = false
+	VisualEffect.hide()
+	death_timer.stop()
+	Global.hud.update_bomb()
+	
+	set_process_unhandled_input(true)
+	hitbox.hide()
+	hitbox.set_deferred("disabled", true)
+		
+	kaboom.emit()
+	rpc('bomb_go_off', Time.get_ticks_msec())

@@ -243,18 +243,6 @@ tracks/7/keys = {
 "update": 1,
 "values": [true]
 }
-tracks/8/type = "value"
-tracks/8/imported = false
-tracks/8/enabled = true
-tracks/8/path = NodePath("RayCast2D/RayCast2D2:position")
-tracks/8/interp = 1
-tracks/8/loop_wrap = true
-tracks/8/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(-8, 0)]
-}
 
 [sub_resource type="Animation" id="Animation_65s67"]
 length = 0.001
@@ -570,7 +558,6 @@ size_flags_vertical = 3
 tabs_visible = false
 
 [node name="play" type="TabContainer" parent="TabContainer"]
-visible = false
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
 
@@ -697,9 +684,14 @@ z_index = 100
 position = Vector2(0, -8)
 texture = ExtResource("14_8kxqp")
 
-[node name="bullet" type="Node2D" parent="TabContainer/play/Character/Preview/Reimu/ReimuSprite"]
+[node name="Timer" type="Timer" parent="TabContainer/play/Character/Preview/Reimu/ReimuSprite"]
+process_callback = 0
+wait_time = 0.267
+
+[node name="bullet" type="Node2D" parent="TabContainer/play/Character/Preview/Reimu"]
 z_index = -2
-position = Vector2(0, -8)
+position = Vector2(270, 626)
+scale = Vector2(2, 2)
 script = ExtResource("19_2j5r6")
 SeekMask = 2
 seekRadius = 270.0
@@ -709,37 +701,32 @@ hitbox = SubResource("CapsuleShape2D_ut74g")
 CollisionMask = 3
 texture = ExtResource("20_tslrj")
 
-[node name="YinyangOrb" parent="TabContainer/play/Character/Preview/Reimu/ReimuSprite/bullet" instance=ExtResource("21_jahto")]
+[node name="YinyangOrb" parent="TabContainer/play/Character/Preview/Reimu/bullet" instance=ExtResource("21_jahto")]
 position = Vector2(72, 0)
 rotation = -1.5708
 flip_v = true
 
-[node name="YinyangOrb2" parent="TabContainer/play/Character/Preview/Reimu/ReimuSprite/bullet" instance=ExtResource("21_jahto")]
+[node name="YinyangOrb2" parent="TabContainer/play/Character/Preview/Reimu/bullet" instance=ExtResource("21_jahto")]
 texture_filter = 1
 position = Vector2(-72, 0)
 rotation = -1.5708
 flip_h = false
 
-[node name="Marker2D" type="Marker2D" parent="TabContainer/play/Character/Preview/Reimu/ReimuSprite/bullet"]
+[node name="Marker2D" type="Marker2D" parent="TabContainer/play/Character/Preview/Reimu/bullet"]
 position = Vector2(13.0002, -39.9999)
 rotation = -1.5708
 gizmo_extents = 51.7
 
-[node name="Position2D2" type="Marker2D" parent="TabContainer/play/Character/Preview/Reimu/ReimuSprite/bullet"]
+[node name="Position2D2" type="Marker2D" parent="TabContainer/play/Character/Preview/Reimu/bullet"]
 position = Vector2(-13, -40)
 rotation = -1.5708
 gizmo_extents = 82.9
-
-[node name="Timer" type="Timer" parent="TabContainer/play/Character/Preview/Reimu/ReimuSprite"]
-process_callback = 0
-wait_time = 0.267
 
 [node name="Marisa" type="Control" parent="TabContainer/play/Character/Preview"]
 visible = false
 layout_mode = 2
 
 [node name="Marisa" type="AnimatedSprite2D" parent="TabContainer/play/Character/Preview/Marisa"]
-z_index = 10
 position = Vector2(270, 592)
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_7ry75")
@@ -749,6 +736,7 @@ script = ExtResource("21_va0sy")
 position = Vector2(-153, -1091)
 
 [node name="beam2" type="Line2D" parent="TabContainer/play/Character/Preview/Marisa/Marisa/MasterSpark"]
+z_index = -5
 texture_filter = 1
 texture_repeat = 2
 material = SubResource("ShaderMaterial_y1xq4")
@@ -777,7 +765,7 @@ sharp_limit = 0.0
 round_precision = 16
 
 [node name="BeamParticle" type="GPUParticles2D" parent="TabContainer/play/Character/Preview/Marisa/Marisa/MasterSpark/beam2/glow2"]
-z_index = 100
+z_index = -5
 z_as_relative = false
 material = SubResource("CanvasItemMaterial_qloao")
 position = Vector2(0, -480)
@@ -788,33 +776,6 @@ texture = ExtResource("27_aqtxu")
 visibility_rect = Rect2(-32, 480, 64, -960)
 draw_order = 0
 
-[node name="RayCast2D" type="RayCast2D" parent="TabContainer/play/Character/Preview/Marisa/Marisa/MasterSpark"]
-position = Vector2(154, 1002)
-enabled = false
-exclude_parent = false
-target_position = Vector2(0, -960)
-collision_mask = 2
-collide_with_areas = true
-collide_with_bodies = false
-
-[node name="RayCast2D2" type="RayCast2D" parent="TabContainer/play/Character/Preview/Marisa/Marisa/MasterSpark/RayCast2D"]
-position = Vector2(-8, 0)
-enabled = false
-exclude_parent = false
-target_position = Vector2(0, -960)
-collision_mask = 2
-collide_with_areas = true
-collide_with_bodies = false
-
-[node name="RayCast2D3" type="RayCast2D" parent="TabContainer/play/Character/Preview/Marisa/Marisa/MasterSpark/RayCast2D"]
-position = Vector2(8, 0)
-enabled = false
-exclude_parent = false
-target_position = Vector2(0, -960)
-collision_mask = 2
-collide_with_areas = true
-collide_with_bodies = false
-
 [node name="AnimationPlayer" type="AnimationPlayer" parent="TabContainer/play/Character/Preview/Marisa/Marisa/MasterSpark"]
 libraries = {
 "": SubResource("AnimationLibrary_huuam")
@@ -824,7 +785,7 @@ libraries = {
 position = Vector2(-0.5, -10.5)
 texture = ExtResource("28_l8ygb")
 
-[node name="OptionButton" type="OptionButton" parent="TabContainer/play/Character"]
+[node name="title" type="OptionButton" parent="TabContainer/play/Character"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("10_qmh8v")
 theme_override_font_sizes/font_size = 48
@@ -855,11 +816,11 @@ flat = true
 alignment = 2
 
 [node name="Settings" type="TabContainer" parent="TabContainer"]
+visible = false
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
 
 [node name="Generic" type="VBoxContainer" parent="TabContainer/Settings"]
-visible = false
 layout_mode = 2
 script = ExtResource("2_dgpou")
 
@@ -943,6 +904,7 @@ script = ExtResource("5_vnfn8")
 layout_mode = 2
 
 [node name="Audio" type="VBoxContainer" parent="TabContainer/Settings"]
+visible = false
 layout_mode = 2
 script = ExtResource("6_8l51l")
 
@@ -958,7 +920,6 @@ size_flags_vertical = 1
 min_value = -60.0
 max_value = 0.0
 step = 0.6
-value = 1.2
 allow_greater = true
 tick_count = 10
 script = ExtResource("8_b5jhj")
@@ -1240,9 +1201,10 @@ constant_linear_velocity = Vector2(1, 0)
 position = Vector2(302, -200)
 shape = SubResource("WorldBoundaryShape2D_spvc6")
 
-[connection signal="timeout" from="TabContainer/play/Character/Preview/Reimu/ReimuSprite/Timer" to="TabContainer/play/Character/Preview/Reimu/ReimuSprite/bullet" method="SpawnBullet"]
-[connection signal="pressed" from="TabContainer/play/Character/HBoxContainer/previous" to="TabContainer/play/Character" method="_change_character"]
-[connection signal="pressed" from="TabContainer/play/Character/HBoxContainer/next" to="TabContainer/play/Character" method="_change_character"]
+[connection signal="timeout" from="TabContainer/play/Character/Preview/Reimu/ReimuSprite/Timer" to="TabContainer/play/Character/Preview/Reimu/bullet" method="SpawnBullet"]
+[connection signal="item_selected" from="TabContainer/play/Character/title" to="TabContainer/play/Character" method="_on_title_item_selected"]
+[connection signal="pressed" from="TabContainer/play/Character/HBoxContainer/previous" to="TabContainer/play/Character" method="_change_character" binds= [false]]
+[connection signal="pressed" from="TabContainer/play/Character/HBoxContainer/next" to="TabContainer/play/Character" method="_change_character" binds= [true]]
 [connection signal="item_selected" from="TabContainer/Settings/Generic/language" to="TabContainer/Settings/Generic" method="_on_language_item_selected"]
 [connection signal="toggled" from="TabContainer/Settings/Controls/hold" to="TabContainer/Settings/Controls" method="_on_hold_toggled"]
 [connection signal="pressed" from="TabContainer/Settings/Controls/drag" to="TabContainer/Settings/Controls" method="_on_drag_pressed" flags=18]

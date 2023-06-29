@@ -61,6 +61,7 @@ public partial class BulletBasic : Node2D
 			Rid sprite = bullet.sprite;
 
 			RenderingServer.CanvasItemSetVisible(sprite, false);
+			RenderingServer.CanvasItemSetTransform(sprite, new Transform2D(0, new Vector2(-500, 500)));
 			RenderingServer.CanvasItemSetDefaultTextureFilter(sprite, RenderingServer.CanvasItemTextureFilter.Nearest);
 			RenderingServer.CanvasItemSetZIndex(sprite, ZIndex);
 			RenderingServer.CanvasItemSetParent(sprite, canvas);

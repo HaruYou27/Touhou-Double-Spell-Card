@@ -14,10 +14,10 @@ var player1 : Player
 var player2 : Player
 
 ##Play area rectangle.
-const playground := Vector2i(406, 720)
+const playground := Vector2i(540, 852)
 
 ##Default resolution.
-const game_rect := Vector2i(406, 720)
+const game_rect := Vector2i(540, 960)
 #######################
 
 ################ USER INTERFACE
@@ -55,6 +55,7 @@ func change_scene(scene:String) -> void:
 
 ##Convert an InputEvent to String.
 static func get_input_string(event:InputEvent) -> String:
+	
 	if event is InputEventKey:
 		return OS.get_keycode_string(event.keycode)
 	

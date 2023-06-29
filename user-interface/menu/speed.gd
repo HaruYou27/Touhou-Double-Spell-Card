@@ -1,8 +1,7 @@
 extends PercentageSlider
 
 func get_percentage() -> int:
-	var raw := 1 / value
-	sfx.pitch_scale = 1 + raw
+	sfx.pitch_scale = 1 + value
 	sfx.play()
 	
-	return raw * 100
+	return value * 100

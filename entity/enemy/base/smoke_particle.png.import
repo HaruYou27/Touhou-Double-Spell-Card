@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://b1ltes0v4mau1"
-path="res://.godot/imported/smoke_particle.png-183d8ba9c2def2828e4b335926d48106.ctex"
+path="res://.godot/imported/smoke_particle.png-5353e3fcc8d412456e3265922fa97ac4.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://entity/utility/particle/smoke_particle.png"
-dest_files=["res://.godot/imported/smoke_particle.png-183d8ba9c2def2828e4b335926d48106.ctex"]
+source_file="res://entity/enemy/base/smoke_particle.png"
+dest_files=["res://.godot/imported/smoke_particle.png-5353e3fcc8d412456e3265922fa97ac4.ctex"]
 
 [params]
 

@@ -1,19 +1,21 @@
-[gd_scene load_steps=5 format=3 uid="uid://qcqdhn5ssewn"]
+[gd_scene load_steps=6 format=3 uid="uid://qcqdhn5ssewn"]
 
-[ext_resource type="Script" path="res://entity/utility/PathFollower2D.gd" id="1_68u20"]
+[ext_resource type="Script" path="res://entity/utility/PathFollower2D.gd" id="1_wpp8x"]
 [ext_resource type="PackedScene" uid="uid://x6m45dr4ylyl" path="res://entity/enemy/phantom/blue-phantom.tscn" id="2_mlfjc"]
+[ext_resource type="Script" path="res://entity/enemy/base/enemy.gd" id="3_6m1u0"]
 [ext_resource type="Script" path="res://entity/utility/TargetLocker.gd" id="3_npc73"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_noovt"]
 radius = 23.0
 
-[node name="Fairy" type="PathFollow2D"]
+[node name="Fairy" type="PathFollow2D" node_paths=PackedStringArray("visual")]
 rotates = false
 cubic_interp = false
 loop = false
 lookahead = 1.0
-script = ExtResource("1_68u20")
+script = ExtResource("1_wpp8x")
 time = 5.0
+visual = NodePath("phantom")
 
 [node name="phantom" parent="." instance=ExtResource("2_mlfjc")]
 
@@ -21,6 +23,8 @@ time = 5.0
 collision_layer = 2
 collision_mask = 0
 monitoring = false
+script = ExtResource("3_6m1u0")
+hp = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hitbox"]
 shape = SubResource("CircleShape2D_noovt")
@@ -32,3 +36,4 @@ gizmo_extents = 58.2
 script = ExtResource("3_npc73")
 
 [connection signal="body_entered" from="hitbox" to="." method="_on_hitbox_body_entered"]
+[connection signal="died" from="hitbox" to="." method="_on_hitbox_died"]

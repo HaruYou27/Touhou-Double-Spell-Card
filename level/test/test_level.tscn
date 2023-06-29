@@ -1,12 +1,14 @@
-[gd_scene load_steps=12 format=3 uid="uid://bxvy3qa8esorq"]
+[gd_scene load_steps=14 format=3 uid="uid://bxvy3qa8esorq"]
 
 [ext_resource type="Shader" path="res://level/background/misty-lake/water.gdshader" id="1_5h8xj"]
-[ext_resource type="Script" path="res://entity/utility/Spawner.gd" id="1_fv3k8"]
 [ext_resource type="Texture2D" uid="uid://eriecmar2l3j" path="res://level/background/misty-lake/water-day.tres" id="2_su2rp"]
 [ext_resource type="Texture2D" uid="uid://bgh4r80tk5o7v" path="res://level/background/misty-lake/water-noise.tres" id="3_6g7e0"]
 [ext_resource type="Script" path="res://level/test/opening1.gd" id="4_86fwn"]
+[ext_resource type="Script" path="res://entity/utility/Path2DSpawner.gd" id="6_n63j6"]
+[ext_resource type="PackedScene" uid="uid://qcqdhn5ssewn" path="res://level/test/phantom.tscn" id="7_gfvyq"]
 [ext_resource type="PackedScene" uid="uid://duxqllhcbuvfa" path="res://level/test/corner.tscn" id="8_1a0fm"]
 [ext_resource type="PackedScene" uid="uid://6wuhmc2p8byc" path="res://level/background/misty-lake/fog.tscn" id="8_ixvn3"]
+[ext_resource type="PackedScene" uid="uid://bfvb372sca8m2" path="res://level/leveler/leveler.tscn" id="9_ii2dw"]
 [ext_resource type="PackedScene" uid="uid://uiwkegjhrq51" path="res://level/background/misty-lake/fog_overlay.tscn" id="9_v1onv"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_tmbaf"]
@@ -54,13 +56,7 @@ render_target_update_mode = 4
 
 [node name="opening1" type="Node2D" parent="SubViewportContainer/SubViewport"]
 script = ExtResource("4_86fwn")
-paths = Array[NodePath]([NodePath("corner"), NodePath("corner2"), NodePath("LevelTimer"), NodePath("Spawner1/Timer")])
-
-[node name="Spawner1" type="Node2D" parent="SubViewportContainer/SubViewport/opening1" node_paths=PackedStringArray("container")]
-script = ExtResource("1_fv3k8")
-container = NodePath("")
-
-[node name="Timer" type="Timer" parent="SubViewportContainer/SubViewport/opening1/Spawner1"]
+paths = Array[NodePath]([NodePath("corner"), NodePath("corner2"), NodePath("LevelTimer"), NodePath("Spawner/SpawnTimer")])
 
 [node name="corner" parent="SubViewportContainer/SubViewport/opening1" instance=ExtResource("8_1a0fm")]
 
@@ -72,15 +68,34 @@ scale = Vector2(1, -1)
 wait_time = 20.0
 one_shot = true
 
+[node name="Spawner" type="Path2D" parent="SubViewportContainer/SubViewport/opening1"]
+position = Vector2(-13, 5)
+curve = SubResource("Curve2D_7y75u")
+script = ExtResource("6_n63j6")
+child_count = 10
+scene = ExtResource("7_gfvyq")
+mirror = true
+
+[node name="SpawnTimer" type="Timer" parent="SubViewportContainer/SubViewport/opening1/Spawner"]
+wait_time = 0.5
+
+[node name="player" type="Node2D" parent="SubViewportContainer/SubViewport"]
+
 [node name="fog" parent="." instance=ExtResource("8_ixvn3")]
 visible = false
 
 [node name="FogOverlay" parent="." instance=ExtResource("9_v1onv")]
 visible = false
 
-[node name="Path2D" type="Path2D" parent="."]
-position = Vector2(-13, 5)
-curve = SubResource("Curve2D_7y75u")
+[node name="level" parent="." node_paths=PackedStringArray("player_container", "first_event") instance=ExtResource("9_ii2dw")]
+custom_minimum_size = Vector2(540, 960)
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+grow_horizontal = 1
+grow_vertical = 1
+player_container = NodePath("../SubViewportContainer/SubViewport/player")
+first_event = NodePath("../SubViewportContainer/SubViewport/opening1")
 
-[connection signal="timeout" from="SubViewportContainer/SubViewport/opening1/Spawner1/Timer" to="SubViewportContainer/SubViewport/opening1/Spawner1" method="_on_timer_timeout"]
 [connection signal="timeout" from="SubViewportContainer/SubViewport/opening1/LevelTimer" to="SubViewportContainer/SubViewport/opening1" method="_on_level_timer_timeout"]
+[connection signal="timeout" from="SubViewportContainer/SubViewport/opening1/Spawner/SpawnTimer" to="SubViewportContainer/SubViewport/opening1/Spawner" method="_on_spawn_timer_timeout"]

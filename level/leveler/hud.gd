@@ -1,4 +1,4 @@
-extends ColorRect
+extends Panel
 class_name HUD
 
 @onready var user_data := Global.user_data

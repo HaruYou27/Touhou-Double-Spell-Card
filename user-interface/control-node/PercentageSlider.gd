@@ -7,7 +7,7 @@ var sfx := AudioStreamPlayer.new()
 func _ready() -> void:
 	_value_changed(value)
 	sfx.bus = 'SFX'
-	sfx.stream = preload("res://autoload/SoundEffect/ui/tick-.wav")
+	sfx.stream = preload("res://autoload/SoundEffect/resource/tick-.wav")
 	add_child(sfx)
 
 func _value_changed(_new_value) -> void:

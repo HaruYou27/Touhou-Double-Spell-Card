@@ -2,7 +2,10 @@ extends CheckButton
 class_name SFXToggler
 
 @export var invert := false
-
+@onready var template := text
+func update_label(value) -> void:
+	text = template % value
+	
 func _ready() -> void:
 	mouse_entered.connect(SoundEffect.hover)
 

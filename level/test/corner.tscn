@@ -185,6 +185,7 @@ scale = Vector2(1.5, 1.5)
 texture = ExtResource("1_s8as5")
 
 [node name="Enemy" parent="." instance=ExtResource("3_qrdfc")]
+hp = 60
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy"]
 shape = SubResource("CircleShape2D_0el8c")
