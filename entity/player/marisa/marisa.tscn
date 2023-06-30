@@ -1,16 +1,17 @@
-[gd_scene load_steps=29 format=3 uid="uid://of6l83moa38k"]
+[gd_scene load_steps=27 format=3 uid="uid://of6l83moa38k"]
 
-[ext_resource type="PackedScene" uid="uid://c34lwlqwsc4ve" path="res://entity/player/player.tscn" id="1_vjhba"]
+[ext_resource type="PackedScene" uid="uid://c34lwlqwsc4ve" path="res://entity/player/base/player.tscn" id="1_vjhba"]
 [ext_resource type="Texture2D" uid="uid://bkym7gv6hfekh" path="res://entity/player/marisa/resource/uncutmari.png" id="2_cw10b"]
 [ext_resource type="Texture2D" uid="uid://c7k6r1xgk2xii" path="res://entity/player/marisa/resource/marisa-hitbox.png" id="2_h730r"]
-[ext_resource type="PackedScene" uid="uid://cex3540cp47lm" path="res://entity/player/graze.tscn" id="2_jex7f"]
+[ext_resource type="PackedScene" uid="uid://cex3540cp47lm" path="res://entity/player/base/graze.tscn" id="2_jex7f"]
 [ext_resource type="Shader" path="res://level/background/noise-colorize.gdshader" id="3_tsm56"]
 [ext_resource type="Script" path="res://entity/player/marisa/MasterSpark.gd" id="3_vv674"]
 [ext_resource type="Shader" path="res://entity/bullet/resource/BulletGlow.gdshader" id="4_ht7cp"]
 [ext_resource type="Texture2D" uid="uid://cwm35yxq5ojxd" path="res://entity/player/marisa/resource/laser-texture.tres" id="5_e3y87"]
 [ext_resource type="Texture2D" uid="uid://dxsf3vpqsosf1" path="res://entity/enemy/phantom/fire_particle.png" id="6_8ttm4"]
-[ext_resource type="Texture2D" uid="uid://d2wacgirqsjjn" path="res://entity/white-trans.tres" id="8_gxd18"]
-[ext_resource type="Material" uid="uid://dox27ncd2r5o3" path="res://entity/glow.tres" id="8_oal0d"]
+[ext_resource type="Texture2D" uid="uid://bvktdev2yub4m" path="res://entity/player/marisa/resource/laser-gradient.tres" id="6_rb4w0"]
+[ext_resource type="Texture2D" uid="uid://d2wacgirqsjjn" path="res://entity/resource/white-trans.tres" id="8_gxd18"]
+[ext_resource type="Material" uid="uid://dox27ncd2r5o3" path="res://entity/resource/glow.tres" id="8_oal0d"]
 [ext_resource type="PackedScene" uid="uid://bsnqtgxxjmolk" path="res://entity/player/marisa/ray_cast.tscn" id="12_1qmyi"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ttfkj"]
@@ -274,19 +275,10 @@ _data = {
 "RESET": SubResource("Animation_65s67")
 }
 
-[sub_resource type="Gradient" id="Gradient_nfr8b"]
-colors = PackedColorArray(0, 0.262745, 0.658824, 0, 1, 1, 1, 1)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_bvv6u"]
-gradient = SubResource("Gradient_nfr8b")
-
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_xkttb"]
 shader = ExtResource("3_tsm56")
 shader_parameter/velocity = Vector2(-1, 0)
-shader_parameter/color_map = SubResource("GradientTexture1D_bvv6u")
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_eweoi"]
-gradient = SubResource("Gradient_nfr8b")
+shader_parameter/color_map = ExtResource("6_rb4w0")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ilqob"]
 shader = ExtResource("4_ht7cp")
@@ -296,7 +288,7 @@ shader_parameter/spin = null
 shader_parameter/sin_alpha = null
 shader_parameter/wobble = null
 shader_parameter/wobble_min = 0.75
-shader_parameter/color_map = SubResource("GradientTexture1D_eweoi")
+shader_parameter/color_map = ExtResource("6_rb4w0")
 
 [sub_resource type="Gradient" id="Gradient_8pqvy"]
 offsets = PackedFloat32Array(0, 0.345794, 0.64486, 1)
@@ -395,7 +387,7 @@ position = Vector2(0, -89)
 points = PackedVector2Array(0, 0, 0, -960)
 width = 32.0
 texture = ExtResource("5_e3y87")
-texture_mode = 1
+texture_mode = 2
 begin_cap_mode = 2
 sharp_limit = 0.0
 round_precision = 16

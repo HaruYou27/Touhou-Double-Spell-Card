@@ -1,15 +1,19 @@
-[gd_scene load_steps=14 format=3 uid="uid://bxvy3qa8esorq"]
+[gd_scene load_steps=33 format=3 uid="uid://bxvy3qa8esorq"]
 
 [ext_resource type="Shader" path="res://level/background/misty-lake/water.gdshader" id="1_5h8xj"]
 [ext_resource type="Texture2D" uid="uid://eriecmar2l3j" path="res://level/background/misty-lake/water-day.tres" id="2_su2rp"]
 [ext_resource type="Texture2D" uid="uid://bgh4r80tk5o7v" path="res://level/background/misty-lake/water-noise.tres" id="3_6g7e0"]
-[ext_resource type="Script" path="res://level/test/opening1.gd" id="4_86fwn"]
+[ext_resource type="Script" path="res://level/leveler/LevelEvent.gd" id="4_wsm02"]
 [ext_resource type="Script" path="res://entity/utility/Path2DSpawner.gd" id="6_n63j6"]
+[ext_resource type="PackedScene" uid="uid://b5ofgn1nb1pwt" path="res://level/test/corner.tscn" id="7_3lgdb"]
 [ext_resource type="PackedScene" uid="uid://qcqdhn5ssewn" path="res://level/test/phantom.tscn" id="7_gfvyq"]
-[ext_resource type="PackedScene" uid="uid://duxqllhcbuvfa" path="res://level/test/corner.tscn" id="8_1a0fm"]
+[ext_resource type="Shader" path="res://entity/bullet/resource/BulletGlow.gdshader" id="7_s3hs4"]
+[ext_resource type="Texture2D" uid="uid://bb6gmgus0empe" path="res://entity/bullet/resource/rice.png" id="8_5anlm"]
 [ext_resource type="PackedScene" uid="uid://6wuhmc2p8byc" path="res://level/background/misty-lake/fog.tscn" id="8_ixvn3"]
+[ext_resource type="Script" path="res://entity/bullet/BulletBasic.cs" id="8_pi3il"]
 [ext_resource type="PackedScene" uid="uid://bfvb372sca8m2" path="res://level/leveler/leveler.tscn" id="9_ii2dw"]
 [ext_resource type="PackedScene" uid="uid://uiwkegjhrq51" path="res://level/background/misty-lake/fog_overlay.tscn" id="9_v1onv"]
+[ext_resource type="Texture2D" uid="uid://dilcwhuq6brnv" path="res://entity/bullet/resource/ball.png" id="10_v410t"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_tmbaf"]
 viewport_path = NodePath("SubViewportContainer/SubViewport")
@@ -25,11 +29,170 @@ shader_parameter/wave_velocity = Vector2(0, 2)
 shader_parameter/wave_distortion = 0.2
 shader_parameter/wave_multiplyer = -6.0
 
+[sub_resource type="Gradient" id="Gradient_1xn00"]
+offsets = PackedFloat32Array(0.864583)
+colors = PackedColorArray(1, 0.805667, 0.47, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_vj5ag"]
+gradient = SubResource("Gradient_1xn00")
+width = 8
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3kkwx"]
+shader = ExtResource("7_s3hs4")
+shader_parameter/time_scale = 4.0
+shader_parameter/alpha_offset = null
+shader_parameter/spin = null
+shader_parameter/sin_alpha = null
+shader_parameter/wobble = true
+shader_parameter/wobble_min = 0.75
+shader_parameter/color_map = SubResource("GradientTexture1D_vj5ag")
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_40y52"]
+radius = 32.0
+height = 64.0
+
 [sub_resource type="Curve2D" id="Curve2D_7y75u"]
 _data = {
 "points": PackedVector2Array(0, 0, 0, 0, -88, 315, -60.0678, -33.371, 60.0678, 33.371, 104, 214, 206.489, -19.6541, -206.489, 19.6541, 238, 559, -182.076, -213.9, 182.076, 213.9, 460, 232, 0, 0, 0, 0, 674, 440)
 }
 point_count = 5
+
+[sub_resource type="Animation" id="Animation_3k02q"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-67, 46)]
+}
+
+[sub_resource type="Animation" id="Animation_nlx5l"]
+resource_name = "enter"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-67, 46), Vector2(56, 111)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_bgfkj"]
+_data = {
+"RESET": SubResource("Animation_3k02q"),
+"enter": SubResource("Animation_nlx5l")
+}
+
+[sub_resource type="Animation" id="Animation_xqh2k"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(607, 46)]
+}
+
+[sub_resource type="Animation" id="Animation_ujsfu"]
+resource_name = "enter"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(607, 46), Vector2(476, 67)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_pjhur"]
+_data = {
+"RESET": SubResource("Animation_xqh2k"),
+"enter": SubResource("Animation_ujsfu")
+}
+
+[sub_resource type="Shader" id="Shader_surpq"]
+code = "shader_type canvas_item;
+render_mode blend_add;
+
+uniform float time_scale;
+uniform bool alpha_offset;
+uniform bool spin;
+uniform bool sin_alpha;
+uniform sampler2D color_map;
+uniform bool wobble;
+uniform float wobble_min = .75;
+
+varying vec2 uv;
+void vertex()
+{
+	float time = TIME * time_scale;
+	uv = vec2(abs(sin(time)));
+
+	if (alpha_offset)
+	{
+		time *= sign(COLOR.a - .5);
+		time += 100.0 * COLOR.a;
+		COLOR.a = 1.0;
+	}
+    if (spin)
+	{
+    	float phi = time * PI;
+        VERTEX *= mat2(vec2(cos(phi),-sin(phi)),
+                       vec2(sin(phi),cos(phi)));
+    }
+	if (wobble)
+	{
+		VERTEX *= wobble_min + abs(sin(time)) * (1.0 - wobble_min);
+	}
+	if (sin_alpha)
+	{
+		COLOR.a = sin(time);
+	}
+}
+void fragment()
+{
+	//shift color through time across color map - mix it with white color.
+	COLOR.rgb = mix(texture(color_map, uv).rgb, vec3(1.), COLOR.r);
+}"
+
+[sub_resource type="Gradient" id="Gradient_hjers"]
+colors = PackedColorArray(1, 0.21, 0.921, 1, 0.21, 0.447, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_h32f3"]
+gradient = SubResource("Gradient_hjers")
+width = 32
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hb4jd"]
+shader = SubResource("Shader_surpq")
+shader_parameter/time_scale = 4.0
+shader_parameter/alpha_offset = false
+shader_parameter/spin = null
+shader_parameter/sin_alpha = null
+shader_parameter/wobble = true
+shader_parameter/wobble_min = 0.75
+shader_parameter/color_map = SubResource("GradientTexture1D_h32f3")
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_exmdc"]
+radius = 64.0
 
 [node name="test level" type="Node2D"]
 
@@ -54,32 +217,98 @@ snap_2d_transforms_to_pixel = true
 size = Vector2i(540, 960)
 render_target_update_mode = 4
 
+[node name="player" type="Node2D" parent="SubViewportContainer/SubViewport"]
+
 [node name="opening1" type="Node2D" parent="SubViewportContainer/SubViewport"]
-script = ExtResource("4_86fwn")
-paths = Array[NodePath]([NodePath("corner"), NodePath("corner2"), NodePath("LevelTimer"), NodePath("Spawner/SpawnTimer")])
-
-[node name="corner" parent="SubViewportContainer/SubViewport/opening1" instance=ExtResource("8_1a0fm")]
-
-[node name="corner2" parent="SubViewportContainer/SubViewport/opening1" instance=ExtResource("8_1a0fm")]
-rotation = 3.14159
-scale = Vector2(1, -1)
+script = ExtResource("4_wsm02")
+paths = Array[NodePath]([NodePath("corner"), NodePath("LevelTimer"), NodePath("SpawnTimer"), NodePath("corner2"), NodePath("CornerBullet/BulletTimer")])
 
 [node name="LevelTimer" type="Timer" parent="SubViewportContainer/SubViewport/opening1"]
 wait_time = 20.0
 one_shot = true
 
+[node name="SpawnTimer" type="Timer" parent="SubViewportContainer/SubViewport/opening1"]
+wait_time = 0.5
+
+[node name="SpawnerBullet" type="Node2D" parent="SubViewportContainer/SubViewport/opening1" groups=["Enemy Bullet"]]
+z_index = 100
+material = SubResource("ShaderMaterial_3kkwx")
+position = Vector2(-13, 5)
+script = ExtResource("8_pi3il")
+barrelGroup = &"Enemy Barrel 0"
+speed = 127.0
+localRotation = true
+bulletScale = Vector2(0.5, 0.5)
+hitbox = SubResource("CapsuleShape2D_40y52")
+CollisionMask = 5
+texture = ExtResource("8_5anlm")
+
 [node name="Spawner" type="Path2D" parent="SubViewportContainer/SubViewport/opening1"]
 position = Vector2(-13, 5)
 curve = SubResource("Curve2D_7y75u")
 script = ExtResource("6_n63j6")
-child_count = 10
-scene = ExtResource("7_gfvyq")
 mirror = true
 
-[node name="SpawnTimer" type="Timer" parent="SubViewportContainer/SubViewport/opening1/Spawner"]
+[node name="Phantom" parent="SubViewportContainer/SubViewport/opening1/Spawner" instance=ExtResource("7_gfvyq")]
+position = Vector2(-88, 315)
+
+[node name="Phantom2" parent="SubViewportContainer/SubViewport/opening1/Spawner" instance=ExtResource("7_gfvyq")]
+position = Vector2(-88, 315)
+
+[node name="Phantom3" parent="SubViewportContainer/SubViewport/opening1/Spawner" instance=ExtResource("7_gfvyq")]
+position = Vector2(-88, 315)
+
+[node name="Phantom4" parent="SubViewportContainer/SubViewport/opening1/Spawner" instance=ExtResource("7_gfvyq")]
+position = Vector2(-88, 315)
+
+[node name="Phantom5" parent="SubViewportContainer/SubViewport/opening1/Spawner" instance=ExtResource("7_gfvyq")]
+position = Vector2(-88, 315)
+
+[node name="Phantom6" parent="SubViewportContainer/SubViewport/opening1/Spawner" instance=ExtResource("7_gfvyq")]
+position = Vector2(-88, 315)
+
+[node name="Phantom7" parent="SubViewportContainer/SubViewport/opening1/Spawner" instance=ExtResource("7_gfvyq")]
+position = Vector2(-88, 315)
+
+[node name="Phantom8" parent="SubViewportContainer/SubViewport/opening1/Spawner" instance=ExtResource("7_gfvyq")]
+position = Vector2(-88, 315)
+
+[node name="Phantom9" parent="SubViewportContainer/SubViewport/opening1/Spawner" instance=ExtResource("7_gfvyq")]
+position = Vector2(-88, 315)
+
+[node name="corner" parent="SubViewportContainer/SubViewport/opening1" instance=ExtResource("7_3lgdb")]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="SubViewportContainer/SubViewport/opening1/corner"]
+libraries = {
+"": SubResource("AnimationLibrary_bgfkj")
+}
+
+[node name="corner2" parent="SubViewportContainer/SubViewport/opening1" instance=ExtResource("7_3lgdb")]
+position = Vector2(607, 46)
+scale = Vector2(-1, 1)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="SubViewportContainer/SubViewport/opening1/corner2"]
+libraries = {
+"": SubResource("AnimationLibrary_pjhur")
+}
+
+[node name="CornerBullet" type="Node2D" parent="SubViewportContainer/SubViewport/opening1" groups=["Enemy Bullet"]]
+z_index = 100
+material = SubResource("ShaderMaterial_hb4jd")
+scale = Vector2(1.5, 1.5)
+script = ExtResource("8_pi3il")
+barrelGroup = &"Enemy Barrel Corner"
+speed = 272.0
+bulletScale = Vector2(0.5, 0.5)
+hitbox = SubResource("CircleShape2D_exmdc")
+CollisionMask = 5
+texture = ExtResource("10_v410t")
+
+[node name="BulletTimer" type="Timer" parent="SubViewportContainer/SubViewport/opening1/CornerBullet"]
 wait_time = 0.5
 
-[node name="player" type="Node2D" parent="SubViewportContainer/SubViewport"]
+[node name="opening2" type="Node2D" parent="SubViewportContainer/SubViewport"]
+script = ExtResource("4_wsm02")
 
 [node name="fog" parent="." instance=ExtResource("8_ixvn3")]
 visible = false
@@ -98,4 +327,8 @@ player_container = NodePath("../SubViewportContainer/SubViewport/player")
 first_event = NodePath("../SubViewportContainer/SubViewport/opening1")
 
 [connection signal="timeout" from="SubViewportContainer/SubViewport/opening1/LevelTimer" to="SubViewportContainer/SubViewport/opening1" method="_on_level_timer_timeout"]
-[connection signal="timeout" from="SubViewportContainer/SubViewport/opening1/Spawner/SpawnTimer" to="SubViewportContainer/SubViewport/opening1/Spawner" method="_on_spawn_timer_timeout"]
+[connection signal="timeout" from="SubViewportContainer/SubViewport/opening1/SpawnTimer" to="SubViewportContainer/SubViewport/opening1/SpawnerBullet" method="SpawnBullet"]
+[connection signal="timeout" from="SubViewportContainer/SubViewport/opening1/SpawnTimer" to="SubViewportContainer/SubViewport/opening1/Spawner" method="_on_spawn_timer_timeout"]
+[connection signal="animation_finished" from="SubViewportContainer/SubViewport/opening1/corner/AnimationPlayer" to="SubViewportContainer/SubViewport/opening1/corner" method="_on_animation_player_animation_finished"]
+[connection signal="animation_finished" from="SubViewportContainer/SubViewport/opening1/corner2/AnimationPlayer" to="SubViewportContainer/SubViewport/opening1/corner2" method="_on_animation_player_animation_finished"]
+[connection signal="timeout" from="SubViewportContainer/SubViewport/opening1/CornerBullet/BulletTimer" to="SubViewportContainer/SubViewport/opening1/CornerBullet" method="SpawnBullet"]

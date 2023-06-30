@@ -12,6 +12,7 @@ class_name CircleBarrel
 
 @export var add_node := false : set = _add_node
 @export var barrels := 4
+@export var node_group := ''
 @export var gizmo := 20
 
 func _ready():
@@ -28,6 +29,8 @@ func _add_node(value:bool):
 			node.position = Vector2(shape.radius, 0).rotated(angle)
 			node.rotation = angle
 			node.gizmo_extents = gizmo
+			if not node_group.is_empty():
+				node.add_to_group(node_group, true)
 			
 			angle += deltaR
 			node.set_owner(get_tree().edited_scene_root)

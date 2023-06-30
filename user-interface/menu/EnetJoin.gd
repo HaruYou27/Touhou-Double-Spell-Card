@@ -12,31 +12,24 @@ func _visibility_changed() -> void:
 	if visible:
 		timer.start()
 		return
-	
-	client.close()
-	ip.clear()
-	port_label.text = '6567'
-	server_list.clear()
-	list.clear()
-	animator.play("RESET")
 	timer.stop()
 
 @onready var ip := $HBoxContainer/ip
 @onready var port_label := $HBoxContainer/port
 @onready var join_button := $Join
-func join(ip_addr:String, port_num:int):
-	var err := client.create_client(ip_addr, port_num)
-	animator.play("connecting")
-	if err == ERR_ALREADY_IN_USE:
+func join(ip_addr:String, port_num:int) -> void:
+	if client.get_connection_status():
 		client.close()
-		join(ip_addr, port_num)
-	else:
-		animator.stop()
+		animator.play("RESET")
+	
+	var err := client.create_client(ip_addr, port_num)
+	if err:
 		join_button.text = 'Error ' + error_string(err)
+	animator.play("connecting")
 
 func _peer_connected() -> void:
 	multiplayer.multiplayer_peer = client
-	Global.change_scene(global.lobby)
+	join_button.text = 'Connected'
 
 var port := 0
 func _on_port_text_changed(new_text):

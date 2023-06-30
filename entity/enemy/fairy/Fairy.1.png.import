@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cqt1oe248vvwn"
-path="res://.godot/imported/Fairy.2.png-ccb665010994fa2e8e22ce75a9d69c55.ctex"
+uid="uid://ejrqvn5h5jxu"
+path="res://.godot/imported/Fairy.1.png-8c0e4d84a0a11bf0c7502ee3c46c3aeb.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://entity/enemy/fairy/resource/Fairy.2.png"
-dest_files=["res://.godot/imported/Fairy.2.png-ccb665010994fa2e8e22ce75a9d69c55.ctex"]
+source_file="res://entity/enemy/fairy/Fairy.1.png"
+dest_files=["res://.godot/imported/Fairy.1.png-8c0e4d84a0a11bf0c7502ee3c46c3aeb.ctex"]
 
 [params]
 
@@ -20,7 +20,7 @@ compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1
 compress/normal_map=0
-compress/channel_pack=0
+compress/channel_pack=1
 mipmaps/generate=false
 mipmaps/limit=-1
 roughness/mode=0

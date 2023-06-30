@@ -3,8 +3,8 @@
 [ext_resource type="Material" uid="uid://df8i0wskbdmia" path="res://entity/player/reimu/resource/yinYangOrb.tres" id="1_4aqhq"]
 [ext_resource type="Texture2D" uid="uid://f57p0cr44ri7" path="res://entity/player/reimu/resource/kishin.webp" id="2_755s2"]
 [ext_resource type="Script" path="res://entity/player/reimu/yinyang_orb.gd" id="3_d6in8"]
-[ext_resource type="Texture2D" uid="uid://d2wacgirqsjjn" path="res://entity/white-trans.tres" id="4_a6q0i"]
-[ext_resource type="Material" uid="uid://dox27ncd2r5o3" path="res://entity/glow.tres" id="4_y0tvi"]
+[ext_resource type="Texture2D" uid="uid://d2wacgirqsjjn" path="res://entity/resource/white-trans.tres" id="4_a6q0i"]
+[ext_resource type="Material" uid="uid://dox27ncd2r5o3" path="res://entity/resource/glow.tres" id="4_y0tvi"]
 [ext_resource type="Texture2D" uid="uid://dxsf3vpqsosf1" path="res://entity/enemy/phantom/fire_particle.png" id="5_i34iy"]
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_85hxn"]

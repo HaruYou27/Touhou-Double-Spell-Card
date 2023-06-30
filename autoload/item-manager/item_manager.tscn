@@ -1,24 +1,39 @@
-[gd_scene load_steps=6 format=3 uid="uid://c3rxoiw7os1of"]
+[gd_scene load_steps=9 format=3 uid="uid://c3rxoiw7os1of"]
 
-[ext_resource type="Shader" path="res://entity/UberItem.gdshader" id="1_4wje6"]
+[ext_resource type="Shader" path="res://entity/resource/UberItem.gdshader" id="1_4wje6"]
 [ext_resource type="Script" path="res://autoload/item-manager/ItemManager.cs" id="2_8jya1"]
 [ext_resource type="Texture2D" uid="uid://ccgackr4sld8n" path="res://autoload/item-manager/point.png" id="3_r2yry"]
+[ext_resource type="Script" path="res://autoload/item-manager/Node.gd" id="4_k1182"]
+
+[sub_resource type="Gradient" id="Gradient_h2vxy"]
+offsets = PackedFloat32Array(1)
+colors = PackedColorArray(0.1863, 0.37341, 0.81, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_b7kiy"]
+gradient = SubResource("Gradient_h2vxy")
+width = 1
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_4ux2n"]
 shader = ExtResource("1_4wje6")
 shader_parameter/time_scale = 0.5
-shader_parameter/alpha_offset = null
+shader_parameter/alpha_offset = true
 shader_parameter/spin = true
 shader_parameter/sin_alpha = null
+shader_parameter/color_map = SubResource("GradientTexture1D_b7kiy")
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_l6dcm"]
 radius = 15.0
 
 [node name="ItemManager" type="Node2D"]
+z_index = 1
 material = SubResource("ShaderMaterial_4ux2n")
 script = ExtResource("2_8jya1")
 maxBullet = 2727
 Grazable = false
+bulletScale = Vector2(2, 2)
 hitbox = SubResource("CircleShape2D_l6dcm")
 CollisionMask = 9
 texture = ExtResource("3_r2yry")
+
+[node name="Node" type="Node" parent="."]
+script = ExtResource("4_k1182")

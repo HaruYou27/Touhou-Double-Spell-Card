@@ -8,12 +8,11 @@ func start() -> void:
 func _on_enemy_died() -> void:
 	animator.play("RESET")
 	recover.start()
-	bullet.stop()
+	barrel.hide()
 
 func _on_recover_timer_timeout():
 	animator.play("enter")
 
-@onready var bullet := $BulletTimer
-func _on_animation_player_animation_finished(anim_name:StringName):
-	if anim_name == "enter":
-		bullet.start()
+@onready var barrel := $barrel
+func _on_animation_player_animation_finished(_anim_name) -> void:
+	barrel.show()

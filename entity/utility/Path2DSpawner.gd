@@ -1,16 +1,12 @@
 extends Path2D
 class_name Path2DSpawner
 
-@export var child_count := 1
-@export var scene : PackedScene
-var available : Array[Path2D]
+@onready var available := get_children()
 func _ready() -> void:
-	for i in range(child_count):
-		var follower := scene.instantiate()
-		follower.died.connect(_remove_follower.bind(follower))
-		available.append(follower)
-func _remove_follower(follower:Node) -> void:
-	remove_child(follower)
+	for follower in available:
+		follower.died.connect(_reclaim_follower.bind(follower))
+
+func _reclaim_follower(follower:Node) -> void:
 	available.append(follower)
 
 @export var mirror := false
@@ -21,7 +17,7 @@ func _on_spawn_timer_timeout():
 		return
 		
 	follower.reverse = tick
-	add_child(follower)
+	follower.start()
 	
 	if mirror:
 		tick = not tick

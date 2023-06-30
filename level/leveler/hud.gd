@@ -18,7 +18,7 @@ func _ready() -> void:
 	Global.hud = self
 	
 	score_label.update_label(0)
-	bomb_label.update_label(1)
+	bomb_label.update_label(3)
 
 @export var bomb_label : FormatLabel
 func update_bomb() -> void:

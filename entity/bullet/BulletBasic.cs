@@ -1,4 +1,5 @@
 using Godot;
+using System.Collections.Generic;
 //The base class of all bullets.
 public partial class BulletBasic : Node2D
 {
@@ -9,6 +10,7 @@ public partial class BulletBasic : Node2D
 	[Export] public bool localRotation;
 	[Export] public bool Grazable = true;
 	[Export] public Vector2 bulletScale = Vector2.One;
+	protected IEnumerable<Node> barrels;
 
 	//Query properties
 	[Export] public Shape2D hitbox;
@@ -46,6 +48,14 @@ public partial class BulletBasic : Node2D
 	}
 	public override void _Ready()
 	{
+		if (barrelGroup == null || barrelGroup.IsEmpty)
+		{
+			barrels = GetChildren();
+		}
+		else
+		{
+			barrels = tree.GetNodesInGroup(barrelGroup);
+		}
 		query.Shape = hitbox;
 		query.CollideWithAreas = CollideWithAreas;
 		query.CollideWithBodies = CollideWithBodies;
@@ -85,18 +95,9 @@ public partial class BulletBasic : Node2D
 	}
 	public void SpawnBullet()
 	{
-		Godot.Collections.Array<Node> barrels;
-		if (barrelGroup == null)
-		{
-			barrels = GetChildren();
-		}
-		else
-		{
-			barrels = tree.GetNodesInGroup(barrelGroup);
-		}
 		foreach (Node2D barrel in barrels)
 		{
-			if (activeIndex == maxBullet) { return; }
+			if (activeIndex == maxBullet || !barrel.IsVisibleInTree()) { return; }
 			Bullet bullet = bullets[activeIndex];
 			RenderingServer.CanvasItemSetVisible(bullet.sprite, true);
 

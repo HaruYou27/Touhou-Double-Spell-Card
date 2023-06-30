@@ -21,7 +21,7 @@ const game_rect := Vector2i(540, 960)
 #######################
 
 ################ USER INTERFACE
-const lobby := "res://user-interface/lobby/lobby.tscn"
+const main_menu := "res://user-interface/menu/menu.tscn"
 const ice_server := {
 		"iceServers": [ { "urls": [
 			"stun:stun.l.google.com:19302",

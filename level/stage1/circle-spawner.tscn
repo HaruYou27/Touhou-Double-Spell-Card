@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://dqvxgihivuulj"]
 
-[ext_resource type="Shader" path="res://entity/UberItem.gdshader" id="1_nwaxh"]
+[ext_resource type="Shader" path="res://entity/resource/UberItem.gdshader" id="1_nwaxh"]
 [ext_resource type="Script" path="res://entity/bullet/BulletBasic.cs" id="2_p555y"]
 [ext_resource type="Texture2D" uid="uid://d1nkk7km71ule" path="res://entity/bullet/resource/kunai1.png" id="3_w2aim"]
 

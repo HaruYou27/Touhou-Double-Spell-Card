@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://x6m45dr4ylyl"]
 
 [ext_resource type="Texture2D" uid="uid://dxsf3vpqsosf1" path="res://entity/enemy/phantom/fire_particle.png" id="2"]
-[ext_resource type="Texture2D" uid="uid://d2wacgirqsjjn" path="res://entity/white-trans.tres" id="3_4rkn1"]
+[ext_resource type="Texture2D" uid="uid://d2wacgirqsjjn" path="res://entity/resource/white-trans.tres" id="3_4rkn1"]
 
 [sub_resource type="CanvasItemMaterial" id="1"]
 blend_mode = 1

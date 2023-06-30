@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://cex3540cp47lm"]
 
-[ext_resource type="Script" path="res://entity/player/graze.gd" id="1_doa5g"]
+[ext_resource type="Script" path="res://entity/player/base/graze.gd" id="1_doa5g"]
 [ext_resource type="AudioStream" uid="uid://4t58xs4qdlkr" path="res://autoload/SoundEffect/resource/tick+.wav" id="2_tulhb"]
 
 [sub_resource type="ParticleProcessMaterial" id="25"]
