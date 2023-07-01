@@ -1,13 +1,18 @@
-extends AnimatedSprite2D
+extends Control
+class_name BulletPreviewer
+
+@export var nodes : Array[NodePath]
 
 func _ready() -> void:
 	visibility_changed.connect(_visibility_changed)
 
-@onready var bullet := $"../bullet"
-@onready var timer := $Timer
 func _visibility_changed() -> void:
-	if is_visible_in_tree():
-		timer.start()
+	if visible:
+		for node in nodes:
+			if node is Timer:
+				node.start()
+				continue
+			elif node is AnimatedSprite2D or AnimationPlayer:
+				node.play()
 	else:
-		timer.stop()
-		bullet.Clear()
+		

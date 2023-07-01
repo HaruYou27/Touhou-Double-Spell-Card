@@ -46,7 +46,7 @@ func _on_port_text_changed(new_text):
 var server_list := {}
 var socket := PacketPeerUDP.new()
 func _on_timer_timeout() -> void:
-	for server in server_list:
+	for server in server_list.values():
 		if server[3] >= 5:
 			server_list.erase(server[1])
 			list.remove_item(server[2])

@@ -1,8 +1,8 @@
 [gd_scene load_steps=7 format=3 uid="uid://dqvxgihivuulj"]
 
-[ext_resource type="Shader" path="res://entity/resource/UberItem.gdshader" id="1_nwaxh"]
-[ext_resource type="Script" path="res://entity/bullet/BulletBasic.cs" id="2_p555y"]
-[ext_resource type="Texture2D" uid="uid://d1nkk7km71ule" path="res://entity/bullet/resource/kunai1.png" id="3_w2aim"]
+[ext_resource type="Shader" path="res://entity/resource/UberItem.gdshader" id="1_6xypq"]
+[ext_resource type="Script" path="res://entity/bullet/BulletBasic.cs" id="2_tljaj"]
+[ext_resource type="Texture2D" uid="uid://d1nkk7km71ule" path="res://entity/bullet/resource/kunai1.png" id="3_f4jto"]
 
 [sub_resource type="Gradient" id="Gradient_rqw5a"]
 colors = PackedColorArray(1, 0, 0.8, 1, 1, 1, 1, 1)
@@ -11,24 +11,18 @@ colors = PackedColorArray(1, 0, 0.8, 1, 1, 1, 1, 1)
 gradient = SubResource("Gradient_rqw5a")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_o2d6k"]
-shader = ExtResource("1_nwaxh")
+shader = ExtResource("1_6xypq")
 shader_parameter/time_scale = null
-shader_parameter/spin = null
 shader_parameter/alpha_offset = null
+shader_parameter/spin = null
 shader_parameter/sin_alpha = null
-shader_parameter/displace = 0.0
-shader_parameter/rainbow = false
 shader_parameter/color_map = SubResource("GradientTexture1D_vohti")
-shader_parameter/wobble = null
-shader_parameter/wobble_max = 1.25
-shader_parameter/wobble_min = 0.75
 
 [node name="spawner" type="Node2D"]
 z_index = 4
 material = SubResource("ShaderMaterial_o2d6k")
-script = ExtResource("2_p555y")
-localRotation = false
-texture = ExtResource("3_w2aim")
+script = ExtResource("2_tljaj")
+texture = ExtResource("3_f4jto")
 
 [node name="41408" type="Marker2D" parent="."]
 position = Vector2(128, 0)

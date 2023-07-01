@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://qcqdhn5ssewn"]
+[gd_scene load_steps=7 format=3 uid="uid://qcqdhn5ssewn"]
 
 [ext_resource type="Script" path="res://entity/utility/PathFollower2D.gd" id="1_wpp8x"]
 [ext_resource type="PackedScene" uid="uid://x6m45dr4ylyl" path="res://entity/enemy/phantom/blue-phantom.tscn" id="2_mlfjc"]
 [ext_resource type="Script" path="res://entity/utility/TargetLocker.gd" id="3_npc73"]
 [ext_resource type="PackedScene" uid="uid://dtlscerig62nv" path="res://entity/enemy/base/enemy.tscn" id="4_hnnwn"]
+[ext_resource type="Script" path="res://entity/enemy/phantom/blue-phantom.gd" id="4_uluhi"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_noovt"]
 radius = 23.0
@@ -21,12 +22,10 @@ time = 5.0
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy"]
 shape = SubResource("CircleShape2D_noovt")
 
-[node name="visual" type="Node2D" parent="."]
+[node name="visual" parent="." instance=ExtResource("2_mlfjc")]
+script = ExtResource("4_uluhi")
 
-[node name="phantom" parent="visual" instance=ExtResource("2_mlfjc")]
-modulate = Color(0.392157, 1, 1, 1)
-
-[node name="Marker2D" type="Marker2D" parent="visual" groups=["Enemy Barrel 0"]]
+[node name="Marker2D" type="Marker2D" parent="visual" groups=["Enemy Barrel 1"]]
 position = Vector2(0, 20)
 rotation = 1.5708
 gizmo_extents = 58.2

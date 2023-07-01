@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=3 uid="uid://cyvf0ik0p568i"]
+
+[ext_resource type="Script" path="res://entity/utility/PathFollower2D.gd" id="1_q5ad0"]
+[ext_resource type="PackedScene" uid="uid://dtlscerig62nv" path="res://entity/enemy/base/enemy.tscn" id="2_fw23a"]
+[ext_resource type="Texture2D" uid="uid://ejrqvn5h5jxu" path="res://entity/enemy/fairy/Fairy.1.png" id="3_rpcwy"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_noovt"]
+radius = 23.0
+
+[node name="Fairy" type="PathFollow2D"]
+rotates = false
+cubic_interp = false
+loop = false
+lookahead = 1.0
+script = ExtResource("1_q5ad0")
+time = 5.0
+
+[node name="Enemy" parent="." instance=ExtResource("2_fw23a")]
+hp = 15
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy"]
+shape = SubResource("CircleShape2D_noovt")
+
+[node name="visual" type="Sprite2D" parent="."]
+texture = ExtResource("3_rpcwy")
+
+[node name="Marker2D" type="Marker2D" parent="visual" groups=["Enemy Barrel 2"]]
+position = Vector2(0, 23)
+rotation = 1.5708
+gizmo_extents = 141.9
+
+[connection signal="died" from="Enemy" to="." method="_on_enemy_died"]

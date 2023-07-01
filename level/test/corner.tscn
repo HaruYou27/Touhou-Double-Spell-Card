@@ -15,8 +15,9 @@ script = ExtResource("1_bok0b")
 scale = Vector2(1.5, 1.5)
 texture = ExtResource("4_3xohk")
 
-[node name="Enemy" parent="." instance=ExtResource("5_bqibv")]
+[node name="Enemy" parent="." node_paths=PackedStringArray("visual") instance=ExtResource("5_bqibv")]
 hp = 60
+visual = NodePath("../Fairy2")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy"]
 shape = SubResource("CircleShape2D_0el8c")
@@ -26,47 +27,39 @@ wait_time = 2.0
 one_shot = true
 
 [node name="barrel" type="Node2D" parent="."]
-visible = false
 
 [node name="@@30175" type="Marker2D" parent="barrel" groups=["Enemy Barrel Corner"]]
 position = Vector2(46, 0)
-scale = Vector2(1, 1)
 gizmo_extents = 20.0
 
 [node name="@@30176" type="Marker2D" parent="barrel" groups=["Enemy Barrel Corner"]]
 position = Vector2(42.4985, 17.6034)
 rotation = 0.392699
-scale = Vector2(1, 1)
 gizmo_extents = 20.0
 
 [node name="@@30177" type="Marker2D" parent="barrel" groups=["Enemy Barrel Corner"]]
 position = Vector2(32.5269, 32.5269)
 rotation = 0.785398
-scale = Vector2(1, 1)
 gizmo_extents = 20.0
 
 [node name="@@30178" type="Marker2D" parent="barrel" groups=["Enemy Barrel Corner"]]
 position = Vector2(17.6034, 42.4985)
 rotation = 1.1781
-scale = Vector2(1, 1)
 gizmo_extents = 20.0
 
 [node name="@@30179" type="Marker2D" parent="barrel" groups=["Enemy Barrel Corner"]]
 position = Vector2(0, 46)
 rotation = 1.5708
-scale = Vector2(1, 1)
 gizmo_extents = 20.0
 
 [node name="@@30180" type="Marker2D" parent="barrel" groups=["Enemy Barrel Corner"]]
 position = Vector2(-17.6034, 42.4985)
 rotation = 1.9635
-scale = Vector2(1, 1)
 gizmo_extents = 20.0
 
 [node name="@@30190" type="Marker2D" parent="barrel" groups=["Enemy Barrel Corner"]]
 position = Vector2(42.4985, -17.6034)
 rotation = -0.392699
-scale = Vector2(1, 1)
 gizmo_extents = 20.0
 
 [connection signal="died" from="Enemy" to="." method="_on_enemy_died" flags=18]

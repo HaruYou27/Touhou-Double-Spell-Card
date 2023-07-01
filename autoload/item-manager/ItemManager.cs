@@ -41,7 +41,7 @@ public partial class ItemManager : BulletBasic
 	}
 	protected override Transform2D Move(in float delta)
 	{
-		bullets[index].velocity.Y += 27 * delta;
+		bullets[index].velocity.Y += 98 * delta;
 		return base.Move(delta);
 	}
 	protected override bool Collide(in Godot.Collections.Dictionary result)

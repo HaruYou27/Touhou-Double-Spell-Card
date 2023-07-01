@@ -117,12 +117,12 @@ public partial class BulletBasic : Node2D
 		if (localRotation)
 			{
 				bullet.velocity = new Vector2(speed, 0).Rotated(barrel.Rotation);
-				bullet.transform = new Transform2D(barrel.Rotation - Mathf.Pi/2, bulletScale, 0, barrel.GlobalPosition);
+				bullet.transform = new Transform2D(barrel.Rotation + Mathf.Pi/2, bulletScale, 0, barrel.GlobalPosition);
 			}
 		else
 			{
 				bullet.velocity = new Vector2(speed, 0).Rotated(barrel.GlobalRotation);
-				bullet.transform = new Transform2D(barrel.GlobalRotation - Mathf.Pi/2, bulletScale, 0, barrel.GlobalPosition);
+				bullet.transform = new Transform2D(barrel.GlobalRotation + Mathf.Pi/2, bulletScale, 0, barrel.GlobalPosition);
 			}
 	}
 	public Vector2[] Clear()
@@ -206,3 +206,4 @@ public partial class BulletBasic : Node2D
 		}
 	}
 }
+

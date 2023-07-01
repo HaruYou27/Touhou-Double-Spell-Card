@@ -1,9 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://c3rxoiw7os1of"]
+[gd_scene load_steps=8 format=3 uid="uid://c3rxoiw7os1of"]
 
 [ext_resource type="Shader" path="res://entity/resource/UberItem.gdshader" id="1_4wje6"]
 [ext_resource type="Script" path="res://autoload/item-manager/ItemManager.cs" id="2_8jya1"]
 [ext_resource type="Texture2D" uid="uid://ccgackr4sld8n" path="res://autoload/item-manager/point.png" id="3_r2yry"]
-[ext_resource type="Script" path="res://autoload/item-manager/Node.gd" id="4_k1182"]
 
 [sub_resource type="Gradient" id="Gradient_h2vxy"]
 offsets = PackedFloat32Array(1)
@@ -34,6 +33,3 @@ bulletScale = Vector2(2, 2)
 hitbox = SubResource("CircleShape2D_l6dcm")
 CollisionMask = 9
 texture = ExtResource("3_r2yry")
-
-[node name="Node" type="Node" parent="."]
-script = ExtResource("4_k1182")

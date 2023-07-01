@@ -1,14 +1,14 @@
-[gd_scene load_steps=61 format=3 uid="uid://bn5nhkofewyh8"]
+[gd_scene load_steps=62 format=3 uid="uid://bn5nhkofewyh8"]
 
 [ext_resource type="Theme" uid="uid://dotibkyt5mm7v" path="res://user-interface/menu/theme/menu.tres" id="1_vx63d"]
 [ext_resource type="Script" path="res://user-interface/menu/settings/Generic.gd" id="2_dgpou"]
+[ext_resource type="Script" path="res://user-interface/menu/Level.gd" id="2_hncmy"]
 [ext_resource type="Script" path="res://user-interface/control-node/SFXButton.gd" id="3_wn432"]
 [ext_resource type="Script" path="res://user-interface/control-node/FormatLabel.gd" id="4_h21eu"]
 [ext_resource type="PackedScene" uid="uid://bsf3tthvg8rot" path="res://user-interface/menu/settings/reset.tscn" id="5_nrino"]
 [ext_resource type="Script" path="res://user-interface/control-node/SFXToggler.gd" id="5_vnfn8"]
 [ext_resource type="Script" path="res://user-interface/menu/settings/audio.gd" id="6_8l51l"]
 [ext_resource type="Script" path="res://user-interface/control-node/PercentageSlider.gd" id="8_b5jhj"]
-[ext_resource type="Script" path="res://user-interface/menu/settings/graphic.tres.gd" id="8_uia1o"]
 [ext_resource type="FontFile" uid="uid://c7ppp33ch6e5" path="res://user-interface/resource/font/Vbutlong.ttf" id="10_qmh8v"]
 [ext_resource type="FontFile" uid="uid://dxj7w5h2hhvec" path="res://user-interface/resource/font/NotoSansMono-Regular.ttf" id="11_51w8a"]
 [ext_resource type="Texture2D" uid="uid://ccgackr4sld8n" path="res://autoload/item-manager/point.png" id="13_28gra"]
@@ -32,6 +32,7 @@
 [ext_resource type="Texture2D" uid="uid://dxsf3vpqsosf1" path="res://entity/enemy/phantom/fire_particle.png" id="27_aqtxu"]
 [ext_resource type="Texture2D" uid="uid://c7k6r1xgk2xii" path="res://entity/player/marisa/resource/marisa-hitbox.png" id="28_l8ygb"]
 [ext_resource type="Script" path="res://user-interface/menu/WebRtc.gd" id="28_w5xwc"]
+[ext_resource type="Script" path="res://user-interface/menu/settings/graphic.gd" id="30_jysfy"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_15cds"]
 content_margin_left = 10.0
@@ -526,7 +527,8 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_vx63d")
 
-[node name="background" type="Node2D" parent="."]
+[node name="background" type="TabContainer" parent="."]
+layout_mode = 2
 
 [node name="TabContainer" type="TabContainer" parent="."]
 layout_mode = 2
@@ -534,14 +536,18 @@ size_flags_vertical = 3
 tabs_visible = false
 
 [node name="play" type="TabContainer" parent="TabContainer"]
-visible = false
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
 
 [node name="Level" type="VBoxContainer" parent="TabContainer/play"]
 layout_mode = 2
+script = ExtResource("2_hncmy")
 
-[node name="OptionButton" type="OptionButton" parent="TabContainer/play/Level"]
+[node name="Preview" type="TabContainer" parent="TabContainer/play/Level"]
+visible = false
+layout_mode = 2
+
+[node name="LevelList" type="OptionButton" parent="TabContainer/play/Level"]
 layout_mode = 2
 alignment = 1
 item_count = 1
@@ -648,13 +654,13 @@ tabs_visible = false
 
 [node name="Reimu" type="Control" parent="TabContainer/play/Character/Preview"]
 layout_mode = 2
+script = ExtResource("16_0qxxx")
 metadata/scene = ExtResource("16_o0h3l")
 
 [node name="ReimuSprite" parent="TabContainer/play/Character/Preview/Reimu" instance=ExtResource("17_3eq3m")]
 z_index = -5
 position = Vector2(270, 642)
 scale = Vector2(2, 2)
-script = ExtResource("16_0qxxx")
 
 [node name="Hitbox2" type="Sprite2D" parent="TabContainer/play/Character/Preview/Reimu/ReimuSprite"]
 z_index = 100
@@ -798,7 +804,6 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 30
 
 [node name="Generic" type="VBoxContainer" parent="TabContainer/Settings"]
-visible = false
 layout_mode = 2
 script = ExtResource("2_dgpou")
 
@@ -826,6 +831,7 @@ script = ExtResource("23_5r066")
 label = NodePath("../Label")
 
 [node name="Controls" type="VBoxContainer" parent="TabContainer/Settings"]
+visible = false
 layout_mode = 2
 script = ExtResource("24_hwgke")
 
@@ -971,7 +977,7 @@ layout_mode = 2
 [node name="Graphic" type="VBoxContainer" parent="TabContainer/Settings"]
 visible = false
 layout_mode = 2
-script = ExtResource("8_uia1o")
+script = ExtResource("30_jysfy")
 
 [node name="fullscreen" type="CheckButton" parent="TabContainer/Settings/Graphic"]
 layout_mode = 2
@@ -1017,6 +1023,7 @@ script = ExtResource("5_vnfn8")
 layout_mode = 2
 
 [node name="multiplayer" type="TabContainer" parent="TabContainer"]
+visible = false
 layout_mode = 2
 
 [node name="EnetHost" type="Control" parent="TabContainer/multiplayer"]

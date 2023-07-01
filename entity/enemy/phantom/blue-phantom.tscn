@@ -37,8 +37,10 @@ scale_min = 0.5
 scale_max = 0.5
 color_ramp = ExtResource("3_4rkn1")
 
-[node name="sprite" type="GPUParticles2D"]
+[node name="phantom" type="GPUParticles2D"]
+modulate = Color(0.392157, 1, 1, 1)
 material = SubResource("1")
+emitting = false
 process_material = SubResource("6")
 texture = ExtResource("2")
 lifetime = 3.0
@@ -47,5 +49,6 @@ draw_order = 0
 
 [node name="trail" type="GPUParticles2D" parent="."]
 material = SubResource("1")
+emitting = false
 process_material = SubResource("ParticleProcessMaterial_o1h1f")
 texture = ExtResource("2")
