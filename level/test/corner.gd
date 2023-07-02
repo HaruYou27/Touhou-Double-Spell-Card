@@ -8,11 +8,8 @@ func start() -> void:
 func _on_enemy_died() -> void:
 	animator.play("RESET")
 	recover.start()
-	barrel.hide()
 
+@onready var physics := $Enemy
 func _on_recover_timer_timeout():
 	animator.play("enter")
-
-@onready var barrel := $barrel
-func _on_animation_player_animation_finished(_anim_name) -> void:
-	barrel.show()
+	physics.reset()

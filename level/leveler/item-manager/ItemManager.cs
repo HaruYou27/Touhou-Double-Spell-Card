@@ -6,9 +6,8 @@ public partial class ItemManager : BulletBasic
 
 	public override void _Ready()
 	{
-		world = GetWorld2D();
 		Global = GetNode("/root/Global");
-		tree = GetTree();
+		Global.Set("ItemManager", this);
 		itemManager = this;
 
 		base._Ready();

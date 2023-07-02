@@ -19,14 +19,15 @@ func _physics_process(delta:float) -> void:
 	
 	for ray in rays:
 		if ray.is_colliding():
-			collision_particle.global_position.y = ray.get_collision_point().y
+			var collider := ray.get_collider()
+			collision_particle.global_position.y = collider.global_position.y
 			for beam in beams:
-				beam.points[1].y = abs(collision_particle.position.y)
+				beam.points[1].y = collision_particle.position.y
 			beam_particle.position.y = collision_particle.position.y / 2
 			beam_particle.process_material.emission_box_extents.y = beam_particle.position.y
 			
 			if cooldown <= 0:
-				ray.get_collider()._hit()
+				collider._hit()
 				cooldown += 0.033333333333333
 			return
 			

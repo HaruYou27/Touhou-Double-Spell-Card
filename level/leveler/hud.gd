@@ -21,17 +21,17 @@ func _ready() -> void:
 	bomb_label.update_label(3)
 
 @export var bomb_label : FormatLabel
-func update_bomb() -> void:
-	bomb_label.update_label(Global.player.bomb_count)
+func _update_bomb() -> void:
+	bomb_label.update_label(Global.player1.bomb_count)
 
 #There's no point in updating the score more than 1 per frame.
-var item := 0
+var item := 1
 func _add_item() -> void:
 	item += 1
 	SoundEffect.hover()
 	update_score()
 	
-var graze := 0
+var graze := 1
 func _add_graze() -> void:
 	graze += 1
 	update_score()

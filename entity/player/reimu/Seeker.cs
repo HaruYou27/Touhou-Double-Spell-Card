@@ -3,7 +3,6 @@ using Godot;
 public partial class Seeker : BulletBasic
 {
 	//Bullets that chase nearby target.
-	[Export] protected float mass = 10;
 	[Export(PropertyHint.Layers2DPhysics)] public uint SeekMask;
 	[Export] protected float seekRadius;
 	protected readonly PhysicsShapeQueryParameters2D seekQuery = new PhysicsShapeQueryParameters2D();
@@ -68,10 +67,8 @@ public partial class Seeker : BulletBasic
 			}
 			return base.Move(delta);
 		}
-		float direction = bullet.transform.Origin.AngleTo(bullet.target.GlobalPosition);
-		bullet.velocity = bullet.velocity.Rotated(direction / mass);
-		bullet.transform.Origin += bullet.velocity * delta;
-		bullet.transform = bullet.transform.Rotated(direction);
+		bullet.velocity = (bullet.target.GlobalPosition - bullet.transform.Origin).Normalized() * speed;
+		bullet.transform = new Transform2D(bullet.velocity.Angle() + Mathf.Pi /2, bullet.transform.Origin + bullet.velocity * delta);
 		return bullet.transform;
 	}
 }

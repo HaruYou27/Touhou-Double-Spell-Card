@@ -11,56 +11,56 @@ radius = 42.0476
 position = Vector2(-67, 46)
 script = ExtResource("1_bok0b")
 
-[node name="Fairy2" type="Sprite2D" parent="."]
-scale = Vector2(1.5, 1.5)
-texture = ExtResource("4_3xohk")
-
-[node name="Enemy" parent="." node_paths=PackedStringArray("visual") instance=ExtResource("5_bqibv")]
+[node name="Enemy" parent="." instance=ExtResource("5_bqibv")]
 hp = 60
-visual = NodePath("../Fairy2")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy"]
 shape = SubResource("CircleShape2D_0el8c")
 
-[node name="RecoverTimer" type="Timer" parent="."]
-wait_time = 2.0
-one_shot = true
+[node name="visual" type="Sprite2D" parent="Enemy"]
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("4_3xohk")
 
-[node name="barrel" type="Node2D" parent="."]
+[node name="barrel" type="Node2D" parent="Enemy/visual"]
+scale = Vector2(0.666667, 0.666667)
 
-[node name="@@30175" type="Marker2D" parent="barrel" groups=["Enemy Barrel Corner"]]
+[node name="@@30175" type="Marker2D" parent="Enemy/visual/barrel" groups=["Enemy Barrel Corner"]]
 position = Vector2(46, 0)
 gizmo_extents = 20.0
 
-[node name="@@30176" type="Marker2D" parent="barrel" groups=["Enemy Barrel Corner"]]
+[node name="@@30176" type="Marker2D" parent="Enemy/visual/barrel" groups=["Enemy Barrel Corner"]]
 position = Vector2(42.4985, 17.6034)
 rotation = 0.392699
 gizmo_extents = 20.0
 
-[node name="@@30177" type="Marker2D" parent="barrel" groups=["Enemy Barrel Corner"]]
+[node name="@@30177" type="Marker2D" parent="Enemy/visual/barrel" groups=["Enemy Barrel Corner"]]
 position = Vector2(32.5269, 32.5269)
 rotation = 0.785398
 gizmo_extents = 20.0
 
-[node name="@@30178" type="Marker2D" parent="barrel" groups=["Enemy Barrel Corner"]]
+[node name="@@30178" type="Marker2D" parent="Enemy/visual/barrel" groups=["Enemy Barrel Corner"]]
 position = Vector2(17.6034, 42.4985)
 rotation = 1.1781
 gizmo_extents = 20.0
 
-[node name="@@30179" type="Marker2D" parent="barrel" groups=["Enemy Barrel Corner"]]
+[node name="@@30179" type="Marker2D" parent="Enemy/visual/barrel" groups=["Enemy Barrel Corner"]]
 position = Vector2(0, 46)
 rotation = 1.5708
 gizmo_extents = 20.0
 
-[node name="@@30180" type="Marker2D" parent="barrel" groups=["Enemy Barrel Corner"]]
+[node name="@@30180" type="Marker2D" parent="Enemy/visual/barrel" groups=["Enemy Barrel Corner"]]
 position = Vector2(-17.6034, 42.4985)
 rotation = 1.9635
 gizmo_extents = 20.0
 
-[node name="@@30190" type="Marker2D" parent="barrel" groups=["Enemy Barrel Corner"]]
+[node name="@@30190" type="Marker2D" parent="Enemy/visual/barrel" groups=["Enemy Barrel Corner"]]
 position = Vector2(42.4985, -17.6034)
 rotation = -0.392699
 gizmo_extents = 20.0
+
+[node name="RecoverTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
 
 [connection signal="died" from="Enemy" to="." method="_on_enemy_died" flags=18]
 [connection signal="timeout" from="RecoverTimer" to="." method="_on_recover_timer_timeout" flags=18]

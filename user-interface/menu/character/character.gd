@@ -9,11 +9,11 @@ func _change_character(next:bool) -> void:
 		characters.current_tab -= 1
 	title.select(characters.current_tab)
 
-func _exit_tree() -> void:
+func _on_enter_pressed() -> void:
 	Global.player1 = characters.get_child(characters.current_tab).get_meta('scene').instantiate()
 	rpc('set_p2_character', characters.current_tab)
 
-@rpc('reliable')
+@rpc('reliable', "call_remote")
 func set_p2_character(idx:int) -> void:
 	Global.player2 = characters.get_child(idx).get_meta('scene').instantiate()
 

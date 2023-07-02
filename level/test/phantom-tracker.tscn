@@ -22,10 +22,10 @@ time = 5.0
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy"]
 shape = SubResource("CircleShape2D_noovt")
 
-[node name="visual" parent="." instance=ExtResource("2_mlfjc")]
+[node name="visual" parent="Enemy" instance=ExtResource("2_mlfjc")]
 script = ExtResource("4_uluhi")
 
-[node name="Marker2D" type="Marker2D" parent="visual" groups=["Enemy Barrel 1"]]
+[node name="Marker2D" type="Marker2D" parent="Enemy/visual" groups=["Enemy Barrel 1"]]
 position = Vector2(0, 20)
 rotation = 1.5708
 gizmo_extents = 58.2

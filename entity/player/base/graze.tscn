@@ -37,4 +37,4 @@ one_shot = true
 stream = ExtResource("2_tulhb")
 bus = &"SFX"
 
-[connection signal="timeout" from="vfx/Timer" to="vfx" method="set_emitting"]
+[connection signal="timeout" from="vfx/Timer" to="vfx" method="set_emitting" binds= [false]]

@@ -25,7 +25,6 @@ driver/enable_input=true
 Global="*res://autoload/Global.gd"
 VisualEffect="*res://autoload/VisualEffect.tscn"
 SoundEffect="*res://autoload/SoundEffect/sound_effect.tscn"
-ItemManager="*res://autoload/item-manager/item_manager.tscn"
 
 [display]
 

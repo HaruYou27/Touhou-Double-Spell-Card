@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://ccgackr4sld8n"
-path="res://.godot/imported/point.png-7fae91308a6c755e8189a0efee33ba43.ctex"
+path="res://.godot/imported/point.png-065be5185e81ac099549ece3c0755054.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://autoload/item-manager/point.png"
-dest_files=["res://.godot/imported/point.png-7fae91308a6c755e8189a0efee33ba43.ctex"]
+source_file="res://level/leveler/item-manager/point.png"
+dest_files=["res://.godot/imported/point.png-065be5185e81ac099549ece3c0755054.ctex"]
 
 [params]
 

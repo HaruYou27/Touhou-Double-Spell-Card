@@ -1,16 +1,19 @@
 extends StaticBody2D
 class_name Player
 
+
 func _ready() -> void:
 	if not is_multiplayer_authority():
-		set_process_unhandled_input(false)
 		hitbox.queue_free()
-
+		Global.player2 = self
+	else:
+		Global.player1 = self
+		kaboom.connect(Global.hud._update_bomb)
+		
 ############## COLLISION
 @onready var death_timer := $DeathTimer
 func _hit() -> void:
-	set_process_unhandled_input(false)
-	hitbox.set_deferred('disabled', false)
+	hitbox.set_deferred('disabled', true)
 	VisualEffect.flash_red()
 	death_timer.start()
 ####################
@@ -21,23 +24,23 @@ var bomb_count := 3
 @onready var toggle_move := Global.user_data.toggle_move
 var can_move := false
 func _unhandled_input(event:InputEvent) -> void:
-	if event.is_action_pressed("drag"):
-		if toggle_move:
-			can_move = not can_move
-		else:
-			can_move = true
+	if toggle_move and event.is_action_pressed('drag'):
+		can_move = not can_move
 		return
+	else:
+		can_move = Input.is_action_pressed("drag")
 	
 	if (event is InputEventMouseMotion and can_move) or event is InputEventScreenDrag:
 		global_position += event.relative * sentivity
-		position.x = clamp(position.x, 0.0, global.playground.x)
-		position.y = clamp(position.y, 0.0, global.playground.y)
+		global_position.x = clamp(global_position.x, 0.0, global.playground.x)
+		global_position.y = clamp(global_position.y, 0.0, global.playground.y)
 		
 		if is_multiplayer_authority():
 			rpc('_update_position')
 	elif event.is_action_pressed("bomb") or event is InputEventPanGesture:
 		bomb()
 
+@rpc
 func _update_position(pos:Vector2) -> void:
 	create_tween().tween_property(self, 'global_position', pos, .1)
 
@@ -59,11 +62,10 @@ func _on_recover_timer_timeout():
 
 @onready var recover_timer := $RecoverTimer
 func _on_death_timer_timeout():
-	set_process_unhandled_input(true)
 	modulate = Color(Color.WHITE, .5)
 	Global.hud.player_died()
 	recover_timer.start()
-
+	VisualEffect.hide()
 
 func bomb():
 	if not bomb_count and can_bomb:
@@ -73,11 +75,9 @@ func bomb():
 	can_bomb = false
 	VisualEffect.hide()
 	death_timer.stop()
-	Global.hud.update_bomb()
 	
-	set_process_unhandled_input(true)
 	hitbox.hide()
 	hitbox.set_deferred("disabled", true)
 		
-	kaboom.emit()
+	kaboom.emit(0)
 	rpc('bomb_go_off', Time.get_ticks_msec())

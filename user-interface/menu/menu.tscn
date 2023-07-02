@@ -1,20 +1,29 @@
-[gd_scene load_steps=62 format=3 uid="uid://bn5nhkofewyh8"]
+[gd_scene load_steps=81 format=3 uid="uid://bn5nhkofewyh8"]
 
 [ext_resource type="Theme" uid="uid://dotibkyt5mm7v" path="res://user-interface/menu/theme/menu.tres" id="1_vx63d"]
+[ext_resource type="Texture2D" uid="uid://bgh4r80tk5o7v" path="res://level/background/misty-lake/water-noise.tres" id="2_57hu4"]
 [ext_resource type="Script" path="res://user-interface/menu/settings/Generic.gd" id="2_dgpou"]
 [ext_resource type="Script" path="res://user-interface/menu/Level.gd" id="2_hncmy"]
 [ext_resource type="Script" path="res://user-interface/control-node/SFXButton.gd" id="3_wn432"]
 [ext_resource type="Script" path="res://user-interface/control-node/FormatLabel.gd" id="4_h21eu"]
+[ext_resource type="Script" path="res://level/test/SpinShot2.gd" id="4_okkla"]
+[ext_resource type="Texture2D" uid="uid://bn8nged18pm41" path="res://entity/yukari/texture/Yukari.png" id="5_eluta"]
 [ext_resource type="PackedScene" uid="uid://bsf3tthvg8rot" path="res://user-interface/menu/settings/reset.tscn" id="5_nrino"]
+[ext_resource type="PackedScene" uid="uid://bxvy3qa8esorq" path="res://level/test/test_level.tscn" id="5_nsfbw"]
 [ext_resource type="Script" path="res://user-interface/control-node/SFXToggler.gd" id="5_vnfn8"]
 [ext_resource type="Script" path="res://user-interface/menu/settings/audio.gd" id="6_8l51l"]
+[ext_resource type="Shader" path="res://entity/resource/UberItem.gdshader" id="6_j537m"]
+[ext_resource type="Script" path="res://entity/bullet/BulletBasic.cs" id="7_33dby"]
 [ext_resource type="Script" path="res://user-interface/control-node/PercentageSlider.gd" id="8_b5jhj"]
+[ext_resource type="Shape2D" uid="uid://brtfnhe3eksr4" path="res://entity/bullet/resource/kunai-hitbox.tres" id="8_oqfy5"]
+[ext_resource type="Texture2D" uid="uid://d1nkk7km71ule" path="res://entity/bullet/resource/kunai1.png" id="9_nax3k"]
 [ext_resource type="FontFile" uid="uid://c7ppp33ch6e5" path="res://user-interface/resource/font/Vbutlong.ttf" id="10_qmh8v"]
 [ext_resource type="FontFile" uid="uid://dxj7w5h2hhvec" path="res://user-interface/resource/font/NotoSansMono-Regular.ttf" id="11_51w8a"]
-[ext_resource type="Texture2D" uid="uid://ccgackr4sld8n" path="res://autoload/item-manager/point.png" id="13_28gra"]
+[ext_resource type="Texture2D" uid="uid://ccgackr4sld8n" path="res://level/leveler/item-manager/point.png" id="13_28gra"]
 [ext_resource type="Script" path="res://user-interface/menu/character/character.gd" id="13_rskvb"]
 [ext_resource type="Texture2D" uid="uid://cx7ewf38kbh34" path="res://entity/player/reimu/resource/reimu-hitbox.png" id="14_8kxqp"]
-[ext_resource type="Script" path="res://user-interface/menu/character/reimu.gd" id="16_0qxxx"]
+[ext_resource type="Shortcut" uid="uid://xs30oatyn1i6" path="res://user-interface/resource/shortcut/enter.tres" id="14_nwuco"]
+[ext_resource type="Script" path="res://user-interface/control-node/BulletPreviewer.gd" id="16_ennx6"]
 [ext_resource type="PackedScene" uid="uid://bk08ga1mfcleb" path="res://entity/player/reimu/reimu.tscn" id="16_o0h3l"]
 [ext_resource type="PackedScene" uid="uid://ffnff8ahyxxn" path="res://entity/player/reimu/reimu_sprite.tscn" id="17_3eq3m"]
 [ext_resource type="Script" path="res://entity/player/reimu/Seeker.cs" id="19_2j5r6"]
@@ -22,7 +31,7 @@
 [ext_resource type="PackedScene" uid="uid://bsa0xvb26o22u" path="res://entity/player/reimu/yinyang_orb.tscn" id="21_jahto"]
 [ext_resource type="Script" path="res://user-interface/menu/character/marisa.gd" id="21_va0sy"]
 [ext_resource type="Texture2D" uid="uid://bkym7gv6hfekh" path="res://entity/player/marisa/resource/uncutmari.png" id="22_qco63"]
-[ext_resource type="Script" path="res://user-interface/menu/speed.gd" id="23_5r066"]
+[ext_resource type="PackedScene" uid="uid://of6l83moa38k" path="res://entity/player/marisa/marisa.tscn" id="23_kf20h"]
 [ext_resource type="Script" path="res://user-interface/menu/settings/controls.gd" id="24_hwgke"]
 [ext_resource type="Shader" path="res://level/background/noise-colorize.gdshader" id="24_oka33"]
 [ext_resource type="Texture2D" uid="uid://cwm35yxq5ojxd" path="res://entity/player/marisa/resource/laser-texture.tres" id="25_b00sl"]
@@ -33,6 +42,92 @@
 [ext_resource type="Texture2D" uid="uid://c7k6r1xgk2xii" path="res://entity/player/marisa/resource/marisa-hitbox.png" id="28_l8ygb"]
 [ext_resource type="Script" path="res://user-interface/menu/WebRtc.gd" id="28_w5xwc"]
 [ext_resource type="Script" path="res://user-interface/menu/settings/graphic.gd" id="30_jysfy"]
+[ext_resource type="Script" path="res://user-interface/menu/settings/speed.gd" id="31_t8wq2"]
+[ext_resource type="PackedScene" uid="uid://wo265prfhjd3" path="res://level/leveler/world_boundary.tscn" id="41_ci6vk"]
+
+[sub_resource type="Shader" id="Shader_c07er"]
+code = "//#pragma disable_preprocessor
+shader_type canvas_item;
+
+uniform sampler2D reflection : filter_nearest;
+
+group_uniforms wave;
+uniform vec2 wave_velocity = vec2(0., 2.);
+uniform float wave_distortion = 0.2;
+uniform float wave_multiplyer = -7.;
+
+group_uniforms water;
+uniform vec2 water_velocity = vec2(0, -.2);
+uniform float water_opacity : hint_range(0.0, 1.0, 0.1) = .5;
+uniform sampler2D color_map : filter_nearest, repeat_enable;
+
+varying vec2 wave_uv;
+varying vec2 water_uv;
+
+float when_gt(vec2 x, vec2 y) {
+  return max(sign(x - y), 0.0).x;
+}
+
+void vertex()
+{
+	wave_uv = UV * wave_multiplyer + TIME * wave_velocity;
+	water_uv = UV + TIME * water_velocity;
+}
+void fragment()
+{
+	float noise = texture(TEXTURE, wave_uv).x * wave_distortion;
+	
+	vec4 water_color = texture(color_map, texture(TEXTURE, vec2(water_uv.x + noise, water_uv.y)).rg);
+	
+	//Avoid glitch when uv is bigger than 1.0
+	//Reflection texture shouldn't be reapeat.
+	vec2 reflection_uv = vec2(UV.x + noise, UV.y - .1);
+	vec4 reflect_color = texture(reflection, reflection_uv) * when_gt(vec2(1.0), reflection_uv);
+							//Avoid water get destatured when reflection is transparent.
+	COLOR = mix(water_color, reflect_color, min(water_opacity, sign(reflect_color.a)));
+}"
+
+[sub_resource type="Gradient" id="Gradient_a3m1y"]
+offsets = PackedFloat32Array(0.00961538, 1)
+colors = PackedColorArray(0.4, 1, 0.95, 1, 0.1105, 0.16445, 0.65, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_snijx"]
+gradient = SubResource("Gradient_a3m1y")
+width = 16
+
+[sub_resource type="Gradient" id="Gradient_pgb60"]
+offsets = PackedFloat32Array(0.513761)
+colors = PackedColorArray(0, 0, 0, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_2kmo3"]
+gradient = SubResource("Gradient_pgb60")
+width = 1
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_npvl1"]
+resource_local_to_scene = true
+shader = SubResource("Shader_c07er")
+shader_parameter/reflection = SubResource("GradientTexture1D_2kmo3")
+shader_parameter/water_velocity = Vector2(0, -0.2)
+shader_parameter/water_opacity = 0.5
+shader_parameter/color_map = SubResource("GradientTexture1D_snijx")
+shader_parameter/wave_velocity = Vector2(0, 2)
+shader_parameter/wave_distortion = 0.2
+shader_parameter/wave_multiplyer = -6.0
+
+[sub_resource type="Gradient" id="Gradient_u3t52"]
+colors = PackedColorArray(1, 0, 0.8, 1, 0.07, 0.597, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_vohti"]
+gradient = SubResource("Gradient_u3t52")
+width = 16
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_a1syk"]
+shader = ExtResource("6_j537m")
+shader_parameter/time_scale = 2.0
+shader_parameter/alpha_offset = true
+shader_parameter/spin = null
+shader_parameter/sin_alpha = false
+shader_parameter/color_map = SubResource("GradientTexture1D_vohti")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_15cds"]
 content_margin_left = 10.0
@@ -516,9 +611,6 @@ _data = {
 "connecting": SubResource("Animation_j5e3v")
 }
 
-[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_spvc6"]
-normal = Vector2(0, 1)
-
 [node name="Menu" type="VBoxContainer"]
 anchors_preset = 15
 anchor_right = 1.0
@@ -528,7 +620,14 @@ grow_vertical = 2
 theme = ExtResource("1_vx63d")
 
 [node name="background" type="TabContainer" parent="."]
+z_index = -1000
 layout_mode = 2
+
+[node name="background" type="Sprite2D" parent="background"]
+texture_repeat = 2
+material = SubResource("ShaderMaterial_npvl1")
+texture = ExtResource("2_57hu4")
+centered = false
 
 [node name="TabContainer" type="TabContainer" parent="."]
 layout_mode = 2
@@ -544,8 +643,200 @@ layout_mode = 2
 script = ExtResource("2_hncmy")
 
 [node name="Preview" type="TabContainer" parent="TabContainer/play/Level"]
-visible = false
 layout_mode = 2
+tabs_visible = false
+
+[node name="test" type="Control" parent="TabContainer/play/Level/Preview"]
+layout_mode = 2
+script = ExtResource("16_ennx6")
+paths = Array[NodePath]([NodePath("SpinShot/Timer")])
+metadata/level = ExtResource("5_nsfbw")
+
+[node name="SpinShot" type="Node2D" parent="TabContainer/play/Level/Preview/test"]
+position = Vector2(270, 285)
+script = ExtResource("4_okkla")
+
+[node name="Yukari" type="Sprite2D" parent="TabContainer/play/Level/Preview/test/SpinShot"]
+texture = ExtResource("5_eluta")
+
+[node name="spinBullet" type="Node2D" parent="TabContainer/play/Level/Preview/test/SpinShot"]
+z_index = 4
+material = SubResource("ShaderMaterial_a1syk")
+script = ExtResource("7_33dby")
+barrelGroup = &"Enemy Barrel Spin"
+maxBullet = 727
+speed = 327.0
+bulletScale = Vector2(1.5, 1.5)
+hitbox = ExtResource("8_oqfy5")
+CollisionMask = 5
+texture = ExtResource("9_nax3k")
+
+[node name="Timer" type="Timer" parent="TabContainer/play/Level/Preview/test/SpinShot"]
+wait_time = 0.1
+
+[node name="clockwise" type="Node2D" parent="TabContainer/play/Level/Preview/test/SpinShot"]
+
+[node name="56362" type="Marker2D" parent="TabContainer/play/Level/Preview/test/SpinShot/clockwise" groups=["Enemy Barrel Spin"]]
+position = Vector2(-127.769, 0)
+rotation = -3.14159
+gizmo_extents = 40.0
+
+[node name="56363" type="Marker2D" parent="TabContainer/play/Level/Preview/test/SpinShot/clockwise" groups=["Enemy Barrel Spin"]]
+position = Vector2(-125.314, -24.9265)
+rotation = -2.94524
+gizmo_extents = 40.0
+
+[node name="56364" type="Marker2D" parent="TabContainer/play/Level/Preview/test/SpinShot/clockwise" groups=["Enemy Barrel Spin"]]
+position = Vector2(-118.043, -48.8952)
+rotation = -2.74889
+gizmo_extents = 40.0
+
+[node name="56365" type="Marker2D" parent="TabContainer/play/Level/Preview/test/SpinShot/clockwise" groups=["Enemy Barrel Spin"]]
+position = Vector2(-106.236, -70.9848)
+rotation = -2.55254
+gizmo_extents = 40.0
+
+[node name="56366" type="Marker2D" parent="TabContainer/play/Level/Preview/test/SpinShot/clockwise" groups=["Enemy Barrel Spin"]]
+position = Vector2(-90.3466, -90.3466)
+rotation = -2.35619
+gizmo_extents = 40.0
+
+[node name="56367" type="Marker2D" parent="TabContainer/play/Level/Preview/test/SpinShot/clockwise" groups=["Enemy Barrel Spin"]]
+position = Vector2(-70.9849, -106.236)
+rotation = -2.15985
+gizmo_extents = 40.0
+
+[node name="56368" type="Marker2D" parent="TabContainer/play/Level/Preview/test/SpinShot/clockwise" groups=["Enemy Barrel Spin"]]
+position = Vector2(-48.8952, -118.043)
+rotation = -1.9635
+gizmo_extents = 40.0
+
+[node name="56369" type="Marker2D" parent="TabContainer/play/Level/Preview/test/SpinShot/clockwise" groups=["Enemy Barrel Spin"]]
+position = Vector2(-24.9266, -125.314)
+rotation = -1.76715
+gizmo_extents = 40.0
+
+[node name="56370" type="Marker2D" parent="TabContainer/play/Level/Preview/test/SpinShot/clockwise" groups=["Enemy Barrel Spin"]]
+position = Vector2(0, -127.769)
+rotation = -1.5708
+gizmo_extents = 40.0
+
+[node name="56371" type="Marker2D" parent="TabContainer/play/Level/Preview/test/SpinShot/clockwise" groups=["Enemy Barrel Spin"]]
+position = Vector2(24.9266, -125.314)
+rotation = -1.37445
+gizmo_extents = 40.0
+
+[node name="56372" type="Marker2D" parent="TabContainer/play/Level/Preview/test/SpinShot/clockwise" groups=["Enemy Barrel Spin"]]
+position = Vector2(48.8952, -118.043)
+rotation = -1.1781
+gizmo_extents = 40.0
+
+[node name="56373" type="Marker2D" parent="TabContainer/play/Level/Preview/test/SpinShot/clockwise" groups=["Enemy Barrel Spin"]]
+position = Vector2(70.9848, -106.236)
+rotation = -0.981748
+gizmo_extents = 40.0
+
+[node name="56374" type="Marker2D" parent="TabContainer/play/Level/Preview/test/SpinShot/clockwise" groups=["Enemy Barrel Spin"]]
+position = Vector2(90.3466, -90.3466)
+rotation = -0.785398
+gizmo_extents = 40.0
+
+[node name="56375" type="Marker2D" parent="TabContainer/play/Level/Preview/test/SpinShot/clockwise" groups=["Enemy Barrel Spin"]]
+position = Vector2(106.236, -70.9848)
+rotation = -0.589049
+gizmo_extents = 40.0
+
+[node name="56376" type="Marker2D" parent="TabContainer/play/Level/Preview/test/SpinShot/clockwise" groups=["Enemy Barrel Spin"]]
+position = Vector2(118.043, -48.8952)
+rotation = -0.392699
+gizmo_extents = 40.0
+
+[node name="56377" type="Marker2D" parent="TabContainer/play/Level/Preview/test/SpinShot/clockwise" groups=["Enemy Barrel Spin"]]
+position = Vector2(125.314, -24.9265)
+rotation = -0.196349
+gizmo_extents = 40.0
+
+[node name="CounterClockwise" type="Node2D" parent="TabContainer/play/Level/Preview/test/SpinShot"]
+
+[node name="56362" type="Marker2D" parent="TabContainer/play/Level/Preview/test/SpinShot/CounterClockwise" groups=["Enemy Barrel Spin"]]
+position = Vector2(-127.769, 0)
+rotation = -3.14159
+gizmo_extents = 40.0
+
+[node name="56363" type="Marker2D" parent="TabContainer/play/Level/Preview/test/SpinShot/CounterClockwise" groups=["Enemy Barrel Spin"]]
+position = Vector2(-125.314, -24.9265)
+rotation = -2.94524
+gizmo_extents = 40.0
+
+[node name="56364" type="Marker2D" parent="TabContainer/play/Level/Preview/test/SpinShot/CounterClockwise" groups=["Enemy Barrel Spin"]]
+position = Vector2(-118.043, -48.8952)
+rotation = -2.74889
+gizmo_extents = 40.0
+
+[node name="56365" type="Marker2D" parent="TabContainer/play/Level/Preview/test/SpinShot/CounterClockwise" groups=["Enemy Barrel Spin"]]
+position = Vector2(-106.236, -70.9848)
+rotation = -2.55254
+gizmo_extents = 40.0
+
+[node name="56366" type="Marker2D" parent="TabContainer/play/Level/Preview/test/SpinShot/CounterClockwise" groups=["Enemy Barrel Spin"]]
+position = Vector2(-90.3466, -90.3466)
+rotation = -2.35619
+gizmo_extents = 40.0
+
+[node name="56367" type="Marker2D" parent="TabContainer/play/Level/Preview/test/SpinShot/CounterClockwise" groups=["Enemy Barrel Spin"]]
+position = Vector2(-70.9849, -106.236)
+rotation = -2.15985
+gizmo_extents = 40.0
+
+[node name="56368" type="Marker2D" parent="TabContainer/play/Level/Preview/test/SpinShot/CounterClockwise" groups=["Enemy Barrel Spin"]]
+position = Vector2(-48.8952, -118.043)
+rotation = -1.9635
+gizmo_extents = 40.0
+
+[node name="56369" type="Marker2D" parent="TabContainer/play/Level/Preview/test/SpinShot/CounterClockwise" groups=["Enemy Barrel Spin"]]
+position = Vector2(-24.9266, -125.314)
+rotation = -1.76715
+gizmo_extents = 40.0
+
+[node name="56370" type="Marker2D" parent="TabContainer/play/Level/Preview/test/SpinShot/CounterClockwise" groups=["Enemy Barrel Spin"]]
+position = Vector2(0, -127.769)
+rotation = -1.5708
+gizmo_extents = 40.0
+
+[node name="56371" type="Marker2D" parent="TabContainer/play/Level/Preview/test/SpinShot/CounterClockwise" groups=["Enemy Barrel Spin"]]
+position = Vector2(24.9266, -125.314)
+rotation = -1.37445
+gizmo_extents = 40.0
+
+[node name="56372" type="Marker2D" parent="TabContainer/play/Level/Preview/test/SpinShot/CounterClockwise" groups=["Enemy Barrel Spin"]]
+position = Vector2(48.8952, -118.043)
+rotation = -1.1781
+gizmo_extents = 40.0
+
+[node name="56373" type="Marker2D" parent="TabContainer/play/Level/Preview/test/SpinShot/CounterClockwise" groups=["Enemy Barrel Spin"]]
+position = Vector2(70.9848, -106.236)
+rotation = -0.981748
+gizmo_extents = 40.0
+
+[node name="56374" type="Marker2D" parent="TabContainer/play/Level/Preview/test/SpinShot/CounterClockwise" groups=["Enemy Barrel Spin"]]
+position = Vector2(90.3466, -90.3466)
+rotation = -0.785398
+gizmo_extents = 40.0
+
+[node name="56375" type="Marker2D" parent="TabContainer/play/Level/Preview/test/SpinShot/CounterClockwise" groups=["Enemy Barrel Spin"]]
+position = Vector2(106.236, -70.9848)
+rotation = -0.589049
+gizmo_extents = 40.0
+
+[node name="56376" type="Marker2D" parent="TabContainer/play/Level/Preview/test/SpinShot/CounterClockwise" groups=["Enemy Barrel Spin"]]
+position = Vector2(118.043, -48.8952)
+rotation = -0.392699
+gizmo_extents = 40.0
+
+[node name="56377" type="Marker2D" parent="TabContainer/play/Level/Preview/test/SpinShot/CounterClockwise" groups=["Enemy Barrel Spin"]]
+position = Vector2(125.314, -24.9265)
+rotation = -0.196349
+gizmo_extents = 40.0
 
 [node name="LevelList" type="OptionButton" parent="TabContainer/play/Level"]
 layout_mode = 2
@@ -584,6 +875,7 @@ layout_mode = 2
 size_flags_horizontal = 4
 theme_override_fonts/font = ExtResource("10_qmh8v")
 theme_override_font_sizes/font_size = 48
+shortcut = ExtResource("14_nwuco")
 text = "Challenge Accept"
 script = ExtResource("3_wn432")
 
@@ -653,8 +945,10 @@ layout_mode = 2
 tabs_visible = false
 
 [node name="Reimu" type="Control" parent="TabContainer/play/Character/Preview"]
+z_index = 1
 layout_mode = 2
-script = ExtResource("16_0qxxx")
+script = ExtResource("16_ennx6")
+paths = Array[NodePath]([NodePath("ReimuSprite/Timer"), NodePath("ReimuSprite")])
 metadata/scene = ExtResource("16_o0h3l")
 
 [node name="ReimuSprite" parent="TabContainer/play/Character/Preview/Reimu" instance=ExtResource("17_3eq3m")]
@@ -680,6 +974,7 @@ SeekMask = 2
 seekRadius = 270.0
 maxBullet = 72
 Grazable = false
+bulletScale = Vector2(2, 2)
 hitbox = SubResource("CapsuleShape2D_ut74g")
 CollisionMask = 3
 texture = ExtResource("20_tslrj")
@@ -708,6 +1003,7 @@ gizmo_extents = 82.9
 [node name="Marisa" type="Control" parent="TabContainer/play/Character/Preview"]
 visible = false
 layout_mode = 2
+metadata/scene = ExtResource("23_kf20h")
 
 [node name="Marisa" type="AnimatedSprite2D" parent="TabContainer/play/Character/Preview/Marisa"]
 position = Vector2(270, 592)
@@ -827,7 +1123,7 @@ max_value = 2.0
 step = 0.1
 value = 2.0
 allow_greater = true
-script = ExtResource("23_5r066")
+script = ExtResource("31_t8wq2")
 label = NodePath("../Label")
 
 [node name="Controls" type="VBoxContainer" parent="TabContainer/Settings"]
@@ -838,7 +1134,7 @@ script = ExtResource("24_hwgke")
 [node name="hold" type="CheckButton" parent="TabContainer/Settings/Controls"]
 layout_mode = 2
 focus_mode = 0
-text = "Hold %s to move"
+text = "Toggle %s to move"
 script = ExtResource("5_vnfn8")
 
 [node name="drag" type="Button" parent="TabContainer/Settings/Controls"]
@@ -1181,14 +1477,12 @@ tab_1/title = "Settings"
 tab_2/title = "Multiplayer"
 tab_3/title = "About"
 
-[node name="WorldBoundary" type="StaticBody2D" parent="."]
-collision_mask = 0
-constant_linear_velocity = Vector2(1, 0)
+[node name="WorldBoundary" parent="." instance=ExtResource("41_ci6vk")]
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="WorldBoundary"]
-position = Vector2(302, -200)
-shape = SubResource("WorldBoundaryShape2D_spvc6")
-
+[connection signal="timeout" from="TabContainer/play/Level/Preview/test/SpinShot/Timer" to="TabContainer/play/Level/Preview/test/SpinShot" method="_on_timer_timeout" flags=18]
+[connection signal="timeout" from="TabContainer/play/Level/Preview/test/SpinShot/Timer" to="TabContainer/play/Level/Preview/test/SpinShot/spinBullet" method="SpawnBullet" flags=18]
+[connection signal="pressed" from="TabContainer/play/Level/enter" to="TabContainer/play/Level" method="_on_enter_pressed"]
+[connection signal="pressed" from="TabContainer/play/Level/enter" to="TabContainer/play/Character" method="_on_enter_pressed"]
 [connection signal="timeout" from="TabContainer/play/Character/Preview/Reimu/ReimuSprite/Timer" to="TabContainer/play/Character/Preview/Reimu/bullet" method="SpawnBullet"]
 [connection signal="item_selected" from="TabContainer/play/Character/title" to="TabContainer/play/Character" method="_on_title_item_selected"]
 [connection signal="pressed" from="TabContainer/play/Character/HBoxContainer/previous" to="TabContainer/play/Character" method="_change_character" binds= [false]]

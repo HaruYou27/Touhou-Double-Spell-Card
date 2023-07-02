@@ -10,7 +10,7 @@ public partial class BulletBasic : Node2D
 	[Export] public bool localRotation;
 	[Export] public bool Grazable = true;
 	[Export] public Vector2 bulletScale = Vector2.One;
-	protected IEnumerable<Node> barrels;
+	protected Node2D[] barrels;
 
 	//Query properties
 	[Export] public Shape2D hitbox;
@@ -48,13 +48,19 @@ public partial class BulletBasic : Node2D
 	}
 	public override void _Ready()
 	{
+		tree = GetTree();
+		world = GetWorld2D();
+
 		if (barrelGroup == null || barrelGroup.IsEmpty)
 		{
-			barrels = GetChildren();
+			barrels = new Node2D[GetChildCount()];
+			GetChildren().CopyTo(barrels, 0);
 		}
 		else
 		{
-			barrels = tree.GetNodesInGroup(barrelGroup);
+			Godot.Collections.Array<Node> nodes = tree.GetNodesInGroup(barrelGroup);
+			barrels = new Node2D[nodes.Count];
+			nodes.CopyTo(barrels, 0);
 		}
 		query.Shape = hitbox;
 		query.CollideWithAreas = CollideWithAreas;
@@ -65,7 +71,7 @@ public partial class BulletBasic : Node2D
 
 		Rect2 texRect = new Rect2(-texture.GetSize() / 2, texture.GetSize());
 		Rid textureRid = texture.GetRid();
-		Rid canvas = GetWorld2D().Canvas;
+		Rid canvas = world.Canvas;
 		foreach (Bullet bullet in bullets)
 		{
 			Rid sprite = bullet.sprite;

@@ -18,13 +18,13 @@ time = 5.0
 [node name="Enemy" parent="." instance=ExtResource("2_fw23a")]
 hp = 15
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy"]
+[node name="hitbox" type="CollisionShape2D" parent="Enemy"]
 shape = SubResource("CircleShape2D_noovt")
 
-[node name="visual" type="Sprite2D" parent="."]
+[node name="visual" type="Sprite2D" parent="Enemy"]
 texture = ExtResource("3_rpcwy")
 
-[node name="Marker2D" type="Marker2D" parent="visual" groups=["Enemy Barrel 2"]]
+[node name="Marker2D" type="Marker2D" parent="Enemy/visual" groups=["Enemy Barrel 2"]]
 position = Vector2(0, 23)
 rotation = 1.5708
 gizmo_extents = 141.9

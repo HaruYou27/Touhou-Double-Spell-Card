@@ -5,10 +5,9 @@ extends Control
 @export var player_container : Node2D
 func _ready() -> void:
 	VisualEffect.fade2black(true)
-	
 	if Global.player1:
 		player_container.add_child(Global.player1)
-	if is_instance_valid(Global.player2):
+	if Global.player2:
 		player_container.add_child(Global.player2)
 		
 	if is_multiplayer_authority():

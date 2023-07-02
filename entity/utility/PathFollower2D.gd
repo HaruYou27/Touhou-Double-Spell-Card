@@ -6,17 +6,16 @@ signal died
 @export var time := 0.
 var reverse := false
 
-@onready var visual := $visual
+@onready var enemy := $Enemy
 @onready var tween : Tween
 func start() -> void:
-	visual.show()
+	enemy.reset()
 	tween = create_tween()
 	progress_ratio = reverse
 	tween.tween_property(self, 'progress_ratio', float(not reverse), time)
-	
 	tween.tween_callback(emit_signal.bind("died"))
 
 func _on_enemy_died():
-	visual.hide()
-	tween.kill()
 	died.emit()
+	if tween:
+		tween.kill()

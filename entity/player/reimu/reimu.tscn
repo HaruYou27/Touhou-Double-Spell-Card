@@ -2,9 +2,9 @@
 
 [ext_resource type="PackedScene" uid="uid://ffnff8ahyxxn" path="res://entity/player/reimu/reimu_sprite.tscn" id="1_gp5d6"]
 [ext_resource type="PackedScene" uid="uid://c34lwlqwsc4ve" path="res://entity/player/base/player.tscn" id="4_ftqh1"]
+[ext_resource type="Script" path="res://entity/player/reimu/Seeker.cs" id="5_nw0ni"]
 [ext_resource type="PackedScene" uid="uid://cex3540cp47lm" path="res://entity/player/base/graze.tscn" id="5_sq1so"]
 [ext_resource type="Script" path="res://entity/player/reimu/kishin-orb.gd" id="6_aunb2"]
-[ext_resource type="Script" path="res://entity/bullet/BulletBasic.cs" id="7_1stsf"]
 [ext_resource type="Texture2D" uid="uid://cx7ewf38kbh34" path="res://entity/player/reimu/resource/reimu-hitbox.png" id="7_hytxk"]
 [ext_resource type="Material" uid="uid://df8i0wskbdmia" path="res://entity/player/reimu/resource/yinYangOrb.tres" id="7_np48j"]
 [ext_resource type="Texture2D" uid="uid://f57p0cr44ri7" path="res://entity/player/reimu/resource/kishin.webp" id="8_2l12v"]
@@ -21,7 +21,7 @@ radius = 3.0
 radius = 40.0
 height = 150.0
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_gxxsf"]
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_i6dc0"]
 radius = 16.0
 height = 32.0
 
@@ -182,12 +182,15 @@ autostart = true
 
 [node name="bullet" type="Node2D" parent="Player/Homing"]
 z_index = 1
-script = ExtResource("7_1stsf")
+script = ExtResource("5_nw0ni")
+SeekMask = 2
+seekRadius = 270.0
 maxBullet = 72
 speed = 727.0
 localRotation = true
 Grazable = false
-hitbox = SubResource("CapsuleShape2D_gxxsf")
+hitbox = SubResource("CapsuleShape2D_i6dc0")
+CollideWithAreas = true
 CollisionMask = 3
 texture = ExtResource("9_w5him")
 

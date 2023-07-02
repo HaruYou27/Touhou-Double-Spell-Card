@@ -9,7 +9,7 @@ signal next_spell_card
 func _hit() -> void:
 	hp -= 1
 	if hp <= 0:
-		ItemManager.SpawnItem(max_hp)
+		Global.ItemManager.SpawnItem(max_hp)
 		next_spell_card.emit()
 
 func _on_body_entered(body) -> void:

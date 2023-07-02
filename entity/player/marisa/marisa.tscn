@@ -389,6 +389,7 @@ width = 32.0
 texture = ExtResource("5_e3y87")
 texture_mode = 2
 begin_cap_mode = 2
+end_cap_mode = 2
 sharp_limit = 0.0
 round_precision = 16
 
@@ -402,6 +403,7 @@ width = 128.0
 texture = SubResource("GradientTexture2D_u5d4h")
 texture_mode = 2
 begin_cap_mode = 2
+end_cap_mode = 2
 sharp_limit = 0.0
 round_precision = 16
 
@@ -410,7 +412,6 @@ z_index = 3000
 z_as_relative = false
 material = ExtResource("8_oal0d")
 position = Vector2(0, -859)
-emitting = false
 amount = 16
 process_material = SubResource("ParticleProcessMaterial_pud3s")
 texture = ExtResource("6_8ttm4")
