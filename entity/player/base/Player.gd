@@ -1,14 +1,10 @@
 extends StaticBody2D
 class_name Player
 
-
 func _ready() -> void:
 	if not is_multiplayer_authority():
 		hitbox.queue_free()
-		Global.player2 = self
-	else:
-		Global.player1 = self
-		kaboom.connect(Global.hud._update_bomb)
+		set_process_unhandled_input(false)
 		
 ############## COLLISION
 @onready var death_timer := $DeathTimer
@@ -36,13 +32,14 @@ func _unhandled_input(event:InputEvent) -> void:
 		global_position.y = clamp(global_position.y, 0.0, global.playground.y)
 		
 		if is_multiplayer_authority():
-			rpc('_update_position')
+			rpc('_update_position', global_position)
+		
 	elif event.is_action_pressed("bomb") or event is InputEventPanGesture:
 		bomb()
 
 @rpc
 func _update_position(pos:Vector2) -> void:
-	create_tween().tween_property(self, 'global_position', pos, .1)
+	global_position = pos
 
 signal kaboom
 @rpc("reliable")
@@ -51,8 +48,8 @@ func bomb_go_off(host_time:int) -> void:
 	
 @export var hitbox : CollisionShape2D
 func _bomb_finished() -> void:
-	hitbox.show()
-	hitbox.set_deferred('disabled', false)
+	if is_multiplayer_authority():
+		hitbox.set_deferred('disabled', false)
 	can_bomb = true
 #####################
 
@@ -69,15 +66,17 @@ func _on_death_timer_timeout():
 
 func bomb():
 	if not bomb_count and can_bomb:
-			return
+		return
 		
+	if Global.hud:
+		Global.hud.update_bomb(bomb_count)
 	bomb_count -= 1
 	can_bomb = false
 	VisualEffect.hide()
 	death_timer.stop()
 	
-	hitbox.hide()
-	hitbox.set_deferred("disabled", true)
+	if is_multiplayer_authority():
+		hitbox.set_deferred("disabled", true)
 		
 	kaboom.emit(0)
 	rpc('bomb_go_off', Time.get_ticks_msec())

@@ -25,13 +25,16 @@ func join(ip_addr:String, port_num:int) -> void:
 	var err := client.create_client(ip_addr, port_num)
 	if err:
 		join_button.text = 'Error ' + error_string(err)
-	animator.play("connecting")
+	else:
+		animator.play("connecting")
+		multiplayer.multiplayer_peer = client
 
-func _peer_connected() -> void:
-	multiplayer.multiplayer_peer = client
+func _peer_connected(_id) -> void:
+	Global.sync_clock()
+	animator.stop()
 	join_button.text = 'Connected'
 
-var port := 0
+var port := 6567
 func _on_port_text_changed(new_text):
 	port = int(new_text)
 	if port <= 1024 or port >= 65536:

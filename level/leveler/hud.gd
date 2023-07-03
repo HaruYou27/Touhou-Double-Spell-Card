@@ -21,8 +21,8 @@ func _ready() -> void:
 	bomb_label.update_label(3)
 
 @export var bomb_label : FormatLabel
-func _update_bomb() -> void:
-	bomb_label.update_label(Global.player1.bomb_count)
+func update_bomb(bomb_count) -> void:
+	bomb_label.update_label(bomb_count)
 
 #There's no point in updating the score more than 1 per frame.
 var item := 1
@@ -49,6 +49,7 @@ func _update_score() -> void:
 	var score = graze * item * Engine.time_scale
 	score_label.update_label(int(score))
 	rpc('_update_p2_score', score)
+	updating_score = false
 
 @rpc("any_peer")
 func _update_p2_score(value:int) -> void:

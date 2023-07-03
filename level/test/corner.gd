@@ -1,15 +1,16 @@
 extends Node2D
 
-@onready var animator := $AnimationPlayer
+@export var final_position : Vector2
 func start() -> void:
-	animator.play("enter")
+	create_tween().tween_property(self, 'position', final_position, 1.)
 
+@onready var rest_position := position
 @onready var recover := $RecoverTimer
 func _on_enemy_died() -> void:
-	animator.play("RESET")
+	position = rest_position
 	recover.start()
 
 @onready var physics := $Enemy
 func _on_recover_timer_timeout():
-	animator.play("enter")
+	start()
 	physics.reset()

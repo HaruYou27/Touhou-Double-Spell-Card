@@ -10,8 +10,8 @@ direction = Vector3(0, 0, 0)
 gravity = Vector3(0, 0, 0)
 radial_accel_min = -100.0
 radial_accel_max = -100.0
-scale_min = 0.5
-scale_max = 0.5
+scale_min = 2.0
+scale_max = 2.0
 
 [node name="graze" type="StaticBody2D"]
 collision_layer = 8
@@ -22,19 +22,13 @@ script = ExtResource("1_doa5g")
 [node name="vfx" type="GPUParticles2D" parent="."]
 modulate = Color(0.898039, 1, 0, 1)
 z_index = 4
-rotation = -0.00344996
 emitting = false
 process_material = SubResource("25")
+one_shot = true
 speed_scale = 2.0
 fixed_fps = 60
 local_coords = true
 
-[node name="Timer" type="Timer" parent="vfx"]
-wait_time = 0.15
-one_shot = true
-
 [node name="sfx" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("2_tulhb")
 bus = &"SFX"
-
-[connection signal="timeout" from="vfx/Timer" to="vfx" method="set_emitting" binds= [false]]

@@ -3,8 +3,8 @@
 [ext_resource type="Shader" path="res://entity/resource/UberItem.gdshader" id="1_v6llp"]
 
 [sub_resource type="Gradient" id="Gradient_561th"]
-offsets = PackedFloat32Array(0)
-colors = PackedColorArray(1, 0.301961, 0.301961, 1)
+offsets = PackedFloat32Array(0.376147)
+colors = PackedColorArray(1, 0.4, 0.4, 1)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_obk0t"]
 gradient = SubResource("Gradient_561th")

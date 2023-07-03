@@ -1,7 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://c34lwlqwsc4ve"]
+[gd_scene load_steps=2 format=3 uid="uid://c34lwlqwsc4ve"]
 
 [ext_resource type="Script" path="res://entity/player/base/Player.gd" id="1_ty0s5"]
-[ext_resource type="Script" path="res://entity/player/reimu/DeathTimer.gd" id="5_r3t62"]
 
 [node name="Player" type="StaticBody2D"]
 collision_layer = 4
@@ -15,11 +14,9 @@ script = ExtResource("1_ty0s5")
 process_mode = 3
 wait_time = 0.2
 one_shot = true
-script = ExtResource("5_r3t62")
 
 [node name="RecoverTimer" type="Timer" parent="."]
 one_shot = true
 
-[connection signal="bomb" from="DeathTimer" to="." method="bomb"]
 [connection signal="timeout" from="DeathTimer" to="." method="_on_death_timer_timeout"]
 [connection signal="timeout" from="RecoverTimer" to="." method="_on_recover_timer_timeout"]

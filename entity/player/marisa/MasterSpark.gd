@@ -32,8 +32,9 @@ func _physics_process(delta:float) -> void:
 			return
 			
 @onready var spark_hitbox := $Spark/SparkHitbox
-func _on_player_kaboom() -> void:
-	animator.play("Master Spark")	
+func _on_player_kaboom(offset:float) -> void:
+	animator.play("Master Spark")
+	animator.seek(offset)
 	spark_hitbox.set_deferred("disabled", false)
 	
 signal finished

@@ -1,4 +1,4 @@
-[gd_scene load_steps=55 format=3 uid="uid://bxvy3qa8esorq"]
+[gd_scene load_steps=49 format=3 uid="uid://bxvy3qa8esorq"]
 
 [ext_resource type="Shader" path="res://level/background/misty-lake/water.gdshader" id="1_5h8xj"]
 [ext_resource type="Texture2D" uid="uid://eriecmar2l3j" path="res://level/background/misty-lake/water-day.tres" id="2_su2rp"]
@@ -51,78 +51,6 @@ _data = {
 "points": PackedVector2Array(0, 0, 0, 0, -88, 315, -60.0678, -33.371, 60.0678, 33.371, 104, 214, 206.489, -19.6541, -206.489, 19.6541, 238, 559, -182.076, -213.9, 182.076, 213.9, 460, 232, 0, 0, 0, 0, 674, 440)
 }
 point_count = 5
-
-[sub_resource type="Animation" id="Animation_3k02q"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(-67, 46)]
-}
-
-[sub_resource type="Animation" id="Animation_nlx5l"]
-resource_name = "enter"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(-67, 46), Vector2(56, 111)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_bgfkj"]
-_data = {
-"RESET": SubResource("Animation_3k02q"),
-"enter": SubResource("Animation_nlx5l")
-}
-
-[sub_resource type="Animation" id="Animation_xqh2k"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(607, 46)]
-}
-
-[sub_resource type="Animation" id="Animation_ujsfu"]
-resource_name = "enter"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(607, 46), Vector2(476, 67)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_pjhur"]
-_data = {
-"RESET": SubResource("Animation_xqh2k"),
-"enter": SubResource("Animation_ujsfu")
-}
 
 [sub_resource type="Shader" id="Shader_surpq"]
 code = "shader_type canvas_item;
@@ -317,20 +245,12 @@ position = Vector2(-88, 315)
 position = Vector2(-88, 315)
 
 [node name="corner" parent="SubViewportContainer/SubViewport/opening1" instance=ExtResource("7_3lgdb")]
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="SubViewportContainer/SubViewport/opening1/corner"]
-libraries = {
-"": SubResource("AnimationLibrary_bgfkj")
-}
+final_position = Vector2(56, 111)
 
 [node name="corner2" parent="SubViewportContainer/SubViewport/opening1" instance=ExtResource("7_3lgdb")]
 position = Vector2(607, 46)
 scale = Vector2(-1, 1)
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="SubViewportContainer/SubViewport/opening1/corner2"]
-libraries = {
-"": SubResource("AnimationLibrary_pjhur")
-}
+final_position = Vector2(476, 67)
 
 [node name="CornerBullet" type="Node2D" parent="SubViewportContainer/SubViewport/opening1" groups=["Enemy Bullet"]]
 z_index = 100
@@ -834,8 +754,6 @@ first_event = NodePath("../SubViewportContainer/SubViewport/opening1")
 [connection signal="timeout" from="SubViewportContainer/SubViewport/opening1/LevelTimer" to="SubViewportContainer/SubViewport/opening2" method="start_event"]
 [connection signal="timeout" from="SubViewportContainer/SubViewport/opening1/SpawnTimer" to="SubViewportContainer/SubViewport/opening1/Spawner" method="_on_spawn_timer_timeout"]
 [connection signal="timeout" from="SubViewportContainer/SubViewport/opening1/SpawnTimer" to="SubViewportContainer/SubViewport/opening1/SpawnerBullet" method="SpawnBullet"]
-[connection signal="animation_finished" from="SubViewportContainer/SubViewport/opening1/corner/AnimationPlayer" to="SubViewportContainer/SubViewport/opening1/corner" method="_on_animation_player_animation_finished"]
-[connection signal="animation_finished" from="SubViewportContainer/SubViewport/opening1/corner2/AnimationPlayer" to="SubViewportContainer/SubViewport/opening1/corner2" method="_on_animation_player_animation_finished"]
 [connection signal="timeout" from="SubViewportContainer/SubViewport/opening1/CornerBullet/BurstTimer" to="SubViewportContainer/SubViewport/opening1/CornerBullet" method="SpawnBullet"]
 [connection signal="timeout" from="SubViewportContainer/SubViewport/opening2/Spawner2Bullet/Timer" to="SubViewportContainer/SubViewport/opening2/Spawner2Bullet" method="SpawnBullet"]
 [connection signal="timeout" from="SubViewportContainer/SubViewport/opening2/SpawnTimer" to="SubViewportContainer/SubViewport/opening2/Spawner2Bullet/Spawner2" method="_on_spawn_timer_timeout"]

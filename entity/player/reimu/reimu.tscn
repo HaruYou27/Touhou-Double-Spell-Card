@@ -174,13 +174,11 @@ z_index = 9
 shape = SubResource("CapsuleShape2D_sx7ua")
 debug_color = Color(0.713726, 0.105882, 0.701961, 0.419608)
 
-[node name="Homing" type="Node2D" parent="Player"]
-
-[node name="Timer" type="Timer" parent="Player/Homing"]
+[node name="Timer" type="Timer" parent="Player"]
 wait_time = 0.267
 autostart = true
 
-[node name="bullet" type="Node2D" parent="Player/Homing"]
+[node name="bullet" type="Node2D" parent="Player"]
 z_index = 1
 script = ExtResource("5_nw0ni")
 SeekMask = 2
@@ -194,28 +192,30 @@ CollideWithAreas = true
 CollisionMask = 3
 texture = ExtResource("9_w5him")
 
-[node name="YinyangOrb" parent="Player/Homing/bullet" instance=ExtResource("12_1m530")]
+[node name="YinyangOrb" parent="Player/bullet" instance=ExtResource("12_1m530")]
 position = Vector2(72, 0)
 rotation = -1.5708
 flip_v = true
 
-[node name="YinyangOrb2" parent="Player/Homing/bullet" instance=ExtResource("12_1m530")]
+[node name="YinyangOrb2" parent="Player/bullet" instance=ExtResource("12_1m530")]
 texture_filter = 1
 position = Vector2(-72, 0)
 rotation = -1.5708
 flip_h = false
 
-[node name="Marker2D" type="Marker2D" parent="Player/Homing/bullet"]
+[node name="Marker2D" type="Marker2D" parent="Player/bullet"]
 position = Vector2(13.0002, -39.9999)
 rotation = -1.5708
 gizmo_extents = 51.7
 
-[node name="Position2D2" type="Marker2D" parent="Player/Homing/bullet"]
+[node name="Position2D2" type="Marker2D" parent="Player/bullet"]
 position = Vector2(-13, -40)
 rotation = -1.5708
 gizmo_extents = 82.9
 
-[node name="KishinOrb" type="StaticBody2D" parent="."]
+[node name="Node" type="Node2D" parent="."]
+
+[node name="KishinOrb" type="StaticBody2D" parent="Node"]
 texture_filter = 2
 position = Vector2(270, 1230)
 collision_layer = 4
@@ -223,16 +223,16 @@ collision_mask = 0
 constant_linear_velocity = Vector2(2, 0)
 script = ExtResource("6_aunb2")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="KishinOrb"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Node/KishinOrb"]
 libraries = {
 "": SubResource("AnimationLibrary_fwlhc")
 }
 
-[node name="hitbox" type="CollisionShape2D" parent="KishinOrb"]
+[node name="hitbox" type="CollisionShape2D" parent="Node/KishinOrb"]
 shape = SubResource("CircleShape2D_5bis8")
 disabled = true
 
-[node name="YinyangOrb2" type="Sprite2D" parent="KishinOrb"]
+[node name="YinyangOrb2" type="Sprite2D" parent="Node/KishinOrb"]
 visible = false
 z_index = 3000
 texture_filter = 1
@@ -240,7 +240,7 @@ material = ExtResource("7_np48j")
 rotation = 1.5708
 texture = ExtResource("8_2l12v")
 
-[node name="GPUParticles2D" type="GPUParticles2D" parent="KishinOrb"]
+[node name="GPUParticles2D" type="GPUParticles2D" parent="Node/KishinOrb"]
 z_index = -1
 material = ExtResource("12_83ts8")
 rotation = 1.5708
@@ -250,6 +250,6 @@ amount = 128
 process_material = SubResource("ParticleProcessMaterial_vu8gb")
 texture = ExtResource("14_gd3kh")
 
-[connection signal="kaboom" from="Player" to="KishinOrb" method="_on_player_kaboom"]
-[connection signal="timeout" from="Player/Homing/Timer" to="Player/Homing/bullet" method="SpawnBullet"]
-[connection signal="animation_finished" from="KishinOrb/AnimationPlayer" to="KishinOrb" method="_on_animation_player_animation_finished"]
+[connection signal="kaboom" from="Player" to="Node/KishinOrb" method="_on_player_kaboom"]
+[connection signal="timeout" from="Player/Timer" to="Player/bullet" method="SpawnBullet"]
+[connection signal="animation_finished" from="Node/KishinOrb/AnimationPlayer" to="Node/KishinOrb" method="_on_animation_player_animation_finished"]

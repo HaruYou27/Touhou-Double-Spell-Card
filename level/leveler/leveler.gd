@@ -9,9 +9,10 @@ func _ready() -> void:
 		player_container.add_child(Global.player1)
 	if Global.player2:
 		player_container.add_child(Global.player2)
-		
-	if is_multiplayer_authority():
-		sync_start()
+		if is_multiplayer_authority():
+			sync_start()
+	else:
+		first_event.start_event()
 
 @export var first_event : Node
 func sync_start() -> void:

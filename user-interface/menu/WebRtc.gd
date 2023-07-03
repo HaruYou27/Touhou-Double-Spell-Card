@@ -4,24 +4,18 @@ var webrtc := WebRTCMultiplayerPeer.new()
 var peer := WebRTCPeerConnection.new()
 
 func _ready() -> void:
+	return
 	visibility_changed.connect(_visibility_changed)
 	peer.ice_candidate_created.connect(_add_ice)
 	peer.session_description_created.connect(_add_sdp)
-	
-func host() -> void:
-	pass
-	
+
 func _visibility_changed() -> void:
 	if visible:
 		peer.initialize(global.ice_server)
 		webrtc.create_mesh(1)
 		webrtc.add_peer(peer, 1)
+		multiplayer.multiplayer_peer = webrtc
 		peer.create_offer()
-		return
-	offer.clear()
-	Offer.clear()
-	webrtc.close()
-	peer.close()
 
 @onready var Offer := $Offer
 var offer := []
@@ -43,7 +37,6 @@ func _add_sdp(type:String, sdp:String) -> void:
 	prepare_offer()
 	
 func prepare_offer() -> void:
-	print(offer)
 	if offer.size() != 5:
 		return
 	Offer.text = var_to_str(offer)

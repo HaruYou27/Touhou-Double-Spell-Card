@@ -36,10 +36,11 @@ func _on_host_pressed() -> void:
 	server_info.append(ip.text)
 	broadcast_timer.start()
 	animator.play("waitting")
+	multiplayer.multiplayer_peer = server
 	
 var server_info := []
-func _peer_connected() -> void:
-	multiplayer.multiplayer_peer = server
+func _peer_connected(_id) -> void:
+	animator.stop()
 	host.text = 'Connected'
 	
 @onready var ip := $HBoxContainer/ip
@@ -49,7 +50,7 @@ func update_ip() -> void:
 		return
 	ip.text = ips[0]
 
-var port := 0
+var port := 6567
 func _on_port_text_changed(new_text:String):
 	port = int(new_text)
 	host.disabled = port <= 1024 or port >= 65536
