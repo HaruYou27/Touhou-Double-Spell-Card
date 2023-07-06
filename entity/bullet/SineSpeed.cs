@@ -14,9 +14,9 @@ public partial class SineSpeed : BulletBasic
 	{
 		sineBullets = new SineBullet[maxBullet];
 		for (nint i = 0; i < maxBullet; i++)
-        {
-            bullets[i] = new SineBullet();
-        }
+		{
+			bullets[i] = new SineBullet();
+		}
 		bullets = sineBullets;
 	}
 	protected override Transform2D Move(in float delta)
