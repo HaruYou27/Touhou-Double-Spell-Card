@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://cw6ldgxnk6nf3"]
+
+[ext_resource type="Texture2D" uid="uid://cberbmsgvk3rt" path="res://entity/player/marisa/resource/uncutmari.1.png" id="1_tn5e4"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_cyht7"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_tn5e4")
+}],
+"loop": true,
+"name": &"new_animation",
+"speed": 5.0
+}]
+
+[node name="marisa" type="AnimatedSprite2D"]
+z_index = 10
+sprite_frames = SubResource("SpriteFrames_cyht7")
+animation = &"new_animation"

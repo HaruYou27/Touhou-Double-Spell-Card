@@ -1,4 +1,4 @@
-[gd_scene load_steps=81 format=3 uid="uid://bn5nhkofewyh8"]
+[gd_scene load_steps=79 format=3 uid="uid://bn5nhkofewyh8"]
 
 [ext_resource type="Theme" uid="uid://dotibkyt5mm7v" path="res://user-interface/menu/theme/menu.tres" id="1_vx63d"]
 [ext_resource type="Texture2D" uid="uid://bgh4r80tk5o7v" path="res://level/background/misty-lake/water-noise.tres" id="2_57hu4"]
@@ -29,8 +29,6 @@
 [ext_resource type="Script" path="res://entity/player/reimu/Seeker.cs" id="19_2j5r6"]
 [ext_resource type="Texture2D" uid="uid://cu2ufhkx3vayf" path="res://entity/player/reimu/resource/ofuda.png" id="20_tslrj"]
 [ext_resource type="PackedScene" uid="uid://bsa0xvb26o22u" path="res://entity/player/reimu/yinyang_orb.tscn" id="21_jahto"]
-[ext_resource type="Script" path="res://user-interface/menu/character/marisa.gd" id="21_va0sy"]
-[ext_resource type="Texture2D" uid="uid://bkym7gv6hfekh" path="res://entity/player/marisa/resource/uncutmari.png" id="22_qco63"]
 [ext_resource type="PackedScene" uid="uid://of6l83moa38k" path="res://entity/player/marisa/marisa.tscn" id="23_kf20h"]
 [ext_resource type="Script" path="res://user-interface/menu/settings/controls.gd" id="24_hwgke"]
 [ext_resource type="Shader" path="res://level/background/noise-colorize.gdshader" id="24_oka33"]
@@ -41,6 +39,7 @@
 [ext_resource type="Texture2D" uid="uid://dxsf3vpqsosf1" path="res://entity/enemy/phantom/fire_particle.png" id="27_aqtxu"]
 [ext_resource type="Texture2D" uid="uid://c7k6r1xgk2xii" path="res://entity/player/marisa/resource/marisa-hitbox.png" id="28_l8ygb"]
 [ext_resource type="Script" path="res://user-interface/menu/WebRtc.gd" id="28_w5xwc"]
+[ext_resource type="PackedScene" uid="uid://cw6ldgxnk6nf3" path="res://entity/player/marisa/marisa-sprite.tscn" id="30_7jt2j"]
 [ext_resource type="Script" path="res://user-interface/menu/settings/graphic.gd" id="30_jysfy"]
 [ext_resource type="Script" path="res://user-interface/menu/settings/speed.gd" id="31_t8wq2"]
 [ext_resource type="PackedScene" uid="uid://wo265prfhjd3" path="res://level/leveler/world_boundary.tscn" id="41_ci6vk"]
@@ -158,17 +157,6 @@ func _process(delta):
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ut74g"]
 radius = 8.0
 height = 32.0
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_7ry75"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("22_qco63")
-}],
-"loop": true,
-"name": &"default",
-"speed": 5.0
-}]
 
 [sub_resource type="Gradient" id="Gradient_4jwyn"]
 colors = PackedColorArray(0, 0.262745, 0.658824, 0, 1, 1, 1, 1)
@@ -339,6 +327,30 @@ tracks/7/keys = {
 "update": 1,
 "values": [true]
 }
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("beam2/glow2:points")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [PackedVector2Array(0, 0, 0, -960)]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("beam2:points")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [PackedVector2Array(0, 0, 0, -960)]
+}
 
 [sub_resource type="Animation" id="Animation_65s67"]
 length = 0.001
@@ -437,6 +449,30 @@ tracks/7/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [1.0]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("beam2/glow2:points")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [PackedVector2Array(0, 0, 0, -960)]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("beam2:points")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [PackedVector2Array(0, 0, 0, -960)]
 }
 
 [sub_resource type="Animation" id="Animation_vr8oi"]
@@ -662,7 +698,6 @@ script = ExtResource("4_okkla")
 texture = ExtResource("5_eluta")
 
 [node name="spinBullet" type="Node2D" parent="TabContainer/play/Level/Preview/test/SpinShot"]
-z_index = 4
 material = SubResource("ShaderMaterial_a1syk")
 script = ExtResource("7_33dby")
 barrelGroup = &"Enemy Barrel Spin"
@@ -1007,16 +1042,15 @@ visible = false
 layout_mode = 2
 metadata/scene = ExtResource("23_kf20h")
 
-[node name="Marisa" type="AnimatedSprite2D" parent="TabContainer/play/Character/Preview/Marisa"]
-position = Vector2(270, 592)
+[node name="marisa" parent="TabContainer/play/Character/Preview/Marisa" instance=ExtResource("30_7jt2j")]
+position = Vector2(269, 571)
 scale = Vector2(2, 2)
-sprite_frames = SubResource("SpriteFrames_7ry75")
-script = ExtResource("21_va0sy")
 
-[node name="MasterSpark" type="Node2D" parent="TabContainer/play/Character/Preview/Marisa/Marisa"]
-position = Vector2(-153, -1091)
+[node name="MasterSpark" type="Node2D" parent="TabContainer/play/Character/Preview/Marisa/marisa"]
+position = Vector2(-36, -1590)
+scale = Vector2(2, 2)
 
-[node name="beam2" type="Line2D" parent="TabContainer/play/Character/Preview/Marisa/Marisa/MasterSpark"]
+[node name="beam2" type="Line2D" parent="TabContainer/play/Character/Preview/Marisa/marisa/MasterSpark"]
 z_index = -5
 texture_filter = 1
 texture_repeat = 2
@@ -1031,7 +1065,7 @@ begin_cap_mode = 2
 sharp_limit = 0.0
 round_precision = 16
 
-[node name="glow2" type="Line2D" parent="TabContainer/play/Character/Preview/Marisa/Marisa/MasterSpark/beam2"]
+[node name="glow2" type="Line2D" parent="TabContainer/play/Character/Preview/Marisa/marisa/MasterSpark/beam2"]
 texture_filter = 1
 texture_repeat = 2
 material = SubResource("ShaderMaterial_qr3qo")
@@ -1045,7 +1079,7 @@ begin_cap_mode = 2
 sharp_limit = 0.0
 round_precision = 16
 
-[node name="BeamParticle" type="GPUParticles2D" parent="TabContainer/play/Character/Preview/Marisa/Marisa/MasterSpark/beam2/glow2"]
+[node name="BeamParticle" type="GPUParticles2D" parent="TabContainer/play/Character/Preview/Marisa/marisa/MasterSpark/beam2/glow2"]
 z_index = -5
 z_as_relative = false
 material = SubResource("CanvasItemMaterial_qloao")
@@ -1057,13 +1091,12 @@ texture = ExtResource("27_aqtxu")
 visibility_rect = Rect2(-32, 480, 64, -960)
 draw_order = 0
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="TabContainer/play/Character/Preview/Marisa/Marisa/MasterSpark"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="TabContainer/play/Character/Preview/Marisa/marisa/MasterSpark"]
 libraries = {
 "": SubResource("AnimationLibrary_huuam")
 }
 
-[node name="Marisa-hitbox" type="Sprite2D" parent="TabContainer/play/Character/Preview/Marisa/Marisa"]
-position = Vector2(-0.5, -10.5)
+[node name="Marisa-hitbox" type="Sprite2D" parent="TabContainer/play/Character/Preview/Marisa/marisa"]
 texture = ExtResource("28_l8ygb")
 
 [node name="title" type="OptionButton" parent="TabContainer/play/Character"]

@@ -22,7 +22,7 @@ func _process(_delta) -> void:
 	rpc('_play_voice', recorder.get_recording())
 
 @export var voice : AudioStreamPlayer
-@rpc("any_peer", "call_remote")
+@rpc("any_peer")
 func _play_voice(stream:AudioStreamWAV) -> void:
 	voice.stream = stream
 	voice.play()

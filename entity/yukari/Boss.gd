@@ -1,16 +1,11 @@
 extends Area2D
 class_name Boss
 
-signal next_spell_card
 
-@export var hp := 0
-@onready var max_hp := hp
+var point := 0
 
 func _hit() -> void:
-	hp -= 1
-	if hp <= 0:
-		Global.ItemManager.SpawnItem(max_hp)
-		next_spell_card.emit()
+	point += 1
 
 func _on_body_entered(body) -> void:
 	if body is Player:
@@ -18,3 +13,7 @@ func _on_body_entered(body) -> void:
 
 func start() -> void:
 	create_tween().tween_property(self, 'modulate', Color.WHITE, 1.)
+
+func _on_level_timer_timeout():
+	Global.ItemManager.SpawnItem(point, global_position)
+	point = 0

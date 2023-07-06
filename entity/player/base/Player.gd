@@ -14,7 +14,7 @@ func _hit() -> void:
 	death_timer.start()
 ####################
 
-var can_bomb := false
+var can_bomb := true
 var bomb_count := 3
 @onready var sentivity := Global.user_data.sentivity
 @onready var toggle_move := Global.user_data.toggle_move
@@ -35,7 +35,19 @@ func _unhandled_input(event:InputEvent) -> void:
 			rpc('_update_position', global_position)
 		
 	elif event.is_action_pressed("bomb") or event is InputEventPanGesture:
-		bomb()
+		if not bomb_count and can_bomb:
+			return
+			
+		if Global.hud:
+			Global.hud.update_bomb(bomb_count)
+		bomb_count -= 1
+		can_bomb = false
+		
+		if is_multiplayer_authority():
+			hitbox.set_deferred("disabled", true)
+			
+		kaboom.emit(0)
+		rpc('bomb_go_off', Time.get_ticks_msec())
 
 @rpc
 func _update_position(pos:Vector2) -> void:
@@ -45,6 +57,7 @@ signal kaboom
 @rpc("reliable")
 func bomb_go_off(host_time:int) -> void:
 	kaboom.emit((host_time - Global.get_host_time()) / 1000)
+	print('bomb')
 	
 @export var hitbox : CollisionShape2D
 func _bomb_finished() -> void:
@@ -63,20 +76,3 @@ func _on_death_timer_timeout():
 	Global.hud.player_died()
 	recover_timer.start()
 	VisualEffect.hide()
-
-func bomb():
-	if not bomb_count and can_bomb:
-		return
-		
-	if Global.hud:
-		Global.hud.update_bomb(bomb_count)
-	bomb_count -= 1
-	can_bomb = false
-	VisualEffect.hide()
-	death_timer.stop()
-	
-	if is_multiplayer_authority():
-		hitbox.set_deferred("disabled", true)
-		
-	kaboom.emit(0)
-	rpc('bomb_go_off', Time.get_ticks_msec())

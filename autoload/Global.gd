@@ -76,13 +76,13 @@ func sync_clock() -> void:
 	offset = Time.get_ticks_msec()
 	rpc('sync_host_clock')
 	
-@rpc("any_peer", "reliable")
+@rpc("reliable", "any_peer")
 func sync_host_clock() -> void:
 	rpc('calculate_offset', Time.get_ticks_msec())
 	
 @rpc("reliable")
 func calculate_offset(host_time:int) -> void:
-	offset = (2*host_time - Time.get_ticks_msec() - offset) / 2
+	offset = host_time - ((Time.get_ticks_msec() - offset) / 2)
 	
 func get_host_time() -> int:
 	return Time.get_ticks_msec() + offset

@@ -1,7 +1,6 @@
-[gd_scene load_steps=27 format=3 uid="uid://of6l83moa38k"]
+[gd_scene load_steps=26 format=3 uid="uid://of6l83moa38k"]
 
 [ext_resource type="PackedScene" uid="uid://c34lwlqwsc4ve" path="res://entity/player/base/player.tscn" id="1_vjhba"]
-[ext_resource type="Texture2D" uid="uid://bkym7gv6hfekh" path="res://entity/player/marisa/resource/uncutmari.png" id="2_cw10b"]
 [ext_resource type="Texture2D" uid="uid://c7k6r1xgk2xii" path="res://entity/player/marisa/resource/marisa-hitbox.png" id="2_h730r"]
 [ext_resource type="PackedScene" uid="uid://cex3540cp47lm" path="res://entity/player/base/graze.tscn" id="2_jex7f"]
 [ext_resource type="Shader" path="res://level/background/noise-colorize.gdshader" id="3_tsm56"]
@@ -13,6 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://d2wacgirqsjjn" path="res://entity/resource/white-trans.tres" id="8_gxd18"]
 [ext_resource type="Material" uid="uid://dox27ncd2r5o3" path="res://entity/resource/glow.tres" id="8_oal0d"]
 [ext_resource type="PackedScene" uid="uid://bsnqtgxxjmolk" path="res://entity/player/marisa/ray_cast.tscn" id="12_1qmyi"]
+[ext_resource type="PackedScene" uid="uid://cw6ldgxnk6nf3" path="res://entity/player/marisa/marisa-sprite.tscn" id="13_sco1m"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ttfkj"]
 radius = 6.0
@@ -340,17 +340,6 @@ hue_variation_max = 0.13
 radius = 134.0
 height = 1024.0
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_cyht7"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("2_cw10b")
-}],
-"loop": true,
-"name": &"default",
-"speed": 5.0
-}]
-
 [node name="Marisa" type="Node2D"]
 texture_filter = 1
 
@@ -359,7 +348,6 @@ hitbox = NodePath("Hitbox")
 
 [node name="Hitbox" type="CollisionShape2D" parent="Player"]
 z_index = 100
-position = Vector2(0, -12)
 shape = SubResource("CircleShape2D_ttfkj")
 
 [node name="Hitbox" type="Sprite2D" parent="Player/Hitbox"]
@@ -451,9 +439,7 @@ position = Vector2(0, -599)
 shape = SubResource("CapsuleShape2D_s1f2m")
 disabled = true
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Player"]
-z_index = 10
-sprite_frames = SubResource("SpriteFrames_cyht7")
+[node name="marisa" parent="Player" instance=ExtResource("13_sco1m")]
 
 [connection signal="kaboom" from="Player" to="Player/MasterSpark" method="_on_player_kaboom"]
 [connection signal="animation_finished" from="Player/MasterSpark/AnimationPlayer" to="Player/MasterSpark" method="_on_animation_player_animation_finished"]

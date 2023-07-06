@@ -766,6 +766,7 @@ first_event = NodePath("../SubViewportContainer/SubViewport/opening1")
 [connection signal="timeout" from="SubViewportContainer/SubViewport/boss1/Swing/BurstTimer/Cycle" to="SubViewportContainer/SubViewport/boss1/Swing/BurstTimer" method="start" flags=18]
 [connection signal="timeout" from="SubViewportContainer/SubViewport/boss1/LevelTimer" to="SubViewportContainer/SubViewport/boss1" method="_on_level_timer_timeout"]
 [connection signal="timeout" from="SubViewportContainer/SubViewport/boss1/LevelTimer" to="SubViewportContainer/SubViewport/boss2" method="_on_level_timer_timeout"]
+[connection signal="timeout" from="SubViewportContainer/SubViewport/boss1/LevelTimer" to="SubViewportContainer/SubViewport/yukari" method="_on_level_timer_timeout"]
 [connection signal="timeout" from="SubViewportContainer/SubViewport/boss2/SpinShot/Timer" to="SubViewportContainer/SubViewport/boss2/SpinShot" method="_on_timer_timeout" flags=18]
 [connection signal="timeout" from="SubViewportContainer/SubViewport/boss2/SpinShot/Timer" to="SubViewportContainer/SubViewport/boss2/SpinShot/SpinBullet" method="SpawnBullet" flags=18]
 [connection signal="timeout" from="SubViewportContainer/SubViewport/boss2/LevelTimer" to="SubViewportContainer/SubViewport/boss2" method="_on_level_timer_timeout"]
