@@ -13,6 +13,7 @@ func _ready() -> void:
 			sync_start()
 	else:
 		first_event.start_event()
+	Global.set_process_unhandled_input(true)
 
 @export var first_event : Node
 func sync_start() -> void:

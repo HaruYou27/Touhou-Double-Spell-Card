@@ -1,8 +1,8 @@
 [gd_scene load_steps=7 format=3 uid="uid://bncu813gm4hx8"]
 
+[ext_resource type="Texture2D" uid="uid://cnecndeyl8vpm" path="res://entity/utility/boss-indicator.png" id="2_wallc"]
 [ext_resource type="Script" path="res://entity/yukari/Boss.gd" id="3"]
 [ext_resource type="Script" path="res://entity/utility/LockedPosition2D.gd" id="3_fqo85"]
-[ext_resource type="Texture2D" uid="uid://cnecndeyl8vpm" path="res://level/leveler/resource/boss-indicator.png" id="4"]
 [ext_resource type="Texture2D" uid="uid://bn8nged18pm41" path="res://entity/yukari/texture/Yukari.png" id="7"]
 
 [sub_resource type="SpriteFrames" id="2"]
@@ -29,8 +29,11 @@ script = ExtResource("3")
 
 [node name="indicator" type="Sprite2D" parent="."]
 texture_filter = 2
-texture = ExtResource("4")
+texture = ExtResource("2_wallc")
+centered = false
 script = ExtResource("3_fqo85")
+value = 908
+locked_y = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("2")

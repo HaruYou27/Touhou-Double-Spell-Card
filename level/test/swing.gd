@@ -1,6 +1,6 @@
 extends Node2D
 
-@onready var clockwise := $clockwise
+@onready var clockwise := $Swing
 var signed := 1
 func _on_timer_timeout() -> void:
 	clockwise.rotation += TAU * .1 * signed

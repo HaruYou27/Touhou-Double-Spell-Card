@@ -12,7 +12,7 @@ signal item_collect
 var hud : HUD
 var player1 : Node2D
 var player2 : Node2D
-var ItemManager
+var item_manager
 
 ##Play area rectangle.
 const playground := Vector2i(540, 852)
@@ -51,6 +51,7 @@ func change_scene(scene:PackedScene) -> void:
 	Engine.time_scale = 1.
 	var tween :Tween = VisualEffect.fade2black()
 	tween.finished.connect(tree.change_scene_to_packed.bind(scene))
+	set_process_unhandled_input(false)
 
 ##Convert an InputEvent to String.
 static func get_input_string(event:InputEvent) -> String:
@@ -91,6 +92,7 @@ func get_host_time() -> int:
 ########## USER CONFIG
 var user_data : UserData
 func _ready() -> void:
+	set_process_unhandled_input(false)
 	randomize()
 	
 	user_data = load('user://saveData.res')

@@ -22,6 +22,7 @@ var can_move := false
 func _unhandled_input(event:InputEvent) -> void:
 	if toggle_move and event.is_action_pressed('drag'):
 		can_move = not can_move
+		
 		return
 	else:
 		can_move = Input.is_action_pressed("drag")
@@ -56,7 +57,7 @@ func _update_position(pos:Vector2) -> void:
 signal kaboom
 @rpc("reliable")
 func bomb_go_off(host_time:int) -> void:
-	kaboom.emit((host_time - Global.get_host_time()) / 1000)
+	kaboom.emit((host_time - int(Global.get_host_time()) / 1000))
 	print('bomb')
 	
 @export var hitbox : CollisionShape2D

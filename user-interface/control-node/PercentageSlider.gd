@@ -18,4 +18,4 @@ func get_percentage() -> int:
 	sfx.pitch_scale = 1 + raw
 	sfx.play()
 	
-	return raw * 100
+	return int(raw * 100)

@@ -13,5 +13,5 @@ func start_event() -> void:
 		node.start()
 
 func _on_level_timer_timeout() -> void:
-	Global.ItemManager.ConvertBullet()
+	Global.item_manager.ConvertBullet()
 	queue_free()

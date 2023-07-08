@@ -15,7 +15,7 @@ func _hit() -> void:
 @onready var death_timer := $explosion/Timer
 @onready var visual := $visual
 func die() -> void:
-	Global.ItemManager.SpawnItem(point, global_position)
+	Global.item_manager.spawn_item(point, global_position)
 	explosion.emitting = true
 	death_sfx.play()
 	death_timer.start()

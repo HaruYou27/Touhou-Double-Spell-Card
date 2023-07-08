@@ -1,0 +1,43 @@
+[gd_scene load_steps=5 format=3 uid="uid://bruoc6ea6acxp"]
+
+[ext_resource type="Script" path="res://entity/player/reimu/Seeker.gd" id="1_perfc"]
+[ext_resource type="Texture2D" uid="uid://cu2ufhkx3vayf" path="res://entity/player/reimu/resource/ofuda.png" id="2_ofyba"]
+[ext_resource type="PackedScene" uid="uid://bsa0xvb26o22u" path="res://entity/player/reimu/yinyang_orb.tscn" id="3_vavjx"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_vc5mj"]
+radius = 8.0
+height = 32.0
+
+[node name="bullet" type="Node2D"]
+z_index = 1
+script = ExtResource("1_perfc")
+seek_mask = 2
+seek_radius = 270.0
+speed = 727
+localRotation = true
+grazable = false
+hitbox = SubResource("CapsuleShape2D_vc5mj")
+collide_with_areas = true
+collision_mask = 3
+texture = ExtResource("2_ofyba")
+
+[node name="YinyangOrb" parent="." instance=ExtResource("3_vavjx")]
+position = Vector2(72, 0)
+rotation = -1.5708
+flip_v = true
+
+[node name="YinyangOrb2" parent="." instance=ExtResource("3_vavjx")]
+texture_filter = 1
+position = Vector2(-72, 0)
+rotation = -1.5708
+flip_h = false
+
+[node name="Marker2D" type="Marker2D" parent="."]
+position = Vector2(13.0002, -39.9999)
+rotation = -1.5708
+gizmo_extents = 51.7
+
+[node name="Position2D2" type="Marker2D" parent="."]
+position = Vector2(-13, -40)
+rotation = -1.5708
+gizmo_extents = 82.9
