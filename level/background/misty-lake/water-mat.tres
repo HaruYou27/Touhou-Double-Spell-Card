@@ -5,9 +5,9 @@
 
 [resource]
 shader = ExtResource("1_v5mm0")
-shader_parameter/water_velocity = Vector2(0, -0.2)
-shader_parameter/water_opacity = 1.0
-shader_parameter/color_map = ExtResource("2_cc2p6")
 shader_parameter/wave_velocity = Vector2(0, 2)
 shader_parameter/wave_distortion = 0.2
 shader_parameter/wave_multiplyer = -4.0
+shader_parameter/water_velocity = Vector2(0, -0.2)
+shader_parameter/water_opacity = 1.0
+shader_parameter/color_map = ExtResource("2_cc2p6")

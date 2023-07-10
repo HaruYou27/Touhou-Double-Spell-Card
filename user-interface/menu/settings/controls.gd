@@ -12,6 +12,8 @@ extends VBoxContainer
 var switch := false
 
 func _ready() -> void:
+	set_process_unhandled_input(false)
+	
 	bomb.update_label(global.get_input_string(user_data.bomb_bind))
 	var drag_name := global.get_input_string(user_data.drag_bind)
 	drag.update_label(drag_name)

@@ -400,10 +400,9 @@ enabled = true
 position = Vector2(-13, 0)
 enabled = true
 
-[node name="Spark" type="StaticBody2D" parent="."]
+[node name="Spark" type="CharacterBody2D" parent="."]
 collision_layer = 2
 collision_mask = 0
-constant_linear_velocity = Vector2(2, 0)
 
 [node name="SparkHitbox" type="CollisionShape2D" parent="Spark"]
 position = Vector2(0, -599)

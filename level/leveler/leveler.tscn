@@ -22,11 +22,7 @@ Label/styles/normal = null
 [node name="level" type="Control"]
 texture_filter = 4
 layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+anchors_preset = 0
 mouse_filter = 1
 theme = SubResource("Theme_p2fhi")
 script = ExtResource("4")
@@ -35,14 +31,11 @@ script = ExtResource("4")
 process_mode = 3
 visible = false
 z_index = 2000
+custom_minimum_size = Vector2(540, 960)
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+offset_right = 540.0
+offset_bottom = 960.0
 size_flags_vertical = 3
-mouse_filter = 1
 color = Color(0.129412, 0.129412, 0.129412, 0.423529)
 script = ExtResource("12")
 
@@ -90,17 +83,10 @@ script = ExtResource("5_seuyc")
 [node name="hud" type="Panel" parent="." node_paths=PackedStringArray("hi_score_label", "bomb_label", "reward_sfx", "score_label")]
 z_index = 2000
 layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -250.0
-offset_top = -107.0
-offset_right = 250.0
-offset_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 0
+offset_left = 20.0
+offset_top = 852.0
+offset_right = 520.0
+offset_bottom = 960.0
 size_flags_vertical = 8
 mouse_filter = 2
 theme = ExtResource("1_year7")
@@ -120,9 +106,11 @@ offset_top = 4.0
 offset_right = -18.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="hud/VBoxContainer"]
 layout_mode = 2
+mouse_filter = 2
 
 [node name="Bomb" type="Label" parent="hud/VBoxContainer/HBoxContainer"]
 layout_mode = 2
@@ -172,8 +160,8 @@ shortcut = ExtResource("4_amvrx")
 text = "||"
 
 [connection signal="pressed" from="PauseMenu/VBoxContainer/Resume" to="PauseMenu" method="_on_Resume_pressed"]
-[connection signal="pressed" from="PauseMenu/VBoxContainer/Restart" to="PauseMenu" method="_on_restart_pressed"]
-[connection signal="pressed" from="PauseMenu/VBoxContainer/Quit" to="PauseMenu" method="_on_Quit_pressed"]
+[connection signal="pressed" from="PauseMenu/VBoxContainer/Restart" to="PauseMenu" method="_on_restart_pressed" flags=6]
+[connection signal="pressed" from="PauseMenu/VBoxContainer/Quit" to="PauseMenu" method="_on_Quit_pressed" flags=6]
 [connection signal="timeout" from="hud/VBoxContainer/HBoxContainer/Timer" to="hud/VBoxContainer/HBoxContainer/ping" method="_on_timer_timeout"]
 [connection signal="timeout" from="hud/VBoxContainer/HBoxContainer/Timer" to="hud/VBoxContainer/HBoxContainer/fps" method="_on_timer_timeout"]
 [connection signal="pressed" from="pause" to="PauseMenu" method="_on_pause_pressed"]

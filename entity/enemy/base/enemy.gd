@@ -23,9 +23,15 @@ func die() -> void:
 
 func _on_timer_timeout() -> void:
 	died.emit()
-	monitorable = false
+	process_mode = Node.PROCESS_MODE_DISABLED
 
 func reset() -> void:
-	monitorable = true
+	process_mode = Node.PROCESS_MODE_INHERIT
 	visual.show()
 	hp = point
+
+func _on_body_entered(body) -> void:
+	if body is Player:
+		body._hit()
+	else:
+		die()

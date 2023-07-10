@@ -8,3 +8,4 @@ func _ready():
 	var tween := create_tween()
 	tween.tween_property(fog, 'modulate', Color(1, 1, 1, 0.50588238239288), 30.)
 	tween.parallel().tween_property(fog_overlay, 'modulate', Color.WHITE, 60.)
+	$"../SubViewportContainer/SubViewport".world_2d = get_world_2d()

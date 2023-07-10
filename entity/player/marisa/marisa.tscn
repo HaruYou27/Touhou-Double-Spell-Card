@@ -35,3 +35,5 @@ shape = SubResource("CapsuleShape2D_imnki")
 
 [node name="marisa" parent="Player" instance=ExtResource("13_sco1m")]
 position = Vector2(2, 0)
+
+[connection signal="finished" from="Player/MasterSpark" to="Player" method="_bomb_finished"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=50 format=3 uid="uid://bxvy3qa8esorq"]
+[gd_scene load_steps=51 format=3 uid="uid://bxvy3qa8esorq"]
 
 [ext_resource type="Shader" path="res://level/background/misty-lake/water.gdshader" id="1_5h8xj"]
 [ext_resource type="Texture2D" uid="uid://eriecmar2l3j" path="res://level/background/misty-lake/water-day.tres" id="2_su2rp"]
@@ -33,7 +33,7 @@
 [ext_resource type="Script" path="res://entity/bullet/SineSpeed.gd" id="25_ok0yk"]
 [ext_resource type="Script" path="res://entity/utility/burst_timer.gd" id="25_w644i"]
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_ugbhf"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_a51n5"]
 viewport_path = NodePath("SubViewportContainer/SubViewport")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_r8js3"]
@@ -45,7 +45,7 @@ shader_parameter/wave_multiplyer = -6.0
 shader_parameter/water_velocity = Vector2(0, -0.2)
 shader_parameter/water_opacity = 0.5
 shader_parameter/color_map = ExtResource("2_su2rp")
-shader_parameter/reflection = SubResource("ViewportTexture_ugbhf")
+shader_parameter/reflection = SubResource("ViewportTexture_a51n5")
 
 [sub_resource type="Curve2D" id="Curve2D_7y75u"]
 _data = {
@@ -173,15 +173,19 @@ shader_parameter/spin = null
 shader_parameter/sin_alpha = false
 shader_parameter/color_map = SubResource("GradientTexture1D_4jqxh")
 
-[node name="test level" type="Control"]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+[sub_resource type="GDScript" id="GDScript_8c21j"]
+script/source = "extends Node2D
+
+@onready var bg := $\"../SubViewportContainer/SubViewport/background2\"
+
+func _process(delta):
+	queue_redraw()
+"
+
+[node name="test level" type="Node2D"]
 
 [node name="background" type="Sprite2D" parent="."]
+z_index = -100
 texture_repeat = 2
 material = SubResource("ShaderMaterial_r8js3")
 texture = ExtResource("3_6g7e0")
@@ -206,6 +210,7 @@ disable_3d = true
 transparent_bg = true
 handle_input_locally = false
 snap_2d_transforms_to_pixel = true
+canvas_item_default_texture_filter = 0
 size = Vector2i(540, 960)
 render_target_update_mode = 4
 
@@ -267,7 +272,6 @@ scale = Vector2(1.5, 1.5)
 script = ExtResource("11_pvd46")
 barrelGroup = "Enemy Barrel Corner"
 speed = 472
-localRotation = true
 bullet_scale = Vector2(0.5, 0.5)
 hitbox = ExtResource("12_p0i0r")
 collision_mask = 5
@@ -363,7 +367,7 @@ position = Vector2(270, 285)
 script = ExtResource("21_dj0sb")
 
 [node name="Swing" type="Node2D" parent="SubViewportContainer/SubViewport/boss1/Swing" groups=["Enemy Bullet"]]
-z_index = 4
+z_index = 100
 material = SubResource("ShaderMaterial_o2d6k")
 script = ExtResource("25_ok0yk")
 speed = 472
@@ -551,7 +555,7 @@ position = Vector2(270, 285)
 script = ExtResource("25_eroeu")
 
 [node name="SpinBullet" type="Node2D" parent="SubViewportContainer/SubViewport/boss2/SpinShot" groups=["Enemy Bullet"]]
-z_index = 4
+z_index = 100
 material = SubResource("ShaderMaterial_o2d6k")
 script = ExtResource("11_pvd46")
 barrelGroup = "Enemy Barrel Spin"
@@ -742,13 +746,13 @@ position = Vector2(269, 799)
 
 [node name="WorldBoundary" parent="SubViewportContainer/SubViewport" instance=ExtResource("24_q5vyw")]
 
+[node name="Node2D" type="Node2D" parent="."]
+script = SubResource("GDScript_8c21j")
+
 [node name="level" parent="." node_paths=PackedStringArray("player_container", "first_event") instance=ExtResource("9_ii2dw")]
-custom_minimum_size = Vector2(540, 960)
-anchors_preset = 0
-anchor_right = 0.0
-anchor_bottom = 0.0
-grow_horizontal = 1
-grow_vertical = 1
+offset_right = 540.0
+offset_bottom = 960.0
+mouse_filter = 2
 player_container = NodePath("../SubViewportContainer/SubViewport/player")
 first_event = NodePath("../SubViewportContainer/SubViewport/opening1")
 

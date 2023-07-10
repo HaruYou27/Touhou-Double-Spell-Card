@@ -1,8 +1,25 @@
-[gd_scene load_steps=5 format=3 uid="uid://bruoc6ea6acxp"]
+[gd_scene load_steps=9 format=3 uid="uid://bruoc6ea6acxp"]
 
 [ext_resource type="Script" path="res://entity/player/reimu/Seeker.gd" id="1_perfc"]
+[ext_resource type="Shader" path="res://entity/resource/UberItem.gdshader" id="1_sh4uw"]
 [ext_resource type="Texture2D" uid="uid://cu2ufhkx3vayf" path="res://entity/player/reimu/resource/ofuda.png" id="2_ofyba"]
 [ext_resource type="PackedScene" uid="uid://bsa0xvb26o22u" path="res://entity/player/reimu/yinyang_orb.tscn" id="3_vavjx"]
+
+[sub_resource type="Gradient" id="Gradient_561th"]
+offsets = PackedFloat32Array(0.376147)
+colors = PackedColorArray(1, 0.4, 0.4, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_obk0t"]
+gradient = SubResource("Gradient_561th")
+width = 1
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_v1vkg"]
+shader = ExtResource("1_sh4uw")
+shader_parameter/time_scale = 1.0
+shader_parameter/alpha_offset = false
+shader_parameter/spin = false
+shader_parameter/sin_alpha = false
+shader_parameter/color_map = SubResource("GradientTexture1D_obk0t")
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_vc5mj"]
 radius = 8.0
@@ -10,6 +27,7 @@ height = 32.0
 
 [node name="bullet" type="Node2D"]
 z_index = 1
+material = SubResource("ShaderMaterial_v1vkg")
 script = ExtResource("1_perfc")
 seek_mask = 2
 seek_radius = 270.0

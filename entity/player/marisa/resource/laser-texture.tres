@@ -4,8 +4,8 @@
 frequency = 0.005
 
 [resource]
-width = 540
-height = 540
+width = 256
+height = 256
 generate_mipmaps = false
 seamless = true
 noise = SubResource("FastNoiseLite_vo6gu")

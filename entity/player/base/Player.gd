@@ -1,4 +1,4 @@
-extends StaticBody2D
+extends CharacterBody2D
 class_name Player
 
 func _ready() -> void:
@@ -19,10 +19,9 @@ var bomb_count := 3
 @onready var sentivity := Global.user_data.sentivity
 @onready var toggle_move := Global.user_data.toggle_move
 var can_move := false
-func _unhandled_input(event:InputEvent) -> void:
+func _input(event:InputEvent) -> void:
 	if toggle_move and event.is_action_pressed('drag'):
 		can_move = not can_move
-		
 		return
 	else:
 		can_move = Input.is_action_pressed("drag")
@@ -35,14 +34,14 @@ func _unhandled_input(event:InputEvent) -> void:
 		if is_multiplayer_authority():
 			rpc('_update_position', global_position)
 		
-	elif event.is_action_pressed("bomb") or event is InputEventPanGesture:
-		if not bomb_count and can_bomb:
+	elif Input.is_action_pressed("bomb") or event is InputEventPanGesture:
+		if not bomb_count or not can_bomb:
 			return
-			
-		if Global.hud:
-			Global.hud.update_bomb(bomb_count)
+		
 		bomb_count -= 1
 		can_bomb = false
+		if Global.hud:
+			Global.hud.update_bomb(bomb_count)
 		
 		if is_multiplayer_authority():
 			hitbox.set_deferred("disabled", true)

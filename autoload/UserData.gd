@@ -25,12 +25,12 @@ func _bind_drag(event:InputEvent) -> void:
 	InputMap.action_add_event('drag', event)
 	drag_bind = event
 	
-@export var bomb_button := false
 @export var bomb_bind := InputMap.action_get_events('bomb')[0] : set = _bind_bomb
 func _bind_bomb(event:InputEvent) -> void:
 	InputMap.action_erase_events('bomb')
 	InputMap.action_add_event('bomb', event)
 	bomb_bind = event
+	print(event)
 	
 @export var voice_bind := InputMap.action_get_events('voice')[0] : set = _bind_voice
 func _bind_voice(event:InputEvent) -> void:

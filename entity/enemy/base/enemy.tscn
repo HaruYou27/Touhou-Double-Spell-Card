@@ -25,8 +25,7 @@ color_ramp = ExtResource("2_y6mhs")
 
 [node name="Enemy" type="Area2D"]
 collision_layer = 2
-collision_mask = 0
-monitoring = false
+collision_mask = 4
 script = ExtResource("1_a5f4m")
 
 [node name="explosion" type="GPUParticles2D" parent="."]
@@ -48,4 +47,5 @@ bus = &"SFX"
 [node name="Timer" type="Timer" parent="explosion"]
 one_shot = true
 
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="timeout" from="explosion/Timer" to="." method="_on_timer_timeout"]

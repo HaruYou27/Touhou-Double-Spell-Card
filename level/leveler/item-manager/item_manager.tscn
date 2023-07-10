@@ -14,7 +14,7 @@ width = 1
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_4ux2n"]
 shader = ExtResource("1_4wje6")
-shader_parameter/time_scale = 0.5
+shader_parameter/time_scale = 1.0
 shader_parameter/alpha_offset = true
 shader_parameter/spin = true
 shader_parameter/sin_alpha = null

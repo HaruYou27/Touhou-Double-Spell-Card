@@ -92,7 +92,7 @@ colors = PackedColorArray(0, 0, 0, 0)
 gradient = SubResource("Gradient_pgb60")
 width = 1
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_npvl1"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_26hbj"]
 resource_local_to_scene = true
 shader = SubResource("Shader_c07er")
 shader_parameter/wave_velocity = Vector2(0, 2)
@@ -236,7 +236,7 @@ layout_mode = 2
 
 [node name="background" type="Sprite2D" parent="background"]
 texture_repeat = 2
-material = SubResource("ShaderMaterial_npvl1")
+material = SubResource("ShaderMaterial_26hbj")
 texture = ExtResource("2_57hu4")
 centered = false
 
@@ -279,8 +279,6 @@ speed = 327
 grazable = false
 bullet_scale = Vector2(1.5, 1.5)
 hitbox = ExtResource("8_oqfy5")
-collide_with_bodies = false
-collision_mask = 0
 texture = ExtResource("11_e48md")
 
 [node name="Timer" type="Timer" parent="TabContainer/play/Level/Preview/test/SpinShot"]
@@ -1001,7 +999,7 @@ tab_3/title = "About"
 [connection signal="timeout" from="TabContainer/play/Level/Preview/test/SpinShot/Timer" to="TabContainer/play/Level/Preview/test/SpinShot" method="_on_timer_timeout" flags=18]
 [connection signal="timeout" from="TabContainer/play/Level/Preview/test/SpinShot/Timer" to="TabContainer/play/Level/Preview/test/SpinShot/spinBullet" method="spawn_bullet"]
 [connection signal="item_selected" from="TabContainer/play/Level/LevelList" to="TabContainer/play/Level" method="_on_level_list_item_selected"]
-[connection signal="pressed" from="TabContainer/play/Level/enter" to="TabContainer/play/Level" method="_on_enter_pressed"]
+[connection signal="pressed" from="TabContainer/play/Level/enter" to="TabContainer/play/Level" method="_on_enter_pressed" flags=6]
 [connection signal="timeout" from="TabContainer/play/Character/Preview/Reimu/ReimuSprite/Timer" to="TabContainer/play/Character/Preview/Reimu/ReimuSprite/bullet" method="spawn_bullet"]
 [connection signal="item_selected" from="TabContainer/play/Character/title" to="TabContainer/play/Character" method="_on_title_item_selected"]
 [connection signal="pressed" from="TabContainer/play/Character/HBoxContainer/previous" to="TabContainer/play/Character" method="_change_character" binds= [false]]

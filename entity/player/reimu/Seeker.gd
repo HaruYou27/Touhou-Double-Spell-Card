@@ -19,12 +19,12 @@ func create_bullet() -> void:
 
 func collide(result:Dictionary) -> bool:
 	#Return true means the bullet will still alive.
-	if int(result["linear_velocity"].x) == 1:
+	if not int(result["linear_velocity"].x):
 		#Hit the wall.
 		return false;
-	else:
-		var collider = instance_from_id(result["collider_id"])
-		collider.call("_hit")
+	
+	var collider = instance_from_id(result["collider_id"])
+	collider.call("_hit")
 	return false;
 
 func _exit_tree() -> void:

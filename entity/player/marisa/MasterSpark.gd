@@ -20,6 +20,7 @@ func _physics_process(delta:float) -> void:
 	for ray in rays:
 		if ray.is_colliding():
 			var collider := ray.get_collider()
+			collision_particle.show()
 			collision_particle.global_position.y = collider.global_position.y
 			for beam in beams:
 				beam.points[1].y = collision_particle.position.y
@@ -30,6 +31,13 @@ func _physics_process(delta:float) -> void:
 				collider._hit()
 				cooldown += 0.033333333333333
 			return
+		else:
+			collision_particle.hide()
+			for beam in beams:
+				beam.points[1].y = -960
+			beam_particle.position.y = -480
+			beam_particle.process_material.emission_box_extents.y = -960
+			
 			
 @onready var spark_hitbox := $Spark/SparkHitbox
 func _on_player_kaboom(offset:float) -> void:

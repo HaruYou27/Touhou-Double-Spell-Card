@@ -43,9 +43,8 @@ func create_sprite() -> void:
 	
 	RenderingServer.canvas_item_set_z_index(sprite, z_index)
 	RenderingServer.canvas_item_set_parent(sprite, world.canvas)
-	RenderingServer.canvas_item_add_texture_rect(sprite, texture_rect, texture.get_rid())
-	if material:
-		RenderingServer.canvas_item_set_material(sprite, material.get_rid())
+	texture.draw_rect(sprite, texture_rect, false)
+	RenderingServer.canvas_item_set_material(sprite, material.get_rid())
 	
 func _exit_tree() -> void:
 	#Rid is actually an memory address to get the object in Godot server.
@@ -104,25 +103,25 @@ func move(delta:float) -> Transform2D:
 
 func collide(result:Dictionary) -> bool:
 	#Return true means the bullet will still alive.
-	var mask := int(result["linear_velocity"].x)
-	if mask == 1:
+	if not int(result["linear_velocity"].x):
 		#Hit the wall.
 		return false
-	elif mask == 2:
-		#Hit Player spellcard
-		#Turn into an item.
-		Global.item_manager.spawn_item(1, bullet.transform.origin)
-		return false
 		
-	if bullet.grazable:
+	var collider = instance_from_id(result["collider_id"])
+	if bullet.grazable and collider is StaticBody2D:
 		bullet.grazable = false
 		Global.bullet_graze.emit()
 		return true
 		
-	var collider = instance_from_id(result["collider_id"])
-	collider.call("_hit")
+	if collider is Player:
+		collider.call("_hit")
+		return false
+		
+	#Hit Player spellcard
+	#Turn into an item.
+	Global.item_manager.spawn_item(1, bullet.transform.origin)
 	return false
-	
+
 func _physics_process(delta:float) -> void:
 	if bullets.is_empty():
 		return
