@@ -1,4 +1,4 @@
-[gd_scene load_steps=50 format=3 uid="uid://bxvy3qa8esorq"]
+[gd_scene load_steps=53 format=3 uid="uid://bxvy3qa8esorq"]
 
 [ext_resource type="Shader" path="res://level/background/misty-lake/water.gdshader" id="1_5h8xj"]
 [ext_resource type="Texture2D" uid="uid://coq45et7pnhnx" path="res://level/background/misty-lake/water-night.tres" id="2_6k43b"]
@@ -6,6 +6,8 @@
 [ext_resource type="Script" path="res://level/leveler/LevelEvent.gd" id="4_wsm02"]
 [ext_resource type="Script" path="res://level/test/background.gd" id="4_xolvc"]
 [ext_resource type="Script" path="res://entity/utility/Path2DSpawner.gd" id="6_n63j6"]
+[ext_resource type="Shader" path="res://level/background/misty-lake/sky-reflection.gdshader" id="6_tvv72"]
+[ext_resource type="Texture2D" uid="uid://x1e8a67qetah" path="res://level/background/misty-lake/FullMoon.png" id="7_1ggri"]
 [ext_resource type="PackedScene" uid="uid://b5ofgn1nb1pwt" path="res://level/test/corner.tscn" id="7_3lgdb"]
 [ext_resource type="PackedScene" uid="uid://qcqdhn5ssewn" path="res://level/test/phantom-tracker.tscn" id="7_gfvyq"]
 [ext_resource type="Shader" path="res://entity/bullet/resource/BulletGlow.gdshader" id="7_s3hs4"]
@@ -39,6 +41,13 @@ shader_parameter/wave_distortion = 0.2
 shader_parameter/wave_multiplyer = -6.0
 shader_parameter/water_velocity = Vector2(0, -0.2)
 shader_parameter/color_map = ExtResource("2_6k43b")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_h610u"]
+shader = ExtResource("6_tvv72")
+shader_parameter/wave_velocity = Vector2(0, 1)
+shader_parameter/wave_distortion = 0.03
+shader_parameter/wave_multiplyer = -7.0
+shader_parameter/noise_texture = ExtResource("3_6g7e0")
 
 [sub_resource type="Curve2D" id="Curve2D_7y75u"]
 _data = {
@@ -175,11 +184,10 @@ shader = ExtResource("29_dpw0x")
 shader_parameter/water_opacity = 0.5
 shader_parameter/background = SubResource("ViewportTexture_8xk5g")
 shader_parameter/wave_velocity = Vector2(0, 1)
-shader_parameter/wave_distortion = 0.1
+shader_parameter/wave_distortion = 0.03
 shader_parameter/wave_multiplyer = -7.0
 
 [node name="test level" type="Node2D"]
-modulate = Color(0.603922, 0.603922, 0.603922, 1)
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="."]
 z_index = -100
@@ -200,6 +208,11 @@ material = SubResource("ShaderMaterial_r8js3")
 texture = ExtResource("3_6g7e0")
 centered = false
 script = ExtResource("4_xolvc")
+
+[node name="FullMoon" type="Sprite2D" parent="SubViewportContainer/SubViewport/background"]
+material = SubResource("ShaderMaterial_h610u")
+position = Vector2(270, 201)
+texture = ExtResource("7_1ggri")
 
 [node name="fog" parent="SubViewportContainer/SubViewport/background" instance=ExtResource("8_ixvn3")]
 modulate = Color(1, 1, 1, 0)
@@ -753,12 +766,10 @@ centered = false
 modulate = Color(1, 1, 1, 0)
 z_index = 3000
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-
-[node name="level" parent="CanvasLayer" node_paths=PackedStringArray("player_container", "first_event") instance=ExtResource("9_ii2dw")]
+[node name="level" parent="." node_paths=PackedStringArray("player_container", "first_event") instance=ExtResource("9_ii2dw")]
 mouse_filter = 2
-player_container = NodePath("../../player")
-first_event = NodePath("../../opening1")
+player_container = NodePath("../player")
+first_event = NodePath("../opening1")
 
 [connection signal="timeout" from="opening1/LevelTimer" to="opening1" method="_on_level_timer_timeout"]
 [connection signal="timeout" from="opening1/LevelTimer" to="opening2" method="start_event"]

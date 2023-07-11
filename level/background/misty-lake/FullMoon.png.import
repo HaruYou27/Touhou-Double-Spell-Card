@@ -2,20 +2,20 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cvt586vqc1e48"
-path="res://.godot/imported/FullMoon.webp-18bddac8d779f17f84a6dcf57a09ca5e.ctex"
+uid="uid://x1e8a67qetah"
+path="res://.godot/imported/FullMoon.png-7f2b593623c34a619d0d742932e537eb.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://level/background/misty-lake/FullMoon.webp"
-dest_files=["res://.godot/imported/FullMoon.webp-18bddac8d779f17f84a6dcf57a09ca5e.ctex"]
+source_file="res://level/background/misty-lake/FullMoon.png"
+dest_files=["res://.godot/imported/FullMoon.png-7f2b593623c34a619d0d742932e537eb.ctex"]
 
 [params]
 
-compress/mode=0
+compress/mode=4
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1

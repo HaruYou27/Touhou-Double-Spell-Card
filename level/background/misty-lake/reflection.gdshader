@@ -7,7 +7,7 @@ uniform sampler2D screen : hint_screen_texture; //filler nearest bug!
 
 group_uniforms wave;
 uniform vec2 wave_velocity = vec2(0.0, 1);
-uniform float wave_distortion = 0.1;
+uniform float wave_distortion = 0.03;
 uniform float wave_multiplyer = -7.0;
 
 varying vec2 wave_uv;
