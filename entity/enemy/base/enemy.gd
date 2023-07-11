@@ -14,19 +14,20 @@ func _hit() -> void:
 @onready var death_sfx := $explosion/sfx
 @onready var death_timer := $explosion/Timer
 @onready var visual := $visual
+@onready var layer := collision_layer
 func die() -> void:
-	Global.item_manager.spawn_item(point, global_position)
+	ItemManager.spawn_item(point, global_position)
 	explosion.emitting = true
 	death_sfx.play()
 	death_timer.start()
 	visual.hide()
+	collision_layer = 0
 
 func _on_timer_timeout() -> void:
 	died.emit()
-	process_mode = Node.PROCESS_MODE_DISABLED
 
 func reset() -> void:
-	process_mode = Node.PROCESS_MODE_INHERIT
+	collision_layer = layer
 	visual.show()
 	hp = point
 

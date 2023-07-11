@@ -1,9 +1,4 @@
 extends BulletBasic
-class_name item_manager
-
-func _ready() -> void:
-	Global.item_manager = self
-	super()
 
 func spawn_item(point:int, pos:Vector2) -> void:
 	var idx := 0
@@ -37,8 +32,8 @@ func collide(result:Dictionary) -> bool:
 
 func convert_bullet() -> void:
 	var bullets_node := tree.get_nodes_in_group("Enemy Bullet");
-	for bullet in bullets_node:
-		var positions : PackedVector2Array = bullet.clear()
+	for bullete in bullets_node:
+		var positions : PackedVector2Array = bullete.clear()
 		if positions.is_empty():
 			continue
 		for pos in positions:

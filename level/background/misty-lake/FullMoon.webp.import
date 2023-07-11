@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ccgackr4sld8n"
-path="res://.godot/imported/point.png-065be5185e81ac099549ece3c0755054.ctex"
+uid="uid://cvt586vqc1e48"
+path="res://.godot/imported/FullMoon.webp-18bddac8d779f17f84a6dcf57a09ca5e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://level/leveler/item-manager/point.png"
-dest_files=["res://.godot/imported/point.png-065be5185e81ac099549ece3c0755054.ctex"]
+source_file="res://level/background/misty-lake/FullMoon.webp"
+dest_files=["res://.godot/imported/FullMoon.webp-18bddac8d779f17f84a6dcf57a09ca5e.ctex"]
 
 [params]
 
@@ -20,12 +20,12 @@ compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1
 compress/normal_map=0
-compress/channel_pack=0
+compress/channel_pack=1
 mipmaps/generate=false
 mipmaps/limit=-1
-roughness/mode=0
+roughness/mode=1
 roughness/src_normal=""
-process/fix_alpha_border=true
+process/fix_alpha_border=false
 process/premult_alpha=false
 process/normal_map_invert_y=false
 process/hdr_as_srgb=false

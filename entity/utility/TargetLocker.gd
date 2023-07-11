@@ -1,7 +1,7 @@
 extends Node2D
 class_name TargetLocker
 
-func _track() -> void:
+func track() -> void:
 	if not Global.player1:
 		return
 	

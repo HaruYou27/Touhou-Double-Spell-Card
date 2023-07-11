@@ -103,7 +103,7 @@ func move(delta:float) -> Transform2D:
 
 func collide(result:Dictionary) -> bool:
 	#Return true means the bullet will still alive.
-	if not int(result["linear_velocity"].x):
+	if int(result["linear_velocity"].x) == -1:
 		#Hit the wall.
 		return false
 		
@@ -119,7 +119,7 @@ func collide(result:Dictionary) -> bool:
 		
 	#Hit Player spellcard
 	#Turn into an item.
-	Global.item_manager.spawn_item(1, bullet.transform.origin)
+	ItemManager.spawn_item(1, bullet.transform.origin)
 	return false
 
 func _physics_process(delta:float) -> void:

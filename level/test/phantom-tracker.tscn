@@ -17,11 +17,13 @@ script = ExtResource("1_wpp8x")
 time = 5.0
 
 [node name="Enemy" parent="." instance=ExtResource("4_hnnwn")]
+hp = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy"]
 shape = SubResource("CircleShape2D_noovt")
 
 [node name="visual" parent="Enemy" instance=ExtResource("2_mlfjc")]
+visible = false
 script = ExtResource("4_uluhi")
 
 [node name="Marker2D" type="Marker2D" parent="Enemy/visual" groups=["Enemy Barrel 1"]]

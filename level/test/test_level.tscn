@@ -1,7 +1,7 @@
-[gd_scene load_steps=51 format=3 uid="uid://bxvy3qa8esorq"]
+[gd_scene load_steps=50 format=3 uid="uid://bxvy3qa8esorq"]
 
 [ext_resource type="Shader" path="res://level/background/misty-lake/water.gdshader" id="1_5h8xj"]
-[ext_resource type="Texture2D" uid="uid://eriecmar2l3j" path="res://level/background/misty-lake/water-day.tres" id="2_su2rp"]
+[ext_resource type="Texture2D" uid="uid://coq45et7pnhnx" path="res://level/background/misty-lake/water-night.tres" id="2_6k43b"]
 [ext_resource type="Texture2D" uid="uid://bgh4r80tk5o7v" path="res://level/background/misty-lake/water-noise.tres" id="3_6g7e0"]
 [ext_resource type="Script" path="res://level/leveler/LevelEvent.gd" id="4_wsm02"]
 [ext_resource type="Script" path="res://level/test/background.gd" id="4_xolvc"]
@@ -26,26 +26,19 @@
 [ext_resource type="PackedScene" uid="uid://bncu813gm4hx8" path="res://entity/yukari/yukari.tscn" id="22_23hw6"]
 [ext_resource type="Shader" path="res://entity/resource/UberItem.gdshader" id="22_puvhm"]
 [ext_resource type="Shape2D" uid="uid://brtfnhe3eksr4" path="res://entity/bullet/resource/kunai-hitbox.tres" id="23_oo4ok"]
-[ext_resource type="PackedScene" uid="uid://c3rxoiw7os1of" path="res://level/leveler/item-manager/item_manager.tscn" id="23_r2ty2"]
 [ext_resource type="Texture2D" uid="uid://d1nkk7km71ule" path="res://entity/bullet/resource/kunai1.png" id="24_2664k"]
-[ext_resource type="PackedScene" uid="uid://wo265prfhjd3" path="res://level/leveler/world_boundary.tscn" id="24_q5vyw"]
 [ext_resource type="Script" path="res://level/test/SpinShot2.gd" id="25_eroeu"]
 [ext_resource type="Script" path="res://entity/bullet/SineSpeed.gd" id="25_ok0yk"]
 [ext_resource type="Script" path="res://entity/utility/burst_timer.gd" id="25_w644i"]
-
-[sub_resource type="ViewportTexture" id="ViewportTexture_a51n5"]
-viewport_path = NodePath("SubViewportContainer/SubViewport")
+[ext_resource type="Shader" path="res://level/background/misty-lake/reflection.gdshader" id="29_dpw0x"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_r8js3"]
-resource_local_to_scene = true
 shader = ExtResource("1_5h8xj")
 shader_parameter/wave_velocity = Vector2(0, 2)
 shader_parameter/wave_distortion = 0.2
 shader_parameter/wave_multiplyer = -6.0
 shader_parameter/water_velocity = Vector2(0, -0.2)
-shader_parameter/water_opacity = 0.5
-shader_parameter/color_map = ExtResource("2_su2rp")
-shader_parameter/reflection = SubResource("ViewportTexture_a51n5")
+shader_parameter/color_map = ExtResource("2_6k43b")
 
 [sub_resource type="Curve2D" id="Curve2D_7y75u"]
 _data = {
@@ -173,18 +166,34 @@ shader_parameter/spin = null
 shader_parameter/sin_alpha = false
 shader_parameter/color_map = SubResource("GradientTexture1D_4jqxh")
 
-[sub_resource type="GDScript" id="GDScript_8c21j"]
-script/source = "extends Node2D
+[sub_resource type="ViewportTexture" id="ViewportTexture_8xk5g"]
+viewport_path = NodePath("SubViewportContainer/SubViewport")
 
-@onready var bg := $\"../SubViewportContainer/SubViewport/background2\"
-
-func _process(delta):
-	queue_redraw()
-"
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_g5wds"]
+resource_local_to_scene = true
+shader = ExtResource("29_dpw0x")
+shader_parameter/water_opacity = 0.5
+shader_parameter/background = SubResource("ViewportTexture_8xk5g")
+shader_parameter/wave_velocity = Vector2(0, 1)
+shader_parameter/wave_distortion = 0.1
+shader_parameter/wave_multiplyer = -7.0
 
 [node name="test level" type="Node2D"]
+modulate = Color(0.603922, 0.603922, 0.603922, 1)
 
-[node name="background" type="Sprite2D" parent="."]
+[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
+z_index = -100
+custom_minimum_size = Vector2(540, 960)
+offset_right = 40.0
+offset_bottom = 40.0
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
+handle_input_locally = false
+size = Vector2i(540, 960)
+render_target_update_mode = 4
+
+[node name="background" type="Sprite2D" parent="SubViewportContainer/SubViewport"]
 z_index = -100
 texture_repeat = 2
 material = SubResource("ShaderMaterial_r8js3")
@@ -192,80 +201,67 @@ texture = ExtResource("3_6g7e0")
 centered = false
 script = ExtResource("4_xolvc")
 
-[node name="fog" parent="background" instance=ExtResource("8_ixvn3")]
+[node name="fog" parent="SubViewportContainer/SubViewport/background" instance=ExtResource("8_ixvn3")]
 modulate = Color(1, 1, 1, 0)
 
-[node name="FogOverlay" parent="background" instance=ExtResource("9_v1onv")]
-modulate = Color(1, 1, 1, 0)
-
-[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
-z_index = 2
-custom_minimum_size = Vector2(540, 960)
-offset_right = 540.0
-offset_bottom = 960.0
-stretch = true
-
-[node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
-disable_3d = true
-transparent_bg = true
-handle_input_locally = false
-snap_2d_transforms_to_pixel = true
-canvas_item_default_texture_filter = 0
-size = Vector2i(540, 960)
-render_target_update_mode = 4
-
-[node name="opening1" type="Node2D" parent="SubViewportContainer/SubViewport"]
+[node name="opening1" type="Node2D" parent="."]
 script = ExtResource("4_wsm02")
 paths = Array[NodePath]([NodePath("corner"), NodePath("LevelTimer"), NodePath("SpawnTimer"), NodePath("corner2"), NodePath("CornerBullet/BurstTimer")])
 
-[node name="LevelTimer" type="Timer" parent="SubViewportContainer/SubViewport/opening1"]
+[node name="LevelTimer" type="Timer" parent="opening1"]
 wait_time = 30.0
 one_shot = true
 
-[node name="SpawnTimer" type="Timer" parent="SubViewportContainer/SubViewport/opening1"]
+[node name="SpawnTimer" type="Timer" parent="opening1"]
+autostart = true
 
-[node name="Spawner" type="Path2D" parent="SubViewportContainer/SubViewport/opening1"]
+[node name="Spawner" type="Path2D" parent="opening1"]
+z_index = 1
 position = Vector2(-13, 5)
 curve = SubResource("Curve2D_7y75u")
 script = ExtResource("6_n63j6")
 mirror = true
+barrel_group = &"Enemy Barrel 1"
 
-[node name="Phantom" parent="SubViewportContainer/SubViewport/opening1/Spawner" instance=ExtResource("7_gfvyq")]
+[node name="Phantom" parent="opening1/Spawner" instance=ExtResource("7_gfvyq")]
 position = Vector2(-88, 315)
 
-[node name="Phantom2" parent="SubViewportContainer/SubViewport/opening1/Spawner" instance=ExtResource("7_gfvyq")]
+[node name="Phantom2" parent="opening1/Spawner" instance=ExtResource("7_gfvyq")]
 position = Vector2(-88, 315)
 
-[node name="Phantom3" parent="SubViewportContainer/SubViewport/opening1/Spawner" instance=ExtResource("7_gfvyq")]
+[node name="Phantom3" parent="opening1/Spawner" instance=ExtResource("7_gfvyq")]
 position = Vector2(-88, 315)
 
-[node name="Phantom4" parent="SubViewportContainer/SubViewport/opening1/Spawner" instance=ExtResource("7_gfvyq")]
+[node name="Phantom4" parent="opening1/Spawner" instance=ExtResource("7_gfvyq")]
 position = Vector2(-88, 315)
 
-[node name="Phantom5" parent="SubViewportContainer/SubViewport/opening1/Spawner" instance=ExtResource("7_gfvyq")]
+[node name="Phantom5" parent="opening1/Spawner" instance=ExtResource("7_gfvyq")]
 position = Vector2(-88, 315)
 
-[node name="Phantom6" parent="SubViewportContainer/SubViewport/opening1/Spawner" instance=ExtResource("7_gfvyq")]
+[node name="Phantom6" parent="opening1/Spawner" instance=ExtResource("7_gfvyq")]
 position = Vector2(-88, 315)
 
-[node name="Phantom7" parent="SubViewportContainer/SubViewport/opening1/Spawner" instance=ExtResource("7_gfvyq")]
+[node name="Phantom7" parent="opening1/Spawner" instance=ExtResource("7_gfvyq")]
 position = Vector2(-88, 315)
 
-[node name="Phantom8" parent="SubViewportContainer/SubViewport/opening1/Spawner" instance=ExtResource("7_gfvyq")]
+[node name="Phantom8" parent="opening1/Spawner" instance=ExtResource("7_gfvyq")]
 position = Vector2(-88, 315)
 
-[node name="Phantom9" parent="SubViewportContainer/SubViewport/opening1/Spawner" instance=ExtResource("7_gfvyq")]
+[node name="Phantom9" parent="opening1/Spawner" instance=ExtResource("7_gfvyq")]
 position = Vector2(-88, 315)
 
-[node name="corner" parent="SubViewportContainer/SubViewport/opening1" instance=ExtResource("7_3lgdb")]
+[node name="Phantom10" parent="opening1/Spawner" instance=ExtResource("7_gfvyq")]
+position = Vector2(-88, 315)
+
+[node name="corner" parent="opening1" instance=ExtResource("7_3lgdb")]
 final_position = Vector2(56, 111)
 
-[node name="corner2" parent="SubViewportContainer/SubViewport/opening1" instance=ExtResource("7_3lgdb")]
+[node name="corner2" parent="opening1" instance=ExtResource("7_3lgdb")]
 position = Vector2(607, 46)
 scale = Vector2(-1, 1)
 final_position = Vector2(476, 67)
 
-[node name="CornerBullet" type="Node2D" parent="SubViewportContainer/SubViewport/opening1" groups=["Enemy Bullet"]]
+[node name="CornerBullet" type="Node2D" parent="opening1" groups=["Enemy Bullet"]]
 z_index = 100
 material = SubResource("ShaderMaterial_hb4jd")
 scale = Vector2(1.5, 1.5)
@@ -277,11 +273,11 @@ hitbox = ExtResource("12_p0i0r")
 collision_mask = 5
 texture = ExtResource("10_v410t")
 
-[node name="BurstTimer" parent="SubViewportContainer/SubViewport/opening1/CornerBullet" instance=ExtResource("12_1v63h")]
+[node name="BurstTimer" parent="opening1/CornerBullet" instance=ExtResource("12_1v63h")]
 wait_time = 0.1
 burst_count = 5
 
-[node name="SpawnerBullet" type="Node2D" parent="SubViewportContainer/SubViewport/opening1" groups=["Enemy Bullet"]]
+[node name="SpawnerBullet" type="Node2D" parent="opening1" groups=["Enemy Bullet"]]
 z_index = 100
 material = SubResource("ShaderMaterial_3kkwx")
 position = Vector2(-13, 5)
@@ -294,11 +290,11 @@ hitbox = ExtResource("9_mv1dw")
 collision_mask = 5
 texture = ExtResource("8_5anlm")
 
-[node name="opening2" type="Node2D" parent="SubViewportContainer/SubViewport"]
+[node name="opening2" type="Node2D" parent="."]
 script = ExtResource("4_wsm02")
 paths = Array[NodePath]([NodePath("SpawnTimer"), NodePath("LevelTimer"), NodePath("Spawner2Bullet/Timer")])
 
-[node name="Spawner2Bullet" type="Node2D" parent="SubViewportContainer/SubViewport/opening2" groups=["Enemy Bullet"]]
+[node name="Spawner2Bullet" type="Node2D" parent="opening2" groups=["Enemy Bullet"]]
 z_index = 100
 material = SubResource("ShaderMaterial_4roxx")
 position = Vector2(4, -54)
@@ -311,62 +307,62 @@ hitbox = ExtResource("20_8mwtk")
 collision_mask = 5
 texture = ExtResource("20_exfp5")
 
-[node name="Timer" type="Timer" parent="SubViewportContainer/SubViewport/opening2/Spawner2Bullet"]
+[node name="Timer" type="Timer" parent="opening2/Spawner2Bullet"]
 wait_time = 0.2
 
-[node name="Spawner2" type="Path2D" parent="SubViewportContainer/SubViewport/opening2/Spawner2Bullet"]
+[node name="Spawner2" type="Path2D" parent="opening2/Spawner2Bullet"]
 curve = SubResource("Curve2D_rvgc8")
 script = ExtResource("6_n63j6")
 mirror = true
 
-[node name="Phantom" parent="SubViewportContainer/SubViewport/opening2/Spawner2Bullet/Spawner2" instance=ExtResource("20_5gbox")]
+[node name="Phantom" parent="opening2/Spawner2Bullet/Spawner2" instance=ExtResource("20_5gbox")]
 position = Vector2(-50, 146)
 
-[node name="Phantom2" parent="SubViewportContainer/SubViewport/opening2/Spawner2Bullet/Spawner2" instance=ExtResource("20_5gbox")]
+[node name="Phantom2" parent="opening2/Spawner2Bullet/Spawner2" instance=ExtResource("20_5gbox")]
 position = Vector2(-50, 146)
 
-[node name="Phantom3" parent="SubViewportContainer/SubViewport/opening2/Spawner2Bullet/Spawner2" instance=ExtResource("20_5gbox")]
+[node name="Phantom3" parent="opening2/Spawner2Bullet/Spawner2" instance=ExtResource("20_5gbox")]
 position = Vector2(-50, 146)
 
-[node name="Phantom4" parent="SubViewportContainer/SubViewport/opening2/Spawner2Bullet/Spawner2" instance=ExtResource("20_5gbox")]
+[node name="Phantom4" parent="opening2/Spawner2Bullet/Spawner2" instance=ExtResource("20_5gbox")]
 position = Vector2(-50, 146)
 
-[node name="Phantom5" parent="SubViewportContainer/SubViewport/opening2/Spawner2Bullet/Spawner2" instance=ExtResource("20_5gbox")]
+[node name="Phantom5" parent="opening2/Spawner2Bullet/Spawner2" instance=ExtResource("20_5gbox")]
 position = Vector2(-50, 146)
 
-[node name="Phantom6" parent="SubViewportContainer/SubViewport/opening2/Spawner2Bullet/Spawner2" instance=ExtResource("20_5gbox")]
+[node name="Phantom6" parent="opening2/Spawner2Bullet/Spawner2" instance=ExtResource("20_5gbox")]
 position = Vector2(-50, 146)
 
-[node name="Phantom7" parent="SubViewportContainer/SubViewport/opening2/Spawner2Bullet/Spawner2" instance=ExtResource("20_5gbox")]
+[node name="Phantom7" parent="opening2/Spawner2Bullet/Spawner2" instance=ExtResource("20_5gbox")]
 position = Vector2(-50, 146)
 
-[node name="Phantom8" parent="SubViewportContainer/SubViewport/opening2/Spawner2Bullet/Spawner2" instance=ExtResource("20_5gbox")]
+[node name="Phantom8" parent="opening2/Spawner2Bullet/Spawner2" instance=ExtResource("20_5gbox")]
 position = Vector2(-50, 146)
 
-[node name="Phantom9" parent="SubViewportContainer/SubViewport/opening2/Spawner2Bullet/Spawner2" instance=ExtResource("20_5gbox")]
+[node name="Phantom9" parent="opening2/Spawner2Bullet/Spawner2" instance=ExtResource("20_5gbox")]
 position = Vector2(-50, 146)
 
-[node name="Phantom10" parent="SubViewportContainer/SubViewport/opening2/Spawner2Bullet/Spawner2" instance=ExtResource("20_5gbox")]
+[node name="Phantom10" parent="opening2/Spawner2Bullet/Spawner2" instance=ExtResource("20_5gbox")]
 position = Vector2(-50, 146)
 
-[node name="Phantom11" parent="SubViewportContainer/SubViewport/opening2/Spawner2Bullet/Spawner2" instance=ExtResource("20_5gbox")]
+[node name="Phantom11" parent="opening2/Spawner2Bullet/Spawner2" instance=ExtResource("20_5gbox")]
 position = Vector2(-50, 146)
 
-[node name="SpawnTimer" type="Timer" parent="SubViewportContainer/SubViewport/opening2"]
+[node name="SpawnTimer" type="Timer" parent="opening2"]
 wait_time = 0.5
 
-[node name="LevelTimer" type="Timer" parent="SubViewportContainer/SubViewport/opening2"]
+[node name="LevelTimer" type="Timer" parent="opening2"]
 wait_time = 30.0
 
-[node name="boss1" type="Node2D" parent="SubViewportContainer/SubViewport"]
+[node name="boss1" type="Node2D" parent="."]
 script = ExtResource("4_wsm02")
 paths = Array[NodePath]([NodePath("Swing/BurstTimer"), NodePath("../yukari"), NodePath("LevelTimer")])
 
-[node name="Swing" type="Node2D" parent="SubViewportContainer/SubViewport/boss1"]
+[node name="Swing" type="Node2D" parent="boss1"]
 position = Vector2(270, 285)
 script = ExtResource("21_dj0sb")
 
-[node name="Swing" type="Node2D" parent="SubViewportContainer/SubViewport/boss1/Swing" groups=["Enemy Bullet"]]
+[node name="Swing" type="Node2D" parent="boss1/Swing" groups=["Enemy Bullet"]]
 z_index = 100
 material = SubResource("ShaderMaterial_o2d6k")
 script = ExtResource("25_ok0yk")
@@ -376,185 +372,185 @@ hitbox = ExtResource("23_oo4ok")
 collision_mask = 5
 texture = ExtResource("24_2664k")
 
-[node name="@@38436" type="Marker2D" parent="SubViewportContainer/SubViewport/boss1/Swing/Swing" groups=["Enemy Barrel Ghost"]]
+[node name="@@38436" type="Marker2D" parent="boss1/Swing/Swing" groups=["Enemy Barrel Ghost"]]
 position = Vector2(132.306, 0)
 gizmo_extents = 20.0
 
-[node name="@@38437" type="Marker2D" parent="SubViewportContainer/SubViewport/boss1/Swing/Swing" groups=["Enemy Barrel Ghost"]]
+[node name="@@38437" type="Marker2D" parent="boss1/Swing/Swing" groups=["Enemy Barrel Ghost"]]
 position = Vector2(129.764, 25.8117)
 rotation = 0.19635
 gizmo_extents = 20.0
 
-[node name="@@38438" type="Marker2D" parent="SubViewportContainer/SubViewport/boss1/Swing/Swing" groups=["Enemy Barrel Ghost"]]
+[node name="@@38438" type="Marker2D" parent="boss1/Swing/Swing" groups=["Enemy Barrel Ghost"]]
 position = Vector2(122.235, 50.6315)
 rotation = 0.392699
 gizmo_extents = 20.0
 
-[node name="@@38439" type="Marker2D" parent="SubViewportContainer/SubViewport/boss1/Swing/Swing" groups=["Enemy Barrel Ghost"]]
+[node name="@@38439" type="Marker2D" parent="boss1/Swing/Swing" groups=["Enemy Barrel Ghost"]]
 position = Vector2(110.009, 73.5055)
 rotation = 0.589049
 gizmo_extents = 20.0
 
-[node name="@@38440" type="Marker2D" parent="SubViewportContainer/SubViewport/boss1/Swing/Swing" groups=["Enemy Barrel Ghost"]]
+[node name="@@38440" type="Marker2D" parent="boss1/Swing/Swing" groups=["Enemy Barrel Ghost"]]
 position = Vector2(93.5548, 93.5548)
 rotation = 0.785398
 gizmo_extents = 20.0
 
-[node name="@@38441" type="Marker2D" parent="SubViewportContainer/SubViewport/boss1/Swing/Swing" groups=["Enemy Barrel Ghost"]]
+[node name="@@38441" type="Marker2D" parent="boss1/Swing/Swing" groups=["Enemy Barrel Ghost"]]
 position = Vector2(73.5055, 110.009)
 rotation = 0.981748
 gizmo_extents = 20.0
 
-[node name="@@38442" type="Marker2D" parent="SubViewportContainer/SubViewport/boss1/Swing/Swing" groups=["Enemy Barrel Ghost"]]
+[node name="@@38442" type="Marker2D" parent="boss1/Swing/Swing" groups=["Enemy Barrel Ghost"]]
 position = Vector2(50.6315, 122.235)
 rotation = 1.1781
 gizmo_extents = 20.0
 
-[node name="@@38443" type="Marker2D" parent="SubViewportContainer/SubViewport/boss1/Swing/Swing" groups=["Enemy Barrel Ghost"]]
+[node name="@@38443" type="Marker2D" parent="boss1/Swing/Swing" groups=["Enemy Barrel Ghost"]]
 position = Vector2(25.8117, 129.764)
 rotation = 1.37445
 gizmo_extents = 20.0
 
-[node name="@@38444" type="Marker2D" parent="SubViewportContainer/SubViewport/boss1/Swing/Swing" groups=["Enemy Barrel Ghost"]]
+[node name="@@38444" type="Marker2D" parent="boss1/Swing/Swing" groups=["Enemy Barrel Ghost"]]
 position = Vector2(0, 132.306)
 rotation = 1.5708
 gizmo_extents = 20.0
 
-[node name="@@38445" type="Marker2D" parent="SubViewportContainer/SubViewport/boss1/Swing/Swing" groups=["Enemy Barrel Ghost"]]
+[node name="@@38445" type="Marker2D" parent="boss1/Swing/Swing" groups=["Enemy Barrel Ghost"]]
 position = Vector2(-25.8117, 129.764)
 rotation = 1.76715
 gizmo_extents = 20.0
 
-[node name="@@38446" type="Marker2D" parent="SubViewportContainer/SubViewport/boss1/Swing/Swing" groups=["Enemy Barrel Ghost"]]
+[node name="@@38446" type="Marker2D" parent="boss1/Swing/Swing" groups=["Enemy Barrel Ghost"]]
 position = Vector2(-50.6315, 122.235)
 rotation = 1.9635
 gizmo_extents = 20.0
 
-[node name="@@38447" type="Marker2D" parent="SubViewportContainer/SubViewport/boss1/Swing/Swing" groups=["Enemy Barrel Ghost"]]
+[node name="@@38447" type="Marker2D" parent="boss1/Swing/Swing" groups=["Enemy Barrel Ghost"]]
 position = Vector2(-73.5055, 110.009)
 rotation = 2.15984
 gizmo_extents = 20.0
 
-[node name="@@38448" type="Marker2D" parent="SubViewportContainer/SubViewport/boss1/Swing/Swing" groups=["Enemy Barrel Ghost"]]
+[node name="@@38448" type="Marker2D" parent="boss1/Swing/Swing" groups=["Enemy Barrel Ghost"]]
 position = Vector2(-93.5548, 93.5548)
 rotation = 2.35619
 gizmo_extents = 20.0
 
-[node name="@@38449" type="Marker2D" parent="SubViewportContainer/SubViewport/boss1/Swing/Swing" groups=["Enemy Barrel Ghost"]]
+[node name="@@38449" type="Marker2D" parent="boss1/Swing/Swing" groups=["Enemy Barrel Ghost"]]
 position = Vector2(-110.009, 73.5055)
 rotation = 2.55254
 gizmo_extents = 20.0
 
-[node name="@@38450" type="Marker2D" parent="SubViewportContainer/SubViewport/boss1/Swing/Swing" groups=["Enemy Barrel Ghost"]]
+[node name="@@38450" type="Marker2D" parent="boss1/Swing/Swing" groups=["Enemy Barrel Ghost"]]
 position = Vector2(-122.235, 50.6315)
 rotation = 2.74889
 gizmo_extents = 20.0
 
-[node name="@@38451" type="Marker2D" parent="SubViewportContainer/SubViewport/boss1/Swing/Swing" groups=["Enemy Barrel Ghost"]]
+[node name="@@38451" type="Marker2D" parent="boss1/Swing/Swing" groups=["Enemy Barrel Ghost"]]
 position = Vector2(-129.764, 25.8117)
 rotation = 2.94524
 gizmo_extents = 20.0
 
-[node name="@@38452" type="Marker2D" parent="SubViewportContainer/SubViewport/boss1/Swing/Swing" groups=["Enemy Barrel Ghost"]]
+[node name="@@38452" type="Marker2D" parent="boss1/Swing/Swing" groups=["Enemy Barrel Ghost"]]
 position = Vector2(-132.306, 0)
 rotation = -3.14159
 gizmo_extents = 20.0
 
-[node name="@@38453" type="Marker2D" parent="SubViewportContainer/SubViewport/boss1/Swing/Swing" groups=["Enemy Barrel Ghost"]]
+[node name="@@38453" type="Marker2D" parent="boss1/Swing/Swing" groups=["Enemy Barrel Ghost"]]
 position = Vector2(-129.764, -25.8117)
 rotation = -2.94524
 gizmo_extents = 20.0
 
-[node name="@@38454" type="Marker2D" parent="SubViewportContainer/SubViewport/boss1/Swing/Swing" groups=["Enemy Barrel Ghost"]]
+[node name="@@38454" type="Marker2D" parent="boss1/Swing/Swing" groups=["Enemy Barrel Ghost"]]
 position = Vector2(-122.235, -50.6315)
 rotation = -2.74889
 gizmo_extents = 20.0
 
-[node name="@@38455" type="Marker2D" parent="SubViewportContainer/SubViewport/boss1/Swing/Swing" groups=["Enemy Barrel Ghost"]]
+[node name="@@38455" type="Marker2D" parent="boss1/Swing/Swing" groups=["Enemy Barrel Ghost"]]
 position = Vector2(-110.009, -73.5055)
 rotation = -2.55254
 gizmo_extents = 20.0
 
-[node name="@@38456" type="Marker2D" parent="SubViewportContainer/SubViewport/boss1/Swing/Swing" groups=["Enemy Barrel Ghost"]]
+[node name="@@38456" type="Marker2D" parent="boss1/Swing/Swing" groups=["Enemy Barrel Ghost"]]
 position = Vector2(-93.5548, -93.5548)
 rotation = -2.35619
 gizmo_extents = 20.0
 
-[node name="@@38457" type="Marker2D" parent="SubViewportContainer/SubViewport/boss1/Swing/Swing" groups=["Enemy Barrel Ghost"]]
+[node name="@@38457" type="Marker2D" parent="boss1/Swing/Swing" groups=["Enemy Barrel Ghost"]]
 position = Vector2(-73.5056, -110.009)
 rotation = -2.15985
 gizmo_extents = 20.0
 
-[node name="@@38458" type="Marker2D" parent="SubViewportContainer/SubViewport/boss1/Swing/Swing" groups=["Enemy Barrel Ghost"]]
+[node name="@@38458" type="Marker2D" parent="boss1/Swing/Swing" groups=["Enemy Barrel Ghost"]]
 position = Vector2(-50.6315, -122.235)
 rotation = -1.9635
 gizmo_extents = 20.0
 
-[node name="@@38459" type="Marker2D" parent="SubViewportContainer/SubViewport/boss1/Swing/Swing" groups=["Enemy Barrel Ghost"]]
+[node name="@@38459" type="Marker2D" parent="boss1/Swing/Swing" groups=["Enemy Barrel Ghost"]]
 position = Vector2(-25.8117, -129.764)
 rotation = -1.76715
 gizmo_extents = 20.0
 
-[node name="@@38460" type="Marker2D" parent="SubViewportContainer/SubViewport/boss1/Swing/Swing" groups=["Enemy Barrel Ghost"]]
+[node name="@@38460" type="Marker2D" parent="boss1/Swing/Swing" groups=["Enemy Barrel Ghost"]]
 position = Vector2(0, -132.306)
 rotation = -1.5708
 gizmo_extents = 20.0
 
-[node name="@@38461" type="Marker2D" parent="SubViewportContainer/SubViewport/boss1/Swing/Swing" groups=["Enemy Barrel Ghost"]]
+[node name="@@38461" type="Marker2D" parent="boss1/Swing/Swing" groups=["Enemy Barrel Ghost"]]
 position = Vector2(25.8117, -129.764)
 rotation = -1.37445
 gizmo_extents = 20.0
 
-[node name="@@38462" type="Marker2D" parent="SubViewportContainer/SubViewport/boss1/Swing/Swing" groups=["Enemy Barrel Ghost"]]
+[node name="@@38462" type="Marker2D" parent="boss1/Swing/Swing" groups=["Enemy Barrel Ghost"]]
 position = Vector2(50.6315, -122.235)
 rotation = -1.1781
 gizmo_extents = 20.0
 
-[node name="@@38463" type="Marker2D" parent="SubViewportContainer/SubViewport/boss1/Swing/Swing" groups=["Enemy Barrel Ghost"]]
+[node name="@@38463" type="Marker2D" parent="boss1/Swing/Swing" groups=["Enemy Barrel Ghost"]]
 position = Vector2(73.5055, -110.009)
 rotation = -0.981748
 gizmo_extents = 20.0
 
-[node name="@@38464" type="Marker2D" parent="SubViewportContainer/SubViewport/boss1/Swing/Swing" groups=["Enemy Barrel Ghost"]]
+[node name="@@38464" type="Marker2D" parent="boss1/Swing/Swing" groups=["Enemy Barrel Ghost"]]
 position = Vector2(93.5548, -93.5548)
 rotation = -0.785398
 gizmo_extents = 20.0
 
-[node name="@@38465" type="Marker2D" parent="SubViewportContainer/SubViewport/boss1/Swing/Swing" groups=["Enemy Barrel Ghost"]]
+[node name="@@38465" type="Marker2D" parent="boss1/Swing/Swing" groups=["Enemy Barrel Ghost"]]
 position = Vector2(110.009, -73.5055)
 rotation = -0.589049
 gizmo_extents = 20.0
 
-[node name="@@38466" type="Marker2D" parent="SubViewportContainer/SubViewport/boss1/Swing/Swing" groups=["Enemy Barrel Ghost"]]
+[node name="@@38466" type="Marker2D" parent="boss1/Swing/Swing" groups=["Enemy Barrel Ghost"]]
 position = Vector2(122.235, -50.6315)
 rotation = -0.392699
 gizmo_extents = 20.0
 
-[node name="@@38467" type="Marker2D" parent="SubViewportContainer/SubViewport/boss1/Swing/Swing" groups=["Enemy Barrel Ghost"]]
+[node name="@@38467" type="Marker2D" parent="boss1/Swing/Swing" groups=["Enemy Barrel Ghost"]]
 position = Vector2(129.764, -25.8117)
 rotation = -0.196349
 gizmo_extents = 20.0
 
-[node name="BurstTimer" type="Timer" parent="SubViewportContainer/SubViewport/boss1/Swing"]
+[node name="BurstTimer" type="Timer" parent="boss1/Swing"]
 wait_time = 0.1
 script = ExtResource("25_w644i")
 burst_count = 10
 
-[node name="Cycle" type="Timer" parent="SubViewportContainer/SubViewport/boss1/Swing/BurstTimer"]
+[node name="Cycle" type="Timer" parent="boss1/Swing/BurstTimer"]
 one_shot = true
 
-[node name="LevelTimer" type="Timer" parent="SubViewportContainer/SubViewport/boss1"]
+[node name="LevelTimer" type="Timer" parent="boss1"]
 wait_time = 30.0
 
-[node name="boss2" type="Node2D" parent="SubViewportContainer/SubViewport"]
+[node name="boss2" type="Node2D" parent="."]
 script = ExtResource("4_wsm02")
 paths = Array[NodePath]([NodePath("Timer"), NodePath("LevelTimer")])
 
-[node name="SpinShot" type="Node2D" parent="SubViewportContainer/SubViewport/boss2"]
+[node name="SpinShot" type="Node2D" parent="boss2"]
 position = Vector2(270, 285)
 script = ExtResource("25_eroeu")
 
-[node name="SpinBullet" type="Node2D" parent="SubViewportContainer/SubViewport/boss2/SpinShot" groups=["Enemy Bullet"]]
+[node name="SpinBullet" type="Node2D" parent="boss2/SpinShot" groups=["Enemy Bullet"]]
 z_index = 100
 material = SubResource("ShaderMaterial_o2d6k")
 script = ExtResource("11_pvd46")
@@ -565,214 +561,223 @@ hitbox = ExtResource("23_oo4ok")
 collision_mask = 5
 texture = ExtResource("24_2664k")
 
-[node name="clockwise" type="Node2D" parent="SubViewportContainer/SubViewport/boss2/SpinShot"]
+[node name="clockwise" type="Node2D" parent="boss2/SpinShot"]
 
-[node name="@@56362" type="Marker2D" parent="SubViewportContainer/SubViewport/boss2/SpinShot/clockwise" groups=["Enemy Barrel Spin"]]
+[node name="@@56362" type="Marker2D" parent="boss2/SpinShot/clockwise" groups=["Enemy Barrel Spin"]]
 position = Vector2(-127.769, 0)
 rotation = -3.14159
 gizmo_extents = 40.0
 
-[node name="@@56363" type="Marker2D" parent="SubViewportContainer/SubViewport/boss2/SpinShot/clockwise" groups=["Enemy Barrel Spin"]]
+[node name="@@56363" type="Marker2D" parent="boss2/SpinShot/clockwise" groups=["Enemy Barrel Spin"]]
 position = Vector2(-125.314, -24.9265)
 rotation = -2.94524
 gizmo_extents = 40.0
 
-[node name="@@56364" type="Marker2D" parent="SubViewportContainer/SubViewport/boss2/SpinShot/clockwise" groups=["Enemy Barrel Spin"]]
+[node name="@@56364" type="Marker2D" parent="boss2/SpinShot/clockwise" groups=["Enemy Barrel Spin"]]
 position = Vector2(-118.043, -48.8952)
 rotation = -2.74889
 gizmo_extents = 40.0
 
-[node name="@@56365" type="Marker2D" parent="SubViewportContainer/SubViewport/boss2/SpinShot/clockwise" groups=["Enemy Barrel Spin"]]
+[node name="@@56365" type="Marker2D" parent="boss2/SpinShot/clockwise" groups=["Enemy Barrel Spin"]]
 position = Vector2(-106.236, -70.9848)
 rotation = -2.55254
 gizmo_extents = 40.0
 
-[node name="@@56366" type="Marker2D" parent="SubViewportContainer/SubViewport/boss2/SpinShot/clockwise" groups=["Enemy Barrel Spin"]]
+[node name="@@56366" type="Marker2D" parent="boss2/SpinShot/clockwise" groups=["Enemy Barrel Spin"]]
 position = Vector2(-90.3466, -90.3466)
 rotation = -2.35619
 gizmo_extents = 40.0
 
-[node name="@@56367" type="Marker2D" parent="SubViewportContainer/SubViewport/boss2/SpinShot/clockwise" groups=["Enemy Barrel Spin"]]
+[node name="@@56367" type="Marker2D" parent="boss2/SpinShot/clockwise" groups=["Enemy Barrel Spin"]]
 position = Vector2(-70.9849, -106.236)
 rotation = -2.15985
 gizmo_extents = 40.0
 
-[node name="@@56368" type="Marker2D" parent="SubViewportContainer/SubViewport/boss2/SpinShot/clockwise" groups=["Enemy Barrel Spin"]]
+[node name="@@56368" type="Marker2D" parent="boss2/SpinShot/clockwise" groups=["Enemy Barrel Spin"]]
 position = Vector2(-48.8952, -118.043)
 rotation = -1.9635
 gizmo_extents = 40.0
 
-[node name="@@56369" type="Marker2D" parent="SubViewportContainer/SubViewport/boss2/SpinShot/clockwise" groups=["Enemy Barrel Spin"]]
+[node name="@@56369" type="Marker2D" parent="boss2/SpinShot/clockwise" groups=["Enemy Barrel Spin"]]
 position = Vector2(-24.9266, -125.314)
 rotation = -1.76715
 gizmo_extents = 40.0
 
-[node name="@@56370" type="Marker2D" parent="SubViewportContainer/SubViewport/boss2/SpinShot/clockwise" groups=["Enemy Barrel Spin"]]
+[node name="@@56370" type="Marker2D" parent="boss2/SpinShot/clockwise" groups=["Enemy Barrel Spin"]]
 position = Vector2(0, -127.769)
 rotation = -1.5708
 gizmo_extents = 40.0
 
-[node name="@@56371" type="Marker2D" parent="SubViewportContainer/SubViewport/boss2/SpinShot/clockwise" groups=["Enemy Barrel Spin"]]
+[node name="@@56371" type="Marker2D" parent="boss2/SpinShot/clockwise" groups=["Enemy Barrel Spin"]]
 position = Vector2(24.9266, -125.314)
 rotation = -1.37445
 gizmo_extents = 40.0
 
-[node name="@@56372" type="Marker2D" parent="SubViewportContainer/SubViewport/boss2/SpinShot/clockwise" groups=["Enemy Barrel Spin"]]
+[node name="@@56372" type="Marker2D" parent="boss2/SpinShot/clockwise" groups=["Enemy Barrel Spin"]]
 position = Vector2(48.8952, -118.043)
 rotation = -1.1781
 gizmo_extents = 40.0
 
-[node name="@@56373" type="Marker2D" parent="SubViewportContainer/SubViewport/boss2/SpinShot/clockwise" groups=["Enemy Barrel Spin"]]
+[node name="@@56373" type="Marker2D" parent="boss2/SpinShot/clockwise" groups=["Enemy Barrel Spin"]]
 position = Vector2(70.9848, -106.236)
 rotation = -0.981748
 gizmo_extents = 40.0
 
-[node name="@@56374" type="Marker2D" parent="SubViewportContainer/SubViewport/boss2/SpinShot/clockwise" groups=["Enemy Barrel Spin"]]
+[node name="@@56374" type="Marker2D" parent="boss2/SpinShot/clockwise" groups=["Enemy Barrel Spin"]]
 position = Vector2(90.3466, -90.3466)
 rotation = -0.785398
 gizmo_extents = 40.0
 
-[node name="@@56375" type="Marker2D" parent="SubViewportContainer/SubViewport/boss2/SpinShot/clockwise" groups=["Enemy Barrel Spin"]]
+[node name="@@56375" type="Marker2D" parent="boss2/SpinShot/clockwise" groups=["Enemy Barrel Spin"]]
 position = Vector2(106.236, -70.9848)
 rotation = -0.589049
 gizmo_extents = 40.0
 
-[node name="@@56376" type="Marker2D" parent="SubViewportContainer/SubViewport/boss2/SpinShot/clockwise" groups=["Enemy Barrel Spin"]]
+[node name="@@56376" type="Marker2D" parent="boss2/SpinShot/clockwise" groups=["Enemy Barrel Spin"]]
 position = Vector2(118.043, -48.8952)
 rotation = -0.392699
 gizmo_extents = 40.0
 
-[node name="@@56377" type="Marker2D" parent="SubViewportContainer/SubViewport/boss2/SpinShot/clockwise" groups=["Enemy Barrel Spin"]]
+[node name="@@56377" type="Marker2D" parent="boss2/SpinShot/clockwise" groups=["Enemy Barrel Spin"]]
 position = Vector2(125.314, -24.9265)
 rotation = -0.196349
 gizmo_extents = 40.0
 
-[node name="CounterClockwise" type="Node2D" parent="SubViewportContainer/SubViewport/boss2/SpinShot"]
+[node name="CounterClockwise" type="Node2D" parent="boss2/SpinShot"]
 
-[node name="56362" type="Marker2D" parent="SubViewportContainer/SubViewport/boss2/SpinShot/CounterClockwise" groups=["Enemy Barrel Spin"]]
+[node name="56362" type="Marker2D" parent="boss2/SpinShot/CounterClockwise" groups=["Enemy Barrel Spin"]]
 position = Vector2(-127.769, 0)
 rotation = -3.14159
 gizmo_extents = 40.0
 
-[node name="56363" type="Marker2D" parent="SubViewportContainer/SubViewport/boss2/SpinShot/CounterClockwise" groups=["Enemy Barrel Spin"]]
+[node name="56363" type="Marker2D" parent="boss2/SpinShot/CounterClockwise" groups=["Enemy Barrel Spin"]]
 position = Vector2(-125.314, -24.9265)
 rotation = -2.94524
 gizmo_extents = 40.0
 
-[node name="56364" type="Marker2D" parent="SubViewportContainer/SubViewport/boss2/SpinShot/CounterClockwise" groups=["Enemy Barrel Spin"]]
+[node name="56364" type="Marker2D" parent="boss2/SpinShot/CounterClockwise" groups=["Enemy Barrel Spin"]]
 position = Vector2(-118.043, -48.8952)
 rotation = -2.74889
 gizmo_extents = 40.0
 
-[node name="56365" type="Marker2D" parent="SubViewportContainer/SubViewport/boss2/SpinShot/CounterClockwise" groups=["Enemy Barrel Spin"]]
+[node name="56365" type="Marker2D" parent="boss2/SpinShot/CounterClockwise" groups=["Enemy Barrel Spin"]]
 position = Vector2(-106.236, -70.9848)
 rotation = -2.55254
 gizmo_extents = 40.0
 
-[node name="56366" type="Marker2D" parent="SubViewportContainer/SubViewport/boss2/SpinShot/CounterClockwise" groups=["Enemy Barrel Spin"]]
+[node name="56366" type="Marker2D" parent="boss2/SpinShot/CounterClockwise" groups=["Enemy Barrel Spin"]]
 position = Vector2(-90.3466, -90.3466)
 rotation = -2.35619
 gizmo_extents = 40.0
 
-[node name="56367" type="Marker2D" parent="SubViewportContainer/SubViewport/boss2/SpinShot/CounterClockwise" groups=["Enemy Barrel Spin"]]
+[node name="56367" type="Marker2D" parent="boss2/SpinShot/CounterClockwise" groups=["Enemy Barrel Spin"]]
 position = Vector2(-70.9849, -106.236)
 rotation = -2.15985
 gizmo_extents = 40.0
 
-[node name="56368" type="Marker2D" parent="SubViewportContainer/SubViewport/boss2/SpinShot/CounterClockwise" groups=["Enemy Barrel Spin"]]
+[node name="56368" type="Marker2D" parent="boss2/SpinShot/CounterClockwise" groups=["Enemy Barrel Spin"]]
 position = Vector2(-48.8952, -118.043)
 rotation = -1.9635
 gizmo_extents = 40.0
 
-[node name="56369" type="Marker2D" parent="SubViewportContainer/SubViewport/boss2/SpinShot/CounterClockwise" groups=["Enemy Barrel Spin"]]
+[node name="56369" type="Marker2D" parent="boss2/SpinShot/CounterClockwise" groups=["Enemy Barrel Spin"]]
 position = Vector2(-24.9266, -125.314)
 rotation = -1.76715
 gizmo_extents = 40.0
 
-[node name="56370" type="Marker2D" parent="SubViewportContainer/SubViewport/boss2/SpinShot/CounterClockwise" groups=["Enemy Barrel Spin"]]
+[node name="56370" type="Marker2D" parent="boss2/SpinShot/CounterClockwise" groups=["Enemy Barrel Spin"]]
 position = Vector2(0, -127.769)
 rotation = -1.5708
 gizmo_extents = 40.0
 
-[node name="56371" type="Marker2D" parent="SubViewportContainer/SubViewport/boss2/SpinShot/CounterClockwise" groups=["Enemy Barrel Spin"]]
+[node name="56371" type="Marker2D" parent="boss2/SpinShot/CounterClockwise" groups=["Enemy Barrel Spin"]]
 position = Vector2(24.9266, -125.314)
 rotation = -1.37445
 gizmo_extents = 40.0
 
-[node name="56372" type="Marker2D" parent="SubViewportContainer/SubViewport/boss2/SpinShot/CounterClockwise" groups=["Enemy Barrel Spin"]]
+[node name="56372" type="Marker2D" parent="boss2/SpinShot/CounterClockwise" groups=["Enemy Barrel Spin"]]
 position = Vector2(48.8952, -118.043)
 rotation = -1.1781
 gizmo_extents = 40.0
 
-[node name="56373" type="Marker2D" parent="SubViewportContainer/SubViewport/boss2/SpinShot/CounterClockwise" groups=["Enemy Barrel Spin"]]
+[node name="56373" type="Marker2D" parent="boss2/SpinShot/CounterClockwise" groups=["Enemy Barrel Spin"]]
 position = Vector2(70.9848, -106.236)
 rotation = -0.981748
 gizmo_extents = 40.0
 
-[node name="56374" type="Marker2D" parent="SubViewportContainer/SubViewport/boss2/SpinShot/CounterClockwise" groups=["Enemy Barrel Spin"]]
+[node name="56374" type="Marker2D" parent="boss2/SpinShot/CounterClockwise" groups=["Enemy Barrel Spin"]]
 position = Vector2(90.3466, -90.3466)
 rotation = -0.785398
 gizmo_extents = 40.0
 
-[node name="56375" type="Marker2D" parent="SubViewportContainer/SubViewport/boss2/SpinShot/CounterClockwise" groups=["Enemy Barrel Spin"]]
+[node name="56375" type="Marker2D" parent="boss2/SpinShot/CounterClockwise" groups=["Enemy Barrel Spin"]]
 position = Vector2(106.236, -70.9848)
 rotation = -0.589049
 gizmo_extents = 40.0
 
-[node name="56376" type="Marker2D" parent="SubViewportContainer/SubViewport/boss2/SpinShot/CounterClockwise" groups=["Enemy Barrel Spin"]]
+[node name="56376" type="Marker2D" parent="boss2/SpinShot/CounterClockwise" groups=["Enemy Barrel Spin"]]
 position = Vector2(118.043, -48.8952)
 rotation = -0.392699
 gizmo_extents = 40.0
 
-[node name="56377" type="Marker2D" parent="SubViewportContainer/SubViewport/boss2/SpinShot/CounterClockwise" groups=["Enemy Barrel Spin"]]
+[node name="56377" type="Marker2D" parent="boss2/SpinShot/CounterClockwise" groups=["Enemy Barrel Spin"]]
 position = Vector2(125.314, -24.9265)
 rotation = -0.196349
 gizmo_extents = 40.0
 
-[node name="LevelTimer" type="Timer" parent="SubViewportContainer/SubViewport/boss2"]
+[node name="LevelTimer" type="Timer" parent="boss2"]
 wait_time = 30.0
 
-[node name="Timer" type="Timer" parent="SubViewportContainer/SubViewport/boss2"]
+[node name="Timer" type="Timer" parent="boss2"]
 wait_time = 0.1
 
-[node name="yukari" parent="SubViewportContainer/SubViewport" instance=ExtResource("22_23hw6")]
+[node name="yukari" parent="." instance=ExtResource("22_23hw6")]
 modulate = Color(1, 1, 1, 0)
 position = Vector2(270, 285)
 
-[node name="player" type="Node2D" parent="SubViewportContainer/SubViewport"]
+[node name="player" type="Node2D" parent="."]
 position = Vector2(269, 799)
 
-[node name="ItemManager" parent="SubViewportContainer/SubViewport" instance=ExtResource("23_r2ty2")]
+[node name="BackBufferCopy" type="BackBufferCopy" parent="."]
+z_index = 2000
+copy_mode = 2
+rect = Rect2(0, 0, 0, 0)
 
-[node name="WorldBoundary" parent="SubViewportContainer/SubViewport" instance=ExtResource("24_q5vyw")]
+[node name="reflection" type="Sprite2D" parent="BackBufferCopy"]
+texture_repeat = 2
+material = SubResource("ShaderMaterial_g5wds")
+texture = ExtResource("3_6g7e0")
+centered = false
 
-[node name="Node2D" type="Node2D" parent="."]
-script = SubResource("GDScript_8c21j")
+[node name="FogOverlay" parent="." instance=ExtResource("9_v1onv")]
+modulate = Color(1, 1, 1, 0)
+z_index = 3000
 
-[node name="level" parent="." node_paths=PackedStringArray("player_container", "first_event") instance=ExtResource("9_ii2dw")]
-offset_right = 540.0
-offset_bottom = 960.0
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="level" parent="CanvasLayer" node_paths=PackedStringArray("player_container", "first_event") instance=ExtResource("9_ii2dw")]
 mouse_filter = 2
-player_container = NodePath("../SubViewportContainer/SubViewport/player")
-first_event = NodePath("../SubViewportContainer/SubViewport/opening1")
+player_container = NodePath("../../player")
+first_event = NodePath("../../opening1")
 
-[connection signal="timeout" from="SubViewportContainer/SubViewport/opening1/LevelTimer" to="SubViewportContainer/SubViewport/opening1" method="_on_level_timer_timeout"]
-[connection signal="timeout" from="SubViewportContainer/SubViewport/opening1/LevelTimer" to="SubViewportContainer/SubViewport/opening2" method="start_event"]
-[connection signal="timeout" from="SubViewportContainer/SubViewport/opening1/SpawnTimer" to="SubViewportContainer/SubViewport/opening1/Spawner" method="_on_spawn_timer_timeout"]
-[connection signal="timeout" from="SubViewportContainer/SubViewport/opening1/SpawnTimer" to="SubViewportContainer/SubViewport/opening1/SpawnerBullet" method="spawn_bullet"]
-[connection signal="timeout" from="SubViewportContainer/SubViewport/opening1/CornerBullet/BurstTimer" to="SubViewportContainer/SubViewport/opening1/CornerBullet" method="spawn_bullet"]
-[connection signal="timeout" from="SubViewportContainer/SubViewport/opening2/Spawner2Bullet/Timer" to="SubViewportContainer/SubViewport/opening2/Spawner2Bullet" method="spawn_bullet"]
-[connection signal="timeout" from="SubViewportContainer/SubViewport/opening2/SpawnTimer" to="SubViewportContainer/SubViewport/opening2/Spawner2Bullet/Spawner2" method="_on_spawn_timer_timeout"]
-[connection signal="timeout" from="SubViewportContainer/SubViewport/opening2/LevelTimer" to="SubViewportContainer/SubViewport/opening2" method="_on_level_timer_timeout"]
-[connection signal="timeout" from="SubViewportContainer/SubViewport/opening2/LevelTimer" to="SubViewportContainer/SubViewport/boss1" method="start_event"]
-[connection signal="timeout" from="SubViewportContainer/SubViewport/boss1/Swing/BurstTimer" to="SubViewportContainer/SubViewport/boss1/Swing" method="_on_timer_timeout"]
-[connection signal="timeout" from="SubViewportContainer/SubViewport/boss1/Swing/BurstTimer" to="SubViewportContainer/SubViewport/boss1/Swing/Swing" method="spawn_bullet"]
-[connection signal="timeout" from="SubViewportContainer/SubViewport/boss1/Swing/BurstTimer" to="SubViewportContainer/SubViewport/boss1/Swing/BurstTimer" method="_on_timeout" flags=18]
-[connection signal="timeout" from="SubViewportContainer/SubViewport/boss1/Swing/BurstTimer/Cycle" to="SubViewportContainer/SubViewport/boss1/Swing" method="_on_cycle_timeout"]
-[connection signal="timeout" from="SubViewportContainer/SubViewport/boss1/Swing/BurstTimer/Cycle" to="SubViewportContainer/SubViewport/boss1/Swing/BurstTimer" method="start" flags=18]
-[connection signal="timeout" from="SubViewportContainer/SubViewport/boss1/LevelTimer" to="SubViewportContainer/SubViewport/boss1" method="_on_level_timer_timeout"]
-[connection signal="timeout" from="SubViewportContainer/SubViewport/boss1/LevelTimer" to="SubViewportContainer/SubViewport/boss2" method="_on_level_timer_timeout"]
-[connection signal="timeout" from="SubViewportContainer/SubViewport/boss1/LevelTimer" to="SubViewportContainer/SubViewport/yukari" method="_on_level_timer_timeout"]
-[connection signal="timeout" from="SubViewportContainer/SubViewport/boss2/LevelTimer" to="SubViewportContainer/SubViewport/boss2" method="_on_level_timer_timeout"]
-[connection signal="timeout" from="SubViewportContainer/SubViewport/boss2/Timer" to="SubViewportContainer/SubViewport/boss2/SpinShot" method="_on_timer_timeout" flags=18]
-[connection signal="timeout" from="SubViewportContainer/SubViewport/boss2/Timer" to="SubViewportContainer/SubViewport/boss2/SpinShot/SpinBullet" method="spawn_bullet"]
+[connection signal="timeout" from="opening1/LevelTimer" to="opening1" method="_on_level_timer_timeout"]
+[connection signal="timeout" from="opening1/LevelTimer" to="opening2" method="start_event"]
+[connection signal="timeout" from="opening1/SpawnTimer" to="opening1/Spawner" method="_track_player"]
+[connection signal="timeout" from="opening1/SpawnTimer" to="opening1/Spawner" method="_on_spawn_timer_timeout"]
+[connection signal="timeout" from="opening1/SpawnTimer" to="opening1/SpawnerBullet" method="spawn_bullet"]
+[connection signal="timeout" from="opening1/CornerBullet/BurstTimer" to="opening1/CornerBullet" method="spawn_bullet"]
+[connection signal="timeout" from="opening2/Spawner2Bullet/Timer" to="opening2/Spawner2Bullet" method="spawn_bullet"]
+[connection signal="timeout" from="opening2/SpawnTimer" to="opening2/Spawner2Bullet/Spawner2" method="_on_spawn_timer_timeout"]
+[connection signal="timeout" from="opening2/LevelTimer" to="opening2" method="_on_level_timer_timeout"]
+[connection signal="timeout" from="opening2/LevelTimer" to="boss1" method="start_event"]
+[connection signal="timeout" from="boss1/Swing/BurstTimer" to="boss1/Swing" method="_on_timer_timeout"]
+[connection signal="timeout" from="boss1/Swing/BurstTimer" to="boss1/Swing/Swing" method="spawn_bullet"]
+[connection signal="timeout" from="boss1/Swing/BurstTimer" to="boss1/Swing/BurstTimer" method="_on_timeout" flags=18]
+[connection signal="timeout" from="boss1/Swing/BurstTimer/Cycle" to="boss1/Swing" method="_on_cycle_timeout"]
+[connection signal="timeout" from="boss1/Swing/BurstTimer/Cycle" to="boss1/Swing/BurstTimer" method="start" flags=18]
+[connection signal="timeout" from="boss1/LevelTimer" to="boss1" method="_on_level_timer_timeout"]
+[connection signal="timeout" from="boss1/LevelTimer" to="boss2" method="_on_level_timer_timeout"]
+[connection signal="timeout" from="boss1/LevelTimer" to="yukari" method="_on_level_timer_timeout"]
+[connection signal="timeout" from="boss2/LevelTimer" to="boss2" method="_on_level_timer_timeout"]
+[connection signal="timeout" from="boss2/Timer" to="boss2/SpinShot" method="_on_timer_timeout" flags=18]
+[connection signal="timeout" from="boss2/Timer" to="boss2/SpinShot/SpinBullet" method="spawn_bullet"]

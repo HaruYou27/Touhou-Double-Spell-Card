@@ -13,13 +13,10 @@ func _ready() -> void:
 	seek_query.collide_with_bodies = collide_with_bodies;
 	seek_query.collision_mask = seek_mask;
 	super()
-	
-func create_bullet() -> void:
-	bullet = SeekerBullet.new()
 
 func collide(result:Dictionary) -> bool:
 	#Return true means the bullet will still alive.
-	if not int(result["linear_velocity"].x):
+	if int(result["linear_velocity"].x) == -1:
 		#Hit the wall.
 		return false;
 	
@@ -32,14 +29,13 @@ func _exit_tree() -> void:
 	PhysicsServer2D.free_rid(seek_shape)
 	
 func move(delta:float) -> Transform2D:
-	if not bullet.target:
-		seek_query.transform = Transform2D(0, bullet.transform.origin)
-		var seek_result = world.direct_space_state.get_rest_info(seek_query)
-		if seek_result.is_empty():
-			return super(delta)
-		else:
-			bullet.target = instance_from_id(seek_result["collider_id"])
 	
-	bullet.velocity = (bullet.target.global_position - bullet.transform.origin).normalized() * speed
+	seek_query.transform = Transform2D(0, bullet.transform.origin)
+	var seek_result = world.direct_space_state.get_rest_info(seek_query)
+	if seek_result.is_empty():
+		return super(delta)
+		
+	var target = instance_from_id(seek_result["collider_id"])
+	bullet.velocity = (target.global_position - bullet.transform.origin).normalized() * speed
 	bullet.transform = Transform2D(bullet.velocity.angle() + PI /2, bullet.transform.origin + bullet.velocity * delta)
 	return bullet.transform

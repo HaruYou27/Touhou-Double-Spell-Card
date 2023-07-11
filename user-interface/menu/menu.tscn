@@ -1,4 +1,4 @@
-[gd_scene load_steps=51 format=3 uid="uid://bn5nhkofewyh8"]
+[gd_scene load_steps=50 format=3 uid="uid://bn5nhkofewyh8"]
 
 [ext_resource type="Theme" uid="uid://dotibkyt5mm7v" path="res://user-interface/menu/theme/menu.tres" id="1_tnrbu"]
 [ext_resource type="Texture2D" uid="uid://bgh4r80tk5o7v" path="res://level/background/misty-lake/water-noise.tres" id="2_57hu4"]
@@ -32,7 +32,6 @@
 [ext_resource type="PackedScene" uid="uid://cw6ldgxnk6nf3" path="res://entity/player/marisa/marisa-sprite.tscn" id="30_7jt2j"]
 [ext_resource type="Script" path="res://user-interface/menu/settings/graphic.gd" id="30_jysfy"]
 [ext_resource type="Script" path="res://user-interface/menu/settings/speed.gd" id="31_t8wq2"]
-[ext_resource type="PackedScene" uid="uid://wo265prfhjd3" path="res://level/leveler/world_boundary.tscn" id="41_ci6vk"]
 
 [sub_resource type="Shader" id="Shader_c07er"]
 code = "//#pragma disable_preprocessor
@@ -814,16 +813,6 @@ mouse_default_cursor_shape = 2
 text = "Borderless"
 script = ExtResource("5_vnfn8")
 
-[node name="particle" type="CheckButton" parent="TabContainer/Settings/Graphic"]
-layout_mode = 2
-focus_neighbor_left = NodePath("../fullscreen")
-focus_neighbor_top = NodePath("../fullscreen")
-focus_previous = NodePath("../fullscreen")
-focus_mode = 0
-mouse_default_cursor_shape = 2
-text = "Full particle effect"
-script = ExtResource("5_vnfn8")
-
 [node name="background" type="CheckButton" parent="TabContainer/Settings/Graphic"]
 layout_mode = 2
 focus_neighbor_left = NodePath("../fullscreen")
@@ -831,8 +820,19 @@ focus_neighbor_top = NodePath("../fullscreen")
 focus_previous = NodePath("../fullscreen")
 focus_mode = 0
 mouse_default_cursor_shape = 2
-text = "Dynamic Background"
+text = "Simple Background"
 script = ExtResource("5_vnfn8")
+invert = true
+
+[node name="RenderWarn" type="Label" parent="TabContainer/Settings/Graphic"]
+layout_mode = 2
+text = "Change renderer if you experience low frame rate (require restart)"
+autowrap_mode = 3
+
+[node name="vulkan" type="CheckButton" parent="TabContainer/Settings/Graphic"]
+layout_mode = 2
+text = "Use Vulkan Renderer"
+script = ExtResource("3_wn432")
 
 [node name="reset" parent="TabContainer/Settings/Graphic" instance=ExtResource("5_nrino")]
 layout_mode = 2
@@ -994,8 +994,6 @@ tab_1/title = "Settings"
 tab_2/title = "Multiplayer"
 tab_3/title = "About"
 
-[node name="WorldBoundary" parent="." instance=ExtResource("41_ci6vk")]
-
 [connection signal="timeout" from="TabContainer/play/Level/Preview/test/SpinShot/Timer" to="TabContainer/play/Level/Preview/test/SpinShot" method="_on_timer_timeout" flags=18]
 [connection signal="timeout" from="TabContainer/play/Level/Preview/test/SpinShot/Timer" to="TabContainer/play/Level/Preview/test/SpinShot/spinBullet" method="spawn_bullet"]
 [connection signal="item_selected" from="TabContainer/play/Level/LevelList" to="TabContainer/play/Level" method="_on_level_list_item_selected"]
@@ -1017,6 +1015,7 @@ tab_3/title = "About"
 [connection signal="pressed" from="TabContainer/Settings/Audio/reset" to="TabContainer/Settings/Audio" method="_on_reset_pressed"]
 [connection signal="toggled" from="TabContainer/Settings/Graphic/fullscreen" to="TabContainer/Settings/Graphic" method="_on_fullscreen_toggled" flags=18]
 [connection signal="toggled" from="TabContainer/Settings/Graphic/borderless" to="TabContainer/Settings/Graphic" method="_on_borderless_toggled" flags=18]
+[connection signal="pressed" from="TabContainer/Settings/Graphic/vulkan" to="TabContainer/Settings/Graphic/RenderWarn" method="show"]
 [connection signal="pressed" from="TabContainer/Settings/Graphic/reset" to="TabContainer/Settings/Graphic" method="_on_reset_pressed"]
 [connection signal="text_changed" from="TabContainer/multiplayer/EnetHost/EnetHost/HBoxContainer/port" to="TabContainer/multiplayer/EnetHost/EnetHost" method="_on_port_text_changed"]
 [connection signal="pressed" from="TabContainer/multiplayer/EnetHost/EnetHost/host" to="TabContainer/multiplayer/EnetHost/EnetHost" method="_on_host_pressed"]

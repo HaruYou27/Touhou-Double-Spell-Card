@@ -12,7 +12,6 @@ signal item_collect
 var hud : HUD
 var player1 : Node2D
 var player2 : Node2D
-var item_manager
 
 ##Play area rectangle.
 const playground := Vector2i(540, 852)
@@ -45,9 +44,11 @@ const ice_server := {
 func restart_scene() -> void:
 	tree.paused = false
 	var tween :Tween = VisualEffect.fade2black()
+	ItemManager.clear()
 	tween.finished.connect(tree.reload_current_scene)
 func change_scene(scene:PackedScene) -> void:
 	tree.paused = false
+	ItemManager.clear()
 	Engine.time_scale = 1.
 	var tween :Tween = VisualEffect.fade2black()
 	tween.finished.connect(tree.change_scene_to_packed.bind(scene))

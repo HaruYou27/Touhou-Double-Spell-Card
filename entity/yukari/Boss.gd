@@ -14,5 +14,5 @@ func start() -> void:
 	create_tween().tween_property(self, 'modulate', Color.WHITE, 1.)
 
 func _on_level_timer_timeout():
-	Global.item_manager.spawn_item(point, global_position)
+	ItemManager.spawn_item(point, global_position)
 	point = 0
