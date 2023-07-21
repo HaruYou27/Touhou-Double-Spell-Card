@@ -1,4 +1,4 @@
-extends VBoxContainer
+extends Control
 
 var socket := PacketPeerUDP.new()
 var server := ENetMultiplayerPeer.new()
@@ -14,9 +14,9 @@ func  _ready() -> void:
 func _visibility_changed() -> void:
 	update_ip()
 
-@onready var host := $host
-@onready var animator := $AnimationPlayer
-@onready var broadcast_timer := $BroadcastTimer
+@onready var host := $EnetHost/host
+@onready var animator := $EnetHost/AnimationPlayer
+@onready var broadcast_timer := $EnetHost/BroadcastTimer
 func _on_host_pressed() -> void:
 	if server.get_connection_status():
 		server.close()
@@ -43,7 +43,7 @@ func _peer_connected(_id) -> void:
 	animator.stop()
 	host.text = 'Connected'
 	
-@onready var ip := $HBoxContainer/ip
+@onready var ip := $EnetHost/HBoxContainer/ip
 func update_ip() -> void:
 	var ips := IP.get_local_addresses()
 	if ips.is_empty():

@@ -1,8 +1,8 @@
-extends VBoxContainer
+extends Control
 
 @onready var client := ENetMultiplayerPeer.new()
-@onready var animator := $AnimationPlayer
-@onready var timer := $Timer
+@onready var animator := $EnetJoin/AnimationPlayer
+@onready var timer := $EnetJoin/Timer
 func _ready() -> void:
 	client.peer_connected.connect(_peer_connected)
 	socket.bind(4343, '255.255.255.255')
@@ -14,9 +14,9 @@ func _visibility_changed() -> void:
 		return
 	timer.stop()
 
-@onready var ip := $HBoxContainer/ip
-@onready var port_label := $HBoxContainer/port
-@onready var join_button := $Join
+@onready var ip := $EnetJoin/HBoxContainer/ip
+@onready var port_label := $EnetJoin/HBoxContainer/port
+@onready var join_button := $EnetJoin/Join
 func join(ip_addr:String, port_num:int) -> void:
 	if client.get_connection_status():
 		client.close()
@@ -45,7 +45,7 @@ func _on_port_text_changed(new_text):
 		join_button.disabled = false
 		join_button.text = 'Join Party'
 
-@onready var list := $"../ItemList"
+@onready var list := $ItemList
 var server_list := {}
 var socket := PacketPeerUDP.new()
 func _on_timer_timeout() -> void:

@@ -45,6 +45,7 @@ anti_aliasing = false
 [resource]
 default_font = ExtResource("1_sdo2j")
 default_font_size = 24
+AcceptDialog/styles/panel = ExtResource("2_fbp55")
 Button/colors/font_hover_color = Color(0.835294, 0.592157, 0.384314, 1)
 Button/colors/font_hover_pressed_color = Color(0.819608, 0.352941, 0.352941, 1)
 Button/colors/font_pressed_color = Color(0.776471, 0.34902, 0.352941, 1)
