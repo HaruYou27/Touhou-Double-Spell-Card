@@ -9,8 +9,7 @@ class_name UserData
 @export var voice_volume := 0.
 
 @export_category('Graphic')
-@export var full_particle := true
-@export var dynamic_background := true
+@export var particle_amount := 1
 
 @export_category("Controls")
 @export var sentivity := 1.2
@@ -30,7 +29,6 @@ func _bind_bomb(event:InputEvent) -> void:
 	InputMap.action_erase_events('bomb')
 	InputMap.action_add_event('bomb', event)
 	bomb_bind = event
-	print(event)
 	
 @export var voice_bind := InputMap.action_get_events('voice')[0] : set = _bind_voice
 func _bind_voice(event:InputEvent) -> void:

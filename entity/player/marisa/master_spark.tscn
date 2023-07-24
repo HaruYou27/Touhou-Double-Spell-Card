@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://b85g60flfgfr3"]
+[gd_scene load_steps=21 format=3 uid="uid://b85g60flfgfr3"]
 
 [ext_resource type="Script" path="res://entity/player/marisa/MasterSpark.gd" id="1_i45vv"]
 [ext_resource type="Shader" path="res://level/background/noise-colorize.gdshader" id="2_q2alo"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://d2wacgirqsjjn" path="res://entity/resource/white-trans.tres" id="7_rj3lw"]
 [ext_resource type="Texture2D" uid="uid://dxsf3vpqsosf1" path="res://entity/enemy/phantom/fire_particle.png" id="8_wltid"]
 [ext_resource type="PackedScene" uid="uid://bsnqtgxxjmolk" path="res://entity/player/marisa/ray_cast.tscn" id="9_hoe4h"]
+[ext_resource type="Script" path="res://entity/utility/Particles2D.gd" id="9_q1ojr"]
 
 [sub_resource type="Animation" id="Animation_d3sxi"]
 resource_name = "Master Spark"
@@ -371,12 +372,12 @@ z_index = 3000
 z_as_relative = false
 material = ExtResource("6_jefjk")
 position = Vector2(0, -859)
-amount = 16
 process_material = SubResource("ParticleProcessMaterial_pud3s")
 texture = ExtResource("8_wltid")
 speed_scale = 2.0
 visibility_rect = Rect2(-100, -20, 200, 172)
 local_coords = true
+script = ExtResource("9_q1ojr")
 
 [node name="BeamParticle" type="GPUParticles2D" parent="beam/glow"]
 z_index = 3000
@@ -388,6 +389,7 @@ process_material = SubResource("ParticleProcessMaterial_rvtdp")
 texture = ExtResource("8_wltid")
 visibility_rect = Rect2(-270, 480, 540, -960)
 draw_order = 0
+script = ExtResource("9_q1ojr")
 
 [node name="RayCast2D" parent="." instance=ExtResource("9_hoe4h")]
 position = Vector2(0, -89)

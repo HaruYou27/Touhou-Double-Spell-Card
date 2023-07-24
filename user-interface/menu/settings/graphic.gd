@@ -1,13 +1,14 @@
 extends VBoxContainer
 
-@onready var config :UserData = Global.user_data
+@onready var user_data :UserData = Global.user_data
 @onready var window := get_window()
 @onready var vulkan := $vulkan
+@onready var particles := $Particles
 
 func _ready() -> void:
 	fullscreen.set_pressed_no_signal(window.mode)
 	borderless.set_pressed_no_signal(window.borderless)
-	background.set_pressed_no_signal(config.dynamic_background)
+	particles.value = user_data.particle_amount
 	if ProjectSettings.get_setting('rendering/renderer/rendering_method') == 'mobile':
 		vulkan.set_pressed_no_signal(true)
 	
@@ -32,7 +33,7 @@ func _exit_tree() -> void:
 		ProjectSettings.set_setting('rendering/renderer/rendering_method', 'gl_compatibility')
 		ProjectSettings.set_setting('rendering/renderer/rendering_method.mobile', 'gl_compatibility')
 		
-	config.dynamic_background = background.button_pressed
+	user_data.particle_amount = particles.value
 
 func _on_reset_pressed() -> void:
 	fullscreen.button_pressed = false

@@ -815,17 +815,6 @@ mouse_default_cursor_shape = 2
 text = "Borderless"
 script = ExtResource("5_vnfn8")
 
-[node name="background" type="CheckButton" parent="TabContainer/Settings/Graphic"]
-layout_mode = 2
-focus_neighbor_left = NodePath("../fullscreen")
-focus_neighbor_top = NodePath("../fullscreen")
-focus_previous = NodePath("../fullscreen")
-focus_mode = 0
-mouse_default_cursor_shape = 2
-text = "Simple Background"
-script = ExtResource("5_vnfn8")
-invert = true
-
 [node name="RenderWarn" type="Label" parent="TabContainer/Settings/Graphic"]
 layout_mode = 2
 text = "Change renderer if you experience low frame rate (require restart)"
@@ -835,6 +824,23 @@ autowrap_mode = 3
 layout_mode = 2
 text = "Use Vulkan Renderer"
 script = ExtResource("3_wn432")
+
+[node name="ParticlesLabel" type="Label" parent="TabContainer/Settings/Graphic"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Music: %d %%"
+script = ExtResource("4_h21eu")
+
+[node name="Particles" type="HSlider" parent="TabContainer/Settings/Graphic" node_paths=PackedStringArray("label")]
+layout_mode = 2
+size_flags_vertical = 1
+min_value = 1.0
+max_value = 4.0
+value = 5.0
+allow_greater = true
+tick_count = 10
+script = ExtResource("8_b5jhj")
+label = NodePath("../ParticlesLabel")
 
 [node name="reset" parent="TabContainer/Settings/Graphic" instance=ExtResource("5_nrino")]
 layout_mode = 2
