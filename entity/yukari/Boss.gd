@@ -8,7 +8,7 @@ func _hit() -> void:
 
 func _on_body_entered(body) -> void:
 	if body is Player:
-		body._hit
+		body._hit()
 
 func start() -> void:
 	create_tween().tween_property(self, 'modulate', Color.WHITE, 1.)

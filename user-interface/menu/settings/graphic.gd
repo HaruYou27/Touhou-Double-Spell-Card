@@ -23,7 +23,6 @@ func _on_fullscreen_toggled(button_pressed:bool) -> void:
 func _on_borderless_toggled(button_pressed:bool) -> void:
 	window.borderless = button_pressed
 
-@onready var background := $background
 func _exit_tree() -> void:
 	ProjectSettings.set_setting('display/window/size/borderless', window.borderless)
 	if vulkan:

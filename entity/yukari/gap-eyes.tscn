@@ -1,34 +1,26 @@
-[gd_scene load_steps=6 format=3]
+[gd_scene load_steps=5 format=3 uid="uid://dyqcg8n8eioo1"]
 
-[ext_resource type="Shader" path="res://level/background/moving-tiled.gdshader" id="1_qpim4"]
+[ext_resource type="Shader" path="res://level/background/cellular-noise.gdshader" id="1_onk1p"]
+
+[sub_resource type="Gradient" id="Gradient_85gdg"]
+offsets = PackedFloat32Array(0, 0.619565, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0.86, 0.86, 0.86, 1, 0.64, 0.0746667, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_u7skd"]
+gradient = SubResource("Gradient_85gdg")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_dw4yx"]
-shader = ExtResource("1_qpim4")
-shader_parameter/velocity = Vector2(0, -0.1)
+shader = ExtResource("1_onk1p")
+shader_parameter/grid = Vector2(9, 16)
+shader_parameter/speed = 4.5
+shader_parameter/velocity = Vector2(0.1, -0.2)
+shader_parameter/color_map = SubResource("GradientTexture1D_u7skd")
 
-[sub_resource type="Gradient" id="Gradient_2hf0v"]
-offsets = PackedFloat32Array(0, 0.384615, 0.622378)
-colors = PackedColorArray(0, 0, 0, 1, 1, 0.14, 0.871, 1, 0.89, 0.89, 0.89, 1)
-
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_ih0d4"]
-noise_type = 2
-seed = 252
-fractal_type = 3
-fractal_weighted_strength = 1.0
-cellular_jitter = 0.72
-cellular_return_type = 6
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_0y852"]
-width = 1080
-height = 1920
-generate_mipmaps = false
-seamless = true
-seamless_blend_skirt = 1.0
-color_ramp = SubResource("Gradient_2hf0v")
-noise = SubResource("FastNoiseLite_ih0d4")
-
-[node name="GapEyes" type="Sprite2D"]
+[node name="GapEyes" type="ColorRect"]
 texture_repeat = 2
 material = SubResource("ShaderMaterial_dw4yx")
-texture = SubResource("NoiseTexture2D_0y852")
-centered = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2

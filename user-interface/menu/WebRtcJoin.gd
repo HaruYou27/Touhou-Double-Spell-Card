@@ -11,6 +11,7 @@ func _ready() -> void:
 	peer_local.ice_candidate_created.connect(_ice_candidate_created)
 	peer_remote.session_description_created.connect(_add_sdp)
 	
+	webrtc.create_mesh(2)
 	webrtc.add_peer(peer_remote, 1)
 	webrtc.add_peer(peer_local, 2)
 	
@@ -21,6 +22,7 @@ func _ice_candidate_created(media:String, index:int, Name:String) -> void:
 	Offer.append(media)
 	Offer.append(index)
 	Offer.append(Name)
+	
 	
 	if peer_local.get_gathering_state() == WebRTCPeerConnection.GATHERING_STATE_COMPLETE:
 		offer.text = var_to_str(Offer)

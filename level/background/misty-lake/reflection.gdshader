@@ -18,7 +18,7 @@ void vertex()
 }
 float when_neq(vec3 x, vec3 y)
 {
-  return max(sign(0.1 - distance(x, y)), 0.0);
+  return step(distance(x, y), 0.1);
 }
 void fragment()
 {

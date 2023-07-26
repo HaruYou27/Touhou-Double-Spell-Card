@@ -1,37 +1,16 @@
-[gd_scene load_steps=9 format=3 uid="uid://cnbehoie6tmgs"]
+[gd_scene load_steps=5 format=3 uid="uid://cnbehoie6tmgs"]
 
 [ext_resource type="Shader" path="res://level/background/noise-colorize.gdshader" id="1_x3aaq"]
-[ext_resource type="Texture2D" uid="uid://cm41qte6csxuq" path="res://level/background/magic-forest/tree-color.tres" id="2_33r1x"]
+[ext_resource type="Texture2D" uid="uid://c7key02psonyg" path="res://level/background/magic-forest/tree-night.tres" id="2_d1cg3"]
 [ext_resource type="Texture2D" uid="uid://clus86pnqv0ln" path="res://level/background/magic-forest/tree-noise.tres" id="3_iwkqw"]
-[ext_resource type="Shader" path="res://level/background/magic-forest/fire-fly.gdshader" id="4_40w3a"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_20f7e"]
 shader = ExtResource("1_x3aaq")
 shader_parameter/velocity = Vector2(0, -0.1)
-shader_parameter/color_map = ExtResource("2_33r1x")
-
-[sub_resource type="Gradient" id="Gradient_cvkpw"]
-offsets = PackedFloat32Array(0.706522, 1)
-colors = PackedColorArray(1, 1, 1, 0, 1, 0.733333, 0, 1)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_61s5i"]
-gradient = SubResource("Gradient_cvkpw")
-width = 32
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_y7tof"]
-shader = ExtResource("4_40w3a")
-shader_parameter/velocity = Vector2(0, -0.1)
-shader_parameter/speed = 1.0
-shader_parameter/col_row = Vector2(9, 16)
-shader_parameter/color_map = SubResource("GradientTexture1D_61s5i")
+shader_parameter/color_map = ExtResource("2_d1cg3")
 
 [node name="MagicForest" type="Sprite2D"]
 texture_repeat = 2
 material = SubResource("ShaderMaterial_20f7e")
 texture = ExtResource("3_iwkqw")
 centered = false
-
-[node name="Sprite2D" type="ColorRect" parent="."]
-texture_repeat = 2
-material = SubResource("ShaderMaterial_y7tof")
-custom_minimum_size = Vector2(540, 960)
