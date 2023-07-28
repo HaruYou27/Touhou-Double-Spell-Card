@@ -10,7 +10,5 @@ void vertex()
 }
 void fragment()
 {
-	vec4 noise_color = texture(color_map, COLOR.rg);
-	COLOR.rgb = noise_color.rgb;
-	COLOR.a *= noise_color.a;
+	COLOR = texture(color_map, COLOR.rg);
 }

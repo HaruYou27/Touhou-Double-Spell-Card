@@ -1,0 +1,23 @@
+[gd_resource type="Shader" format=3 uid="uid://bs3tr5f6a4thq"]
+
+[resource]
+code = "shader_type canvas_item;
+#pragma disable_preprocessor
+
+uniform sampler2D color_map : filter_nearest, repeat_enable;
+uniform sampler2D noise : filter_nearest, repeat_enable;
+uniform float speed = 1.0;
+uniform vec2 velocity = vec2(0, -.1);
+
+varying float time;
+void vertex()
+{
+	time = TIME * speed;
+	UV += TIME * velocity;
+}
+void fragment()
+{
+	COLOR.r = mix(COLOR.r, texture(noise, UV).r, abs(sin(time)));
+	COLOR = texture(color_map, COLOR.rg);
+}
+"

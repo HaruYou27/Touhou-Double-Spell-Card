@@ -1,6 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://6wuhmc2p8byc"]
+[gd_scene load_steps=7 format=3 uid="uid://6wuhmc2p8byc"]
 
-[ext_resource type="Shader" path="res://level/background/noise-colorize.gdshader" id="1_6012a"]
+[ext_resource type="Shader" uid="uid://bs3tr5f6a4thq" path="res://level/background/moving-noise.tres" id="1_rc1as"]
+[ext_resource type="Texture2D" uid="uid://rooeax5tkuf4" path="res://level/background/misty-lake/fog-noise-2.tres" id="2_7k8sk"]
 [ext_resource type="Texture2D" uid="uid://clt15wekn0gcj" path="res://level/background/misty-lake/fog-noise.tres" id="2_y8qhq"]
 
 [sub_resource type="Gradient" id="Gradient_6hvbg"]
@@ -11,9 +12,11 @@ gradient = SubResource("Gradient_6hvbg")
 width = 64
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_wmopm"]
-shader = ExtResource("1_6012a")
+shader = ExtResource("1_rc1as")
+shader_parameter/speed = 0.4
 shader_parameter/velocity = Vector2(0, -0.15)
 shader_parameter/color_map = SubResource("GradientTexture1D_g3k78")
+shader_parameter/noise = ExtResource("2_7k8sk")
 
 [node name="fog" type="Sprite2D"]
 texture_repeat = 2

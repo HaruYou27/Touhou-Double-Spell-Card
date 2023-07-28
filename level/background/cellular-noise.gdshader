@@ -1,4 +1,5 @@
 shader_type canvas_item;
+#pragma disable_preprocessor
 
 uniform vec2 grid = vec2(9.0, 16.0);
 uniform float speed = 4.5;

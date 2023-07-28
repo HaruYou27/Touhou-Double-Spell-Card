@@ -1,15 +1,31 @@
-[gd_scene load_steps=5 format=3 uid="uid://bsrn475jkgyqh"]
+[gd_scene load_steps=7 format=3 uid="uid://bsrn475jkgyqh"]
 
+[ext_resource type="Shader" uid="uid://bs3tr5f6a4thq" path="res://level/background/moving-noise.tres" id="1_4sbqf"]
 [ext_resource type="Texture2D" uid="uid://do4q5gagfniy0" path="res://level/background/fire-hell/lava.tres" id="1_amyse"]
-[ext_resource type="Shader" path="res://level/background/fire-hell/lava.gdshader" id="1_uuyw5"]
 [ext_resource type="Texture2D" uid="uid://bgh4r80tk5o7v" path="res://level/background/misty-lake/water-noise.tres" id="2_jpiae"]
 
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_jsbv1"]
+seed = 698
+fractal_type = 2
+domain_warp_enabled = true
+domain_warp_type = 1
+domain_warp_frequency = 0.01
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_hxx5k"]
+width = 540
+height = 960
+generate_mipmaps = false
+seamless = true
+seamless_blend_skirt = 0.5
+normalize = false
+noise = SubResource("FastNoiseLite_jsbv1")
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_hs1bl"]
-shader = ExtResource("1_uuyw5")
+shader = ExtResource("1_4sbqf")
+shader_parameter/speed = 0.5
 shader_parameter/velocity = Vector2(0, -0.1)
-shader_parameter/lava_speed = 1.0
-shader_parameter/lava_chunk = 10.0
 shader_parameter/color_map = ExtResource("1_amyse")
+shader_parameter/noise = SubResource("NoiseTexture2D_hxx5k")
 
 [node name="FireHell" type="Sprite2D"]
 texture_repeat = 2

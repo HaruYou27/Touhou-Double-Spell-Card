@@ -1,24 +1,27 @@
-[gd_scene load_steps=6 format=3 uid="uid://uiwkegjhrq51"]
+[gd_scene load_steps=7 format=3 uid="uid://uiwkegjhrq51"]
 
-[ext_resource type="Shader" path="res://level/background/noise-colorize.gdshader" id="1_1lu6v"]
+[ext_resource type="Shader" uid="uid://bs3tr5f6a4thq" path="res://level/background/moving-noise.tres" id="1_pawde"]
+[ext_resource type="Texture2D" uid="uid://rooeax5tkuf4" path="res://level/background/misty-lake/fog-noise-2.tres" id="2_e14sh"]
 [ext_resource type="Texture2D" uid="uid://clt15wekn0gcj" path="res://level/background/misty-lake/fog-noise.tres" id="2_mkobp"]
 
 [sub_resource type="Gradient" id="Gradient_eg1jf"]
-colors = PackedColorArray(0.831373, 0.917647, 1, 1, 0, 0, 0, 0)
+colors = PackedColorArray(0, 0, 0, 0, 0.831373, 0.917647, 1, 1)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_3ycqc"]
 gradient = SubResource("Gradient_eg1jf")
 width = 64
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_crap5"]
-shader = ExtResource("1_1lu6v")
+shader = ExtResource("1_pawde")
+shader_parameter/speed = 0.4
 shader_parameter/velocity = Vector2(0, -0.2)
 shader_parameter/color_map = SubResource("GradientTexture1D_3ycqc")
+shader_parameter/noise = ExtResource("2_mkobp")
 
 [node name="FogOverlay" type="Sprite2D"]
 z_index = 900
 texture_repeat = 2
 material = SubResource("ShaderMaterial_crap5")
-texture = ExtResource("2_mkobp")
+texture = ExtResource("2_e14sh")
 centered = false
 flip_h = true
