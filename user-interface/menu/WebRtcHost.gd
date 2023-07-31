@@ -35,6 +35,7 @@ func _on_reply_offer_text_changed() -> void:
 	var remote_offer = str_to_var(reply.text)
 	if not (remote_offer is Array or (remote_offer.size() - 1) % 3):
 		label.text = 'Offer invaild.'
+		
 		return
 	
 	peer_remote.set_remote_description('answer', remote_offer[0])
@@ -49,6 +50,7 @@ func _on_reply_offer_text_changed() -> void:
 		else:
 			label.text = 'Offer invaild.'
 			return
+	
 
 @onready var host := $Host
 func _on_host_pressed() -> void:

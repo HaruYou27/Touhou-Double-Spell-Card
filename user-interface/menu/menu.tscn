@@ -1020,9 +1020,7 @@ size_flags_horizontal = 3
 placeholder_text = "Paste your friend *Offer* here"
 
 [node name="Label" type="Label" parent="TabContainer/multiplayer/OnlineJoin"]
-visible = false
 layout_mode = 2
-text = "Copy your *Offer* below and send it to your friend."
 autowrap_mode = 3
 
 [node name="Offer" type="TextEdit" parent="TabContainer/multiplayer/OnlineJoin"]
@@ -1038,6 +1036,10 @@ visible = false
 layout_mode = 2
 script = ExtResource("3_wn432")
 
+[node name="IceTimer" type="Timer" parent="TabContainer/multiplayer/OnlineJoin"]
+wait_time = 2.0
+one_shot = true
+
 [node name="TabBar" type="TabBar" parent="."]
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
@@ -1052,12 +1054,11 @@ disable_3d = true
 transparent_bg = true
 snap_2d_transforms_to_pixel = true
 snap_2d_vertices_to_pixel = true
-initial_position = 1
+initial_position = 2
 size = Vector2i(421, 141)
 borderless = true
 always_on_top = true
 transparent = true
-theme = ExtResource("1_tnrbu")
 dialog_text = "Lost connection with your friend."
 script = ExtResource("34_wrdal")
 
@@ -1090,8 +1091,13 @@ script = ExtResource("34_wrdal")
 [connection signal="text_changed" from="TabContainer/multiplayer/LanJoin/EnetJoin/HBoxContainer/port" to="TabContainer/multiplayer/LanJoin" method="_on_port_text_changed"]
 [connection signal="pressed" from="TabContainer/multiplayer/LanJoin/EnetJoin/Join" to="TabContainer/multiplayer/LanJoin" method="_on_join_pressed"]
 [connection signal="timeout" from="TabContainer/multiplayer/LanJoin/EnetJoin/Timer" to="TabContainer/multiplayer/LanJoin" method="_on_timer_timeout"]
+[connection signal="focus_entered" from="TabContainer/multiplayer/OnlineHost/Offer" to="TabContainer/multiplayer/OnlineHost/Offer" method="select_all"]
+[connection signal="focus_entered" from="TabContainer/multiplayer/OnlineHost/ReplyOffer" to="TabContainer/multiplayer/OnlineHost/ReplyOffer" method="select_all"]
 [connection signal="pressed" from="TabContainer/multiplayer/OnlineHost/Host" to="TabContainer/multiplayer/OnlineHost" method="_on_host_pressed"]
 [connection signal="timeout" from="TabContainer/multiplayer/OnlineHost/IceTimer" to="TabContainer/multiplayer/OnlineHost" method="_on_ice_timer_timeout"]
+[connection signal="focus_entered" from="TabContainer/multiplayer/OnlineJoin/ReplyOffer" to="TabContainer/multiplayer/OnlineJoin/ReplyOffer" method="select_all"]
 [connection signal="text_changed" from="TabContainer/multiplayer/OnlineJoin/ReplyOffer" to="TabContainer/multiplayer/OnlineJoin" method="_on_reply_offer_text_changed"]
+[connection signal="focus_entered" from="TabContainer/multiplayer/OnlineJoin/Offer" to="TabContainer/multiplayer/OnlineJoin/Offer" method="select_all"]
 [connection signal="pressed" from="TabContainer/multiplayer/OnlineJoin/Disconnect" to="TabContainer/multiplayer/OnlineJoin" method="_on_disconnect_pressed"]
+[connection signal="timeout" from="TabContainer/multiplayer/OnlineJoin/IceTimer" to="TabContainer/multiplayer/OnlineJoin" method="_on_ice_timer_timeout"]
 [connection signal="tab_changed" from="TabBar" to="TabContainer" method="set_current_tab"]

@@ -215,6 +215,7 @@ position = Vector2(270, 201)
 texture = ExtResource("7_1ggri")
 
 [node name="fog" parent="SubViewportContainer/SubViewport/background" instance=ExtResource("8_ixvn3")]
+visible = false
 modulate = Color(1, 1, 1, 0)
 
 [node name="opening1" type="Node2D" parent="."]
@@ -763,6 +764,7 @@ texture = ExtResource("3_6g7e0")
 centered = false
 
 [node name="FogOverlay" parent="." instance=ExtResource("9_v1onv")]
+visible = false
 modulate = Color(1, 1, 1, 0)
 z_index = 3000
 
@@ -773,8 +775,8 @@ first_event = NodePath("../opening1")
 
 [connection signal="timeout" from="opening1/LevelTimer" to="opening1" method="_on_level_timer_timeout"]
 [connection signal="timeout" from="opening1/LevelTimer" to="opening2" method="start_event"]
-[connection signal="timeout" from="opening1/SpawnTimer" to="opening1/Spawner" method="_on_spawn_timer_timeout"]
 [connection signal="timeout" from="opening1/SpawnTimer" to="opening1/Spawner" method="_track_player"]
+[connection signal="timeout" from="opening1/SpawnTimer" to="opening1/Spawner" method="_on_spawn_timer_timeout"]
 [connection signal="timeout" from="opening1/SpawnTimer" to="opening1/SpawnerBullet" method="spawn_bullet"]
 [connection signal="timeout" from="opening1/CornerBullet/BurstTimer" to="opening1/CornerBullet" method="spawn_bullet"]
 [connection signal="timeout" from="opening2/Spawner2Bullet/Timer" to="opening2/Spawner2Bullet" method="spawn_bullet"]
