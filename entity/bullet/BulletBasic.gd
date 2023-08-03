@@ -1,27 +1,49 @@
 extends Node2D
 class_name BulletBasic
+##The most basic bullet.
 
-#Bullet shared properties.
+@export var shoot_bullet := false :
+	set(value):
+		if value:
+			spawn_bullet()
+	
+## Shoule be in grayscale for dynamic color.
+@export var texture : Texture2D
+## By default bullet texture is draw in center.
+@onready var texture_rect := Rect2(-texture.get_size() / 2, texture.get_size())
+
+@export_category("Barrel")
+## Node group where bullets come out.
 @export var barrelGroup := ''
+## Pixel per second.
 @export var speed := 525
+## Bullet travel direction ignore global transform.
 @export var localRotation := false
+## Allow bullet to be grazed by player.
 @export var grazable := true
+## Want BIG bullet?
 @export var bullet_scale := Vector2.ONE
+## Array of where bullets will come out. For performance reason, this will only get update ONCE at startup.
 var barrels : Array[Node]
-#Query properties
+
+@export_category("Physics")
+## Use Circle or Capsule shape for best performance.
 @export var hitbox : Shape2D
+## Should be enable for player bullet. Enemy always use Area2D.
 @export var collide_with_areas := false
+## Leave this alone for enemy bullet. Player alwasy use Body.
 @export var collide_with_bodies := true
+## Never tick on Graze layer.
 @export_flags_2d_physics var collision_mask := 1
 var query := PhysicsShapeQueryParameters2D.new()
-#Visual.
-@export var texture : Texture2D
-@onready var texture_rect := Rect2(-texture.get_size() / 2, texture.get_size())
 
 @onready var world := get_world_2d()
 @onready var tree := get_tree()
+## Array of active bullets.
 var bullets : Array[Bullet] = []
+## Inactive bullet array, exist for performance reason.
 var cache : Array[Bullet] = []
+## Current bullet in physics process.
 var bullet : Bullet
 
 func _ready() -> void:
@@ -32,11 +54,12 @@ func _ready() -> void:
 	query.shape = hitbox
 	query.collide_with_areas = collide_with_areas
 	query.collide_with_bodies = collide_with_bodies
-	query.collision_mask = collision_mask
 	
+## Override it with your new Bullet class.
 func create_bullet() -> void:
 	bullet = Bullet.new()
 
+## Incase someone want to change how the bullet is drawn.
 func create_sprite() -> void:
 	var sprite = RenderingServer.canvas_item_create()
 	bullet.sprite = sprite
@@ -53,6 +76,7 @@ func _exit_tree() -> void:
 	for bullete in bullets:
 		RenderingServer.free_rid(bullete.sprite)
 		
+## Just a few line of code to check for bullet in cache.
 func new_bullet():
 	if cache.is_empty():
 		create_bullet()
@@ -62,6 +86,7 @@ func new_bullet():
 		bullet = cache.pop_back()
 		bullets.append(bullet)
 		
+## Bang
 func spawn_bullet() -> void:
 	for barrel in barrels:
 		if not barrel.is_visible_in_tree():
@@ -75,11 +100,12 @@ func spawn_bullet() -> void:
 		
 		bullet.grazable = grazable
 
+## If you add any extra properties to the bullet, reset it to default here.
 func reset_bullet() -> void:
 	pass
 		
+## Capsule collision shape in Godot is vertical.
 func reset_bullet_transform(barrel:Node2D):
-	#Has to separate bullet velocity and transform because Capsule collision shape in Godot is vertical fuck it.
 	if localRotation:
 		bullet.velocity = Vector2(speed, 0).rotated(barrel.rotation)
 		bullet.transform = Transform2D(barrel.rotation + PI/2, bullet_scale, 0, barrel.global_position)
@@ -87,6 +113,7 @@ func reset_bullet_transform(barrel:Node2D):
 		bullet.velocity = Vector2(speed, 0).rotated(barrel.global_rotation)
 		bullet.transform = Transform2D(barrel.global_rotation + PI/2, bullet_scale, 0, barrel.global_position)
 			
+## Wipe all bullets and return their positions. (for example, spawn item)
 func clear() -> PackedVector2Array:
 	if bullets.is_empty():
 		return PackedVector2Array()
@@ -97,10 +124,12 @@ func clear() -> PackedVector2Array:
 		
 	return positions
 
+## Override to change the way bullet move.
 func move(delta:float) -> Transform2D:
 	bullet.transform.origin += bullet.velocity * delta
 	return bullet.transform
 
+## Bulelt has collided with something, what to do now?
 func collide(result:Dictionary) -> bool:
 	#Return true means the bullet will still alive.
 	if int(result["linear_velocity"].x) == -1:

@@ -20,7 +20,6 @@ func _ice_gather(media:String, index:int, Name:String) -> void:
 	Offer.append(media)
 	Offer.append(index)
 	Offer.append(Name)
-	print(Name)
 	
 func _add_sdp(type:String, sdp:String) -> void:
 	peer_local.set_local_description(type, sdp)

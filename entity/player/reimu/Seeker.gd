@@ -6,6 +6,8 @@ class_name Seeker
 var seek_query = PhysicsShapeQueryParameters2D.new()
 var seek_shape = PhysicsServer2D.circle_shape_create()
 
+@export var hit_particle : GPUParticles2D
+
 func _ready() -> void:
 	seek_query.shape_rid = seek_shape;
 	PhysicsServer2D.shape_set_data(seek_shape, seek_radius);
@@ -22,6 +24,7 @@ func collide(result:Dictionary) -> bool:
 	
 	var collider = instance_from_id(result["collider_id"])
 	collider.call("_hit")
+	hit_particle.emit_particle(bullet.transform, Vector2.ZERO, Color.WHITE, Color.WHITE, 1)
 	return false;
 
 func _exit_tree() -> void:

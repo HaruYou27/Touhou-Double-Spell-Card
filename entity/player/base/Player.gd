@@ -57,7 +57,6 @@ signal kaboom
 @rpc("reliable")
 func bomb_go_off(host_time:int) -> void:
 	kaboom.emit((host_time - int(Global.get_host_time()) / 1000))
-	print('bomb')
 	
 @export var hitbox : CollisionShape2D
 func _bomb_finished() -> void:

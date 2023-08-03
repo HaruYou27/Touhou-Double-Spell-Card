@@ -1,25 +1,17 @@
-[gd_scene load_steps=53 format=3 uid="uid://bxvy3qa8esorq"]
+[gd_scene load_steps=43 format=3 uid="uid://bxvy3qa8esorq"]
 
 [ext_resource type="Shader" path="res://level/background/misty-lake/water.gdshader" id="1_5h8xj"]
 [ext_resource type="Texture2D" uid="uid://coq45et7pnhnx" path="res://level/background/misty-lake/water-night.tres" id="2_6k43b"]
 [ext_resource type="Texture2D" uid="uid://bgh4r80tk5o7v" path="res://level/background/misty-lake/water-noise.tres" id="3_6g7e0"]
-[ext_resource type="Script" path="res://level/leveler/LevelEvent.gd" id="4_wsm02"]
 [ext_resource type="Script" path="res://level/test/background.gd" id="4_xolvc"]
 [ext_resource type="Script" path="res://entity/utility/Path2DSpawner.gd" id="6_n63j6"]
 [ext_resource type="Shader" path="res://level/background/misty-lake/sky-reflection.gdshader" id="6_tvv72"]
 [ext_resource type="Texture2D" uid="uid://x1e8a67qetah" path="res://level/background/misty-lake/FullMoon.png" id="7_1ggri"]
-[ext_resource type="PackedScene" uid="uid://b5ofgn1nb1pwt" path="res://level/test/corner.tscn" id="7_3lgdb"]
-[ext_resource type="PackedScene" uid="uid://qcqdhn5ssewn" path="res://level/test/phantom-tracker.tscn" id="7_gfvyq"]
 [ext_resource type="Shader" path="res://entity/bullet/resource/BulletGlow.gdshader" id="7_s3hs4"]
-[ext_resource type="Texture2D" uid="uid://bb6gmgus0empe" path="res://entity/bullet/resource/rice.png" id="8_5anlm"]
 [ext_resource type="PackedScene" uid="uid://6wuhmc2p8byc" path="res://level/background/misty-lake/fog.tscn" id="8_ixvn3"]
 [ext_resource type="PackedScene" uid="uid://bfvb372sca8m2" path="res://level/leveler/leveler.tscn" id="9_ii2dw"]
-[ext_resource type="Shape2D" uid="uid://57c5btn7th0e" path="res://entity/bullet/resource/rice-hitbox.tres" id="9_mv1dw"]
 [ext_resource type="PackedScene" uid="uid://uiwkegjhrq51" path="res://level/background/misty-lake/fog_overlay.tscn" id="9_v1onv"]
-[ext_resource type="Texture2D" uid="uid://dilcwhuq6brnv" path="res://entity/bullet/resource/ball.png" id="10_v410t"]
 [ext_resource type="Script" path="res://entity/bullet/BulletBasic.gd" id="11_pvd46"]
-[ext_resource type="PackedScene" uid="uid://df7drvwynf7qy" path="res://entity/utility/burst_timer.tscn" id="12_1v63h"]
-[ext_resource type="Shape2D" uid="uid://bflxt0dqc7na4" path="res://entity/bullet/resource/ball-hitbox.tres" id="12_p0i0r"]
 [ext_resource type="Script" path="res://entity/bullet/SineAlpha.gd" id="18_rxr5g"]
 [ext_resource type="PackedScene" uid="uid://cyvf0ik0p568i" path="res://level/test/fairy.tscn" id="20_5gbox"]
 [ext_resource type="Shape2D" uid="uid://c0mwekxtkw5pj" path="res://entity/bullet/resource/star-hitbox.tres" id="20_8mwtk"]
@@ -33,111 +25,42 @@
 [ext_resource type="Script" path="res://entity/bullet/SineSpeed.gd" id="25_ok0yk"]
 [ext_resource type="Script" path="res://entity/utility/burst_timer.gd" id="25_w644i"]
 [ext_resource type="Shader" path="res://level/background/misty-lake/reflection.gdshader" id="29_dpw0x"]
+[ext_resource type="AudioStream" uid="uid://dv4spi5edlgfl" path="res://level/test/guava.mp3" id="34_hjpo6"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_r8js3"]
 shader = ExtResource("1_5h8xj")
 shader_parameter/wave_velocity = Vector2(0, 2)
 shader_parameter/wave_distortion = 0.2
-shader_parameter/wave_multiplyer = -6.0
+shader_parameter/wave_multiplyer = -7.0
 shader_parameter/water_velocity = Vector2(0, -0.2)
 shader_parameter/color_map = ExtResource("2_6k43b")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_4e8h0"]
+seed = 727
+fractal_type = 2
+domain_warp_enabled = true
+domain_warp_type = 2
+domain_warp_frequency = 0.01
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_ev6t1"]
+width = 540
+height = 960
+generate_mipmaps = false
+seamless = true
+seamless_blend_skirt = 0.5
+normalize = false
+noise = SubResource("FastNoiseLite_4e8h0")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_h610u"]
 shader = ExtResource("6_tvv72")
 shader_parameter/wave_velocity = Vector2(0, 1)
-shader_parameter/wave_distortion = 0.03
+shader_parameter/wave_distortion = 0.09
 shader_parameter/wave_multiplyer = -7.0
 shader_parameter/noise_texture = ExtResource("3_6g7e0")
 
-[sub_resource type="Curve2D" id="Curve2D_7y75u"]
-_data = {
-"points": PackedVector2Array(0, 0, 0, 0, -88, 315, -60.0678, -33.371, 60.0678, 33.371, 104, 214, 206.489, -19.6541, -206.489, 19.6541, 238, 559, -182.076, -213.9, 182.076, 213.9, 460, 232, 0, 0, 0, 0, 674, 440)
-}
-point_count = 5
-
-[sub_resource type="Shader" id="Shader_surpq"]
-code = "shader_type canvas_item;
-render_mode blend_add;
-
-uniform float time_scale;
-uniform bool alpha_offset;
-uniform bool spin;
-uniform bool sin_alpha;
-uniform sampler2D color_map;
-uniform bool wobble;
-uniform float wobble_min = .75;
-
-varying vec2 uv;
-void vertex()
-{
-	float time = TIME * time_scale;
-	uv = vec2(abs(sin(time)));
-
-	if (alpha_offset)
-	{
-		time *= sign(COLOR.a - .5);
-		time += 100.0 * COLOR.a;
-		COLOR.a = 1.0;
-	}
-    if (spin)
-	{
-    	float phi = time * PI;
-        VERTEX *= mat2(vec2(cos(phi),-sin(phi)),
-                       vec2(sin(phi),cos(phi)));
-    }
-	if (wobble)
-	{
-		VERTEX *= wobble_min + abs(sin(time)) * (1.0 - wobble_min);
-	}
-	if (sin_alpha)
-	{
-		COLOR.a = sin(time);
-	}
-}
-void fragment()
-{
-	//shift color through time across color map - mix it with white color.
-	COLOR.rgb = mix(texture(color_map, uv).rgb, vec3(1.), COLOR.r);
-}"
-
-[sub_resource type="Gradient" id="Gradient_hjers"]
-colors = PackedColorArray(1, 0.21, 0.921, 1, 0.21, 0.447, 1, 1)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_h32f3"]
-gradient = SubResource("Gradient_hjers")
-width = 32
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_hb4jd"]
-shader = SubResource("Shader_surpq")
-shader_parameter/time_scale = 4.0
-shader_parameter/alpha_offset = false
-shader_parameter/spin = null
-shader_parameter/sin_alpha = null
-shader_parameter/wobble = true
-shader_parameter/wobble_min = 0.75
-shader_parameter/color_map = SubResource("GradientTexture1D_h32f3")
-
-[sub_resource type="Gradient" id="Gradient_1xn00"]
-offsets = PackedFloat32Array(0.864583)
-colors = PackedColorArray(1, 0.805667, 0.47, 1)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_vj5ag"]
-gradient = SubResource("Gradient_1xn00")
-width = 8
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_3kkwx"]
-shader = ExtResource("7_s3hs4")
-shader_parameter/time_scale = 4.0
-shader_parameter/alpha_offset = null
-shader_parameter/spin = null
-shader_parameter/sin_alpha = null
-shader_parameter/wobble = true
-shader_parameter/wobble_min = 0.75
-shader_parameter/color_map = SubResource("GradientTexture1D_vj5ag")
-
 [sub_resource type="Gradient" id="Gradient_32llw"]
-offsets = PackedFloat32Array(0)
-colors = PackedColorArray(0.8, 0.545467, 0.136, 1)
+offsets = PackedFloat32Array(0, 0.333, 0.667, 1)
+colors = PackedColorArray(1, 0, 0, 1, 0, 1, 0, 1, 0, 0, 1, 1, 1, 0, 0, 1)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_tt7jt"]
 gradient = SubResource("Gradient_32llw")
@@ -183,9 +106,142 @@ resource_local_to_scene = true
 shader = ExtResource("29_dpw0x")
 shader_parameter/water_opacity = 0.5
 shader_parameter/background = SubResource("ViewportTexture_8xk5g")
-shader_parameter/wave_velocity = Vector2(0, 1)
-shader_parameter/wave_distortion = 0.03
+shader_parameter/wave_velocity = Vector2(0, 5)
+shader_parameter/wave_distortion = 0.05
 shader_parameter/wave_multiplyer = -7.0
+
+[sub_resource type="Animation" id="Animation_7espq"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SubViewportContainer/SubViewport/background:material:shader_parameter/color_map:gradient:colors")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [PackedColorArray(0, 0.0745098, 0.219608, 1, 0.109804, 0.65098, 0.929412, 1, 1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("SubViewportContainer/SubViewport/background/FullMoon:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("SubViewportContainer/SubViewport/background/FullMoon:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("AudioStreamPlayer:playing")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("opening1/Spawner2Bullet/Spawner2:spawn")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_shi7r"]
+resource_name = "game"
+length = 160.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SubViewportContainer/SubViewport/background:material:shader_parameter/color_map:gradient:colors")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 55, 75),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [PackedColorArray(0, 0.0745098, 0.219608, 1, 0.109804, 0.65098, 0.929412, 1, 1, 1, 1, 1), PackedColorArray(0.462745, 0, 0.219608, 1, 0.427451, 0.545098, 0.74902, 1, 0.756863, 0.713726, 0.85098, 1), PackedColorArray(0, 0.0733334, 0.22, 1, 0.1105, 0.2184, 0.65, 1, 0.1326, 0.75842, 0.78, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("SubViewportContainer/SubViewport/background/FullMoon:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 55),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("SubViewportContainer/SubViewport/background/FullMoon:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(55, 75),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 0.101961, 0.101961, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = false
+tracks/3/path = NodePath("AudioStreamPlayer:playing")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("opening1/Spawner2Bullet/Spawner2:spawn")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(6, 6.4, 6.8, 7.1, 7.3, 7.5, 7.7, 7.9, 8.1, 8.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [true, true, true, true, true, true, true, true, true, true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_lj1a4"]
+_data = {
+"RESET": SubResource("Animation_7espq"),
+"game": SubResource("Animation_shi7r")
+}
 
 [node name="test level" type="Node2D"]
 
@@ -205,11 +261,13 @@ render_target_update_mode = 4
 z_index = -100
 texture_repeat = 2
 material = SubResource("ShaderMaterial_r8js3")
-texture = ExtResource("3_6g7e0")
+texture = SubResource("NoiseTexture2D_ev6t1")
 centered = false
 script = ExtResource("4_xolvc")
 
 [node name="FullMoon" type="Sprite2D" parent="SubViewportContainer/SubViewport/background"]
+visible = false
+modulate = Color(1, 1, 1, 0)
 material = SubResource("ShaderMaterial_h610u")
 position = Vector2(270, 201)
 texture = ExtResource("7_1ggri")
@@ -219,158 +277,76 @@ visible = false
 modulate = Color(1, 1, 1, 0)
 
 [node name="opening1" type="Node2D" parent="."]
-script = ExtResource("4_wsm02")
-paths = Array[NodePath]([NodePath("corner"), NodePath("LevelTimer"), NodePath("SpawnTimer"), NodePath("corner2"), NodePath("CornerBullet/BurstTimer")])
 
-[node name="LevelTimer" type="Timer" parent="opening1"]
-wait_time = 30.0
-one_shot = true
-
-[node name="SpawnTimer" type="Timer" parent="opening1"]
-autostart = true
-
-[node name="Spawner" type="Path2D" parent="opening1"]
-z_index = 1
-position = Vector2(-13, 5)
-curve = SubResource("Curve2D_7y75u")
-script = ExtResource("6_n63j6")
-mirror = true
-barrel_group = &"Enemy Barrel 1"
-
-[node name="Phantom" parent="opening1/Spawner" instance=ExtResource("7_gfvyq")]
-position = Vector2(-88, 315)
-
-[node name="Phantom2" parent="opening1/Spawner" instance=ExtResource("7_gfvyq")]
-position = Vector2(-88, 315)
-
-[node name="Phantom3" parent="opening1/Spawner" instance=ExtResource("7_gfvyq")]
-position = Vector2(-88, 315)
-
-[node name="Phantom4" parent="opening1/Spawner" instance=ExtResource("7_gfvyq")]
-position = Vector2(-88, 315)
-
-[node name="Phantom5" parent="opening1/Spawner" instance=ExtResource("7_gfvyq")]
-position = Vector2(-88, 315)
-
-[node name="Phantom6" parent="opening1/Spawner" instance=ExtResource("7_gfvyq")]
-position = Vector2(-88, 315)
-
-[node name="Phantom7" parent="opening1/Spawner" instance=ExtResource("7_gfvyq")]
-position = Vector2(-88, 315)
-
-[node name="Phantom8" parent="opening1/Spawner" instance=ExtResource("7_gfvyq")]
-position = Vector2(-88, 315)
-
-[node name="Phantom9" parent="opening1/Spawner" instance=ExtResource("7_gfvyq")]
-position = Vector2(-88, 315)
-
-[node name="Phantom10" parent="opening1/Spawner" instance=ExtResource("7_gfvyq")]
-position = Vector2(-88, 315)
-
-[node name="corner" parent="opening1" instance=ExtResource("7_3lgdb")]
-final_position = Vector2(56, 111)
-
-[node name="corner2" parent="opening1" instance=ExtResource("7_3lgdb")]
-position = Vector2(607, 46)
-scale = Vector2(-1, 1)
-final_position = Vector2(476, 67)
-
-[node name="CornerBullet" type="Node2D" parent="opening1" groups=["Enemy Bullet"]]
-z_index = 100
-material = SubResource("ShaderMaterial_hb4jd")
-scale = Vector2(1.5, 1.5)
-script = ExtResource("11_pvd46")
-barrelGroup = "Enemy Barrel Corner"
-speed = 472
-bullet_scale = Vector2(0.5, 0.5)
-hitbox = ExtResource("12_p0i0r")
-collision_mask = 5
-texture = ExtResource("10_v410t")
-
-[node name="BurstTimer" parent="opening1/CornerBullet" instance=ExtResource("12_1v63h")]
-wait_time = 0.1
-burst_count = 5
-
-[node name="SpawnerBullet" type="Node2D" parent="opening1" groups=["Enemy Bullet"]]
-z_index = 100
-material = SubResource("ShaderMaterial_3kkwx")
-position = Vector2(-13, 5)
-script = ExtResource("11_pvd46")
-barrelGroup = "Enemy Barrel 1"
-speed = 327
-localRotation = true
-bullet_scale = Vector2(0.5, 0.5)
-hitbox = ExtResource("9_mv1dw")
-collision_mask = 5
-texture = ExtResource("8_5anlm")
-
-[node name="opening2" type="Node2D" parent="."]
-script = ExtResource("4_wsm02")
-paths = Array[NodePath]([NodePath("SpawnTimer"), NodePath("LevelTimer"), NodePath("Spawner2Bullet/Timer")])
-
-[node name="Spawner2Bullet" type="Node2D" parent="opening2" groups=["Enemy Bullet"]]
+[node name="Spawner2Bullet" type="Node2D" parent="opening1" groups=["Enemy Bullet"]]
 z_index = 100
 material = SubResource("ShaderMaterial_4roxx")
 position = Vector2(4, -54)
 script = ExtResource("18_rxr5g")
+shoot_bullet = true
+texture = ExtResource("20_exfp5")
 barrelGroup = "Enemy Barrel 2"
 speed = 472
 localRotation = true
 bullet_scale = Vector2(0.5, 0.5)
 hitbox = ExtResource("20_8mwtk")
 collision_mask = 5
-texture = ExtResource("20_exfp5")
 
-[node name="Timer" type="Timer" parent="opening2/Spawner2Bullet"]
+[node name="Timer" type="Timer" parent="opening1/Spawner2Bullet"]
 wait_time = 0.2
 
-[node name="Spawner2" type="Path2D" parent="opening2/Spawner2Bullet"]
+[node name="Spawner2" type="Path2D" parent="opening1/Spawner2Bullet"]
 curve = SubResource("Curve2D_rvgc8")
 script = ExtResource("6_n63j6")
 mirror = true
+spawn = true
 
-[node name="Phantom" parent="opening2/Spawner2Bullet/Spawner2" instance=ExtResource("20_5gbox")]
+[node name="Fairy" parent="opening1/Spawner2Bullet/Spawner2" instance=ExtResource("20_5gbox")]
 position = Vector2(-50, 146)
+time = 3.0
 
-[node name="Phantom2" parent="opening2/Spawner2Bullet/Spawner2" instance=ExtResource("20_5gbox")]
+[node name="Fairy2" parent="opening1/Spawner2Bullet/Spawner2" instance=ExtResource("20_5gbox")]
 position = Vector2(-50, 146)
+time = 3.0
 
-[node name="Phantom3" parent="opening2/Spawner2Bullet/Spawner2" instance=ExtResource("20_5gbox")]
+[node name="Fairy3" parent="opening1/Spawner2Bullet/Spawner2" instance=ExtResource("20_5gbox")]
 position = Vector2(-50, 146)
+time = 3.0
 
-[node name="Phantom4" parent="opening2/Spawner2Bullet/Spawner2" instance=ExtResource("20_5gbox")]
+[node name="Fairy4" parent="opening1/Spawner2Bullet/Spawner2" instance=ExtResource("20_5gbox")]
 position = Vector2(-50, 146)
+time = 3.0
 
-[node name="Phantom5" parent="opening2/Spawner2Bullet/Spawner2" instance=ExtResource("20_5gbox")]
+[node name="Fairy5" parent="opening1/Spawner2Bullet/Spawner2" instance=ExtResource("20_5gbox")]
 position = Vector2(-50, 146)
+time = 3.0
 
-[node name="Phantom6" parent="opening2/Spawner2Bullet/Spawner2" instance=ExtResource("20_5gbox")]
+[node name="Fairy6" parent="opening1/Spawner2Bullet/Spawner2" instance=ExtResource("20_5gbox")]
 position = Vector2(-50, 146)
+time = 3.0
 
-[node name="Phantom7" parent="opening2/Spawner2Bullet/Spawner2" instance=ExtResource("20_5gbox")]
+[node name="Fairy7" parent="opening1/Spawner2Bullet/Spawner2" instance=ExtResource("20_5gbox")]
 position = Vector2(-50, 146)
+time = 3.0
 
-[node name="Phantom8" parent="opening2/Spawner2Bullet/Spawner2" instance=ExtResource("20_5gbox")]
+[node name="Fairy8" parent="opening1/Spawner2Bullet/Spawner2" instance=ExtResource("20_5gbox")]
 position = Vector2(-50, 146)
+time = 3.0
 
-[node name="Phantom9" parent="opening2/Spawner2Bullet/Spawner2" instance=ExtResource("20_5gbox")]
+[node name="Fairy9" parent="opening1/Spawner2Bullet/Spawner2" instance=ExtResource("20_5gbox")]
 position = Vector2(-50, 146)
+time = 3.0
 
-[node name="Phantom10" parent="opening2/Spawner2Bullet/Spawner2" instance=ExtResource("20_5gbox")]
+[node name="Fairy10" parent="opening1/Spawner2Bullet/Spawner2" instance=ExtResource("20_5gbox")]
 position = Vector2(-50, 146)
+time = 3.0
 
-[node name="Phantom11" parent="opening2/Spawner2Bullet/Spawner2" instance=ExtResource("20_5gbox")]
+[node name="Fairy11" parent="opening1/Spawner2Bullet/Spawner2" instance=ExtResource("20_5gbox")]
 position = Vector2(-50, 146)
-
-[node name="SpawnTimer" type="Timer" parent="opening2"]
-wait_time = 0.5
-
-[node name="LevelTimer" type="Timer" parent="opening2"]
-wait_time = 30.0
+time = 3.0
 
 [node name="boss1" type="Node2D" parent="."]
-script = ExtResource("4_wsm02")
-paths = Array[NodePath]([NodePath("Swing/BurstTimer"), NodePath("../yukari"), NodePath("LevelTimer")])
+visible = false
 
 [node name="Swing" type="Node2D" parent="boss1"]
 position = Vector2(270, 285)
@@ -380,11 +356,11 @@ script = ExtResource("21_dj0sb")
 z_index = 100
 material = SubResource("ShaderMaterial_o2d6k")
 script = ExtResource("25_ok0yk")
+texture = ExtResource("24_2664k")
 speed = 472
 bullet_scale = Vector2(1.5, 1.5)
 hitbox = ExtResource("23_oo4ok")
 collision_mask = 5
-texture = ExtResource("24_2664k")
 
 [node name="@@38436" type="Marker2D" parent="boss1/Swing/Swing" groups=["Enemy Barrel Ghost"]]
 position = Vector2(132.306, 0)
@@ -553,12 +529,8 @@ burst_count = 10
 [node name="Cycle" type="Timer" parent="boss1/Swing/BurstTimer"]
 one_shot = true
 
-[node name="LevelTimer" type="Timer" parent="boss1"]
-wait_time = 30.0
-
 [node name="boss2" type="Node2D" parent="."]
-script = ExtResource("4_wsm02")
-paths = Array[NodePath]([NodePath("Timer"), NodePath("LevelTimer")])
+visible = false
 
 [node name="SpinShot" type="Node2D" parent="boss2"]
 position = Vector2(270, 285)
@@ -568,12 +540,12 @@ script = ExtResource("25_eroeu")
 z_index = 100
 material = SubResource("ShaderMaterial_o2d6k")
 script = ExtResource("11_pvd46")
+texture = ExtResource("24_2664k")
 barrelGroup = "Enemy Barrel Spin"
 speed = 327
 bullet_scale = Vector2(1.5, 1.5)
 hitbox = ExtResource("23_oo4ok")
 collision_mask = 5
-texture = ExtResource("24_2664k")
 
 [node name="clockwise" type="Node2D" parent="boss2/SpinShot"]
 
@@ -739,13 +711,11 @@ position = Vector2(125.314, -24.9265)
 rotation = -0.196349
 gizmo_extents = 40.0
 
-[node name="LevelTimer" type="Timer" parent="boss2"]
-wait_time = 30.0
-
 [node name="Timer" type="Timer" parent="boss2"]
 wait_time = 0.1
 
 [node name="yukari" parent="." instance=ExtResource("22_23hw6")]
+visible = false
 modulate = Color(1, 1, 1, 0)
 position = Vector2(270, 285)
 
@@ -768,29 +738,24 @@ visible = false
 modulate = Color(1, 1, 1, 0)
 z_index = 3000
 
-[node name="level" parent="." node_paths=PackedStringArray("player_container", "first_event") instance=ExtResource("9_ii2dw")]
+[node name="level" parent="." node_paths=PackedStringArray("player_container", "animator") instance=ExtResource("9_ii2dw")]
 mouse_filter = 2
 player_container = NodePath("../player")
-first_event = NodePath("../opening1")
+animator = NodePath("../AnimationPlayer")
 
-[connection signal="timeout" from="opening1/LevelTimer" to="opening1" method="_on_level_timer_timeout"]
-[connection signal="timeout" from="opening1/LevelTimer" to="opening2" method="start_event"]
-[connection signal="timeout" from="opening1/SpawnTimer" to="opening1/Spawner" method="_track_player"]
-[connection signal="timeout" from="opening1/SpawnTimer" to="opening1/Spawner" method="_on_spawn_timer_timeout"]
-[connection signal="timeout" from="opening1/SpawnTimer" to="opening1/SpawnerBullet" method="spawn_bullet"]
-[connection signal="timeout" from="opening1/CornerBullet/BurstTimer" to="opening1/CornerBullet" method="spawn_bullet"]
-[connection signal="timeout" from="opening2/Spawner2Bullet/Timer" to="opening2/Spawner2Bullet" method="spawn_bullet"]
-[connection signal="timeout" from="opening2/SpawnTimer" to="opening2/Spawner2Bullet/Spawner2" method="_on_spawn_timer_timeout"]
-[connection signal="timeout" from="opening2/LevelTimer" to="opening2" method="_on_level_timer_timeout"]
-[connection signal="timeout" from="opening2/LevelTimer" to="boss1" method="start_event"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_lj1a4")
+}
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("34_hjpo6")
+
+[connection signal="timeout" from="opening1/Spawner2Bullet/Timer" to="opening1/Spawner2Bullet" method="spawn_bullet"]
 [connection signal="timeout" from="boss1/Swing/BurstTimer" to="boss1/Swing" method="_on_timer_timeout"]
 [connection signal="timeout" from="boss1/Swing/BurstTimer" to="boss1/Swing/Swing" method="spawn_bullet"]
 [connection signal="timeout" from="boss1/Swing/BurstTimer" to="boss1/Swing/BurstTimer" method="_on_timeout" flags=18]
 [connection signal="timeout" from="boss1/Swing/BurstTimer/Cycle" to="boss1/Swing" method="_on_cycle_timeout"]
 [connection signal="timeout" from="boss1/Swing/BurstTimer/Cycle" to="boss1/Swing/BurstTimer" method="start" flags=18]
-[connection signal="timeout" from="boss1/LevelTimer" to="boss1" method="_on_level_timer_timeout"]
-[connection signal="timeout" from="boss1/LevelTimer" to="boss2" method="_on_level_timer_timeout"]
-[connection signal="timeout" from="boss1/LevelTimer" to="yukari" method="_on_level_timer_timeout"]
-[connection signal="timeout" from="boss2/LevelTimer" to="boss2" method="_on_level_timer_timeout"]
 [connection signal="timeout" from="boss2/Timer" to="boss2/SpinShot" method="_on_timer_timeout" flags=18]
 [connection signal="timeout" from="boss2/Timer" to="boss2/SpinShot/SpinBullet" method="spawn_bullet"]

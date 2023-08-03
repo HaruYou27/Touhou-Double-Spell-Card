@@ -10,9 +10,6 @@ func _on_body_entered(body) -> void:
 	if body is Player:
 		body._hit()
 
-func start() -> void:
-	create_tween().tween_property(self, 'modulate', Color.WHITE, 1.)
-
-func _on_level_timer_timeout():
+func spawn_item():
 	ItemManager.spawn_item(point, global_position)
 	point = 0

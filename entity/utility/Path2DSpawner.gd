@@ -14,9 +14,14 @@ func _ready() -> void:
 func _reclaim_follower(follower:Node) -> void:
 	available.append(follower)
 
+## Spawn enemy from both end of the curve.
 @export var mirror := false
+@export var spawn := false :
+	set(value):
+		if value:
+			spawn_enemy()
 var tick := true
-func _on_spawn_timer_timeout():
+func spawn_enemy():
 	if available.is_empty():
 		return
 	var follower : PathFollower2D = available.pop_back()

@@ -7,14 +7,14 @@ func spawn_item(point:int, pos:Vector2) -> void:
 		create_item(pos)
 		
 func create_item(pos:Vector2) -> void:
-		new_bullet()
-		
-		var ranf := randf()
-		var rot := ranf * TAU
-		bullet.transform = Transform2D(rot, pos)
-		bullet.velocity = Vector2(ranf * 17, 0).rotated(rot)
-		RenderingServer.canvas_item_set_visible(bullet.sprite, true)
-		RenderingServer.canvas_item_set_modulate(bullet.sprite, Color(Color.WHITE, ranf))
+	new_bullet()
+	
+	var ranf := sin(Time.get_ticks_usec())
+	var rot := ranf * TAU
+	bullet.transform = Transform2D(rot, pos)
+	bullet.velocity = Vector2(ranf * 17, 0).rotated(rot)
+	RenderingServer.canvas_item_set_visible(bullet.sprite, true)
+	RenderingServer.canvas_item_set_modulate(bullet.sprite, Color(Color.WHITE, ranf))
 
 func move(delta:float) -> Transform2D:
 	#Simulate gravity.

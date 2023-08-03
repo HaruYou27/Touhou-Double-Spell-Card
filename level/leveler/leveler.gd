@@ -12,17 +12,17 @@ func _ready() -> void:
 		if is_multiplayer_authority():
 			sync_start()
 	else:
-		first_event.start_event()
+		animator.play("game")
 	Global.set_process_unhandled_input(true)
 
-@export var first_event : Node
+@export var animator : AnimationPlayer
 func sync_start() -> void:
 	rpc('game_started', Time.get_ticks_msec())
 	var timer := get_tree().create_timer(3., true, true, true)
-	timer.timeout.connect(first_event.start_event)
+	timer.timeout.connect(animator.play.bind("game"))
 	
 @rpc("reliable")
 func game_started(host_time:int) -> void:
 	var offset := (Global.get_host_time() - host_time) / 1000.
 	var timer := get_tree().create_timer(3. - offset, true, true, true)
-	timer.timeout.connect(first_event.start_event)
+	timer.timeout.connect(animator.play.bind("game"))
