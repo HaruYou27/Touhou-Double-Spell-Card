@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=3 uid="uid://bxvy3qa8esorq"]
+[gd_scene load_steps=45 format=3 uid="uid://bxvy3qa8esorq"]
 
 [ext_resource type="Shader" path="res://level/background/misty-lake/water.gdshader" id="1_5h8xj"]
 [ext_resource type="Texture2D" uid="uid://coq45et7pnhnx" path="res://level/background/misty-lake/water-night.tres" id="2_6k43b"]
@@ -8,14 +8,15 @@
 [ext_resource type="Shader" path="res://level/background/misty-lake/sky-reflection.gdshader" id="6_tvv72"]
 [ext_resource type="Texture2D" uid="uid://x1e8a67qetah" path="res://level/background/misty-lake/FullMoon.png" id="7_1ggri"]
 [ext_resource type="Shader" path="res://entity/bullet/resource/BulletGlow.gdshader" id="7_s3hs4"]
+[ext_resource type="Script" path="res://level/Spellcard.gd" id="8_at87t"]
 [ext_resource type="PackedScene" uid="uid://6wuhmc2p8byc" path="res://level/background/misty-lake/fog.tscn" id="8_ixvn3"]
 [ext_resource type="PackedScene" uid="uid://bfvb372sca8m2" path="res://level/leveler/leveler.tscn" id="9_ii2dw"]
 [ext_resource type="PackedScene" uid="uid://uiwkegjhrq51" path="res://level/background/misty-lake/fog_overlay.tscn" id="9_v1onv"]
+[ext_resource type="Texture2D" uid="uid://bv7sh78arlyjj" path="res://entity/bullet/resource/cystal.png" id="10_6qv5n"]
 [ext_resource type="Script" path="res://entity/bullet/BulletBasic.gd" id="11_pvd46"]
+[ext_resource type="Shape2D" uid="uid://bflxt0dqc7na4" path="res://entity/bullet/resource/ball-hitbox.tres" id="11_weaik"]
 [ext_resource type="Script" path="res://entity/bullet/SineAlpha.gd" id="18_rxr5g"]
 [ext_resource type="PackedScene" uid="uid://cyvf0ik0p568i" path="res://level/test/fairy.tscn" id="20_5gbox"]
-[ext_resource type="Shape2D" uid="uid://c0mwekxtkw5pj" path="res://entity/bullet/resource/star-hitbox.tres" id="20_8mwtk"]
-[ext_resource type="Texture2D" uid="uid://bm3e0n33ykp6h" path="res://entity/bullet/resource/star.png" id="20_exfp5"]
 [ext_resource type="Script" path="res://level/test/swing.gd" id="21_dj0sb"]
 [ext_resource type="PackedScene" uid="uid://bncu813gm4hx8" path="res://entity/yukari/yukari.tscn" id="22_23hw6"]
 [ext_resource type="Shader" path="res://entity/resource/UberItem.gdshader" id="22_puvhm"]
@@ -67,9 +68,9 @@ width = 32
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_4roxx"]
 shader = ExtResource("7_s3hs4")
-shader_parameter/time_scale = 2.0
+shader_parameter/time_scale = 3.0
 shader_parameter/alpha_offset = true
-shader_parameter/spin = true
+shader_parameter/spin = false
 shader_parameter/sin_alpha = null
 shader_parameter/wobble = false
 shader_parameter/wobble_min = 0.75
@@ -80,6 +81,12 @@ _data = {
 "points": PackedVector2Array(0, 0, 0, 0, -50, 146, -77.7818, -22.6274, 77.7818, 22.6274, 56, 279, -43.8406, 49.4975, 43.8406, -49.4975, 171, 125, 203.647, 36.7696, -203.647, -36.7696, 254, 361, -83.4386, 16.9706, 83.4386, -16.9706, 424, 114, -63.6396, -62.2254, 63.6396, 62.2254, 453, 303, 0, 0, 0, 0, 621, 108)
 }
 point_count = 7
+
+[sub_resource type="Curve2D" id="Curve2D_va8k1"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 597, -58, -202.19, -224.091, 202.19, 224.091, 53, 746, -56.2014, 123.352, 56.2014, -123.352, 523, 663, 0, 0, 0, 0, -69, -65)
+}
+point_count = 4
 
 [sub_resource type="Gradient" id="Gradient_rqw5a"]
 offsets = PackedFloat32Array(0)
@@ -162,7 +169,7 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("opening1/Spawner2Bullet/Spawner2:spawn")
+tracks/4/path = NodePath("CystalDrop1/Spawner1Bullet/Spawner1:spawn")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -174,7 +181,7 @@ tracks/4/keys = {
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("opening1/Spawner2Bullet/Timer:process_mode")
+tracks/5/path = NodePath("CystalDrop1/Spawner1Bullet/Timer:process_mode")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
@@ -186,7 +193,7 @@ tracks/5/keys = {
 tracks/6/type = "value"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("opening1/Spawner2Bullet/Spawner2:reverse")
+tracks/6/path = NodePath("CystalDrop1/Spawner1Bullet/Spawner1:reverse")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
@@ -275,7 +282,7 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("opening1/Spawner2Bullet/Spawner2:spawn")
+tracks/4/path = NodePath("CystalDrop1/Spawner1Bullet/Spawner1:spawn")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -287,7 +294,7 @@ tracks/4/keys = {
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("opening1/Spawner2Bullet/Timer:process_mode")
+tracks/5/path = NodePath("CystalDrop1/Spawner1Bullet/Timer:process_mode")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
@@ -299,7 +306,7 @@ tracks/5/keys = {
 tracks/6/type = "value"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("opening1/Spawner2Bullet/Spawner2:reverse")
+tracks/6/path = NodePath("CystalDrop1/Spawner1Bullet/Spawner1:reverse")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
@@ -371,74 +378,97 @@ texture = ExtResource("7_1ggri")
 [node name="fog" parent="SubViewportContainer/SubViewport/background" instance=ExtResource("8_ixvn3")]
 modulate = Color(1, 1, 1, 0)
 
-[node name="opening1" type="Node2D" parent="."]
+[node name="CystalDrop1" type="Node2D" parent="."]
+script = ExtResource("8_at87t")
 
-[node name="Spawner2Bullet" type="Node2D" parent="opening1" groups=["Enemy Bullet"]]
+[node name="Spawner1Bullet" type="Node2D" parent="CystalDrop1" groups=["Enemy Bullet"]]
 z_index = 100
 material = SubResource("ShaderMaterial_4roxx")
 position = Vector2(4, -54)
 script = ExtResource("18_rxr5g")
 shoot_bullet = true
-texture = ExtResource("20_exfp5")
-barrelGroup = "Enemy Barrel 2"
+texture = ExtResource("10_6qv5n")
+barrelGroup = "Enemy Barrel 1"
 speed = 472
 localRotation = true
-bullet_scale = Vector2(0.5, 0.5)
-hitbox = ExtResource("20_8mwtk")
+hitbox = ExtResource("11_weaik")
 collision_mask = 5
 
-[node name="Timer" type="Timer" parent="opening1/Spawner2Bullet"]
+[node name="Timer" type="Timer" parent="CystalDrop1/Spawner1Bullet"]
 process_mode = 4
 wait_time = 0.2
 autostart = true
 
-[node name="Spawner2" type="Path2D" parent="opening1/Spawner2Bullet"]
+[node name="Spawner1" type="Path2D" parent="CystalDrop1/Spawner1Bullet"]
 curve = SubResource("Curve2D_rvgc8")
 script = ExtResource("6_n63j6")
+barrel_group = &"Enemy Barrel 1"
 
-[node name="Fairy" parent="opening1/Spawner2Bullet/Spawner2" instance=ExtResource("20_5gbox")]
+[node name="Fairy" parent="CystalDrop1/Spawner1Bullet/Spawner1" instance=ExtResource("20_5gbox")]
 position = Vector2(-50, 146)
 time = 4.0
 
-[node name="Fairy2" parent="opening1/Spawner2Bullet/Spawner2" instance=ExtResource("20_5gbox")]
+[node name="Fairy2" parent="CystalDrop1/Spawner1Bullet/Spawner1" instance=ExtResource("20_5gbox")]
 position = Vector2(-50, 146)
 time = 4.0
 
-[node name="Fairy3" parent="opening1/Spawner2Bullet/Spawner2" instance=ExtResource("20_5gbox")]
+[node name="Fairy3" parent="CystalDrop1/Spawner1Bullet/Spawner1" instance=ExtResource("20_5gbox")]
 position = Vector2(-50, 146)
 time = 4.0
 
-[node name="Fairy4" parent="opening1/Spawner2Bullet/Spawner2" instance=ExtResource("20_5gbox")]
+[node name="Fairy4" parent="CystalDrop1/Spawner1Bullet/Spawner1" instance=ExtResource("20_5gbox")]
 position = Vector2(-50, 146)
 time = 4.0
 
-[node name="Fairy5" parent="opening1/Spawner2Bullet/Spawner2" instance=ExtResource("20_5gbox")]
+[node name="Fairy5" parent="CystalDrop1/Spawner1Bullet/Spawner1" instance=ExtResource("20_5gbox")]
 position = Vector2(-50, 146)
 time = 4.0
 
-[node name="Fairy6" parent="opening1/Spawner2Bullet/Spawner2" instance=ExtResource("20_5gbox")]
+[node name="Fairy6" parent="CystalDrop1/Spawner1Bullet/Spawner1" instance=ExtResource("20_5gbox")]
 position = Vector2(-50, 146)
 time = 4.0
 
-[node name="Fairy7" parent="opening1/Spawner2Bullet/Spawner2" instance=ExtResource("20_5gbox")]
+[node name="Fairy7" parent="CystalDrop1/Spawner1Bullet/Spawner1" instance=ExtResource("20_5gbox")]
 position = Vector2(-50, 146)
 time = 4.0
 
-[node name="Fairy8" parent="opening1/Spawner2Bullet/Spawner2" instance=ExtResource("20_5gbox")]
+[node name="Fairy8" parent="CystalDrop1/Spawner1Bullet/Spawner1" instance=ExtResource("20_5gbox")]
 position = Vector2(-50, 146)
 time = 4.0
 
-[node name="Fairy9" parent="opening1/Spawner2Bullet/Spawner2" instance=ExtResource("20_5gbox")]
+[node name="Fairy9" parent="CystalDrop1/Spawner1Bullet/Spawner1" instance=ExtResource("20_5gbox")]
 position = Vector2(-50, 146)
 time = 4.0
 
-[node name="Fairy10" parent="opening1/Spawner2Bullet/Spawner2" instance=ExtResource("20_5gbox")]
+[node name="Fairy10" parent="CystalDrop1/Spawner1Bullet/Spawner1" instance=ExtResource("20_5gbox")]
 position = Vector2(-50, 146)
 time = 4.0
 
-[node name="Fairy11" parent="opening1/Spawner2Bullet/Spawner2" instance=ExtResource("20_5gbox")]
+[node name="Fairy11" parent="CystalDrop1/Spawner1Bullet/Spawner1" instance=ExtResource("20_5gbox")]
 position = Vector2(-50, 146)
 time = 4.0
+
+[node name="Fairy12" parent="CystalDrop1/Spawner1Bullet/Spawner1" instance=ExtResource("20_5gbox")]
+position = Vector2(-50, 146)
+time = 4.0
+
+[node name="Fairy13" parent="CystalDrop1/Spawner1Bullet/Spawner1" instance=ExtResource("20_5gbox")]
+position = Vector2(-50, 146)
+time = 4.0
+
+[node name="Fairy14" parent="CystalDrop1/Spawner1Bullet/Spawner1" instance=ExtResource("20_5gbox")]
+position = Vector2(-50, 146)
+time = 4.0
+
+[node name="Fairy15" parent="CystalDrop1/Spawner1Bullet/Spawner1" instance=ExtResource("20_5gbox")]
+position = Vector2(-50, 146)
+time = 4.0
+
+[node name="tracking2" type="Node2D" parent="."]
+
+[node name="Path2D" type="Path2D" parent="tracking2"]
+curve = SubResource("Curve2D_va8k1")
+script = ExtResource("6_n63j6")
 
 [node name="boss1" type="Node2D" parent="."]
 visible = false
@@ -845,7 +875,8 @@ libraries = {
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("26_f2wvn")
 
-[connection signal="timeout" from="opening1/Spawner2Bullet/Timer" to="opening1/Spawner2Bullet" method="spawn_bullet"]
+[connection signal="timeout" from="CystalDrop1/Spawner1Bullet/Timer" to="CystalDrop1/Spawner1Bullet" method="spawn_bullet"]
+[connection signal="timeout" from="CystalDrop1/Spawner1Bullet/Timer" to="CystalDrop1/Spawner1Bullet/Spawner1" method="_transform_barrel"]
 [connection signal="timeout" from="boss1/Swing/BurstTimer" to="boss1/Swing" method="_on_timer_timeout"]
 [connection signal="timeout" from="boss1/Swing/BurstTimer" to="boss1/Swing/Swing" method="spawn_bullet"]
 [connection signal="timeout" from="boss1/Swing/BurstTimer" to="boss1/Swing/BurstTimer" method="_on_timeout" flags=18]

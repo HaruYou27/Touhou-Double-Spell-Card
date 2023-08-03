@@ -3,15 +3,20 @@ class_name global
 ##god
 
 ############ GLOBAL GAMEPLAY
-##Emited by bullet when intersect player's graze Area2D.
+## Emited by bullet when intersect player's graze Area2D.
 signal bullet_graze
 
-##Emited by item when intersect player's hitbox (not item Area2D).
+## Emited by item when intersect player's hitbox (not item Area2D).
 signal item_collect
+
+## Only work in multiplayer mode.
+signal revive_player
 
 var hud : HUD
 var player1 : Node2D
 var player2 : Node2D
+func _peer_disconnected() -> void:
+	player2 = null
 
 ##Play area rectangle.
 const playground := Vector2i(540, 852)
@@ -92,6 +97,7 @@ func get_host_time() -> int:
 ########## USER CONFIG
 var user_data : UserData
 func _ready() -> void:
+	multiplayer.peer_disconnected.connect(_peer_disconnected)
 	user_data = load('user://saveData.res')
 	if user_data:
 		return

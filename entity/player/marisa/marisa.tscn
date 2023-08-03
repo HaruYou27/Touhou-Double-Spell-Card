@@ -16,8 +16,12 @@ height = 194.0
 [node name="Marisa" type="Node2D"]
 texture_filter = 1
 
-[node name="Player" parent="." node_paths=PackedStringArray("hitbox") instance=ExtResource("1_vjhba")]
+[node name="Player" parent="." node_paths=PackedStringArray("hitbox", "sprite") instance=ExtResource("1_vjhba")]
 hitbox = NodePath("Hitbox")
+sprite = NodePath("marisa")
+
+[node name="marisa" parent="Player" instance=ExtResource("13_sco1m")]
+position = Vector2(2, 0)
 
 [node name="Hitbox" type="CollisionShape2D" parent="Player"]
 z_index = 100
@@ -32,8 +36,5 @@ texture = ExtResource("2_h730r")
 shape = SubResource("CapsuleShape2D_imnki")
 
 [node name="MasterSpark" parent="Player" instance=ExtResource("4_i3cgm")]
-
-[node name="marisa" parent="Player" instance=ExtResource("13_sco1m")]
-position = Vector2(2, 0)
 
 [connection signal="finished" from="Player/MasterSpark" to="Player" method="_bomb_finished"]

@@ -34,8 +34,8 @@ func spawn_enemy():
 		tick = not tick
 
 @export var barrel_group : StringName
-var barrels
-func _track_player():
+var barrels := []
+func _transform_barrel():
 	for barrel in barrels:
 		if barrel.is_visible_in_tree():
-			barrel.track()
+			barrel.transform_barrel()

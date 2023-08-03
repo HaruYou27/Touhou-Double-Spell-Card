@@ -1,20 +1,31 @@
-[gd_scene load_steps=2 format=3 uid="uid://c34lwlqwsc4ve"]
+[gd_scene load_steps=3 format=3 uid="uid://c34lwlqwsc4ve"]
 
 [ext_resource type="Script" path="res://entity/player/base/Player.gd" id="1_ty0s5"]
+[ext_resource type="PackedScene" uid="uid://dletx36qco4eh" path="res://entity/utility/explosion.tscn" id="2_ca3m1"]
 
 [node name="Player" type="CharacterBody2D"]
 collision_layer = 4
 collision_mask = 0
+motion_mode = 1
+slide_on_ceiling = false
 script = ExtResource("1_ty0s5")
 
-[node name="hitFX" type="AudioStreamPlayer" parent="."]
+[node name="HitSFX" type="AudioStreamPlayer" parent="."]
+
+[node name="DeathSFX" type="AudioStreamPlayer" parent="."]
+
+[node name="ReviveSFX" type="AudioStreamPlayer" parent="."]
 
 [node name="DeathTimer" type="Timer" parent="."]
 process_mode = 3
 wait_time = 0.2
 one_shot = true
 
+[node name="explosion" parent="." instance=ExtResource("2_ca3m1")]
+process_mode = 3
+
 [node name="RecoverTimer" type="Timer" parent="."]
+wait_time = 2.0
 one_shot = true
 
 [connection signal="timeout" from="DeathTimer" to="." method="_on_death_timer_timeout"]

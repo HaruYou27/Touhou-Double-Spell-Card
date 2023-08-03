@@ -2,13 +2,26 @@ extends CharacterBody2D
 class_name Player
 
 func _ready() -> void:
+	Global.revive_player.connect(_revive)
 	if not is_multiplayer_authority():
 		hitbox.queue_free()
 		set_process_unhandled_input(false)
+	
+@onready var recover_timer := $RecoverTimer
+func _revive() -> void:
+	if process_mode == Node.PROCESS_MODE_DISABLED:
+		return
+		
+	process_mode = Node.PROCESS_MODE_INHERIT
+	sprite.show()
+	recover_timer.start()
+	modulate = Color(Color.WHITE, .5)
 		
 ############## COLLISION
 @onready var death_timer := $DeathTimer
+@onready var hit_sfx := $HitSFX
 func _hit() -> void:
+	hit_sfx.play()
 	hitbox.set_deferred('disabled', true)
 	VisualEffect.flash_red()
 	death_timer.start()
@@ -64,14 +77,20 @@ func _bomb_finished() -> void:
 		hitbox.set_deferred('disabled', false)
 	can_bomb = true
 #####################
-
-func _on_recover_timer_timeout():
-	modulate = Color.WHITE
-	hitbox.set_deferred('disabled', false)
-
-@onready var recover_timer := $RecoverTimer
+@onready var death_sfx := $DeathSFX
+@onready var death_fx := $explosion
+@export var sprite : AnimatedSprite2D
 func _on_death_timer_timeout():
-	modulate = Color(Color.WHITE, .5)
-	Global.hud.player_died()
-	recover_timer.start()
-	VisualEffect.hide()
+	if Global.player2:
+		death_sfx.play()
+		process_mode = Node.PROCESS_MODE_DISABLED
+		sprite.hide()
+		death_fx.emitting = true
+		Global.hud.player_died()
+		VisualEffect.hide()
+
+@onready var revive_fx := $ReviveSFX
+func _on_recover_timer_timeout():
+	revive_fx.play()
+	hitbox.set_deferred('disabled', false)
+	modulate = Color.WHITE

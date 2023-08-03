@@ -160,8 +160,9 @@ hue_variation_max = 1.0
 
 [node name="Reimu" type="Node2D"]
 
-[node name="Player" parent="." node_paths=PackedStringArray("hitbox") instance=ExtResource("4_ftqh1")]
+[node name="Player" parent="." node_paths=PackedStringArray("hitbox", "sprite") instance=ExtResource("4_ftqh1")]
 hitbox = NodePath("Hitbox")
+sprite = NodePath("ReimuSprite")
 
 [node name="ReimuSprite" parent="Player" instance=ExtResource("1_gp5d6")]
 position = Vector2(0, 8)
@@ -187,6 +188,7 @@ wait_time = 0.267
 autostart = true
 
 [node name="bullet" parent="Player" node_paths=PackedStringArray("hit_particle") instance=ExtResource("5_ygtci")]
+process_mode = 3
 hit_particle = NodePath("../../HitFx")
 
 [node name="Node" type="Node2D" parent="."]

@@ -11,23 +11,19 @@ func _hit() -> void:
 		die()
 		
 @onready var explosion := $explosion
-@onready var death_sfx := $explosion/sfx
-@onready var death_timer := $explosion/Timer
+@onready var death_sfx := $sfx
 @onready var visual := $visual
-@onready var layer := collision_layer
+var layer := 0
 func _ready() -> void:
+	layer = collision_layer
 	collision_layer = 0
 
 func die() -> void:
 	ItemManager.spawn_item(point, global_position)
 	explosion.emitting = true
 	death_sfx.play()
-	death_timer.start()
-	visual.hide()
-	collision_layer = 0
-
-func _on_timer_timeout() -> void:
 	died.emit()
+	_timeout()
 
 func reset() -> void:
 	collision_layer = layer
@@ -39,3 +35,7 @@ func _on_body_entered(body) -> void:
 		body._hit()
 	else:
 		die()
+
+func _timeout():
+	visual.hide()
+	collision_layer = 0

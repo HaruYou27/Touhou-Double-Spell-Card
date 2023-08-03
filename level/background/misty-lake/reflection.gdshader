@@ -31,5 +31,5 @@ void fragment()
 	
 	//Avoid draw on foreground object or fetch color out of uv bound.
 	//reflect_color ~= color from FOREGROUNG AND background_color ~= current pixel color AND 0 >= uv <= 1
-	COLOR.a = (1.0 - when_neq(reflect_color, texture(background, uv).rgb)) * when_neq(background_color, texture(screen, UV).rgb) * max(uv.x, 0.0) * max(uv.y, 0.0);
+	COLOR.a = (1.0 - when_neq(reflect_color, texture(background, uv).rgb)) * when_neq(background_color, texture(screen, UV).rgb) * step(0.0, uv.x) * step(0.0, uv.y);
 }
