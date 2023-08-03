@@ -275,12 +275,12 @@ texture = ExtResource("7_dq54d")
 [node name="spinBullet" type="Node2D" parent="TabContainer/play/Level/Preview/test/SpinShot"]
 material = SubResource("ShaderMaterial_a1syk")
 script = ExtResource("9_innj7")
+texture = ExtResource("11_e48md")
 barrelGroup = "Enemy Barrel Spin"
 speed = 327
 grazable = false
 bullet_scale = Vector2(1.5, 1.5)
 hitbox = ExtResource("8_oqfy5")
-texture = ExtResource("11_e48md")
 
 [node name="Timer" type="Timer" parent="TabContainer/play/Level/Preview/test/SpinShot"]
 wait_time = 0.1

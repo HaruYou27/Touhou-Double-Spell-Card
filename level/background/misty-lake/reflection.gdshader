@@ -28,5 +28,8 @@ void fragment()
 	vec3 background_color = texture(background, UV).rgb;
 	//Reflect color must be color from foreground and vice versa.
 	COLOR.rgb = mix(reflect_color, background_color, water_opacity);
-	COLOR.a = (1.0 - when_neq(reflect_color, texture(background, uv).rgb)) * when_neq(background_color, texture(screen, UV).rgb) * max(sign(uv).x, 0.0);
+	
+	//Avoid draw on foreground object or fetch color out of uv bound.
+	//reflect_color ~= color from FOREGROUNG AND background_color ~= current pixel color AND 0 >= uv <= 1
+	COLOR.a = (1.0 - when_neq(reflect_color, texture(background, uv).rgb)) * when_neq(background_color, texture(screen, UV).rgb) * max(uv.x, 0.0) * max(uv.y, 0.0);
 }

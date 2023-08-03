@@ -47,6 +47,11 @@ texture={
 "process/fix_alpha_border": false,
 "roughness/mode": 1
 }
+wav={
+"compress/mode": 1,
+"force/8_bit": true,
+"force/mono": true
+}
 
 [input]
 

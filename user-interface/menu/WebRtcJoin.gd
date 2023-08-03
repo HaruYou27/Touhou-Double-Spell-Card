@@ -29,6 +29,7 @@ func _add_sdp(type:String, sdp:String) -> void:
 @onready var reply := $ReplyOffer
 func _on_reply_offer_text_changed() -> void:
 	var remote_offer = str_to_var(reply.text)
+	label.text = 'Processing...'
 	if not (remote_offer is Array) or ((remote_offer.size() - 1) % 3):
 		label.text = 'Offer invaild.'
 		return
@@ -53,7 +54,6 @@ func _on_reply_offer_text_changed() -> void:
 		else:
 			label.text = 'Offer invaild.'
 			return
-			
 	multiplayer.multiplayer_peer = webrtc
 
 func _on_disconnect_pressed() -> void:

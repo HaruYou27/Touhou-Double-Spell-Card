@@ -24,4 +24,4 @@ stream = ExtResource("4_wlvim")
 bus = &"SFX"
 
 [node name="VoicePlayback" type="AudioStreamPlayer" parent="."]
-mix_target = 2
+bus = &"Voice"

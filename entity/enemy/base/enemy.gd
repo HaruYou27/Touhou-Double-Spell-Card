@@ -15,6 +15,9 @@ func _hit() -> void:
 @onready var death_timer := $explosion/Timer
 @onready var visual := $visual
 @onready var layer := collision_layer
+func _ready() -> void:
+	collision_layer = 0
+
 func die() -> void:
 	ItemManager.spawn_item(point, global_position)
 	explosion.emitting = true

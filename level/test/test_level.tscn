@@ -24,8 +24,8 @@
 [ext_resource type="Script" path="res://level/test/SpinShot2.gd" id="25_eroeu"]
 [ext_resource type="Script" path="res://entity/bullet/SineSpeed.gd" id="25_ok0yk"]
 [ext_resource type="Script" path="res://entity/utility/burst_timer.gd" id="25_w644i"]
+[ext_resource type="AudioStream" uid="uid://bt7vy6thn8yac" path="res://level/test/guava-mono.ogg" id="26_f2wvn"]
 [ext_resource type="Shader" path="res://level/background/misty-lake/reflection.gdshader" id="29_dpw0x"]
-[ext_resource type="AudioStream" uid="uid://dv4spi5edlgfl" path="res://level/test/guava.mp3" id="34_hjpo6"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_r8js3"]
 shader = ExtResource("1_5h8xj")
@@ -59,16 +59,15 @@ shader_parameter/wave_multiplyer = -7.0
 shader_parameter/noise_texture = ExtResource("3_6g7e0")
 
 [sub_resource type="Gradient" id="Gradient_32llw"]
-offsets = PackedFloat32Array(0, 0.333, 0.667, 1)
-colors = PackedColorArray(1, 0, 0, 1, 0, 1, 0, 1, 0, 0, 1, 1, 1, 0, 0, 1)
+colors = PackedColorArray(0.693875, 0.2275, 0.91, 1, 1, 1, 0.662745, 1)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_tt7jt"]
 gradient = SubResource("Gradient_32llw")
-width = 1
+width = 32
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_4roxx"]
 shader = ExtResource("7_s3hs4")
-shader_parameter/time_scale = 1.0
+shader_parameter/time_scale = 2.0
 shader_parameter/alpha_offset = true
 shader_parameter/spin = true
 shader_parameter/sin_alpha = null
@@ -170,12 +169,61 @@ tracks/4/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [true]
+"values": [false]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("opening1/Spawner2Bullet/Timer:process_mode")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [4]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("opening1/Spawner2Bullet/Spawner2:reverse")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("FogOverlay:modulate")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("SubViewportContainer/SubViewport/background/fog:modulate")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_shi7r"]
 resource_name = "game"
 length = 160.0
+step = 1.0
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -195,7 +243,7 @@ tracks/1/path = NodePath("SubViewportContainer/SubViewport/background/FullMoon:v
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 55),
+"times": PackedFloat32Array(0, 52),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [false, true]
@@ -207,10 +255,10 @@ tracks/2/path = NodePath("SubViewportContainer/SubViewport/background/FullMoon:m
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(55, 75),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(56, 84, 110),
+"transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [Color(1, 1, 1, 0), Color(1, 0.101961, 0.101961, 1)]
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 0.101961, 0.101961, 1)]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
@@ -231,10 +279,58 @@ tracks/4/path = NodePath("opening1/Spawner2Bullet/Spawner2:spawn")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
-"times": PackedFloat32Array(6, 6.4, 6.8, 7.1, 7.3, 7.5, 7.7, 7.9, 8.1, 8.2),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"times": PackedFloat32Array(5.9, 6.3, 6.7, 7.1, 7.3, 7.5, 7.8, 8.1, 8.6, 9, 9.4, 9.8, 10, 10.2, 10.5, 10.8, 11.5, 11.9, 12.3, 12.7, 12.9, 13.1, 13.4, 13.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [true, true, true, true, true, true, true, true, true, true]
+"values": [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("opening1/Spawner2Bullet/Timer:process_mode")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(5.6),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("opening1/Spawner2Bullet/Spawner2:reverse")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(5.7, 6.9, 8.4, 11.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [false, true, false, true]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("SubViewportContainer/SubViewport/background/fog:modulate")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0, 70),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0.462745)]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("FogOverlay:modulate")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0, 106),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0.662745)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_lj1a4"]
@@ -273,7 +369,6 @@ position = Vector2(270, 201)
 texture = ExtResource("7_1ggri")
 
 [node name="fog" parent="SubViewportContainer/SubViewport/background" instance=ExtResource("8_ixvn3")]
-visible = false
 modulate = Color(1, 1, 1, 0)
 
 [node name="opening1" type="Node2D" parent="."]
@@ -293,57 +388,57 @@ hitbox = ExtResource("20_8mwtk")
 collision_mask = 5
 
 [node name="Timer" type="Timer" parent="opening1/Spawner2Bullet"]
+process_mode = 4
 wait_time = 0.2
+autostart = true
 
 [node name="Spawner2" type="Path2D" parent="opening1/Spawner2Bullet"]
 curve = SubResource("Curve2D_rvgc8")
 script = ExtResource("6_n63j6")
-mirror = true
-spawn = true
 
 [node name="Fairy" parent="opening1/Spawner2Bullet/Spawner2" instance=ExtResource("20_5gbox")]
 position = Vector2(-50, 146)
-time = 3.0
+time = 4.0
 
 [node name="Fairy2" parent="opening1/Spawner2Bullet/Spawner2" instance=ExtResource("20_5gbox")]
 position = Vector2(-50, 146)
-time = 3.0
+time = 4.0
 
 [node name="Fairy3" parent="opening1/Spawner2Bullet/Spawner2" instance=ExtResource("20_5gbox")]
 position = Vector2(-50, 146)
-time = 3.0
+time = 4.0
 
 [node name="Fairy4" parent="opening1/Spawner2Bullet/Spawner2" instance=ExtResource("20_5gbox")]
 position = Vector2(-50, 146)
-time = 3.0
+time = 4.0
 
 [node name="Fairy5" parent="opening1/Spawner2Bullet/Spawner2" instance=ExtResource("20_5gbox")]
 position = Vector2(-50, 146)
-time = 3.0
+time = 4.0
 
 [node name="Fairy6" parent="opening1/Spawner2Bullet/Spawner2" instance=ExtResource("20_5gbox")]
 position = Vector2(-50, 146)
-time = 3.0
+time = 4.0
 
 [node name="Fairy7" parent="opening1/Spawner2Bullet/Spawner2" instance=ExtResource("20_5gbox")]
 position = Vector2(-50, 146)
-time = 3.0
+time = 4.0
 
 [node name="Fairy8" parent="opening1/Spawner2Bullet/Spawner2" instance=ExtResource("20_5gbox")]
 position = Vector2(-50, 146)
-time = 3.0
+time = 4.0
 
 [node name="Fairy9" parent="opening1/Spawner2Bullet/Spawner2" instance=ExtResource("20_5gbox")]
 position = Vector2(-50, 146)
-time = 3.0
+time = 4.0
 
 [node name="Fairy10" parent="opening1/Spawner2Bullet/Spawner2" instance=ExtResource("20_5gbox")]
 position = Vector2(-50, 146)
-time = 3.0
+time = 4.0
 
 [node name="Fairy11" parent="opening1/Spawner2Bullet/Spawner2" instance=ExtResource("20_5gbox")]
 position = Vector2(-50, 146)
-time = 3.0
+time = 4.0
 
 [node name="boss1" type="Node2D" parent="."]
 visible = false
@@ -734,7 +829,6 @@ texture = ExtResource("3_6g7e0")
 centered = false
 
 [node name="FogOverlay" parent="." instance=ExtResource("9_v1onv")]
-visible = false
 modulate = Color(1, 1, 1, 0)
 z_index = 3000
 
@@ -749,7 +843,7 @@ libraries = {
 }
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("34_hjpo6")
+stream = ExtResource("26_f2wvn")
 
 [connection signal="timeout" from="opening1/Spawner2Bullet/Timer" to="opening1/Spawner2Bullet" method="spawn_bullet"]
 [connection signal="timeout" from="boss1/Swing/BurstTimer" to="boss1/Swing" method="_on_timer_timeout"]

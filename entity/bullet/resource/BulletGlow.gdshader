@@ -9,11 +9,10 @@ uniform sampler2D color_map;
 uniform bool wobble;
 uniform float wobble_min = .75;
 
-varying vec2 uv;
+varying vec3 color;
 void vertex()
 {
 	float time = TIME * time_scale;
-	uv = vec2(abs(sin(time)));
 
 	if (alpha_offset)
 	{
@@ -35,9 +34,10 @@ void vertex()
 	{
 		COLOR.a = sin(time);
 	}
+	color = texture(color_map, vec2(abs(sin(time)))).rgb;
 }
 void fragment()
 {
 	//shift color through time across color map - mix it with white color.
-	COLOR.rgb = mix(texture(color_map, uv).rgb, vec3(1.), COLOR.r);
+	COLOR.rgb = mix(color, vec3(1.), COLOR.r);
 }

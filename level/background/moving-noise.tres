@@ -10,6 +10,7 @@ uniform float speed = 1.0;
 uniform vec2 velocity = vec2(0, -.1);
 
 varying float time;
+
 void vertex()
 {
 	time = TIME * speed;
@@ -18,6 +19,8 @@ void vertex()
 void fragment()
 {
 	COLOR.r = mix(COLOR.r, texture(noise, UV).r, abs(sin(time)));
+	float alpha = COLOR.a;
 	COLOR = texture(color_map, COLOR.rg);
+	COLOR.a *= alpha;
 }
 "
