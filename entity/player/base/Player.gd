@@ -16,7 +16,8 @@ func _revive() -> void:
 	sprite.show()
 	recover_timer.start()
 	modulate = Color(Color.WHITE, .5)
-		
+	Global.last_man_standing = false
+	
 ############## COLLISION
 @onready var death_timer := $DeathTimer
 @onready var hit_sfx := $HitSFX
@@ -81,13 +82,21 @@ func _bomb_finished() -> void:
 @onready var death_fx := $explosion
 @export var sprite : AnimatedSprite2D
 func _on_death_timer_timeout():
-	if Global.player2:
-		death_sfx.play()
-		process_mode = Node.PROCESS_MODE_DISABLED
-		sprite.hide()
-		death_fx.emitting = true
+	VisualEffect.hide()
+	rpc("_sync_death")
+	
+	if Global.player2 and not Global.last_man_standing:
 		Global.hud.player_died()
-		VisualEffect.hide()
+	else:
+		Global.restart_scene()
+		
+@rpc("reliable", "call_local")
+func _sync_death() -> void:
+	process_mode = Node.PROCESS_MODE_DISABLED
+	death_fx.emitting = true
+	death_sfx.play()
+	sprite.hide()
+	Global.last_man_standing = true
 
 @onready var revive_fx := $ReviveSFX
 func _on_recover_timer_timeout():

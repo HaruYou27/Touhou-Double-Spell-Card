@@ -11,14 +11,14 @@ varying vec2 uv;
 void vertex()
 {
 	float time = TIME * time_scale;
-	uv = vec2(abs(sin(time)));
-
 	if (alpha_offset)
 	{
 		time *= sign(COLOR.a - .5);
 		time += 100.0 * COLOR.a;
 		COLOR.a = 1.0;
 	}
+	uv = vec2(abs(sin(time)));
+	
     if (spin)
 	{
     	float phi = time * PI;

@@ -1,4 +1,5 @@
 shader_type canvas_item;
+#pragma disable_preprocessor
 
 uniform float brightness : hint_range(0.001, 2.0) = 1.0;
 uniform float anchor : hint_range(-1.0,0.0) = -0.5;

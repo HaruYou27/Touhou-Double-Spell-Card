@@ -1,4 +1,5 @@
 shader_type canvas_item;
+#pragma disable_preprocessor
 render_mode blend_add;
 
 uniform sampler2D noise_texture : filter_nearest, repeat_enable;

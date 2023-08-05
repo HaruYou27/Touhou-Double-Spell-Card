@@ -1,5 +1,5 @@
-//#pragma disable_preprocessor
 shader_type canvas_item;
+#pragma disable_preprocessor
 
 group_uniforms wave;
 uniform vec2 wave_velocity = vec2(0., 2.);
@@ -16,7 +16,7 @@ varying vec2 water_uv;
 void vertex()
 {
 	wave_uv = UV * wave_multiplyer + TIME * wave_velocity;
-	water_uv = UV + TIME * water_velocity;
+	water_uv = TIME * water_velocity + UV;
 }
 void fragment()
 {

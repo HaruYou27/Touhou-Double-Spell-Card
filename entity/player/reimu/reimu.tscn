@@ -1,13 +1,13 @@
 [gd_scene load_steps=21 format=3 uid="uid://bk08ga1mfcleb"]
 
-[ext_resource type="PackedScene" uid="uid://ffnff8ahyxxn" path="res://entity/player/reimu/reimu_sprite.tscn" id="1_gp5d6"]
+[ext_resource type="PackedScene" uid="uid://ffnff8ahyxxn" path="res://entity/player/reimu/reimu-sprite.tscn" id="2_1gpls"]
 [ext_resource type="PackedScene" uid="uid://c34lwlqwsc4ve" path="res://entity/player/base/player.tscn" id="4_ftqh1"]
 [ext_resource type="PackedScene" uid="uid://cex3540cp47lm" path="res://entity/player/base/graze.tscn" id="5_sq1so"]
 [ext_resource type="PackedScene" uid="uid://bruoc6ea6acxp" path="res://entity/player/reimu/bullet.tscn" id="5_ygtci"]
 [ext_resource type="Script" path="res://entity/player/reimu/kishin-orb.gd" id="6_aunb2"]
 [ext_resource type="Texture2D" uid="uid://cx7ewf38kbh34" path="res://entity/player/reimu/resource/reimu-hitbox.png" id="7_hytxk"]
 [ext_resource type="Material" uid="uid://df8i0wskbdmia" path="res://entity/player/reimu/resource/yinYangOrb.tres" id="7_np48j"]
-[ext_resource type="Texture2D" uid="uid://f57p0cr44ri7" path="res://entity/player/reimu/resource/kishin.webp" id="8_2l12v"]
+[ext_resource type="Texture2D" uid="uid://cmqcue4x2exyv" path="res://entity/player/reimu/resource/Yin-Yang-orb.svg" id="11_hh6jt"]
 [ext_resource type="Material" uid="uid://dox27ncd2r5o3" path="res://entity/resource/glow.tres" id="12_83ts8"]
 [ext_resource type="Texture2D" uid="uid://c3xtb0p5hnjhn" path="res://entity/player/reimu/resource/hitfx.png" id="12_id05n"]
 [ext_resource type="Texture2D" uid="uid://d2wacgirqsjjn" path="res://entity/resource/white-trans.tres" id="13_kms7i"]
@@ -164,7 +164,7 @@ hue_variation_max = 1.0
 hitbox = NodePath("Hitbox")
 sprite = NodePath("ReimuSprite")
 
-[node name="ReimuSprite" parent="Player" instance=ExtResource("1_gp5d6")]
+[node name="ReimuSprite" parent="Player" instance=ExtResource("2_1gpls")]
 position = Vector2(0, 8)
 
 [node name="Hitbox" type="CollisionShape2D" parent="Player"]
@@ -220,7 +220,7 @@ visible = false
 texture_filter = 1
 material = ExtResource("7_np48j")
 rotation = 1.5708
-texture = ExtResource("8_2l12v")
+texture = ExtResource("11_hh6jt")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Node"]
 root_node = NodePath("../KishinOrb")

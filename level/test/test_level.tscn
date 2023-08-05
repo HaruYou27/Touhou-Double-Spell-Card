@@ -1,25 +1,32 @@
-[gd_scene load_steps=45 format=3 uid="uid://bxvy3qa8esorq"]
+[gd_scene load_steps=59 format=3 uid="uid://bxvy3qa8esorq"]
 
 [ext_resource type="Shader" path="res://level/background/misty-lake/water.gdshader" id="1_5h8xj"]
-[ext_resource type="Texture2D" uid="uid://coq45et7pnhnx" path="res://level/background/misty-lake/water-night.tres" id="2_6k43b"]
+[ext_resource type="Texture2D" uid="uid://coq45et7pnhnx" path="res://level/background/misty-lake/water-gradient.tres" id="2_4wj44"]
 [ext_resource type="Texture2D" uid="uid://bgh4r80tk5o7v" path="res://level/background/misty-lake/water-noise.tres" id="3_6g7e0"]
 [ext_resource type="Script" path="res://level/test/background.gd" id="4_xolvc"]
 [ext_resource type="Script" path="res://entity/utility/Path2DSpawner.gd" id="6_n63j6"]
 [ext_resource type="Shader" path="res://level/background/misty-lake/sky-reflection.gdshader" id="6_tvv72"]
 [ext_resource type="Texture2D" uid="uid://x1e8a67qetah" path="res://level/background/misty-lake/FullMoon.png" id="7_1ggri"]
-[ext_resource type="Shader" path="res://entity/bullet/resource/BulletGlow.gdshader" id="7_s3hs4"]
 [ext_resource type="Script" path="res://level/Spellcard.gd" id="8_at87t"]
 [ext_resource type="PackedScene" uid="uid://6wuhmc2p8byc" path="res://level/background/misty-lake/fog.tscn" id="8_ixvn3"]
 [ext_resource type="PackedScene" uid="uid://bfvb372sca8m2" path="res://level/leveler/leveler.tscn" id="9_ii2dw"]
 [ext_resource type="PackedScene" uid="uid://uiwkegjhrq51" path="res://level/background/misty-lake/fog_overlay.tscn" id="9_v1onv"]
 [ext_resource type="Texture2D" uid="uid://bv7sh78arlyjj" path="res://entity/bullet/resource/cystal.png" id="10_6qv5n"]
+[ext_resource type="Script" path="res://entity/bullet/RandAlpha.gd" id="10_vyig4"]
 [ext_resource type="Script" path="res://entity/bullet/BulletBasic.gd" id="11_pvd46"]
-[ext_resource type="Shape2D" uid="uid://bflxt0dqc7na4" path="res://entity/bullet/resource/ball-hitbox.tres" id="11_weaik"]
-[ext_resource type="Script" path="res://entity/bullet/SineAlpha.gd" id="18_rxr5g"]
+[ext_resource type="Shape2D" uid="uid://borrvdxc7pflf" path="res://entity/bullet/resource/cystal-hitbox.tres" id="12_dqfin"]
+[ext_resource type="PackedScene" uid="uid://qcqdhn5ssewn" path="res://level/test/fairy-tracker.tscn" id="15_2pdrr"]
+[ext_resource type="Texture2D" uid="uid://bb6gmgus0empe" path="res://entity/bullet/resource/rice.png" id="16_7kafc"]
+[ext_resource type="Shape2D" uid="uid://57c5btn7th0e" path="res://entity/bullet/resource/rice-hitbox.tres" id="17_72iy2"]
+[ext_resource type="Texture2D" uid="uid://cqt1oe248vvwn" path="res://entity/enemy/fairy/Fairy.2.png" id="19_gnhpy"]
 [ext_resource type="PackedScene" uid="uid://cyvf0ik0p568i" path="res://level/test/fairy.tscn" id="20_5gbox"]
+[ext_resource type="Script" path="res://entity/utility/TargetLocker.gd" id="20_rcos7"]
 [ext_resource type="Script" path="res://level/test/swing.gd" id="21_dj0sb"]
+[ext_resource type="Shader" path="res://entity/bullet/resource/BulletGlow.gdshader" id="21_fhie4"]
 [ext_resource type="PackedScene" uid="uid://bncu813gm4hx8" path="res://entity/yukari/yukari.tscn" id="22_23hw6"]
 [ext_resource type="Shader" path="res://entity/resource/UberItem.gdshader" id="22_puvhm"]
+[ext_resource type="Texture2D" uid="uid://dilcwhuq6brnv" path="res://entity/bullet/resource/ball.png" id="22_rm6dl"]
+[ext_resource type="Shape2D" uid="uid://bflxt0dqc7na4" path="res://entity/bullet/resource/ball-hitbox.tres" id="23_gmowg"]
 [ext_resource type="Shape2D" uid="uid://brtfnhe3eksr4" path="res://entity/bullet/resource/kunai-hitbox.tres" id="23_oo4ok"]
 [ext_resource type="Texture2D" uid="uid://d1nkk7km71ule" path="res://entity/bullet/resource/kunai1.png" id="24_2664k"]
 [ext_resource type="Script" path="res://level/test/SpinShot2.gd" id="25_eroeu"]
@@ -34,7 +41,7 @@ shader_parameter/wave_velocity = Vector2(0, 2)
 shader_parameter/wave_distortion = 0.2
 shader_parameter/wave_multiplyer = -7.0
 shader_parameter/water_velocity = Vector2(0, -0.2)
-shader_parameter/color_map = ExtResource("2_6k43b")
+shader_parameter/color_map = ExtResource("2_4wj44")
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_4e8h0"]
 seed = 727
@@ -59,22 +66,20 @@ shader_parameter/wave_distortion = 0.09
 shader_parameter/wave_multiplyer = -7.0
 shader_parameter/noise_texture = ExtResource("3_6g7e0")
 
-[sub_resource type="Gradient" id="Gradient_32llw"]
-colors = PackedColorArray(0.693875, 0.2275, 0.91, 1, 1, 1, 0.662745, 1)
+[sub_resource type="Gradient" id="Gradient_6yoxw"]
+colors = PackedColorArray(0.69, 0.0552, 0.65826, 1, 1, 1, 0.06, 1)
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_tt7jt"]
-gradient = SubResource("Gradient_32llw")
-width = 32
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_ykwyp"]
+gradient = SubResource("Gradient_6yoxw")
+width = 8
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_4roxx"]
-shader = ExtResource("7_s3hs4")
-shader_parameter/time_scale = 3.0
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_w081n"]
+shader = ExtResource("22_puvhm")
+shader_parameter/time_scale = 2.0
 shader_parameter/alpha_offset = true
-shader_parameter/spin = false
+shader_parameter/spin = null
 shader_parameter/sin_alpha = null
-shader_parameter/wobble = false
-shader_parameter/wobble_min = 0.75
-shader_parameter/color_map = SubResource("GradientTexture1D_tt7jt")
+shader_parameter/color_map = SubResource("GradientTexture1D_ykwyp")
 
 [sub_resource type="Curve2D" id="Curve2D_rvgc8"]
 _data = {
@@ -82,9 +87,56 @@ _data = {
 }
 point_count = 7
 
+[sub_resource type="Gradient" id="Gradient_c57lt"]
+interpolation_mode = 1
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0.62, 0.0744, 0.365387, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_mflqg"]
+gradient = SubResource("Gradient_c57lt")
+width = 1
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2rgkm"]
+shader = ExtResource("22_puvhm")
+shader_parameter/time_scale = null
+shader_parameter/alpha_offset = null
+shader_parameter/spin = null
+shader_parameter/sin_alpha = null
+shader_parameter/color_map = SubResource("GradientTexture1D_mflqg")
+
 [sub_resource type="Curve2D" id="Curve2D_va8k1"]
 _data = {
 "points": PackedVector2Array(0, 0, 0, 0, 597, -58, -202.19, -224.091, 202.19, 224.091, 53, 746, -56.2014, 123.352, 56.2014, -123.352, 523, 663, 0, 0, 0, 0, -69, -65)
+}
+point_count = 4
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_d3uy2"]
+shader = ExtResource("21_fhie4")
+shader_parameter/time_scale = null
+shader_parameter/alpha_offset = null
+shader_parameter/spin = null
+shader_parameter/sin_alpha = null
+shader_parameter/wobble = null
+shader_parameter/wobble_min = 0.75
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_kukqw"]
+shader = ExtResource("21_fhie4")
+shader_parameter/time_scale = null
+shader_parameter/alpha_offset = null
+shader_parameter/spin = null
+shader_parameter/sin_alpha = null
+shader_parameter/wobble = null
+shader_parameter/wobble_min = 0.75
+
+[sub_resource type="Curve2D" id="Curve2D_c4b5w"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 253.864, -60.6458, 219.126, 147.043, -219.126, -147.043, 35, 831, 10.0908, 112.68, -10.0908, -112.68, 518, 491, 0, 0, 0, 0, -128.298, 300.183)
+}
+point_count = 4
+
+[sub_resource type="Curve2D" id="Curve2D_k6wgk"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 88.6195, -61.0539, 13.0182, 189.95, -13.0182, -189.95, 501.526, 250.959, -34.0614, 290.614, 34.0614, -290.614, -2.69486, 363.436, 0, 0, 0, 0, 590.716, 900.089)
 }
 point_count = 4
 
@@ -157,7 +209,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("AudioStreamPlayer:playing")
+tracks/3/path = NodePath("CystalDrop1/Spawner1:reverse")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -169,31 +221,31 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("CystalDrop1/Spawner1Bullet/Spawner1:spawn")
+tracks/4/path = NodePath("FogOverlay:modulate")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
 }
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("CystalDrop1/Spawner1Bullet/Timer:process_mode")
+tracks/5/path = NodePath("SubViewportContainer/SubViewport/background/fog:modulate")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [4]
+"values": [Color(1, 1, 1, 0)]
 }
 tracks/6/type = "value"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("CystalDrop1/Spawner1Bullet/Spawner1:reverse")
+tracks/6/path = NodePath("Tracking2/Spawner2:reverse")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
@@ -205,32 +257,19 @@ tracks/6/keys = {
 tracks/7/type = "value"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("FogOverlay:modulate")
+tracks/7/path = NodePath("CystalDrop1:visible")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 0)]
-}
-tracks/8/type = "value"
-tracks/8/imported = false
-tracks/8/enabled = true
-tracks/8/path = NodePath("SubViewportContainer/SubViewport/background/fog:modulate")
-tracks/8/interp = 1
-tracks/8/loop_wrap = true
-tracks/8/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 0)]
+"update": 1,
+"values": [false]
 }
 
 [sub_resource type="Animation" id="Animation_shi7r"]
 resource_name = "game"
 length = 160.0
-step = 1.0
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -269,75 +308,280 @@ tracks/2/keys = {
 }
 tracks/3/type = "value"
 tracks/3/imported = false
-tracks/3/enabled = false
-tracks/3/path = NodePath("AudioStreamPlayer:playing")
+tracks/3/enabled = true
+tracks/3/path = NodePath("CystalDrop1/Spawner1:reverse")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(5.7, 6.9, 8.4, 9.8, 11.2, 12.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [true]
+"values": [false, true, false, true, false, true]
 }
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("CystalDrop1/Spawner1Bullet/Spawner1:spawn")
+tracks/4/path = NodePath("SubViewportContainer/SubViewport/background/fog:modulate")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
-"times": PackedFloat32Array(5.9, 6.3, 6.7, 7.1, 7.3, 7.5, 7.8, 8.1, 8.6, 9, 9.4, 9.8, 10, 10.2, 10.5, 10.8, 11.5, 11.9, 12.3, 12.7, 12.9, 13.1, 13.4, 13.7),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
-"update": 1,
-"values": [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true]
-}
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("CystalDrop1/Spawner1Bullet/Timer:process_mode")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
-"times": PackedFloat32Array(5.6),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0]
-}
-tracks/6/type = "value"
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/path = NodePath("CystalDrop1/Spawner1Bullet/Spawner1:reverse")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/keys = {
-"times": PackedFloat32Array(5.7, 6.9, 8.4, 11.3),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 1,
-"values": [false, true, false, true]
-}
-tracks/7/type = "value"
-tracks/7/imported = false
-tracks/7/enabled = true
-tracks/7/path = NodePath("SubViewportContainer/SubViewport/background/fog:modulate")
-tracks/7/interp = 1
-tracks/7/loop_wrap = true
-tracks/7/keys = {
 "times": PackedFloat32Array(0, 70),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0.462745)]
 }
-tracks/8/type = "value"
-tracks/8/imported = false
-tracks/8/enabled = true
-tracks/8/path = NodePath("FogOverlay:modulate")
-tracks/8/interp = 1
-tracks/8/loop_wrap = true
-tracks/8/keys = {
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("FogOverlay:modulate")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
 "times": PackedFloat32Array(0, 106),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0.662745)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Tracking2/Spawner2:reverse")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(18.7, 20.2, 21.3, 23.4, 24.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [true, false, true, false, true]
+}
+tracks/7/type = "method"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("CystalDrop1/Spawner1")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(5.9, 6.3, 6.7, 7.1, 7.4, 7.6, 7.9, 8.2, 8.8, 9.2, 9.6, 10, 10.3, 10.5, 10.8, 11.1, 11.5, 11.9, 12.3, 12.7, 13, 13.2, 13.5, 13.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"values": [{
+"args": [],
+"method": &"spawn_enemy"
+}, {
+"args": [],
+"method": &"spawn_enemy"
+}, {
+"args": [],
+"method": &"spawn_enemy"
+}, {
+"args": [],
+"method": &"spawn_enemy"
+}, {
+"args": [],
+"method": &"spawn_enemy"
+}, {
+"args": [],
+"method": &"spawn_enemy"
+}, {
+"args": [],
+"method": &"spawn_enemy"
+}, {
+"args": [],
+"method": &"spawn_enemy"
+}, {
+"args": [],
+"method": &"spawn_enemy"
+}, {
+"args": [],
+"method": &"spawn_enemy"
+}, {
+"args": [],
+"method": &"spawn_enemy"
+}, {
+"args": [],
+"method": &"spawn_enemy"
+}, {
+"args": [],
+"method": &"spawn_enemy"
+}, {
+"args": [],
+"method": &"spawn_enemy"
+}, {
+"args": [],
+"method": &"spawn_enemy"
+}, {
+"args": [],
+"method": &"spawn_enemy"
+}, {
+"args": [],
+"method": &"spawn_enemy"
+}, {
+"args": [],
+"method": &"spawn_enemy"
+}, {
+"args": [],
+"method": &"spawn_enemy"
+}, {
+"args": [],
+"method": &"spawn_enemy"
+}, {
+"args": [],
+"method": &"spawn_enemy"
+}, {
+"args": [],
+"method": &"spawn_enemy"
+}, {
+"args": [],
+"method": &"spawn_enemy"
+}, {
+"args": [],
+"method": &"spawn_enemy"
+}]
+}
+tracks/8/type = "method"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("level")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(154),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"_finished"
+}]
+}
+tracks/9/type = "method"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("CystalDrop1")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(5.4, 17.9),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [],
+"method": &"_start"
+}, {
+"args": [],
+"method": &"queue_free"
+}]
+}
+tracks/10/type = "method"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("Tracking2")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(17.6, 34.9),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [],
+"method": &"_start"
+}, {
+"args": [],
+"method": &"queue_free"
+}]
+}
+tracks/11/type = "audio"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("AudioStreamPlayer")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("26_f2wvn")
+}],
+"times": PackedFloat32Array(0)
+}
+tracks/11/use_blend = false
+tracks/12/type = "method"
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/path = NodePath("Tracking2/Spawner2")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/keys = {
+"times": PackedFloat32Array(17.8, 18.1, 18.5, 18.9, 19.1, 19.4, 19.7, 20, 20.4, 20.7, 21.1, 21.5, 21.7, 22, 22.3, 22.6, 23.6, 23.9, 24.3, 24.7, 24.9, 25.2, 25.5, 25.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"values": [{
+"args": [],
+"method": &"spawn_enemy"
+}, {
+"args": [],
+"method": &"spawn_enemy"
+}, {
+"args": [],
+"method": &"spawn_enemy"
+}, {
+"args": [],
+"method": &"spawn_enemy"
+}, {
+"args": [],
+"method": &"spawn_enemy"
+}, {
+"args": [],
+"method": &"spawn_enemy"
+}, {
+"args": [],
+"method": &"spawn_enemy"
+}, {
+"args": [],
+"method": &"spawn_enemy"
+}, {
+"args": [],
+"method": &"spawn_enemy"
+}, {
+"args": [],
+"method": &"spawn_enemy"
+}, {
+"args": [],
+"method": &"spawn_enemy"
+}, {
+"args": [],
+"method": &"spawn_enemy"
+}, {
+"args": [],
+"method": &"spawn_enemy"
+}, {
+"args": [],
+"method": &"spawn_enemy"
+}, {
+"args": [],
+"method": &"spawn_enemy"
+}, {
+"args": [],
+"method": &"spawn_enemy"
+}, {
+"args": [],
+"method": &"spawn_enemy"
+}, {
+"args": [],
+"method": &"spawn_enemy"
+}, {
+"args": [],
+"method": &"spawn_enemy"
+}, {
+"args": [],
+"method": &"spawn_enemy"
+}, {
+"args": [],
+"method": &"spawn_enemy"
+}, {
+"args": [],
+"method": &"spawn_enemy"
+}, {
+"args": [],
+"method": &"spawn_enemy"
+}, {
+"args": [],
+"method": &"spawn_enemy"
+}]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_lj1a4"]
@@ -379,95 +623,247 @@ texture = ExtResource("7_1ggri")
 modulate = Color(1, 1, 1, 0)
 
 [node name="CystalDrop1" type="Node2D" parent="."]
+visible = false
 script = ExtResource("8_at87t")
+nodes2start = Array[NodePath]([NodePath("Timer")])
 
-[node name="Spawner1Bullet" type="Node2D" parent="CystalDrop1" groups=["Enemy Bullet"]]
+[node name="CystalBullet" type="Node2D" parent="CystalDrop1"]
 z_index = 100
-material = SubResource("ShaderMaterial_4roxx")
+material = SubResource("ShaderMaterial_w081n")
 position = Vector2(4, -54)
-script = ExtResource("18_rxr5g")
-shoot_bullet = true
+script = ExtResource("10_vyig4")
 texture = ExtResource("10_6qv5n")
 barrelGroup = "Enemy Barrel 1"
 speed = 472
 localRotation = true
-hitbox = ExtResource("11_weaik")
+hitbox = ExtResource("12_dqfin")
 collision_mask = 5
 
-[node name="Timer" type="Timer" parent="CystalDrop1/Spawner1Bullet"]
-process_mode = 4
+[node name="Timer" type="Timer" parent="CystalDrop1"]
 wait_time = 0.2
-autostart = true
 
-[node name="Spawner1" type="Path2D" parent="CystalDrop1/Spawner1Bullet"]
+[node name="Spawner1" type="Path2D" parent="CystalDrop1"]
+position = Vector2(4, -54)
 curve = SubResource("Curve2D_rvgc8")
 script = ExtResource("6_n63j6")
 barrel_group = &"Enemy Barrel 1"
 
-[node name="Fairy" parent="CystalDrop1/Spawner1Bullet/Spawner1" instance=ExtResource("20_5gbox")]
+[node name="Fairy" parent="CystalDrop1/Spawner1" instance=ExtResource("20_5gbox")]
 position = Vector2(-50, 146)
 time = 4.0
 
-[node name="Fairy2" parent="CystalDrop1/Spawner1Bullet/Spawner1" instance=ExtResource("20_5gbox")]
+[node name="Fairy2" parent="CystalDrop1/Spawner1" instance=ExtResource("20_5gbox")]
 position = Vector2(-50, 146)
 time = 4.0
 
-[node name="Fairy3" parent="CystalDrop1/Spawner1Bullet/Spawner1" instance=ExtResource("20_5gbox")]
+[node name="Fairy3" parent="CystalDrop1/Spawner1" instance=ExtResource("20_5gbox")]
 position = Vector2(-50, 146)
 time = 4.0
 
-[node name="Fairy4" parent="CystalDrop1/Spawner1Bullet/Spawner1" instance=ExtResource("20_5gbox")]
+[node name="Fairy4" parent="CystalDrop1/Spawner1" instance=ExtResource("20_5gbox")]
 position = Vector2(-50, 146)
 time = 4.0
 
-[node name="Fairy5" parent="CystalDrop1/Spawner1Bullet/Spawner1" instance=ExtResource("20_5gbox")]
+[node name="Fairy5" parent="CystalDrop1/Spawner1" instance=ExtResource("20_5gbox")]
 position = Vector2(-50, 146)
 time = 4.0
 
-[node name="Fairy6" parent="CystalDrop1/Spawner1Bullet/Spawner1" instance=ExtResource("20_5gbox")]
+[node name="Fairy6" parent="CystalDrop1/Spawner1" instance=ExtResource("20_5gbox")]
 position = Vector2(-50, 146)
 time = 4.0
 
-[node name="Fairy7" parent="CystalDrop1/Spawner1Bullet/Spawner1" instance=ExtResource("20_5gbox")]
+[node name="Fairy7" parent="CystalDrop1/Spawner1" instance=ExtResource("20_5gbox")]
 position = Vector2(-50, 146)
 time = 4.0
 
-[node name="Fairy8" parent="CystalDrop1/Spawner1Bullet/Spawner1" instance=ExtResource("20_5gbox")]
+[node name="Fairy8" parent="CystalDrop1/Spawner1" instance=ExtResource("20_5gbox")]
 position = Vector2(-50, 146)
 time = 4.0
 
-[node name="Fairy9" parent="CystalDrop1/Spawner1Bullet/Spawner1" instance=ExtResource("20_5gbox")]
+[node name="Fairy9" parent="CystalDrop1/Spawner1" instance=ExtResource("20_5gbox")]
 position = Vector2(-50, 146)
 time = 4.0
 
-[node name="Fairy10" parent="CystalDrop1/Spawner1Bullet/Spawner1" instance=ExtResource("20_5gbox")]
+[node name="Fairy10" parent="CystalDrop1/Spawner1" instance=ExtResource("20_5gbox")]
 position = Vector2(-50, 146)
 time = 4.0
 
-[node name="Fairy11" parent="CystalDrop1/Spawner1Bullet/Spawner1" instance=ExtResource("20_5gbox")]
+[node name="Fairy11" parent="CystalDrop1/Spawner1" instance=ExtResource("20_5gbox")]
 position = Vector2(-50, 146)
 time = 4.0
 
-[node name="Fairy12" parent="CystalDrop1/Spawner1Bullet/Spawner1" instance=ExtResource("20_5gbox")]
+[node name="Fairy12" parent="CystalDrop1/Spawner1" instance=ExtResource("20_5gbox")]
 position = Vector2(-50, 146)
 time = 4.0
 
-[node name="Fairy13" parent="CystalDrop1/Spawner1Bullet/Spawner1" instance=ExtResource("20_5gbox")]
+[node name="Fairy13" parent="CystalDrop1/Spawner1" instance=ExtResource("20_5gbox")]
 position = Vector2(-50, 146)
 time = 4.0
 
-[node name="Fairy14" parent="CystalDrop1/Spawner1Bullet/Spawner1" instance=ExtResource("20_5gbox")]
+[node name="Fairy14" parent="CystalDrop1/Spawner1" instance=ExtResource("20_5gbox")]
 position = Vector2(-50, 146)
 time = 4.0
 
-[node name="Fairy15" parent="CystalDrop1/Spawner1Bullet/Spawner1" instance=ExtResource("20_5gbox")]
+[node name="Fairy15" parent="CystalDrop1/Spawner1" instance=ExtResource("20_5gbox")]
 position = Vector2(-50, 146)
 time = 4.0
 
-[node name="tracking2" type="Node2D" parent="."]
+[node name="Tracking2" type="Node2D" parent="."]
+visible = false
+script = ExtResource("8_at87t")
+nodes2start = Array[NodePath]([NodePath("Timer")])
 
-[node name="Path2D" type="Path2D" parent="tracking2"]
+[node name="TrackingBullet" type="Node2D" parent="Tracking2"]
+material = SubResource("ShaderMaterial_2rgkm")
+script = ExtResource("11_pvd46")
+texture = ExtResource("16_7kafc")
+barrelGroup = "Enemy Barrel 2"
+speed = 327
+localRotation = true
+bullet_scale = Vector2(0.5, 0.5)
+hitbox = ExtResource("17_72iy2")
+collision_mask = 5
+
+[node name="Timer" type="Timer" parent="Tracking2"]
+wait_time = 0.5
+
+[node name="Spawner2" type="Path2D" parent="Tracking2"]
 curve = SubResource("Curve2D_va8k1")
+script = ExtResource("6_n63j6")
+barrel_group = &"Enemy Barrel 2"
+
+[node name="Fairy" parent="Tracking2/Spawner2" instance=ExtResource("15_2pdrr")]
+position = Vector2(597, -58)
+
+[node name="Fairy2" parent="Tracking2/Spawner2" instance=ExtResource("15_2pdrr")]
+position = Vector2(597, -58)
+
+[node name="Fairy3" parent="Tracking2/Spawner2" instance=ExtResource("15_2pdrr")]
+position = Vector2(597, -58)
+
+[node name="Fairy4" parent="Tracking2/Spawner2" instance=ExtResource("15_2pdrr")]
+position = Vector2(597, -58)
+
+[node name="Fairy5" parent="Tracking2/Spawner2" instance=ExtResource("15_2pdrr")]
+position = Vector2(597, -58)
+
+[node name="Fairy6" parent="Tracking2/Spawner2" instance=ExtResource("15_2pdrr")]
+position = Vector2(597, -58)
+
+[node name="Fairy7" parent="Tracking2/Spawner2" instance=ExtResource("15_2pdrr")]
+position = Vector2(597, -58)
+
+[node name="Fairy8" parent="Tracking2/Spawner2" instance=ExtResource("15_2pdrr")]
+position = Vector2(597, -58)
+
+[node name="Fairy9" parent="Tracking2/Spawner2" instance=ExtResource("15_2pdrr")]
+position = Vector2(597, -58)
+
+[node name="Fairy10" parent="Tracking2/Spawner2" instance=ExtResource("15_2pdrr")]
+position = Vector2(597, -58)
+
+[node name="Fairy11" parent="Tracking2/Spawner2" instance=ExtResource("15_2pdrr")]
+position = Vector2(597, -58)
+
+[node name="Fairy12" parent="Tracking2/Spawner2" instance=ExtResource("15_2pdrr")]
+position = Vector2(597, -58)
+
+[node name="Fairy13" parent="Tracking2/Spawner2" instance=ExtResource("15_2pdrr")]
+position = Vector2(597, -58)
+
+[node name="Fairy14" parent="Tracking2/Spawner2" instance=ExtResource("15_2pdrr")]
+position = Vector2(597, -58)
+
+[node name="Fairy15" parent="Tracking2/Spawner2" instance=ExtResource("15_2pdrr")]
+position = Vector2(597, -58)
+
+[node name="BigHpFairy3" type="Node2D" parent="."]
+
+[node name="fairy1" type="Sprite2D" parent="BigHpFairy3"]
+texture = ExtResource("19_gnhpy")
+
+[node name="barrel" type="Node2D" parent="BigHpFairy3/fairy1"]
+script = ExtResource("20_rcos7")
+
+[node name="_Marker2D_28706" type="Marker2D" parent="BigHpFairy3/fairy1/barrel" groups=["Enemy Barrel 3"]]
+position = Vector2(13.9463, 13.9463)
+rotation = 0.785398
+scale = Vector2(1, 1)
+gizmo_extents = 20.0
+
+[node name="_Marker2D_28730" type="Marker2D" parent="BigHpFairy3/fairy1/barrel" groups=["Enemy Barrel 3"]]
+position = Vector2(13.9463, -13.9463)
+rotation = -0.785398
+gizmo_extents = 20.0
+
+[node name="_Marker2D_28731" type="Marker2D" parent="BigHpFairy3/fairy1/barrel" groups=["Enemy Barrel 3"]]
+position = Vector2(16.3991, -10.9576)
+rotation = -0.589049
+scale = Vector2(1, 1)
+gizmo_extents = 20.0
+
+[node name="_Marker2D_28732" type="Marker2D" parent="BigHpFairy3/fairy1/barrel" groups=["Enemy Barrel 3"]]
+position = Vector2(18.2218, -7.54769)
+rotation = -0.392699
+scale = Vector2(1, 1)
+gizmo_extents = 20.0
+
+[node name="_Marker2D_28733" type="Marker2D" parent="BigHpFairy3/fairy1/barrel" groups=["Enemy Barrel 3"]]
+position = Vector2(19.3441, -3.84779)
+rotation = -0.19635
+gizmo_extents = 20.0
+
+[node name="_Marker2D_28734" type="Marker2D" parent="BigHpFairy3/fairy1/barrel" groups=["Enemy Barrel 3"]]
+position = Vector2(19.7231, -2.86102e-06)
+gizmo_extents = 20.0
+
+[node name="_Marker2D_28735" type="Marker2D" parent="BigHpFairy3/fairy1/barrel" groups=["Enemy Barrel 3"]]
+position = Vector2(19.3441, 3.84778)
+rotation = 0.196349
+scale = Vector2(1, 1)
+gizmo_extents = 20.0
+
+[node name="_Marker2D_28736" type="Marker2D" parent="BigHpFairy3/fairy1/barrel" groups=["Enemy Barrel 3"]]
+position = Vector2(18.2218, 7.5477)
+rotation = 0.392699
+gizmo_extents = 20.0
+
+[node name="_Marker2D_28737" type="Marker2D" parent="BigHpFairy3/fairy1/barrel" groups=["Enemy Barrel 3"]]
+position = Vector2(16.3991, 10.9576)
+rotation = 0.589049
+gizmo_extents = 20.0
+
+[node name="Bullet-" type="Node2D" parent="BigHpFairy3"]
+material = SubResource("ShaderMaterial_d3uy2")
+script = ExtResource("11_pvd46")
+texture = ExtResource("22_rm6dl")
+barrelGroup = "Enemy Barrel 3"
+speed = 272
+bullet_scale = Vector2(0.5, 0.5)
+hitbox = ExtResource("23_gmowg")
+collision_mask = 5
+
+[node name="Bullet+" type="Node2D" parent="BigHpFairy3"]
+material = SubResource("ShaderMaterial_kukqw")
+script = ExtResource("11_pvd46")
+texture = ExtResource("16_7kafc")
+barrelGroup = "Enemy Barrel 3"
+speed = 427
+bullet_scale = Vector2(0.5, 0.5)
+hitbox = ExtResource("17_72iy2")
+collision_mask = 5
+
+[node name="ScoreGiveaway4" type="Node2D" parent="."]
+visible = false
+
+[node name="Path2D" type="Path2D" parent="ScoreGiveaway4"]
+rotation = -0.056961
+curve = SubResource("Curve2D_c4b5w")
+script = ExtResource("6_n63j6")
+
+[node name="Path2D2" type="Path2D" parent="ScoreGiveaway4"]
+rotation = -0.056961
+curve = SubResource("Curve2D_k6wgk")
 script = ExtResource("6_n63j6")
 
 [node name="boss1" type="Node2D" parent="."]
@@ -863,7 +1259,6 @@ modulate = Color(1, 1, 1, 0)
 z_index = 3000
 
 [node name="level" parent="." node_paths=PackedStringArray("player_container", "animator") instance=ExtResource("9_ii2dw")]
-mouse_filter = 2
 player_container = NodePath("../player")
 animator = NodePath("../AnimationPlayer")
 
@@ -873,10 +1268,11 @@ libraries = {
 }
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("26_f2wvn")
 
-[connection signal="timeout" from="CystalDrop1/Spawner1Bullet/Timer" to="CystalDrop1/Spawner1Bullet" method="spawn_bullet"]
-[connection signal="timeout" from="CystalDrop1/Spawner1Bullet/Timer" to="CystalDrop1/Spawner1Bullet/Spawner1" method="_transform_barrel"]
+[connection signal="timeout" from="CystalDrop1/Timer" to="CystalDrop1/CystalBullet" method="spawn_bullet"]
+[connection signal="timeout" from="CystalDrop1/Timer" to="CystalDrop1/Spawner1" method="_transform_barrel"]
+[connection signal="timeout" from="Tracking2/Timer" to="Tracking2/TrackingBullet" method="spawn_bullet"]
+[connection signal="timeout" from="Tracking2/Timer" to="Tracking2/Spawner2" method="_transform_barrel"]
 [connection signal="timeout" from="boss1/Swing/BurstTimer" to="boss1/Swing" method="_on_timer_timeout"]
 [connection signal="timeout" from="boss1/Swing/BurstTimer" to="boss1/Swing/Swing" method="spawn_bullet"]
 [connection signal="timeout" from="boss1/Swing/BurstTimer" to="boss1/Swing/BurstTimer" method="_on_timeout" flags=18]

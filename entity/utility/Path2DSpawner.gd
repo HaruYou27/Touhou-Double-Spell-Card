@@ -17,10 +17,6 @@ func _reclaim_follower(follower:Node) -> void:
 ## Spawn enemy from both end of the curve.
 @export var mirror := false
 @export var reverse := false
-@export var spawn := false :
-	set(value):
-		if value:
-			spawn_enemy()
 var tick := false
 func spawn_enemy():
 	if available.is_empty():

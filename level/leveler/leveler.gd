@@ -26,3 +26,6 @@ func game_started(host_time:int) -> void:
 	var offset := (Global.get_host_time() - host_time) / 1000.
 	var timer := get_tree().create_timer(3. - offset, true, true, true)
 	timer.timeout.connect(animator.play.bind("game"))
+
+func _finished() -> void:
+	Global.change_scene(global.main_menu)

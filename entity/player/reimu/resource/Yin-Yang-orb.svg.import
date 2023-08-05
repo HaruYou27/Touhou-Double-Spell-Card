@@ -3,35 +3,35 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cmqcue4x2exyv"
-path="res://.godot/imported/Yin_and_Yang_symbol.svg-3037f4fcf9acd803a3aab3b6e33bae07.ctex"
+path="res://.godot/imported/Yin-Yang-orb.svg-b48fe598ee4af103087cd8e8bef32e55.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://raw-asset/Yin_and_Yang_symbol.svg"
-dest_files=["res://.godot/imported/Yin_and_Yang_symbol.svg-3037f4fcf9acd803a3aab3b6e33bae07.ctex"]
+source_file="res://entity/player/reimu/resource/Yin-Yang-orb.svg"
+dest_files=["res://.godot/imported/Yin-Yang-orb.svg-b48fe598ee4af103087cd8e8bef32e55.ctex"]
 
 [params]
 
-compress/mode=0
+compress/mode=4
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1
-compress/normal_map=0
-compress/channel_pack=0
+compress/normal_map=2
+compress/channel_pack=1
 mipmaps/generate=false
 mipmaps/limit=-1
 roughness/mode=0
 roughness/src_normal=""
-process/fix_alpha_border=true
+process/fix_alpha_border=false
 process/premult_alpha=false
 process/normal_map_invert_y=false
 process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
 detect_3d/compress_to=1
-svg/scale=1.0
+svg/scale=2.16
 editor/scale_with_editor_scale=false
 editor/convert_colors_with_editor_theme=false

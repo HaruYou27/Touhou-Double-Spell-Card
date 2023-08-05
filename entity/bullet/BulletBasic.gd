@@ -1,12 +1,6 @@
 extends Node2D
 class_name BulletBasic
 ##The most basic bullet.
-
-@export var shoot_bullet := false :
-	set(value):
-		if value:
-			spawn_bullet()
-	
 ## Shoule be in grayscale for dynamic color.
 @export var texture : Texture2D
 ## By default bullet texture is draw in center.
@@ -95,8 +89,8 @@ func spawn_bullet() -> void:
 		
 		RenderingServer.canvas_item_set_visible(bullet.sprite, true)
 		RenderingServer.canvas_item_set_transform(bullet.sprite, Transform2D(0, Vector2(-500, -500)))		
-		reset_bullet()
 		reset_bullet_transform(barrel)
+		reset_bullet()
 		
 		bullet.grazable = grazable
 
@@ -104,25 +98,22 @@ func spawn_bullet() -> void:
 func reset_bullet() -> void:
 	pass
 		
+const half_pi := PI/2
 ## Capsule collision shape in Godot is vertical.
 func reset_bullet_transform(barrel:Node2D):
 	if localRotation:
 		bullet.velocity = Vector2(speed, 0).rotated(barrel.rotation)
-		bullet.transform = Transform2D(barrel.rotation + PI/2, bullet_scale, 0, barrel.global_position)
+		bullet.transform = Transform2D(barrel.rotation + half_pi, bullet_scale, 0, barrel.global_position)
 	else:
 		bullet.velocity = Vector2(speed, 0).rotated(barrel.global_rotation)
-		bullet.transform = Transform2D(barrel.global_rotation + PI/2, bullet_scale, 0, barrel.global_position)
+		bullet.transform = Transform2D(barrel.global_rotation + half_pi, bullet_scale, 0, barrel.global_position)
 			
-## Wipe all bullets and return their positions. (for example, spawn item)
-func clear() -> PackedVector2Array:
+## Wipe all bullets.
+func clear() -> void:
 	if bullets.is_empty():
-		return PackedVector2Array()
-	var positions = PackedVector2Array()
+		return 
 	for bullete in  bullets:
 		RenderingServer.canvas_item_set_visible(bullete.sprite, false)
-		positions.append(bullete.transform.origin)
-		
-	return positions
 
 ## Override to change the way bullet move.
 func move(delta:float) -> Transform2D:

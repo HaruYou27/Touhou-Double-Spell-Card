@@ -15,6 +15,7 @@ signal revive_player
 var hud : HUD
 var player1 : Node2D
 var player2 : Node2D
+var last_man_standing := false
 func _peer_disconnected() -> void:
 	player2 = null
 

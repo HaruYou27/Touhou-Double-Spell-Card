@@ -1,4 +1,5 @@
 shader_type canvas_item;
+#pragma disable_preprocessor
 
 group_uniforms reflection;
 uniform float water_opacity : hint_range(0.0, 1.0) = 0.5;

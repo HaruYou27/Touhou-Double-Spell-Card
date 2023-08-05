@@ -21,7 +21,7 @@
 [ext_resource type="Shortcut" uid="uid://xs30oatyn1i6" path="res://user-interface/resource/shortcut/enter.tres" id="14_nwuco"]
 [ext_resource type="Script" path="res://user-interface/control-node/BulletPreviewer.gd" id="16_ennx6"]
 [ext_resource type="PackedScene" uid="uid://bk08ga1mfcleb" path="res://entity/player/reimu/reimu.tscn" id="16_o0h3l"]
-[ext_resource type="PackedScene" uid="uid://ffnff8ahyxxn" path="res://entity/player/reimu/reimu_sprite.tscn" id="17_3eq3m"]
+[ext_resource type="PackedScene" uid="uid://ffnff8ahyxxn" path="res://entity/player/reimu/reimu-sprite.tscn" id="17_3eq3m"]
 [ext_resource type="PackedScene" uid="uid://bruoc6ea6acxp" path="res://entity/player/reimu/bullet.tscn" id="17_t5n2t"]
 [ext_resource type="PackedScene" uid="uid://b85g60flfgfr3" path="res://entity/player/marisa/master_spark.tscn" id="20_t2v0b"]
 [ext_resource type="PackedScene" uid="uid://of6l83moa38k" path="res://entity/player/marisa/marisa.tscn" id="23_kf20h"]
@@ -130,20 +130,6 @@ corner_radius_top_right = 10
 corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
 corner_detail = 4
-
-[sub_resource type="GDScript" id="GDScript_ud3jd"]
-script/source = "extends RichTextLabel
-
-
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
-"
 
 [sub_resource type="Animation" id="Animation_o46ky"]
 length = 0.001
@@ -638,10 +624,10 @@ script = ExtResource("4_h21eu")
 
 [node name="speed" type="HSlider" parent="TabContainer/Settings/Generic" node_paths=PackedStringArray("label")]
 layout_mode = 2
-min_value = 0.5
-max_value = 2.0
-step = 0.1
-value = 2.0
+min_value = 0.75
+max_value = 1.25
+step = 0.01
+value = 1.25
 allow_greater = true
 script = ExtResource("31_t8wq2")
 label = NodePath("../Label")

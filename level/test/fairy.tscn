@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" path="res://entity/utility/PathFollower2D.gd" id="1_q5ad0"]
 [ext_resource type="PackedScene" uid="uid://dtlscerig62nv" path="res://entity/enemy/base/enemy.tscn" id="2_fw23a"]
-[ext_resource type="Texture2D" uid="uid://ejrqvn5h5jxu" path="res://entity/enemy/fairy/Fairy.1.png" id="3_rpcwy"]
-[ext_resource type="Script" path="res://entity/utility/SinRotator.gd" id="4_3fxo3"]
+[ext_resource type="Texture2D" uid="uid://ejrqvn5h5jxu" path="res://entity/enemy/fairy/Fairy.1.png" id="3_anm3e"]
+[ext_resource type="Script" path="res://entity/utility/SinRotator.gd" id="4_kds6q"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_noovt"]
 radius = 29.0172
@@ -23,15 +23,13 @@ shape = SubResource("CircleShape2D_noovt")
 
 [node name="visual" type="Sprite2D" parent="Enemy"]
 visible = false
-texture = ExtResource("3_rpcwy")
+texture = ExtResource("3_anm3e")
 
 [node name="Marker2D" type="Marker2D" parent="Enemy/visual" groups=["Enemy Barrel 1"]]
 position = Vector2(0, 23)
 rotation = 1.5708
 gizmo_extents = 141.9
-script = ExtResource("4_3fxo3")
-min_rad = 0.785
-max_rad = 2.355
+script = ExtResource("4_kds6q")
 
 [connection signal="died" from="." to="Enemy" method="_timeout"]
 [connection signal="died" from="Enemy" to="." method="_on_enemy_died"]

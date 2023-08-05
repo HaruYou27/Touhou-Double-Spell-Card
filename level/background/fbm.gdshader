@@ -1,4 +1,5 @@
 shader_type canvas_item;
+#pragma disable_preprocessor
 
 uniform int octave = 4;
 uniform float amplitude = 0.5;

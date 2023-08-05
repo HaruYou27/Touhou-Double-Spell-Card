@@ -29,13 +29,3 @@ func collide(result:Dictionary) -> bool:
 	else:
 		Global.item_collect.emit()
 	return false;
-
-func convert_bullet() -> void:
-	var bullets_node := tree.get_nodes_in_group("Enemy Bullet");
-	for bullete in bullets_node:
-		var positions : PackedVector2Array = bullete.clear()
-		if positions.is_empty():
-			continue
-		for pos in positions:
-			create_item(pos)
-	
