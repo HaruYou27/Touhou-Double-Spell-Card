@@ -17,4 +17,5 @@ func start() -> void:
 
 func _on_enemy_died():
 	died.emit()
-	tween.kill()
+	if tween:
+		tween.kill()

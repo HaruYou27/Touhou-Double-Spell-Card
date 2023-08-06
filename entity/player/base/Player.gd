@@ -2,21 +2,9 @@ extends CharacterBody2D
 class_name Player
 
 func _ready() -> void:
-	Global.revive_player.connect(_revive)
 	if not is_multiplayer_authority():
 		hitbox.queue_free()
 		set_process_unhandled_input(false)
-	
-@onready var recover_timer := $RecoverTimer
-func _revive() -> void:
-	if process_mode == Node.PROCESS_MODE_DISABLED:
-		return
-		
-	process_mode = Node.PROCESS_MODE_INHERIT
-	sprite.show()
-	recover_timer.start()
-	modulate = Color(Color.WHITE, .5)
-	Global.last_man_standing = false
 	
 ############## COLLISION
 @onready var death_timer := $DeathTimer
@@ -103,3 +91,19 @@ func _on_recover_timer_timeout():
 	revive_fx.play()
 	hitbox.set_deferred('disabled', false)
 	modulate = Color.WHITE
+
+@onready var recover_timer := $RecoverTimer
+func revive() -> void:
+	if process_mode == Node.PROCESS_MODE_DISABLED or not Global.player2:
+		return
+	rpc("_sync_revive")
+	
+@rpc("reliable", "call_local")
+func _sync_revive() -> void:
+	process_mode = Node.PROCESS_MODE_INHERIT
+	sprite.show()
+	recover_timer.start()
+	modulate = Color(Color.WHITE, .5)
+	
+	Global.last_man_standing = false
+	

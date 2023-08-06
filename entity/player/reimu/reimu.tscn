@@ -184,7 +184,7 @@ shape = SubResource("CapsuleShape2D_sx7ua")
 debug_color = Color(0.713726, 0.105882, 0.701961, 0.419608)
 
 [node name="Timer" type="Timer" parent="Player"]
-wait_time = 0.267
+wait_time = 0.25
 autostart = true
 
 [node name="bullet" parent="Player" node_paths=PackedStringArray("hit_particle") instance=ExtResource("5_ygtci")]

@@ -28,7 +28,7 @@ func fade2black(reverse:=false) -> Tween:
 	else:
 		bgm_volume = AudioServer.get_bus_volume_db(2)
 		color = black_trans
-		tween.tween_property(self, 'color', black, .5)
+		tween.tween_property(self, 'color', black, 1.)
 		tween.parallel().tween_method(_set_bgm_volume, bgm_volume, 0., .5)
 		
 	tween.finished.connect(hide)

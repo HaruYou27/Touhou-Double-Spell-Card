@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://entity/player/reimu/Seeker.gd" id="1_perfc"]
 [ext_resource type="Shader" path="res://entity/resource/UberItem.gdshader" id="1_sh4uw"]
 [ext_resource type="Texture2D" uid="uid://cu2ufhkx3vayf" path="res://entity/player/reimu/resource/ofuda.png" id="2_ofyba"]
-[ext_resource type="PackedScene" uid="uid://bsa0xvb26o22u" path="res://entity/player/reimu/yinyang_orb.tscn" id="3_vavjx"]
+[ext_resource type="PackedScene" uid="uid://bsa0xvb26o22u" path="res://entity/player/reimu/yinyang-orb.tscn" id="3_vavjx"]
 
 [sub_resource type="Gradient" id="Gradient_561th"]
 offsets = PackedFloat32Array(0.376147)
@@ -31,13 +31,13 @@ material = SubResource("ShaderMaterial_v1vkg")
 script = ExtResource("1_perfc")
 seek_mask = 2
 seek_radius = 270.0
+texture = ExtResource("2_ofyba")
 speed = 727
 localRotation = true
 grazable = false
 hitbox = SubResource("CapsuleShape2D_vc5mj")
 collide_with_areas = true
 collision_mask = 3
-texture = ExtResource("2_ofyba")
 
 [node name="YinyangOrb" parent="." instance=ExtResource("3_vavjx")]
 position = Vector2(72, 0)

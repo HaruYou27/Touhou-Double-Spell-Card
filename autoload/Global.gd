@@ -9,9 +9,6 @@ signal bullet_graze
 ## Emited by item when intersect player's hitbox (not item Area2D).
 signal item_collect
 
-## Only work in multiplayer mode.
-signal revive_player
-
 var hud : HUD
 var player1 : Node2D
 var player2 : Node2D

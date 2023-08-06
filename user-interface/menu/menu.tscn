@@ -1,4 +1,4 @@
-[gd_scene load_steps=52 format=3 uid="uid://bn5nhkofewyh8"]
+[gd_scene load_steps=42 format=3 uid="uid://bn5nhkofewyh8"]
 
 [ext_resource type="Theme" uid="uid://dotibkyt5mm7v" path="res://user-interface/menu/theme/menu.tres" id="1_tnrbu"]
 [ext_resource type="Texture2D" uid="uid://bgh4r80tk5o7v" path="res://level/background/misty-lake/water-noise.tres" id="2_57hu4"]
@@ -6,17 +6,11 @@
 [ext_resource type="Script" path="res://user-interface/menu/Level.gd" id="2_hncmy"]
 [ext_resource type="Script" path="res://user-interface/control-node/SFXButton.gd" id="3_wn432"]
 [ext_resource type="Script" path="res://user-interface/control-node/FormatLabel.gd" id="4_h21eu"]
-[ext_resource type="Script" path="res://level/test/SpinShot2.gd" id="4_okkla"]
 [ext_resource type="PackedScene" uid="uid://bsf3tthvg8rot" path="res://user-interface/menu/settings/reset.tscn" id="5_nrino"]
 [ext_resource type="PackedScene" uid="uid://bxvy3qa8esorq" path="res://level/test/test_level.tscn" id="5_nsfbw"]
 [ext_resource type="Script" path="res://user-interface/control-node/SFXToggler.gd" id="5_vnfn8"]
 [ext_resource type="Script" path="res://user-interface/menu/settings/audio.gd" id="6_8l51l"]
-[ext_resource type="Shader" path="res://entity/resource/UberItem.gdshader" id="6_j537m"]
-[ext_resource type="Texture2D" uid="uid://bn8nged18pm41" path="res://entity/yukari/texture/Yukari.png" id="7_dq54d"]
 [ext_resource type="Script" path="res://user-interface/control-node/PercentageSlider.gd" id="8_b5jhj"]
-[ext_resource type="Shape2D" uid="uid://brtfnhe3eksr4" path="res://entity/bullet/resource/kunai-hitbox.tres" id="8_oqfy5"]
-[ext_resource type="Script" path="res://entity/bullet/BulletBasic.gd" id="9_innj7"]
-[ext_resource type="Texture2D" uid="uid://d1nkk7km71ule" path="res://entity/bullet/resource/kunai1.png" id="11_e48md"]
 [ext_resource type="Script" path="res://user-interface/menu/character/character.gd" id="13_rskvb"]
 [ext_resource type="Shortcut" uid="uid://xs30oatyn1i6" path="res://user-interface/resource/shortcut/enter.tres" id="14_nwuco"]
 [ext_resource type="Script" path="res://user-interface/control-node/BulletPreviewer.gd" id="16_ennx6"]
@@ -103,21 +97,6 @@ shader_parameter/water_velocity = Vector2(0, -0.2)
 shader_parameter/water_opacity = 0.5
 shader_parameter/color_map = SubResource("GradientTexture1D_snijx")
 shader_parameter/reflection = SubResource("GradientTexture1D_2kmo3")
-
-[sub_resource type="Gradient" id="Gradient_u3t52"]
-colors = PackedColorArray(1, 0, 0.8, 1, 0.07, 0.597, 1, 1)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_vohti"]
-gradient = SubResource("Gradient_u3t52")
-width = 16
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_a1syk"]
-shader = ExtResource("6_j537m")
-shader_parameter/time_scale = 2.0
-shader_parameter/alpha_offset = true
-shader_parameter/spin = null
-shader_parameter/sin_alpha = false
-shader_parameter/color_map = SubResource("GradientTexture1D_vohti")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_15cds"]
 content_margin_left = 10.0
@@ -248,192 +227,8 @@ tabs_visible = false
 [node name="test" type="Control" parent="TabContainer/play/Level/Preview"]
 layout_mode = 2
 script = ExtResource("16_ennx6")
-paths = Array[NodePath]([NodePath("SpinShot/Timer")])
+paths = Array[NodePath]([NodePath("")])
 metadata/level = ExtResource("5_nsfbw")
-
-[node name="SpinShot" type="Node2D" parent="TabContainer/play/Level/Preview/test"]
-position = Vector2(270, 285)
-script = ExtResource("4_okkla")
-
-[node name="Yukari" type="Sprite2D" parent="TabContainer/play/Level/Preview/test/SpinShot"]
-texture = ExtResource("7_dq54d")
-
-[node name="spinBullet" type="Node2D" parent="TabContainer/play/Level/Preview/test/SpinShot"]
-material = SubResource("ShaderMaterial_a1syk")
-script = ExtResource("9_innj7")
-texture = ExtResource("11_e48md")
-barrelGroup = "Enemy Barrel Spin"
-speed = 327
-grazable = false
-bullet_scale = Vector2(1.5, 1.5)
-hitbox = ExtResource("8_oqfy5")
-
-[node name="Timer" type="Timer" parent="TabContainer/play/Level/Preview/test/SpinShot"]
-wait_time = 0.1
-
-[node name="clockwise" type="Node2D" parent="TabContainer/play/Level/Preview/test/SpinShot"]
-
-[node name="56362" type="Marker2D" parent="TabContainer/play/Level/Preview/test/SpinShot/clockwise" groups=["Enemy Barrel Spin"]]
-position = Vector2(-127.769, 0)
-rotation = -3.14159
-gizmo_extents = 40.0
-
-[node name="56363" type="Marker2D" parent="TabContainer/play/Level/Preview/test/SpinShot/clockwise" groups=["Enemy Barrel Spin"]]
-position = Vector2(-125.314, -24.9265)
-rotation = -2.94524
-gizmo_extents = 40.0
-
-[node name="56364" type="Marker2D" parent="TabContainer/play/Level/Preview/test/SpinShot/clockwise" groups=["Enemy Barrel Spin"]]
-position = Vector2(-118.043, -48.8952)
-rotation = -2.74889
-gizmo_extents = 40.0
-
-[node name="56365" type="Marker2D" parent="TabContainer/play/Level/Preview/test/SpinShot/clockwise" groups=["Enemy Barrel Spin"]]
-position = Vector2(-106.236, -70.9848)
-rotation = -2.55254
-gizmo_extents = 40.0
-
-[node name="56366" type="Marker2D" parent="TabContainer/play/Level/Preview/test/SpinShot/clockwise" groups=["Enemy Barrel Spin"]]
-position = Vector2(-90.3466, -90.3466)
-rotation = -2.35619
-gizmo_extents = 40.0
-
-[node name="56367" type="Marker2D" parent="TabContainer/play/Level/Preview/test/SpinShot/clockwise" groups=["Enemy Barrel Spin"]]
-position = Vector2(-70.9849, -106.236)
-rotation = -2.15985
-gizmo_extents = 40.0
-
-[node name="56368" type="Marker2D" parent="TabContainer/play/Level/Preview/test/SpinShot/clockwise" groups=["Enemy Barrel Spin"]]
-position = Vector2(-48.8952, -118.043)
-rotation = -1.9635
-gizmo_extents = 40.0
-
-[node name="56369" type="Marker2D" parent="TabContainer/play/Level/Preview/test/SpinShot/clockwise" groups=["Enemy Barrel Spin"]]
-position = Vector2(-24.9266, -125.314)
-rotation = -1.76715
-gizmo_extents = 40.0
-
-[node name="56370" type="Marker2D" parent="TabContainer/play/Level/Preview/test/SpinShot/clockwise" groups=["Enemy Barrel Spin"]]
-position = Vector2(0, -127.769)
-rotation = -1.5708
-gizmo_extents = 40.0
-
-[node name="56371" type="Marker2D" parent="TabContainer/play/Level/Preview/test/SpinShot/clockwise" groups=["Enemy Barrel Spin"]]
-position = Vector2(24.9266, -125.314)
-rotation = -1.37445
-gizmo_extents = 40.0
-
-[node name="56372" type="Marker2D" parent="TabContainer/play/Level/Preview/test/SpinShot/clockwise" groups=["Enemy Barrel Spin"]]
-position = Vector2(48.8952, -118.043)
-rotation = -1.1781
-gizmo_extents = 40.0
-
-[node name="56373" type="Marker2D" parent="TabContainer/play/Level/Preview/test/SpinShot/clockwise" groups=["Enemy Barrel Spin"]]
-position = Vector2(70.9848, -106.236)
-rotation = -0.981748
-gizmo_extents = 40.0
-
-[node name="56374" type="Marker2D" parent="TabContainer/play/Level/Preview/test/SpinShot/clockwise" groups=["Enemy Barrel Spin"]]
-position = Vector2(90.3466, -90.3466)
-rotation = -0.785398
-gizmo_extents = 40.0
-
-[node name="56375" type="Marker2D" parent="TabContainer/play/Level/Preview/test/SpinShot/clockwise" groups=["Enemy Barrel Spin"]]
-position = Vector2(106.236, -70.9848)
-rotation = -0.589049
-gizmo_extents = 40.0
-
-[node name="56376" type="Marker2D" parent="TabContainer/play/Level/Preview/test/SpinShot/clockwise" groups=["Enemy Barrel Spin"]]
-position = Vector2(118.043, -48.8952)
-rotation = -0.392699
-gizmo_extents = 40.0
-
-[node name="56377" type="Marker2D" parent="TabContainer/play/Level/Preview/test/SpinShot/clockwise" groups=["Enemy Barrel Spin"]]
-position = Vector2(125.314, -24.9265)
-rotation = -0.196349
-gizmo_extents = 40.0
-
-[node name="CounterClockwise" type="Node2D" parent="TabContainer/play/Level/Preview/test/SpinShot"]
-
-[node name="56362" type="Marker2D" parent="TabContainer/play/Level/Preview/test/SpinShot/CounterClockwise" groups=["Enemy Barrel Spin"]]
-position = Vector2(-127.769, 0)
-rotation = -3.14159
-gizmo_extents = 40.0
-
-[node name="56363" type="Marker2D" parent="TabContainer/play/Level/Preview/test/SpinShot/CounterClockwise" groups=["Enemy Barrel Spin"]]
-position = Vector2(-125.314, -24.9265)
-rotation = -2.94524
-gizmo_extents = 40.0
-
-[node name="56364" type="Marker2D" parent="TabContainer/play/Level/Preview/test/SpinShot/CounterClockwise" groups=["Enemy Barrel Spin"]]
-position = Vector2(-118.043, -48.8952)
-rotation = -2.74889
-gizmo_extents = 40.0
-
-[node name="56365" type="Marker2D" parent="TabContainer/play/Level/Preview/test/SpinShot/CounterClockwise" groups=["Enemy Barrel Spin"]]
-position = Vector2(-106.236, -70.9848)
-rotation = -2.55254
-gizmo_extents = 40.0
-
-[node name="56366" type="Marker2D" parent="TabContainer/play/Level/Preview/test/SpinShot/CounterClockwise" groups=["Enemy Barrel Spin"]]
-position = Vector2(-90.3466, -90.3466)
-rotation = -2.35619
-gizmo_extents = 40.0
-
-[node name="56367" type="Marker2D" parent="TabContainer/play/Level/Preview/test/SpinShot/CounterClockwise" groups=["Enemy Barrel Spin"]]
-position = Vector2(-70.9849, -106.236)
-rotation = -2.15985
-gizmo_extents = 40.0
-
-[node name="56368" type="Marker2D" parent="TabContainer/play/Level/Preview/test/SpinShot/CounterClockwise" groups=["Enemy Barrel Spin"]]
-position = Vector2(-48.8952, -118.043)
-rotation = -1.9635
-gizmo_extents = 40.0
-
-[node name="56369" type="Marker2D" parent="TabContainer/play/Level/Preview/test/SpinShot/CounterClockwise" groups=["Enemy Barrel Spin"]]
-position = Vector2(-24.9266, -125.314)
-rotation = -1.76715
-gizmo_extents = 40.0
-
-[node name="56370" type="Marker2D" parent="TabContainer/play/Level/Preview/test/SpinShot/CounterClockwise" groups=["Enemy Barrel Spin"]]
-position = Vector2(0, -127.769)
-rotation = -1.5708
-gizmo_extents = 40.0
-
-[node name="56371" type="Marker2D" parent="TabContainer/play/Level/Preview/test/SpinShot/CounterClockwise" groups=["Enemy Barrel Spin"]]
-position = Vector2(24.9266, -125.314)
-rotation = -1.37445
-gizmo_extents = 40.0
-
-[node name="56372" type="Marker2D" parent="TabContainer/play/Level/Preview/test/SpinShot/CounterClockwise" groups=["Enemy Barrel Spin"]]
-position = Vector2(48.8952, -118.043)
-rotation = -1.1781
-gizmo_extents = 40.0
-
-[node name="56373" type="Marker2D" parent="TabContainer/play/Level/Preview/test/SpinShot/CounterClockwise" groups=["Enemy Barrel Spin"]]
-position = Vector2(70.9848, -106.236)
-rotation = -0.981748
-gizmo_extents = 40.0
-
-[node name="56374" type="Marker2D" parent="TabContainer/play/Level/Preview/test/SpinShot/CounterClockwise" groups=["Enemy Barrel Spin"]]
-position = Vector2(90.3466, -90.3466)
-rotation = -0.785398
-gizmo_extents = 40.0
-
-[node name="56375" type="Marker2D" parent="TabContainer/play/Level/Preview/test/SpinShot/CounterClockwise" groups=["Enemy Barrel Spin"]]
-position = Vector2(106.236, -70.9848)
-rotation = -0.589049
-gizmo_extents = 40.0
-
-[node name="56376" type="Marker2D" parent="TabContainer/play/Level/Preview/test/SpinShot/CounterClockwise" groups=["Enemy Barrel Spin"]]
-position = Vector2(118.043, -48.8952)
-rotation = -0.392699
-gizmo_extents = 40.0
-
-[node name="56377" type="Marker2D" parent="TabContainer/play/Level/Preview/test/SpinShot/CounterClockwise" groups=["Enemy Barrel Spin"]]
-position = Vector2(125.314, -24.9265)
-rotation = -0.196349
-gizmo_extents = 40.0
 
 [node name="LevelList" type="OptionButton" parent="TabContainer/play/Level"]
 layout_mode = 2
@@ -498,7 +293,6 @@ Partner Score:
 [color=147dfa]  Item:  %06d[/color]
  [color=63c259] Graze: %06d[/color]"
 autowrap_mode = 0
-script = SubResource("GDScript_ud3jd")
 
 [node name="Point" type="Sprite2D" parent="TabContainer/play/Score/Local"]
 texture_filter = 1
@@ -1048,8 +842,6 @@ transparent = true
 dialog_text = "Lost connection with your friend."
 script = ExtResource("34_wrdal")
 
-[connection signal="timeout" from="TabContainer/play/Level/Preview/test/SpinShot/Timer" to="TabContainer/play/Level/Preview/test/SpinShot" method="_on_timer_timeout" flags=18]
-[connection signal="timeout" from="TabContainer/play/Level/Preview/test/SpinShot/Timer" to="TabContainer/play/Level/Preview/test/SpinShot/spinBullet" method="spawn_bullet"]
 [connection signal="item_selected" from="TabContainer/play/Level/LevelList" to="TabContainer/play/Level" method="_on_level_list_item_selected"]
 [connection signal="pressed" from="TabContainer/play/Level/enter" to="TabContainer/play/Level" method="_on_enter_pressed" flags=6]
 [connection signal="timeout" from="TabContainer/play/Character/Preview/Reimu/ReimuSprite/Timer" to="TabContainer/play/Character/Preview/Reimu/ReimuSprite/bullet" method="spawn_bullet"]

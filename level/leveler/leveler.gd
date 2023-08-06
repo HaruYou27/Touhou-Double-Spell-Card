@@ -27,5 +27,14 @@ func game_started(host_time:int) -> void:
 	var timer := get_tree().create_timer(3. - offset, true, true, true)
 	timer.timeout.connect(animator.play.bind("game"))
 
+func _revive_player() -> void:
+	Global.player1.revive()
+
 func _finished() -> void:
 	Global.change_scene(global.main_menu)
+	
+# Avoid crash when reload scene
+func _exit_tree() -> void:
+	Global.player1 = load(Global.player1.scene_file_path).instantiate()
+	if Global.player2:
+		Global.player2 = load(Global.player2.scene_file_path).instantiate()

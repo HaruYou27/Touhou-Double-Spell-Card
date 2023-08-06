@@ -18,7 +18,7 @@ script = ExtResource("1_ty0s5")
 
 [node name="DeathTimer" type="Timer" parent="."]
 process_mode = 3
-wait_time = 0.2
+wait_time = 0.3
 one_shot = true
 
 [node name="explosion" parent="." instance=ExtResource("2_ca3m1")]
