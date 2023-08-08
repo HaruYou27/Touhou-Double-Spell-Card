@@ -29,7 +29,7 @@ func _physics_process(delta:float) -> void:
 			
 			if cooldown <= 0:
 				collider._hit()
-				cooldown += 0.033333333333333
+				cooldown += 0.03125
 			return
 		else:
 			collision_particle.hide()

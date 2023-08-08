@@ -35,6 +35,7 @@ func _finished() -> void:
 	
 # Avoid crash when reload scene
 func _exit_tree() -> void:
+	ItemManager.clear()
 	Global.player1 = load(Global.player1.scene_file_path).instantiate()
 	if Global.player2:
 		Global.player2 = load(Global.player2.scene_file_path).instantiate()

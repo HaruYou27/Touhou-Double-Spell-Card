@@ -16,7 +16,7 @@ script = ExtResource("1_si6qk")
 time = 5.0
 
 [node name="Enemy" parent="." instance=ExtResource("2_8b4id")]
-hp = 5
+hp = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy"]
 shape = SubResource("CircleShape2D_noovt")

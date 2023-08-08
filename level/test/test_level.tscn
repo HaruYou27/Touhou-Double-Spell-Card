@@ -128,7 +128,7 @@ shader_parameter/wobble_min = 0.75
 
 [sub_resource type="Curve2D" id="Curve2D_c4b5w"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, 253.864, -60.6458, 219.126, 147.043, -219.126, -147.043, 35, 831, 10.0908, 112.68, -10.0908, -112.68, 518, 491, 0, 0, 0, 0, -128.298, 300.183)
+"points": PackedVector2Array(0, 0, 0, 0, 253.864, -60.6458, 219.126, 147.043, -219.126, -147.043, 77, 814, 10.0908, 112.68, -10.0908, -112.68, 502, 491, 0, 0, 0, 0, -128.298, 300.183)
 }
 point_count = 4
 
@@ -1379,6 +1379,7 @@ material = SubResource("ShaderMaterial_w081n")
 position = Vector2(4, -54)
 script = ExtResource("10_vyig4")
 texture = ExtResource("10_6qv5n")
+pre_cache_count = null
 barrelGroup = "Enemy Barrel 1"
 speed = 472
 localRotation = true
@@ -1534,7 +1535,7 @@ position = Vector2(597, -58)
 
 [node name="TopLeft" parent="BigHpFairy3/Fairy" instance=ExtResource("20_tma4i")]
 position = Vector2(651, 41)
-hp = 60
+hp = 32
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BigHpFairy3/Fairy/TopLeft"]
 shape = SubResource("CircleShape2D_1j2c8")
@@ -1592,7 +1593,7 @@ gizmo_extents = 20.0
 
 [node name="TopRight" parent="BigHpFairy3/Fairy" instance=ExtResource("20_tma4i")]
 position = Vector2(-120, 28)
-hp = 60
+hp = 32
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BigHpFairy3/Fairy/TopRight"]
 shape = SubResource("CircleShape2D_1j2c8")
@@ -1650,7 +1651,7 @@ gizmo_extents = 20.0
 
 [node name="BotLeft" parent="BigHpFairy3/Fairy" instance=ExtResource("20_tma4i")]
 position = Vector2(-95, 26)
-hp = 60
+hp = 32
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BigHpFairy3/Fairy/BotLeft"]
 shape = SubResource("CircleShape2D_1j2c8")
@@ -1708,7 +1709,7 @@ gizmo_extents = 20.0
 
 [node name="BotRight" parent="BigHpFairy3/Fairy" instance=ExtResource("20_tma4i")]
 position = Vector2(-98, -54)
-hp = 60
+hp = 32
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BigHpFairy3/Fairy/BotRight"]
 shape = SubResource("CircleShape2D_1j2c8")
@@ -1766,7 +1767,7 @@ gizmo_extents = 20.0
 
 [node name="Middle" parent="BigHpFairy3/Fairy" instance=ExtResource("20_tma4i")]
 position = Vector2(432, -49)
-hp = 60
+hp = 32
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BigHpFairy3/Fairy/Middle"]
 shape = SubResource("CircleShape2D_1j2c8")
@@ -1824,7 +1825,7 @@ gizmo_extents = 20.0
 
 [node name="MiddleLeft" parent="BigHpFairy3/Fairy" instance=ExtResource("20_tma4i")]
 position = Vector2(539, -81)
-hp = 60
+hp = 32
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BigHpFairy3/Fairy/MiddleLeft"]
 shape = SubResource("CircleShape2D_1j2c8")
@@ -1882,7 +1883,7 @@ gizmo_extents = 20.0
 
 [node name="BotMiddle" parent="BigHpFairy3/Fairy" instance=ExtResource("20_tma4i")]
 position = Vector2(228, -72)
-hp = 60
+hp = 32
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BigHpFairy3/Fairy/BotMiddle"]
 shape = SubResource("CircleShape2D_1j2c8")
@@ -1941,7 +1942,7 @@ gizmo_extents = 20.0
 [node name="MiddleRight" parent="BigHpFairy3/Fairy" instance=ExtResource("20_tma4i")]
 visible = false
 position = Vector2(-90, -13)
-hp = 60
+hp = 32
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BigHpFairy3/Fairy/MiddleRight"]
 shape = SubResource("CircleShape2D_1j2c8")
@@ -1999,7 +2000,7 @@ gizmo_extents = 20.0
 
 [node name="TopMiddle" parent="BigHpFairy3/Fairy" instance=ExtResource("20_tma4i")]
 position = Vector2(613, 405)
-hp = 60
+hp = 32
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BigHpFairy3/Fairy/TopMiddle"]
 shape = SubResource("CircleShape2D_1j2c8")
@@ -2084,7 +2085,6 @@ barrel_group = &"Enemy Barrel 4"
 [node name="ScoreGiveaway4" type="Node2D" parent="."]
 
 [node name="GiveawaySpawner" type="Path2D" parent="ScoreGiveaway4"]
-rotation = -0.056961
 curve = SubResource("Curve2D_c4b5w")
 script = ExtResource("6_n63j6")
 mirror = true
