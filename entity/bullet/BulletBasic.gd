@@ -39,6 +39,7 @@ var bullets : Array[Bullet] = []
 var cache : Array[Bullet] = []
 ## Current bullet in physics process.
 var bullet : Bullet
+@onready var collision_graze := collision_mask + 8
 
 func _ready() -> void:
 	if barrelGroup.is_empty():
@@ -62,6 +63,7 @@ func create_sprite() -> void:
 	RenderingServer.canvas_item_set_parent(sprite, world.canvas)
 	texture.draw_rect(sprite, texture_rect, false)
 	RenderingServer.canvas_item_set_material(sprite, material.get_rid())
+	RenderingServer.canvas_item_set_transform(bullet.sprite, Transform2D(0, Vector2(-500, -500)))
 	
 func _exit_tree() -> void:
 	#Rid is actually an memory address to get the object in Godot server.
@@ -88,7 +90,6 @@ func spawn_bullet() -> void:
 		new_bullet()
 		
 		RenderingServer.canvas_item_set_visible(bullet.sprite, true)
-		RenderingServer.canvas_item_set_transform(bullet.sprite, Transform2D(0, Vector2(-500, -500)))		
 		reset_bullet_transform(barrel)
 		reset_bullet()
 		
@@ -112,13 +113,13 @@ func reset_bullet_transform(barrel:Node2D):
 func clear() -> void:
 	if bullets.is_empty():
 		return 
-	for bullete in  bullets:
+	for bullete in bullets:
 		RenderingServer.canvas_item_set_visible(bullete.sprite, false)
 
 ## Override to change the way bullet move.
-func move(delta:float) -> Transform2D:
-	bullet.transform.origin += bullet.velocity * delta
-	return bullet.transform
+func move(delta:float, bullete:Bullet) -> void:
+	bullete.transform.origin += bullete.velocity * delta
+	RenderingServer.canvas_item_set_transform(bullete.sprite, bullete.transform)
 
 ## Bulelt has collided with something, what to do now?
 func collide(result:Dictionary) -> bool:
@@ -142,19 +143,27 @@ func collide(result:Dictionary) -> bool:
 	ItemManager.spawn_item(1, bullet.transform.origin)
 	return false
 
+func _process_bullet(delta:float) -> void:
+	for bullete in bullets.duplicate():
+		move(delta, bullete)
+
+func collision_check() -> void:
+	pass
+
 func _physics_process(delta:float) -> void:
 	if bullets.is_empty():
 		return
-		
+	
+	var task_id := WorkerThreadPool.add_task(_process_bullet.bind(delta), true)
 	for index in range(bullets.size() -1, -1, -1):
 		bullet = bullets[index]
-		query.transform = move(delta)
-		RenderingServer.canvas_item_set_transform(bullet.sprite, query.transform)
+		collision_check()
+		query.transform = bullet.transform
 		if bullet.grazable:
-			query.collision_mask = collision_mask + 8
+			query.collision_mask = collision_graze
 		else:
 			query.collision_mask = collision_mask
-	
+		
 		#Since most bullet hit wall, get_rest_info provide a faster way to check (linear_velocity).
 		#Tho it did make harder to get collider object, but the bullet rarely hit the target anyways.
 		var result := world.direct_space_state.get_rest_info(query)
@@ -163,3 +172,4 @@ func _physics_process(delta:float) -> void:
 		RenderingServer.canvas_item_set_visible(bullet.sprite, false)
 		#Sort from tail to head to minimize array access.
 		cache.append(bullets.pop_at(index))
+	WorkerThreadPool.wait_for_task_completion(task_id)

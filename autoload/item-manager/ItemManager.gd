@@ -16,13 +16,12 @@ func create_item(pos:Vector2) -> void:
 	RenderingServer.canvas_item_set_visible(bullet.sprite, true)
 	RenderingServer.canvas_item_set_modulate(bullet.sprite, Color(Color.WHITE, ranf))
 
-func move(delta:float) -> Transform2D:
+func move(delta:float, bullete:Bullet) -> void:
 	#Simulate gravity.
-	bullet.velocity.y += 98 * delta
-	return super(delta)
+	bullete.velocity.y += 98 * delta
+	super(delta, bullete)
 
 func collide(result:Dictionary) -> bool:
-
 	var mask = int(result["linear_velocity"].x)
 	if mask == 1:
 		return false

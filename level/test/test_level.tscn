@@ -335,110 +335,110 @@ tracks/14/keys = {
 tracks/15/type = "value"
 tracks/15/imported = false
 tracks/15/enabled = true
-tracks/15/path = NodePath("BigHpFairy3/Fairy/TopMiddle:visible")
+tracks/15/path = NodePath("BigHpFairy3/Fairy/TopMiddle:position")
 tracks/15/interp = 1
 tracks/15/loop_wrap = true
 tracks/15/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [true]
+"values": [Vector2(613, 405)]
 }
 tracks/16/type = "value"
 tracks/16/imported = false
 tracks/16/enabled = true
-tracks/16/path = NodePath("BigHpFairy3/Fairy/TopMiddle:position")
+tracks/16/path = NodePath("Tracking2:process_mode")
 tracks/16/interp = 1
 tracks/16/loop_wrap = true
 tracks/16/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(613, 405)]
+"update": 1,
+"values": [4]
 }
 tracks/17/type = "value"
 tracks/17/imported = false
 tracks/17/enabled = true
-tracks/17/path = NodePath("BigHpFairy3/Fairy/TopRight:visible")
+tracks/17/path = NodePath("CystalDrop1:process_mode")
 tracks/17/interp = 1
 tracks/17/loop_wrap = true
 tracks/17/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [true]
+"values": [4]
 }
 tracks/18/type = "value"
 tracks/18/imported = false
 tracks/18/enabled = true
-tracks/18/path = NodePath("BigHpFairy3/Fairy/BotLeft:visible")
+tracks/18/path = NodePath("BigHpFairy3:process_mode")
 tracks/18/interp = 1
 tracks/18/loop_wrap = true
 tracks/18/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [true]
+"values": [4]
 }
 tracks/19/type = "value"
 tracks/19/imported = false
 tracks/19/enabled = true
-tracks/19/path = NodePath("BigHpFairy3/Fairy/BotRight:visible")
+tracks/19/path = NodePath("ScoreGiveaway4:process_mode")
 tracks/19/interp = 1
 tracks/19/loop_wrap = true
 tracks/19/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [true]
+"values": [4]
 }
 tracks/20/type = "value"
 tracks/20/imported = false
 tracks/20/enabled = true
-tracks/20/path = NodePath("BigHpFairy3/Fairy/Middle:visible")
+tracks/20/path = NodePath("BigHpFairy3:visible")
 tracks/20/interp = 1
 tracks/20/loop_wrap = true
 tracks/20/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [true]
+"values": [false]
 }
 tracks/21/type = "value"
 tracks/21/imported = false
 tracks/21/enabled = true
-tracks/21/path = NodePath("BigHpFairy3/Fairy/MiddleLeft:visible")
+tracks/21/path = NodePath("ScoreGiveaway4:visible")
 tracks/21/interp = 1
 tracks/21/loop_wrap = true
 tracks/21/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [true]
+"values": [false]
 }
 tracks/22/type = "value"
 tracks/22/imported = false
 tracks/22/enabled = true
-tracks/22/path = NodePath("BigHpFairy3/Fairy/BotMiddle:visible")
+tracks/22/path = NodePath("CystalDrop1:visible")
 tracks/22/interp = 1
 tracks/22/loop_wrap = true
 tracks/22/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [true]
+"values": [false]
 }
 tracks/23/type = "value"
 tracks/23/imported = false
 tracks/23/enabled = true
-tracks/23/path = NodePath("BigHpFairy3/Fairy/TopLeft:visible")
+tracks/23/path = NodePath("Tracking2:visible")
 tracks/23/interp = 1
 tracks/23/loop_wrap = true
 tracks/23/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [true]
+"values": [false]
 }
 
 [sub_resource type="Animation" id="Animation_shi7r"]
@@ -730,12 +730,9 @@ tracks/11/path = NodePath("ScoreGiveaway4/GiveawayTimer")
 tracks/11/interp = 1
 tracks/11/loop_wrap = true
 tracks/11/keys = {
-"times": PackedFloat32Array(54, 70),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(70),
+"transitions": PackedFloat32Array(1),
 "values": [{
-"args": [-1],
-"method": &"start"
-}, {
 "args": [],
 "method": &"stop"
 }]
@@ -747,12 +744,9 @@ tracks/12/path = NodePath("CystalDrop1/CystalTimer")
 tracks/12/interp = 1
 tracks/12/loop_wrap = true
 tracks/12/keys = {
-"times": PackedFloat32Array(5.5, 16.6),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(16.6),
+"transitions": PackedFloat32Array(1),
 "values": [{
-"args": [-1],
-"method": &"start"
-}, {
 "args": [],
 "method": &"stop"
 }]
@@ -764,12 +758,9 @@ tracks/13/path = NodePath("Tracking2/TrackingTimer")
 tracks/13/interp = 1
 tracks/13/loop_wrap = true
 tracks/13/keys = {
-"times": PackedFloat32Array(17.2, 27.2),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(27.2),
+"transitions": PackedFloat32Array(1),
 "values": [{
-"args": [-1],
-"method": &"start"
-}, {
 "args": [],
 "method": &"stop"
 }]
@@ -1170,25 +1161,13 @@ tracks/29/keys = {
 "update": 0,
 "values": [Vector2(228, -72), Vector2(266, 389), Vector2(266, 389), Vector2(620, 394)]
 }
-tracks/30/type = "value"
+tracks/30/type = "method"
 tracks/30/imported = false
 tracks/30/enabled = true
-tracks/30/path = NodePath("BigHpFairy3/Fairy/BotMiddle:visible")
+tracks/30/path = NodePath("BigHpFairy3/Fairy/MiddleRight")
 tracks/30/interp = 1
 tracks/30/loop_wrap = true
 tracks/30/keys = {
-"times": PackedFloat32Array(39.7, 55.3),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [true, false]
-}
-tracks/31/type = "method"
-tracks/31/imported = false
-tracks/31/enabled = true
-tracks/31/path = NodePath("BigHpFairy3/Fairy/MiddleRight")
-tracks/31/interp = 1
-tracks/31/loop_wrap = true
-tracks/31/keys = {
 "times": PackedFloat32Array(44.2),
 "transitions": PackedFloat32Array(1),
 "values": [{
@@ -1196,25 +1175,13 @@ tracks/31/keys = {
 "method": &"reset"
 }]
 }
-tracks/32/type = "value"
-tracks/32/imported = false
-tracks/32/enabled = true
-tracks/32/path = NodePath("BigHpFairy3/Fairy/TopMiddle:visible")
-tracks/32/interp = 1
-tracks/32/loop_wrap = true
-tracks/32/keys = {
-"times": PackedFloat32Array(45.6, 55.5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [true, false]
-}
-tracks/33/type = "method"
-tracks/33/imported = false
-tracks/33/enabled = true
-tracks/33/path = NodePath("BigHpFairy3/Fairy/TopMiddle")
-tracks/33/interp = 1
-tracks/33/loop_wrap = true
-tracks/33/keys = {
+tracks/31/type = "method"
+tracks/31/imported = false
+tracks/31/enabled = true
+tracks/31/path = NodePath("BigHpFairy3/Fairy/TopMiddle")
+tracks/31/interp = 1
+tracks/31/loop_wrap = true
+tracks/31/keys = {
 "times": PackedFloat32Array(47.2),
 "transitions": PackedFloat32Array(1),
 "values": [{
@@ -1222,13 +1189,13 @@ tracks/33/keys = {
 "method": &"reset"
 }]
 }
-tracks/34/type = "method"
-tracks/34/imported = false
-tracks/34/enabled = true
-tracks/34/path = NodePath("BigHpFairy3/Fairy/BotMiddle")
-tracks/34/interp = 1
-tracks/34/loop_wrap = true
-tracks/34/keys = {
+tracks/32/type = "method"
+tracks/32/imported = false
+tracks/32/enabled = true
+tracks/32/path = NodePath("BigHpFairy3/Fairy/BotMiddle")
+tracks/32/interp = 1
+tracks/32/loop_wrap = true
+tracks/32/keys = {
 "times": PackedFloat32Array(41.2),
 "transitions": PackedFloat32Array(1),
 "values": [{
@@ -1236,101 +1203,125 @@ tracks/34/keys = {
 "method": &"reset"
 }]
 }
-tracks/35/type = "value"
-tracks/35/imported = false
-tracks/35/enabled = true
-tracks/35/path = NodePath("BigHpFairy3/Fairy/TopMiddle:position")
-tracks/35/interp = 1
-tracks/35/loop_wrap = true
-tracks/35/keys = {
+tracks/33/type = "value"
+tracks/33/imported = false
+tracks/33/enabled = true
+tracks/33/path = NodePath("BigHpFairy3/Fairy/TopMiddle:position")
+tracks/33/interp = 1
+tracks/33/loop_wrap = true
+tracks/33/keys = {
 "times": PackedFloat32Array(47.3, 49.1, 53.5, 54.5),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
 "values": [Vector2(613, 405), Vector2(265, 73), Vector2(265, 73), Vector2(254, -85)]
 }
+tracks/34/type = "value"
+tracks/34/imported = false
+tracks/34/enabled = true
+tracks/34/path = NodePath("BigHpFairy3/Fairy/MiddleRight:position")
+tracks/34/interp = 1
+tracks/34/loop_wrap = true
+tracks/34/keys = {
+"times": PackedFloat32Array(44.3, 46.2, 53.5, 54.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(-90, -13), Vector2(461, 254), Vector2(461, 254), Vector2(626, 242)]
+}
+tracks/35/type = "value"
+tracks/35/imported = false
+tracks/35/enabled = true
+tracks/35/path = NodePath("Tracking2:process_mode")
+tracks/35/interp = 1
+tracks/35/loop_wrap = true
+tracks/35/keys = {
+"times": PackedFloat32Array(0, 17.2, 34.8),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [4, 0, 4]
+}
 tracks/36/type = "value"
 tracks/36/imported = false
 tracks/36/enabled = true
-tracks/36/path = NodePath("BigHpFairy3/Fairy/BotLeft:visible")
+tracks/36/path = NodePath("CystalDrop1:process_mode")
 tracks/36/interp = 1
 tracks/36/loop_wrap = true
 tracks/36/keys = {
-"times": PackedFloat32Array(29.7, 55.5),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0, 5.5, 23),
+"transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
-"values": [true, false]
+"values": [4, 0, 4]
 }
 tracks/37/type = "value"
 tracks/37/imported = false
 tracks/37/enabled = true
-tracks/37/path = NodePath("BigHpFairy3/Fairy/BotRight:visible")
+tracks/37/path = NodePath("BigHpFairy3:process_mode")
 tracks/37/interp = 1
 tracks/37/loop_wrap = true
 tracks/37/keys = {
-"times": PackedFloat32Array(30.8, 55.5),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0, 27.7, 55.4),
+"transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
-"values": [true, false]
+"values": [4, 0, 4]
 }
 tracks/38/type = "value"
 tracks/38/imported = false
 tracks/38/enabled = true
-tracks/38/path = NodePath("BigHpFairy3/Fairy/Middle:visible")
+tracks/38/path = NodePath("ScoreGiveaway4:process_mode")
 tracks/38/interp = 1
 tracks/38/loop_wrap = true
 tracks/38/keys = {
-"times": PackedFloat32Array(33.8, 55.6),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0, 54, 76.5),
+"transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
-"values": [true, false]
+"values": [4, 0, 4]
 }
 tracks/39/type = "value"
 tracks/39/imported = false
 tracks/39/enabled = true
-tracks/39/path = NodePath("BigHpFairy3/Fairy/MiddleLeft:visible")
+tracks/39/path = NodePath("BigHpFairy3:visible")
 tracks/39/interp = 1
 tracks/39/loop_wrap = true
 tracks/39/keys = {
-"times": PackedFloat32Array(37.6, 55.4),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0, 28.9, 55.4),
+"transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
-"values": [true, false]
+"values": [false, true, false]
 }
 tracks/40/type = "value"
 tracks/40/imported = false
 tracks/40/enabled = true
-tracks/40/path = NodePath("BigHpFairy3/Fairy/MiddleRight:visible")
+tracks/40/path = NodePath("ScoreGiveaway4:visible")
 tracks/40/interp = 1
 tracks/40/loop_wrap = true
 tracks/40/keys = {
-"times": PackedFloat32Array(43, 55.3),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0, 53.7, 76.7),
+"transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
-"values": [true, false]
+"values": [false, true, false]
 }
 tracks/41/type = "value"
 tracks/41/imported = false
 tracks/41/enabled = true
-tracks/41/path = NodePath("BigHpFairy3/Fairy/TopLeft:visible")
+tracks/41/path = NodePath("CystalDrop1:visible")
 tracks/41/interp = 1
 tracks/41/loop_wrap = true
 tracks/41/keys = {
-"times": PackedFloat32Array(27.9, 55.8),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0, 5.1, 22.7),
+"transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
-"values": [true, false]
+"values": [false, true, false]
 }
 tracks/42/type = "value"
 tracks/42/imported = false
 tracks/42/enabled = true
-tracks/42/path = NodePath("BigHpFairy3/Fairy/TopRight:visible")
+tracks/42/path = NodePath("Tracking2:visible")
 tracks/42/interp = 1
 tracks/42/loop_wrap = true
 tracks/42/keys = {
-"times": PackedFloat32Array(28.1, 55.8),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0, 16.8, 35.2),
+"transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
-"values": [true, false]
+"values": [false, true, false]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_lj1a4"]
@@ -1372,6 +1363,8 @@ texture = ExtResource("7_1ggri")
 modulate = Color(1, 1, 1, 0)
 
 [node name="CystalDrop1" type="Node2D" parent="."]
+process_mode = 4
+visible = false
 
 [node name="CystalBullet" type="Node2D" parent="CystalDrop1"]
 z_index = 100
@@ -1379,15 +1372,16 @@ material = SubResource("ShaderMaterial_w081n")
 position = Vector2(4, -54)
 script = ExtResource("10_vyig4")
 texture = ExtResource("10_6qv5n")
-pre_cache_count = null
 barrelGroup = "Enemy Barrel 1"
 speed = 472
 localRotation = true
+grazable = null
 hitbox = ExtResource("12_dqfin")
 collision_mask = 5
 
 [node name="CystalTimer" type="Timer" parent="CystalDrop1"]
 wait_time = 0.2
+autostart = true
 
 [node name="CystalSpawner" type="Path2D" parent="CystalDrop1"]
 position = Vector2(4, -54)
@@ -1460,6 +1454,8 @@ position = Vector2(-50, 146)
 time = 4.0
 
 [node name="Tracking2" type="Node2D" parent="."]
+process_mode = 4
+visible = false
 
 [node name="TrackingBullet" type="Node2D" parent="Tracking2"]
 z_index = 100
@@ -1475,6 +1471,7 @@ collision_mask = 5
 
 [node name="TrackingTimer" type="Timer" parent="Tracking2"]
 wait_time = 0.5
+autostart = true
 
 [node name="TrackingSpawner" type="Path2D" parent="Tracking2"]
 curve = SubResource("Curve2D_va8k1")
@@ -1530,6 +1527,8 @@ position = Vector2(597, -58)
 position = Vector2(597, -58)
 
 [node name="BigHpFairy3" type="Node2D" parent="."]
+process_mode = 4
+visible = false
 
 [node name="Fairy" type="Node2D" parent="BigHpFairy3"]
 
@@ -1650,6 +1649,7 @@ rotation = 0.589049
 gizmo_extents = 20.0
 
 [node name="BotLeft" parent="BigHpFairy3/Fairy" instance=ExtResource("20_tma4i")]
+visible = false
 position = Vector2(-95, 26)
 hp = 32
 
@@ -1824,6 +1824,7 @@ rotation = 0.589049
 gizmo_extents = 20.0
 
 [node name="MiddleLeft" parent="BigHpFairy3/Fairy" instance=ExtResource("20_tma4i")]
+visible = false
 position = Vector2(539, -81)
 hp = 32
 
@@ -1882,6 +1883,7 @@ rotation = 0.589049
 gizmo_extents = 20.0
 
 [node name="BotMiddle" parent="BigHpFairy3/Fairy" instance=ExtResource("20_tma4i")]
+visible = false
 position = Vector2(228, -72)
 hp = 32
 
@@ -2083,6 +2085,8 @@ script = ExtResource("6_n63j6")
 barrel_group = &"Enemy Barrel 4"
 
 [node name="ScoreGiveaway4" type="Node2D" parent="."]
+process_mode = 4
+visible = false
 
 [node name="GiveawaySpawner" type="Path2D" parent="ScoreGiveaway4"]
 curve = SubResource("Curve2D_c4b5w")
@@ -2177,6 +2181,7 @@ position = Vector2(88.6195, -61.0539)
 
 [node name="GiveawayTimer" type="Timer" parent="ScoreGiveaway4"]
 wait_time = 0.5
+autostart = true
 
 [node name="player" type="Node2D" parent="."]
 position = Vector2(269, 799)
@@ -2201,11 +2206,14 @@ player_container = NodePath("../player")
 animator = NodePath("../AnimationPlayer")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+method_call_mode = 1
+audio_max_polyphony = 1
 libraries = {
 "": SubResource("AnimationLibrary_lj1a4")
 }
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+bus = &"BGM"
 
 [connection signal="timeout" from="CystalDrop1/CystalTimer" to="CystalDrop1/CystalBullet" method="spawn_bullet"]
 [connection signal="timeout" from="CystalDrop1/CystalTimer" to="CystalDrop1/CystalSpawner" method="_transform_barrel"]

@@ -1,12 +1,13 @@
 extends BulletBasic
 class_name Seeker
 
-@export_flags_2d_physics var seek_mask := 0
-@export var seek_radius := 10.
-var seek_query = PhysicsShapeQueryParameters2D.new()
-var seek_shape = PhysicsServer2D.circle_shape_create()
-
 @export var hit_particle : GPUParticles2D
+
+@export_category("Seek behavior")
+@export_flags_2d_physics var seek_mask := 2
+var seek_query = PhysicsShapeQueryParameters2D.new()
+@export var seek_radius := 270.0
+var seek_shape = PhysicsServer2D.circle_shape_create()
 
 func _ready() -> void:
 	seek_query.shape_rid = seek_shape;
@@ -31,14 +32,19 @@ func _exit_tree() -> void:
 	super()
 	PhysicsServer2D.free_rid(seek_shape)
 	
-func move(delta:float) -> Transform2D:
+func move(delta:float, bullete:Bullet) -> void:
+	bullete.velocity = bullete.velocity.normalized() * speed
+	bullete.transform = Transform2D(bullete.velocity.angle() + half_pi, bullete.transform.origin + bullete.velocity * delta)
+	RenderingServer.canvas_item_set_transform(bullete.sprite, query.transform)
+	super(delta, bullete)
+
+var tick := false
+func collision_check() -> void:
+	tick = not tick
+	if tick:
+		return
 	
-	seek_query.transform = Transform2D(0, bullet.transform.origin)
+	seek_query.transform = bullet.transform
 	var seek_result = world.direct_space_state.get_rest_info(seek_query)
-	if seek_result.is_empty():
-		return super(delta)
-		
-	var target = instance_from_id(seek_result["collider_id"])
-	bullet.velocity = (target.global_position - bullet.transform.origin).normalized() * speed
-	bullet.transform = Transform2D(bullet.velocity.angle() + PI /2, bullet.transform.origin + bullet.velocity * delta)
-	return bullet.transform
+	if not seek_result.is_empty():
+		bullet.velocity = seek_result["point"] - bullet.transform.origin

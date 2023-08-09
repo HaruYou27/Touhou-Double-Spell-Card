@@ -190,6 +190,7 @@ autostart = true
 [node name="bullet" parent="Player" node_paths=PackedStringArray("hit_particle") instance=ExtResource("5_ygtci")]
 process_mode = 3
 hit_particle = NodePath("../../HitFx")
+speed = 527
 
 [node name="Node" type="Node2D" parent="."]
 z_index = 3000
