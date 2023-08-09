@@ -149,13 +149,23 @@ func _process_bullet(delta:float) -> void:
 
 func collision_check() -> void:
 	pass
-
+	
+var tick := false
+var task_id := 0
 func _physics_process(delta:float) -> void:
 	if bullets.is_empty():
 		return
+		
+	task_id = WorkerThreadPool.add_task(_process_bullet.bind(delta), true)
 	
-	var task_id := WorkerThreadPool.add_task(_process_bullet.bind(delta), true)
-	for index in range(bullets.size() -1, -1, -1):
+	var start_index := bullets.size() - 1
+	var end_index := int(bullets.size() / 2)
+	tick = not tick
+	if tick:
+		start_index = end_index
+		end_index = -1
+	
+	for index in range(start_index, end_index, -1):
 		bullet = bullets[index]
 		collision_check()
 		query.transform = bullet.transform

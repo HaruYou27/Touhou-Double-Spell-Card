@@ -64,7 +64,7 @@ shader_parameter/noise_texture = ExtResource("3_6g7e0")
 [sub_resource type="Gradient" id="Gradient_6yoxw"]
 colors = PackedColorArray(0.69, 0.0552, 0.65826, 1, 1, 1, 0.06, 1)
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_ykwyp"]
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_kammw"]
 gradient = SubResource("Gradient_6yoxw")
 width = 8
 
@@ -74,7 +74,7 @@ shader_parameter/time_scale = 2.0
 shader_parameter/alpha_offset = true
 shader_parameter/spin = null
 shader_parameter/sin_alpha = null
-shader_parameter/color_map = SubResource("GradientTexture1D_ykwyp")
+shader_parameter/color_map = SubResource("GradientTexture1D_kammw")
 
 [sub_resource type="Curve2D" id="Curve2D_rvgc8"]
 _data = {
@@ -359,7 +359,7 @@ tracks/16/keys = {
 tracks/17/type = "value"
 tracks/17/imported = false
 tracks/17/enabled = true
-tracks/17/path = NodePath("CystalDrop1:process_mode")
+tracks/17/path = NodePath("BigHpFairy3:process_mode")
 tracks/17/interp = 1
 tracks/17/loop_wrap = true
 tracks/17/keys = {
@@ -371,7 +371,7 @@ tracks/17/keys = {
 tracks/18/type = "value"
 tracks/18/imported = false
 tracks/18/enabled = true
-tracks/18/path = NodePath("BigHpFairy3:process_mode")
+tracks/18/path = NodePath("ScoreGiveaway4:process_mode")
 tracks/18/interp = 1
 tracks/18/loop_wrap = true
 tracks/18/keys = {
@@ -383,19 +383,19 @@ tracks/18/keys = {
 tracks/19/type = "value"
 tracks/19/imported = false
 tracks/19/enabled = true
-tracks/19/path = NodePath("ScoreGiveaway4:process_mode")
+tracks/19/path = NodePath("BigHpFairy3:visible")
 tracks/19/interp = 1
 tracks/19/loop_wrap = true
 tracks/19/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [4]
+"values": [false]
 }
 tracks/20/type = "value"
 tracks/20/imported = false
 tracks/20/enabled = true
-tracks/20/path = NodePath("BigHpFairy3:visible")
+tracks/20/path = NodePath("ScoreGiveaway4:visible")
 tracks/20/interp = 1
 tracks/20/loop_wrap = true
 tracks/20/keys = {
@@ -407,34 +407,10 @@ tracks/20/keys = {
 tracks/21/type = "value"
 tracks/21/imported = false
 tracks/21/enabled = true
-tracks/21/path = NodePath("ScoreGiveaway4:visible")
+tracks/21/path = NodePath("Tracking2:visible")
 tracks/21/interp = 1
 tracks/21/loop_wrap = true
 tracks/21/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/22/type = "value"
-tracks/22/imported = false
-tracks/22/enabled = true
-tracks/22/path = NodePath("CystalDrop1:visible")
-tracks/22/interp = 1
-tracks/22/loop_wrap = true
-tracks/22/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/23/type = "value"
-tracks/23/imported = false
-tracks/23/enabled = true
-tracks/23/path = NodePath("Tracking2:visible")
-tracks/23/interp = 1
-tracks/23/loop_wrap = true
-tracks/23/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
@@ -1375,7 +1351,6 @@ texture = ExtResource("10_6qv5n")
 barrelGroup = "Enemy Barrel 1"
 speed = 472
 localRotation = true
-grazable = null
 hitbox = ExtResource("12_dqfin")
 collision_mask = 5
 

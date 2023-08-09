@@ -38,12 +38,7 @@ func move(delta:float, bullete:Bullet) -> void:
 	RenderingServer.canvas_item_set_transform(bullete.sprite, query.transform)
 	super(delta, bullete)
 
-var tick := false
 func collision_check() -> void:
-	tick = not tick
-	if tick:
-		return
-	
 	seek_query.transform = bullet.transform
 	var seek_result = world.direct_space_state.get_rest_info(seek_query)
 	if not seek_result.is_empty():
