@@ -1,24 +1,22 @@
 [gd_scene load_steps=8 format=3 uid="uid://co1x60omaif1u"]
 
-[ext_resource type="Shader" path="res://entity/resource/UberItem.gdshader" id="1_eynuw"]
-[ext_resource type="Script" path="res://entity/bullet/RandAlpha.gd" id="2_8uamc"]
-[ext_resource type="Texture2D" uid="uid://bv7sh78arlyjj" path="res://entity/bullet/resource/cystal.png" id="3_txdiu"]
+[ext_resource type="Shader" path="res://entity/resource/UberItem.gdshader" id="1_tp0pv"]
+[ext_resource type="Script" path="res://entity/bullet/BulletBasic.gd" id="2_v8db2"]
+[ext_resource type="Texture2D" uid="uid://ci8njay8ma26f" path="res://entity/bullet/resource/cystal.png" id="3_txdiu"]
 [ext_resource type="Shape2D" uid="uid://borrvdxc7pflf" path="res://entity/bullet/resource/cystal-hitbox.tres" id="4_h5v3l"]
 
-[sub_resource type="Gradient" id="Gradient_imtkg"]
+[sub_resource type="Gradient" id="Gradient_6yoxw"]
 colors = PackedColorArray(0.69, 0.0552, 0.65826, 1, 1, 1, 0.06, 1)
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_ykwyp"]
-gradient = SubResource("Gradient_imtkg")
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_kammw"]
+gradient = SubResource("Gradient_6yoxw")
 width = 8
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_bs78k"]
-shader = ExtResource("1_eynuw")
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_p5d2u"]
+shader = ExtResource("1_tp0pv")
 shader_parameter/time_scale = 2.0
-shader_parameter/alpha_offset = true
-shader_parameter/spin = null
-shader_parameter/sin_alpha = null
-shader_parameter/color_map = SubResource("GradientTexture1D_ykwyp")
+shader_parameter/blinking = null
+shader_parameter/color_map = SubResource("GradientTexture1D_kammw")
 
 [node name="Node2D" type="Node2D"]
 
@@ -28,53 +26,52 @@ autostart = true
 
 [node name="CystalBullet" type="Node2D" parent="."]
 z_index = 100
-material = SubResource("ShaderMaterial_bs78k")
-position = Vector2(4, -54)
-script = ExtResource("2_8uamc")
+material = SubResource("ShaderMaterial_p5d2u")
+script = ExtResource("2_v8db2")
 texture = ExtResource("3_txdiu")
+barrelGroup = "barrel"
 speed = 272
-localRotation = true
-grazable = null
-bullet_scale = Vector2(1.5, 1.5)
 hitbox = ExtResource("4_h5v3l")
 
-[node name="Marker2D" type="Marker2D" parent="CystalBullet"]
-position = Vector2(49, 101)
+[node name="Node2D" type="Node2D" parent="."]
+
+[node name="Marker2D" type="Marker2D" parent="Node2D" groups=["barrel"]]
+position = Vector2(53, 47)
 rotation = 1.19779
 gizmo_extents = 41.0
 
-[node name="Marker2D3" type="Marker2D" parent="CystalBullet"]
-position = Vector2(258, 94)
+[node name="Marker2D3" type="Marker2D" parent="Node2D" groups=["barrel"]]
+position = Vector2(262, 40)
 rotation = 1.84108
 gizmo_extents = 41.0
 
-[node name="Marker2D4" type="Marker2D" parent="CystalBullet"]
-position = Vector2(343, 101)
+[node name="Marker2D4" type="Marker2D" parent="Node2D" groups=["barrel"]]
+position = Vector2(347, 47)
 rotation = 1.58004
 gizmo_extents = 41.0
 
-[node name="Marker2D5" type="Marker2D" parent="CystalBullet"]
-position = Vector2(459, 92)
+[node name="Marker2D5" type="Marker2D" parent="Node2D" groups=["barrel"]]
+position = Vector2(463, 38)
 rotation = 1.82599
 gizmo_extents = 41.0
 
-[node name="Marker2D6" type="Marker2D" parent="CystalBullet"]
-position = Vector2(402, 89)
+[node name="Marker2D6" type="Marker2D" parent="Node2D" groups=["barrel"]]
+position = Vector2(406, 35)
 rotation = 1.63153
 gizmo_extents = 41.0
 
-[node name="Marker2D7" type="Marker2D" parent="CystalBullet"]
-position = Vector2(509, 91)
+[node name="Marker2D7" type="Marker2D" parent="Node2D" groups=["barrel"]]
+position = Vector2(513, 37)
 rotation = 1.78338
 gizmo_extents = 41.0
 
-[node name="Marker2D8" type="Marker2D" parent="CystalBullet"]
-position = Vector2(210, 92)
+[node name="Marker2D8" type="Marker2D" parent="Node2D" groups=["barrel"]]
+position = Vector2(214, 38)
 rotation = 1.57035
 gizmo_extents = 41.0
 
-[node name="Marker2D2" type="Marker2D" parent="CystalBullet"]
-position = Vector2(146, 88)
+[node name="Marker2D2" type="Marker2D" parent="Node2D" groups=["barrel"]]
+position = Vector2(150, 34)
 rotation = 1.538
 gizmo_extents = 41.0
 

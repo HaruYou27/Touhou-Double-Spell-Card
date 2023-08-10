@@ -345,7 +345,6 @@ z_index = 100
 position = Vector2(0, -8)
 
 [node name="bullet" parent="TabContainer/play/Character/Preview/Reimu/ReimuSprite" instance=ExtResource("17_t5n2t")]
-bullet_scale = Vector2(2, 2)
 
 [node name="Timer" type="Timer" parent="TabContainer/play/Character/Preview/Reimu/ReimuSprite"]
 wait_time = 0.267

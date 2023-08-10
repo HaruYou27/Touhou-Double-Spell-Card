@@ -3,8 +3,6 @@ class_name BulletBasic
 ##The most basic bullet.
 ## Shoule be in grayscale for dynamic color.
 @export var texture : Texture2D
-## By default bullet texture is draw in center.
-@onready var texture_rect := Rect2(-texture.get_size() / 2, texture.get_size())
 
 @export_category("Barrel")
 ## Node group where bullets come out.
@@ -15,8 +13,6 @@ class_name BulletBasic
 @export var localRotation := false
 ## Allow bullet to be grazed by player.
 @export var grazable := true
-## Want BIG bullet?
-@export var bullet_scale := Vector2.ONE
 ## Array of where bullets will come out. For performance reason, this will only get update ONCE at startup.
 var barrels : Array[Node]
 
@@ -35,17 +31,20 @@ var query := PhysicsShapeQueryParameters2D.new()
 @onready var tree := get_tree()
 ## Array of active bullets.
 var bullets : Array[Bullet] = []
-## Inactive bullet array, exist for performance reason.
-var cache : Array[Bullet] = []
 ## Current bullet in physics process.
 var bullet : Bullet
 @onready var collision_graze := collision_mask + 8
+@onready var canvas_item := get_canvas_item()
+@onready var texture_rid := texture.get_rid()
+@onready var texture_size := texture.get_size()
 
 func _ready() -> void:
+	RenderingServer.canvas_item_set_custom_rect(canvas_item, true)
 	if barrelGroup.is_empty():
 		barrels = get_children()
 	else:
 		barrels = tree.get_nodes_in_group(barrelGroup)
+	
 	query.shape = hitbox
 	query.collide_with_areas = collide_with_areas
 	query.collide_with_bodies = collide_with_bodies
@@ -53,73 +52,39 @@ func _ready() -> void:
 ## Override it with your new Bullet class.
 func create_bullet() -> void:
 	bullet = Bullet.new()
-
-## Incase someone want to change how the bullet is drawn.
-func create_sprite() -> void:
-	var sprite = RenderingServer.canvas_item_create()
-	bullet.sprite = sprite
 	
-	RenderingServer.canvas_item_set_z_index(sprite, z_index)
-	RenderingServer.canvas_item_set_parent(sprite, world.canvas)
-	texture.draw_rect(sprite, texture_rect, false)
-	RenderingServer.canvas_item_set_material(sprite, material.get_rid())
-	RenderingServer.canvas_item_set_transform(bullet.sprite, Transform2D(0, Vector2(-500, -500)))
-	
-func _exit_tree() -> void:
-	#Rid is actually an memory address to get the object in Godot server.
-	#Since these CanvasItem are created directly using RenderingServer (not reference counted),
-	#it must be freed manually.
-	for bullete in bullets:
-		RenderingServer.free_rid(bullete.sprite)
-		
-## Just a few line of code to check for bullet in cache.
-func new_bullet():
-	if cache.is_empty():
-		create_bullet()
-		create_sprite()
-		bullets.append(bullet)
-	else:
-		bullet = cache.pop_back()
-		bullets.append(bullet)
-		
 ## Bang
 func spawn_bullet() -> void:
 	for barrel in barrels:
 		if not barrel.is_visible_in_tree():
 			continue
-		new_bullet()
-		
-		RenderingServer.canvas_item_set_visible(bullet.sprite, true)
-		reset_bullet_transform(barrel)
-		reset_bullet()
+		create_bullet()
+		bullets.append(bullet)
+		set_bullet_transform(barrel)
 		
 		bullet.grazable = grazable
-
-## If you add any extra properties to the bullet, reset it to default here.
-func reset_bullet() -> void:
-	pass
-		
-const half_pi := PI/2
+	
 ## Capsule collision shape in Godot is vertical.
-func reset_bullet_transform(barrel:Node2D):
+const half_pi := PI / 2
+func set_bullet_transform(barrel:Node2D):
 	if localRotation:
 		bullet.velocity = Vector2(speed, 0).rotated(barrel.rotation)
-		bullet.transform = Transform2D(barrel.rotation + half_pi, bullet_scale, 0, barrel.global_position)
+		bullet.transform = Transform2D(barrel.rotation + half_pi, barrel.global_position)
 	else:
 		bullet.velocity = Vector2(speed, 0).rotated(barrel.global_rotation)
-		bullet.transform = Transform2D(barrel.global_rotation + half_pi, bullet_scale, 0, barrel.global_position)
+		bullet.transform = Transform2D(barrel.global_rotation + half_pi, barrel.global_position)
 			
 ## Wipe all bullets.
 func clear() -> void:
-	if bullets.is_empty():
-		return 
-	for bullete in bullets:
-		RenderingServer.canvas_item_set_visible(bullete.sprite, false)
+	bullets.clear()
 
+var bullet_modulate := Color.WHITE
 ## Override to change the way bullet move.
 func move(delta:float, bullete:Bullet) -> void:
 	bullete.transform.origin += bullete.velocity * delta
-	RenderingServer.canvas_item_set_transform(bullete.sprite, bullete.transform)
+	var bullet_rotation = bullete.transform.get_rotation()
+	bullet_modulate.g = bullet_rotation
+	texture.draw(canvas_item, bullete.transform.origin.rotated(-bullet_rotation), bullet_modulate)
 
 ## Bulelt has collided with something, what to do now?
 func collide(result:Dictionary) -> bool:
@@ -135,7 +100,7 @@ func collide(result:Dictionary) -> bool:
 		return true
 		
 	if collider is Player:
-		collider.call("_hit")
+		collider._hit()
 		return false
 		
 	#Hit Player spellcard
@@ -144,8 +109,10 @@ func collide(result:Dictionary) -> bool:
 	return false
 
 func _process_bullet(delta:float) -> void:
+	RenderingServer.canvas_item_clear(canvas_item)
 	for bullete in bullets.duplicate():
 		move(delta, bullete)
+	
 
 func collision_check() -> void:
 	pass
@@ -179,7 +146,6 @@ func _physics_process(delta:float) -> void:
 		var result := world.direct_space_state.get_rest_info(query)
 		if result.is_empty() or collide(result):
 			continue
-		RenderingServer.canvas_item_set_visible(bullet.sprite, false)
 		#Sort from tail to head to minimize array access.
-		cache.append(bullets.pop_at(index))
+		bullets.remove_at(index)
 	WorkerThreadPool.wait_for_task_completion(task_id)

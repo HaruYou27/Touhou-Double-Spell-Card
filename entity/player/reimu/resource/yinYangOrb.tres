@@ -1,17 +1,38 @@
 [gd_resource type="ShaderMaterial" load_steps=4 format=3 uid="uid://df8i0wskbdmia"]
 
-[ext_resource type="Shader" path="res://entity/resource/UberItem.gdshader" id="1_v6llp"]
+[sub_resource type="Shader" id="Shader_ieck5"]
+code = "shader_type canvas_item;
+#pragma disable_preprocessor
+
+uniform float time_scale;
+uniform bool alpha_offset;
+uniform bool spin;
+uniform bool sin_alpha;
+uniform sampler2D color_map;
+
+void vertex()
+{
+    float phi = TIME * time_scale * PI;
+    VERTEX *= mat2(vec2(cos(phi),-sin(phi)),
+                   vec2(sin(phi),cos(phi)));
+
+}
+void fragment()
+{
+	COLOR.rgb = texture(color_map, COLOR.rg).rgb;
+}"
 
 [sub_resource type="Gradient" id="Gradient_561th"]
-offsets = PackedFloat32Array(0.376147)
-colors = PackedColorArray(1, 0.4, 0.4, 1)
+interpolation_mode = 1
+offsets = PackedFloat32Array(0, 0.51087)
+colors = PackedColorArray(1, 0.4, 0.4, 1, 1, 1, 1, 1)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_obk0t"]
 gradient = SubResource("Gradient_561th")
-width = 1
+width = 2
 
 [resource]
-shader = ExtResource("1_v6llp")
+shader = SubResource("Shader_ieck5")
 shader_parameter/time_scale = 1.0
 shader_parameter/alpha_offset = false
 shader_parameter/spin = true

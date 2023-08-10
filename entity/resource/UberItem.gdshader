@@ -1,37 +1,38 @@
 shader_type canvas_item;
+render_mode skip_vertex_transform;
 #pragma disable_preprocessor
 
 uniform float time_scale;
-uniform bool alpha_offset;
-uniform bool spin;
-uniform bool sin_alpha;
+uniform bool blinking;
 uniform sampler2D color_map;
 
 varying vec2 uv;
 void vertex()
 {
+	//Offset vertex to the center of the image.
+	VERTEX -= 0.5 / TEXTURE_PIXEL_SIZE;
+	
 	float time = TIME * time_scale;
-	if (alpha_offset)
-	{
-		time *= sign(COLOR.a - .5);
-		time += 100.0 * COLOR.a;
-		COLOR.a = 1.0;
-	}
+	//Offset time by r channel.
+	time *= sign(COLOR.r - .5);
+	time += 100.0 * COLOR.r;
+		
+	//shift color through time across color map - mix it with white color.
 	uv = vec2(abs(sin(time)));
 	
-    if (spin)
+	float theta = COLOR.g;
+	VERTEX *= mat2(vec2(cos(theta),-sin(theta)),
+                   vec2(sin(theta),cos(theta)));
+	
+	if (blinking)
 	{
-    	float phi = time * PI;
-        VERTEX *= mat2(vec2(cos(phi),-sin(phi)),
-                       vec2(sin(phi),cos(phi)));
-    }
-	if (sin_alpha)
-	{
+		//Blinking effect.
 		COLOR.a = sin(time);
 	}
+	//Block color modulate pass through fragment.
+	COLOR.rgb = vec3(1.0);
 }
 void fragment()
 {
-	//shift color through time across color map - mix it with white color.
 	COLOR.rgb = mix(texture(color_map, uv).rgb, vec3(1.), COLOR.r);
 }
