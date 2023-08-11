@@ -16,16 +16,18 @@ func _ready() -> void:
 	Global.set_process_unhandled_input(true)
 
 @export var animator : AnimationPlayer
+@export var bgm : AudioStreamPlayer
 func sync_start() -> void:
 	rpc('game_started', Time.get_ticks_msec())
-	var timer := get_tree().create_timer(3., true, true, true)
+	var timer := get_tree().create_timer(2., true, true, true)
 	timer.timeout.connect(animator.play.bind("game"))
 	
 @rpc("reliable")
 func game_started(host_time:int) -> void:
 	var offset := (Global.get_host_time() - host_time) / 1000.
-	var timer := get_tree().create_timer(3. - offset, true, true, true)
+	var timer := get_tree().create_timer(2. - offset, true, true, true)
 	timer.timeout.connect(animator.play.bind("game"))
+	timer.timeout.connect(animator.play.bind(AudioServer.get_output_latency() + AudioServer.get_time_to_next_mix()))
 
 func _revive_player() -> void:
 	Global.player1.revive()

@@ -173,9 +173,8 @@ debug_color = Color(0.713726, 0.105882, 0.701961, 0.419608)
 wait_time = 0.2
 autostart = true
 
-[node name="bullet" parent="Player" node_paths=PackedStringArray("hit_particle") instance=ExtResource("5_ygtci")]
+[node name="bullet" parent="Player" instance=ExtResource("5_ygtci")]
 process_mode = 3
-hit_particle = NodePath("")
 seek_mask = null
 localRotation = null
 collide_with_bodies = null

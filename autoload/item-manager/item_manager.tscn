@@ -38,6 +38,7 @@ z_index = 1
 material = SubResource("ShaderMaterial_4ux2n")
 script = ExtResource("2_wca42")
 texture = ExtResource("3_kgvap")
+speed = 0.052
 hitbox = SubResource("CircleShape2D_atke6")
 
 [node name="WorldBoundary" type="StaticBody2D" parent="."]

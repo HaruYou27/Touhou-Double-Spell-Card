@@ -18,6 +18,7 @@ func create_item(pos:Vector2) -> void:
 func move(delta:float, bullete:Bullet) -> void:
 	#Simulate gravity.
 	bullete.velocity.y += 98 * delta
+	bullete.transform = bullete.transform.rotated_local(speed)
 	super(delta, bullete)
 
 func collide(result:Dictionary) -> bool:

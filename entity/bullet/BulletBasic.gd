@@ -8,7 +8,7 @@ class_name BulletBasic
 ## Node group where bullets come out.
 @export var barrelGroup := ''
 ## Pixel per second.
-@export var speed := 525
+@export var speed := 525.0
 ## Bullet travel direction ignore global transform.
 @export var localRotation := false
 ## Allow bullet to be grazed by player.
@@ -77,12 +77,14 @@ func set_bullet_transform(barrel:Node2D):
 ## Wipe all bullets.
 func clear() -> void:
 	bullets.clear()
+	RenderingServer.canvas_item_clear(canvas_item)
 
 var bullet_modulate := Color.WHITE
 ## Override to change the way bullet move.
 func move(delta:float, bullete:Bullet) -> void:
 	bullete.transform.origin += bullete.velocity * delta
 	var bullet_rotation = bullete.transform.get_rotation()
+	bullet_modulate.r = bullet_rotation
 	bullet_modulate.g = bullet_rotation
 	texture.draw(canvas_item, bullete.transform.origin.rotated(-bullet_rotation), bullet_modulate)
 

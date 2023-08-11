@@ -106,4 +106,5 @@ renderer/rendering_method.mobile="gl_compatibility"
 textures/vram_compression/import_s3tc_bptc=true
 textures/vram_compression/import_etc2_astc=true
 textures/webp_compression/compression_method=4
+driver/depth_prepass/enable=false
 2d/main_scene="res://tool/benchmark.tscn"

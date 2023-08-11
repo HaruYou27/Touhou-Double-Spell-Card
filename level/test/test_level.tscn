@@ -106,18 +106,12 @@ radius = 31.0161
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_d3uy2"]
 shader = ExtResource("21_fhie4")
 shader_parameter/time_scale = null
-shader_parameter/alpha_offset = null
-shader_parameter/spin = null
-shader_parameter/sin_alpha = null
 shader_parameter/wobble = null
 shader_parameter/wobble_min = 0.75
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_kukqw"]
 shader = ExtResource("21_fhie4")
 shader_parameter/time_scale = null
-shader_parameter/alpha_offset = null
-shader_parameter/spin = null
-shader_parameter/sin_alpha = null
 shader_parameter/wobble = null
 shader_parameter/wobble_min = 0.75
 
@@ -139,7 +133,7 @@ viewport_path = NodePath("SubViewportContainer/SubViewport")
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_g5wds"]
 resource_local_to_scene = true
 shader = ExtResource("29_dpw0x")
-shader_parameter/water_opacity = 0.5
+shader_parameter/water_opacity = 0.25
 shader_parameter/background = SubResource("ViewportTexture_8xk5g")
 shader_parameter/wave_velocity = Vector2(0, 5)
 shader_parameter/wave_distortion = 0.05

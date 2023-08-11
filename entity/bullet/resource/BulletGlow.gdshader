@@ -1,44 +1,38 @@
 shader_type canvas_item;
 #pragma disable_preprocessor
-render_mode blend_add;
+render_mode blend_add, skip_vertex_transform;
 
 uniform float time_scale;
-uniform bool alpha_offset;
-uniform bool spin;
-uniform bool sin_alpha;
 uniform sampler2D color_map;
 uniform bool wobble;
 uniform float wobble_min = .75;
 
-varying vec3 color;
+varying vec2 uv;
 void vertex()
 {
+	//Offset vertex to the center of the image.
+	VERTEX -= 0.5 / TEXTURE_PIXEL_SIZE;
+	
 	float time = TIME * time_scale;
-
-	if (alpha_offset)
-	{
-		time *= sign(COLOR.a - .5);
-		time += 100.0 * COLOR.a;
-		COLOR.a = 1.0;
-	}
-    if (spin)
-	{
-    	float phi = time * PI;
-        VERTEX *= mat2(vec2(cos(phi),-sin(phi)),
-                       vec2(sin(phi),cos(phi)));
-    }
+	//Offset time by r channel.
+	time *= sign(COLOR.r - .5);
+	time += 100.0 * COLOR.r;
+		
+	//shift color through time across color map - mix it with white color.
+	uv = vec2(abs(sin(time)));
+	
+	float theta = COLOR.g;
+	VERTEX *= mat2(vec2(cos(theta),-sin(theta)),
+                   vec2(sin(theta),cos(theta)));
+	
 	if (wobble)
 	{
 		VERTEX *= wobble_min + abs(sin(time)) * (1.0 - wobble_min);
 	}
-	if (sin_alpha)
-	{
-		COLOR.a = sin(time);
-	}
-	color = texture(color_map, vec2(abs(sin(time)))).rgb;
+	//Block color modulate pass through fragment.
+	COLOR.rgb = vec3(1.0);
 }
 void fragment()
 {
-	//shift color through time across color map - mix it with white color.
-	COLOR.rgb = mix(color, vec3(1.), COLOR.r);
+	COLOR.rgb = mix(texture(color_map, uv).rgb, vec3(1.), COLOR.r);
 }

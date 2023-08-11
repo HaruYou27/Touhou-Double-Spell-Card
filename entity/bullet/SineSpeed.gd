@@ -7,8 +7,8 @@ class_name SineSpeed
 func create_bullet() -> void:
 	bullet = AgedBullet.new()
 	
-func move(delta:float) -> Transform2D:
+func move(delta:float, bullete:Bullet) -> void:
 	bullet.age += delta * frequency
 	bullet.velocity = bullet.velocity.normalized() * speed * abs(sin(bullet.age))
 	
-	return super(delta)
+	return super(delta, bullete)
