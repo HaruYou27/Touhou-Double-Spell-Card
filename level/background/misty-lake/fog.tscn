@@ -2,7 +2,7 @@
 
 [ext_resource type="Shader" uid="uid://bs3tr5f6a4thq" path="res://level/background/moving-noise.tres" id="1_rc1as"]
 [ext_resource type="Texture2D" uid="uid://rooeax5tkuf4" path="res://level/background/misty-lake/fog-noise-2.tres" id="2_7k8sk"]
-[ext_resource type="Texture2D" uid="uid://clt15wekn0gcj" path="res://level/background/misty-lake/fog-noise.tres" id="2_y8qhq"]
+[ext_resource type="Script" path="res://entity/utility/GraphicOptional.gd" id="3_m5kq3"]
 
 [sub_resource type="Gradient" id="Gradient_6hvbg"]
 colors = PackedColorArray(0, 0, 0, 0, 0.831373, 0.917647, 1, 1)
@@ -18,8 +18,8 @@ shader_parameter/velocity = Vector2(0, -0.15)
 shader_parameter/color_map = SubResource("GradientTexture1D_g3k78")
 shader_parameter/noise = ExtResource("2_7k8sk")
 
-[node name="fog" type="Sprite2D"]
+[node name="fog" type="Node2D"]
 texture_repeat = 2
 material = SubResource("ShaderMaterial_wmopm")
-texture = ExtResource("2_y8qhq")
-centered = false
+script = ExtResource("3_m5kq3")
+graphic_level = 1

@@ -10,6 +10,13 @@ class_name UserData
 
 @export_category('Graphic')
 @export var particle_amount := 1
+@export var graphic_level := 2
+enum GRAPHIC_LEVEL {
+	MINIMAL,
+	LOW,
+	MEDIUM,
+	HIGH,
+}
 
 @export_category("Controls")
 @export var sentivity := 1.2

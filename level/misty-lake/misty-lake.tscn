@@ -1,64 +1,47 @@
-[gd_scene load_steps=51 format=3 uid="uid://bxvy3qa8esorq"]
+[gd_scene load_steps=48 format=3 uid="uid://bxvy3qa8esorq"]
 
-[ext_resource type="Shader" path="res://level/background/misty-lake/water.gdshader" id="1_5h8xj"]
-[ext_resource type="Texture2D" uid="uid://coq45et7pnhnx" path="res://level/background/misty-lake/water-gradient.tres" id="2_4wj44"]
-[ext_resource type="Texture2D" uid="uid://bgh4r80tk5o7v" path="res://level/background/misty-lake/water-noise.tres" id="3_6g7e0"]
-[ext_resource type="Script" path="res://level/test/background.gd" id="4_xolvc"]
-[ext_resource type="Script" path="res://entity/utility/Path2DSpawner.gd" id="6_n63j6"]
-[ext_resource type="Shader" path="res://level/background/misty-lake/sky-reflection.gdshader" id="6_tvv72"]
-[ext_resource type="Texture2D" uid="uid://x1e8a67qetah" path="res://level/background/misty-lake/FullMoon.png" id="7_1ggri"]
-[ext_resource type="PackedScene" uid="uid://6wuhmc2p8byc" path="res://level/background/misty-lake/fog.tscn" id="8_ixvn3"]
-[ext_resource type="PackedScene" uid="uid://bfvb372sca8m2" path="res://level/leveler/leveler.tscn" id="9_ii2dw"]
-[ext_resource type="PackedScene" uid="uid://uiwkegjhrq51" path="res://level/background/misty-lake/fog_overlay.tscn" id="9_v1onv"]
-[ext_resource type="Texture2D" uid="uid://ci8njay8ma26f" path="res://entity/bullet/resource/cystal.png" id="10_6qv5n"]
-[ext_resource type="Script" path="res://entity/bullet/BulletBasic.gd" id="11_pvd46"]
-[ext_resource type="Shape2D" uid="uid://borrvdxc7pflf" path="res://entity/bullet/resource/cystal-hitbox.tres" id="12_dqfin"]
-[ext_resource type="PackedScene" uid="uid://qcqdhn5ssewn" path="res://level/test/fairy-tracker.tscn" id="15_2pdrr"]
-[ext_resource type="Texture2D" uid="uid://bb6gmgus0empe" path="res://entity/bullet/resource/rice.png" id="16_7kafc"]
-[ext_resource type="Shape2D" uid="uid://57c5btn7th0e" path="res://entity/bullet/resource/rice-hitbox.tres" id="17_72iy2"]
-[ext_resource type="PackedScene" uid="uid://cyvf0ik0p568i" path="res://level/test/fairy.tscn" id="20_5gbox"]
-[ext_resource type="PackedScene" uid="uid://dtlscerig62nv" path="res://entity/enemy/base/enemy.tscn" id="20_tma4i"]
-[ext_resource type="Texture2D" uid="uid://cqt1oe248vvwn" path="res://entity/enemy/fairy/Fairy.2.png" id="21_3xe2h"]
-[ext_resource type="Shader" path="res://entity/bullet/resource/BulletGlow.gdshader" id="21_fhie4"]
-[ext_resource type="Script" path="res://entity/utility/TargetLocker.gd" id="22_2hlxs"]
-[ext_resource type="Shader" path="res://entity/resource/UberItem.gdshader" id="22_puvhm"]
-[ext_resource type="Texture2D" uid="uid://dilcwhuq6brnv" path="res://entity/bullet/resource/ball.png" id="22_rm6dl"]
-[ext_resource type="Shape2D" uid="uid://bflxt0dqc7na4" path="res://entity/bullet/resource/ball-hitbox.tres" id="23_gmowg"]
-[ext_resource type="PackedScene" uid="uid://c7lcs65yc2vea" path="res://level/test/fairy-unarmed2.tscn" id="24_54ed1"]
-[ext_resource type="PackedScene" uid="uid://bc4tw8t6g734m" path="res://level/test/fairy-unarmed1.tscn" id="24_hvwmc"]
-[ext_resource type="AudioStream" uid="uid://bt7vy6thn8yac" path="res://level/test/guava-mono.ogg" id="26_f2wvn"]
-[ext_resource type="Shader" path="res://level/background/misty-lake/reflection.gdshader" id="29_dpw0x"]
+[ext_resource type="Shader" path="res://level/background/misty-lake/water.gdshader" id="1_kv0nh"]
+[ext_resource type="Texture2D" uid="uid://coq45et7pnhnx" path="res://level/background/misty-lake/water-gradient.tres" id="2_18im6"]
+[ext_resource type="Script" path="res://entity/utility/GraphicOptional.gd" id="3_00q44"]
+[ext_resource type="Shader" path="res://level/background/misty-lake/sky-reflection.gdshader" id="3_er50l"]
+[ext_resource type="Texture2D" uid="uid://bgh4r80tk5o7v" path="res://level/background/misty-lake/water-noise.tres" id="4_d6ekp"]
+[ext_resource type="PackedScene" uid="uid://6wuhmc2p8byc" path="res://level/background/misty-lake/fog.tscn" id="6_dlknp"]
+[ext_resource type="Shader" path="res://entity/resource/UberItem.gdshader" id="7_gtrbf"]
+[ext_resource type="Script" path="res://entity/bullet/BulletBasic.gd" id="8_f6fcj"]
+[ext_resource type="Texture2D" uid="uid://ci8njay8ma26f" path="res://entity/bullet/resource/cystal.png" id="9_5uwhi"]
+[ext_resource type="Shape2D" uid="uid://borrvdxc7pflf" path="res://entity/bullet/resource/cystal-hitbox.tres" id="10_xyp3x"]
+[ext_resource type="Script" path="res://entity/utility/Path2DSpawner.gd" id="11_ym16e"]
+[ext_resource type="PackedScene" uid="uid://cyvf0ik0p568i" path="res://level/misty-lake/fairy.tscn" id="12_1xc1c"]
+[ext_resource type="Texture2D" uid="uid://bb6gmgus0empe" path="res://entity/bullet/resource/rice.png" id="13_o07g8"]
+[ext_resource type="Shape2D" uid="uid://57c5btn7th0e" path="res://entity/bullet/resource/rice-hitbox.tres" id="14_rf64e"]
+[ext_resource type="PackedScene" uid="uid://qcqdhn5ssewn" path="res://level/misty-lake/fairy-tracker.tscn" id="15_43q5m"]
+[ext_resource type="PackedScene" uid="uid://dtlscerig62nv" path="res://entity/enemy/base/enemy.tscn" id="16_bi0tp"]
+[ext_resource type="Texture2D" uid="uid://cqt1oe248vvwn" path="res://entity/enemy/fairy/Fairy.2.png" id="17_2fadj"]
+[ext_resource type="Script" path="res://entity/utility/TargetLocker.gd" id="18_0bgcv"]
+[ext_resource type="Shader" path="res://entity/bullet/resource/BulletGlow.gdshader" id="19_nhcav"]
+[ext_resource type="Texture2D" uid="uid://dilcwhuq6brnv" path="res://entity/bullet/resource/ball.png" id="20_r16r1"]
+[ext_resource type="Shape2D" uid="uid://bflxt0dqc7na4" path="res://entity/bullet/resource/ball-hitbox.tres" id="21_lvtat"]
+[ext_resource type="PackedScene" uid="uid://bc4tw8t6g734m" path="res://level/misty-lake/fairy-unarmed1.tscn" id="22_mjcsd"]
+[ext_resource type="PackedScene" uid="uid://c7lcs65yc2vea" path="res://level/misty-lake/fairy-unarmed2.tscn" id="23_i2700"]
+[ext_resource type="Shader" path="res://level/background/misty-lake/reflection.gdshader" id="24_aykys"]
+[ext_resource type="PackedScene" uid="uid://uiwkegjhrq51" path="res://level/background/misty-lake/fog_overlay.tscn" id="25_egtn7"]
+[ext_resource type="PackedScene" uid="uid://bfvb372sca8m2" path="res://level/leveler/leveler.tscn" id="26_n1dlt"]
+[ext_resource type="AudioStream" uid="uid://bt7vy6thn8yac" path="res://level/misty-lake/guava-mono.ogg" id="27_4i2xy"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_r8js3"]
-shader = ExtResource("1_5h8xj")
+shader = ExtResource("1_kv0nh")
 shader_parameter/wave_velocity = Vector2(0, 2)
 shader_parameter/wave_distortion = 0.2
 shader_parameter/wave_multiplyer = -7.0
 shader_parameter/water_velocity = Vector2(0, -0.2)
-shader_parameter/color_map = ExtResource("2_4wj44")
-
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_4e8h0"]
-seed = 727
-fractal_type = 2
-domain_warp_enabled = true
-domain_warp_type = 2
-domain_warp_frequency = 0.01
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_ev6t1"]
-width = 540
-height = 960
-generate_mipmaps = false
-seamless = true
-seamless_blend_skirt = 0.5
-normalize = false
-noise = SubResource("FastNoiseLite_4e8h0")
+shader_parameter/color_map = ExtResource("2_18im6")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_h610u"]
-shader = ExtResource("6_tvv72")
+shader = ExtResource("3_er50l")
 shader_parameter/wave_velocity = Vector2(0, 1)
 shader_parameter/wave_distortion = 0.09
 shader_parameter/wave_multiplyer = -7.0
-shader_parameter/noise_texture = ExtResource("3_6g7e0")
+shader_parameter/noise_texture = ExtResource("4_d6ekp")
 
 [sub_resource type="Gradient" id="Gradient_6yoxw"]
 colors = PackedColorArray(0.69, 0.0552, 0.65826, 1, 1, 1, 0.06, 1)
@@ -68,7 +51,7 @@ gradient = SubResource("Gradient_6yoxw")
 width = 8
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_w081n"]
-shader = ExtResource("22_puvhm")
+shader = ExtResource("7_gtrbf")
 shader_parameter/time_scale = 2.0
 shader_parameter/blinking = null
 shader_parameter/color_map = SubResource("GradientTexture1D_kammw")
@@ -89,7 +72,7 @@ gradient = SubResource("Gradient_c57lt")
 width = 1
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_2rgkm"]
-shader = ExtResource("22_puvhm")
+shader = ExtResource("7_gtrbf")
 shader_parameter/time_scale = null
 shader_parameter/blinking = null
 shader_parameter/color_map = SubResource("GradientTexture1D_mflqg")
@@ -104,13 +87,13 @@ point_count = 4
 radius = 31.0161
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_d3uy2"]
-shader = ExtResource("21_fhie4")
+shader = ExtResource("19_nhcav")
 shader_parameter/time_scale = null
 shader_parameter/wobble = null
 shader_parameter/wobble_min = 0.75
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_kukqw"]
-shader = ExtResource("21_fhie4")
+shader = ExtResource("19_nhcav")
 shader_parameter/time_scale = null
 shader_parameter/wobble = null
 shader_parameter/wobble_min = 0.75
@@ -132,7 +115,7 @@ viewport_path = NodePath("SubViewportContainer/SubViewport")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_g5wds"]
 resource_local_to_scene = true
-shader = ExtResource("29_dpw0x")
+shader = ExtResource("24_aykys")
 shader_parameter/water_opacity = 0.25
 shader_parameter/background = SubResource("ViewportTexture_8xk5g")
 shader_parameter/wave_velocity = Vector2(0, 5)
@@ -156,43 +139,43 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("SubViewportContainer/SubViewport/background/FullMoon:visible")
+tracks/1/path = NodePath("SubViewportContainer/SubViewport/background/FullMoon:modulate")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("SubViewportContainer/SubViewport/background/FullMoon:modulate")
+tracks/2/path = NodePath("CystalDrop1/CystalSpawner:reverse")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 0)]
+"update": 1,
+"values": [false]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("CystalDrop1/CystalSpawner:reverse")
+tracks/3/path = NodePath("FogOverlay:modulate")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
 }
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("FogOverlay:modulate")
+tracks/4/path = NodePath("SubViewportContainer/SubViewport/background/fog:modulate")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -204,139 +187,139 @@ tracks/4/keys = {
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("SubViewportContainer/SubViewport/background/fog:modulate")
+tracks/5/path = NodePath("Tracking2/TrackingSpawner:reverse")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 0)]
+"update": 1,
+"values": [false]
 }
 tracks/6/type = "value"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("Tracking2/TrackingSpawner:reverse")
+tracks/6/path = NodePath("BigHpFairy3/Fairy/TopLeft:position")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
+"update": 0,
+"values": [Vector2(651, 41)]
 }
 tracks/7/type = "value"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("BigHpFairy3/Fairy/TopLeft:position")
+tracks/7/path = NodePath("BigHpFairy3/Fairy/TopRight:position")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(651, 41)]
+"values": [Vector2(-120, 28)]
 }
 tracks/8/type = "value"
 tracks/8/imported = false
 tracks/8/enabled = true
-tracks/8/path = NodePath("BigHpFairy3/Fairy/TopRight:position")
+tracks/8/path = NodePath("BigHpFairy3/Fairy/BotLeft:position")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(-120, 28)]
+"values": [Vector2(-95, 26)]
 }
 tracks/9/type = "value"
 tracks/9/imported = false
 tracks/9/enabled = true
-tracks/9/path = NodePath("BigHpFairy3/Fairy/BotLeft:position")
+tracks/9/path = NodePath("BigHpFairy3/Fairy/BotRight:position")
 tracks/9/interp = 1
 tracks/9/loop_wrap = true
 tracks/9/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(-95, 26)]
+"values": [Vector2(-98, -54)]
 }
 tracks/10/type = "value"
 tracks/10/imported = false
 tracks/10/enabled = true
-tracks/10/path = NodePath("BigHpFairy3/Fairy/BotRight:position")
+tracks/10/path = NodePath("BigHpFairy3/Fairy/Middle:position")
 tracks/10/interp = 1
 tracks/10/loop_wrap = true
 tracks/10/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(-98, -54)]
+"values": [Vector2(432, -49)]
 }
 tracks/11/type = "value"
 tracks/11/imported = false
 tracks/11/enabled = true
-tracks/11/path = NodePath("BigHpFairy3/Fairy/Middle:position")
+tracks/11/path = NodePath("BigHpFairy3/Fairy/MiddleLeft:position")
 tracks/11/interp = 1
 tracks/11/loop_wrap = true
 tracks/11/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(432, -49)]
+"values": [Vector2(539, -81)]
 }
 tracks/12/type = "value"
 tracks/12/imported = false
 tracks/12/enabled = true
-tracks/12/path = NodePath("BigHpFairy3/Fairy/MiddleLeft:position")
+tracks/12/path = NodePath("BigHpFairy3/Fairy/BotMiddle:position")
 tracks/12/interp = 1
 tracks/12/loop_wrap = true
 tracks/12/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(539, -81)]
+"values": [Vector2(228, -72)]
 }
 tracks/13/type = "value"
 tracks/13/imported = false
 tracks/13/enabled = true
-tracks/13/path = NodePath("BigHpFairy3/Fairy/BotMiddle:position")
+tracks/13/path = NodePath("BigHpFairy3/Fairy/MiddleRight:position")
 tracks/13/interp = 1
 tracks/13/loop_wrap = true
 tracks/13/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(228, -72)]
+"values": [Vector2(-90, -13)]
 }
 tracks/14/type = "value"
 tracks/14/imported = false
 tracks/14/enabled = true
-tracks/14/path = NodePath("BigHpFairy3/Fairy/MiddleRight:position")
+tracks/14/path = NodePath("BigHpFairy3/Fairy/TopMiddle:position")
 tracks/14/interp = 1
 tracks/14/loop_wrap = true
 tracks/14/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(-90, -13)]
+"values": [Vector2(613, 405)]
 }
 tracks/15/type = "value"
 tracks/15/imported = false
 tracks/15/enabled = true
-tracks/15/path = NodePath("BigHpFairy3/Fairy/TopMiddle:position")
+tracks/15/path = NodePath("Tracking2:process_mode")
 tracks/15/interp = 1
 tracks/15/loop_wrap = true
 tracks/15/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(613, 405)]
+"update": 1,
+"values": [4]
 }
 tracks/16/type = "value"
 tracks/16/imported = false
 tracks/16/enabled = true
-tracks/16/path = NodePath("Tracking2:process_mode")
+tracks/16/path = NodePath("BigHpFairy3:process_mode")
 tracks/16/interp = 1
 tracks/16/loop_wrap = true
 tracks/16/keys = {
@@ -348,7 +331,7 @@ tracks/16/keys = {
 tracks/17/type = "value"
 tracks/17/imported = false
 tracks/17/enabled = true
-tracks/17/path = NodePath("BigHpFairy3:process_mode")
+tracks/17/path = NodePath("ScoreGiveaway4:process_mode")
 tracks/17/interp = 1
 tracks/17/loop_wrap = true
 tracks/17/keys = {
@@ -360,19 +343,19 @@ tracks/17/keys = {
 tracks/18/type = "value"
 tracks/18/imported = false
 tracks/18/enabled = true
-tracks/18/path = NodePath("ScoreGiveaway4:process_mode")
+tracks/18/path = NodePath("BigHpFairy3:visible")
 tracks/18/interp = 1
 tracks/18/loop_wrap = true
 tracks/18/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [4]
+"values": [false]
 }
 tracks/19/type = "value"
 tracks/19/imported = false
 tracks/19/enabled = true
-tracks/19/path = NodePath("BigHpFairy3:visible")
+tracks/19/path = NodePath("ScoreGiveaway4:visible")
 tracks/19/interp = 1
 tracks/19/loop_wrap = true
 tracks/19/keys = {
@@ -384,22 +367,10 @@ tracks/19/keys = {
 tracks/20/type = "value"
 tracks/20/imported = false
 tracks/20/enabled = true
-tracks/20/path = NodePath("ScoreGiveaway4:visible")
+tracks/20/path = NodePath("Tracking2:visible")
 tracks/20/interp = 1
 tracks/20/loop_wrap = true
 tracks/20/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/21/type = "value"
-tracks/21/imported = false
-tracks/21/enabled = true
-tracks/21/path = NodePath("Tracking2:visible")
-tracks/21/interp = 1
-tracks/21/loop_wrap = true
-tracks/21/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
@@ -409,6 +380,7 @@ tracks/21/keys = {
 [sub_resource type="Animation" id="Animation_shi7r"]
 resource_name = "game"
 length = 160.0
+step = 1.0
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -424,83 +396,154 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("SubViewportContainer/SubViewport/background/FullMoon:visible")
+tracks/1/path = NodePath("SubViewportContainer/SubViewport/background/FullMoon:modulate")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 52),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [false, true]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("SubViewportContainer/SubViewport/background/FullMoon:modulate")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(56, 84, 110),
+"times": PackedFloat32Array(0, 84, 110),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 0.101961, 0.101961, 1)]
 }
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("CystalDrop1/CystalSpawner:reverse")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CystalDrop1/CystalSpawner:reverse")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
 "times": PackedFloat32Array(6.9, 8.5, 9.8, 11.3, 12.5),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 1,
 "values": [true, false, true, false, true]
 }
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("SubViewportContainer/SubViewport/background/fog:modulate")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("SubViewportContainer/SubViewport/background/fog:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
 "times": PackedFloat32Array(0, 70),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0.462745)]
 }
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("FogOverlay:modulate")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("FogOverlay:modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
 "times": PackedFloat32Array(0, 106),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0.662745)]
 }
-tracks/6/type = "value"
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/path = NodePath("Tracking2/TrackingSpawner:reverse")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/keys = {
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Tracking2/TrackingSpawner:reverse")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
 "times": PackedFloat32Array(18.7, 20.2, 21.3, 23.4, 24.5),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 1,
 "values": [true, false, true, false, true]
 }
+tracks/6/type = "method"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Tracking2/TrackingSpawner")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(17.8, 18.1, 18.5, 18.9, 19.1, 19.4, 19.7, 20, 20.4, 20.7, 21.1, 21.5, 21.7, 22, 22.3, 22.6, 23.6, 23.9, 24.3, 24.7, 24.9, 25.2, 25.5, 25.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"values": [{
+"args": [],
+"method": &"spawn_enemy"
+}, {
+"args": [],
+"method": &"spawn_enemy"
+}, {
+"args": [],
+"method": &"spawn_enemy"
+}, {
+"args": [],
+"method": &"spawn_enemy"
+}, {
+"args": [],
+"method": &"spawn_enemy"
+}, {
+"args": [],
+"method": &"spawn_enemy"
+}, {
+"args": [],
+"method": &"spawn_enemy"
+}, {
+"args": [],
+"method": &"spawn_enemy"
+}, {
+"args": [],
+"method": &"spawn_enemy"
+}, {
+"args": [],
+"method": &"spawn_enemy"
+}, {
+"args": [],
+"method": &"spawn_enemy"
+}, {
+"args": [],
+"method": &"spawn_enemy"
+}, {
+"args": [],
+"method": &"spawn_enemy"
+}, {
+"args": [],
+"method": &"spawn_enemy"
+}, {
+"args": [],
+"method": &"spawn_enemy"
+}, {
+"args": [],
+"method": &"spawn_enemy"
+}, {
+"args": [],
+"method": &"spawn_enemy"
+}, {
+"args": [],
+"method": &"spawn_enemy"
+}, {
+"args": [],
+"method": &"spawn_enemy"
+}, {
+"args": [],
+"method": &"spawn_enemy"
+}, {
+"args": [],
+"method": &"spawn_enemy"
+}, {
+"args": [],
+"method": &"spawn_enemy"
+}, {
+"args": [],
+"method": &"spawn_enemy"
+}, {
+"args": [],
+"method": &"spawn_enemy"
+}]
+}
 tracks/7/type = "method"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("Tracking2/TrackingSpawner")
+tracks/7/path = NodePath("CystalDrop1/CystalSpawner")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
-"times": PackedFloat32Array(17.8, 18.1, 18.5, 18.9, 19.1, 19.4, 19.7, 20, 20.4, 20.7, 21.1, 21.5, 21.7, 22, 22.3, 22.6, 23.6, 23.9, 24.3, 24.7, 24.9, 25.2, 25.5, 25.8),
+"times": PackedFloat32Array(5.9, 6.3, 6.7, 7.1, 7.4, 7.6, 7.9, 8.2, 8.8, 9.2, 9.6, 10, 10.3, 10.5, 10.8, 11.1, 11.5, 11.9, 12.3, 12.7, 13, 13.2, 13.5, 13.8),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
 "values": [{
 "args": [],
@@ -579,93 +622,10 @@ tracks/7/keys = {
 tracks/8/type = "method"
 tracks/8/imported = false
 tracks/8/enabled = true
-tracks/8/path = NodePath("CystalDrop1/CystalSpawner")
+tracks/8/path = NodePath("level")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/keys = {
-"times": PackedFloat32Array(5.9, 6.3, 6.7, 7.1, 7.4, 7.6, 7.9, 8.2, 8.8, 9.2, 9.6, 10, 10.3, 10.5, 10.8, 11.1, 11.5, 11.9, 12.3, 12.7, 13, 13.2, 13.5, 13.8),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
-"values": [{
-"args": [],
-"method": &"spawn_enemy"
-}, {
-"args": [],
-"method": &"spawn_enemy"
-}, {
-"args": [],
-"method": &"spawn_enemy"
-}, {
-"args": [],
-"method": &"spawn_enemy"
-}, {
-"args": [],
-"method": &"spawn_enemy"
-}, {
-"args": [],
-"method": &"spawn_enemy"
-}, {
-"args": [],
-"method": &"spawn_enemy"
-}, {
-"args": [],
-"method": &"spawn_enemy"
-}, {
-"args": [],
-"method": &"spawn_enemy"
-}, {
-"args": [],
-"method": &"spawn_enemy"
-}, {
-"args": [],
-"method": &"spawn_enemy"
-}, {
-"args": [],
-"method": &"spawn_enemy"
-}, {
-"args": [],
-"method": &"spawn_enemy"
-}, {
-"args": [],
-"method": &"spawn_enemy"
-}, {
-"args": [],
-"method": &"spawn_enemy"
-}, {
-"args": [],
-"method": &"spawn_enemy"
-}, {
-"args": [],
-"method": &"spawn_enemy"
-}, {
-"args": [],
-"method": &"spawn_enemy"
-}, {
-"args": [],
-"method": &"spawn_enemy"
-}, {
-"args": [],
-"method": &"spawn_enemy"
-}, {
-"args": [],
-"method": &"spawn_enemy"
-}, {
-"args": [],
-"method": &"spawn_enemy"
-}, {
-"args": [],
-"method": &"spawn_enemy"
-}, {
-"args": [],
-"method": &"spawn_enemy"
-}]
-}
-tracks/9/type = "method"
-tracks/9/imported = false
-tracks/9/enabled = true
-tracks/9/path = NodePath("level")
-tracks/9/interp = 1
-tracks/9/loop_wrap = true
-tracks/9/keys = {
 "times": PackedFloat32Array(154),
 "transitions": PackedFloat32Array(1),
 "values": [{
@@ -673,29 +633,43 @@ tracks/9/keys = {
 "method": &"_finished"
 }]
 }
-tracks/10/type = "audio"
-tracks/10/imported = false
-tracks/10/enabled = true
-tracks/10/path = NodePath("AudioStreamPlayer")
-tracks/10/interp = 1
-tracks/10/loop_wrap = true
-tracks/10/keys = {
+tracks/9/type = "audio"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("AudioStreamPlayer")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
 "clips": [{
 "end_offset": 0.0,
 "start_offset": 0.0,
-"stream": ExtResource("26_f2wvn")
+"stream": ExtResource("27_4i2xy")
 }],
 "times": PackedFloat32Array(0)
 }
-tracks/10/use_blend = false
+tracks/9/use_blend = false
+tracks/10/type = "method"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("ScoreGiveaway4/GiveawayTimer")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(70),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"stop"
+}]
+}
 tracks/11/type = "method"
 tracks/11/imported = false
 tracks/11/enabled = true
-tracks/11/path = NodePath("ScoreGiveaway4/GiveawayTimer")
+tracks/11/path = NodePath("CystalDrop1/CystalTimer")
 tracks/11/interp = 1
 tracks/11/loop_wrap = true
 tracks/11/keys = {
-"times": PackedFloat32Array(70),
+"times": PackedFloat32Array(16.6),
 "transitions": PackedFloat32Array(1),
 "values": [{
 "args": [],
@@ -705,24 +679,10 @@ tracks/11/keys = {
 tracks/12/type = "method"
 tracks/12/imported = false
 tracks/12/enabled = true
-tracks/12/path = NodePath("CystalDrop1/CystalTimer")
+tracks/12/path = NodePath("Tracking2/TrackingTimer")
 tracks/12/interp = 1
 tracks/12/loop_wrap = true
 tracks/12/keys = {
-"times": PackedFloat32Array(16.6),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [],
-"method": &"stop"
-}]
-}
-tracks/13/type = "method"
-tracks/13/imported = false
-tracks/13/enabled = true
-tracks/13/path = NodePath("Tracking2/TrackingTimer")
-tracks/13/interp = 1
-tracks/13/loop_wrap = true
-tracks/13/keys = {
 "times": PackedFloat32Array(27.2),
 "transitions": PackedFloat32Array(1),
 "values": [{
@@ -730,37 +690,37 @@ tracks/13/keys = {
 "method": &"stop"
 }]
 }
+tracks/13/type = "value"
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/path = NodePath("BigHpFairy3/Fairy/TopLeft:position")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/keys = {
+"times": PackedFloat32Array(29.6, 31.6, 53.5, 54.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(609, 349), Vector2(96, 126), Vector2(96, 126), Vector2(-112, 116)]
+}
 tracks/14/type = "value"
 tracks/14/imported = false
 tracks/14/enabled = true
-tracks/14/path = NodePath("BigHpFairy3/Fairy/TopLeft:position")
+tracks/14/path = NodePath("BigHpFairy3/Fairy/TopRight:position")
 tracks/14/interp = 1
 tracks/14/loop_wrap = true
 tracks/14/keys = {
 "times": PackedFloat32Array(29.6, 31.6, 53.5, 54.5),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
-"values": [Vector2(609, 349), Vector2(96, 126), Vector2(96, 126), Vector2(-112, 116)]
+"values": [Vector2(-84, 329), Vector2(467, 80), Vector2(467, 80), Vector2(635, 78)]
 }
-tracks/15/type = "value"
+tracks/15/type = "method"
 tracks/15/imported = false
 tracks/15/enabled = true
-tracks/15/path = NodePath("BigHpFairy3/Fairy/TopRight:position")
+tracks/15/path = NodePath("BigHpFairy3/Bullet+")
 tracks/15/interp = 1
 tracks/15/loop_wrap = true
 tracks/15/keys = {
-"times": PackedFloat32Array(29.6, 31.6, 53.5, 54.5),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 0,
-"values": [Vector2(-84, 329), Vector2(467, 80), Vector2(467, 80), Vector2(635, 78)]
-}
-tracks/16/type = "method"
-tracks/16/imported = false
-tracks/16/enabled = true
-tracks/16/path = NodePath("BigHpFairy3/Bullet+")
-tracks/16/interp = 1
-tracks/16/loop_wrap = true
-tracks/16/keys = {
 "times": PackedFloat32Array(31.8, 32.2, 34.8, 35.2, 37.8, 38.2, 40.7, 41.1, 43.7, 44.1, 46.7, 47.1, 49.6, 50, 52.5, 52.9),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
 "values": [{
@@ -813,13 +773,13 @@ tracks/16/keys = {
 "method": &"spawn_bullet"
 }]
 }
-tracks/17/type = "method"
-tracks/17/imported = false
-tracks/17/enabled = true
-tracks/17/path = NodePath("BigHpFairy3/TransformBarrel")
-tracks/17/interp = 1
-tracks/17/loop_wrap = true
-tracks/17/keys = {
+tracks/16/type = "method"
+tracks/16/imported = false
+tracks/16/enabled = true
+tracks/16/path = NodePath("BigHpFairy3/TransformBarrel")
+tracks/16/interp = 1
+tracks/16/loop_wrap = true
+tracks/16/keys = {
 "times": PackedFloat32Array(29.4, 31.6, 34.6, 37.6, 40.5, 43.5, 46.4, 49.3, 52.2),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
 "values": [{
@@ -851,13 +811,13 @@ tracks/17/keys = {
 "method": &"_transform_barrel"
 }]
 }
-tracks/18/type = "method"
-tracks/18/imported = false
-tracks/18/enabled = true
-tracks/18/path = NodePath("BigHpFairy3/Bullet-")
-tracks/18/interp = 1
-tracks/18/loop_wrap = true
-tracks/18/keys = {
+tracks/17/type = "method"
+tracks/17/imported = false
+tracks/17/enabled = true
+tracks/17/path = NodePath("BigHpFairy3/Bullet-")
+tracks/17/interp = 1
+tracks/17/loop_wrap = true
+tracks/17/keys = {
 "times": PackedFloat32Array(29.6, 29.9, 30.2, 30.4, 30.7, 32.6, 32.9, 33.2, 33.4, 33.7, 35.5, 35.8, 36.1, 36.3, 36.6, 38.5, 38.8, 39.1, 39.3, 39.6, 41.4, 41.7, 42, 42.2, 42.5, 44.4, 44.7, 45, 45.2, 45.5, 47.4, 47.7, 48, 48.2, 48.5, 50.4, 50.7, 51, 51.2, 51.5),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
 "values": [{
@@ -982,14 +942,28 @@ tracks/18/keys = {
 "method": &"spawn_bullet"
 }]
 }
+tracks/18/type = "method"
+tracks/18/imported = false
+tracks/18/enabled = true
+tracks/18/path = NodePath("BigHpFairy3/Fairy/TopLeft")
+tracks/18/interp = 1
+tracks/18/loop_wrap = true
+tracks/18/keys = {
+"times": PackedFloat32Array(29),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"reset"
+}]
+}
 tracks/19/type = "method"
 tracks/19/imported = false
 tracks/19/enabled = true
-tracks/19/path = NodePath("BigHpFairy3/Fairy/TopLeft")
+tracks/19/path = NodePath("BigHpFairy3/Fairy/TopRight")
 tracks/19/interp = 1
 tracks/19/loop_wrap = true
 tracks/19/keys = {
-"times": PackedFloat32Array(29.2),
+"times": PackedFloat32Array(28),
 "transitions": PackedFloat32Array(1),
 "values": [{
 "args": [],
@@ -999,11 +973,11 @@ tracks/19/keys = {
 tracks/20/type = "method"
 tracks/20/imported = false
 tracks/20/enabled = true
-tracks/20/path = NodePath("BigHpFairy3/Fairy/TopRight")
+tracks/20/path = NodePath("BigHpFairy3/Fairy/BotLeft")
 tracks/20/interp = 1
 tracks/20/loop_wrap = true
 tracks/20/keys = {
-"times": PackedFloat32Array(29.3),
+"times": PackedFloat32Array(32),
 "transitions": PackedFloat32Array(1),
 "values": [{
 "args": [],
@@ -1013,127 +987,127 @@ tracks/20/keys = {
 tracks/21/type = "method"
 tracks/21/imported = false
 tracks/21/enabled = true
-tracks/21/path = NodePath("BigHpFairy3/Fairy/BotLeft")
+tracks/21/path = NodePath("BigHpFairy3/Fairy/BotRight")
 tracks/21/interp = 1
 tracks/21/loop_wrap = true
 tracks/21/keys = {
-"times": PackedFloat32Array(32.3),
+"times": PackedFloat32Array(31),
 "transitions": PackedFloat32Array(1),
 "values": [{
 "args": [],
 "method": &"reset"
 }]
 }
-tracks/22/type = "method"
+tracks/22/type = "value"
 tracks/22/imported = false
 tracks/22/enabled = true
-tracks/22/path = NodePath("BigHpFairy3/Fairy/BotRight")
+tracks/22/path = NodePath("BigHpFairy3/Fairy/BotLeft:position")
 tracks/22/interp = 1
 tracks/22/loop_wrap = true
 tracks/22/keys = {
-"times": PackedFloat32Array(32.4),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [],
-"method": &"reset"
-}]
+"times": PackedFloat32Array(32.5, 34.4, 53.5, 54.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(620, -49), Vector2(77, 418), Vector2(77, 418), Vector2(-120, 418)]
 }
 tracks/23/type = "value"
 tracks/23/imported = false
 tracks/23/enabled = true
-tracks/23/path = NodePath("BigHpFairy3/Fairy/BotLeft:position")
+tracks/23/path = NodePath("BigHpFairy3/Fairy/BotRight:position")
 tracks/23/interp = 1
 tracks/23/loop_wrap = true
 tracks/23/keys = {
 "times": PackedFloat32Array(32.5, 34.4, 53.5, 54.5),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
-"values": [Vector2(620, -49), Vector2(77, 418), Vector2(77, 418), Vector2(-120, 418)]
+"values": [Vector2(-98, -54), Vector2(458, 393), Vector2(458, 393), Vector2(619, 395)]
 }
 tracks/24/type = "value"
 tracks/24/imported = false
 tracks/24/enabled = true
-tracks/24/path = NodePath("BigHpFairy3/Fairy/BotRight:position")
+tracks/24/path = NodePath("BigHpFairy3/Fairy/Middle:position")
 tracks/24/interp = 1
 tracks/24/loop_wrap = true
 tracks/24/keys = {
-"times": PackedFloat32Array(32.5, 34.4, 53.5, 54.5),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 0,
-"values": [Vector2(-98, -54), Vector2(458, 393), Vector2(458, 393), Vector2(619, 395)]
-}
-tracks/25/type = "value"
-tracks/25/imported = false
-tracks/25/enabled = true
-tracks/25/path = NodePath("BigHpFairy3/Fairy/Middle:position")
-tracks/25/interp = 1
-tracks/25/loop_wrap = true
-tracks/25/keys = {
 "times": PackedFloat32Array(35.4, 37.4, 53.5, 54.5),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
 "values": [Vector2(432, -49), Vector2(278, 264), Vector2(278, 264), Vector2(282, -94)]
 }
-tracks/26/type = "method"
-tracks/26/imported = false
-tracks/26/enabled = true
-tracks/26/path = NodePath("BigHpFairy3/Fairy/Middle")
-tracks/26/interp = 1
-tracks/26/loop_wrap = true
-tracks/26/keys = {
-"times": PackedFloat32Array(35.2),
+tracks/25/type = "method"
+tracks/25/imported = false
+tracks/25/enabled = true
+tracks/25/path = NodePath("BigHpFairy3/Fairy/Middle")
+tracks/25/interp = 1
+tracks/25/loop_wrap = true
+tracks/25/keys = {
+"times": PackedFloat32Array(35),
 "transitions": PackedFloat32Array(1),
 "values": [{
 "args": [],
 "method": &"reset"
 }]
 }
-tracks/27/type = "value"
-tracks/27/imported = false
-tracks/27/enabled = true
-tracks/27/path = NodePath("BigHpFairy3/Fairy/MiddleLeft:position")
-tracks/27/interp = 1
-tracks/27/loop_wrap = true
-tracks/27/keys = {
+tracks/26/type = "value"
+tracks/26/imported = false
+tracks/26/enabled = true
+tracks/26/path = NodePath("BigHpFairy3/Fairy/MiddleLeft:position")
+tracks/26/interp = 1
+tracks/26/loop_wrap = true
+tracks/26/keys = {
 "times": PackedFloat32Array(38.3, 40.1, 53.5, 54.5),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
 "values": [Vector2(539, -81), Vector2(61, 264), Vector2(61, 264), Vector2(-109, 272)]
 }
-tracks/28/type = "method"
-tracks/28/imported = false
-tracks/28/enabled = true
-tracks/28/path = NodePath("BigHpFairy3/Fairy/MiddleLeft")
-tracks/28/interp = 1
-tracks/28/loop_wrap = true
-tracks/28/keys = {
-"times": PackedFloat32Array(39.8),
+tracks/27/type = "method"
+tracks/27/imported = false
+tracks/27/enabled = true
+tracks/27/path = NodePath("BigHpFairy3/Fairy/MiddleLeft")
+tracks/27/interp = 1
+tracks/27/loop_wrap = true
+tracks/27/keys = {
+"times": PackedFloat32Array(39),
 "transitions": PackedFloat32Array(1),
 "values": [{
 "args": [],
 "method": &"reset"
 }]
 }
-tracks/29/type = "value"
-tracks/29/imported = false
-tracks/29/enabled = true
-tracks/29/path = NodePath("BigHpFairy3/Fairy/BotMiddle:position")
-tracks/29/interp = 1
-tracks/29/loop_wrap = true
-tracks/29/keys = {
+tracks/28/type = "value"
+tracks/28/imported = false
+tracks/28/enabled = true
+tracks/28/path = NodePath("BigHpFairy3/Fairy/BotMiddle:position")
+tracks/28/interp = 1
+tracks/28/loop_wrap = true
+tracks/28/keys = {
 "times": PackedFloat32Array(41.3, 43.3, 53.5, 54.5),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
 "values": [Vector2(228, -72), Vector2(266, 389), Vector2(266, 389), Vector2(620, 394)]
 }
+tracks/29/type = "method"
+tracks/29/imported = false
+tracks/29/enabled = true
+tracks/29/path = NodePath("BigHpFairy3/Fairy/MiddleRight")
+tracks/29/interp = 1
+tracks/29/loop_wrap = true
+tracks/29/keys = {
+"times": PackedFloat32Array(44.2),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"reset"
+}]
+}
 tracks/30/type = "method"
 tracks/30/imported = false
 tracks/30/enabled = true
-tracks/30/path = NodePath("BigHpFairy3/Fairy/MiddleRight")
+tracks/30/path = NodePath("BigHpFairy3/Fairy/TopMiddle")
 tracks/30/interp = 1
 tracks/30/loop_wrap = true
 tracks/30/keys = {
-"times": PackedFloat32Array(44.2),
+"times": PackedFloat32Array(47),
 "transitions": PackedFloat32Array(1),
 "values": [{
 "args": [],
@@ -1143,63 +1117,61 @@ tracks/30/keys = {
 tracks/31/type = "method"
 tracks/31/imported = false
 tracks/31/enabled = true
-tracks/31/path = NodePath("BigHpFairy3/Fairy/TopMiddle")
+tracks/31/path = NodePath("BigHpFairy3/Fairy/BotMiddle")
 tracks/31/interp = 1
 tracks/31/loop_wrap = true
 tracks/31/keys = {
-"times": PackedFloat32Array(47.2),
+"times": PackedFloat32Array(41),
 "transitions": PackedFloat32Array(1),
 "values": [{
 "args": [],
 "method": &"reset"
 }]
 }
-tracks/32/type = "method"
+tracks/32/type = "value"
 tracks/32/imported = false
 tracks/32/enabled = true
-tracks/32/path = NodePath("BigHpFairy3/Fairy/BotMiddle")
+tracks/32/path = NodePath("BigHpFairy3/Fairy/TopMiddle:position")
 tracks/32/interp = 1
 tracks/32/loop_wrap = true
 tracks/32/keys = {
-"times": PackedFloat32Array(41.2),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [],
-"method": &"reset"
-}]
-}
-tracks/33/type = "value"
-tracks/33/imported = false
-tracks/33/enabled = true
-tracks/33/path = NodePath("BigHpFairy3/Fairy/TopMiddle:position")
-tracks/33/interp = 1
-tracks/33/loop_wrap = true
-tracks/33/keys = {
 "times": PackedFloat32Array(47.3, 49.1, 53.5, 54.5),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
 "values": [Vector2(613, 405), Vector2(265, 73), Vector2(265, 73), Vector2(254, -85)]
 }
-tracks/34/type = "value"
-tracks/34/imported = false
-tracks/34/enabled = true
-tracks/34/path = NodePath("BigHpFairy3/Fairy/MiddleRight:position")
-tracks/34/interp = 1
-tracks/34/loop_wrap = true
-tracks/34/keys = {
+tracks/33/type = "value"
+tracks/33/imported = false
+tracks/33/enabled = true
+tracks/33/path = NodePath("BigHpFairy3/Fairy/MiddleRight:position")
+tracks/33/interp = 1
+tracks/33/loop_wrap = true
+tracks/33/keys = {
 "times": PackedFloat32Array(44.3, 46.2, 53.5, 54.5),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
 "values": [Vector2(-90, -13), Vector2(461, 254), Vector2(461, 254), Vector2(626, 242)]
 }
+tracks/34/type = "value"
+tracks/34/imported = false
+tracks/34/enabled = true
+tracks/34/path = NodePath("Tracking2:process_mode")
+tracks/34/interp = 1
+tracks/34/loop_wrap = true
+tracks/34/keys = {
+"times": PackedFloat32Array(0, 17.2, 34.8),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [4, 0, 4]
+}
 tracks/35/type = "value"
 tracks/35/imported = false
 tracks/35/enabled = true
-tracks/35/path = NodePath("Tracking2:process_mode")
+tracks/35/path = NodePath("CystalDrop1:process_mode")
 tracks/35/interp = 1
 tracks/35/loop_wrap = true
 tracks/35/keys = {
-"times": PackedFloat32Array(0, 17.2, 34.8),
+"times": PackedFloat32Array(0, 5.5, 23),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
 "values": [4, 0, 4]
@@ -1207,11 +1179,11 @@ tracks/35/keys = {
 tracks/36/type = "value"
 tracks/36/imported = false
 tracks/36/enabled = true
-tracks/36/path = NodePath("CystalDrop1:process_mode")
+tracks/36/path = NodePath("BigHpFairy3:process_mode")
 tracks/36/interp = 1
 tracks/36/loop_wrap = true
 tracks/36/keys = {
-"times": PackedFloat32Array(0, 5.5, 23),
+"times": PackedFloat32Array(0, 27.7, 55),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
 "values": [4, 0, 4]
@@ -1219,11 +1191,11 @@ tracks/36/keys = {
 tracks/37/type = "value"
 tracks/37/imported = false
 tracks/37/enabled = true
-tracks/37/path = NodePath("BigHpFairy3:process_mode")
+tracks/37/path = NodePath("ScoreGiveaway4:process_mode")
 tracks/37/interp = 1
 tracks/37/loop_wrap = true
 tracks/37/keys = {
-"times": PackedFloat32Array(0, 27.7, 55.4),
+"times": PackedFloat32Array(0, 54, 76.5),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
 "values": [4, 0, 4]
@@ -1231,23 +1203,23 @@ tracks/37/keys = {
 tracks/38/type = "value"
 tracks/38/imported = false
 tracks/38/enabled = true
-tracks/38/path = NodePath("ScoreGiveaway4:process_mode")
+tracks/38/path = NodePath("BigHpFairy3:visible")
 tracks/38/interp = 1
 tracks/38/loop_wrap = true
 tracks/38/keys = {
-"times": PackedFloat32Array(0, 54, 76.5),
+"times": PackedFloat32Array(0, 28.9, 56),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
-"values": [4, 0, 4]
+"values": [false, true, false]
 }
 tracks/39/type = "value"
 tracks/39/imported = false
 tracks/39/enabled = true
-tracks/39/path = NodePath("BigHpFairy3:visible")
+tracks/39/path = NodePath("ScoreGiveaway4:visible")
 tracks/39/interp = 1
 tracks/39/loop_wrap = true
 tracks/39/keys = {
-"times": PackedFloat32Array(0, 28.9, 55.4),
+"times": PackedFloat32Array(0, 55, 76.7),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
 "values": [false, true, false]
@@ -1255,11 +1227,11 @@ tracks/39/keys = {
 tracks/40/type = "value"
 tracks/40/imported = false
 tracks/40/enabled = true
-tracks/40/path = NodePath("ScoreGiveaway4:visible")
+tracks/40/path = NodePath("CystalDrop1:visible")
 tracks/40/interp = 1
 tracks/40/loop_wrap = true
 tracks/40/keys = {
-"times": PackedFloat32Array(0, 53.7, 76.7),
+"times": PackedFloat32Array(0, 5.1, 22.7),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
 "values": [false, true, false]
@@ -1267,22 +1239,10 @@ tracks/40/keys = {
 tracks/41/type = "value"
 tracks/41/imported = false
 tracks/41/enabled = true
-tracks/41/path = NodePath("CystalDrop1:visible")
+tracks/41/path = NodePath("Tracking2:visible")
 tracks/41/interp = 1
 tracks/41/loop_wrap = true
 tracks/41/keys = {
-"times": PackedFloat32Array(0, 5.1, 22.7),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 1,
-"values": [false, true, false]
-}
-tracks/42/type = "value"
-tracks/42/imported = false
-tracks/42/enabled = true
-tracks/42/path = NodePath("Tracking2:visible")
-tracks/42/interp = 1
-tracks/42/loop_wrap = true
-tracks/42/keys = {
 "times": PackedFloat32Array(0, 16.8, 35.2),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
@@ -1309,36 +1269,34 @@ handle_input_locally = false
 size = Vector2i(540, 960)
 render_target_update_mode = 4
 
-[node name="background" type="Sprite2D" parent="SubViewportContainer/SubViewport"]
+[node name="background" type="Node2D" parent="SubViewportContainer/SubViewport"]
 z_index = -100
 texture_repeat = 2
 material = SubResource("ShaderMaterial_r8js3")
-texture = SubResource("NoiseTexture2D_ev6t1")
-centered = false
-script = ExtResource("4_xolvc")
+script = ExtResource("3_00q44")
+graphic_level = 2
 
-[node name="FullMoon" type="Sprite2D" parent="SubViewportContainer/SubViewport/background"]
-visible = false
+[node name="FullMoon" type="Node2D" parent="SubViewportContainer/SubViewport/background"]
 modulate = Color(1, 1, 1, 0)
 material = SubResource("ShaderMaterial_h610u")
 position = Vector2(270, 201)
-texture = ExtResource("7_1ggri")
+script = ExtResource("3_00q44")
+graphic_level = 2
 
-[node name="fog" parent="SubViewportContainer/SubViewport/background" instance=ExtResource("8_ixvn3")]
+[node name="fog" parent="SubViewportContainer/SubViewport/background" instance=ExtResource("6_dlknp")]
 modulate = Color(1, 1, 1, 0)
+graphic_level = 2
 
 [node name="CystalDrop1" type="Node2D" parent="."]
-process_mode = 4
-visible = false
 
 [node name="CystalBullet" type="Node2D" parent="CystalDrop1"]
 z_index = 100
 material = SubResource("ShaderMaterial_w081n")
-script = ExtResource("11_pvd46")
-texture = ExtResource("10_6qv5n")
+script = ExtResource("8_f6fcj")
+texture = ExtResource("9_5uwhi")
 barrelGroup = "Enemy Barrel 1"
 speed = 472
-hitbox = ExtResource("12_dqfin")
+hitbox = ExtResource("10_xyp3x")
 collision_mask = 5
 
 [node name="CystalTimer" type="Timer" parent="CystalDrop1"]
@@ -1348,70 +1306,70 @@ autostart = true
 [node name="CystalSpawner" type="Path2D" parent="CystalDrop1"]
 position = Vector2(4, -54)
 curve = SubResource("Curve2D_rvgc8")
-script = ExtResource("6_n63j6")
+script = ExtResource("11_ym16e")
 barrel_group = &"Enemy Barrel 1"
 
-[node name="Fairy" parent="CystalDrop1/CystalSpawner" instance=ExtResource("20_5gbox")]
+[node name="Fairy" parent="CystalDrop1/CystalSpawner" instance=ExtResource("12_1xc1c")]
 position = Vector2(-50, 146)
 time = 4.0
 
-[node name="Fairy2" parent="CystalDrop1/CystalSpawner" instance=ExtResource("20_5gbox")]
+[node name="Fairy2" parent="CystalDrop1/CystalSpawner" instance=ExtResource("12_1xc1c")]
 position = Vector2(-50, 146)
 time = 4.0
 
-[node name="Fairy3" parent="CystalDrop1/CystalSpawner" instance=ExtResource("20_5gbox")]
+[node name="Fairy3" parent="CystalDrop1/CystalSpawner" instance=ExtResource("12_1xc1c")]
 position = Vector2(-50, 146)
 time = 4.0
 
-[node name="Fairy4" parent="CystalDrop1/CystalSpawner" instance=ExtResource("20_5gbox")]
+[node name="Fairy4" parent="CystalDrop1/CystalSpawner" instance=ExtResource("12_1xc1c")]
 position = Vector2(-50, 146)
 time = 4.0
 
-[node name="Fairy5" parent="CystalDrop1/CystalSpawner" instance=ExtResource("20_5gbox")]
+[node name="Fairy5" parent="CystalDrop1/CystalSpawner" instance=ExtResource("12_1xc1c")]
 position = Vector2(-50, 146)
 time = 4.0
 
-[node name="Fairy6" parent="CystalDrop1/CystalSpawner" instance=ExtResource("20_5gbox")]
+[node name="Fairy6" parent="CystalDrop1/CystalSpawner" instance=ExtResource("12_1xc1c")]
 position = Vector2(-50, 146)
 time = 4.0
 
-[node name="Fairy7" parent="CystalDrop1/CystalSpawner" instance=ExtResource("20_5gbox")]
+[node name="Fairy7" parent="CystalDrop1/CystalSpawner" instance=ExtResource("12_1xc1c")]
 position = Vector2(-50, 146)
 time = 4.0
 
-[node name="Fairy8" parent="CystalDrop1/CystalSpawner" instance=ExtResource("20_5gbox")]
+[node name="Fairy8" parent="CystalDrop1/CystalSpawner" instance=ExtResource("12_1xc1c")]
 position = Vector2(-50, 146)
 time = 4.0
 
-[node name="Fairy9" parent="CystalDrop1/CystalSpawner" instance=ExtResource("20_5gbox")]
+[node name="Fairy9" parent="CystalDrop1/CystalSpawner" instance=ExtResource("12_1xc1c")]
 position = Vector2(-50, 146)
 time = 4.0
 
-[node name="Fairy10" parent="CystalDrop1/CystalSpawner" instance=ExtResource("20_5gbox")]
+[node name="Fairy10" parent="CystalDrop1/CystalSpawner" instance=ExtResource("12_1xc1c")]
 position = Vector2(-50, 146)
 time = 4.0
 
-[node name="Fairy11" parent="CystalDrop1/CystalSpawner" instance=ExtResource("20_5gbox")]
+[node name="Fairy11" parent="CystalDrop1/CystalSpawner" instance=ExtResource("12_1xc1c")]
 position = Vector2(-50, 146)
 time = 4.0
 
-[node name="Fairy12" parent="CystalDrop1/CystalSpawner" instance=ExtResource("20_5gbox")]
+[node name="Fairy12" parent="CystalDrop1/CystalSpawner" instance=ExtResource("12_1xc1c")]
 position = Vector2(-50, 146)
 time = 4.0
 
-[node name="Fairy13" parent="CystalDrop1/CystalSpawner" instance=ExtResource("20_5gbox")]
+[node name="Fairy13" parent="CystalDrop1/CystalSpawner" instance=ExtResource("12_1xc1c")]
 position = Vector2(-50, 146)
 time = 4.0
 
-[node name="Fairy14" parent="CystalDrop1/CystalSpawner" instance=ExtResource("20_5gbox")]
+[node name="Fairy14" parent="CystalDrop1/CystalSpawner" instance=ExtResource("12_1xc1c")]
 position = Vector2(-50, 146)
 time = 4.0
 
-[node name="Fairy15" parent="CystalDrop1/CystalSpawner" instance=ExtResource("20_5gbox")]
+[node name="Fairy15" parent="CystalDrop1/CystalSpawner" instance=ExtResource("12_1xc1c")]
 position = Vector2(-50, 146)
 time = 4.0
 
-[node name="Fairy16" parent="CystalDrop1/CystalSpawner" instance=ExtResource("20_5gbox")]
+[node name="Fairy16" parent="CystalDrop1/CystalSpawner" instance=ExtResource("12_1xc1c")]
 position = Vector2(-50, 146)
 time = 4.0
 
@@ -1422,12 +1380,12 @@ visible = false
 [node name="TrackingBullet" type="Node2D" parent="Tracking2"]
 z_index = 100
 material = SubResource("ShaderMaterial_2rgkm")
-script = ExtResource("11_pvd46")
-texture = ExtResource("16_7kafc")
+script = ExtResource("8_f6fcj")
+texture = ExtResource("13_o07g8")
 barrelGroup = "Enemy Barrel 2"
 speed = 327
 localRotation = true
-hitbox = ExtResource("17_72iy2")
+hitbox = ExtResource("14_rf64e")
 collision_mask = 5
 
 [node name="TrackingTimer" type="Timer" parent="Tracking2"]
@@ -1436,55 +1394,55 @@ autostart = true
 
 [node name="TrackingSpawner" type="Path2D" parent="Tracking2"]
 curve = SubResource("Curve2D_va8k1")
-script = ExtResource("6_n63j6")
+script = ExtResource("11_ym16e")
 barrel_group = &"Enemy Barrel 2"
 
-[node name="Fairy" parent="Tracking2/TrackingSpawner" instance=ExtResource("15_2pdrr")]
+[node name="Fairy" parent="Tracking2/TrackingSpawner" instance=ExtResource("15_43q5m")]
 position = Vector2(597, -58)
 
-[node name="Fairy2" parent="Tracking2/TrackingSpawner" instance=ExtResource("15_2pdrr")]
+[node name="Fairy2" parent="Tracking2/TrackingSpawner" instance=ExtResource("15_43q5m")]
 position = Vector2(597, -58)
 
-[node name="Fairy3" parent="Tracking2/TrackingSpawner" instance=ExtResource("15_2pdrr")]
+[node name="Fairy3" parent="Tracking2/TrackingSpawner" instance=ExtResource("15_43q5m")]
 position = Vector2(597, -58)
 
-[node name="Fairy4" parent="Tracking2/TrackingSpawner" instance=ExtResource("15_2pdrr")]
+[node name="Fairy4" parent="Tracking2/TrackingSpawner" instance=ExtResource("15_43q5m")]
 position = Vector2(597, -58)
 
-[node name="Fairy5" parent="Tracking2/TrackingSpawner" instance=ExtResource("15_2pdrr")]
+[node name="Fairy5" parent="Tracking2/TrackingSpawner" instance=ExtResource("15_43q5m")]
 position = Vector2(597, -58)
 
-[node name="Fairy6" parent="Tracking2/TrackingSpawner" instance=ExtResource("15_2pdrr")]
+[node name="Fairy6" parent="Tracking2/TrackingSpawner" instance=ExtResource("15_43q5m")]
 position = Vector2(597, -58)
 
-[node name="Fairy7" parent="Tracking2/TrackingSpawner" instance=ExtResource("15_2pdrr")]
+[node name="Fairy7" parent="Tracking2/TrackingSpawner" instance=ExtResource("15_43q5m")]
 position = Vector2(597, -58)
 
-[node name="Fairy8" parent="Tracking2/TrackingSpawner" instance=ExtResource("15_2pdrr")]
+[node name="Fairy8" parent="Tracking2/TrackingSpawner" instance=ExtResource("15_43q5m")]
 position = Vector2(597, -58)
 
-[node name="Fairy9" parent="Tracking2/TrackingSpawner" instance=ExtResource("15_2pdrr")]
+[node name="Fairy9" parent="Tracking2/TrackingSpawner" instance=ExtResource("15_43q5m")]
 position = Vector2(597, -58)
 
-[node name="Fairy10" parent="Tracking2/TrackingSpawner" instance=ExtResource("15_2pdrr")]
+[node name="Fairy10" parent="Tracking2/TrackingSpawner" instance=ExtResource("15_43q5m")]
 position = Vector2(597, -58)
 
-[node name="Fairy11" parent="Tracking2/TrackingSpawner" instance=ExtResource("15_2pdrr")]
+[node name="Fairy11" parent="Tracking2/TrackingSpawner" instance=ExtResource("15_43q5m")]
 position = Vector2(597, -58)
 
-[node name="Fairy12" parent="Tracking2/TrackingSpawner" instance=ExtResource("15_2pdrr")]
+[node name="Fairy12" parent="Tracking2/TrackingSpawner" instance=ExtResource("15_43q5m")]
 position = Vector2(597, -58)
 
-[node name="Fairy13" parent="Tracking2/TrackingSpawner" instance=ExtResource("15_2pdrr")]
+[node name="Fairy13" parent="Tracking2/TrackingSpawner" instance=ExtResource("15_43q5m")]
 position = Vector2(597, -58)
 
-[node name="Fairy14" parent="Tracking2/TrackingSpawner" instance=ExtResource("15_2pdrr")]
+[node name="Fairy14" parent="Tracking2/TrackingSpawner" instance=ExtResource("15_43q5m")]
 position = Vector2(597, -58)
 
-[node name="Fairy15" parent="Tracking2/TrackingSpawner" instance=ExtResource("15_2pdrr")]
+[node name="Fairy15" parent="Tracking2/TrackingSpawner" instance=ExtResource("15_43q5m")]
 position = Vector2(597, -58)
 
-[node name="Fairy16" parent="Tracking2/TrackingSpawner" instance=ExtResource("15_2pdrr")]
+[node name="Fairy16" parent="Tracking2/TrackingSpawner" instance=ExtResource("15_43q5m")]
 position = Vector2(597, -58)
 
 [node name="BigHpFairy3" type="Node2D" parent="."]
@@ -1493,7 +1451,7 @@ visible = false
 
 [node name="Fairy" type="Node2D" parent="BigHpFairy3"]
 
-[node name="TopLeft" parent="BigHpFairy3/Fairy" instance=ExtResource("20_tma4i")]
+[node name="TopLeft" parent="BigHpFairy3/Fairy" instance=ExtResource("16_bi0tp")]
 position = Vector2(651, 41)
 hp = 32
 
@@ -1502,10 +1460,10 @@ shape = SubResource("CircleShape2D_1j2c8")
 
 [node name="visual" type="Sprite2D" parent="BigHpFairy3/Fairy/TopLeft"]
 visible = false
-texture = ExtResource("21_3xe2h")
+texture = ExtResource("17_2fadj")
 
 [node name="barrel" type="Node2D" parent="BigHpFairy3/Fairy/TopLeft/visual" groups=["Enemy Barrel 4"]]
-script = ExtResource("22_2hlxs")
+script = ExtResource("18_0bgcv")
 
 [node name="_Marker2D_28706" type="Marker2D" parent="BigHpFairy3/Fairy/TopLeft/visual/barrel" groups=["Enemy Barrel 3"]]
 position = Vector2(13.9463, 13.9463)
@@ -1551,7 +1509,7 @@ position = Vector2(16.3991, 10.9576)
 rotation = 0.589049
 gizmo_extents = 20.0
 
-[node name="TopRight" parent="BigHpFairy3/Fairy" instance=ExtResource("20_tma4i")]
+[node name="TopRight" parent="BigHpFairy3/Fairy" instance=ExtResource("16_bi0tp")]
 position = Vector2(-120, 28)
 hp = 32
 
@@ -1560,10 +1518,10 @@ shape = SubResource("CircleShape2D_1j2c8")
 
 [node name="visual" type="Sprite2D" parent="BigHpFairy3/Fairy/TopRight"]
 visible = false
-texture = ExtResource("21_3xe2h")
+texture = ExtResource("17_2fadj")
 
 [node name="barrel" type="Node2D" parent="BigHpFairy3/Fairy/TopRight/visual" groups=["Enemy Barrel 4"]]
-script = ExtResource("22_2hlxs")
+script = ExtResource("18_0bgcv")
 
 [node name="_Marker2D_28706" type="Marker2D" parent="BigHpFairy3/Fairy/TopRight/visual/barrel" groups=["Enemy Barrel 3"]]
 position = Vector2(13.9463, 13.9463)
@@ -1609,7 +1567,7 @@ position = Vector2(16.3991, 10.9576)
 rotation = 0.589049
 gizmo_extents = 20.0
 
-[node name="BotLeft" parent="BigHpFairy3/Fairy" instance=ExtResource("20_tma4i")]
+[node name="BotLeft" parent="BigHpFairy3/Fairy" instance=ExtResource("16_bi0tp")]
 visible = false
 position = Vector2(-95, 26)
 hp = 32
@@ -1619,10 +1577,10 @@ shape = SubResource("CircleShape2D_1j2c8")
 
 [node name="visual" type="Sprite2D" parent="BigHpFairy3/Fairy/BotLeft"]
 visible = false
-texture = ExtResource("21_3xe2h")
+texture = ExtResource("17_2fadj")
 
 [node name="barrel" type="Node2D" parent="BigHpFairy3/Fairy/BotLeft/visual" groups=["Enemy Barrel 4"]]
-script = ExtResource("22_2hlxs")
+script = ExtResource("18_0bgcv")
 
 [node name="_Marker2D_28706" type="Marker2D" parent="BigHpFairy3/Fairy/BotLeft/visual/barrel" groups=["Enemy Barrel 3"]]
 position = Vector2(13.9463, 13.9463)
@@ -1668,7 +1626,7 @@ position = Vector2(16.3991, 10.9576)
 rotation = 0.589049
 gizmo_extents = 20.0
 
-[node name="BotRight" parent="BigHpFairy3/Fairy" instance=ExtResource("20_tma4i")]
+[node name="BotRight" parent="BigHpFairy3/Fairy" instance=ExtResource("16_bi0tp")]
 position = Vector2(-98, -54)
 hp = 32
 
@@ -1677,10 +1635,10 @@ shape = SubResource("CircleShape2D_1j2c8")
 
 [node name="visual" type="Sprite2D" parent="BigHpFairy3/Fairy/BotRight"]
 visible = false
-texture = ExtResource("21_3xe2h")
+texture = ExtResource("17_2fadj")
 
 [node name="barrel" type="Node2D" parent="BigHpFairy3/Fairy/BotRight/visual" groups=["Enemy Barrel 4"]]
-script = ExtResource("22_2hlxs")
+script = ExtResource("18_0bgcv")
 
 [node name="_Marker2D_28706" type="Marker2D" parent="BigHpFairy3/Fairy/BotRight/visual/barrel" groups=["Enemy Barrel 3"]]
 position = Vector2(13.9463, 13.9463)
@@ -1726,7 +1684,7 @@ position = Vector2(16.3991, 10.9576)
 rotation = 0.589049
 gizmo_extents = 20.0
 
-[node name="Middle" parent="BigHpFairy3/Fairy" instance=ExtResource("20_tma4i")]
+[node name="Middle" parent="BigHpFairy3/Fairy" instance=ExtResource("16_bi0tp")]
 position = Vector2(432, -49)
 hp = 32
 
@@ -1735,10 +1693,10 @@ shape = SubResource("CircleShape2D_1j2c8")
 
 [node name="visual" type="Sprite2D" parent="BigHpFairy3/Fairy/Middle"]
 visible = false
-texture = ExtResource("21_3xe2h")
+texture = ExtResource("17_2fadj")
 
 [node name="barrel" type="Node2D" parent="BigHpFairy3/Fairy/Middle/visual" groups=["Enemy Barrel 4"]]
-script = ExtResource("22_2hlxs")
+script = ExtResource("18_0bgcv")
 
 [node name="_Marker2D_28706" type="Marker2D" parent="BigHpFairy3/Fairy/Middle/visual/barrel" groups=["Enemy Barrel 3"]]
 position = Vector2(13.9463, 13.9463)
@@ -1784,7 +1742,7 @@ position = Vector2(16.3991, 10.9576)
 rotation = 0.589049
 gizmo_extents = 20.0
 
-[node name="MiddleLeft" parent="BigHpFairy3/Fairy" instance=ExtResource("20_tma4i")]
+[node name="MiddleLeft" parent="BigHpFairy3/Fairy" instance=ExtResource("16_bi0tp")]
 visible = false
 position = Vector2(539, -81)
 hp = 32
@@ -1794,10 +1752,10 @@ shape = SubResource("CircleShape2D_1j2c8")
 
 [node name="visual" type="Sprite2D" parent="BigHpFairy3/Fairy/MiddleLeft"]
 visible = false
-texture = ExtResource("21_3xe2h")
+texture = ExtResource("17_2fadj")
 
 [node name="barrel" type="Node2D" parent="BigHpFairy3/Fairy/MiddleLeft/visual" groups=["Enemy Barrel 4"]]
-script = ExtResource("22_2hlxs")
+script = ExtResource("18_0bgcv")
 
 [node name="_Marker2D_28706" type="Marker2D" parent="BigHpFairy3/Fairy/MiddleLeft/visual/barrel" groups=["Enemy Barrel 3"]]
 position = Vector2(13.9463, 13.9463)
@@ -1843,7 +1801,7 @@ position = Vector2(16.3991, 10.9576)
 rotation = 0.589049
 gizmo_extents = 20.0
 
-[node name="BotMiddle" parent="BigHpFairy3/Fairy" instance=ExtResource("20_tma4i")]
+[node name="BotMiddle" parent="BigHpFairy3/Fairy" instance=ExtResource("16_bi0tp")]
 visible = false
 position = Vector2(228, -72)
 hp = 32
@@ -1853,10 +1811,10 @@ shape = SubResource("CircleShape2D_1j2c8")
 
 [node name="visual" type="Sprite2D" parent="BigHpFairy3/Fairy/BotMiddle"]
 visible = false
-texture = ExtResource("21_3xe2h")
+texture = ExtResource("17_2fadj")
 
 [node name="barrel" type="Node2D" parent="BigHpFairy3/Fairy/BotMiddle/visual" groups=["Enemy Barrel 4"]]
-script = ExtResource("22_2hlxs")
+script = ExtResource("18_0bgcv")
 
 [node name="_Marker2D_28706" type="Marker2D" parent="BigHpFairy3/Fairy/BotMiddle/visual/barrel" groups=["Enemy Barrel 3"]]
 position = Vector2(13.9463, 13.9463)
@@ -1902,7 +1860,7 @@ position = Vector2(16.3991, 10.9576)
 rotation = 0.589049
 gizmo_extents = 20.0
 
-[node name="MiddleRight" parent="BigHpFairy3/Fairy" instance=ExtResource("20_tma4i")]
+[node name="MiddleRight" parent="BigHpFairy3/Fairy" instance=ExtResource("16_bi0tp")]
 visible = false
 position = Vector2(-90, -13)
 hp = 32
@@ -1912,10 +1870,10 @@ shape = SubResource("CircleShape2D_1j2c8")
 
 [node name="visual" type="Sprite2D" parent="BigHpFairy3/Fairy/MiddleRight"]
 visible = false
-texture = ExtResource("21_3xe2h")
+texture = ExtResource("17_2fadj")
 
 [node name="barrel" type="Node2D" parent="BigHpFairy3/Fairy/MiddleRight/visual" groups=["Enemy Barrel 4"]]
-script = ExtResource("22_2hlxs")
+script = ExtResource("18_0bgcv")
 
 [node name="_Marker2D_28706" type="Marker2D" parent="BigHpFairy3/Fairy/MiddleRight/visual/barrel" groups=["Enemy Barrel 3"]]
 position = Vector2(13.9463, 13.9463)
@@ -1961,7 +1919,7 @@ position = Vector2(16.3991, 10.9576)
 rotation = 0.589049
 gizmo_extents = 20.0
 
-[node name="TopMiddle" parent="BigHpFairy3/Fairy" instance=ExtResource("20_tma4i")]
+[node name="TopMiddle" parent="BigHpFairy3/Fairy" instance=ExtResource("16_bi0tp")]
 position = Vector2(613, 405)
 hp = 32
 
@@ -1970,10 +1928,10 @@ shape = SubResource("CircleShape2D_1j2c8")
 
 [node name="visual" type="Sprite2D" parent="BigHpFairy3/Fairy/TopMiddle"]
 visible = false
-texture = ExtResource("21_3xe2h")
+texture = ExtResource("17_2fadj")
 
 [node name="barrel" type="Node2D" parent="BigHpFairy3/Fairy/TopMiddle/visual" groups=["Enemy Barrel 4"]]
-script = ExtResource("22_2hlxs")
+script = ExtResource("18_0bgcv")
 
 [node name="_Marker2D_28706" type="Marker2D" parent="BigHpFairy3/Fairy/TopMiddle/visual/barrel" groups=["Enemy Barrel 3"]]
 position = Vector2(13.9463, 13.9463)
@@ -2022,25 +1980,25 @@ gizmo_extents = 20.0
 [node name="Bullet-" type="Node2D" parent="BigHpFairy3"]
 z_index = 100
 material = SubResource("ShaderMaterial_d3uy2")
-script = ExtResource("11_pvd46")
-texture = ExtResource("22_rm6dl")
+script = ExtResource("8_f6fcj")
+texture = ExtResource("20_r16r1")
 barrelGroup = "Enemy Barrel 3"
 speed = 272
-hitbox = ExtResource("23_gmowg")
+hitbox = ExtResource("21_lvtat")
 collision_mask = 5
 
 [node name="Bullet+" type="Node2D" parent="BigHpFairy3"]
 z_index = 100
 material = SubResource("ShaderMaterial_kukqw")
-script = ExtResource("11_pvd46")
-texture = ExtResource("16_7kafc")
+script = ExtResource("8_f6fcj")
+texture = ExtResource("13_o07g8")
 barrelGroup = "Enemy Barrel 3"
 speed = 427
-hitbox = ExtResource("17_72iy2")
+hitbox = ExtResource("14_rf64e")
 collision_mask = 5
 
 [node name="TransformBarrel" type="Path2D" parent="BigHpFairy3"]
-script = ExtResource("6_n63j6")
+script = ExtResource("11_ym16e")
 barrel_group = &"Enemy Barrel 4"
 
 [node name="ScoreGiveaway4" type="Node2D" parent="."]
@@ -2049,93 +2007,93 @@ visible = false
 
 [node name="GiveawaySpawner" type="Path2D" parent="ScoreGiveaway4"]
 curve = SubResource("Curve2D_c4b5w")
-script = ExtResource("6_n63j6")
+script = ExtResource("11_ym16e")
 mirror = true
 
-[node name="Fairy" parent="ScoreGiveaway4/GiveawaySpawner" instance=ExtResource("24_hvwmc")]
+[node name="Fairy" parent="ScoreGiveaway4/GiveawaySpawner" instance=ExtResource("22_mjcsd")]
 
-[node name="Fairy2" parent="ScoreGiveaway4/GiveawaySpawner" instance=ExtResource("24_hvwmc")]
+[node name="Fairy2" parent="ScoreGiveaway4/GiveawaySpawner" instance=ExtResource("22_mjcsd")]
 
-[node name="Fairy3" parent="ScoreGiveaway4/GiveawaySpawner" instance=ExtResource("24_hvwmc")]
+[node name="Fairy3" parent="ScoreGiveaway4/GiveawaySpawner" instance=ExtResource("22_mjcsd")]
 
-[node name="Fairy4" parent="ScoreGiveaway4/GiveawaySpawner" instance=ExtResource("24_hvwmc")]
+[node name="Fairy4" parent="ScoreGiveaway4/GiveawaySpawner" instance=ExtResource("22_mjcsd")]
 
-[node name="Fairy5" parent="ScoreGiveaway4/GiveawaySpawner" instance=ExtResource("24_hvwmc")]
+[node name="Fairy5" parent="ScoreGiveaway4/GiveawaySpawner" instance=ExtResource("22_mjcsd")]
 
-[node name="Fairy6" parent="ScoreGiveaway4/GiveawaySpawner" instance=ExtResource("24_hvwmc")]
+[node name="Fairy6" parent="ScoreGiveaway4/GiveawaySpawner" instance=ExtResource("22_mjcsd")]
 
-[node name="Fairy7" parent="ScoreGiveaway4/GiveawaySpawner" instance=ExtResource("24_hvwmc")]
+[node name="Fairy7" parent="ScoreGiveaway4/GiveawaySpawner" instance=ExtResource("22_mjcsd")]
 
-[node name="Fairy8" parent="ScoreGiveaway4/GiveawaySpawner" instance=ExtResource("24_hvwmc")]
+[node name="Fairy8" parent="ScoreGiveaway4/GiveawaySpawner" instance=ExtResource("22_mjcsd")]
 
-[node name="Fairy9" parent="ScoreGiveaway4/GiveawaySpawner" instance=ExtResource("24_hvwmc")]
+[node name="Fairy9" parent="ScoreGiveaway4/GiveawaySpawner" instance=ExtResource("22_mjcsd")]
 
-[node name="Fairy10" parent="ScoreGiveaway4/GiveawaySpawner" instance=ExtResource("24_hvwmc")]
+[node name="Fairy10" parent="ScoreGiveaway4/GiveawaySpawner" instance=ExtResource("22_mjcsd")]
 
-[node name="Fairy11" parent="ScoreGiveaway4/GiveawaySpawner" instance=ExtResource("24_hvwmc")]
+[node name="Fairy11" parent="ScoreGiveaway4/GiveawaySpawner" instance=ExtResource("22_mjcsd")]
 
-[node name="Fairy12" parent="ScoreGiveaway4/GiveawaySpawner" instance=ExtResource("24_hvwmc")]
+[node name="Fairy12" parent="ScoreGiveaway4/GiveawaySpawner" instance=ExtResource("22_mjcsd")]
 
-[node name="Fairy13" parent="ScoreGiveaway4/GiveawaySpawner" instance=ExtResource("24_hvwmc")]
+[node name="Fairy13" parent="ScoreGiveaway4/GiveawaySpawner" instance=ExtResource("22_mjcsd")]
 
-[node name="Fairy14" parent="ScoreGiveaway4/GiveawaySpawner" instance=ExtResource("24_hvwmc")]
+[node name="Fairy14" parent="ScoreGiveaway4/GiveawaySpawner" instance=ExtResource("22_mjcsd")]
 
-[node name="Fairy15" parent="ScoreGiveaway4/GiveawaySpawner" instance=ExtResource("24_hvwmc")]
+[node name="Fairy15" parent="ScoreGiveaway4/GiveawaySpawner" instance=ExtResource("22_mjcsd")]
 
-[node name="Fairy16" parent="ScoreGiveaway4/GiveawaySpawner" instance=ExtResource("24_hvwmc")]
+[node name="Fairy16" parent="ScoreGiveaway4/GiveawaySpawner" instance=ExtResource("22_mjcsd")]
 
 [node name="GiveawaySpawner2" type="Path2D" parent="ScoreGiveaway4"]
 position = Vector2(27, -13)
 curve = SubResource("Curve2D_k6wgk")
-script = ExtResource("6_n63j6")
+script = ExtResource("11_ym16e")
 mirror = true
 
-[node name="Fairy" parent="ScoreGiveaway4/GiveawaySpawner2" instance=ExtResource("24_54ed1")]
+[node name="Fairy" parent="ScoreGiveaway4/GiveawaySpawner2" instance=ExtResource("23_i2700")]
 position = Vector2(88.6195, -61.0539)
 
-[node name="Fairy2" parent="ScoreGiveaway4/GiveawaySpawner2" instance=ExtResource("24_54ed1")]
+[node name="Fairy2" parent="ScoreGiveaway4/GiveawaySpawner2" instance=ExtResource("23_i2700")]
 position = Vector2(88.6195, -61.0539)
 
-[node name="Fairy3" parent="ScoreGiveaway4/GiveawaySpawner2" instance=ExtResource("24_54ed1")]
+[node name="Fairy3" parent="ScoreGiveaway4/GiveawaySpawner2" instance=ExtResource("23_i2700")]
 position = Vector2(88.6195, -61.0539)
 
-[node name="Fairy4" parent="ScoreGiveaway4/GiveawaySpawner2" instance=ExtResource("24_54ed1")]
+[node name="Fairy4" parent="ScoreGiveaway4/GiveawaySpawner2" instance=ExtResource("23_i2700")]
 position = Vector2(88.6195, -61.0539)
 
-[node name="Fairy5" parent="ScoreGiveaway4/GiveawaySpawner2" instance=ExtResource("24_54ed1")]
+[node name="Fairy5" parent="ScoreGiveaway4/GiveawaySpawner2" instance=ExtResource("23_i2700")]
 position = Vector2(88.6195, -61.0539)
 
-[node name="Fairy6" parent="ScoreGiveaway4/GiveawaySpawner2" instance=ExtResource("24_54ed1")]
+[node name="Fairy6" parent="ScoreGiveaway4/GiveawaySpawner2" instance=ExtResource("23_i2700")]
 position = Vector2(88.6195, -61.0539)
 
-[node name="Fairy7" parent="ScoreGiveaway4/GiveawaySpawner2" instance=ExtResource("24_54ed1")]
+[node name="Fairy7" parent="ScoreGiveaway4/GiveawaySpawner2" instance=ExtResource("23_i2700")]
 position = Vector2(88.6195, -61.0539)
 
-[node name="Fairy8" parent="ScoreGiveaway4/GiveawaySpawner2" instance=ExtResource("24_54ed1")]
+[node name="Fairy8" parent="ScoreGiveaway4/GiveawaySpawner2" instance=ExtResource("23_i2700")]
 position = Vector2(88.6195, -61.0539)
 
-[node name="Fairy9" parent="ScoreGiveaway4/GiveawaySpawner2" instance=ExtResource("24_54ed1")]
+[node name="Fairy9" parent="ScoreGiveaway4/GiveawaySpawner2" instance=ExtResource("23_i2700")]
 position = Vector2(88.6195, -61.0539)
 
-[node name="Fairy10" parent="ScoreGiveaway4/GiveawaySpawner2" instance=ExtResource("24_54ed1")]
+[node name="Fairy10" parent="ScoreGiveaway4/GiveawaySpawner2" instance=ExtResource("23_i2700")]
 position = Vector2(88.6195, -61.0539)
 
-[node name="Fairy11" parent="ScoreGiveaway4/GiveawaySpawner2" instance=ExtResource("24_54ed1")]
+[node name="Fairy11" parent="ScoreGiveaway4/GiveawaySpawner2" instance=ExtResource("23_i2700")]
 position = Vector2(88.6195, -61.0539)
 
-[node name="Fairy12" parent="ScoreGiveaway4/GiveawaySpawner2" instance=ExtResource("24_54ed1")]
+[node name="Fairy12" parent="ScoreGiveaway4/GiveawaySpawner2" instance=ExtResource("23_i2700")]
 position = Vector2(88.6195, -61.0539)
 
-[node name="Fairy13" parent="ScoreGiveaway4/GiveawaySpawner2" instance=ExtResource("24_54ed1")]
+[node name="Fairy13" parent="ScoreGiveaway4/GiveawaySpawner2" instance=ExtResource("23_i2700")]
 position = Vector2(88.6195, -61.0539)
 
-[node name="Fairy14" parent="ScoreGiveaway4/GiveawaySpawner2" instance=ExtResource("24_54ed1")]
+[node name="Fairy14" parent="ScoreGiveaway4/GiveawaySpawner2" instance=ExtResource("23_i2700")]
 position = Vector2(88.6195, -61.0539)
 
-[node name="Fairy15" parent="ScoreGiveaway4/GiveawaySpawner2" instance=ExtResource("24_54ed1")]
+[node name="Fairy15" parent="ScoreGiveaway4/GiveawaySpawner2" instance=ExtResource("23_i2700")]
 position = Vector2(88.6195, -61.0539)
 
-[node name="Fairy16" parent="ScoreGiveaway4/GiveawaySpawner2" instance=ExtResource("24_54ed1")]
+[node name="Fairy16" parent="ScoreGiveaway4/GiveawaySpawner2" instance=ExtResource("23_i2700")]
 position = Vector2(88.6195, -61.0539)
 
 [node name="GiveawayTimer" type="Timer" parent="ScoreGiveaway4"]
@@ -2145,22 +2103,21 @@ autostart = true
 [node name="player" type="Node2D" parent="."]
 position = Vector2(269, 799)
 
-[node name="BackBufferCopy" type="BackBufferCopy" parent="."]
+[node name="BackBufferCopy" type="Node2D" parent="."]
 z_index = 2000
-copy_mode = 2
-rect = Rect2(0, 0, 0, 0)
+script = ExtResource("3_00q44")
 
 [node name="reflection" type="Sprite2D" parent="BackBufferCopy"]
 texture_repeat = 2
 material = SubResource("ShaderMaterial_g5wds")
-texture = ExtResource("3_6g7e0")
+texture = ExtResource("4_d6ekp")
 centered = false
 
-[node name="FogOverlay" parent="." instance=ExtResource("9_v1onv")]
+[node name="FogOverlay" parent="." instance=ExtResource("25_egtn7")]
 modulate = Color(1, 1, 1, 0)
 z_index = 3000
 
-[node name="level" parent="." node_paths=PackedStringArray("player_container", "animator") instance=ExtResource("9_ii2dw")]
+[node name="level" parent="." node_paths=PackedStringArray("player_container", "animator") instance=ExtResource("26_n1dlt")]
 player_container = NodePath("../player")
 animator = NodePath("../AnimationPlayer")
 
