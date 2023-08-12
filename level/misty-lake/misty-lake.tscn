@@ -1,32 +1,33 @@
-[gd_scene load_steps=48 format=3 uid="uid://bxvy3qa8esorq"]
+[gd_scene load_steps=49 format=3 uid="uid://bxvy3qa8esorq"]
 
-[ext_resource type="Shader" path="res://level/background/misty-lake/water.gdshader" id="1_kv0nh"]
-[ext_resource type="Texture2D" uid="uid://coq45et7pnhnx" path="res://level/background/misty-lake/water-gradient.tres" id="2_18im6"]
+[ext_resource type="Shader" path="res://level/misty-lake/water.gdshader" id="1_kv0nh"]
+[ext_resource type="Texture2D" uid="uid://coq45et7pnhnx" path="res://level/misty-lake/resource/water-gradient.tres" id="2_yt2xx"]
 [ext_resource type="Script" path="res://entity/utility/GraphicOptional.gd" id="3_00q44"]
-[ext_resource type="Shader" path="res://level/background/misty-lake/sky-reflection.gdshader" id="3_er50l"]
-[ext_resource type="Texture2D" uid="uid://bgh4r80tk5o7v" path="res://level/background/misty-lake/water-noise.tres" id="4_d6ekp"]
-[ext_resource type="PackedScene" uid="uid://6wuhmc2p8byc" path="res://level/background/misty-lake/fog.tscn" id="6_dlknp"]
+[ext_resource type="Shader" path="res://level/misty-lake/sky-reflection.gdshader" id="3_er50l"]
+[ext_resource type="Texture2D" uid="uid://bgh4r80tk5o7v" path="res://level/misty-lake/resource/water-noise.tres" id="3_l3dc8"]
+[ext_resource type="PackedScene" uid="uid://6wuhmc2p8byc" path="res://level/misty-lake/fog.tscn" id="6_dlknp"]
+[ext_resource type="Texture2D" uid="uid://x1e8a67qetah" path="res://level/misty-lake/resource/FullMoon.png" id="6_ja1w8"]
 [ext_resource type="Shader" path="res://entity/resource/UberItem.gdshader" id="7_gtrbf"]
 [ext_resource type="Script" path="res://entity/bullet/BulletBasic.gd" id="8_f6fcj"]
 [ext_resource type="Texture2D" uid="uid://ci8njay8ma26f" path="res://entity/bullet/resource/cystal.png" id="9_5uwhi"]
 [ext_resource type="Shape2D" uid="uid://borrvdxc7pflf" path="res://entity/bullet/resource/cystal-hitbox.tres" id="10_xyp3x"]
 [ext_resource type="Script" path="res://entity/utility/Path2DSpawner.gd" id="11_ym16e"]
-[ext_resource type="PackedScene" uid="uid://cyvf0ik0p568i" path="res://level/misty-lake/fairy.tscn" id="12_1xc1c"]
+[ext_resource type="PackedScene" uid="uid://cyvf0ik0p568i" path="res://level/misty-lake/enemy/fairy.tscn" id="12_1xc1c"]
 [ext_resource type="Texture2D" uid="uid://bb6gmgus0empe" path="res://entity/bullet/resource/rice.png" id="13_o07g8"]
 [ext_resource type="Shape2D" uid="uid://57c5btn7th0e" path="res://entity/bullet/resource/rice-hitbox.tres" id="14_rf64e"]
-[ext_resource type="PackedScene" uid="uid://qcqdhn5ssewn" path="res://level/misty-lake/fairy-tracker.tscn" id="15_43q5m"]
+[ext_resource type="PackedScene" uid="uid://qcqdhn5ssewn" path="res://level/misty-lake/enemy/fairy-tracker.tscn" id="15_43q5m"]
 [ext_resource type="PackedScene" uid="uid://dtlscerig62nv" path="res://entity/enemy/base/enemy.tscn" id="16_bi0tp"]
 [ext_resource type="Texture2D" uid="uid://cqt1oe248vvwn" path="res://entity/enemy/fairy/Fairy.2.png" id="17_2fadj"]
 [ext_resource type="Script" path="res://entity/utility/TargetLocker.gd" id="18_0bgcv"]
 [ext_resource type="Shader" path="res://entity/bullet/resource/BulletGlow.gdshader" id="19_nhcav"]
 [ext_resource type="Texture2D" uid="uid://dilcwhuq6brnv" path="res://entity/bullet/resource/ball.png" id="20_r16r1"]
 [ext_resource type="Shape2D" uid="uid://bflxt0dqc7na4" path="res://entity/bullet/resource/ball-hitbox.tres" id="21_lvtat"]
-[ext_resource type="PackedScene" uid="uid://bc4tw8t6g734m" path="res://level/misty-lake/fairy-unarmed1.tscn" id="22_mjcsd"]
-[ext_resource type="PackedScene" uid="uid://c7lcs65yc2vea" path="res://level/misty-lake/fairy-unarmed2.tscn" id="23_i2700"]
-[ext_resource type="Shader" path="res://level/background/misty-lake/reflection.gdshader" id="24_aykys"]
-[ext_resource type="PackedScene" uid="uid://uiwkegjhrq51" path="res://level/background/misty-lake/fog_overlay.tscn" id="25_egtn7"]
+[ext_resource type="PackedScene" uid="uid://bc4tw8t6g734m" path="res://level/misty-lake/enemy/fairy-unarmed1.tscn" id="22_mjcsd"]
+[ext_resource type="PackedScene" uid="uid://c7lcs65yc2vea" path="res://level/misty-lake/enemy/fairy-unarmed2.tscn" id="23_i2700"]
+[ext_resource type="Shader" path="res://level/misty-lake/reflection.gdshader" id="24_aykys"]
+[ext_resource type="PackedScene" uid="uid://uiwkegjhrq51" path="res://level/misty-lake/fog_overlay.tscn" id="25_egtn7"]
 [ext_resource type="PackedScene" uid="uid://bfvb372sca8m2" path="res://level/leveler/leveler.tscn" id="26_n1dlt"]
-[ext_resource type="AudioStream" uid="uid://bt7vy6thn8yac" path="res://level/misty-lake/guava-mono.ogg" id="27_4i2xy"]
+[ext_resource type="AudioStream" uid="uid://bt7vy6thn8yac" path="res://level/misty-lake/resource/guava-mono.ogg" id="27_4i2xy"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_r8js3"]
 shader = ExtResource("1_kv0nh")
@@ -34,14 +35,14 @@ shader_parameter/wave_velocity = Vector2(0, 2)
 shader_parameter/wave_distortion = 0.2
 shader_parameter/wave_multiplyer = -7.0
 shader_parameter/water_velocity = Vector2(0, -0.2)
-shader_parameter/color_map = ExtResource("2_18im6")
+shader_parameter/color_map = ExtResource("2_yt2xx")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_h610u"]
 shader = ExtResource("3_er50l")
 shader_parameter/wave_velocity = Vector2(0, 1)
 shader_parameter/wave_distortion = 0.09
 shader_parameter/wave_multiplyer = -7.0
-shader_parameter/noise_texture = ExtResource("4_d6ekp")
+shader_parameter/noise_texture = ExtResource("3_l3dc8")
 
 [sub_resource type="Gradient" id="Gradient_6yoxw"]
 colors = PackedColorArray(0.69, 0.0552, 0.65826, 1, 1, 1, 0.06, 1)
@@ -391,7 +392,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 55, 75),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [PackedColorArray(0, 0.0745098, 0.219608, 1, 0.109804, 0.65098, 0.929412, 1, 1, 1, 1, 1), PackedColorArray(0.462745, 0, 0.219608, 1, 0.427451, 0.545098, 0.74902, 1, 0.756863, 0.713726, 0.85098, 1), PackedColorArray(0, 0.0733334, 0.22, 1, 0.1105, 0.2184, 0.65, 1, 0.1326, 0.75842, 0.78, 1)]
+"values": [PackedColorArray(0, 0.0745098, 0.219608, 1, 0.109804, 0.65098, 0.929412, 1, 1, 1, 1, 1), PackedColorArray(0.0980392, 0, 0.368627, 1, 0.317647, 0.392157, 0.74902, 1, 0.85098, 0.227451, 0, 1), PackedColorArray(0, 0.0733334, 0.22, 1, 0.1105, 0.2184, 0.65, 1, 0.1326, 0.75842, 0.78, 1)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -427,7 +428,7 @@ tracks/3/keys = {
 "times": PackedFloat32Array(0, 70),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0.462745)]
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0.643137)]
 }
 tracks/4/type = "value"
 tracks/4/imported = false
@@ -1269,17 +1270,20 @@ handle_input_locally = false
 size = Vector2i(540, 960)
 render_target_update_mode = 4
 
-[node name="background" type="Node2D" parent="SubViewportContainer/SubViewport"]
+[node name="background" type="Sprite2D" parent="SubViewportContainer/SubViewport"]
 z_index = -100
 texture_repeat = 2
 material = SubResource("ShaderMaterial_r8js3")
+texture = ExtResource("3_l3dc8")
+centered = false
 script = ExtResource("3_00q44")
 graphic_level = 2
 
-[node name="FullMoon" type="Node2D" parent="SubViewportContainer/SubViewport/background"]
+[node name="FullMoon" type="Sprite2D" parent="SubViewportContainer/SubViewport/background"]
 modulate = Color(1, 1, 1, 0)
 material = SubResource("ShaderMaterial_h610u")
 position = Vector2(270, 201)
+texture = ExtResource("6_ja1w8")
 script = ExtResource("3_00q44")
 graphic_level = 2
 
@@ -1288,6 +1292,8 @@ modulate = Color(1, 1, 1, 0)
 graphic_level = 2
 
 [node name="CystalDrop1" type="Node2D" parent="."]
+process_mode = 4
+visible = false
 
 [node name="CystalBullet" type="Node2D" parent="CystalDrop1"]
 z_index = 100
@@ -2110,7 +2116,7 @@ script = ExtResource("3_00q44")
 [node name="reflection" type="Sprite2D" parent="BackBufferCopy"]
 texture_repeat = 2
 material = SubResource("ShaderMaterial_g5wds")
-texture = ExtResource("4_d6ekp")
+texture = ExtResource("3_l3dc8")
 centered = false
 
 [node name="FogOverlay" parent="." instance=ExtResource("25_egtn7")]

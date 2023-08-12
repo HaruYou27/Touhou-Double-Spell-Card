@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://x1e8a67qetah"
-path="res://.godot/imported/FullMoon.png-7f2b593623c34a619d0d742932e537eb.ctex"
+path="res://.godot/imported/FullMoon.png-19a6183e12e966936244296bb442d460.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://level/background/misty-lake/FullMoon.png"
-dest_files=["res://.godot/imported/FullMoon.png-7f2b593623c34a619d0d742932e537eb.ctex"]
+source_file="res://level/misty-lake/resource/FullMoon.png"
+dest_files=["res://.godot/imported/FullMoon.png-19a6183e12e966936244296bb442d460.ctex"]
 
 [params]
 

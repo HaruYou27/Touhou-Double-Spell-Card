@@ -1,4 +1,4 @@
-extends Node2D
+extends CanvasItem
 class_name GraphicOptional
 
 @export() var graphic_level :UserData.GRAPHIC_LEVEL = 3
