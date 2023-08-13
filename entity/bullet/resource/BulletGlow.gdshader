@@ -1,11 +1,9 @@
 shader_type canvas_item;
 #pragma disable_preprocessor
-render_mode blend_add, skip_vertex_transform;
+render_mode blend_add;
 
-uniform float time_scale;
+uniform float time_scale = 1.0;
 uniform sampler2D color_map;
-uniform bool wobble;
-uniform float wobble_min = .75;
 
 varying vec2 uv;
 void vertex()
@@ -24,11 +22,7 @@ void vertex()
 	float theta = COLOR.g;
 	VERTEX *= mat2(vec2(cos(theta),-sin(theta)),
                    vec2(sin(theta),cos(theta)));
-	
-	if (wobble)
-	{
-		VERTEX *= wobble_min + abs(sin(time)) * (1.0 - wobble_min);
-	}
+				
 	//Block color modulate pass through fragment.
 	COLOR.rgb = vec3(1.0);
 }

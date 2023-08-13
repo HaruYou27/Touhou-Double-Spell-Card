@@ -1,13 +1,13 @@
 [gd_scene load_steps=42 format=3 uid="uid://bn5nhkofewyh8"]
 
 [ext_resource type="Theme" uid="uid://dotibkyt5mm7v" path="res://user-interface/menu/theme/menu.tres" id="1_tnrbu"]
-[ext_resource type="Texture2D" uid="uid://bgh4r80tk5o7v" path="res://level/background/misty-lake/water-noise.tres" id="2_57hu4"]
+[ext_resource type="Texture2D" uid="uid://bgh4r80tk5o7v" path="res://level/misty-lake/resource/water-noise.tres" id="2_57hu4"]
 [ext_resource type="Script" path="res://user-interface/menu/settings/Generic.gd" id="2_dgpou"]
 [ext_resource type="Script" path="res://user-interface/menu/Level.gd" id="2_hncmy"]
 [ext_resource type="Script" path="res://user-interface/control-node/SFXButton.gd" id="3_wn432"]
 [ext_resource type="Script" path="res://user-interface/control-node/FormatLabel.gd" id="4_h21eu"]
 [ext_resource type="PackedScene" uid="uid://bsf3tthvg8rot" path="res://user-interface/menu/settings/reset.tscn" id="5_nrino"]
-[ext_resource type="PackedScene" uid="uid://bxvy3qa8esorq" path="res://level/test/test_level.tscn" id="5_nsfbw"]
+[ext_resource type="PackedScene" uid="uid://bxvy3qa8esorq" path="res://level/misty-lake/misty-lake.tscn" id="5_nsfbw"]
 [ext_resource type="Script" path="res://user-interface/control-node/SFXToggler.gd" id="5_vnfn8"]
 [ext_resource type="Script" path="res://user-interface/menu/settings/audio.gd" id="6_8l51l"]
 [ext_resource type="Script" path="res://user-interface/control-node/PercentageSlider.gd" id="8_b5jhj"]
@@ -224,10 +224,8 @@ z_index = -900
 layout_mode = 2
 tabs_visible = false
 
-[node name="test" type="Control" parent="TabContainer/play/Level/Preview"]
+[node name="MistyLake" type="Control" parent="TabContainer/play/Level/Preview"]
 layout_mode = 2
-script = ExtResource("16_ennx6")
-paths = Array[NodePath]([NodePath("")])
 metadata/level = ExtResource("5_nsfbw")
 
 [node name="LevelList" type="OptionButton" parent="TabContainer/play/Level"]
@@ -235,7 +233,7 @@ layout_mode = 2
 alignment = 1
 item_count = 1
 selected = 0
-popup/item_0/text = "Test level"
+popup/item_0/text = "Misty Lake"
 popup/item_0/id = 0
 
 [node name="LeftRightButton" type="HBoxContainer" parent="TabContainer/play/Level"]
@@ -620,6 +618,19 @@ allow_greater = true
 tick_count = 10
 script = ExtResource("8_b5jhj")
 label = NodePath("../ParticlesLabel")
+
+[node name="EffectLevel" type="OptionButton" parent="TabContainer/Settings/Graphic"]
+layout_mode = 2
+item_count = 4
+selected = 3
+popup/item_0/text = "Disable Background"
+popup/item_0/id = 0
+popup/item_1/text = "Simple Background"
+popup/item_1/id = 1
+popup/item_2/text = "Disable Advanced Graphic Effect"
+popup/item_2/id = 2
+popup/item_3/text = "Graphic Level Maxium"
+popup/item_3/id = 3
 
 [node name="reset" parent="TabContainer/Settings/Graphic" instance=ExtResource("5_nrino")]
 layout_mode = 2

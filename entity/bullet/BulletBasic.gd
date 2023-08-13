@@ -23,7 +23,7 @@ var barrels : Array[Node]
 @export var collide_with_areas := false
 ## Leave this alone for enemy bullet. Player alwasy use Body.
 @export var collide_with_bodies := true
-## Never tick on Graze layer.
+## Never tick on Graze layer, use Grazable instead.
 @export_flags_2d_physics var collision_mask := 1
 var query := PhysicsShapeQueryParameters2D.new()
 
@@ -35,15 +35,10 @@ var bullets : Array[Bullet] = []
 var bullet : Bullet
 @onready var collision_graze := collision_mask + 8
 @onready var canvas_item := get_canvas_item()
-@onready var texture_rid := texture.get_rid()
-@onready var texture_size := texture.get_size()
 
 func _ready() -> void:
 	RenderingServer.canvas_item_set_custom_rect(canvas_item, true)
-	if barrelGroup.is_empty():
-		barrels = get_children()
-	else:
-		barrels = tree.get_nodes_in_group(barrelGroup)
+	barrels = tree.get_nodes_in_group(barrelGroup)
 	
 	query.shape = hitbox
 	query.collide_with_areas = collide_with_areas
@@ -69,10 +64,10 @@ const half_pi := PI / 2
 func set_bullet_transform(barrel:Node2D):
 	if localRotation:
 		bullet.velocity = Vector2(speed, 0).rotated(barrel.rotation)
-		bullet.transform = Transform2D(barrel.rotation + half_pi, barrel.global_position)
+		bullet.transform = Transform2D(barrel.rotation + half_pi, scale, 0.0, barrel.global_position)
 	else:
 		bullet.velocity = Vector2(speed, 0).rotated(barrel.global_rotation)
-		bullet.transform = Transform2D(barrel.global_rotation + half_pi, barrel.global_position)
+		bullet.transform = Transform2D(barrel.global_rotation + half_pi, scale, 0.0, barrel.global_position)
 			
 ## Wipe all bullets.
 func clear() -> void:
@@ -86,7 +81,7 @@ func move(delta:float, bullete:Bullet) -> void:
 	var bullet_rotation = bullete.transform.get_rotation()
 	bullet_modulate.r = bullet_rotation
 	bullet_modulate.g = bullet_rotation
-	texture.draw(canvas_item, bullete.transform.origin.rotated(-bullet_rotation), bullet_modulate)
+	texture.draw(canvas_item, bullete.transform.origin.rotated(-bullet_rotation) / bullet.transform.get_scale(), bullet_modulate)
 
 ## Bulelt has collided with something, what to do now?
 func collide(result:Dictionary) -> bool:
@@ -114,7 +109,6 @@ func _process_bullet(delta:float) -> void:
 	RenderingServer.canvas_item_clear(canvas_item)
 	for bullete in bullets.duplicate():
 		move(delta, bullete)
-	
 
 func collision_check() -> void:
 	pass

@@ -1,16 +1,19 @@
-[gd_scene load_steps=19 format=3 uid="uid://bk08ga1mfcleb"]
+[gd_scene load_steps=27 format=3 uid="uid://bk08ga1mfcleb"]
 
 [ext_resource type="PackedScene" uid="uid://ffnff8ahyxxn" path="res://entity/player/reimu/reimu-sprite.tscn" id="2_1gpls"]
 [ext_resource type="PackedScene" uid="uid://c34lwlqwsc4ve" path="res://entity/player/base/player.tscn" id="4_ftqh1"]
+[ext_resource type="PackedScene" uid="uid://bsa0xvb26o22u" path="res://entity/player/reimu/yinyang-orb.tscn" id="5_ryrqw"]
 [ext_resource type="PackedScene" uid="uid://cex3540cp47lm" path="res://entity/player/base/graze.tscn" id="5_sq1so"]
-[ext_resource type="PackedScene" uid="uid://bruoc6ea6acxp" path="res://entity/player/reimu/bullet.tscn" id="5_ygtci"]
 [ext_resource type="Script" path="res://entity/player/reimu/kishin-orb.gd" id="6_aunb2"]
 [ext_resource type="Texture2D" uid="uid://cx7ewf38kbh34" path="res://entity/player/reimu/resource/reimu-hitbox.png" id="7_hytxk"]
 [ext_resource type="Material" uid="uid://df8i0wskbdmia" path="res://entity/player/reimu/resource/yinYangOrb.tres" id="7_np48j"]
 [ext_resource type="Texture2D" uid="uid://cmqcue4x2exyv" path="res://entity/player/reimu/resource/Yin-Yang-orb.svg" id="11_hh6jt"]
 [ext_resource type="Material" uid="uid://dox27ncd2r5o3" path="res://entity/resource/glow.tres" id="12_83ts8"]
+[ext_resource type="Shader" path="res://entity/resource/UberItem.gdshader" id="12_o8iy5"]
+[ext_resource type="Script" path="res://entity/player/reimu/Seeker.gd" id="13_g7t8t"]
 [ext_resource type="Texture2D" uid="uid://d2wacgirqsjjn" path="res://entity/resource/white-trans.tres" id="13_kms7i"]
 [ext_resource type="Texture2D" uid="uid://dxsf3vpqsosf1" path="res://entity/enemy/phantom/fire_particle.png" id="14_gd3kh"]
+[ext_resource type="Texture2D" uid="uid://cu2ufhkx3vayf" path="res://entity/player/reimu/resource/ofuda.png" id="14_yebca"]
 
 [sub_resource type="CircleShape2D" id="7"]
 radius = 3.0
@@ -144,6 +147,28 @@ _data = {
 "sweep": SubResource("Animation_abej3")
 }
 
+[sub_resource type="Gradient" id="Gradient_561th"]
+interpolation_mode = 1
+offsets = PackedFloat32Array(0.376147)
+colors = PackedColorArray(1, 0.4, 0.4, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_obk0t"]
+gradient = SubResource("Gradient_561th")
+width = 1
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_v1vkg"]
+shader = ExtResource("12_o8iy5")
+shader_parameter/time_scale = 1.0
+shader_parameter/blinking = null
+shader_parameter/color_map = SubResource("GradientTexture1D_obk0t")
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_jbjdf"]
+radius = 270.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_vc5mj"]
+radius = 8.0
+height = 32.0
+
 [node name="Reimu" type="Node2D"]
 
 [node name="Player" parent="." node_paths=PackedStringArray("hitbox", "sprite") instance=ExtResource("4_ftqh1")]
@@ -173,27 +198,42 @@ debug_color = Color(0.713726, 0.105882, 0.701961, 0.419608)
 wait_time = 0.2
 autostart = true
 
-[node name="bullet" parent="Player" instance=ExtResource("5_ygtci")]
-process_mode = 3
-seek_mask = null
-localRotation = null
-collide_with_bodies = null
+[node name="barrel" type="Node2D" parent="Player"]
 
-[node name="Node" type="Node2D" parent="."]
-z_index = 3000
+[node name="YinyangOrb" parent="Player/barrel" groups=["Player Barrel"] instance=ExtResource("5_ryrqw")]
+position = Vector2(72, 0)
+rotation = -1.5708
+flip_v = true
 
-[node name="KishinOrb" type="CharacterBody2D" parent="Node"]
+[node name="YinyangOrb2" parent="Player/barrel" groups=["Player Barrel"] instance=ExtResource("5_ryrqw")]
+texture_filter = 1
+position = Vector2(-72, 0)
+rotation = -1.5708
+flip_h = false
+
+[node name="Marker2D" type="Marker2D" parent="Player/barrel" groups=["Player Barrel"]]
+position = Vector2(13.0002, -39.9999)
+rotation = -1.5708
+gizmo_extents = 51.7
+
+[node name="Position2D2" type="Marker2D" parent="Player/barrel" groups=["Player Barrel"]]
+position = Vector2(-13, -40)
+rotation = -1.5708
+gizmo_extents = 82.9
+
+[node name="KishinOrb" type="CharacterBody2D" parent="."]
 process_mode = 4
+z_index = 2000
 texture_filter = 2
 position = Vector2(270, 1230)
 collision_layer = 4
 collision_mask = 0
 script = ExtResource("6_aunb2")
 
-[node name="hitbox" type="CollisionShape2D" parent="Node/KishinOrb"]
+[node name="hitbox" type="CollisionShape2D" parent="KishinOrb"]
 shape = SubResource("CircleShape2D_5bis8")
 
-[node name="GPUParticles2D" type="GPUParticles2D" parent="Node/KishinOrb"]
+[node name="GPUParticles2D" type="GPUParticles2D" parent="KishinOrb"]
 process_mode = 3
 material = ExtResource("12_83ts8")
 rotation = 1.5708
@@ -203,20 +243,34 @@ amount = 128
 process_material = SubResource("ParticleProcessMaterial_vu8gb")
 texture = ExtResource("14_gd3kh")
 
-[node name="YinyangOrb2" type="Sprite2D" parent="Node/KishinOrb"]
+[node name="YinyangOrb2" type="Sprite2D" parent="KishinOrb"]
 visible = false
 texture_filter = 1
 material = ExtResource("7_np48j")
 rotation = 1.5708
 texture = ExtResource("11_hh6jt")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Node"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 root_node = NodePath("../KishinOrb")
 libraries = {
 "": SubResource("AnimationLibrary_fwlhc")
 }
 
-[connection signal="kaboom" from="Player" to="Node/KishinOrb" method="_on_player_kaboom"]
-[connection signal="timeout" from="Player/Timer" to="Player/bullet" method="spawn_bullet"]
-[connection signal="finished" from="Node/KishinOrb" to="Player" method="_bomb_finished"]
-[connection signal="animation_finished" from="Node/AnimationPlayer" to="Node/KishinOrb" method="_on_animation_player_animation_finished"]
+[node name="bullet" type="Node2D" parent="."]
+z_index = 1
+material = SubResource("ShaderMaterial_v1vkg")
+script = ExtResource("13_g7t8t")
+seek_shape = SubResource("CircleShape2D_jbjdf")
+texture = ExtResource("14_yebca")
+barrelGroup = "Player Barrel"
+speed = 727.0
+grazable = false
+hitbox = SubResource("CapsuleShape2D_vc5mj")
+collide_with_areas = true
+collide_with_bodies = null
+collision_mask = 3
+
+[connection signal="kaboom" from="Player" to="KishinOrb" method="_on_player_kaboom"]
+[connection signal="timeout" from="Player/Timer" to="bullet" method="spawn_bullet"]
+[connection signal="finished" from="KishinOrb" to="Player" method="_bomb_finished"]
+[connection signal="animation_finished" from="AnimationPlayer" to="KishinOrb" method="_on_animation_player_animation_finished"]

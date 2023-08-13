@@ -4,11 +4,13 @@ extends VBoxContainer
 @onready var window := get_window()
 @onready var vulkan := $vulkan
 @onready var particles := $Particles
+@onready var effect_level := $EffectLevel
 
 func _ready() -> void:
 	fullscreen.set_pressed_no_signal(window.mode)
 	borderless.set_pressed_no_signal(window.borderless)
 	particles.value = user_data.particle_amount
+	effect_level.select(user_data.graphic_level)
 	if ProjectSettings.get_setting('rendering/renderer/rendering_method') == 'mobile':
 		vulkan.set_pressed_no_signal(true)
 	
@@ -33,7 +35,9 @@ func _exit_tree() -> void:
 		ProjectSettings.set_setting('rendering/renderer/rendering_method.mobile', 'gl_compatibility')
 		
 	user_data.particle_amount = particles.value
+	user_data.graphic_level = effect_level.selected
 
 func _on_reset_pressed() -> void:
 	fullscreen.button_pressed = false
 	borderless.button_pressed = false
+

@@ -1,5 +1,4 @@
 shader_type canvas_item;
-render_mode skip_vertex_transform;
 #pragma disable_preprocessor
 
 uniform float time_scale;

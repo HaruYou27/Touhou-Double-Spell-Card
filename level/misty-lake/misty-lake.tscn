@@ -1,4 +1,4 @@
-[gd_scene load_steps=49 format=3 uid="uid://bxvy3qa8esorq"]
+[gd_scene load_steps=53 format=3 uid="uid://bxvy3qa8esorq"]
 
 [ext_resource type="Shader" path="res://level/misty-lake/water.gdshader" id="1_kv0nh"]
 [ext_resource type="Texture2D" uid="uid://coq45et7pnhnx" path="res://level/misty-lake/resource/water-gradient.tres" id="2_yt2xx"]
@@ -18,8 +18,8 @@
 [ext_resource type="PackedScene" uid="uid://qcqdhn5ssewn" path="res://level/misty-lake/enemy/fairy-tracker.tscn" id="15_43q5m"]
 [ext_resource type="PackedScene" uid="uid://dtlscerig62nv" path="res://entity/enemy/base/enemy.tscn" id="16_bi0tp"]
 [ext_resource type="Texture2D" uid="uid://cqt1oe248vvwn" path="res://entity/enemy/fairy/Fairy.2.png" id="17_2fadj"]
-[ext_resource type="Script" path="res://entity/utility/TargetLocker.gd" id="18_0bgcv"]
 [ext_resource type="Shader" path="res://entity/bullet/resource/BulletGlow.gdshader" id="19_nhcav"]
+[ext_resource type="PackedScene" uid="uid://c7plqidxhf5bq" path="res://level/misty-lake/barrel-big-fairy.tscn" id="20_mqptk"]
 [ext_resource type="Texture2D" uid="uid://dilcwhuq6brnv" path="res://entity/bullet/resource/ball.png" id="20_r16r1"]
 [ext_resource type="Shape2D" uid="uid://bflxt0dqc7na4" path="res://entity/bullet/resource/ball-hitbox.tres" id="21_lvtat"]
 [ext_resource type="PackedScene" uid="uid://bc4tw8t6g734m" path="res://level/misty-lake/enemy/fairy-unarmed1.tscn" id="22_mjcsd"]
@@ -45,6 +45,7 @@ shader_parameter/wave_multiplyer = -7.0
 shader_parameter/noise_texture = ExtResource("3_l3dc8")
 
 [sub_resource type="Gradient" id="Gradient_6yoxw"]
+interpolation_color_space = 2
 colors = PackedColorArray(0.69, 0.0552, 0.65826, 1, 1, 1, 0.06, 1)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_kammw"]
@@ -64,13 +65,12 @@ _data = {
 point_count = 7
 
 [sub_resource type="Gradient" id="Gradient_c57lt"]
-interpolation_mode = 1
-offsets = PackedFloat32Array(0)
-colors = PackedColorArray(0.62, 0.0744, 0.365387, 1)
+interpolation_color_space = 2
+colors = PackedColorArray(0.62, 0.0744, 0.365387, 1, 0.619608, 0.643137, 0.913725, 1)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_mflqg"]
 gradient = SubResource("Gradient_c57lt")
-width = 1
+width = 8
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_2rgkm"]
 shader = ExtResource("7_gtrbf")
@@ -87,17 +87,30 @@ point_count = 4
 [sub_resource type="CircleShape2D" id="CircleShape2D_1j2c8"]
 radius = 31.0161
 
+[sub_resource type="Gradient" id="Gradient_nhfr7"]
+interpolation_color_space = 2
+colors = PackedColorArray(0.7052, 0.1312, 0.82, 1, 0.2047, 0.89, 0.89, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_jpep5"]
+gradient = SubResource("Gradient_nhfr7")
+width = 8
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_d3uy2"]
 shader = ExtResource("19_nhcav")
-shader_parameter/time_scale = null
-shader_parameter/wobble = null
-shader_parameter/wobble_min = 0.75
+shader_parameter/time_scale = 1.0
+shader_parameter/color_map = SubResource("GradientTexture1D_jpep5")
+
+[sub_resource type="Gradient" id="Gradient_wmneh"]
+colors = PackedColorArray(0.427, 0.61, 0, 1, 1, 1, 0.25098, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_b6iio"]
+gradient = SubResource("Gradient_wmneh")
+width = 8
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_kukqw"]
 shader = ExtResource("19_nhcav")
-shader_parameter/time_scale = null
-shader_parameter/wobble = null
-shader_parameter/wobble_min = 0.75
+shader_parameter/time_scale = 4.0
+shader_parameter/color_map = SubResource("GradientTexture1D_b6iio")
 
 [sub_resource type="Curve2D" id="Curve2D_c4b5w"]
 _data = {
@@ -381,7 +394,6 @@ tracks/20/keys = {
 [sub_resource type="Animation" id="Animation_shi7r"]
 resource_name = "game"
 length = 160.0
-step = 1.0
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -1292,8 +1304,6 @@ modulate = Color(1, 1, 1, 0)
 graphic_level = 2
 
 [node name="CystalDrop1" type="Node2D" parent="."]
-process_mode = 4
-visible = false
 
 [node name="CystalBullet" type="Node2D" parent="CystalDrop1"]
 z_index = 100
@@ -1301,7 +1311,6 @@ material = SubResource("ShaderMaterial_w081n")
 script = ExtResource("8_f6fcj")
 texture = ExtResource("9_5uwhi")
 barrelGroup = "Enemy Barrel 1"
-speed = 472
 hitbox = ExtResource("10_xyp3x")
 collision_mask = 5
 
@@ -1386,11 +1395,10 @@ visible = false
 [node name="TrackingBullet" type="Node2D" parent="Tracking2"]
 z_index = 100
 material = SubResource("ShaderMaterial_2rgkm")
+scale = Vector2(0.5, 0.5)
 script = ExtResource("8_f6fcj")
 texture = ExtResource("13_o07g8")
 barrelGroup = "Enemy Barrel 2"
-speed = 327
-localRotation = true
 hitbox = ExtResource("14_rf64e")
 collision_mask = 5
 
@@ -1468,52 +1476,7 @@ shape = SubResource("CircleShape2D_1j2c8")
 visible = false
 texture = ExtResource("17_2fadj")
 
-[node name="barrel" type="Node2D" parent="BigHpFairy3/Fairy/TopLeft/visual" groups=["Enemy Barrel 4"]]
-script = ExtResource("18_0bgcv")
-
-[node name="_Marker2D_28706" type="Marker2D" parent="BigHpFairy3/Fairy/TopLeft/visual/barrel" groups=["Enemy Barrel 3"]]
-position = Vector2(13.9463, 13.9463)
-rotation = 0.785398
-gizmo_extents = 20.0
-
-[node name="_Marker2D_28730" type="Marker2D" parent="BigHpFairy3/Fairy/TopLeft/visual/barrel" groups=["Enemy Barrel 3"]]
-position = Vector2(13.9463, -13.9463)
-rotation = -0.785398
-gizmo_extents = 20.0
-
-[node name="_Marker2D_28731" type="Marker2D" parent="BigHpFairy3/Fairy/TopLeft/visual/barrel" groups=["Enemy Barrel 3"]]
-position = Vector2(16.3991, -10.9576)
-rotation = -0.589049
-gizmo_extents = 20.0
-
-[node name="_Marker2D_28732" type="Marker2D" parent="BigHpFairy3/Fairy/TopLeft/visual/barrel" groups=["Enemy Barrel 3"]]
-position = Vector2(18.2218, -7.54769)
-rotation = -0.392699
-gizmo_extents = 20.0
-
-[node name="_Marker2D_28733" type="Marker2D" parent="BigHpFairy3/Fairy/TopLeft/visual/barrel" groups=["Enemy Barrel 3"]]
-position = Vector2(19.3441, -3.84779)
-rotation = -0.19635
-gizmo_extents = 20.0
-
-[node name="_Marker2D_28734" type="Marker2D" parent="BigHpFairy3/Fairy/TopLeft/visual/barrel" groups=["Enemy Barrel 3"]]
-position = Vector2(19.7231, -2.86102e-06)
-gizmo_extents = 20.0
-
-[node name="_Marker2D_28735" type="Marker2D" parent="BigHpFairy3/Fairy/TopLeft/visual/barrel" groups=["Enemy Barrel 3"]]
-position = Vector2(19.3441, 3.84778)
-rotation = 0.196349
-gizmo_extents = 20.0
-
-[node name="_Marker2D_28736" type="Marker2D" parent="BigHpFairy3/Fairy/TopLeft/visual/barrel" groups=["Enemy Barrel 3"]]
-position = Vector2(18.2218, 7.5477)
-rotation = 0.392699
-gizmo_extents = 20.0
-
-[node name="_Marker2D_28737" type="Marker2D" parent="BigHpFairy3/Fairy/TopLeft/visual/barrel" groups=["Enemy Barrel 3"]]
-position = Vector2(16.3991, 10.9576)
-rotation = 0.589049
-gizmo_extents = 20.0
+[node name="barrel" parent="BigHpFairy3/Fairy/TopLeft/visual" instance=ExtResource("20_mqptk")]
 
 [node name="TopRight" parent="BigHpFairy3/Fairy" instance=ExtResource("16_bi0tp")]
 position = Vector2(-120, 28)
@@ -1526,52 +1489,7 @@ shape = SubResource("CircleShape2D_1j2c8")
 visible = false
 texture = ExtResource("17_2fadj")
 
-[node name="barrel" type="Node2D" parent="BigHpFairy3/Fairy/TopRight/visual" groups=["Enemy Barrel 4"]]
-script = ExtResource("18_0bgcv")
-
-[node name="_Marker2D_28706" type="Marker2D" parent="BigHpFairy3/Fairy/TopRight/visual/barrel" groups=["Enemy Barrel 3"]]
-position = Vector2(13.9463, 13.9463)
-rotation = 0.785398
-gizmo_extents = 20.0
-
-[node name="_Marker2D_28730" type="Marker2D" parent="BigHpFairy3/Fairy/TopRight/visual/barrel" groups=["Enemy Barrel 3"]]
-position = Vector2(13.9463, -13.9463)
-rotation = -0.785398
-gizmo_extents = 20.0
-
-[node name="_Marker2D_28731" type="Marker2D" parent="BigHpFairy3/Fairy/TopRight/visual/barrel" groups=["Enemy Barrel 3"]]
-position = Vector2(16.3991, -10.9576)
-rotation = -0.589049
-gizmo_extents = 20.0
-
-[node name="_Marker2D_28732" type="Marker2D" parent="BigHpFairy3/Fairy/TopRight/visual/barrel" groups=["Enemy Barrel 3"]]
-position = Vector2(18.2218, -7.54769)
-rotation = -0.392699
-gizmo_extents = 20.0
-
-[node name="_Marker2D_28733" type="Marker2D" parent="BigHpFairy3/Fairy/TopRight/visual/barrel" groups=["Enemy Barrel 3"]]
-position = Vector2(19.3441, -3.84779)
-rotation = -0.19635
-gizmo_extents = 20.0
-
-[node name="_Marker2D_28734" type="Marker2D" parent="BigHpFairy3/Fairy/TopRight/visual/barrel" groups=["Enemy Barrel 3"]]
-position = Vector2(19.7231, -2.86102e-06)
-gizmo_extents = 20.0
-
-[node name="_Marker2D_28735" type="Marker2D" parent="BigHpFairy3/Fairy/TopRight/visual/barrel" groups=["Enemy Barrel 3"]]
-position = Vector2(19.3441, 3.84778)
-rotation = 0.196349
-gizmo_extents = 20.0
-
-[node name="_Marker2D_28736" type="Marker2D" parent="BigHpFairy3/Fairy/TopRight/visual/barrel" groups=["Enemy Barrel 3"]]
-position = Vector2(18.2218, 7.5477)
-rotation = 0.392699
-gizmo_extents = 20.0
-
-[node name="_Marker2D_28737" type="Marker2D" parent="BigHpFairy3/Fairy/TopRight/visual/barrel" groups=["Enemy Barrel 3"]]
-position = Vector2(16.3991, 10.9576)
-rotation = 0.589049
-gizmo_extents = 20.0
+[node name="barrel" parent="BigHpFairy3/Fairy/TopRight/visual" instance=ExtResource("20_mqptk")]
 
 [node name="BotLeft" parent="BigHpFairy3/Fairy" instance=ExtResource("16_bi0tp")]
 visible = false
@@ -1585,52 +1503,7 @@ shape = SubResource("CircleShape2D_1j2c8")
 visible = false
 texture = ExtResource("17_2fadj")
 
-[node name="barrel" type="Node2D" parent="BigHpFairy3/Fairy/BotLeft/visual" groups=["Enemy Barrel 4"]]
-script = ExtResource("18_0bgcv")
-
-[node name="_Marker2D_28706" type="Marker2D" parent="BigHpFairy3/Fairy/BotLeft/visual/barrel" groups=["Enemy Barrel 3"]]
-position = Vector2(13.9463, 13.9463)
-rotation = 0.785398
-gizmo_extents = 20.0
-
-[node name="_Marker2D_28730" type="Marker2D" parent="BigHpFairy3/Fairy/BotLeft/visual/barrel" groups=["Enemy Barrel 3"]]
-position = Vector2(13.9463, -13.9463)
-rotation = -0.785398
-gizmo_extents = 20.0
-
-[node name="_Marker2D_28731" type="Marker2D" parent="BigHpFairy3/Fairy/BotLeft/visual/barrel" groups=["Enemy Barrel 3"]]
-position = Vector2(16.3991, -10.9576)
-rotation = -0.589049
-gizmo_extents = 20.0
-
-[node name="_Marker2D_28732" type="Marker2D" parent="BigHpFairy3/Fairy/BotLeft/visual/barrel" groups=["Enemy Barrel 3"]]
-position = Vector2(18.2218, -7.54769)
-rotation = -0.392699
-gizmo_extents = 20.0
-
-[node name="_Marker2D_28733" type="Marker2D" parent="BigHpFairy3/Fairy/BotLeft/visual/barrel" groups=["Enemy Barrel 3"]]
-position = Vector2(19.3441, -3.84779)
-rotation = -0.19635
-gizmo_extents = 20.0
-
-[node name="_Marker2D_28734" type="Marker2D" parent="BigHpFairy3/Fairy/BotLeft/visual/barrel" groups=["Enemy Barrel 3"]]
-position = Vector2(19.7231, -2.86102e-06)
-gizmo_extents = 20.0
-
-[node name="_Marker2D_28735" type="Marker2D" parent="BigHpFairy3/Fairy/BotLeft/visual/barrel" groups=["Enemy Barrel 3"]]
-position = Vector2(19.3441, 3.84778)
-rotation = 0.196349
-gizmo_extents = 20.0
-
-[node name="_Marker2D_28736" type="Marker2D" parent="BigHpFairy3/Fairy/BotLeft/visual/barrel" groups=["Enemy Barrel 3"]]
-position = Vector2(18.2218, 7.5477)
-rotation = 0.392699
-gizmo_extents = 20.0
-
-[node name="_Marker2D_28737" type="Marker2D" parent="BigHpFairy3/Fairy/BotLeft/visual/barrel" groups=["Enemy Barrel 3"]]
-position = Vector2(16.3991, 10.9576)
-rotation = 0.589049
-gizmo_extents = 20.0
+[node name="barrel" parent="BigHpFairy3/Fairy/BotLeft/visual" instance=ExtResource("20_mqptk")]
 
 [node name="BotRight" parent="BigHpFairy3/Fairy" instance=ExtResource("16_bi0tp")]
 position = Vector2(-98, -54)
@@ -1643,52 +1516,7 @@ shape = SubResource("CircleShape2D_1j2c8")
 visible = false
 texture = ExtResource("17_2fadj")
 
-[node name="barrel" type="Node2D" parent="BigHpFairy3/Fairy/BotRight/visual" groups=["Enemy Barrel 4"]]
-script = ExtResource("18_0bgcv")
-
-[node name="_Marker2D_28706" type="Marker2D" parent="BigHpFairy3/Fairy/BotRight/visual/barrel" groups=["Enemy Barrel 3"]]
-position = Vector2(13.9463, 13.9463)
-rotation = 0.785398
-gizmo_extents = 20.0
-
-[node name="_Marker2D_28730" type="Marker2D" parent="BigHpFairy3/Fairy/BotRight/visual/barrel" groups=["Enemy Barrel 3"]]
-position = Vector2(13.9463, -13.9463)
-rotation = -0.785398
-gizmo_extents = 20.0
-
-[node name="_Marker2D_28731" type="Marker2D" parent="BigHpFairy3/Fairy/BotRight/visual/barrel" groups=["Enemy Barrel 3"]]
-position = Vector2(16.3991, -10.9576)
-rotation = -0.589049
-gizmo_extents = 20.0
-
-[node name="_Marker2D_28732" type="Marker2D" parent="BigHpFairy3/Fairy/BotRight/visual/barrel" groups=["Enemy Barrel 3"]]
-position = Vector2(18.2218, -7.54769)
-rotation = -0.392699
-gizmo_extents = 20.0
-
-[node name="_Marker2D_28733" type="Marker2D" parent="BigHpFairy3/Fairy/BotRight/visual/barrel" groups=["Enemy Barrel 3"]]
-position = Vector2(19.3441, -3.84779)
-rotation = -0.19635
-gizmo_extents = 20.0
-
-[node name="_Marker2D_28734" type="Marker2D" parent="BigHpFairy3/Fairy/BotRight/visual/barrel" groups=["Enemy Barrel 3"]]
-position = Vector2(19.7231, -2.86102e-06)
-gizmo_extents = 20.0
-
-[node name="_Marker2D_28735" type="Marker2D" parent="BigHpFairy3/Fairy/BotRight/visual/barrel" groups=["Enemy Barrel 3"]]
-position = Vector2(19.3441, 3.84778)
-rotation = 0.196349
-gizmo_extents = 20.0
-
-[node name="_Marker2D_28736" type="Marker2D" parent="BigHpFairy3/Fairy/BotRight/visual/barrel" groups=["Enemy Barrel 3"]]
-position = Vector2(18.2218, 7.5477)
-rotation = 0.392699
-gizmo_extents = 20.0
-
-[node name="_Marker2D_28737" type="Marker2D" parent="BigHpFairy3/Fairy/BotRight/visual/barrel" groups=["Enemy Barrel 3"]]
-position = Vector2(16.3991, 10.9576)
-rotation = 0.589049
-gizmo_extents = 20.0
+[node name="barrel" parent="BigHpFairy3/Fairy/BotRight/visual" instance=ExtResource("20_mqptk")]
 
 [node name="Middle" parent="BigHpFairy3/Fairy" instance=ExtResource("16_bi0tp")]
 position = Vector2(432, -49)
@@ -1701,52 +1529,7 @@ shape = SubResource("CircleShape2D_1j2c8")
 visible = false
 texture = ExtResource("17_2fadj")
 
-[node name="barrel" type="Node2D" parent="BigHpFairy3/Fairy/Middle/visual" groups=["Enemy Barrel 4"]]
-script = ExtResource("18_0bgcv")
-
-[node name="_Marker2D_28706" type="Marker2D" parent="BigHpFairy3/Fairy/Middle/visual/barrel" groups=["Enemy Barrel 3"]]
-position = Vector2(13.9463, 13.9463)
-rotation = 0.785398
-gizmo_extents = 20.0
-
-[node name="_Marker2D_28730" type="Marker2D" parent="BigHpFairy3/Fairy/Middle/visual/barrel" groups=["Enemy Barrel 3"]]
-position = Vector2(13.9463, -13.9463)
-rotation = -0.785398
-gizmo_extents = 20.0
-
-[node name="_Marker2D_28731" type="Marker2D" parent="BigHpFairy3/Fairy/Middle/visual/barrel" groups=["Enemy Barrel 3"]]
-position = Vector2(16.3991, -10.9576)
-rotation = -0.589049
-gizmo_extents = 20.0
-
-[node name="_Marker2D_28732" type="Marker2D" parent="BigHpFairy3/Fairy/Middle/visual/barrel" groups=["Enemy Barrel 3"]]
-position = Vector2(18.2218, -7.54769)
-rotation = -0.392699
-gizmo_extents = 20.0
-
-[node name="_Marker2D_28733" type="Marker2D" parent="BigHpFairy3/Fairy/Middle/visual/barrel" groups=["Enemy Barrel 3"]]
-position = Vector2(19.3441, -3.84779)
-rotation = -0.19635
-gizmo_extents = 20.0
-
-[node name="_Marker2D_28734" type="Marker2D" parent="BigHpFairy3/Fairy/Middle/visual/barrel" groups=["Enemy Barrel 3"]]
-position = Vector2(19.7231, -2.86102e-06)
-gizmo_extents = 20.0
-
-[node name="_Marker2D_28735" type="Marker2D" parent="BigHpFairy3/Fairy/Middle/visual/barrel" groups=["Enemy Barrel 3"]]
-position = Vector2(19.3441, 3.84778)
-rotation = 0.196349
-gizmo_extents = 20.0
-
-[node name="_Marker2D_28736" type="Marker2D" parent="BigHpFairy3/Fairy/Middle/visual/barrel" groups=["Enemy Barrel 3"]]
-position = Vector2(18.2218, 7.5477)
-rotation = 0.392699
-gizmo_extents = 20.0
-
-[node name="_Marker2D_28737" type="Marker2D" parent="BigHpFairy3/Fairy/Middle/visual/barrel" groups=["Enemy Barrel 3"]]
-position = Vector2(16.3991, 10.9576)
-rotation = 0.589049
-gizmo_extents = 20.0
+[node name="barrel" parent="BigHpFairy3/Fairy/Middle/visual" instance=ExtResource("20_mqptk")]
 
 [node name="MiddleLeft" parent="BigHpFairy3/Fairy" instance=ExtResource("16_bi0tp")]
 visible = false
@@ -1760,52 +1543,7 @@ shape = SubResource("CircleShape2D_1j2c8")
 visible = false
 texture = ExtResource("17_2fadj")
 
-[node name="barrel" type="Node2D" parent="BigHpFairy3/Fairy/MiddleLeft/visual" groups=["Enemy Barrel 4"]]
-script = ExtResource("18_0bgcv")
-
-[node name="_Marker2D_28706" type="Marker2D" parent="BigHpFairy3/Fairy/MiddleLeft/visual/barrel" groups=["Enemy Barrel 3"]]
-position = Vector2(13.9463, 13.9463)
-rotation = 0.785398
-gizmo_extents = 20.0
-
-[node name="_Marker2D_28730" type="Marker2D" parent="BigHpFairy3/Fairy/MiddleLeft/visual/barrel" groups=["Enemy Barrel 3"]]
-position = Vector2(13.9463, -13.9463)
-rotation = -0.785398
-gizmo_extents = 20.0
-
-[node name="_Marker2D_28731" type="Marker2D" parent="BigHpFairy3/Fairy/MiddleLeft/visual/barrel" groups=["Enemy Barrel 3"]]
-position = Vector2(16.3991, -10.9576)
-rotation = -0.589049
-gizmo_extents = 20.0
-
-[node name="_Marker2D_28732" type="Marker2D" parent="BigHpFairy3/Fairy/MiddleLeft/visual/barrel" groups=["Enemy Barrel 3"]]
-position = Vector2(18.2218, -7.54769)
-rotation = -0.392699
-gizmo_extents = 20.0
-
-[node name="_Marker2D_28733" type="Marker2D" parent="BigHpFairy3/Fairy/MiddleLeft/visual/barrel" groups=["Enemy Barrel 3"]]
-position = Vector2(19.3441, -3.84779)
-rotation = -0.19635
-gizmo_extents = 20.0
-
-[node name="_Marker2D_28734" type="Marker2D" parent="BigHpFairy3/Fairy/MiddleLeft/visual/barrel" groups=["Enemy Barrel 3"]]
-position = Vector2(19.7231, -2.86102e-06)
-gizmo_extents = 20.0
-
-[node name="_Marker2D_28735" type="Marker2D" parent="BigHpFairy3/Fairy/MiddleLeft/visual/barrel" groups=["Enemy Barrel 3"]]
-position = Vector2(19.3441, 3.84778)
-rotation = 0.196349
-gizmo_extents = 20.0
-
-[node name="_Marker2D_28736" type="Marker2D" parent="BigHpFairy3/Fairy/MiddleLeft/visual/barrel" groups=["Enemy Barrel 3"]]
-position = Vector2(18.2218, 7.5477)
-rotation = 0.392699
-gizmo_extents = 20.0
-
-[node name="_Marker2D_28737" type="Marker2D" parent="BigHpFairy3/Fairy/MiddleLeft/visual/barrel" groups=["Enemy Barrel 3"]]
-position = Vector2(16.3991, 10.9576)
-rotation = 0.589049
-gizmo_extents = 20.0
+[node name="barrel" parent="BigHpFairy3/Fairy/MiddleLeft/visual" instance=ExtResource("20_mqptk")]
 
 [node name="BotMiddle" parent="BigHpFairy3/Fairy" instance=ExtResource("16_bi0tp")]
 visible = false
@@ -1819,52 +1557,7 @@ shape = SubResource("CircleShape2D_1j2c8")
 visible = false
 texture = ExtResource("17_2fadj")
 
-[node name="barrel" type="Node2D" parent="BigHpFairy3/Fairy/BotMiddle/visual" groups=["Enemy Barrel 4"]]
-script = ExtResource("18_0bgcv")
-
-[node name="_Marker2D_28706" type="Marker2D" parent="BigHpFairy3/Fairy/BotMiddle/visual/barrel" groups=["Enemy Barrel 3"]]
-position = Vector2(13.9463, 13.9463)
-rotation = 0.785398
-gizmo_extents = 20.0
-
-[node name="_Marker2D_28730" type="Marker2D" parent="BigHpFairy3/Fairy/BotMiddle/visual/barrel" groups=["Enemy Barrel 3"]]
-position = Vector2(13.9463, -13.9463)
-rotation = -0.785398
-gizmo_extents = 20.0
-
-[node name="_Marker2D_28731" type="Marker2D" parent="BigHpFairy3/Fairy/BotMiddle/visual/barrel" groups=["Enemy Barrel 3"]]
-position = Vector2(16.3991, -10.9576)
-rotation = -0.589049
-gizmo_extents = 20.0
-
-[node name="_Marker2D_28732" type="Marker2D" parent="BigHpFairy3/Fairy/BotMiddle/visual/barrel" groups=["Enemy Barrel 3"]]
-position = Vector2(18.2218, -7.54769)
-rotation = -0.392699
-gizmo_extents = 20.0
-
-[node name="_Marker2D_28733" type="Marker2D" parent="BigHpFairy3/Fairy/BotMiddle/visual/barrel" groups=["Enemy Barrel 3"]]
-position = Vector2(19.3441, -3.84779)
-rotation = -0.19635
-gizmo_extents = 20.0
-
-[node name="_Marker2D_28734" type="Marker2D" parent="BigHpFairy3/Fairy/BotMiddle/visual/barrel" groups=["Enemy Barrel 3"]]
-position = Vector2(19.7231, -2.86102e-06)
-gizmo_extents = 20.0
-
-[node name="_Marker2D_28735" type="Marker2D" parent="BigHpFairy3/Fairy/BotMiddle/visual/barrel" groups=["Enemy Barrel 3"]]
-position = Vector2(19.3441, 3.84778)
-rotation = 0.196349
-gizmo_extents = 20.0
-
-[node name="_Marker2D_28736" type="Marker2D" parent="BigHpFairy3/Fairy/BotMiddle/visual/barrel" groups=["Enemy Barrel 3"]]
-position = Vector2(18.2218, 7.5477)
-rotation = 0.392699
-gizmo_extents = 20.0
-
-[node name="_Marker2D_28737" type="Marker2D" parent="BigHpFairy3/Fairy/BotMiddle/visual/barrel" groups=["Enemy Barrel 3"]]
-position = Vector2(16.3991, 10.9576)
-rotation = 0.589049
-gizmo_extents = 20.0
+[node name="barrel" parent="BigHpFairy3/Fairy/BotMiddle/visual" instance=ExtResource("20_mqptk")]
 
 [node name="MiddleRight" parent="BigHpFairy3/Fairy" instance=ExtResource("16_bi0tp")]
 visible = false
@@ -1878,52 +1571,7 @@ shape = SubResource("CircleShape2D_1j2c8")
 visible = false
 texture = ExtResource("17_2fadj")
 
-[node name="barrel" type="Node2D" parent="BigHpFairy3/Fairy/MiddleRight/visual" groups=["Enemy Barrel 4"]]
-script = ExtResource("18_0bgcv")
-
-[node name="_Marker2D_28706" type="Marker2D" parent="BigHpFairy3/Fairy/MiddleRight/visual/barrel" groups=["Enemy Barrel 3"]]
-position = Vector2(13.9463, 13.9463)
-rotation = 0.785398
-gizmo_extents = 20.0
-
-[node name="_Marker2D_28730" type="Marker2D" parent="BigHpFairy3/Fairy/MiddleRight/visual/barrel" groups=["Enemy Barrel 3"]]
-position = Vector2(13.9463, -13.9463)
-rotation = -0.785398
-gizmo_extents = 20.0
-
-[node name="_Marker2D_28731" type="Marker2D" parent="BigHpFairy3/Fairy/MiddleRight/visual/barrel" groups=["Enemy Barrel 3"]]
-position = Vector2(16.3991, -10.9576)
-rotation = -0.589049
-gizmo_extents = 20.0
-
-[node name="_Marker2D_28732" type="Marker2D" parent="BigHpFairy3/Fairy/MiddleRight/visual/barrel" groups=["Enemy Barrel 3"]]
-position = Vector2(18.2218, -7.54769)
-rotation = -0.392699
-gizmo_extents = 20.0
-
-[node name="_Marker2D_28733" type="Marker2D" parent="BigHpFairy3/Fairy/MiddleRight/visual/barrel" groups=["Enemy Barrel 3"]]
-position = Vector2(19.3441, -3.84779)
-rotation = -0.19635
-gizmo_extents = 20.0
-
-[node name="_Marker2D_28734" type="Marker2D" parent="BigHpFairy3/Fairy/MiddleRight/visual/barrel" groups=["Enemy Barrel 3"]]
-position = Vector2(19.7231, -2.86102e-06)
-gizmo_extents = 20.0
-
-[node name="_Marker2D_28735" type="Marker2D" parent="BigHpFairy3/Fairy/MiddleRight/visual/barrel" groups=["Enemy Barrel 3"]]
-position = Vector2(19.3441, 3.84778)
-rotation = 0.196349
-gizmo_extents = 20.0
-
-[node name="_Marker2D_28736" type="Marker2D" parent="BigHpFairy3/Fairy/MiddleRight/visual/barrel" groups=["Enemy Barrel 3"]]
-position = Vector2(18.2218, 7.5477)
-rotation = 0.392699
-gizmo_extents = 20.0
-
-[node name="_Marker2D_28737" type="Marker2D" parent="BigHpFairy3/Fairy/MiddleRight/visual/barrel" groups=["Enemy Barrel 3"]]
-position = Vector2(16.3991, 10.9576)
-rotation = 0.589049
-gizmo_extents = 20.0
+[node name="barrel" parent="BigHpFairy3/Fairy/MiddleRight/visual" instance=ExtResource("20_mqptk")]
 
 [node name="TopMiddle" parent="BigHpFairy3/Fairy" instance=ExtResource("16_bi0tp")]
 position = Vector2(613, 405)
@@ -1936,70 +1584,27 @@ shape = SubResource("CircleShape2D_1j2c8")
 visible = false
 texture = ExtResource("17_2fadj")
 
-[node name="barrel" type="Node2D" parent="BigHpFairy3/Fairy/TopMiddle/visual" groups=["Enemy Barrel 4"]]
-script = ExtResource("18_0bgcv")
-
-[node name="_Marker2D_28706" type="Marker2D" parent="BigHpFairy3/Fairy/TopMiddle/visual/barrel" groups=["Enemy Barrel 3"]]
-position = Vector2(13.9463, 13.9463)
-rotation = 0.785398
-gizmo_extents = 20.0
-
-[node name="_Marker2D_28730" type="Marker2D" parent="BigHpFairy3/Fairy/TopMiddle/visual/barrel" groups=["Enemy Barrel 3"]]
-position = Vector2(13.9463, -13.9463)
-rotation = -0.785398
-gizmo_extents = 20.0
-
-[node name="_Marker2D_28731" type="Marker2D" parent="BigHpFairy3/Fairy/TopMiddle/visual/barrel" groups=["Enemy Barrel 3"]]
-position = Vector2(16.3991, -10.9576)
-rotation = -0.589049
-gizmo_extents = 20.0
-
-[node name="_Marker2D_28732" type="Marker2D" parent="BigHpFairy3/Fairy/TopMiddle/visual/barrel" groups=["Enemy Barrel 3"]]
-position = Vector2(18.2218, -7.54769)
-rotation = -0.392699
-gizmo_extents = 20.0
-
-[node name="_Marker2D_28733" type="Marker2D" parent="BigHpFairy3/Fairy/TopMiddle/visual/barrel" groups=["Enemy Barrel 3"]]
-position = Vector2(19.3441, -3.84779)
-rotation = -0.19635
-gizmo_extents = 20.0
-
-[node name="_Marker2D_28734" type="Marker2D" parent="BigHpFairy3/Fairy/TopMiddle/visual/barrel" groups=["Enemy Barrel 3"]]
-position = Vector2(19.7231, -2.86102e-06)
-gizmo_extents = 20.0
-
-[node name="_Marker2D_28735" type="Marker2D" parent="BigHpFairy3/Fairy/TopMiddle/visual/barrel" groups=["Enemy Barrel 3"]]
-position = Vector2(19.3441, 3.84778)
-rotation = 0.196349
-gizmo_extents = 20.0
-
-[node name="_Marker2D_28736" type="Marker2D" parent="BigHpFairy3/Fairy/TopMiddle/visual/barrel" groups=["Enemy Barrel 3"]]
-position = Vector2(18.2218, 7.5477)
-rotation = 0.392699
-gizmo_extents = 20.0
-
-[node name="_Marker2D_28737" type="Marker2D" parent="BigHpFairy3/Fairy/TopMiddle/visual/barrel" groups=["Enemy Barrel 3"]]
-position = Vector2(16.3991, 10.9576)
-rotation = 0.589049
-gizmo_extents = 20.0
+[node name="barrel" parent="BigHpFairy3/Fairy/TopMiddle/visual" instance=ExtResource("20_mqptk")]
 
 [node name="Bullet-" type="Node2D" parent="BigHpFairy3"]
 z_index = 100
 material = SubResource("ShaderMaterial_d3uy2")
+scale = Vector2(0.5, 0.5)
 script = ExtResource("8_f6fcj")
 texture = ExtResource("20_r16r1")
 barrelGroup = "Enemy Barrel 3"
-speed = 272
+speed = 372.0
 hitbox = ExtResource("21_lvtat")
 collision_mask = 5
 
 [node name="Bullet+" type="Node2D" parent="BigHpFairy3"]
 z_index = 100
 material = SubResource("ShaderMaterial_kukqw")
+scale = Vector2(0.5, 0.5)
 script = ExtResource("8_f6fcj")
 texture = ExtResource("13_o07g8")
 barrelGroup = "Enemy Barrel 3"
-speed = 427
+speed = 472.0
 hitbox = ExtResource("14_rf64e")
 collision_mask = 5
 
@@ -2128,7 +1733,7 @@ player_container = NodePath("../player")
 animator = NodePath("../AnimationPlayer")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-method_call_mode = 1
+playback_process_mode = 0
 audio_max_polyphony = 1
 libraries = {
 "": SubResource("AnimationLibrary_lj1a4")

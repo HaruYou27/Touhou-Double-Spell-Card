@@ -1,7 +1,6 @@
-[gd_scene load_steps=18 format=3 uid="uid://dg3c0gdslbpa4"]
+[gd_scene load_steps=14 format=3 uid="uid://dg3c0gdslbpa4"]
 
 [ext_resource type="Shader" path="res://level/background/noise-colorize.gdshader" id="1_7xp7d"]
-[ext_resource type="Shader" path="res://level/background/cellular-noise.gdshader" id="2_uom22"]
 [ext_resource type="Shader" path="res://tool/image-baker/background/shader/grid.gdshader" id="3_38whw"]
 [ext_resource type="PackedScene" uid="uid://bfvb372sca8m2" path="res://level/leveler/leveler.tscn" id="4_aeo0o"]
 
@@ -59,21 +58,6 @@ shader_parameter/line_count = 1.0
 shader_parameter/background_color = Color(0.0588235, 0.00784314, 0.14902, 0)
 shader_parameter/grid_color = SubResource("GradientTexture1D_3dg5s")
 
-[sub_resource type="Gradient" id="Gradient_85gdg"]
-offsets = PackedFloat32Array(0.391304, 0.706522, 0.847826, 1)
-colors = PackedColorArray(0, 0, 0, 0, 0.86, 0.86, 0.86, 1, 0.64, 0.0746667, 0, 1, 0, 0.0745098, 0, 1)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_u7skd"]
-gradient = SubResource("Gradient_85gdg")
-width = 32
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_dw4yx"]
-shader = ExtResource("2_uom22")
-shader_parameter/grid = Vector2(9, 16)
-shader_parameter/speed = 4.5
-shader_parameter/velocity = Vector2(0.1, -0.2)
-shader_parameter/color_map = SubResource("GradientTexture1D_u7skd")
-
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_wmbvb"]
 shader = ExtResource("3_38whw")
 shader_parameter/brightness = 1.0
@@ -102,24 +86,21 @@ offset_bottom = 960.0
 [node name="Grid3" type="ColorRect" parent="Grid2"]
 material = SubResource("ShaderMaterial_7drdw")
 custom_minimum_size = Vector2(540, 960)
+layout_mode = 0
 offset_right = 540.0
-offset_bottom = 960.0
-
-[node name="GapEyes" type="ColorRect" parent="Grid2"]
-visible = false
-texture_repeat = 2
-material = SubResource("ShaderMaterial_dw4yx")
-custom_minimum_size = Vector2(540, 960)
-offset_left = 2.0
-offset_right = 542.0
 offset_bottom = 960.0
 
 [node name="Grid" type="ColorRect" parent="Grid2"]
 z_index = 3000
 material = SubResource("ShaderMaterial_wmbvb")
 custom_minimum_size = Vector2(540, 960)
+layout_mode = 0
 offset_left = 2.0
 offset_right = 542.0
 offset_bottom = 960.0
 
 [node name="level" parent="." instance=ExtResource("4_aeo0o")]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
