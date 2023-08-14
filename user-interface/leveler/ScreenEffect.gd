@@ -1,20 +1,17 @@
 extends ColorRect
+class_name ScreenEffect
 ##Exclusive full screen effect.
 
 var current_scene : Node
-var bgm_volume := 0.
-
+@onready var bgm_volume := AudioServer.get_bus_volume_db(2)
 @onready var tree := get_tree()
-
-const black := Color(0.129412, 0.129412, 0.129412)
-const black_trans := Color(black, 0.)
 
 func _ready() -> void:
 	current_scene = tree.current_scene
+	Global.screen_effect = self
 
-##For use with [Tween].
-func _set_bgm_volume(value:float) -> void:
-	AudioServer.set_bus_volume_db(2, value)
+func restart_level() -> void:
+	fade2black().finished.connect(tree.reload_current_scene)
 
 func fade2black(reverse:=false) -> Tween:
 	show()
@@ -22,21 +19,20 @@ func fade2black(reverse:=false) -> Tween:
 	
 	var tween := create_tween()
 	if reverse:
-		color = black
-		tween.tween_property(self, 'color', black_trans, .5)
-		tween.parallel().tween_method(_set_bgm_volume, 0., bgm_volume, .5)
+		color = Color.BLACK
+		tween.tween_property(self, 'color', Color(Color.BLACK, 0.), .5)
+		tween.parallel().tween_method(AudioServer.set_bus_volume_db, -60.0, bgm_volume, .5)
 	else:
 		bgm_volume = AudioServer.get_bus_volume_db(2)
-		color = black_trans
-		tween.tween_property(self, 'color', black, 1.)
-		tween.parallel().tween_method(_set_bgm_volume, bgm_volume, 0., .5)
+		color = Color(Color.BLACK, 0.0)
+		tween.tween_property(self, 'color', Color.BLACK, 1.)
+		tween.parallel().tween_method(AudioServer.set_bus_volume_db, bgm_volume, -60.0, 1.)
 		
 	tween.finished.connect(hide)
 	return tween
 
 func flash() -> void:
 	show()
-	size = global.playground
 	color = Color(1, 1, 1, .5)
 	var tween := create_tween()
 	tween.tween_property(self, 'color', Color.TRANSPARENT, .15)
@@ -44,5 +40,4 @@ func flash() -> void:
 
 func flash_red() -> void:
 	show()
-	size = global.game_rect
 	color = Color(0.996078, 0.203922, 0.203922, 0.592157)

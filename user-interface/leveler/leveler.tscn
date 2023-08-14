@@ -1,0 +1,239 @@
+[gd_scene load_steps=19 format=3 uid="uid://bfvb372sca8m2"]
+
+[ext_resource type="StyleBox" uid="uid://bp6kfebep5pa7" path="res://user-interface/menu/theme/black-rounded.tres" id="1_qndui"]
+[ext_resource type="FontFile" uid="uid://cc78r22h75c20" path="res://user-interface/resource/font/NotoSerif-Regular.ttf" id="2_dqgtt"]
+[ext_resource type="Script" path="res://user-interface/leveler/leveler.gd" id="3_i4tu5"]
+[ext_resource type="Script" path="res://user-interface/leveler/PauseMenu.gd" id="4_3p6qo"]
+[ext_resource type="Script" path="res://user-interface/leveler/ScreenEffect.gd" id="4_pauor"]
+[ext_resource type="Shortcut" uid="uid://cmfbyxixc4xv3" path="res://user-interface/resource/shortcut/escape.tres" id="5_ukwdv"]
+[ext_resource type="Script" path="res://user-interface/control-node/SFXButton.gd" id="6_nikbp"]
+[ext_resource type="Theme" uid="uid://blprm8j3o32j7" path="res://user-interface/leveler/resource/score.tres" id="7_gsru3"]
+[ext_resource type="Script" path="res://user-interface/leveler/hud.gd" id="8_0m4xc"]
+[ext_resource type="Script" path="res://user-interface/control-node/FormatLabel.gd" id="9_78gx3"]
+[ext_resource type="Script" path="res://user-interface/leveler/ping.gd" id="10_4xdio"]
+[ext_resource type="Script" path="res://user-interface/leveler/fps.gd" id="11_dfhqj"]
+[ext_resource type="AudioStream" uid="uid://bykr1yaisabfe" path="res://autoload/SoundEffect/resource/tick-.wav" id="12_bhemp"]
+
+[sub_resource type="Theme" id="Theme_p2fhi"]
+default_font = ExtResource("2_dqgtt")
+default_font_size = 24
+Button/styles/normal = ExtResource("1_qndui")
+Label/styles/normal = null
+
+[sub_resource type="Animation" id="Animation_ljdud"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Node/hud/ScreenEffect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.0823529, 0.0823529, 0.0823529, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_yyktx"]
+resource_name = "fade2black"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Node/hud/ScreenEffect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0.5), Color(0.0823529, 0.0823529, 0.0823529, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_4t2o7"]
+resource_name = "flash"
+length = 0.15
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Node/hud/ScreenEffect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.15),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0.501961), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_mja1o"]
+_data = {
+"RESET": SubResource("Animation_ljdud"),
+"fade2black": SubResource("Animation_yyktx"),
+"flash": SubResource("Animation_4t2o7")
+}
+
+[node name="level" type="Control"]
+z_index = 4000
+texture_filter = 4
+layout_mode = 3
+anchors_preset = 0
+mouse_filter = 2
+theme = SubResource("Theme_p2fhi")
+script = ExtResource("3_i4tu5")
+
+[node name="ScreenEffect" type="ColorRect" parent="."]
+process_mode = 3
+visible = false
+custom_minimum_size = Vector2(540, 960)
+layout_mode = 1
+offset_right = 540.0
+offset_bottom = 960.0
+mouse_filter = 2
+color = Color(0.0823529, 0.0823529, 0.0823529, 1)
+script = ExtResource("4_pauor")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="ScreenEffect"]
+root_node = NodePath("../..")
+libraries = {
+"": SubResource("AnimationLibrary_mja1o")
+}
+
+[node name="pause" type="Button" parent="."]
+modulate = Color(1, 1, 1, 0.501961)
+layout_mode = 1
+offset_right = 64.0
+offset_bottom = 65.0
+shortcut = ExtResource("5_ukwdv")
+text = "||"
+
+[node name="hud" type="Panel" parent="." node_paths=PackedStringArray("hi_score_label", "bomb_label", "reward_sfx", "score_label")]
+layout_mode = 1
+offset_left = 20.0
+offset_top = 852.0
+offset_right = 520.0
+offset_bottom = 960.0
+size_flags_vertical = 8
+mouse_filter = 2
+theme = ExtResource("7_gsru3")
+script = ExtResource("8_0m4xc")
+hi_score_label = NodePath("VBoxContainer/HiScore")
+bomb_label = NodePath("VBoxContainer/HBoxContainer/Bomb")
+reward_sfx = NodePath("reward")
+score_label = NodePath("VBoxContainer/Score")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="hud"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 12.0
+offset_top = 4.0
+offset_right = -18.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="hud/VBoxContainer"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Bomb" type="Label" parent="hud/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(1, 0.2, 0.2, 1)
+text = "Bomb:	%d"
+script = ExtResource("9_78gx3")
+
+[node name="ping" type="Label" parent="hud/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "%dms"
+script = ExtResource("10_4xdio")
+
+[node name="fps" type="Label" parent="hud/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "%d"
+script = ExtResource("11_dfhqj")
+
+[node name="Timer" type="Timer" parent="hud/VBoxContainer/HBoxContainer"]
+autostart = true
+
+[node name="HiScore" type="Label" parent="hud/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 5
+text = "Hi-Score:  %018d"
+script = ExtResource("9_78gx3")
+
+[node name="Score" type="Label" parent="hud/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 5
+text = "Score:     %018d"
+script = ExtResource("9_78gx3")
+
+[node name="pickup" type="AudioStreamPlayer" parent="hud"]
+stream = ExtResource("12_bhemp")
+bus = &"SFX"
+
+[node name="reward" type="AudioStreamPlayer" parent="hud"]
+
+[node name="PauseMenu" type="ColorRect" parent="."]
+process_mode = 3
+visible = false
+custom_minimum_size = Vector2(540, 960)
+layout_mode = 1
+offset_right = 540.0
+offset_bottom = 960.0
+size_flags_vertical = 3
+color = Color(0.129412, 0.129412, 0.129412, 0.423529)
+script = ExtResource("4_3p6qo")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PauseMenu"]
+process_mode = 2
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -169.5
+offset_top = -127.5
+offset_right = 169.5
+offset_bottom = 127.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Resume" type="Button" parent="PauseMenu/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+shortcut = ExtResource("5_ukwdv")
+text = "Resume"
+script = ExtResource("6_nikbp")
+
+[node name="Restart" type="Button" parent="PauseMenu/VBoxContainer"]
+layout_mode = 2
+focus_neighbor_left = NodePath(".")
+focus_neighbor_top = NodePath(".")
+focus_neighbor_right = NodePath("../Quit")
+focus_neighbor_bottom = NodePath("../Quit")
+focus_next = NodePath("../Quit")
+focus_previous = NodePath(".")
+text = "Restart"
+script = ExtResource("6_nikbp")
+
+[node name="Quit" type="Button" parent="PauseMenu/VBoxContainer"]
+layout_mode = 2
+focus_neighbor_left = NodePath(".")
+focus_neighbor_top = NodePath(".")
+focus_previous = NodePath(".")
+text = "Back to Menu"
+script = ExtResource("6_nikbp")
+
+[connection signal="animation_finished" from="ScreenEffect/AnimationPlayer" to="ScreenEffect" method="_on_animation_player_animation_finished" flags=18]
+[connection signal="pressed" from="pause" to="PauseMenu" method="_on_pause_pressed"]
+[connection signal="timeout" from="hud/VBoxContainer/HBoxContainer/Timer" to="hud/VBoxContainer/HBoxContainer/ping" method="_on_timer_timeout"]
+[connection signal="timeout" from="hud/VBoxContainer/HBoxContainer/Timer" to="hud/VBoxContainer/HBoxContainer/fps" method="_on_timer_timeout"]
+[connection signal="pressed" from="PauseMenu/VBoxContainer/Resume" to="PauseMenu" method="_on_Resume_pressed"]
+[connection signal="pressed" from="PauseMenu/VBoxContainer/Restart" to="PauseMenu" method="_on_restart_pressed" flags=6]
+[connection signal="pressed" from="PauseMenu/VBoxContainer/Quit" to="PauseMenu" method="_on_Quit_pressed" flags=6]

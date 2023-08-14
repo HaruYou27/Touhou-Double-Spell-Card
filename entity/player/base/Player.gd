@@ -12,7 +12,7 @@ func _ready() -> void:
 func _hit() -> void:
 	hit_sfx.play()
 	hitbox.set_deferred('disabled', true)
-	VisualEffect.flash_red()
+	Global.screen_effect.flash_red()
 	death_timer.start()
 ####################
 
@@ -70,7 +70,7 @@ func _bomb_finished() -> void:
 @onready var death_fx := $explosion
 @export var sprite : AnimatedSprite2D
 func _on_death_timer_timeout():
-	VisualEffect.hide()
+	Global.leveler.screen_effect.hide()
 	rpc("_sync_death")
 	
 	if Global.player2 and not Global.last_man_standing:

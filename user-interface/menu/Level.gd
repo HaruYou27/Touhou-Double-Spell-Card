@@ -34,7 +34,7 @@ func _on_enter_pressed() -> void:
 
 @rpc("reliable", "call_local")
 func start_game() -> void:
-	Global.change_scene(preview.get_current_tab_control().get_meta("level"))
+	LevelLoader.load_scene(preview.get_current_tab_control().get_meta("level"))
 	
 @rpc("reliable")
 func change_level_remote(idx:int) -> void:

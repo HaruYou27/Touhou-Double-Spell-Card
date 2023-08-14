@@ -6,7 +6,6 @@ uniform float formuparam = 1.00;
 uniform int volsteps = 5;
 uniform float stepsize = 0.347;
 
-uniform vec2 iResolution;
 uniform float zoom = 1.;
 uniform float tile = .5;
 uniform float speed = .001;
@@ -15,27 +14,27 @@ uniform float brightness = 0.002;
 uniform float distfading = 0.650;
 uniform float saturation = 0.750;
 
-float SCurve (float value) {
+varying vec3 from_const;
+void vertex()
+{
+	from_const = vec3(1.0,0.5-TIME*speed,0.5);
+}
 
-    if (value < 0.5)
-    {
-        return value * value * value * value * value * 16.0; 
-    }
-    
-    value -= 1.0;
-    
-    return value * value * value * value * value * 16.0 + 1.0;
+float SCurve (float value)
+{
+	float is_bigger = step(0.5, value);
+	value -= is_bigger;
+    return value * value * value * value * value * 16.0 + is_bigger; 
 }
 
 void fragment()
 {
 	//Direction and coord.
-	lowp vec3 dir=vec3(UV.xy*zoom*0.001,1.);
-	lowp vec3 from=vec3(1.0,0.5,0.5);
-	from-=vec3(0.0, TIME * speed,0.0);
+	lowp vec3 dir = vec3(UV.xy*zoom*0.001,1.);
+	lowp vec3 from = from_const;
 	
 	//volumetric rendering
-	lowp float s=0.1,fade=1.;
+	lowp float s = 0.1, fade=1.;
 	lowp vec3 v=vec3(0.);
 	for (int r=0; r<volsteps; r++)
 	{

@@ -1,0 +1,16 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://dr20u75y4dglk"]
+
+[ext_resource type="Shader" path="res://level/space/universe.gdshader" id="1_jy4id"]
+
+[resource]
+shader = ExtResource("1_jy4id")
+shader_parameter/iterations = 10
+shader_parameter/formuparam = 1.0
+shader_parameter/volsteps = 10
+shader_parameter/stepsize = 0.2
+shader_parameter/zoom = 2.205
+shader_parameter/tile = 0.5
+shader_parameter/speed = 0.01
+shader_parameter/brightness = 0.162
+shader_parameter/distfading = 0.65
+shader_parameter/saturation = 0.75

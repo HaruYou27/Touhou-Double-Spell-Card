@@ -2,9 +2,10 @@ extends Control
 
 @onready var user_data :UserData = Global.user_data
 
+@onready var screen_effect := $ScreenEffect
 @export var player_container : Node2D
 func _ready() -> void:
-	VisualEffect.fade2black(true)
+	screen_effect.fade2black(true)
 	if Global.player1:
 		player_container.add_child(Global.player1)
 	if Global.player2:

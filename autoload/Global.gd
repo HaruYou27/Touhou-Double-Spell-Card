@@ -10,6 +10,7 @@ signal bullet_graze
 signal item_collect
 
 var hud : HUD
+var screen_effect : ScreenEffect
 var player1 : Node2D
 var player2 : Node2D
 var last_man_standing := false
@@ -24,7 +25,7 @@ const game_rect := Vector2i(540, 960)
 #######################
 
 ################ USER INTERFACE
-const main_menu := preload("res://user-interface/menu/menu.tscn")
+const main_menu := "res://user-interface/menu/menu.tscn"
 const ice_server := {
 		"iceServers": [ { "urls": [
 			"stun:stun.l.google.com:19302",
@@ -42,17 +43,6 @@ const ice_server := {
 			'stun.voipstunt.com',
 			'stun.voxgratia.org',] } ]
 	}
-
-@onready var tree := get_tree()
-func restart_scene() -> void:
-	tree.paused = false
-	var tween :Tween = VisualEffect.fade2black()
-	tween.finished.connect(tree.reload_current_scene)
-func change_scene(scene:PackedScene) -> void:
-	tree.paused = false
-	Engine.time_scale = 1.
-	var tween :Tween = VisualEffect.fade2black()
-	tween.finished.connect(tree.change_scene_to_packed.bind(scene))
 
 ##Convert an InputEvent to String.
 static func get_input_string(event:InputEvent) -> String:

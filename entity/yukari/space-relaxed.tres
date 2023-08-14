@@ -1,6 +1,6 @@
 [gd_resource type="ShaderMaterial" load_steps=2 format=3]
 
-[ext_resource type="Shader" path="res://tool/image-baker/background/shader/universe.gdshader" id="1_826t1"]
+[ext_resource type="Shader" path="res://level/space/universe.gdshader" id="1_826t1"]
 
 [resource]
 shader = ExtResource("1_826t1")
