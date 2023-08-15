@@ -1,10 +1,12 @@
 extends CharacterBody2D
 class_name Player
 
+func set_puppet() -> void:
+	hitbox.queue_free()
+	set_process_unhandled_input(false)
+	
 func _ready() -> void:
-	if not is_multiplayer_authority():
-		hitbox.queue_free()
-		set_process_unhandled_input(false)
+	
 	
 ############## COLLISION
 @onready var death_timer := $DeathTimer
@@ -12,7 +14,7 @@ func _ready() -> void:
 func _hit() -> void:
 	hit_sfx.play()
 	hitbox.set_deferred('disabled', true)
-	Global.screen_effect.flash_red()
+	Global.leveler.screen_effect.flash_red()
 	death_timer.start()
 ####################
 
@@ -21,6 +23,7 @@ var bomb_count := 3
 @onready var sentivity := Global.user_data.sentivity
 @onready var toggle_move := Global.user_data.toggle_move
 var can_move := false
+const playground := Vector2(540.0, 852.0)
 func _input(event:InputEvent) -> void:
 	if toggle_move and event.is_action_pressed('drag'):
 		can_move = not can_move
@@ -30,8 +33,8 @@ func _input(event:InputEvent) -> void:
 	
 	if (event is InputEventMouseMotion and can_move) or event is InputEventScreenDrag:
 		global_position += event.relative * sentivity
-		global_position.x = clamp(global_position.x, 0.0, global.playground.x)
-		global_position.y = clamp(global_position.y, 0.0, global.playground.y)
+		global_position.x = clamp(global_position.x, 0.0, playground.x)
+		global_position.y = clamp(global_position.y, 0.0, playground.y)
 		
 		if is_multiplayer_authority():
 			rpc('_update_position', global_position)
@@ -68,7 +71,6 @@ func _bomb_finished() -> void:
 #####################
 @onready var death_sfx := $DeathSFX
 @onready var death_fx := $explosion
-@export var sprite : AnimatedSprite2D
 func _on_death_timer_timeout():
 	Global.leveler.screen_effect.hide()
 	rpc("_sync_death")
@@ -76,14 +78,14 @@ func _on_death_timer_timeout():
 	if Global.player2 and not Global.last_man_standing:
 		Global.hud.player_died()
 	else:
-		Global.restart_scene()
+		Global.leveler.restart()
 		
 @rpc("reliable", "call_local")
 func _sync_death() -> void:
 	process_mode = Node.PROCESS_MODE_DISABLED
 	death_fx.emitting = true
 	death_sfx.play()
-	sprite.hide()
+	hide()
 	Global.last_man_standing = true
 
 @onready var revive_fx := $ReviveSFX
@@ -98,12 +100,18 @@ func revive() -> void:
 		return
 	rpc("_sync_revive")
 	
+@onready var spawn_pos := position
 @rpc("reliable", "call_local")
 func _sync_revive() -> void:
 	process_mode = Node.PROCESS_MODE_INHERIT
-	sprite.show()
+	show()
 	recover_timer.start()
 	modulate = Color(Color.WHITE, .5)
+	position = spawn_pos
 	
 	Global.last_man_standing = false
+	
+func restart() -> void:
+	rpc("_sync_revive")
+	bomb_count = 3
 	

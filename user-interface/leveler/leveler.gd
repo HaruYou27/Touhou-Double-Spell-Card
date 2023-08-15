@@ -1,15 +1,17 @@
 extends Control
+class_name Leveler
 
 @onready var user_data :UserData = Global.user_data
 
 @onready var screen_effect := $ScreenEffect
-@export var player_container : Node2D
 func _ready() -> void:
 	screen_effect.fade2black(true)
+	Global.leveler = self
+	var root := get_parent()
 	if Global.player1:
-		player_container.add_child(Global.player1)
+		root.add_child.call_deferred(Global.player1)
 	if Global.player2:
-		player_container.add_child(Global.player2)
+		root.add_child.call_deferred(Global.player2)
 		if is_multiplayer_authority():
 			sync_start()
 	else:
@@ -24,7 +26,7 @@ func sync_start() -> void:
 	
 @rpc("reliable")
 func game_started(host_time:int) -> void:
-	var offset := (Global.get_host_time() - host_time) / 1000.
+	var offset := (Global.get_host_time() - host_time) / 1000000.
 	var timer := get_tree().create_timer(2. - offset, true, true, true)
 	timer.timeout.connect(animator.play.bind("game"))
 
@@ -32,11 +34,10 @@ func _revive_player() -> void:
 	Global.player1.revive()
 
 func _finished() -> void:
-	Global.change_scene(global.main_menu)
+	LevelLoader.load_scene(global.main_menu)
 	
-# Avoid crash when reload scene
-func _exit_tree() -> void:
-	ItemManager.clear()
-	Global.player1 = load(Global.player1.scene_file_path).instantiate()
-	if Global.player2:
-		Global.player2 = load(Global.player2.scene_file_path).instantiate()
+@onready var tree := get_tree()
+@rpc("any_peer", "call_local")
+func restart() -> void:
+	tree.call_group("Bullet Manager", "clear")
+	Global.player1.restart()

@@ -34,6 +34,9 @@ func _on_enter_pressed() -> void:
 
 @rpc("reliable", "call_local")
 func start_game() -> void:
+	Global.player1.get_parent().remove_child(Global.player1)
+	if Global.player2:
+		Global.player2.get_parent().remove_child(Global.player2)
 	LevelLoader.load_scene(preview.get_current_tab_control().get_meta("level"))
 	
 @rpc("reliable")

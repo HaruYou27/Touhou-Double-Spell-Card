@@ -12,6 +12,7 @@ config_version=5
 
 config/name="Touhou Double Spell Card"
 config/description="Why i make bullet shmups game."
+run/main_scene="res://user-interface/menu/quick_load.tscn"
 config/features=PackedStringArray("4.1")
 run/max_fps=60
 

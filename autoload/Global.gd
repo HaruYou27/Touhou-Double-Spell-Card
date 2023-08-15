@@ -10,18 +10,12 @@ signal bullet_graze
 signal item_collect
 
 var hud : HUD
-var screen_effect : ScreenEffect
+var leveler : Leveler
 var player1 : Node2D
 var player2 : Node2D
 var last_man_standing := false
 func _peer_disconnected() -> void:
 	player2 = null
-
-##Play area rectangle.
-const playground := Vector2i(540, 852)
-
-##Default resolution.
-const game_rect := Vector2i(540, 960)
 #######################
 
 ################ USER INTERFACE
@@ -65,19 +59,19 @@ static func get_input_string(event:InputEvent) -> String:
 ##Difference in absolute time between the two clocks.
 var offset := 0
 func sync_clock() -> void:
-	offset = Time.get_ticks_msec()
+	offset = Time.get_ticks_usec()
 	rpc('sync_host_clock')
 	
 @rpc("reliable", "any_peer")
 func sync_host_clock() -> void:
-	rpc('calculate_offset', Time.get_ticks_msec())
+	rpc('calculate_offset', Time.get_ticks_usec())
 	
 @rpc("reliable")
 func calculate_offset(host_time:int) -> void:
-	offset = host_time - ((Time.get_ticks_msec() - offset) / 2)
+	offset = host_time - ((Time.get_ticks_usec() - offset) / 2)
 	
 func get_host_time() -> int:
-	return Time.get_ticks_msec() + offset
+	return Time.get_ticks_usec() + offset
 ###########
 
 ########## USER CONFIG

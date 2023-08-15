@@ -26,7 +26,7 @@
 [ext_resource type="PackedScene" uid="uid://c7lcs65yc2vea" path="res://level/misty-lake/enemy/fairy-unarmed2.tscn" id="23_i2700"]
 [ext_resource type="Shader" path="res://level/misty-lake/reflection.gdshader" id="24_aykys"]
 [ext_resource type="PackedScene" uid="uid://uiwkegjhrq51" path="res://level/misty-lake/fog_overlay.tscn" id="25_egtn7"]
-[ext_resource type="PackedScene" uid="uid://bfvb372sca8m2" path="res://level/leveler/leveler.tscn" id="26_n1dlt"]
+[ext_resource type="PackedScene" uid="uid://bfvb372sca8m2" path="res://user-interface/leveler/leveler.tscn" id="26_n1dlt"]
 [ext_resource type="AudioStream" uid="uid://bt7vy6thn8yac" path="res://level/misty-lake/resource/guava-mono.ogg" id="27_4i2xy"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_r8js3"]
@@ -1279,6 +1279,7 @@ stretch = true
 
 [node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
 handle_input_locally = false
+canvas_item_default_texture_repeat = 1
 size = Vector2i(540, 960)
 render_target_update_mode = 4
 
@@ -1305,7 +1306,7 @@ graphic_level = 2
 
 [node name="CystalDrop1" type="Node2D" parent="."]
 
-[node name="CystalBullet" type="Node2D" parent="CystalDrop1"]
+[node name="CystalBullet" type="Node2D" parent="CystalDrop1" groups=["Bullet Manager"]]
 z_index = 100
 material = SubResource("ShaderMaterial_w081n")
 script = ExtResource("8_f6fcj")
@@ -1392,7 +1393,7 @@ time = 4.0
 process_mode = 4
 visible = false
 
-[node name="TrackingBullet" type="Node2D" parent="Tracking2"]
+[node name="TrackingBullet" type="Node2D" parent="Tracking2" groups=["Bullet Manager"]]
 z_index = 100
 material = SubResource("ShaderMaterial_2rgkm")
 scale = Vector2(0.5, 0.5)
@@ -1586,7 +1587,7 @@ texture = ExtResource("17_2fadj")
 
 [node name="barrel" parent="BigHpFairy3/Fairy/TopMiddle/visual" instance=ExtResource("20_mqptk")]
 
-[node name="Bullet-" type="Node2D" parent="BigHpFairy3"]
+[node name="Bullet-" type="Node2D" parent="BigHpFairy3" groups=["Bullet Manager"]]
 z_index = 100
 material = SubResource("ShaderMaterial_d3uy2")
 scale = Vector2(0.5, 0.5)
@@ -1597,7 +1598,7 @@ speed = 372.0
 hitbox = ExtResource("21_lvtat")
 collision_mask = 5
 
-[node name="Bullet+" type="Node2D" parent="BigHpFairy3"]
+[node name="Bullet+" type="Node2D" parent="BigHpFairy3" groups=["Bullet Manager"]]
 z_index = 100
 material = SubResource("ShaderMaterial_kukqw")
 scale = Vector2(0.5, 0.5)
@@ -1711,9 +1712,6 @@ position = Vector2(88.6195, -61.0539)
 wait_time = 0.5
 autostart = true
 
-[node name="player" type="Node2D" parent="."]
-position = Vector2(269, 799)
-
 [node name="BackBufferCopy" type="Node2D" parent="."]
 z_index = 2000
 script = ExtResource("3_00q44")
@@ -1728,8 +1726,7 @@ centered = false
 modulate = Color(1, 1, 1, 0)
 z_index = 3000
 
-[node name="level" parent="." node_paths=PackedStringArray("player_container", "animator") instance=ExtResource("26_n1dlt")]
-player_container = NodePath("../player")
+[node name="level" parent="." node_paths=PackedStringArray("animator") instance=ExtResource("26_n1dlt")]
 animator = NodePath("../AnimationPlayer")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]

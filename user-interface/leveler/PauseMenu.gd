@@ -12,14 +12,7 @@ func _on_Quit_pressed() -> void:
 	
 @rpc("any_peer", "call_local")
 func quit() -> void:
-	Global.change_scene(global.main_menu)
-
-func _on_restart_pressed():
-	rpc('restart')
-	
-@rpc("any_peer", "call_local")
-func restart() -> void:
-	Global.restart_scene()
+	LevelLoader.load_scene(global.main_menu)
 
 func _on_pause_pressed():
 	show()

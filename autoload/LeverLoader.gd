@@ -1,27 +1,23 @@
 extends Control
 
-func _ready() -> void:
-	set_process(false)
-
-var resource_path : String
 func load_scene(path:String) -> void:
 	show()
-	resource_path = path
-	ResourceLoader.load_threaded_request(path, "PackedScene", true)
-	set_process(true)
-	progess_bar.value = 0
-	
-var tree := get_tree()
+	scene.queue_free()
+	progess_bar.value = 25.0
+	task_id = WorkerThreadPool.add_task(_instance_scene.bind(path))
+
 @onready var progess_bar := $ProgressBar
-var percentage := []
-var tick := true
-func _process(_delta) -> void:
-	tick = not tick
-	if tick:
-		return
+func _instance_scene(path:String) -> void:
+	var packed : PackedScene = load(path)
+	progess_bar.set_value.call_deferred(50.0)
+	scene = packed.instantiate()
+	progess_bar.set_value.call_deferred(75.0)
+	_finished.call_deferred()
 	
-	if ResourceLoader.load_threaded_get_status(resource_path, percentage):
-		tree.change_scene_to_packed(ResourceLoader.load_threaded_get(resource_path))
-		hide()
-	else:
-		progess_bar.value = percentage.back()
+var task_id := 0
+@onready var root : Window = get_tree().root
+var scene : Node
+func _finished() -> void:
+	WorkerThreadPool.wait_for_task_completion(task_id)
+	root.add_child(scene)
+	hide()

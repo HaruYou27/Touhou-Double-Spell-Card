@@ -171,9 +171,9 @@ height = 32.0
 
 [node name="Reimu" type="Node2D"]
 
-[node name="Player" parent="." node_paths=PackedStringArray("hitbox", "sprite") instance=ExtResource("4_ftqh1")]
+[node name="Player" parent="." node_paths=PackedStringArray("hitbox") instance=ExtResource("4_ftqh1")]
+position = Vector2(153, 807)
 hitbox = NodePath("Hitbox")
-sprite = NodePath("ReimuSprite")
 
 [node name="ReimuSprite" parent="Player" instance=ExtResource("2_1gpls")]
 position = Vector2(0, 8)
@@ -256,7 +256,7 @@ libraries = {
 "": SubResource("AnimationLibrary_fwlhc")
 }
 
-[node name="bullet" type="Node2D" parent="."]
+[node name="bullet" type="Node2D" parent="." groups=["Bullet Manager"]]
 z_index = 1
 material = SubResource("ShaderMaterial_v1vkg")
 script = ExtResource("13_g7t8t")

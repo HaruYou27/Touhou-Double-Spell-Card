@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://cmqcue4x2exyv" path="res://entity/player/reimu/resource/Yin-Yang-orb.svg" id="3_p17iu"]
 
 [node name="Loading" type="Control"]
+process_mode = 3
 visible = false
 layout_mode = 3
 anchors_preset = 15

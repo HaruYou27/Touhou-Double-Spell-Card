@@ -18,8 +18,8 @@ func _on_title_item_selected(index:int) -> void:
 	characters.current_tab = index
 	set_character()
 
-func set_character(_idx:=0) -> void:
-	Global.player1 = characters.get_child(characters.current_tab).get_meta('scene').instantiate()
+func set_character() -> void:
+	Global.player1 = characters.get_child(characters.current_tab).get_child(0)
 	var id := multiplayer.get_unique_id()
 	Global.player1.name = str(id)
 	Global.player1.set_multiplayer_authority(id)
@@ -28,6 +28,6 @@ func set_character(_idx:=0) -> void:
 @rpc('reliable', "any_peer")
 func set_p2_character(index:int) -> void:
 	var id := multiplayer.get_remote_sender_id()
-	Global.player2 = characters.get_child(index).get_meta('scene').instantiate()
+	Global.player2 = characters.get_child(index).get_child(0)
 	Global.player2.name = str(id)
 	Global.player2.set_multiplayer_authority(id)
