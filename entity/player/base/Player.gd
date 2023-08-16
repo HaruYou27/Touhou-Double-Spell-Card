@@ -1,21 +1,26 @@
 extends CharacterBody2D
 class_name Player
 
-func set_puppet() -> void:
+func _ready() -> void:
+	if is_multiplayer_authority():
+		Global.player1 = self
+		return
+	
+	Global.player2 = self
 	hitbox.queue_free()
 	set_process_unhandled_input(false)
-	
-func _ready() -> void:
-	
 	
 ############## COLLISION
 @onready var death_timer := $DeathTimer
 @onready var hit_sfx := $HitSFX
+@onready var tree := get_tree()
 func _hit() -> void:
 	hit_sfx.play()
 	hitbox.set_deferred('disabled', true)
 	Global.leveler.screen_effect.flash_red()
 	death_timer.start()
+	if not Global.player2:
+		tree.paused = true
 ####################
 
 var can_bomb := true

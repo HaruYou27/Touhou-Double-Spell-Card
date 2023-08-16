@@ -2,16 +2,13 @@ extends Node2D
 
 @onready var animator := $AnimationPlayer
 @onready var rays : Array[RayCast2D]
-@onready var beams : Array[Line2D]
+@onready var beam := $Beam
 func _ready():
 	rays.append($RayCast2D)
 	rays.append_array(rays[0].get_children())
 	
-	beams.append($beam)
-	beams.append_array(beams[0].get_children())
-	
-@onready var beam_particle : GPUParticles2D = $beam/glow/BeamParticle
-@onready var collision_particle := $beam/glow/CollisionParticle
+@onready var beam_particle := $Beam/BeamParticle
+@onready var collision_particle := $Beam/CollisionParticle
 var cooldown := .0
 func _physics_process(delta:float) -> void:
 	if cooldown >= 0:
@@ -22,8 +19,7 @@ func _physics_process(delta:float) -> void:
 			var collider := ray.get_collider()
 			collision_particle.show()
 			collision_particle.global_position.y = collider.global_position.y
-			for beam in beams:
-				beam.points[1].y = collision_particle.position.y
+			beam.points[1].y = collision_particle.position.y
 			beam_particle.position.y = collision_particle.position.y / 2
 			beam_particle.process_material.emission_box_extents.y = beam_particle.position.y
 			
@@ -33,8 +29,7 @@ func _physics_process(delta:float) -> void:
 			return
 		else:
 			collision_particle.hide()
-			for beam in beams:
-				beam.points[1].y = -960
+			beam.points[1].y = -960
 			beam_particle.position.y = -480
 			beam_particle.process_material.emission_box_extents.y = -960
 			

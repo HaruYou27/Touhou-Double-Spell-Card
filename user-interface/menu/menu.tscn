@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://bn5nhkofewyh8"]
+[gd_scene load_steps=56 format=3 uid="uid://bn5nhkofewyh8"]
 
 [ext_resource type="Theme" uid="uid://dotibkyt5mm7v" path="res://user-interface/menu/theme/menu.tres" id="1_tnrbu"]
 [ext_resource type="Texture2D" uid="uid://bgh4r80tk5o7v" path="res://level/misty-lake/resource/water-noise.tres" id="2_57hu4"]
@@ -9,11 +9,19 @@
 [ext_resource type="PackedScene" uid="uid://bsf3tthvg8rot" path="res://user-interface/menu/settings/reset.tscn" id="5_nrino"]
 [ext_resource type="Script" path="res://user-interface/control-node/SFXToggler.gd" id="5_vnfn8"]
 [ext_resource type="Script" path="res://user-interface/menu/settings/audio.gd" id="6_8l51l"]
+[ext_resource type="Shader" path="res://entity/resource/UberItem.gdshader" id="7_6nm3o"]
+[ext_resource type="Script" path="res://entity/player/reimu/Seeker.gd" id="8_7aax7"]
 [ext_resource type="Script" path="res://user-interface/control-node/PercentageSlider.gd" id="8_b5jhj"]
+[ext_resource type="Texture2D" uid="uid://cu2ufhkx3vayf" path="res://entity/player/reimu/resource/ofuda.png" id="9_f05ce"]
+[ext_resource type="PackedScene" uid="uid://ffnff8ahyxxn" path="res://entity/player/reimu/reimu-sprite.tscn" id="10_dtu3c"]
+[ext_resource type="PackedScene" uid="uid://bsa0xvb26o22u" path="res://entity/player/reimu/yinyang-orb.tscn" id="11_uxxtn"]
+[ext_resource type="PackedScene" uid="uid://cw6ldgxnk6nf3" path="res://entity/player/marisa/marisa-sprite.tscn" id="12_3ecnw"]
+[ext_resource type="Material" uid="uid://dox27ncd2r5o3" path="res://entity/resource/glow.tres" id="13_a8eu6"]
 [ext_resource type="Script" path="res://user-interface/menu/character/character.gd" id="13_rskvb"]
+[ext_resource type="Texture2D" uid="uid://d2wacgirqsjjn" path="res://entity/resource/white-trans.tres" id="14_kjkl8"]
 [ext_resource type="Shortcut" uid="uid://xs30oatyn1i6" path="res://user-interface/resource/shortcut/enter.tres" id="14_nwuco"]
-[ext_resource type="PackedScene" uid="uid://bk08ga1mfcleb" path="res://entity/player/reimu/reimu.tscn" id="16_o0h3l"]
-[ext_resource type="PackedScene" uid="uid://of6l83moa38k" path="res://entity/player/marisa/marisa.tscn" id="23_kf20h"]
+[ext_resource type="Texture2D" uid="uid://dxsf3vpqsosf1" path="res://entity/enemy/phantom/fire_particle.png" id="15_u2hgl"]
+[ext_resource type="Script" path="res://entity/utility/Particles2D.gd" id="16_e2ojm"]
 [ext_resource type="Script" path="res://user-interface/menu/settings/controls.gd" id="24_hwgke"]
 [ext_resource type="Script" path="res://user-interface/menu/EnetHost.gd" id="26_wbk6w"]
 [ext_resource type="Script" path="res://user-interface/menu/EnetJoin.gd" id="27_1hjwn"]
@@ -103,6 +111,90 @@ corner_radius_top_right = 10
 corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
 corner_detail = 4
+
+[sub_resource type="Gradient" id="Gradient_561th"]
+interpolation_mode = 1
+offsets = PackedFloat32Array(0.376147)
+colors = PackedColorArray(1, 0.4, 0.4, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_obk0t"]
+gradient = SubResource("Gradient_561th")
+width = 1
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_v1vkg"]
+shader = ExtResource("7_6nm3o")
+shader_parameter/time_scale = 1.0
+shader_parameter/blinking = null
+shader_parameter/color_map = SubResource("GradientTexture1D_obk0t")
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_jbjdf"]
+radius = 270.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_vc5mj"]
+radius = 8.0
+height = 32.0
+
+[sub_resource type="Shader" id="Shader_ppfoa"]
+code = "shader_type canvas_item;
+#pragma disable_preprocessor
+render_mode blend_add;
+
+uniform float time_scale = 1.0;
+uniform sampler2D color_map : repeat_enable, filter_nearest;
+
+varying vec2 uv;
+void vertex()
+{
+	//shift color through time across color map - mix it with white color.
+	uv = vec2(TIME * time_scale);
+}
+void fragment()
+{
+	COLOR.rgb = mix(texture(color_map, uv).rgb, vec3(1.), COLOR.r);
+}"
+
+[sub_resource type="Gradient" id="Gradient_nn53k"]
+interpolation_color_space = 2
+offsets = PackedFloat32Array(0, 0.532468, 1)
+colors = PackedColorArray(0, 0.416667, 1, 1, 1, 0.666667, 0, 1, 0, 0.415686, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_k8r5t"]
+gradient = SubResource("Gradient_nn53k")
+width = 16
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2swgb"]
+shader = SubResource("Shader_ppfoa")
+shader_parameter/time_scale = 0.5
+shader_parameter/color_map = SubResource("GradientTexture1D_k8r5t")
+
+[sub_resource type="Gradient" id="Gradient_8pqvy"]
+offsets = PackedFloat32Array(0, 0.345794, 0.64486, 1)
+colors = PackedColorArray(0, 0, 0, 0, 0.466181, 0.466181, 0.466181, 1, 0.466667, 0.466667, 0.466667, 1, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_u5d4h"]
+gradient = SubResource("Gradient_8pqvy")
+width = 960
+height = 470
+fill_to = Vector2(0, 1)
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_rvtdp"]
+emission_shape = 3
+emission_box_extents = Vector3(40, -480, 0)
+particle_flag_disable_z = true
+direction = Vector3(0, 1, 0)
+spread = 0.0
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 42.25
+initial_velocity_max = 126.75
+angular_velocity_min = 111.55
+angular_velocity_max = 273.8
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+scale_min = 0.1
+scale_max = 0.2
+color = Color(0.254902, 0.419608, 0.94902, 1)
+color_ramp = ExtResource("14_kjkl8")
+hue_variation_max = 0.13
 
 [sub_resource type="Animation" id="Animation_o46ky"]
 length = 0.001
@@ -222,6 +314,10 @@ tabs_visible = false
 layout_mode = 2
 metadata/level = &"res://level/misty-lake/misty-lake.tscn"
 
+[node name="DreamWorld" type="Control" parent="TabContainer/play/Level/Preview"]
+visible = false
+layout_mode = 2
+
 [node name="LevelList" type="OptionButton" parent="TabContainer/play/Level"]
 layout_mode = 2
 alignment = 1
@@ -316,21 +412,98 @@ layout_mode = 2
 script = ExtResource("13_rskvb")
 
 [node name="Preview" type="TabContainer" parent="TabContainer/play/Character"]
+z_index = -1
 texture_filter = 1
 layout_mode = 2
 tabs_visible = false
 
 [node name="Reimu" type="Control" parent="TabContainer/play/Character/Preview"]
-z_index = 1
 layout_mode = 2
+metadata/path = &"res://entity/player/reimu/reimu.tscn"
 
-[node name="Reimu" parent="TabContainer/play/Character/Preview/Reimu" instance=ExtResource("16_o0h3l")]
+[node name="Reimu" type="Node2D" parent="TabContainer/play/Character/Preview/Reimu"]
+position = Vector2(270, 651)
+scale = Vector2(2, 2)
+
+[node name="ReimuSprite" parent="TabContainer/play/Character/Preview/Reimu/Reimu" instance=ExtResource("10_dtu3c")]
+position = Vector2(0, 0)
+
+[node name="Timer" type="Timer" parent="TabContainer/play/Character/Preview/Reimu/Reimu"]
+wait_time = 0.2
+autostart = true
+
+[node name="barrel" type="Node2D" parent="TabContainer/play/Character/Preview/Reimu/Reimu"]
+
+[node name="YinyangOrb" parent="TabContainer/play/Character/Preview/Reimu/Reimu/barrel" groups=["Player Barrel"] instance=ExtResource("11_uxxtn")]
+position = Vector2(72, 0)
+rotation = -1.5708
+flip_v = true
+
+[node name="YinyangOrb2" parent="TabContainer/play/Character/Preview/Reimu/Reimu/barrel" groups=["Player Barrel"] instance=ExtResource("11_uxxtn")]
+texture_filter = 1
+position = Vector2(-72, 0)
+rotation = -1.5708
+flip_h = false
+
+[node name="Marker2D" type="Marker2D" parent="TabContainer/play/Character/Preview/Reimu/Reimu/barrel" groups=["Player Barrel"]]
+position = Vector2(13.0002, -39.9999)
+rotation = -1.5708
+gizmo_extents = 51.7
+
+[node name="Position2D2" type="Marker2D" parent="TabContainer/play/Character/Preview/Reimu/Reimu/barrel" groups=["Player Barrel"]]
+position = Vector2(-13, -40)
+rotation = -1.5708
+gizmo_extents = 82.9
+
+[node name="bullet" type="Node2D" parent="TabContainer/play/Character/Preview/Reimu" groups=["Bullet Manager"]]
+z_index = 1
+material = SubResource("ShaderMaterial_v1vkg")
+scale = Vector2(2, 2)
+script = ExtResource("8_7aax7")
+seek_shape = SubResource("CircleShape2D_jbjdf")
+texture = ExtResource("9_f05ce")
+barrelGroup = "Player Barrel"
+speed = 727.0
+grazable = false
+hitbox = SubResource("CapsuleShape2D_vc5mj")
+collision_mask = 3
 
 [node name="Marisa" type="Control" parent="TabContainer/play/Character/Preview"]
 visible = false
 layout_mode = 2
 
-[node name="Marisa" parent="TabContainer/play/Character/Preview/Marisa" instance=ExtResource("23_kf20h")]
+[node name="Marisa" type="Node2D" parent="TabContainer/play/Character/Preview/Marisa"]
+texture_filter = 1
+position = Vector2(270, 657)
+scale = Vector2(2, 2)
+
+[node name="marisa" parent="TabContainer/play/Character/Preview/Marisa/Marisa" instance=ExtResource("12_3ecnw")]
+
+[node name="Beam" type="Line2D" parent="TabContainer/play/Character/Preview/Marisa/Marisa"]
+texture_filter = 1
+texture_repeat = 2
+material = SubResource("ShaderMaterial_2swgb")
+position = Vector2(1, -127.5)
+points = PackedVector2Array(0, 0, 0, -960)
+width = 128.0
+texture = SubResource("GradientTexture2D_u5d4h")
+texture_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
+sharp_limit = 0.0
+round_precision = 16
+
+[node name="BeamParticle" type="GPUParticles2D" parent="TabContainer/play/Character/Preview/Marisa/Marisa/Beam"]
+z_index = 3000
+z_as_relative = false
+material = ExtResource("13_a8eu6")
+position = Vector2(0, -422)
+amount = 128
+process_material = SubResource("ParticleProcessMaterial_rvtdp")
+texture = ExtResource("15_u2hgl")
+visibility_rect = Rect2(-270, 480, 540, -960)
+draw_order = 0
+script = ExtResource("16_e2ojm")
 
 [node name="title" type="OptionButton" parent="TabContainer/play/Character"]
 layout_mode = 2
@@ -824,6 +997,7 @@ script = ExtResource("34_wrdal")
 
 [connection signal="item_selected" from="TabContainer/play/Level/LevelList" to="TabContainer/play/Level" method="_on_level_list_item_selected"]
 [connection signal="pressed" from="TabContainer/play/Level/enter" to="TabContainer/play/Level" method="_on_enter_pressed" flags=6]
+[connection signal="timeout" from="TabContainer/play/Character/Preview/Reimu/Reimu/Timer" to="TabContainer/play/Character/Preview/Reimu/bullet" method="spawn_bullet" flags=18]
 [connection signal="item_selected" from="TabContainer/play/Character/title" to="TabContainer/play/Character" method="_on_title_item_selected"]
 [connection signal="pressed" from="TabContainer/play/Character/HBoxContainer/previous" to="TabContainer/play/Character" method="_change_character" binds= [false]]
 [connection signal="pressed" from="TabContainer/play/Character/HBoxContainer/next" to="TabContainer/play/Character" method="_change_character" binds= [true]]

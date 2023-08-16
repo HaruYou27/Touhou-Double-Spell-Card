@@ -235,5 +235,6 @@ script = ExtResource("6_nikbp")
 [connection signal="timeout" from="hud/VBoxContainer/HBoxContainer/Timer" to="hud/VBoxContainer/HBoxContainer/ping" method="_on_timer_timeout"]
 [connection signal="timeout" from="hud/VBoxContainer/HBoxContainer/Timer" to="hud/VBoxContainer/HBoxContainer/fps" method="_on_timer_timeout"]
 [connection signal="pressed" from="PauseMenu/VBoxContainer/Resume" to="PauseMenu" method="_on_Resume_pressed"]
-[connection signal="pressed" from="PauseMenu/VBoxContainer/Restart" to="PauseMenu" method="_on_restart_pressed" flags=6]
+[connection signal="pressed" from="PauseMenu/VBoxContainer/Restart" to="." method="restart"]
+[connection signal="pressed" from="PauseMenu/VBoxContainer/Restart" to="PauseMenu" method="hide"]
 [connection signal="pressed" from="PauseMenu/VBoxContainer/Quit" to="PauseMenu" method="_on_Quit_pressed" flags=6]

@@ -267,7 +267,6 @@ speed = 727.0
 grazable = false
 hitbox = SubResource("CapsuleShape2D_vc5mj")
 collide_with_areas = true
-collide_with_bodies = null
 collision_mask = 3
 
 [connection signal="kaboom" from="Player" to="KishinOrb" method="_on_player_kaboom"]

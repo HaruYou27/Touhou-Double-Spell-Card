@@ -5,9 +5,6 @@ code = "shader_type canvas_item;
 #pragma disable_preprocessor
 
 uniform float time_scale;
-uniform bool alpha_offset;
-uniform bool spin;
-uniform bool sin_alpha;
 uniform sampler2D color_map;
 
 void vertex()
@@ -15,7 +12,6 @@ void vertex()
     float phi = TIME * time_scale * PI;
     VERTEX *= mat2(vec2(cos(phi),-sin(phi)),
                    vec2(sin(phi),cos(phi)));
-
 }
 void fragment()
 {
@@ -34,7 +30,4 @@ width = 2
 [resource]
 shader = SubResource("Shader_ieck5")
 shader_parameter/time_scale = 1.0
-shader_parameter/alpha_offset = false
-shader_parameter/spin = true
-shader_parameter/sin_alpha = false
 shader_parameter/color_map = SubResource("GradientTexture1D_obk0t")

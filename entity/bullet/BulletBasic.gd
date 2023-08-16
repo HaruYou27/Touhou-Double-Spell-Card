@@ -98,7 +98,7 @@ func collide(result:Dictionary) -> bool:
 		
 	if collider is Player:
 		collider._hit()
-		return false
+		return true
 		
 	#Hit Player spellcard
 	#Turn into an item.
