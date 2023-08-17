@@ -14,6 +14,7 @@ func _ready() -> void:
 @onready var death_timer := $DeathTimer
 @onready var hit_sfx := $HitSFX
 @onready var tree := get_tree()
+@export var sprite : Node2D
 func _hit() -> void:
 	hit_sfx.play()
 	hitbox.set_deferred('disabled', true)
@@ -90,7 +91,7 @@ func _sync_death() -> void:
 	process_mode = Node.PROCESS_MODE_DISABLED
 	death_fx.emitting = true
 	death_sfx.play()
-	hide()
+	sprite.hide()
 	Global.last_man_standing = true
 
 @onready var revive_fx := $ReviveSFX
@@ -109,14 +110,9 @@ func revive() -> void:
 @rpc("reliable", "call_local")
 func _sync_revive() -> void:
 	process_mode = Node.PROCESS_MODE_INHERIT
-	show()
+	sprite.show()
 	recover_timer.start()
 	modulate = Color(Color.WHITE, .5)
 	position = spawn_pos
 	
 	Global.last_man_standing = false
-	
-func restart() -> void:
-	rpc("_sync_revive")
-	bomb_count = 3
-	

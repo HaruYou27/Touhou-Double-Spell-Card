@@ -18,7 +18,7 @@ func _reclaim_follower(follower:Node) -> void:
 @export var mirror := false
 @export var reverse := false
 var tick := false
-func spawn_enemy():
+func spawn_enemy() -> void:
 	if available.is_empty():
 		return
 	var follower : PathFollower2D = available.pop_back()
@@ -31,7 +31,7 @@ func spawn_enemy():
 
 @export var barrel_group : StringName
 var barrels := []
-func _transform_barrel():
+func _transform_barrel() -> void:
 	for barrel in barrels:
 		if barrel.is_visible_in_tree():
 			barrel.transform_barrel()

@@ -222,12 +222,12 @@ void fragment()
 
 [sub_resource type="Gradient" id="Gradient_nn53k"]
 interpolation_color_space = 2
-offsets = PackedFloat32Array(0, 0.532468, 1)
-colors = PackedColorArray(0, 0.416667, 1, 1, 1, 0.666667, 0, 1, 0, 0.415686, 1, 1)
+offsets = PackedFloat32Array(0, 0.5, 1)
+colors = PackedColorArray(0, 0.6, 1, 1, 0.483333, 1, 0, 1, 0, 0.6, 1, 1)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_k8r5t"]
 gradient = SubResource("Gradient_nn53k")
-width = 16
+width = 32
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_2swgb"]
 shader = SubResource("Shader_ppfoa")
@@ -310,7 +310,7 @@ round_precision = 16
 z_index = 3000
 z_as_relative = false
 material = ExtResource("6_jefjk")
-position = Vector2(0, -859)
+position = Vector2(-1, -1001)
 process_material = SubResource("ParticleProcessMaterial_pud3s")
 texture = ExtResource("8_wltid")
 speed_scale = 2.0

@@ -1279,13 +1279,13 @@ stretch = true
 
 [node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
 handle_input_locally = false
+canvas_item_default_texture_filter = 0
 canvas_item_default_texture_repeat = 1
 size = Vector2i(540, 960)
 render_target_update_mode = 4
 
 [node name="background" type="Sprite2D" parent="SubViewportContainer/SubViewport"]
 z_index = -100
-texture_repeat = 2
 material = SubResource("ShaderMaterial_r8js3")
 texture = ExtResource("3_l3dc8")
 centered = false
@@ -1306,7 +1306,7 @@ graphic_level = 2
 
 [node name="CystalDrop1" type="Node2D" parent="."]
 
-[node name="CystalBullet" type="Node2D" parent="CystalDrop1" groups=["Bullet Manager"]]
+[node name="CystalBullet" type="Node2D" parent="CystalDrop1"]
 z_index = 100
 material = SubResource("ShaderMaterial_w081n")
 script = ExtResource("8_f6fcj")
@@ -1393,7 +1393,7 @@ time = 4.0
 process_mode = 4
 visible = false
 
-[node name="TrackingBullet" type="Node2D" parent="Tracking2" groups=["Bullet Manager"]]
+[node name="TrackingBullet" type="Node2D" parent="Tracking2"]
 z_index = 100
 material = SubResource("ShaderMaterial_2rgkm")
 scale = Vector2(0.5, 0.5)
@@ -1587,7 +1587,7 @@ texture = ExtResource("17_2fadj")
 
 [node name="barrel" parent="BigHpFairy3/Fairy/TopMiddle/visual" instance=ExtResource("20_mqptk")]
 
-[node name="Bullet-" type="Node2D" parent="BigHpFairy3" groups=["Bullet Manager"]]
+[node name="Bullet-" type="Node2D" parent="BigHpFairy3"]
 z_index = 100
 material = SubResource("ShaderMaterial_d3uy2")
 scale = Vector2(0.5, 0.5)
@@ -1598,7 +1598,7 @@ speed = 372.0
 hitbox = ExtResource("21_lvtat")
 collision_mask = 5
 
-[node name="Bullet+" type="Node2D" parent="BigHpFairy3" groups=["Bullet Manager"]]
+[node name="Bullet+" type="Node2D" parent="BigHpFairy3"]
 z_index = 100
 material = SubResource("ShaderMaterial_kukqw")
 scale = Vector2(0.5, 0.5)

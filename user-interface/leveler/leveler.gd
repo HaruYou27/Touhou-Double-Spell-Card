@@ -5,16 +5,18 @@ class_name Leveler
 
 @onready var screen_effect := $ScreenEffect
 func _ready() -> void:
+	tree.paused = false
 	screen_effect.fade2black(true)
 	Global.leveler = self
-	start()
-	
+	rpc('start')
+
+@rpc("reliable", "any_peer", "call_local")
 func start() -> void:
 	if is_multiplayer_authority():
 		rpc('_sync_start', Time.get_ticks_msec())
 		var timer := get_tree().create_timer(2., true, true, true)
 		timer.timeout.connect(animator.play.bind("game"))
-		
+	
 @export var animator : AnimationPlayer
 @rpc("reliable")
 func _sync_start(host_time:int) -> void:
@@ -27,12 +29,10 @@ func _revive_player() -> void:
 
 func _finished() -> void:
 	LevelLoader.load_scene(global.main_menu)
-	
+
 @onready var tree := get_tree()
 func restart() -> void:
-	tree.paused = false
-	var tween :Tween = screen_effect.fade2black()
-	tween.finished.connect(Global.player1.restart)
-	tween.finished.connect(tree.call_group.bind("Bullet Manager", "clear"))
-	animator.stop()
-	start()
+	tree.paused = true
+	var tween : Tween = screen_effect.fade2black()
+	tween.finished.connect(LevelLoader.restart_level)
+	

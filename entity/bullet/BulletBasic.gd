@@ -70,7 +70,7 @@ func set_bullet_transform(barrel:Node2D):
 		bullet.transform = Transform2D(barrel.global_rotation + half_pi, scale, 0.0, barrel.global_position)
 			
 ## Wipe all bullets.
-func clear() -> void:
+func restart() -> void:
 	bullets.clear()
 	RenderingServer.canvas_item_clear(canvas_item)
 
@@ -114,12 +114,13 @@ func collision_check() -> void:
 	pass
 	
 var tick := false
-var task_id := 0
+## Crash if task_id = 0?
+var task_id := -45646
 func _physics_process(delta:float) -> void:
 	if bullets.is_empty():
 		return
 		
-	task_id = WorkerThreadPool.add_task(_process_bullet.bind(delta), true)
+	task_id = WorkerThreadPool.add_task(_process_bullet.bind(delta))
 	
 	var start_index := bullets.size() - 1
 	var end_index := int(bullets.size() / 2)

@@ -24,7 +24,7 @@ float when_neq(vec3 x, vec3 y)
 void fragment()
 {
 	float noise = texture(TEXTURE, wave_uv).x * wave_distortion;
-	vec2 uv = vec2(UV.x - noise, UV.y - 0.1);
+	vec2 uv = vec2(UV.x - noise, UV.y - 0.02);
 	vec3 reflect_color = texture(screen, uv).rgb;
 	vec3 background_color = texture(background, UV).rgb;
 	//Reflect color must be color from foreground and vice versa.

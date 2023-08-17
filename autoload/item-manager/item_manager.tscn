@@ -33,13 +33,15 @@ normal = Vector2(1, 0)
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_pgwb8"]
 normal = Vector2(-1, 0)
 
-[node name="ItemManager" type="Node2D" groups=["Bullet Manager"]]
+[node name="ItemManager" type="Node2D"]
 z_index = 1
 material = SubResource("ShaderMaterial_4ux2n")
 script = ExtResource("2_wca42")
 texture = ExtResource("3_kgvap")
 speed = 0.052
+grazable = false
 hitbox = SubResource("CircleShape2D_atke6")
+collision_mask = 9
 
 [node name="WorldBoundary" type="StaticBody2D" parent="."]
 collision_mask = 0

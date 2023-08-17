@@ -471,6 +471,7 @@ collision_mask = 3
 [node name="Marisa" type="Control" parent="TabContainer/play/Character/Preview"]
 visible = false
 layout_mode = 2
+metadata/path = &"res://entity/player/marisa/marisa.tscn"
 
 [node name="Marisa" type="Node2D" parent="TabContainer/play/Character/Preview/Marisa"]
 texture_filter = 1

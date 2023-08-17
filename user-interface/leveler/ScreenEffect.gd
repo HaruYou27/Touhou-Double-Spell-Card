@@ -19,8 +19,6 @@ func fade2black(reverse:=false) -> Tween:
 		color = Color(Color.BLACK, 0.0)
 		tween.tween_property(self, 'color', Color.BLACK, 1.)
 		tween.parallel().tween_method(_set_bgm_volume, bgm_volume, -60.0, 1.)
-		tween.tween_property(self, 'color', Color(Color.BLACK, 0.), .5)
-		tween.parallel().tween_method(_set_bgm_volume, -60.0, bgm_volume, .5)
 		
 	tween.finished.connect(hide)
 	return tween

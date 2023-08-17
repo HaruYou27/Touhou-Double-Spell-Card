@@ -15,7 +15,7 @@ func start() -> void:
 	tween.tween_property(self, 'progress_ratio', float(not reverse), time)
 	tween.tween_callback(emit_signal.bind("died"))
 
-func _on_enemy_died():
+func _on_enemy_died() -> void:
 	died.emit()
 	if tween:
 		tween.kill()
