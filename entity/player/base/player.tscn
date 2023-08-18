@@ -23,6 +23,7 @@ one_shot = true
 
 [node name="explosion" parent="." instance=ExtResource("2_ca3m1")]
 process_mode = 3
+amount = 16
 
 [node name="RecoverTimer" type="Timer" parent="."]
 wait_time = 2.0

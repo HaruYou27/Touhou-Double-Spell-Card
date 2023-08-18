@@ -31,8 +31,6 @@ var query := PhysicsShapeQueryParameters2D.new()
 @onready var tree := get_tree()
 ## Array of active bullets.
 var bullets : Array[Bullet] = []
-## Current bullet in physics process.
-var bullet : Bullet
 @onready var collision_graze := collision_mask + 8
 @onready var canvas_item := get_canvas_item()
 
@@ -45,30 +43,29 @@ func _ready() -> void:
 	query.collide_with_bodies = collide_with_bodies
 	
 ## Override it with your new Bullet class.
-func create_bullet() -> void:
-	bullet = Bullet.new()
+func create_bullet() -> Bullet:
+	return Bullet.new()
 	
 ## Bang
 func spawn_bullet() -> void:
 	for barrel in barrels:
 		if not barrel.is_visible_in_tree():
 			continue
-		create_bullet()
+		var bullet := create_bullet()
 		bullets.append(bullet)
-		set_bullet_transform(barrel)
+		set_bullet_transform(barrel, bullet)
 		
 		bullet.grazable = grazable
 	
 ## Capsule collision shape in Godot is vertical.
 const half_pi := PI / 2
-func set_bullet_transform(barrel:Node2D):
+func set_bullet_transform(barrel:Node2D, bullet:Bullet):
 	if localRotation:
 		bullet.velocity = Vector2(speed, 0).rotated(barrel.rotation)
 		bullet.transform = Transform2D(barrel.rotation + half_pi, scale, 0.0, barrel.global_position)
 	else:
 		bullet.velocity = Vector2(speed, 0).rotated(barrel.global_rotation)
 		bullet.transform = Transform2D(barrel.global_rotation + half_pi, scale, 0.0, barrel.global_position)
-			
 ## Wipe all bullets.
 func restart() -> void:
 	bullets.clear()
@@ -76,15 +73,15 @@ func restart() -> void:
 
 var bullet_modulate := Color.WHITE
 ## Override to change the way bullet move.
-func move(delta:float, bullete:Bullet) -> void:
-	bullete.transform.origin += bullete.velocity * delta
-	var bullet_rotation = bullete.transform.get_rotation()
+func move(delta:float, bullet:Bullet) -> void:
+	bullet.transform.origin += bullet.velocity * delta
+	var bullet_rotation = bullet.transform.get_rotation()
 	bullet_modulate.r = bullet_rotation
 	bullet_modulate.g = bullet_rotation
-	texture.draw(canvas_item, bullete.transform.origin.rotated(-bullet_rotation) / bullet.transform.get_scale(), bullet_modulate)
+	texture.draw(canvas_item, bullet.transform.origin.rotated(-bullet_rotation) / bullet.transform.get_scale(), bullet_modulate)
 
 ## Bulelt has collided with something, what to do now?
-func collide(result:Dictionary) -> bool:
+func collide(result:Dictionary, bullet:Bullet) -> bool:
 	#Return true means the bullet will still alive.
 	if int(result["linear_velocity"].x) == -1:
 		#Hit the wall.
@@ -107,31 +104,32 @@ func collide(result:Dictionary) -> bool:
 
 func _process_bullet(delta:float) -> void:
 	RenderingServer.canvas_item_clear(canvas_item)
-	for bullete in bullets.duplicate():
-		move(delta, bullete)
+	for bullet in bullets.duplicate():
+		move(delta, bullet)
 
-func collision_check() -> void:
+func collision_check(bullet:Bullet) -> void:
 	pass
 	
 var tick := false
-## Crash if task_id = 0?
-var task_id := -45646
+var task_id := 0
+var index := 0
 func _physics_process(delta:float) -> void:
 	if bullets.is_empty():
 		return
 		
-	task_id = WorkerThreadPool.add_task(_process_bullet.bind(delta))
+	task_id = WorkerThreadPool.add_task(_process_bullet.bind(delta), true)
 	
-	var start_index := bullets.size() - 1
-	var end_index := int(bullets.size() / 2)
+	var end_index := -1
 	tick = not tick
 	if tick:
-		start_index = end_index
-		end_index = -1
+		end_index = bullets.size() / 2
+		index = bullets.size()
 	
-	for index in range(start_index, end_index, -1):
-		bullet = bullets[index]
-		collision_check()
+	while index > end_index:
+		index -= 1	
+		var bullet = bullets[index]
+		
+		collision_check(bullet)
 		query.transform = bullet.transform
 		if bullet.grazable:
 			query.collision_mask = collision_graze
@@ -141,8 +139,9 @@ func _physics_process(delta:float) -> void:
 		#Since most bullet hit wall, get_rest_info provide a faster way to check (linear_velocity).
 		#Tho it did make harder to get collider object, but the bullet rarely hit the target anyways.
 		var result := world.direct_space_state.get_rest_info(query)
-		if result.is_empty() or collide(result):
+		if result.is_empty() or collide(result, bullet):
 			continue
 		#Sort from tail to head to minimize array access.
 		bullets.remove_at(index)
+	index = end_index
 	WorkerThreadPool.wait_for_task_completion(task_id)

@@ -130,11 +130,8 @@ viewport_path = NodePath("SubViewportContainer/SubViewport")
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_g5wds"]
 resource_local_to_scene = true
 shader = ExtResource("24_aykys")
-shader_parameter/water_opacity = 0.25
+shader_parameter/water_opacity = 0.8
 shader_parameter/background = SubResource("ViewportTexture_8xk5g")
-shader_parameter/wave_velocity = Vector2(0, 5)
-shader_parameter/wave_distortion = 0.05
-shader_parameter/wave_multiplyer = -7.0
 
 [sub_resource type="Animation" id="Animation_7espq"]
 length = 0.001

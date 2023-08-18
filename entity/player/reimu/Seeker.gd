@@ -13,7 +13,7 @@ func _ready() -> void:
 	seek_query.collision_mask = seek_mask;
 	super()
 
-func collide(result:Dictionary) -> bool:
+func collide(result:Dictionary, bullet:Bullet) -> bool:
 	#Return true means the bullet will still alive.
 	if int(result["linear_velocity"].x) == -1:
 		#Hit the wall.
@@ -24,16 +24,16 @@ func collide(result:Dictionary) -> bool:
 	
 	return false;
 	
-func create_bullet() -> void:
-	bullet = SeekerBullet.new()
+func create_bullet() -> Bullet:
+	return SeekerBullet.new()
 	
-func move(delta:float, bullete:Bullet) -> void:
-	if bullete.target.y:
-		bullete.velocity = (bullete.target - bullete.transform.origin).normalized() * speed
-		bullete.transform = Transform2D(bullete.velocity.angle() + half_pi, bullete.transform.origin)
-	super(delta, bullete)
+func move(delta:float, bullet:Bullet) -> void:
+	if bullet.target.y:
+		bullet.velocity = (bullet.target - bullet.transform.origin).normalized() * speed
+		bullet.transform = Transform2D(bullet.velocity.angle() + half_pi, bullet.transform.origin)
+	super(delta, bullet)
 
-func collision_check() -> void:
+func collision_check(bullet:Bullet) -> void:
 	seek_query.transform = bullet.transform
 	var seek_result = world.direct_space_state.get_rest_info(seek_query)
 	if seek_result.is_empty():
