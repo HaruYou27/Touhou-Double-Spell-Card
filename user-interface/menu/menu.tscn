@@ -572,12 +572,6 @@ visible = false
 layout_mode = 2
 script = ExtResource("24_hwgke")
 
-[node name="hold" type="CheckButton" parent="TabContainer/Settings/Controls"]
-layout_mode = 2
-focus_mode = 0
-text = "Toggle %s to move"
-script = ExtResource("5_vnfn8")
-
 [node name="drag" type="Button" parent="TabContainer/Settings/Controls"]
 layout_mode = 2
 focus_mode = 0
@@ -1003,7 +997,6 @@ script = ExtResource("34_wrdal")
 [connection signal="pressed" from="TabContainer/play/Character/HBoxContainer/previous" to="TabContainer/play/Character" method="_change_character" binds= [false]]
 [connection signal="pressed" from="TabContainer/play/Character/HBoxContainer/next" to="TabContainer/play/Character" method="_change_character" binds= [true]]
 [connection signal="item_selected" from="TabContainer/Settings/Generic/language" to="TabContainer/Settings/Generic" method="_on_language_item_selected"]
-[connection signal="toggled" from="TabContainer/Settings/Controls/hold" to="TabContainer/Settings/Controls" method="_on_hold_toggled"]
 [connection signal="pressed" from="TabContainer/Settings/Controls/drag" to="TabContainer/Settings/Controls" method="_on_drag_pressed" flags=18]
 [connection signal="pressed" from="TabContainer/Settings/Controls/bomb" to="TabContainer/Settings/Controls" method="_on_bomb_pressed" flags=18]
 [connection signal="value_changed" from="TabContainer/Settings/Controls/sentivity" to="TabContainer/Settings/Controls" method="_on_sentivity_value_changed" flags=18]

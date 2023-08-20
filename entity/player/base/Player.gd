@@ -29,36 +29,39 @@ var bomb_count := 3
 @onready var sentivity := Global.user_data.sentivity
 @onready var toggle_move := Global.user_data.toggle_move
 var can_move := false
-const playground := Vector2(540.0, 852.0)
 func _input(event:InputEvent) -> void:
-	if toggle_move and event.is_action_pressed('drag'):
-		can_move = not can_move
-		return
-	else:
-		can_move = Input.is_action_pressed("drag")
+	if (event is InputEventMouseMotion and Input.is_action_pressed("drag")):
+		move(event)
+
+	elif event is InputEventScreenDrag:
+		move(event)
+		if event.index > 1:
+			bomb()
+		
+	elif event.is_action_pressed("bomb"):
+		bomb()
 	
-	if (event is InputEventMouseMotion and can_move) or event is InputEventScreenDrag:
-		global_position += event.relative * sentivity
-		global_position.x = clamp(global_position.x, 0.0, playground.x)
-		global_position.y = clamp(global_position.y, 0.0, playground.y)
+func move(event:InputEvent) -> void:
+	global_position += event.relative * sentivity
+	global_position.x = clamp(global_position.x, 0.0, 540.0)
+	global_position.y = clamp(global_position.y, 0.0, 852.0)
+	
+	if is_multiplayer_authority():
+		rpc('_update_position', global_position)
+	
+func bomb() -> void:
+	if not (bomb_count and can_bomb):
+		return
 		
-		if is_multiplayer_authority():
-			rpc('_update_position', global_position)
+	bomb_count -= 1
+	can_bomb = false
+	Global.hud.update_bomb(bomb_count)
+	
+	if is_multiplayer_authority():
+		hitbox.set_deferred("disabled", true)
 		
-	elif Input.is_action_pressed("bomb") or event is InputEventPanGesture:
-		if not bomb_count or not can_bomb:
-			return
-		
-		bomb_count -= 1
-		can_bomb = false
-		if Global.hud:
-			Global.hud.update_bomb(bomb_count)
-		
-		if is_multiplayer_authority():
-			hitbox.set_deferred("disabled", true)
-			
-		kaboom.emit(0)
-		rpc('bomb_go_off', Time.get_ticks_msec())
+	kaboom.emit(0)
+	rpc('bomb_go_off', Time.get_ticks_msec())
 
 @rpc
 func _update_position(pos:Vector2) -> void:

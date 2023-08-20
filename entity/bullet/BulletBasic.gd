@@ -60,12 +60,14 @@ func spawn_bullet() -> void:
 ## Capsule collision shape in Godot is vertical.
 const half_pi := PI / 2
 func set_bullet_transform(barrel:Node2D, bullet:Bullet):
+	var angle := 0.0
 	if localRotation:
-		bullet.velocity = Vector2(speed, 0).rotated(barrel.rotation)
-		bullet.transform = Transform2D(barrel.rotation + half_pi, scale, 0.0, barrel.global_position)
+		angle = barrel.rotation
 	else:
-		bullet.velocity = Vector2(speed, 0).rotated(barrel.global_rotation)
-		bullet.transform = Transform2D(barrel.global_rotation + half_pi, scale, 0.0, barrel.global_position)
+		angle = barrel.global_rotation
+		
+	bullet.velocity = Vector2(speed, 0).rotated(angle)
+	bullet.transform = Transform2D(angle + half_pi, scale, 0.0, barrel.global_position)
 ## Wipe all bullets.
 func restart() -> void:
 	bullets.clear()
@@ -104,10 +106,10 @@ func collide(result:Dictionary, bullet:Bullet) -> bool:
 
 func _process_bullet(delta:float) -> void:
 	RenderingServer.canvas_item_clear(canvas_item)
-	for bullet in bullets.duplicate():
+	for bullet in bullets:
 		move(delta, bullet)
 
-func collision_check(bullet:Bullet) -> void:
+func collision_check(_bullet:Bullet) -> void:
 	pass
 	
 var tick := false
@@ -119,12 +121,13 @@ func _physics_process(delta:float) -> void:
 		
 	task_id = WorkerThreadPool.add_task(_process_bullet.bind(delta), true)
 	
-	var end_index := -1
+	var end_index := 0
 	tick = not tick
 	if tick:
 		end_index = bullets.size() / 2
 		index = bullets.size()
 	
+	var new_bullets = bullets.duplicate()
 	while index > end_index:
 		index -= 1	
 		var bullet = bullets[index]
@@ -142,6 +145,9 @@ func _physics_process(delta:float) -> void:
 		if result.is_empty() or collide(result, bullet):
 			continue
 		#Sort from tail to head to minimize array access.
-		bullets.remove_at(index)
-	index = end_index
+		new_bullets.remove_at(index)
+
 	WorkerThreadPool.wait_for_task_completion(task_id)
+	bullets = new_bullets
+	index = end_index
+	

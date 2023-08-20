@@ -20,7 +20,6 @@ enum GRAPHIC_LEVEL {
 
 @export_category("Controls")
 @export var sentivity := 1.2
-@export var toggle_move := false
 @export var raw_input := true : set = _set_raw_input
 func _set_raw_input(value:bool) -> void:
 	Input.use_accumulated_input = value
@@ -44,6 +43,4 @@ func _bind_voice(event:InputEvent) -> void:
 	voice_bind = event
 
 @export_category('User data')
-@export var shoot_type := "res://entity/Reimu/HomingShoot.tscn"
-
 @export var scores := {}

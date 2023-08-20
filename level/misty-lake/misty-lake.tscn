@@ -1265,7 +1265,7 @@ _data = {
 "game": SubResource("Animation_shi7r")
 }
 
-[node name="TestLevel" type="Node2D"]
+[node name="MistyLake" type="Node2D"]
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="."]
 z_index = -100

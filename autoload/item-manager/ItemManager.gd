@@ -21,7 +21,7 @@ func move(delta:float, item:Bullet) -> void:
 	item.transform = item.transform.rotated_local(speed)
 	super(delta, item)
 
-func collide(result:Dictionary, item:Bullet) -> bool:
+func collide(result:Dictionary, _item:Bullet) -> bool:
 	var mask = int(result["linear_velocity"].x)
 	if mask == 1:
 		return false

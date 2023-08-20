@@ -13,7 +13,7 @@ func _ready() -> void:
 	seek_query.collision_mask = seek_mask;
 	super()
 
-func collide(result:Dictionary, bullet:Bullet) -> bool:
+func collide(result:Dictionary, _bullet:Bullet) -> bool:
 	#Return true means the bullet will still alive.
 	if int(result["linear_velocity"].x) == -1:
 		#Hit the wall.
