@@ -5,19 +5,20 @@ render_mode blend_add;
 uniform float time_scale = 1.0;
 uniform sampler2D color_map;
 
-varying vec2 uv;
+varying vec3 color;
 void vertex()
 {
 	//Offset vertex to the center of the image.
 	VERTEX -= 0.5 / TEXTURE_PIXEL_SIZE;
 	
 	float time = TIME * time_scale;
-	//Offset time by r channel.
-	time *= sign(COLOR.r - .5);
+	// Time goes backward.
+	time *= sign(COLOR.r - PI);
+	// Offset time by r channel.
 	time += 100.0 * COLOR.r;
 		
 	//shift color through time across color map - mix it with white color.
-	uv = vec2(abs(sin(time)));
+	color = texture(color_map, vec2(abs(sin(time)))).rgb;
 	
 	float theta = COLOR.g;
 	VERTEX *= mat2(vec2(cos(theta),-sin(theta)),
@@ -28,5 +29,5 @@ void vertex()
 }
 void fragment()
 {
-	COLOR.rgb = mix(texture(color_map, uv).rgb, vec3(1.), COLOR.r);
+	COLOR.rgb = mix(color, vec3(1.), COLOR.r);
 }

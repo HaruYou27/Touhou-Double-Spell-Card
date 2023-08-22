@@ -73,15 +73,10 @@ func restart() -> void:
 	bullets.clear()
 	RenderingServer.canvas_item_clear(canvas_item)
 
-var bullet_modulate := Color.WHITE
 ## Override to change the way bullet move.
 func move(delta:float, bullet:Bullet) -> void:
 	bullet.transform.origin += bullet.velocity * delta
-	var bullet_rotation = bullet.transform.get_rotation()
-	bullet_modulate.r = bullet_rotation
-	bullet_modulate.g = bullet_rotation
-	texture.draw(canvas_item, bullet.transform.origin.rotated(-bullet_rotation) / bullet.transform.get_scale(), bullet_modulate)
-
+	
 ## Bulelt has collided with something, what to do now?
 func collide(result:Dictionary, bullet:Bullet) -> bool:
 	#Return true means the bullet will still alive.
@@ -112,14 +107,25 @@ func _process_bullet(delta:float) -> void:
 func collision_check(_bullet:Bullet) -> void:
 	pass
 	
+var bullet_modulate := Color.WHITE	
+func draw_bullet(bullet:Bullet) -> void:
+	var bullet_rotation = bullet.transform.get_rotation()
+	bullet_modulate.r = bullet_rotation
+	bullet_modulate.g = bullet_rotation
+	texture.draw(canvas_item, bullet.transform.origin.rotated(-bullet_rotation) / bullet.transform.get_scale(), bullet_modulate)
+	
+func _draw_bullets() -> void:
+	for bullet in bullets:
+		draw_bullet(bullet)
+	
 var tick := false
-var task_id := 0
 var index := 0
 func _physics_process(delta:float) -> void:
 	if bullets.is_empty():
 		return
 		
-	task_id = WorkerThreadPool.add_task(_process_bullet.bind(delta), true)
+	var move_task = WorkerThreadPool.add_task(_process_bullet.bind(delta), true)
+	var draw_task = WorkerThreadPool.add_task(_draw_bullets, true)
 	
 	var end_index := 0
 	tick = not tick
@@ -147,7 +153,8 @@ func _physics_process(delta:float) -> void:
 		#Sort from tail to head to minimize array access.
 		new_bullets.remove_at(index)
 
-	WorkerThreadPool.wait_for_task_completion(task_id)
+	WorkerThreadPool.wait_for_task_completion(move_task)
+	WorkerThreadPool.wait_for_task_completion(draw_task)
+	
 	bullets = new_bullets
 	index = end_index
-	

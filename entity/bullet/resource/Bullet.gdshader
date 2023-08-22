@@ -5,7 +5,7 @@ uniform float time_scale;
 uniform bool blinking;
 uniform sampler2D color_map;
 
-varying vec2 uv;
+varying vec3 color;
 void vertex()
 {
 	//Offset vertex to the center of the image.
@@ -17,7 +17,7 @@ void vertex()
 	time += 100.0 * COLOR.r;
 		
 	//shift color through time across color map - mix it with white color.
-	uv = vec2(abs(sin(time)));
+	color = texture(color_map, vec2(abs(sin(time)))).rgb;
 	
 	float theta = COLOR.g;
 	VERTEX *= mat2(vec2(cos(theta),-sin(theta)),
@@ -33,5 +33,5 @@ void vertex()
 }
 void fragment()
 {
-	COLOR.rgb = mix(texture(color_map, uv).rgb, vec3(1.), COLOR.r);
+	COLOR.rgb = mix(color, vec3(1.), COLOR.r);
 }

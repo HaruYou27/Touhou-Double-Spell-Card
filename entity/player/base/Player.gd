@@ -27,7 +27,6 @@ func _hit() -> void:
 var can_bomb := true
 var bomb_count := 3
 @onready var sentivity := Global.user_data.sentivity
-@onready var toggle_move := Global.user_data.toggle_move
 var can_move := false
 func _input(event:InputEvent) -> void:
 	if (event is InputEventMouseMotion and Input.is_action_pressed("drag")):

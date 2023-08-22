@@ -7,8 +7,8 @@
 [ext_resource type="Texture2D" uid="uid://bgh4r80tk5o7v" path="res://level/misty-lake/resource/water-noise.tres" id="3_l3dc8"]
 [ext_resource type="PackedScene" uid="uid://6wuhmc2p8byc" path="res://level/misty-lake/fog.tscn" id="6_dlknp"]
 [ext_resource type="Texture2D" uid="uid://x1e8a67qetah" path="res://level/misty-lake/resource/FullMoon.png" id="6_ja1w8"]
-[ext_resource type="Shader" path="res://entity/resource/UberItem.gdshader" id="7_gtrbf"]
 [ext_resource type="Script" path="res://entity/bullet/BulletBasic.gd" id="8_f6fcj"]
+[ext_resource type="Shader" path="res://entity/bullet/resource/Bullet.gdshader" id="8_nrdry"]
 [ext_resource type="Texture2D" uid="uid://ci8njay8ma26f" path="res://entity/bullet/resource/cystal.png" id="9_5uwhi"]
 [ext_resource type="Shape2D" uid="uid://borrvdxc7pflf" path="res://entity/bullet/resource/cystal-hitbox.tres" id="10_xyp3x"]
 [ext_resource type="Script" path="res://entity/utility/Path2DSpawner.gd" id="11_ym16e"]
@@ -53,7 +53,7 @@ gradient = SubResource("Gradient_6yoxw")
 width = 8
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_w081n"]
-shader = ExtResource("7_gtrbf")
+shader = ExtResource("8_nrdry")
 shader_parameter/time_scale = 2.0
 shader_parameter/blinking = null
 shader_parameter/color_map = SubResource("GradientTexture1D_kammw")
@@ -73,7 +73,7 @@ gradient = SubResource("Gradient_c57lt")
 width = 8
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_2rgkm"]
-shader = ExtResource("7_gtrbf")
+shader = ExtResource("8_nrdry")
 shader_parameter/time_scale = null
 shader_parameter/blinking = null
 shader_parameter/color_map = SubResource("GradientTexture1D_mflqg")
@@ -124,14 +124,12 @@ _data = {
 }
 point_count = 4
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_8xk5g"]
-viewport_path = NodePath("SubViewportContainer/SubViewport")
-
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_g5wds"]
-resource_local_to_scene = true
 shader = ExtResource("24_aykys")
 shader_parameter/water_opacity = 0.8
-shader_parameter/background = SubResource("ViewportTexture_8xk5g")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_506w5"]
+viewport_path = NodePath("SubViewportContainer/SubViewport")
 
 [sub_resource type="Animation" id="Animation_7espq"]
 length = 0.001
@@ -646,7 +644,7 @@ tracks/8/keys = {
 tracks/9/type = "audio"
 tracks/9/imported = false
 tracks/9/enabled = true
-tracks/9/path = NodePath("AudioStreamPlayer")
+tracks/9/path = NodePath("bgm")
 tracks/9/interp = 1
 tracks/9/loop_wrap = true
 tracks/9/keys = {
@@ -1302,6 +1300,8 @@ modulate = Color(1, 1, 1, 0)
 graphic_level = 2
 
 [node name="CystalDrop1" type="Node2D" parent="."]
+process_mode = 4
+visible = false
 
 [node name="CystalBullet" type="Node2D" parent="CystalDrop1"]
 z_index = 100
@@ -1716,7 +1716,7 @@ script = ExtResource("3_00q44")
 [node name="reflection" type="Sprite2D" parent="BackBufferCopy"]
 texture_repeat = 2
 material = SubResource("ShaderMaterial_g5wds")
-texture = ExtResource("3_l3dc8")
+texture = SubResource("ViewportTexture_506w5")
 centered = false
 
 [node name="FogOverlay" parent="." instance=ExtResource("25_egtn7")]
@@ -1727,13 +1727,12 @@ z_index = 3000
 animator = NodePath("../AnimationPlayer")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-playback_process_mode = 0
 audio_max_polyphony = 1
 libraries = {
 "": SubResource("AnimationLibrary_lj1a4")
 }
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+[node name="bgm" type="AudioStreamPlayer" parent="."]
 bus = &"BGM"
 
 [connection signal="timeout" from="CystalDrop1/CystalTimer" to="CystalDrop1/CystalBullet" method="spawn_bullet"]

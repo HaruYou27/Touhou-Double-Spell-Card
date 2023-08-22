@@ -35,4 +35,3 @@ func restart() -> void:
 	tree.paused = true
 	var tween : Tween = screen_effect.fade2black()
 	tween.finished.connect(LevelLoader.restart_level)
-	

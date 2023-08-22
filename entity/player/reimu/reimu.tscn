@@ -9,7 +9,7 @@
 [ext_resource type="Material" uid="uid://df8i0wskbdmia" path="res://entity/player/reimu/resource/yinYangOrb.tres" id="7_np48j"]
 [ext_resource type="Texture2D" uid="uid://cmqcue4x2exyv" path="res://entity/player/reimu/resource/Yin-Yang-orb.svg" id="11_hh6jt"]
 [ext_resource type="Material" uid="uid://dox27ncd2r5o3" path="res://entity/resource/glow.tres" id="12_83ts8"]
-[ext_resource type="Shader" path="res://entity/resource/UberItem.gdshader" id="12_o8iy5"]
+[ext_resource type="Shader" path="res://entity/bullet/resource/Bullet.gdshader" id="12_o8iy5"]
 [ext_resource type="Script" path="res://entity/player/reimu/Seeker.gd" id="13_g7t8t"]
 [ext_resource type="Texture2D" uid="uid://d2wacgirqsjjn" path="res://entity/resource/white-trans.tres" id="13_kms7i"]
 [ext_resource type="Texture2D" uid="uid://dxsf3vpqsosf1" path="res://entity/enemy/phantom/fire_particle.png" id="14_gd3kh"]

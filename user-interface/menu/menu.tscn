@@ -9,9 +9,9 @@
 [ext_resource type="PackedScene" uid="uid://bsf3tthvg8rot" path="res://user-interface/menu/settings/reset.tscn" id="5_nrino"]
 [ext_resource type="Script" path="res://user-interface/control-node/SFXToggler.gd" id="5_vnfn8"]
 [ext_resource type="Script" path="res://user-interface/menu/settings/audio.gd" id="6_8l51l"]
-[ext_resource type="Shader" path="res://entity/resource/UberItem.gdshader" id="7_6nm3o"]
 [ext_resource type="Script" path="res://entity/player/reimu/Seeker.gd" id="8_7aax7"]
 [ext_resource type="Script" path="res://user-interface/control-node/PercentageSlider.gd" id="8_b5jhj"]
+[ext_resource type="Shader" path="res://entity/bullet/resource/Bullet.gdshader" id="9_021oy"]
 [ext_resource type="Texture2D" uid="uid://cu2ufhkx3vayf" path="res://entity/player/reimu/resource/ofuda.png" id="9_f05ce"]
 [ext_resource type="PackedScene" uid="uid://ffnff8ahyxxn" path="res://entity/player/reimu/reimu-sprite.tscn" id="10_dtu3c"]
 [ext_resource type="PackedScene" uid="uid://bsa0xvb26o22u" path="res://entity/player/reimu/yinyang-orb.tscn" id="11_uxxtn"]
@@ -122,7 +122,7 @@ gradient = SubResource("Gradient_561th")
 width = 1
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_v1vkg"]
-shader = ExtResource("7_6nm3o")
+shader = ExtResource("9_021oy")
 shader_parameter/time_scale = 1.0
 shader_parameter/blinking = null
 shader_parameter/color_map = SubResource("GradientTexture1D_obk0t")
