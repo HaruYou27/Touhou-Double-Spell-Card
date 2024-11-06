@@ -1,18 +1,12 @@
-[gd_scene load_steps=27 format=3 uid="uid://bk08ga1mfcleb"]
+[gd_scene load_steps=16 format=3 uid="uid://bk08ga1mfcleb"]
 
 [ext_resource type="PackedScene" uid="uid://ffnff8ahyxxn" path="res://entity/player/reimu/reimu-sprite.tscn" id="2_1gpls"]
 [ext_resource type="PackedScene" uid="uid://c34lwlqwsc4ve" path="res://entity/player/base/player.tscn" id="4_ftqh1"]
 [ext_resource type="PackedScene" uid="uid://bsa0xvb26o22u" path="res://entity/player/reimu/yinyang-orb.tscn" id="5_ryrqw"]
 [ext_resource type="PackedScene" uid="uid://cex3540cp47lm" path="res://entity/player/base/graze.tscn" id="5_sq1so"]
-[ext_resource type="Script" path="res://entity/player/reimu/kishin-orb.gd" id="6_aunb2"]
 [ext_resource type="Texture2D" uid="uid://cx7ewf38kbh34" path="res://entity/player/reimu/resource/reimu-hitbox.png" id="7_hytxk"]
-[ext_resource type="Material" uid="uid://df8i0wskbdmia" path="res://entity/player/reimu/resource/yinYangOrb.tres" id="7_np48j"]
-[ext_resource type="Texture2D" uid="uid://cmqcue4x2exyv" path="res://entity/player/reimu/resource/Yin-Yang-orb.svg" id="11_hh6jt"]
-[ext_resource type="Material" uid="uid://dox27ncd2r5o3" path="res://entity/resource/glow.tres" id="12_83ts8"]
 [ext_resource type="Shader" path="res://entity/bullet/resource/Bullet.gdshader" id="12_o8iy5"]
 [ext_resource type="Script" path="res://entity/player/reimu/Seeker.gd" id="13_g7t8t"]
-[ext_resource type="Texture2D" uid="uid://d2wacgirqsjjn" path="res://entity/resource/white-trans.tres" id="13_kms7i"]
-[ext_resource type="Texture2D" uid="uid://dxsf3vpqsosf1" path="res://entity/enemy/phantom/fire_particle.png" id="14_gd3kh"]
 [ext_resource type="Texture2D" uid="uid://cu2ufhkx3vayf" path="res://entity/player/reimu/resource/ofuda.png" id="14_yebca"]
 
 [sub_resource type="CircleShape2D" id="7"]
@@ -21,131 +15,6 @@ radius = 3.0
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_sx7ua"]
 radius = 40.0
 height = 150.0
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_5bis8"]
-radius = 270.0
-
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_vu8gb"]
-particle_flag_disable_z = true
-gravity = Vector3(0, 0, 0)
-initial_velocity_min = 28.17
-initial_velocity_max = 56.34
-angular_velocity_min = 283.94
-angular_velocity_max = 588.17
-orbit_velocity_min = 0.0
-orbit_velocity_max = 0.0
-scale_min = 0.5
-color = Color(1, 0.227451, 0.0588235, 1)
-color_ramp = ExtResource("13_kms7i")
-
-[sub_resource type="Animation" id="Animation_noyik"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(270, 1230)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("YinyangOrb2:visible")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("GPUParticles2D:emitting")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath(".:process_mode")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [4]
-}
-
-[sub_resource type="Animation" id="Animation_abej3"]
-resource_name = "sweep"
-length = 2.0
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 2),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(270, 1230), Vector2(270, -270)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("YinyangOrb2:visible")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 2),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [true, false]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("GPUParticles2D:emitting")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 2),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [true, false]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath(".:process_mode")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0, 2),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [0, 4]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_fwlhc"]
-_data = {
-"RESET": SubResource("Animation_noyik"),
-"sweep": SubResource("Animation_abej3")
-}
 
 [sub_resource type="Gradient" id="Gradient_561th"]
 interpolation_mode = 1
@@ -184,13 +53,11 @@ position = Vector2(0, -8)
 
 [node name="YinyangOrb" parent="Player/ReimuSprite/barrel" groups=["Player Barrel"] instance=ExtResource("5_ryrqw")]
 position = Vector2(72, 0)
-rotation = -1.5708
 flip_v = true
 
 [node name="YinyangOrb2" parent="Player/ReimuSprite/barrel" groups=["Player Barrel"] instance=ExtResource("5_ryrqw")]
 texture_filter = 1
 position = Vector2(-72, 0)
-rotation = -1.5708
 flip_h = false
 
 [node name="Marker2D" type="Marker2D" parent="Player/ReimuSprite/barrel" groups=["Player Barrel"]]
@@ -223,41 +90,6 @@ debug_color = Color(0.713726, 0.105882, 0.701961, 0.419608)
 wait_time = 0.2
 autostart = true
 
-[node name="KishinOrb" type="CharacterBody2D" parent="."]
-process_mode = 4
-z_index = 2000
-texture_filter = 2
-position = Vector2(270, 1230)
-collision_layer = 4
-collision_mask = 0
-script = ExtResource("6_aunb2")
-
-[node name="hitbox" type="CollisionShape2D" parent="KishinOrb"]
-shape = SubResource("CircleShape2D_5bis8")
-
-[node name="GPUParticles2D" type="GPUParticles2D" parent="KishinOrb"]
-process_mode = 3
-material = ExtResource("12_83ts8")
-rotation = 1.5708
-scale = Vector2(16, 16)
-emitting = false
-amount = 128
-process_material = SubResource("ParticleProcessMaterial_vu8gb")
-texture = ExtResource("14_gd3kh")
-
-[node name="YinyangOrb2" type="Sprite2D" parent="KishinOrb"]
-visible = false
-texture_filter = 1
-material = ExtResource("7_np48j")
-rotation = 1.5708
-texture = ExtResource("11_hh6jt")
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-root_node = NodePath("../KishinOrb")
-libraries = {
-"": SubResource("AnimationLibrary_fwlhc")
-}
-
 [node name="bullet" type="Node2D" parent="."]
 z_index = 1
 material = SubResource("ShaderMaterial_v1vkg")
@@ -271,7 +103,4 @@ hitbox = SubResource("CapsuleShape2D_vc5mj")
 collide_with_areas = true
 collision_mask = 3
 
-[connection signal="kaboom" from="Player" to="KishinOrb" method="_on_player_kaboom"]
 [connection signal="timeout" from="Player/Timer" to="bullet" method="spawn_bullet"]
-[connection signal="finished" from="KishinOrb" to="Player" method="_bomb_finished"]
-[connection signal="animation_finished" from="AnimationPlayer" to="KishinOrb" method="_on_animation_player_animation_finished"]

@@ -1,8 +1,8 @@
 [gd_scene load_steps=7 format=3 uid="uid://bsrn475jkgyqh"]
 
-[ext_resource type="Shader" uid="uid://bs3tr5f6a4thq" path="res://level/background/moving-noise.tres" id="1_4sbqf"]
-[ext_resource type="Texture2D" uid="uid://do4q5gagfniy0" path="res://level/background/fire-hell/lava.tres" id="1_amyse"]
-[ext_resource type="Texture2D" uid="uid://bgh4r80tk5o7v" path="res://level/background/misty-lake/water-noise.tres" id="2_jpiae"]
+[ext_resource type="Shader" uid="uid://bs3tr5f6a4thq" path="res://level/shader/moving-noise.tres" id="1_4sbqf"]
+[ext_resource type="Texture2D" uid="uid://do4q5gagfniy0" path="res://level/fire-hell/lava.tres" id="1_amyse"]
+[ext_resource type="Texture2D" uid="uid://bgh4r80tk5o7v" path="res://level/misty-lake/resource/water-noise.tres" id="2_jpiae"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_jsbv1"]
 seed = 698

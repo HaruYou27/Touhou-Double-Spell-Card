@@ -5,10 +5,8 @@ class_name HUD
 @export var hi_score_label : FormatLabel
 func _ready() -> void:
 	if is_instance_valid(Global.player2):
-		if is_multiplayer_authority():
-			hi_score_label.template = 'P2-Score: %09d'
-		else:
-			hi_score_label.template = 'P1-Score: %09d'
+		hi_score_label.template = 'P2-Score: %09d'
+
 	else:
 		$VBoxContainer/HBoxContainer/ping.queue_free()
 		hi_score_label.update_label(0)
@@ -36,7 +34,7 @@ func _add_graze() -> void:
 	graze += 1
 	update_score()
 	
-var updating_score := false	
+var updating_score := false
 func update_score() -> void:
 	if updating_score:
 		return
@@ -51,7 +49,7 @@ func _update_score() -> void:
 	rpc('_update_p2_score', score)
 	updating_score = false
 
-@rpc("any_peer")
+@rpc("any_peer", "unreliable", "call_remote")
 func _update_p2_score(value:int) -> void:
 	hi_score_label.update_label(value)
 

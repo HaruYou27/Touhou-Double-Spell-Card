@@ -3,14 +3,14 @@
 [ext_resource type="Theme" uid="uid://dotibkyt5mm7v" path="res://user-interface/menu/theme/menu.tres" id="1_tnrbu"]
 [ext_resource type="Texture2D" uid="uid://bgh4r80tk5o7v" path="res://level/misty-lake/resource/water-noise.tres" id="2_57hu4"]
 [ext_resource type="Script" path="res://user-interface/menu/settings/Generic.gd" id="2_dgpou"]
-[ext_resource type="Script" path="res://user-interface/menu/Level.gd" id="2_hncmy"]
-[ext_resource type="Script" path="res://user-interface/control-node/SFXButton.gd" id="3_wn432"]
-[ext_resource type="Script" path="res://user-interface/control-node/FormatLabel.gd" id="4_h21eu"]
+[ext_resource type="Script" path="res://user-interface/menu/resource/Level.gd" id="2_hncmy"]
+[ext_resource type="Script" path="res://user-interface/resource/control-node/SFXButton.gd" id="3_wn432"]
+[ext_resource type="Script" path="res://user-interface/resource/control-node/FormatLabel.gd" id="4_h21eu"]
 [ext_resource type="PackedScene" uid="uid://bsf3tthvg8rot" path="res://user-interface/menu/settings/reset.tscn" id="5_nrino"]
-[ext_resource type="Script" path="res://user-interface/control-node/SFXToggler.gd" id="5_vnfn8"]
+[ext_resource type="Script" path="res://user-interface/resource/control-node/SFXToggler.gd" id="5_vnfn8"]
 [ext_resource type="Script" path="res://user-interface/menu/settings/audio.gd" id="6_8l51l"]
 [ext_resource type="Script" path="res://entity/player/reimu/Seeker.gd" id="8_7aax7"]
-[ext_resource type="Script" path="res://user-interface/control-node/PercentageSlider.gd" id="8_b5jhj"]
+[ext_resource type="Script" path="res://user-interface/resource/control-node/PercentageSlider.gd" id="8_b5jhj"]
 [ext_resource type="Shader" path="res://entity/bullet/resource/Bullet.gdshader" id="9_021oy"]
 [ext_resource type="Texture2D" uid="uid://cu2ufhkx3vayf" path="res://entity/player/reimu/resource/ofuda.png" id="9_f05ce"]
 [ext_resource type="PackedScene" uid="uid://ffnff8ahyxxn" path="res://entity/player/reimu/reimu-sprite.tscn" id="10_dtu3c"]
@@ -23,13 +23,13 @@
 [ext_resource type="Texture2D" uid="uid://dxsf3vpqsosf1" path="res://entity/enemy/phantom/fire_particle.png" id="15_u2hgl"]
 [ext_resource type="Script" path="res://entity/utility/Particles2D.gd" id="16_e2ojm"]
 [ext_resource type="Script" path="res://user-interface/menu/settings/controls.gd" id="24_hwgke"]
-[ext_resource type="Script" path="res://user-interface/menu/EnetHost.gd" id="26_wbk6w"]
-[ext_resource type="Script" path="res://user-interface/menu/EnetJoin.gd" id="27_1hjwn"]
+[ext_resource type="Script" path="res://user-interface/menu/resource/EnetHost.gd" id="26_wbk6w"]
+[ext_resource type="Script" path="res://user-interface/menu/resource/EnetJoin.gd" id="27_1hjwn"]
 [ext_resource type="Script" path="res://user-interface/menu/settings/graphic.gd" id="30_jysfy"]
 [ext_resource type="Script" path="res://user-interface/menu/settings/speed.gd" id="31_t8wq2"]
-[ext_resource type="Script" path="res://user-interface/menu/WebRtcHost.gd" id="32_ghjvh"]
-[ext_resource type="Script" path="res://user-interface/menu/WebRtcJoin.gd" id="33_3cq4k"]
-[ext_resource type="Script" path="res://user-interface/menu/ConnectionNotifier.gd" id="34_wrdal"]
+[ext_resource type="Script" path="res://user-interface/menu/resource/WebRtcHost.gd" id="32_ghjvh"]
+[ext_resource type="Script" path="res://user-interface/menu/resource/WebRtcJoin.gd" id="33_3cq4k"]
+[ext_resource type="Script" path="res://user-interface/menu/resource/ConnectionNotifier.gd" id="34_wrdal"]
 
 [sub_resource type="Shader" id="Shader_c07er"]
 code = "//#pragma disable_preprocessor
@@ -178,18 +178,16 @@ height = 470
 fill_to = Vector2(0, 1)
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_rvtdp"]
+particle_flag_disable_z = true
 emission_shape = 3
 emission_box_extents = Vector3(40, -480, 0)
-particle_flag_disable_z = true
 direction = Vector3(0, 1, 0)
 spread = 0.0
-gravity = Vector3(0, 0, 0)
 initial_velocity_min = 42.25
 initial_velocity_max = 126.75
 angular_velocity_min = 111.55
 angular_velocity_max = 273.8
-orbit_velocity_min = 0.0
-orbit_velocity_max = 0.0
+gravity = Vector3(0, 0, 0)
 scale_min = 0.1
 scale_max = 0.2
 color = Color(0.254902, 0.419608, 0.94902, 1)
@@ -295,36 +293,42 @@ centered = false
 [node name="TabContainer" type="TabContainer" parent="."]
 layout_mode = 2
 size_flags_vertical = 3
+current_tab = 0
 tabs_visible = false
 
 [node name="play" type="TabContainer" parent="TabContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
+current_tab = 0
+metadata/_tab_index = 0
 
 [node name="Level" type="VBoxContainer" parent="TabContainer/play"]
 layout_mode = 2
 script = ExtResource("2_hncmy")
+metadata/_tab_index = 0
 
 [node name="Preview" type="TabContainer" parent="TabContainer/play/Level"]
 z_index = -900
 layout_mode = 2
+current_tab = 0
 tabs_visible = false
 
 [node name="MistyLake" type="Control" parent="TabContainer/play/Level/Preview"]
 layout_mode = 2
 metadata/level = &"res://level/misty-lake/misty-lake.tscn"
+metadata/_tab_index = 0
 
 [node name="DreamWorld" type="Control" parent="TabContainer/play/Level/Preview"]
 visible = false
 layout_mode = 2
+metadata/_tab_index = 1
 
 [node name="LevelList" type="OptionButton" parent="TabContainer/play/Level"]
 layout_mode = 2
 alignment = 1
-item_count = 1
 selected = 0
+item_count = 1
 popup/item_0/text = "Misty Lake"
-popup/item_0/id = 0
 
 [node name="LeftRightButton" type="HBoxContainer" parent="TabContainer/play/Level"]
 layout_mode = 2
@@ -362,11 +366,13 @@ script = ExtResource("3_wn432")
 visible = false
 layout_mode = 2
 tab_alignment = 2
+current_tab = 0
+metadata/_tab_index = 1
 
 [node name="Local" type="RichTextLabel" parent="TabContainer/play/Score"]
 layout_mode = 2
-theme_override_font_sizes/normal_font_size = 64
 theme_override_font_sizes/mono_font_size = 32
+theme_override_font_sizes/normal_font_size = 64
 theme_override_styles/normal = SubResource("StyleBoxFlat_15cds")
 bbcode_enabled = true
 text = "Personal Best:
@@ -381,6 +387,7 @@ Partner Score:
 [color=147dfa]  Item:  %06d[/color]
  [color=63c259] Graze: %06d[/color]"
 autowrap_mode = 0
+metadata/_tab_index = 0
 
 [node name="Point" type="Sprite2D" parent="TabContainer/play/Score/Local"]
 texture_filter = 1
@@ -405,21 +412,25 @@ scale = Vector2(2, 2)
 visible = false
 layout_mode = 2
 text = "Not yet implemented"
+metadata/_tab_index = 1
 
 [node name="Character" type="VBoxContainer" parent="TabContainer/play"]
 visible = false
 layout_mode = 2
 script = ExtResource("13_rskvb")
+metadata/_tab_index = 2
 
 [node name="Preview" type="TabContainer" parent="TabContainer/play/Character"]
 z_index = -1
 texture_filter = 1
 layout_mode = 2
+current_tab = 0
 tabs_visible = false
 
 [node name="Reimu" type="Control" parent="TabContainer/play/Character/Preview"]
 layout_mode = 2
 metadata/path = &"res://entity/player/reimu/reimu.tscn"
+metadata/_tab_index = 0
 
 [node name="Reimu" type="Node2D" parent="TabContainer/play/Character/Preview/Reimu"]
 position = Vector2(270, 651)
@@ -436,13 +447,11 @@ autostart = true
 
 [node name="YinyangOrb" parent="TabContainer/play/Character/Preview/Reimu/Reimu/barrel" groups=["Player Barrel"] instance=ExtResource("11_uxxtn")]
 position = Vector2(72, 0)
-rotation = -1.5708
 flip_v = true
 
 [node name="YinyangOrb2" parent="TabContainer/play/Character/Preview/Reimu/Reimu/barrel" groups=["Player Barrel"] instance=ExtResource("11_uxxtn")]
 texture_filter = 1
 position = Vector2(-72, 0)
-rotation = -1.5708
 flip_h = false
 
 [node name="Marker2D" type="Marker2D" parent="TabContainer/play/Character/Preview/Reimu/Reimu/barrel" groups=["Player Barrel"]]
@@ -472,6 +481,7 @@ collision_mask = 3
 visible = false
 layout_mode = 2
 metadata/path = &"res://entity/player/marisa/marisa.tscn"
+metadata/_tab_index = 1
 
 [node name="Marisa" type="Node2D" parent="TabContainer/play/Character/Preview/Marisa"]
 texture_filter = 1
@@ -510,10 +520,9 @@ script = ExtResource("16_e2ojm")
 layout_mode = 2
 theme_override_font_sizes/font_size = 48
 alignment = 1
-item_count = 2
 selected = 0
+item_count = 2
 popup/item_0/text = "Reimu Hakurei"
-popup/item_0/id = 0
 popup/item_1/text = "Marisa Kirisame"
 popup/item_1/id = 1
 
@@ -539,25 +548,27 @@ alignment = 2
 visible = false
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
+current_tab = 0
+metadata/_tab_index = 1
 
-[node name="Generic" type="VBoxContainer" parent="TabContainer/Settings"]
+[node name="Game" type="VBoxContainer" parent="TabContainer/Settings"]
 layout_mode = 2
 script = ExtResource("2_dgpou")
+metadata/_tab_index = 0
 
-[node name="language" type="OptionButton" parent="TabContainer/Settings/Generic"]
+[node name="language" type="OptionButton" parent="TabContainer/Settings/Game"]
 layout_mode = 2
-item_count = 1
 selected = 0
+item_count = 1
 popup/item_0/text = "Language: English"
-popup/item_0/id = 0
 
-[node name="Label" type="Label" parent="TabContainer/Settings/Generic"]
+[node name="Label" type="Label" parent="TabContainer/Settings/Game"]
 layout_mode = 2
 size_flags_horizontal = 4
 text = "Physics Time scale: %d %%"
 script = ExtResource("4_h21eu")
 
-[node name="speed" type="HSlider" parent="TabContainer/Settings/Generic" node_paths=PackedStringArray("label")]
+[node name="speed" type="HSlider" parent="TabContainer/Settings/Game" node_paths=PackedStringArray("label")]
 layout_mode = 2
 min_value = 0.75
 max_value = 1.25
@@ -571,6 +582,7 @@ label = NodePath("../Label")
 visible = false
 layout_mode = 2
 script = ExtResource("24_hwgke")
+metadata/_tab_index = 1
 
 [node name="drag" type="Button" parent="TabContainer/Settings/Controls"]
 layout_mode = 2
@@ -621,6 +633,7 @@ layout_mode = 2
 visible = false
 layout_mode = 2
 script = ExtResource("6_8l51l")
+metadata/_tab_index = 2
 
 [node name="BgmLabel" type="Label" parent="TabContainer/Settings/Audio"]
 layout_mode = 2
@@ -709,6 +722,7 @@ layout_mode = 2
 visible = false
 layout_mode = 2
 script = ExtResource("30_jysfy")
+metadata/_tab_index = 3
 
 [node name="fullscreen" type="CheckButton" parent="TabContainer/Settings/Graphic"]
 layout_mode = 2
@@ -759,10 +773,9 @@ label = NodePath("../ParticlesLabel")
 
 [node name="EffectLevel" type="OptionButton" parent="TabContainer/Settings/Graphic"]
 layout_mode = 2
-item_count = 4
 selected = 3
+item_count = 4
 popup/item_0/text = "Disable Background"
-popup/item_0/id = 0
 popup/item_1/text = "Simple Background"
 popup/item_1/id = 1
 popup/item_2/text = "Disable Advanced Graphic Effect"
@@ -776,10 +789,13 @@ layout_mode = 2
 [node name="multiplayer" type="TabContainer" parent="TabContainer"]
 visible = false
 layout_mode = 2
+current_tab = 0
+metadata/_tab_index = 2
 
 [node name="LanHost" type="Control" parent="TabContainer/multiplayer"]
 layout_mode = 2
 script = ExtResource("26_wbk6w")
+metadata/_tab_index = 0
 
 [node name="EnetHost2" type="Label" parent="TabContainer/multiplayer/LanHost"]
 visible = false
@@ -861,6 +877,7 @@ autowrap_mode = 3
 visible = false
 layout_mode = 2
 script = ExtResource("27_1hjwn")
+metadata/_tab_index = 1
 
 [node name="ItemList" type="ItemList" parent="TabContainer/multiplayer/LanJoin"]
 layout_mode = 2
@@ -904,6 +921,7 @@ libraries = {
 visible = false
 layout_mode = 2
 script = ExtResource("32_ghjvh")
+metadata/_tab_index = 2
 
 [node name="Offer" type="TextEdit" parent="TabContainer/multiplayer/OnlineHost"]
 custom_minimum_size = Vector2(0, 200)
@@ -940,6 +958,7 @@ one_shot = true
 visible = false
 layout_mode = 2
 script = ExtResource("33_3cq4k")
+metadata/_tab_index = 3
 
 [node name="ReplyOffer" type="TextEdit" parent="TabContainer/multiplayer/OnlineJoin"]
 custom_minimum_size = Vector2(0, 200)
@@ -992,22 +1011,22 @@ script = ExtResource("34_wrdal")
 
 [connection signal="item_selected" from="TabContainer/play/Level/LevelList" to="TabContainer/play/Level" method="_on_level_list_item_selected"]
 [connection signal="pressed" from="TabContainer/play/Level/enter" to="TabContainer/play/Level" method="_on_enter_pressed" flags=6]
-[connection signal="timeout" from="TabContainer/play/Character/Preview/Reimu/Reimu/Timer" to="TabContainer/play/Character/Preview/Reimu/bullet" method="spawn_bullet" flags=18]
+[connection signal="timeout" from="TabContainer/play/Character/Preview/Reimu/Reimu/Timer" to="TabContainer/play/Character/Preview/Reimu/bullet" method="spawn_bullet"]
 [connection signal="item_selected" from="TabContainer/play/Character/title" to="TabContainer/play/Character" method="_on_title_item_selected"]
 [connection signal="pressed" from="TabContainer/play/Character/HBoxContainer/previous" to="TabContainer/play/Character" method="_change_character" binds= [false]]
 [connection signal="pressed" from="TabContainer/play/Character/HBoxContainer/next" to="TabContainer/play/Character" method="_change_character" binds= [true]]
-[connection signal="item_selected" from="TabContainer/Settings/Generic/language" to="TabContainer/Settings/Generic" method="_on_language_item_selected"]
-[connection signal="pressed" from="TabContainer/Settings/Controls/drag" to="TabContainer/Settings/Controls" method="_on_drag_pressed" flags=18]
-[connection signal="pressed" from="TabContainer/Settings/Controls/bomb" to="TabContainer/Settings/Controls" method="_on_bomb_pressed" flags=18]
-[connection signal="value_changed" from="TabContainer/Settings/Controls/sentivity" to="TabContainer/Settings/Controls" method="_on_sentivity_value_changed" flags=18]
+[connection signal="item_selected" from="TabContainer/Settings/Game/language" to="TabContainer/Settings/Game" method="_on_language_item_selected"]
+[connection signal="pressed" from="TabContainer/Settings/Controls/drag" to="TabContainer/Settings/Controls" method="_on_drag_pressed"]
+[connection signal="pressed" from="TabContainer/Settings/Controls/bomb" to="TabContainer/Settings/Controls" method="_on_bomb_pressed"]
+[connection signal="value_changed" from="TabContainer/Settings/Controls/sentivity" to="TabContainer/Settings/Controls" method="_on_sentivity_value_changed"]
 [connection signal="pressed" from="TabContainer/Settings/Controls/reset" to="TabContainer/Settings/Controls" method="_on_reset_pressed"]
-[connection signal="value_changed" from="TabContainer/Settings/Audio/bgm" to="TabContainer/Settings/Audio" method="_on_bgm_value_changed" flags=18]
-[connection signal="value_changed" from="TabContainer/Settings/Audio/sfx" to="TabContainer/Settings/Audio" method="_on_sfx_value_changed" flags=18]
+[connection signal="value_changed" from="TabContainer/Settings/Audio/bgm" to="TabContainer/Settings/Audio" method="_on_bgm_value_changed"]
+[connection signal="value_changed" from="TabContainer/Settings/Audio/sfx" to="TabContainer/Settings/Audio" method="_on_sfx_value_changed"]
 [connection signal="value_changed" from="TabContainer/Settings/Audio/mic" to="TabContainer/Settings/Audio" method="_on_mic_value_changed"]
 [connection signal="value_changed" from="TabContainer/Settings/Audio/voice" to="TabContainer/Settings/Audio" method="_on_voice_value_changed"]
 [connection signal="pressed" from="TabContainer/Settings/Audio/reset" to="TabContainer/Settings/Audio" method="_on_reset_pressed"]
-[connection signal="toggled" from="TabContainer/Settings/Graphic/fullscreen" to="TabContainer/Settings/Graphic" method="_on_fullscreen_toggled" flags=18]
-[connection signal="toggled" from="TabContainer/Settings/Graphic/borderless" to="TabContainer/Settings/Graphic" method="_on_borderless_toggled" flags=18]
+[connection signal="toggled" from="TabContainer/Settings/Graphic/fullscreen" to="TabContainer/Settings/Graphic" method="_on_fullscreen_toggled"]
+[connection signal="toggled" from="TabContainer/Settings/Graphic/borderless" to="TabContainer/Settings/Graphic" method="_on_borderless_toggled"]
 [connection signal="pressed" from="TabContainer/Settings/Graphic/vulkan" to="TabContainer/Settings/Graphic/RenderWarn" method="show"]
 [connection signal="pressed" from="TabContainer/Settings/Graphic/reset" to="TabContainer/Settings/Graphic" method="_on_reset_pressed"]
 [connection signal="text_changed" from="TabContainer/multiplayer/LanHost/EnetHost/HBoxContainer/port" to="TabContainer/multiplayer/LanHost" method="_on_port_text_changed"]

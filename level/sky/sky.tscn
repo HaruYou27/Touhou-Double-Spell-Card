@@ -1,10 +1,9 @@
-[gd_scene load_steps=15 format=3 uid="uid://baj6tuuf1x8"]
+[gd_scene load_steps=11 format=3 uid="uid://baj6tuuf1x8"]
 
-[ext_resource type="Shader" path="res://level/background/noise-colorize.gdshader" id="1_jus0f"]
+[ext_resource type="Shader" path="res://level/shader/noise-colorize.gdshader" id="1_jus0f"]
 [ext_resource type="Texture2D" uid="uid://rooeax5tkuf4" path="res://level/misty-lake/resource/fog-noise-2.tres" id="2_dqfdf"]
 [ext_resource type="Script" path="res://entity/utility/GraphicOptional.gd" id="3_kt1qi"]
 [ext_resource type="Texture2D" uid="uid://clt15wekn0gcj" path="res://level/misty-lake/resource/fog-noise.tres" id="3_qdpv8"]
-[ext_resource type="Shader" path="res://level/background/cellular-noise.gdshader" id="5_mvf26"]
 
 [sub_resource type="Gradient" id="Gradient_0h5jx"]
 colors = PackedColorArray(1, 1, 1, 1, 0.33, 0.776667, 1, 1)
@@ -30,21 +29,6 @@ shader = ExtResource("1_jus0f")
 shader_parameter/velocity = Vector2(0, -0.1)
 shader_parameter/color_map = SubResource("GradientTexture1D_bb64j")
 
-[sub_resource type="Gradient" id="Gradient_85gdg"]
-offsets = PackedFloat32Array(0.391304, 0.706522, 0.847826, 1)
-colors = PackedColorArray(0, 0, 0, 0, 0.86, 0.86, 0.86, 1, 0.64, 0.0746667, 0, 1, 0, 0.0745098, 0, 1)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_u7skd"]
-gradient = SubResource("Gradient_85gdg")
-width = 32
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_dw4yx"]
-shader = ExtResource("5_mvf26")
-shader_parameter/grid = Vector2(9, 16)
-shader_parameter/speed = 4.5
-shader_parameter/velocity = Vector2(0.1, -0.2)
-shader_parameter/color_map = SubResource("GradientTexture1D_u7skd")
-
 [node name="Sky" type="Node2D"]
 
 [node name="Sky" type="Sprite2D" parent="."]
@@ -60,11 +44,3 @@ z_index = 2000
 material = SubResource("ShaderMaterial_gaxum")
 texture = ExtResource("3_qdpv8")
 centered = false
-
-[node name="GapEyes" type="ColorRect" parent="."]
-visible = false
-texture_repeat = 2
-material = SubResource("ShaderMaterial_dw4yx")
-custom_minimum_size = Vector2(540, 960)
-offset_right = 540.0
-offset_bottom = 960.0

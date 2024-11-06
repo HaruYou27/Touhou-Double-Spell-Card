@@ -8,8 +8,7 @@ func spawn_item(point:int, pos:Vector2) -> void:
 		
 func create_item(pos:Vector2) -> void:
 	var item := create_bullet()
-	
-	var ranf := sin(Time.get_ticks_usec())
+	var ranf := sin(Global.get_host_time())
 	var rot := ranf * TAU
 	item.transform = Transform2D(rot, pos)
 	item.velocity = Vector2(ranf * 17, 0).rotated(rot)
@@ -25,6 +24,6 @@ func collide(result:Dictionary, _item:Bullet) -> bool:
 	var mask = int(result["linear_velocity"].x)
 	if mask == 1:
 		return false
-	else:
-		Global.item_collect.emit()
+	
+	Global.item_collect.emit()
 	return false

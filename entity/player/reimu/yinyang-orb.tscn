@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://bsa0xvb26o22u"]
+[gd_scene load_steps=10 format=3 uid="uid://bsa0xvb26o22u"]
 
 [ext_resource type="Material" uid="uid://df8i0wskbdmia" path="res://entity/player/reimu/resource/yinYangOrb.tres" id="1_qnyaj"]
 [ext_resource type="Texture2D" uid="uid://cmqcue4x2exyv" path="res://entity/player/reimu/resource/Yin-Yang-orb.svg" id="2_0vho0"]
@@ -7,33 +7,39 @@
 [ext_resource type="Texture2D" uid="uid://d2wacgirqsjjn" path="res://entity/resource/white-trans.tres" id="5_5xmq5"]
 [ext_resource type="Texture2D" uid="uid://dxsf3vpqsosf1" path="res://entity/enemy/phantom/fire_particle.png" id="6_qyb74"]
 
+[sub_resource type="Curve" id="Curve_x8o5l"]
+min_value = -360.0
+max_value = 360.0
+_data = [Vector2(0, -360), 0.0, 720.0, 0, 1, Vector2(1, 360), 720.0, 0.0, 1, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_3shyt"]
+texture_mode = 1
+curve = SubResource("Curve_x8o5l")
+
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_85hxn"]
-particle_flag_disable_z = true
-spread = 15.0
-gravity = Vector3(0, 0, 0)
-initial_velocity_min = 28.17
-initial_velocity_max = 56.34
-angular_velocity_min = 283.94
-angular_velocity_max = 588.17
-orbit_velocity_min = 0.0
-orbit_velocity_max = 0.0
-scale_min = 0.1
-scale_max = 0.3
+emission_shape = 1
+emission_sphere_radius = 128.0
+angle_curve = SubResource("CurveTexture_3shyt")
+gravity = Vector3(0, -128, 0)
+scale_min = 0.8
+scale_max = 0.8
 color = Color(1, 0.227451, 0.0588235, 1)
 color_ramp = ExtResource("5_5xmq5")
 
 [node name="YinyangOrb" type="Sprite2D"]
 z_index = 9
 material = ExtResource("1_qnyaj")
+rotation = -1.5708
 scale = Vector2(0.06, 0.06)
 texture = ExtResource("2_0vho0")
 flip_h = true
 script = ExtResource("3_1aee1")
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="."]
-z_index = -1
+z_index = -10
 material = ExtResource("4_cf5oj")
-scale = Vector2(16, 16)
-amount = 32
+rotation = 1.5708
+amount = 64
 process_material = SubResource("ParticleProcessMaterial_85hxn")
 texture = ExtResource("6_qyb74")

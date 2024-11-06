@@ -1,17 +1,18 @@
 [gd_scene load_steps=14 format=3 uid="uid://dg3c0gdslbpa4"]
 
-[ext_resource type="Shader" path="res://level/background/noise-colorize.gdshader" id="1_7xp7d"]
+[ext_resource type="Shader" path="res://level/shader/noise-colorize.gdshader" id="1_7xp7d"]
 [ext_resource type="Shader" path="res://tool/image-baker/background/shader/grid.gdshader" id="3_38whw"]
 [ext_resource type="PackedScene" uid="uid://bfvb372sca8m2" path="res://user-interface/leveler/leveler.tscn" id="4_aeo0o"]
 
 [sub_resource type="Gradient" id="Gradient_hb3xu"]
+interpolation_mode = 2
 interpolation_color_space = 2
-offsets = PackedFloat32Array(0, 0.157895, 0.322368, 0.684211)
+offsets = PackedFloat32Array(0, 0.157895, 0.527473, 0.879121)
 colors = PackedColorArray(1, 1, 1, 1, 1, 0.607843, 0.654902, 1, 0.42656, 0.0832, 0.64, 1, 0, 0, 0, 1)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_54ekl"]
 gradient = SubResource("Gradient_hb3xu")
-width = 32
+width = 64
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_nunam"]
 shader = ExtResource("1_7xp7d")
@@ -101,8 +102,7 @@ offset_bottom = 960.0
 
 [node name="player" type="Node2D" parent="."]
 
-[node name="level" parent="." node_paths=PackedStringArray("player_container", "animator") instance=ExtResource("4_aeo0o")]
-player_container = NodePath("../player")
+[node name="level" parent="." node_paths=PackedStringArray("animator") instance=ExtResource("4_aeo0o")]
 animator = NodePath("../AnimationPlayer")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]

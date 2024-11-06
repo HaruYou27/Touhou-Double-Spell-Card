@@ -62,12 +62,12 @@ func bomb() -> void:
 	kaboom.emit(0)
 	rpc('bomb_go_off', Time.get_ticks_msec())
 
-@rpc
+@rpc("unreliable", "call_remote", "authority")
 func _update_position(pos:Vector2) -> void:
 	global_position = pos
 
 signal kaboom
-@rpc("reliable")
+@rpc("reliable", "call_remote", "authority")
 func bomb_go_off(host_time:int) -> void:
 	kaboom.emit((host_time - int(Global.get_host_time()) / 1000))
 	

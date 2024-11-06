@@ -15,6 +15,7 @@ dest_files=["res://.godot/imported/Vbutlong.ttf-12b7f5fae797fe6f1d41498dba5591c0
 Rendering=null
 antialiasing=1
 generate_mipmaps=false
+disable_embedded_bitmaps=true
 multichannel_signed_distance_field=false
 msdf_pixel_range=8
 msdf_size=48

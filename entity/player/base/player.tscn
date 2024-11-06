@@ -5,7 +5,6 @@
 
 [node name="Player" type="CharacterBody2D"]
 collision_layer = 4
-collision_mask = 0
 motion_mode = 1
 slide_on_ceiling = false
 script = ExtResource("1_ty0s5")
@@ -23,7 +22,7 @@ one_shot = true
 
 [node name="explosion" parent="." instance=ExtResource("2_ca3m1")]
 process_mode = 3
-amount = 16
+lifetime = 1.0
 
 [node name="RecoverTimer" type="Timer" parent="."]
 wait_time = 2.0

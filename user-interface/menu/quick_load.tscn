@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://qjr11gf7cmd4"]
 
-[ext_resource type="Script" path="res://user-interface/menu/quick_load.gd" id="1_kdkkr"]
+[ext_resource type="Script" path="res://user-interface/menu/resource/quick_load.gd" id="1_kdkkr"]
 
 [node name="QuickLoad" type="Node"]
 script = ExtResource("1_kdkkr")

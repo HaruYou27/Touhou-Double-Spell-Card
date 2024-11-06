@@ -11,3 +11,9 @@ func _ready() -> void:
 func _graze() -> void:
 	vfx.emitting = true
 	sfx.play()
+	rpc('graze')
+
+@rpc("authority", "call_remote", "unreliable")
+func graze() -> void:
+	vfx.emitting = true
+	sfx.play()

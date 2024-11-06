@@ -79,20 +79,23 @@ func move(delta:float, bullet:Bullet) -> void:
 	
 ## Bulelt has collided with something, what to do now?
 func collide(result:Dictionary, bullet:Bullet) -> bool:
-	#Return true means the bullet will still alive.
+	#Return true means the bullet is still alive.
 	if int(result["linear_velocity"].x) == -1:
 		#Hit the wall.
 		return false
 		
 	var collider = instance_from_id(result["collider_id"])
-	if bullet.grazable and collider is StaticBody2D:
+	if collider is not StaticBody2D:
+		return false 
+		
+	if bullet.grazable:
 		bullet.grazable = false
 		Global.bullet_graze.emit()
 		return true
-		
-	if collider is Player:
-		collider._hit()
-		return true
+	
+	
+	collider._hit()
+	return true
 		
 	#Hit Player spellcard
 	#Turn into an item.
@@ -100,14 +103,13 @@ func collide(result:Dictionary, bullet:Bullet) -> bool:
 	return false
 
 func _process_bullet(delta:float) -> void:
-	RenderingServer.canvas_item_clear(canvas_item)
 	for bullet in bullets:
 		move(delta, bullet)
 
 func collision_check(_bullet:Bullet) -> void:
 	pass
 	
-var bullet_modulate := Color.WHITE	
+var bullet_modulate := Color.WHITE
 func draw_bullet(bullet:Bullet) -> void:
 	var bullet_rotation = bullet.transform.get_rotation()
 	bullet_modulate.r = bullet_rotation
@@ -115,6 +117,7 @@ func draw_bullet(bullet:Bullet) -> void:
 	texture.draw(canvas_item, bullet.transform.origin.rotated(-bullet_rotation) / bullet.transform.get_scale(), bullet_modulate)
 	
 func _draw_bullets() -> void:
+	RenderingServer.canvas_item_clear(canvas_item)
 	for bullet in bullets:
 		draw_bullet(bullet)
 	
@@ -135,7 +138,7 @@ func _physics_process(delta:float) -> void:
 	
 	var new_bullets = bullets.duplicate()
 	while index > end_index:
-		index -= 1	
+		index -= 1
 		var bullet = bullets[index]
 		
 		collision_check(bullet)

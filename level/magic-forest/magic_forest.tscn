@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=3 uid="uid://cnbehoie6tmgs"]
 
-[ext_resource type="Shader" path="res://level/background/noise-colorize.gdshader" id="1_x3aaq"]
-[ext_resource type="Texture2D" uid="uid://c7key02psonyg" path="res://level/background/magic-forest/tree-night.tres" id="2_d1cg3"]
-[ext_resource type="Texture2D" uid="uid://clus86pnqv0ln" path="res://level/background/magic-forest/tree-noise.tres" id="3_iwkqw"]
+[ext_resource type="Shader" path="res://level/shader/noise-colorize.gdshader" id="1_x3aaq"]
+[ext_resource type="Texture2D" uid="uid://c7key02psonyg" path="res://level/magic-forest/tree-night.tres" id="2_d1cg3"]
+[ext_resource type="Texture2D" uid="uid://clus86pnqv0ln" path="res://level/magic-forest/tree-noise.tres" id="3_iwkqw"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_20f7e"]
 shader = ExtResource("1_x3aaq")

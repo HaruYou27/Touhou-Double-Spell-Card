@@ -11,5 +11,6 @@ domain_warp_frequency = 0.01
 width = 540
 height = 960
 generate_mipmaps = false
+seamless = true
 normalize = false
 noise = SubResource("FastNoiseLite_bgebx")
