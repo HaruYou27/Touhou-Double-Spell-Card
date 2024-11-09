@@ -1,5 +1,6 @@
-extends CharacterBody2D
+extends Node2D
 class_name Player
+## Mostly movement code.
 
 func _ready() -> void:
 	if is_multiplayer_authority():
@@ -39,15 +40,16 @@ func _input(event:InputEvent) -> void:
 		
 	elif event.is_action_pressed("bomb"):
 		bomb()
-	
+
+## How the player move
 func move(event:InputEvent) -> void:
 	global_position += event.relative * sentivity
-	global_position.x = clamp(global_position.x, 0.0, 540.0)
-	global_position.y = clamp(global_position.y, 0.0, 852.0)
+	global_position.x = fposmod(global_position.x, 540.0)
+	global_position.y = fposmod(global_position.y, 852.0)
 	
 	if is_multiplayer_authority():
 		rpc('_update_position', global_position)
-	
+
 func bomb() -> void:
 	if not (bomb_count and can_bomb):
 		return
@@ -88,7 +90,7 @@ func _on_death_timer_timeout():
 	else:
 		Global.leveler.restart()
 		
-@rpc("reliable", "call_local")
+@rpc("reliable", "call_local", "authority")
 func _sync_death() -> void:
 	process_mode = Node.PROCESS_MODE_DISABLED
 	death_fx.emitting = true
@@ -109,7 +111,7 @@ func revive() -> void:
 	rpc("_sync_revive")
 	
 @onready var spawn_pos := position
-@rpc("reliable", "call_local")
+@rpc("reliable", "call_local", "authority")
 func _sync_revive() -> void:
 	process_mode = Node.PROCESS_MODE_INHERIT
 	sprite.show()

@@ -9,7 +9,10 @@ func _ready():
 	
 @onready var beam_particle := $Beam/BeamParticle
 @onready var collision_particle := $Beam/CollisionParticle
+
+## Avoid cheating by increase physics step.
 var cooldown := .0
+
 func _physics_process(delta:float) -> void:
 	if cooldown >= 0:
 		cooldown -= delta
@@ -23,9 +26,9 @@ func _physics_process(delta:float) -> void:
 			beam_particle.position.y = collision_particle.position.y / 2
 			beam_particle.process_material.emission_box_extents.y = beam_particle.position.y
 			
-			if cooldown <= 0:
+			if cooldown <= 0 and is_multiplayer_authority():
 				collider._hit()
-				cooldown += 0.03125
+				cooldown += 0.025
 			return
 		else:
 			collision_particle.hide()

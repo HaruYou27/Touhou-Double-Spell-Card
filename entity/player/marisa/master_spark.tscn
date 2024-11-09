@@ -355,18 +355,18 @@ draw_order = 0
 script = ExtResource("9_q1ojr")
 
 [node name="RayCast2D" parent="." instance=ExtResource("9_hoe4h")]
-position = Vector2(0, 0)
+position = Vector2(0, 70)
 enabled = true
-target_position = Vector2(0, -1050)
+target_position = Vector2(0, -1150)
 
 [node name="RayCast2D2" parent="RayCast2D" instance=ExtResource("9_hoe4h")]
 enabled = true
-target_position = Vector2(0, -1050)
+target_position = Vector2(0, -1150)
 
 [node name="RayCast2D3" parent="RayCast2D" instance=ExtResource("9_hoe4h")]
 position = Vector2(-13, 0)
 enabled = true
-target_position = Vector2(0, -1050)
+target_position = Vector2(0, -1150)
 
 [node name="Spark" type="StaticBody2D" parent="."]
 collision_layer = 2

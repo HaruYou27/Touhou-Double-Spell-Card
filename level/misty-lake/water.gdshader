@@ -4,7 +4,7 @@ shader_type canvas_item;
 group_uniforms wave;
 uniform vec2 wave_velocity = vec2(0., 2.);
 uniform float wave_distortion = 0.2;
-uniform float wave_multiplyer = -7.;
+uniform float wave_multipler = -7.;
 
 group_uniforms water;
 uniform vec2 water_velocity = vec2(0, -.2);
@@ -15,7 +15,7 @@ varying vec2 water_uv;
 
 void vertex()
 {
-	wave_uv = UV * wave_multiplyer + TIME * wave_velocity;
+	wave_uv = UV * wave_multipler + TIME * wave_velocity;
 	water_uv = TIME * water_velocity + UV;
 }
 void fragment()

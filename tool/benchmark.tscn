@@ -16,7 +16,6 @@ width = 8
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_p5d2u"]
 shader = ExtResource("1_4gqly")
 shader_parameter/time_scale = 2.0
-shader_parameter/blinking = null
 shader_parameter/color_map = SubResource("GradientTexture1D_kammw")
 
 [node name="Node2D" type="Node2D"]

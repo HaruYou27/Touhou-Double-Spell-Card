@@ -1,12 +1,29 @@
-[gd_scene load_steps=3 format=3 uid="uid://c34lwlqwsc4ve"]
+[gd_scene load_steps=6 format=3 uid="uid://c34lwlqwsc4ve"]
 
 [ext_resource type="Script" path="res://entity/player/base/Player.gd" id="1_ty0s5"]
-[ext_resource type="PackedScene" uid="uid://dletx36qco4eh" path="res://entity/utility/explosion.tscn" id="2_ca3m1"]
+[ext_resource type="Texture2D" uid="uid://dxsf3vpqsosf1" path="res://entity/enemy/phantom/fire_particle.png" id="2_o2rji"]
 
-[node name="Player" type="CharacterBody2D"]
+[sub_resource type="Gradient" id="Gradient_eytyl"]
+offsets = PackedFloat32Array(0, 0.197802, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_feay5"]
+gradient = SubResource("Gradient_eytyl")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_kawrf"]
+particle_flag_disable_z = true
+direction = Vector3(0, 0, 0)
+spread = 180.0
+initial_velocity_min = 10.0
+initial_velocity_max = 100.0
+angular_velocity_min = 288.0
+angular_velocity_max = 417.6
+gravity = Vector3(0, 0, 0)
+scale_min = 0.5
+color_ramp = SubResource("GradientTexture1D_feay5")
+
+[node name="Player" type="StaticBody2D"]
 collision_layer = 4
-motion_mode = 1
-slide_on_ceiling = false
 script = ExtResource("1_ty0s5")
 
 [node name="HitSFX" type="AudioStreamPlayer" parent="."]
@@ -20,9 +37,17 @@ process_mode = 3
 wait_time = 0.3
 one_shot = true
 
-[node name="explosion" parent="." instance=ExtResource("2_ca3m1")]
+[node name="explosion" type="GPUParticles2D" parent="."]
 process_mode = 3
-lifetime = 1.0
+emitting = false
+amount = 64
+process_material = SubResource("ParticleProcessMaterial_kawrf")
+texture = ExtResource("2_o2rji")
+lifetime = 2.0
+one_shot = true
+explosiveness = 1.0
+fixed_fps = 0
+local_coords = true
 
 [node name="RecoverTimer" type="Timer" parent="."]
 wait_time = 2.0

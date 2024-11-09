@@ -33,7 +33,7 @@
 shader = ExtResource("1_kv0nh")
 shader_parameter/wave_velocity = Vector2(0, 2)
 shader_parameter/wave_distortion = 0.2
-shader_parameter/wave_multiplyer = -7.0
+shader_parameter/wave_multipler = -7.0
 shader_parameter/water_velocity = Vector2(0, -0.2)
 shader_parameter/color_map = ExtResource("2_yt2xx")
 
@@ -55,7 +55,6 @@ width = 8
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_w081n"]
 shader = ExtResource("8_nrdry")
 shader_parameter/time_scale = 2.0
-shader_parameter/offset_time = false
 shader_parameter/color_map = SubResource("GradientTexture1D_kammw")
 
 [sub_resource type="Curve2D" id="Curve2D_rvgc8"]
@@ -75,7 +74,6 @@ width = 8
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_2rgkm"]
 shader = ExtResource("8_nrdry")
 shader_parameter/time_scale = 1.0
-shader_parameter/offset_time = false
 shader_parameter/color_map = SubResource("GradientTexture1D_mflqg")
 
 [sub_resource type="Curve2D" id="Curve2D_va8k1"]

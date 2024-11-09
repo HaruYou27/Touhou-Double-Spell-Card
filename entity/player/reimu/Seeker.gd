@@ -17,8 +17,11 @@ func collide(result:Dictionary, _bullet:Bullet) -> bool:
 	#Return true means the bullet will still alive.
 	if int(result["linear_velocity"].x) == -1:
 		#Hit the wall.
-		return false;
+		return false
 	
+	if not is_multiplayer_authority():
+		return true
+		
 	var collider = instance_from_id(result["collider_id"])
 	collider.call("_hit")
 	
@@ -33,10 +36,13 @@ func move(delta:float, bullet:Bullet) -> void:
 		bullet.transform = Transform2D(bullet.velocity.angle() + half_pi, bullet.transform.origin)
 	super(delta, bullet)
 
-func collision_check(bullet:Bullet) -> void:
+
+func collision_check(bullet:Bullet) -> bool:
 	seek_query.transform = bullet.transform
 	var seek_result = world.direct_space_state.get_rest_info(seek_query)
 	if seek_result.is_empty():
 		bullet.target = Vector2.ZERO
-		return
+		return super(bullet)
 	bullet.target = seek_result["point"]
+	return super(bullet)
+	
