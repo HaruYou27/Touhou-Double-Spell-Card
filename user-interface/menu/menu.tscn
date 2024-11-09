@@ -20,7 +20,7 @@
 [ext_resource type="Script" path="res://user-interface/menu/character/character.gd" id="13_rskvb"]
 [ext_resource type="Texture2D" uid="uid://d2wacgirqsjjn" path="res://entity/resource/white-trans.tres" id="14_kjkl8"]
 [ext_resource type="Shortcut" uid="uid://xs30oatyn1i6" path="res://user-interface/resource/shortcut/enter.tres" id="14_nwuco"]
-[ext_resource type="Texture2D" uid="uid://dxsf3vpqsosf1" path="res://entity/enemy/phantom/fire_particle.png" id="15_u2hgl"]
+[ext_resource type="Texture2D" uid="uid://dxsf3vpqsosf1" path="res://entity/resource/fire_particle.png" id="15_u2hgl"]
 [ext_resource type="Script" path="res://entity/utility/Particles2D.gd" id="16_e2ojm"]
 [ext_resource type="Script" path="res://user-interface/menu/settings/controls.gd" id="24_hwgke"]
 [ext_resource type="Script" path="res://user-interface/menu/resource/EnetHost.gd" id="26_wbk6w"]

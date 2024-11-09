@@ -1,8 +1,6 @@
 extends Node2D
-class_name global
-##god
+## GlobalGameplay
 
-############ GLOBAL GAMEPLAY
 ## Emited by bullet when intersect player's graze Area2D.
 signal bullet_graze
 
@@ -17,27 +15,8 @@ var player2 : Player
 var last_man_standing := false
 func _peer_disconnected() -> void:
 	player2 = null
-#######################
 
-################ USER INTERFACE
 const main_menu := "res://user-interface/menu/menu.tscn"
-const ice_server := {
-		"iceServers": [ { "urls": [
-			"stun:stun.l.google.com:19302",
-			'stun1.l.google.com:19302',
-			'stun2.l.google.com:19302',
-			'stun3.l.google.com:19302',
-			'stun4.l.google.com:19302',
-			'stun.ekiga.net',
-			'stun.ideasip.com',
-			'stun.rixtelecom.se',
-			'stun.schlund.de',
-			'stun.stunprotocol.org:3478',
-			'stun.voiparound.com',
-			'stun.voipbuster.com',
-			'stun.voipstunt.com',
-			'stun.voxgratia.org',] } ]
-	}
 
 ##Convert an InputEvent to String.
 static func get_input_string(event:InputEvent) -> String:

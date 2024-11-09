@@ -64,9 +64,13 @@ func bomb() -> void:
 	kaboom.emit(0)
 	rpc('bomb_go_off', Time.get_ticks_msec())
 
+var tween: Tween
 @rpc("unreliable", "call_remote", "authority")
 func _update_position(pos:Vector2) -> void:
-	global_position = pos
+	if tween:
+		tween.kill()
+	tween = create_tween()
+	tween.tween_property(self, "global_position", pos, 0.03)
 
 signal kaboom
 @rpc("reliable", "call_remote", "authority")

@@ -24,7 +24,11 @@ Label/styles/normal = null
 z_index = 4000
 texture_filter = 4
 layout_mode = 3
-anchors_preset = 0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 mouse_filter = 2
 theme = SubResource("Theme_p2fhi")
 script = ExtResource("3_i4tu5")
@@ -123,8 +127,11 @@ process_mode = 3
 visible = false
 custom_minimum_size = Vector2(540, 960)
 layout_mode = 1
-offset_right = 540.0
-offset_bottom = 960.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 size_flags_vertical = 3
 color = Color(0.129412, 0.129412, 0.129412, 0.423529)
 script = ExtResource("4_3p6qo")
@@ -144,11 +151,11 @@ offset_bottom = 127.5
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Resume" type="Button" parent="PauseMenu/VBoxContainer"]
+[node name="Continue" type="Button" parent="PauseMenu/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 shortcut = ExtResource("5_ukwdv")
-text = "Resume"
+text = "Continue"
 script = ExtResource("6_nikbp")
 
 [node name="Restart" type="Button" parent="PauseMenu/VBoxContainer"]
@@ -173,7 +180,7 @@ script = ExtResource("6_nikbp")
 [connection signal="pressed" from="pause" to="PauseMenu" method="_on_pause_pressed"]
 [connection signal="timeout" from="hud/VBoxContainer/HBoxContainer/Timer" to="hud/VBoxContainer/HBoxContainer/ping" method="_on_timer_timeout"]
 [connection signal="timeout" from="hud/VBoxContainer/HBoxContainer/Timer" to="hud/VBoxContainer/HBoxContainer/fps" method="_on_timer_timeout"]
-[connection signal="pressed" from="PauseMenu/VBoxContainer/Resume" to="PauseMenu" method="_on_Resume_pressed"]
+[connection signal="pressed" from="PauseMenu/VBoxContainer/Continue" to="PauseMenu" method="_on_continue_pressed"]
 [connection signal="pressed" from="PauseMenu/VBoxContainer/Restart" to="." method="restart"]
 [connection signal="pressed" from="PauseMenu/VBoxContainer/Restart" to="PauseMenu" method="hide"]
 [connection signal="pressed" from="PauseMenu/VBoxContainer/Quit" to="PauseMenu" method="_on_Quit_pressed" flags=6]

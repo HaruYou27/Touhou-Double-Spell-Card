@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://dletx36qco4eh"]
 
-[ext_resource type="Texture2D" uid="uid://dxsf3vpqsosf1" path="res://entity/enemy/phantom/fire_particle.png" id="2_iae2s"]
+[ext_resource type="Texture2D" uid="uid://dxsf3vpqsosf1" path="res://entity/resource/fire_particle.png" id="2_iae2s"]
 
 [sub_resource type="Gradient" id="Gradient_eytyl"]
 offsets = PackedFloat32Array(0, 0.197802, 1)

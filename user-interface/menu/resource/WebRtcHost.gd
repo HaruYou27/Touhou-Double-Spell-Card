@@ -12,7 +12,6 @@ var ICE : String
 @onready var ice_timer := $IceTimer
 @onready var reply := $ReplyOffer
 
-
 func init() -> void:
 	webrtc = WebRTCMultiplayerPeer.new()
 	connection = WebRTCPeerConnection.new()

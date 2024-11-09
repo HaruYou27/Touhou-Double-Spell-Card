@@ -100,4 +100,6 @@ hitbox = SubResource("CapsuleShape2D_vc5mj")
 collide_with_areas = true
 collision_mask = 3
 
+[node name="FantasySeal" type="Node" parent="."]
+
 [connection signal="timeout" from="Player/Timer" to="bullet" method="spawn_bullet"]

@@ -1,0 +1,95 @@
+[gd_scene load_steps=12 format=3 uid="uid://8587t5a7aa40"]
+
+[ext_resource type="Script" path="res://entity/player/reimu/seal.gd" id="1_27ygb"]
+[ext_resource type="Texture2D" uid="uid://b1ltes0v4mau1" path="res://entity/resource/smoke_particle.png" id="1_edwen"]
+[ext_resource type="Material" uid="uid://dox27ncd2r5o3" path="res://entity/resource/glow.tres" id="1_jtbc5"]
+[ext_resource type="Texture2D" uid="uid://batbnxisqv8ly" path="res://entity/resource/easeOutCurve.tres" id="2_mi5v7"]
+[ext_resource type="Texture2D" uid="uid://dxsf3vpqsosf1" path="res://entity/resource/fire_particle.png" id="2_nfihp"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_q5f8i"]
+radius = 512.0
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_xlfo5"]
+particle_flag_disable_z = true
+angular_velocity_min = 175.14
+angular_velocity_max = 720.0
+gravity = Vector3(0, 0, 0)
+scale_min = 0.1
+scale_max = 0.3
+alpha_curve = ExtResource("2_mi5v7")
+
+[sub_resource type="Gradient" id="Gradient_1g814"]
+offsets = PackedFloat32Array(0, 0.340206, 0.649485, 1)
+colors = PackedColorArray(0, 1, 0, 1, 1, 0, 0, 1, 0, 0, 1, 1, 0, 1, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_04uxq"]
+gradient = SubResource("Gradient_1g814")
+width = 64
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_svktf"]
+particle_flag_disable_z = true
+angular_velocity_min = 135.85
+angular_velocity_max = 720.0
+radial_velocity_min = -2.23517e-05
+radial_velocity_max = 30.0
+gravity = Vector3(0, 0, 0)
+color_initial_ramp = SubResource("GradientTexture1D_04uxq")
+alpha_curve = ExtResource("2_mi5v7")
+turbulence_noise_strength = 4.66
+turbulence_influence_max = 1.0
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_kawrf"]
+particle_flag_disable_z = true
+direction = Vector3(0, 0, 0)
+spread = 180.0
+initial_velocity_min = 100.0
+initial_velocity_max = 500.0
+angular_velocity_min = 288.0
+angular_velocity_max = 720.0
+gravity = Vector3(0, 0, 0)
+scale_min = 0.5
+scale_max = 0.7
+alpha_curve = ExtResource("2_mi5v7")
+
+[node name="Seal" type="Area2D"]
+collision_layer = 4
+collision_mask = 2
+script = ExtResource("1_27ygb")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_q5f8i")
+debug_color = Color(0, 0.6, 0.701961, 0)
+
+[node name="tail" type="GPUParticles2D" parent="."]
+material = ExtResource("1_jtbc5")
+amount = 128
+process_material = SubResource("ParticleProcessMaterial_xlfo5")
+texture = ExtResource("1_edwen")
+fixed_fps = 0
+draw_order = 0
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+material = ExtResource("1_jtbc5")
+amount = 32
+process_material = SubResource("ParticleProcessMaterial_svktf")
+texture = ExtResource("2_nfihp")
+local_coords = true
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+autostart = true
+
+[node name="explosion" type="GPUParticles2D" parent="."]
+process_mode = 3
+emitting = false
+amount = 256
+process_material = SubResource("ParticleProcessMaterial_kawrf")
+texture = ExtResource("2_nfihp")
+lifetime = 2.0
+one_shot = true
+explosiveness = 1.0
+fixed_fps = 0
+local_coords = true
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]

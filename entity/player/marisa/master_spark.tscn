@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://entity/player/marisa/MasterSpark.gd" id="1_i45vv"]
 [ext_resource type="Material" uid="uid://dox27ncd2r5o3" path="res://entity/resource/glow.tres" id="6_jefjk"]
 [ext_resource type="Texture2D" uid="uid://d2wacgirqsjjn" path="res://entity/resource/white-trans.tres" id="7_rj3lw"]
-[ext_resource type="Texture2D" uid="uid://dxsf3vpqsosf1" path="res://entity/enemy/phantom/fire_particle.png" id="8_wltid"]
+[ext_resource type="Texture2D" uid="uid://dxsf3vpqsosf1" path="res://entity/resource/fire_particle.png" id="8_wltid"]
 [ext_resource type="PackedScene" uid="uid://bsnqtgxxjmolk" path="res://entity/player/marisa/ray_cast.tscn" id="9_hoe4h"]
 [ext_resource type="Script" path="res://entity/utility/Particles2D.gd" id="9_q1ojr"]
 
@@ -279,6 +279,7 @@ texture_mode = 1
 curve = SubResource("Curve_xum4h")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_pud3s"]
+particle_flag_disable_z = true
 emission_shape = 1
 emission_sphere_radius = 16.0
 angular_velocity_curve = SubResource("CurveTexture_k4o8b")
@@ -291,6 +292,7 @@ color_ramp = ExtResource("7_rj3lw")
 hue_variation_max = 0.03
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_rvtdp"]
+particle_flag_disable_z = true
 emission_shape = 3
 emission_box_extents = Vector3(40, -480, 0)
 gravity = Vector3(0, 200, 0)
@@ -356,20 +358,14 @@ script = ExtResource("9_q1ojr")
 
 [node name="RayCast2D" parent="." instance=ExtResource("9_hoe4h")]
 position = Vector2(0, 70)
-enabled = true
-target_position = Vector2(0, -1150)
 
 [node name="RayCast2D2" parent="RayCast2D" instance=ExtResource("9_hoe4h")]
-enabled = true
-target_position = Vector2(0, -1150)
 
 [node name="RayCast2D3" parent="RayCast2D" instance=ExtResource("9_hoe4h")]
 position = Vector2(-13, 0)
-enabled = true
-target_position = Vector2(0, -1150)
 
 [node name="Spark" type="StaticBody2D" parent="."]
-collision_layer = 2
+collision_layer = 4
 collision_mask = 0
 
 [node name="SparkHitbox" type="CollisionShape2D" parent="Spark"]
