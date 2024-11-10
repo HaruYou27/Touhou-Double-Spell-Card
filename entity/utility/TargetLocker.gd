@@ -2,6 +2,7 @@ extends Node2D
 class_name TargetLocker
 
 func transform_barrel() -> void:
+	
 	if not Global.player1:
 		return
 	

@@ -3,8 +3,11 @@ class_name Enemy
 
 signal died
 
+## Each bullet deal 1 damage.
 @export var hp := 1
+## Fair reward.
 @onready var point = hp
+## Don't free the node, marked it instead.
 var is_dead := false
 func _hit() -> void:
 	hp -= 1

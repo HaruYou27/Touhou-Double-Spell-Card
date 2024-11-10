@@ -16,6 +16,7 @@ func _reclaim_follower(follower:Node) -> void:
 
 ## Spawn enemy from both end of the curve.
 @export var mirror := false
+## Spawn enemy at the tail of the curve.
 @export var reverse := false
 var tick := false
 func spawn_enemy() -> void:
