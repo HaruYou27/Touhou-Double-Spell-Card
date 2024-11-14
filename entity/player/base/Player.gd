@@ -10,8 +10,7 @@ func _ready() -> void:
 	Global.player2 = self
 	hitbox.queue_free()
 	set_process_unhandled_input(false)
-	
-############## COLLISION
+
 @onready var death_timer := $DeathTimer
 @onready var hit_sfx := $HitSFX
 @onready var tree := get_tree()
@@ -23,7 +22,6 @@ func _hit() -> void:
 	death_timer.start()
 	if not Global.player2:
 		tree.paused = true
-####################
 
 var can_bomb := true
 var bomb_count := 3
@@ -44,8 +42,8 @@ func _input(event:InputEvent) -> void:
 ## How the player move
 func move(event:InputEvent) -> void:
 	global_position += event.relative * sentivity
-	global_position.x = fposmod(global_position.x, 540.0)
-	global_position.y = fposmod(global_position.y, 852.0)
+	global_position.x = clampf(global_position.x, 0.0, 540.0)
+	global_position.y = clampf(global_position.y, 0.0, 960.0)
 	
 	if is_multiplayer_authority():
 		rpc('_update_position', global_position)

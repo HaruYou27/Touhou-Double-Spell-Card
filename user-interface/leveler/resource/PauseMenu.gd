@@ -8,7 +8,7 @@ func _on_Quit_pressed() -> void:
 @rpc("any_peer", "call_local", "reliable")
 func quit() -> void:
 	tree.paused = false
-	LevelLoader.load_scene(global.main_menu)
+	LevelLoader.load_scene(Global.main_menu)
 
 func _on_pause_pressed():
 	show()

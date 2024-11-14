@@ -1,4 +1,5 @@
 extends BulletBasic
+class_name Ricochetor
 
 @export var ricochet := 1
 

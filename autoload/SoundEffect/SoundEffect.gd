@@ -1,7 +1,6 @@
 extends Node
 
 func _ready() -> void:
-	voice.volume_db = Global.user_data.voice_volume
 	set_process(false)
 
 @export var tick0 : AudioStreamPlayer

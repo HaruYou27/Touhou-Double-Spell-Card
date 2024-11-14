@@ -85,7 +85,6 @@ emitting = false
 amount = 256
 process_material = SubResource("ParticleProcessMaterial_kawrf")
 texture = ExtResource("2_nfihp")
-lifetime = 2.0
 one_shot = true
 explosiveness = 1.0
 fixed_fps = 0

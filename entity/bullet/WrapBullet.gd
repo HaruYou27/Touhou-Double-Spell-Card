@@ -1,0 +1,2 @@
+extends Ricochetor
+class_name WrapBullet

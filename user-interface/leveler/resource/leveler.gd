@@ -27,9 +27,6 @@ func _sync_start(host_time:int) -> void:
 func _revive_player() -> void:
 	Global.player1.revive()
 
-func _finished() -> void:
-	LevelLoader.load_scene(Global.main_menu)
-
 @onready var tree := get_tree()
 func restart() -> void:
 	tree.paused = true

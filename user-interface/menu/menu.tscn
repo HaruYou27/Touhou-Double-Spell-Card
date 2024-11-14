@@ -1,4 +1,4 @@
-[gd_scene load_steps=56 format=3 uid="uid://bn5nhkofewyh8"]
+[gd_scene load_steps=55 format=3 uid="uid://bn5nhkofewyh8"]
 
 [ext_resource type="Theme" uid="uid://dotibkyt5mm7v" path="res://user-interface/menu/theme/menu.tres" id="1_tnrbu"]
 [ext_resource type="Texture2D" uid="uid://bgh4r80tk5o7v" path="res://level/misty-lake/resource/water-noise.tres" id="2_57hu4"]
@@ -26,7 +26,6 @@
 [ext_resource type="Script" path="res://user-interface/menu/resource/EnetHost.gd" id="26_wbk6w"]
 [ext_resource type="Script" path="res://user-interface/menu/resource/EnetJoin.gd" id="27_1hjwn"]
 [ext_resource type="Script" path="res://user-interface/menu/settings/graphic.gd" id="30_jysfy"]
-[ext_resource type="Script" path="res://user-interface/menu/settings/speed.gd" id="31_t8wq2"]
 [ext_resource type="Script" path="res://user-interface/menu/resource/WebRtcHost.gd" id="32_ghjvh"]
 [ext_resource type="Script" path="res://user-interface/menu/resource/WebRtcJoin.gd" id="33_3cq4k"]
 [ext_resource type="Script" path="res://user-interface/menu/resource/ConnectionNotifier.gd" id="34_wrdal"]
@@ -124,7 +123,6 @@ width = 1
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_v1vkg"]
 shader = ExtResource("9_021oy")
 shader_parameter/time_scale = 1.0
-shader_parameter/blinking = null
 shader_parameter/color_map = SubResource("GradientTexture1D_obk0t")
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_jbjdf"]
@@ -293,10 +291,11 @@ centered = false
 [node name="TabContainer" type="TabContainer" parent="."]
 layout_mode = 2
 size_flags_vertical = 3
-current_tab = 0
+current_tab = 1
 tabs_visible = false
 
 [node name="play" type="TabContainer" parent="TabContainer"]
+visible = false
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
 current_tab = 0
@@ -545,16 +544,27 @@ flat = true
 alignment = 2
 
 [node name="Settings" type="TabContainer" parent="TabContainer"]
-visible = false
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
-current_tab = 0
+current_tab = 3
 metadata/_tab_index = 1
 
 [node name="Game" type="VBoxContainer" parent="TabContainer/Settings"]
+visible = false
 layout_mode = 2
 script = ExtResource("2_dgpou")
 metadata/_tab_index = 0
+
+[node name="SpeedLabel" type="Label" parent="TabContainer/Settings/Game"]
+layout_mode = 2
+text = "Game Speed: %f"
+
+[node name="speed" type="HSlider" parent="TabContainer/Settings/Game"]
+layout_mode = 2
+min_value = 0.25
+max_value = 2.0
+step = 0.0
+value = 1.0
 
 [node name="language" type="OptionButton" parent="TabContainer/Settings/Game"]
 layout_mode = 2
@@ -562,46 +572,14 @@ selected = 0
 item_count = 1
 popup/item_0/text = "Language: English"
 
-[node name="Label" type="Label" parent="TabContainer/Settings/Game"]
-layout_mode = 2
-size_flags_horizontal = 4
-text = "Physics Time scale: %d %%"
-script = ExtResource("4_h21eu")
-
-[node name="speed" type="HSlider" parent="TabContainer/Settings/Game" node_paths=PackedStringArray("label")]
-layout_mode = 2
-min_value = 0.75
-max_value = 1.25
-step = 0.01
-value = 1.25
-allow_greater = true
-script = ExtResource("31_t8wq2")
-label = NodePath("../Label")
-
 [node name="Controls" type="VBoxContainer" parent="TabContainer/Settings"]
 visible = false
 layout_mode = 2
 script = ExtResource("24_hwgke")
 metadata/_tab_index = 1
 
-[node name="drag" type="Button" parent="TabContainer/Settings/Controls"]
+[node name="OptionButton" type="OptionButton" parent="TabContainer/Settings/Controls"]
 layout_mode = 2
-focus_mode = 0
-mouse_default_cursor_shape = 2
-text = "Drag: %s"
-alignment = 0
-script = ExtResource("3_wn432")
-
-[node name="bomb" type="Button" parent="TabContainer/Settings/Controls"]
-layout_mode = 2
-focus_neighbor_right = NodePath("../reset")
-focus_neighbor_bottom = NodePath("../reset")
-focus_next = NodePath("../reset")
-focus_mode = 0
-mouse_default_cursor_shape = 2
-text = "Bomb: %s"
-alignment = 0
-script = ExtResource("3_wn432")
 
 [node name="SentivityLabel" type="Label" parent="TabContainer/Settings/Controls"]
 layout_mode = 2
@@ -628,12 +606,32 @@ script = ExtResource("5_vnfn8")
 
 [node name="reset" parent="TabContainer/Settings/Controls" instance=ExtResource("5_nrino")]
 layout_mode = 2
+focus_neighbor_left = NodePath("")
+focus_neighbor_top = NodePath("")
+focus_previous = NodePath("")
 
 [node name="Audio" type="VBoxContainer" parent="TabContainer/Settings"]
 visible = false
 layout_mode = 2
 script = ExtResource("6_8l51l")
 metadata/_tab_index = 2
+
+[node name="MasterLabel" type="Label" parent="TabContainer/Settings/Audio"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Master: %d %%"
+script = ExtResource("4_h21eu")
+
+[node name="master" type="HSlider" parent="TabContainer/Settings/Audio" node_paths=PackedStringArray("label")]
+layout_mode = 2
+size_flags_vertical = 1
+min_value = -60.0
+max_value = 0.0
+step = 0.0
+allow_greater = true
+tick_count = 10
+script = ExtResource("8_b5jhj")
+label = NodePath("../MasterLabel")
 
 [node name="BgmLabel" type="Label" parent="TabContainer/Settings/Audio"]
 layout_mode = 2
@@ -646,18 +644,18 @@ layout_mode = 2
 size_flags_vertical = 1
 min_value = -60.0
 max_value = 0.0
-step = 0.6
+step = 0.0
 allow_greater = true
 tick_count = 10
 script = ExtResource("8_b5jhj")
-label = NodePath("../BgmLabel")
+label = NodePath("../MasterLabel")
 
 [node name="SfxLabel" type="Label" parent="TabContainer/Settings/Audio"]
 layout_mode = 2
 size_flags_horizontal = 4
-focus_neighbor_left = NodePath("../bgm")
-focus_neighbor_top = NodePath("../bgm")
-focus_previous = NodePath("../bgm")
+focus_neighbor_left = NodePath("../master")
+focus_neighbor_top = NodePath("../master")
+focus_previous = NodePath("../master")
 text = "Sound Effect: %d %%"
 script = ExtResource("4_h21eu")
 
@@ -667,7 +665,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 1
 min_value = -60.0
 max_value = 0.0
-step = 0.6
+step = 0.0
 allow_lesser = true
 tick_count = 10
 script = ExtResource("8_b5jhj")
@@ -676,9 +674,9 @@ label = NodePath("../SfxLabel")
 [node name="micLabel" type="Label" parent="TabContainer/Settings/Audio"]
 layout_mode = 2
 size_flags_horizontal = 4
-focus_neighbor_left = NodePath("../bgm")
-focus_neighbor_top = NodePath("../bgm")
-focus_previous = NodePath("../bgm")
+focus_neighbor_left = NodePath("../master")
+focus_neighbor_top = NodePath("../master")
+focus_previous = NodePath("../master")
 text = "Microphone: %d %%"
 script = ExtResource("4_h21eu")
 
@@ -688,7 +686,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 1
 min_value = -60.0
 max_value = 0.0
-step = 0.6
+step = 0.0
 allow_lesser = true
 tick_count = 10
 script = ExtResource("8_b5jhj")
@@ -697,9 +695,9 @@ label = NodePath("../micLabel")
 [node name="voiceLabel" type="Label" parent="TabContainer/Settings/Audio"]
 layout_mode = 2
 size_flags_horizontal = 4
-focus_neighbor_left = NodePath("../bgm")
-focus_neighbor_top = NodePath("../bgm")
-focus_previous = NodePath("../bgm")
+focus_neighbor_left = NodePath("../master")
+focus_neighbor_top = NodePath("../master")
+focus_previous = NodePath("../master")
 text = "Voice: %d %%"
 script = ExtResource("4_h21eu")
 
@@ -709,7 +707,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 1
 min_value = -60.0
 max_value = 0.0
-step = 0.6
+step = 0.0
 allow_lesser = true
 tick_count = 10
 script = ExtResource("8_b5jhj")
@@ -719,34 +717,13 @@ label = NodePath("../voiceLabel")
 layout_mode = 2
 
 [node name="Graphic" type="VBoxContainer" parent="TabContainer/Settings"]
-visible = false
 layout_mode = 2
 script = ExtResource("30_jysfy")
 metadata/_tab_index = 3
 
-[node name="fullscreen" type="CheckButton" parent="TabContainer/Settings/Graphic"]
+[node name="Renderer" type="Label" parent="TabContainer/Settings/Graphic"]
 layout_mode = 2
-focus_neighbor_right = NodePath("../borderless")
-focus_neighbor_bottom = NodePath("../borderless")
-focus_next = NodePath("../borderless")
-focus_mode = 0
-mouse_default_cursor_shape = 2
-text = "Full Screen"
-script = ExtResource("5_vnfn8")
-
-[node name="borderless" type="CheckButton" parent="TabContainer/Settings/Graphic"]
-layout_mode = 2
-focus_neighbor_left = NodePath("../fullscreen")
-focus_neighbor_top = NodePath("../fullscreen")
-focus_previous = NodePath("../fullscreen")
-focus_mode = 0
-mouse_default_cursor_shape = 2
-text = "Borderless"
-script = ExtResource("5_vnfn8")
-
-[node name="RenderWarn" type="Label" parent="TabContainer/Settings/Graphic"]
-layout_mode = 2
-text = "Change renderer if you experience low frame rate (require restart)"
+text = "Vulkan has better performance on modern phone (require restart)"
 autowrap_mode = 3
 
 [node name="vulkan" type="CheckButton" parent="TabContainer/Settings/Graphic"]
@@ -757,17 +734,18 @@ script = ExtResource("3_wn432")
 [node name="ParticlesLabel" type="Label" parent="TabContainer/Settings/Graphic"]
 layout_mode = 2
 size_flags_horizontal = 4
-text = "Music: %d %%"
+text = "Particles: %d %%"
 script = ExtResource("4_h21eu")
 
 [node name="Particles" type="HSlider" parent="TabContainer/Settings/Graphic" node_paths=PackedStringArray("label")]
 layout_mode = 2
 size_flags_vertical = 1
-min_value = 1.0
-max_value = 4.0
-value = 4.0
-allow_greater = true
-tick_count = 10
+min_value = 0.25
+max_value = 1.0
+step = 0.25
+value = 1.0
+rounded = true
+tick_count = 4
 script = ExtResource("8_b5jhj")
 label = NodePath("../ParticlesLabel")
 
@@ -1015,19 +993,16 @@ script = ExtResource("34_wrdal")
 [connection signal="item_selected" from="TabContainer/play/Character/title" to="TabContainer/play/Character" method="_on_title_item_selected"]
 [connection signal="pressed" from="TabContainer/play/Character/HBoxContainer/previous" to="TabContainer/play/Character" method="_change_character" binds= [false]]
 [connection signal="pressed" from="TabContainer/play/Character/HBoxContainer/next" to="TabContainer/play/Character" method="_change_character" binds= [true]]
+[connection signal="value_changed" from="TabContainer/Settings/Game/speed" to="TabContainer/Settings/Game" method="_on_speed_value_changed"]
 [connection signal="item_selected" from="TabContainer/Settings/Game/language" to="TabContainer/Settings/Game" method="_on_language_item_selected"]
-[connection signal="pressed" from="TabContainer/Settings/Controls/drag" to="TabContainer/Settings/Controls" method="_on_drag_pressed"]
-[connection signal="pressed" from="TabContainer/Settings/Controls/bomb" to="TabContainer/Settings/Controls" method="_on_bomb_pressed"]
 [connection signal="value_changed" from="TabContainer/Settings/Controls/sentivity" to="TabContainer/Settings/Controls" method="_on_sentivity_value_changed"]
 [connection signal="pressed" from="TabContainer/Settings/Controls/reset" to="TabContainer/Settings/Controls" method="_on_reset_pressed"]
+[connection signal="value_changed" from="TabContainer/Settings/Audio/master" to="TabContainer/Settings/Audio" method="_on_master_value_changed"]
 [connection signal="value_changed" from="TabContainer/Settings/Audio/bgm" to="TabContainer/Settings/Audio" method="_on_bgm_value_changed"]
 [connection signal="value_changed" from="TabContainer/Settings/Audio/sfx" to="TabContainer/Settings/Audio" method="_on_sfx_value_changed"]
 [connection signal="value_changed" from="TabContainer/Settings/Audio/mic" to="TabContainer/Settings/Audio" method="_on_mic_value_changed"]
 [connection signal="value_changed" from="TabContainer/Settings/Audio/voice" to="TabContainer/Settings/Audio" method="_on_voice_value_changed"]
 [connection signal="pressed" from="TabContainer/Settings/Audio/reset" to="TabContainer/Settings/Audio" method="_on_reset_pressed"]
-[connection signal="toggled" from="TabContainer/Settings/Graphic/fullscreen" to="TabContainer/Settings/Graphic" method="_on_fullscreen_toggled"]
-[connection signal="toggled" from="TabContainer/Settings/Graphic/borderless" to="TabContainer/Settings/Graphic" method="_on_borderless_toggled"]
-[connection signal="pressed" from="TabContainer/Settings/Graphic/vulkan" to="TabContainer/Settings/Graphic/RenderWarn" method="show"]
 [connection signal="pressed" from="TabContainer/Settings/Graphic/reset" to="TabContainer/Settings/Graphic" method="_on_reset_pressed"]
 [connection signal="text_changed" from="TabContainer/multiplayer/LanHost/EnetHost/HBoxContainer/port" to="TabContainer/multiplayer/LanHost" method="_on_port_text_changed"]
 [connection signal="pressed" from="TabContainer/multiplayer/LanHost/EnetHost/host" to="TabContainer/multiplayer/LanHost" method="_on_host_pressed"]

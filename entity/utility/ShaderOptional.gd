@@ -12,7 +12,6 @@ func _ready() -> void:
 		2:
 			material = material_medium
 		1:
-			material = material_high
+			material = material_low
 		0:
 			hide()
-	

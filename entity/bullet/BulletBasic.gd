@@ -89,12 +89,13 @@ func collide(result:Dictionary, bullet:Bullet) -> bool:
 		#Hit the wall.
 		return false
 		
+	var collider: Node = instance_from_id(result["collider_id"])
 	if bullet.grazable:
 		bullet.grazable = false
-		Global.bullet_graze.emit()
+		if collider.is_multiplayer_authority():
+			Global.bullet_graze.emit()
 		return true
 	
-	var collider = instance_from_id(result["collider_id"])
 	ItemManager.spawn_item(1, bullet.transform.origin)
 	collider._hit()
 	return false

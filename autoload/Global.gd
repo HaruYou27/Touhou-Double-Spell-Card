@@ -10,33 +10,15 @@ signal item_collect
 var hud : HUD
 var leveler : Leveler
 
-var player1 : Player
-var player2 : Player
+var player1: Player
+var player2: Player
 var last_man_standing := false
 func _peer_disconnected() -> void:
+	return
 	player2 = null
 
 const main_menu := "res://user-interface/menu/menu.tscn"
 
-##Convert an InputEvent to String.
-static func get_input_string(event:InputEvent) -> String:
-	
-	if event is InputEventKey:
-		return OS.get_keycode_string(event.keycode)
-	
-	match event.button_index:
-		1:
-			return 'Mouse Left'
-		2:
-			return 'Mouse Right'
-		3:
-			return 'Mouse Middle'
-	
-	return 'Unknown'
-####################
-
-######## NETWORKING
-##Difference in absolute time between the two clocks.
 var offset := 0
 func sync_clock() -> void:
 	offset = Time.get_ticks_usec()
@@ -52,9 +34,7 @@ func calculate_offset(host_time:int) -> void:
 	
 func get_host_time() -> int:
 	return Time.get_ticks_usec() + offset
-###########
 
-########## USER CONFIG
 var user_data : UserData
 func _ready() -> void:
 	multiplayer.peer_disconnected.connect(_peer_disconnected)
@@ -75,4 +55,3 @@ func _exit_tree() -> void:
 	ProjectSettings.set_setting('display/window/size/mode', window.mode)
 	ProjectSettings.save_custom('user://override.cfg')
 	ResourceSaver.save(user_data, 'user://saveData.res', ResourceSaver.FLAG_COMPRESS)
-###############

@@ -6,4 +6,4 @@ func _ready() -> void:
 	_load_menu.call_deferred()
 	
 func _load_menu() -> void:
-	LevelLoader.load_scene(global.main_menu)
+	LevelLoader.load_scene(Global.main_menu)

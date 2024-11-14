@@ -24,7 +24,7 @@ float SCurve (float value)
 {
 	float is_bigger = step(0.5, value);
 	value -= is_bigger;
-    return value * value * value * value * value * 16.0 + is_bigger; 
+    return value * value * value * value * value * 16.0 + is_bigger;
 }
 
 void fragment()
@@ -32,7 +32,7 @@ void fragment()
 	//Direction and coord.
 	lowp vec3 dir = vec3(UV.xy*zoom*0.001,1.);
 	lowp vec3 from = from_const;
-	
+
 	//volumetric rendering
 	lowp float s = 0.1, fade=1.;
 	lowp vec3 v=vec3(0.);
@@ -41,33 +41,33 @@ void fragment()
 		lowp vec3 p=from+s*dir*0.5;
 		p = abs(vec3(tile)-mod(p,vec3(tile*2.))); // tiling fold
 		lowp float pa,a=pa=0.;
-		
+
 		for (int i=0; i<iterations; i++)
-		{ 
+		{
 			p=abs(p)/dot(p,p)-formuparam; // the magic formula
 			a+=abs(length(p)-pa); // absolute sum of average change
 			pa=length(p);
 		}
-		
+
 		a = pow(a, 2.3); // add contrast
 		v+=fade;
 		v+=vec3(s,s*s,s*s*s*s)*a*brightness*fade; // coloring based on distance
 		fade*=distfading; // distance fading
 		s+=stepsize;
 	}
-    
+
 	v=mix(vec3(length(v)),v,saturation); //color adjust
-    
+
     vec4 C = vec4(v*.01,1.);
-    
-     	C.r = pow(C.r, 0.35); 
- 	 	C.g = pow(C.g, 0.36); 
- 	 	C.b = pow(C.b, 0.38); 
- 	
+
+     	C.r = pow(C.r, 0.35);
+ 	 	C.g = pow(C.g, 0.36);
+ 	 	C.b = pow(C.b, 0.38);
+
     vec4 L = C;
-    
+
     COLOR.r = mix(L.r, SCurve(C.r), 0.7);
     COLOR.g = mix(L.g, SCurve(C.g), 1.0);
     COLOR.b = mix(L.b, SCurve(C.b), 0.2);
-	
+
 }
