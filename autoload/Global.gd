@@ -13,6 +13,7 @@ var leveler : Leveler
 var player1: Player
 var player2: Player
 var last_man_standing := false
+
 func _peer_disconnected() -> void:
 	return
 	player2 = null

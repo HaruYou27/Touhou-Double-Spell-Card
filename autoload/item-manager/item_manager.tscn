@@ -22,15 +22,19 @@ shader_parameter/color_map = SubResource("GradientTexture1D_b7kiy")
 radius = 8.0
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_5a814"]
+distance = -1160.0
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_u8032"]
 normal = Vector2(0, 1)
+distance = -200.0
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_1woir"]
 normal = Vector2(1, 0)
+distance = -200.0
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_pgwb8"]
 normal = Vector2(-1, 0)
+distance = -740.0
 
 [node name="ItemManager" type="Node2D"]
 z_index = 1
@@ -47,17 +51,13 @@ collision_mask = 0
 constant_linear_velocity = Vector2(-1, 0)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="WorldBoundary"]
-position = Vector2(302, 1160)
 shape = SubResource("WorldBoundaryShape2D_5a814")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="WorldBoundary"]
-position = Vector2(302, -200)
 shape = SubResource("WorldBoundaryShape2D_u8032")
 
 [node name="CollisionShape2D3" type="CollisionShape2D" parent="WorldBoundary"]
-position = Vector2(-200, 453)
 shape = SubResource("WorldBoundaryShape2D_1woir")
 
 [node name="CollisionShape2D4" type="CollisionShape2D" parent="WorldBoundary"]
-position = Vector2(740, 453)
 shape = SubResource("WorldBoundaryShape2D_pgwb8")

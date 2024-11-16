@@ -1,0 +1,65 @@
+[gd_scene load_steps=3 format=3 uid="uid://bll6klqb88ch3"]
+
+[ext_resource type="Script" path="res://user-interface/resource/custom-node/FormatLabel.gd" id="1_4rw0e"]
+[ext_resource type="Script" path="res://user-interface/leveler/resource/local_score.gd" id="1_suui4"]
+
+[node name="Local" type="VBoxContainer"]
+script = ExtResource("1_suui4")
+metadata/_tab_index = 0
+
+[node name="player1" type="Label" parent="."]
+layout_mode = 2
+text = "%s"
+script = ExtResource("1_4rw0e")
+
+[node name="item1" type="Label" parent="."]
+layout_mode = 2
+text = "Item collected: %d"
+script = ExtResource("1_4rw0e")
+
+[node name="graze1" type="Label" parent="."]
+layout_mode = 2
+text = "Bullet grazed: %d"
+script = ExtResource("1_4rw0e")
+
+[node name="retry1" type="Label" parent="."]
+layout_mode = 2
+text = "Total retry: %d"
+script = ExtResource("1_4rw0e")
+
+[node name="score1" type="Label" parent="."]
+layout_mode = 2
+text = "Best score: %d"
+script = ExtResource("1_4rw0e")
+
+[node name="ScoreCombine" type="Label" parent="."]
+layout_mode = 2
+size_flags_vertical = 10
+text = "Combined: %d"
+script = ExtResource("1_4rw0e")
+
+[node name="player2" type="Label" parent="."]
+layout_mode = 2
+size_flags_vertical = 10
+text = "%s"
+script = ExtResource("1_4rw0e")
+
+[node name="score2" type="Label" parent="."]
+layout_mode = 2
+text = "Best score: %d"
+script = ExtResource("1_4rw0e")
+
+[node name="retry2" type="Label" parent="."]
+layout_mode = 2
+text = "Total retry: %d"
+script = ExtResource("1_4rw0e")
+
+[node name="graze2" type="Label" parent="."]
+layout_mode = 2
+text = "Bullet grazed: %d"
+script = ExtResource("1_4rw0e")
+
+[node name="item2" type="Label" parent="."]
+layout_mode = 2
+text = "Item collected: %d"
+script = ExtResource("1_4rw0e")

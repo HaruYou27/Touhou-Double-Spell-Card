@@ -63,7 +63,7 @@ func bomb() -> void:
 	rpc('bomb_go_off', Time.get_ticks_msec())
 
 var tween: Tween
-@rpc("unreliable", "call_remote", "authority")
+@rpc("unreliable_ordered", "call_remote", "authority")
 func _update_position(pos:Vector2) -> void:
 	if tween:
 		tween.kill()

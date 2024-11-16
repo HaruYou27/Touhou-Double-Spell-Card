@@ -11,14 +11,18 @@ var reverse := false
 func start() -> void:
 	if not is_multiplayer_authority():
 		return
-		
+	
+	rpc("_sync_start")
 	enemy.reset()
 	tween = create_tween()
 	progress_ratio = reverse
 	tween.tween_property(self, 'progress_ratio', float(not reverse), time)
-	tween.tween_callback(emit_signal.bind("timeout"))
+	tween.tween_callback(enemy.emit_signal.bind("timeout"))
 	
-@rpc("authority","unreliable","call_remote")
+func _process(delta: float) -> void:
+	rpc("_sync_position", progress_ratio)
+	
+@rpc("authority","unreliable_ordered","call_remote")
 func _sync_position(pos:float) -> void:
 	if tween:
 		tween.kill()
@@ -28,6 +32,7 @@ func _sync_position(pos:float) -> void:
 @rpc("reliable", "authority", "call_remote")
 func _sync_start() -> void:
 	enemy.reset()
+	progress_ratio = reverse
 
 func _on_enemy_timeout() -> void:
 	timeout.emit()

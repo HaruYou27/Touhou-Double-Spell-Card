@@ -1,15 +1,15 @@
 extends VBoxContainer
 
 @onready var user_data :UserData = Global.user_data
-@onready var vulkan: CheckButton = $vulkan
-@onready var particles := $Particles
-@onready var effect_level := $EffectLevel
+@onready var vulkan: CheckBox = $vulkan
+@onready var particles: HSlider = $Particles
+@onready var effect_level: OptionButton = $EffectLevel
 
 func _ready() -> void:
 	particles.value = user_data.particle_amount
 	effect_level.select(user_data.graphic_level)
 	if ProjectSettings.get_setting("rendering/renderer/rendering_method") == "mobile":
-		vulkan.set_pressed_no_signal(true)
+		vulkan.button_pressed = true
 
 func _exit_tree() -> void:
 	if vulkan.button_pressed:

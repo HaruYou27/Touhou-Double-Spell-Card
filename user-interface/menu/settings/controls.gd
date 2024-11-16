@@ -13,9 +13,6 @@ func _ready() -> void:
 	raw.set_pressed_no_signal(user_data.raw_input)
 	sentivity.value = user_data.sentivity
 
-func _on_sentivity_value_changed(value:float) -> void:
-	sentivityLabel.update_label(value)
-
 func _exit_tree() -> void:
 	user_data.sentivity = sentivity.value
 	user_data.raw_input = raw.button_pressed

@@ -632,7 +632,7 @@ tracks/8/path = NodePath("level")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/keys = {
-"times": PackedFloat32Array(154),
+"times": PackedFloat32Array(154.8),
 "transitions": PackedFloat32Array(1),
 "values": [{
 "args": [],
@@ -1283,7 +1283,7 @@ material = SubResource("ShaderMaterial_r8js3")
 texture = ExtResource("3_l3dc8")
 centered = false
 script = ExtResource("3_00q44")
-graphic_level = 2
+graphic_level = 0
 
 [node name="FullMoon" type="Sprite2D" parent="SubViewportContainer/SubViewport/background"]
 modulate = Color(1, 1, 1, 0)
@@ -1291,7 +1291,7 @@ material = SubResource("ShaderMaterial_h610u")
 position = Vector2(270, 201)
 texture = ExtResource("6_ja1w8")
 script = ExtResource("3_00q44")
-graphic_level = 2
+graphic_level = 1
 
 [node name="fog" parent="SubViewportContainer/SubViewport/background" instance=ExtResource("6_dlknp")]
 modulate = Color(1, 1, 1, 0)

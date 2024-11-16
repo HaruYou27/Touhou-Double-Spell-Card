@@ -1,8 +1,6 @@
 extends Control
 class_name Leveler
 
-@onready var user_data :UserData = Global.user_data
-
 @onready var screen_effect := $ScreenEffect
 func _ready() -> void:
 	tree.paused = false
@@ -17,8 +15,8 @@ func start() -> void:
 		var timer := get_tree().create_timer(2., true, true, true)
 		timer.timeout.connect(animator.play.bind("game"))
 	
-@export var animator : AnimationPlayer
-@rpc("reliable")
+@export var animator: AnimationPlayer
+@rpc("reliable", "authority", "call_remote")
 func _sync_start(host_time:int) -> void:
 	var offset := (Global.get_host_time() - host_time) / 1000000.
 	var timer := get_tree().create_timer(2. - offset, true, true, true)

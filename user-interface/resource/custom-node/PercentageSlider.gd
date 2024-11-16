@@ -11,11 +11,8 @@ func _ready() -> void:
 	add_child(sfx)
 
 func _value_changed(_new_value) -> void:
-	label.update_label(get_percentage())
-
-func get_percentage() -> int:
 	var raw := (value - min_value) / (max_value - min_value)
 	sfx.pitch_scale = 1 + raw
 	sfx.play()
 	
-	return int(raw * 100)
+	label.update_label(int(raw * 100))

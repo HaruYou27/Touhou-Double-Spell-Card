@@ -1,19 +1,18 @@
 extends StaticBody2D
 
 func _ready() -> void:
-	if is_multiplayer_authority():
-		Global.bullet_graze.connect(_graze)
-	else:
-		queue_free()
+	if not is_multiplayer_authority():
+		return
+		
+	Global.bullet_graze.connect(_graze)
+	for child in get_children():
+		child.queue_free()
 	
-@onready var vfx : GPUParticles2D = $vfx
-@onready var sfx : AudioStreamPlayer = $sfx
+@onready var vfx: GPUParticles2D = $vfx
+@onready var sfx: AudioStreamPlayer = $sfx
 func _graze() -> void:
-	vfx.emitting = true
+	if not is_multiplayer_authority():
+		return
+		
 	sfx.play()
-	rpc('graze')
-
-@rpc("authority", "call_remote", "unreliable")
-func graze() -> void:
 	vfx.emitting = true
-	sfx.play()
