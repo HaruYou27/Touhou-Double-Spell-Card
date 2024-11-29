@@ -11,6 +11,6 @@ class_name Score
 
 @export_category('Partner HiScore')
 @export var partner := ''
-@export var partner_item := 0
-@export var partner_graze := 0
-@export var partner_retry := 0
+@export var item_partner:= 0
+@export var graze_partner := 0
+@export var retry_partner := 0

@@ -1,5 +1,7 @@
-extends GPUParticles2D
+extends GraphicOptional
 class_name Particles2D
 
-func _ready() -> void:
-	amount *= Global.user_data.particle_amount
+## Work around GDscript limited inhernitance.
+func change_graphic() -> void:
+	var particles2d: GPUParticles2D = $"."
+	particles2d.amount *= Global.user_data.particle_amount

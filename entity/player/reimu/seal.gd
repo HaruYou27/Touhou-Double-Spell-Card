@@ -4,18 +4,18 @@ extends Area2D
 @onready var timer: Timer = $Timer
 @onready var tail_particles: GPUParticles2D = $tail
 @onready var seal_particles: GPUParticles2D = $sealParticles
+@onready var seal_particles_fb: CPUParticles2D = $sealParticles
 @onready var explosion: GPUParticles2D = $explosion
+
 func _ready() -> void:
-	tail_particles.emitting = false
-	seal_particles.emitting = false
-	monitoring = false
-	set_physics_process(false)
-	
-func start() -> void:
-	tail_particles.emitting = true
-	seal_particles.emitting = true
-	monitoring = true
-	set_physics_process(true)
+	toggle(false)
+
+func toggle(on:=true) -> void:
+	tail_particles.emitting = on
+	seal_particles.emitting = on
+	seal_particles_fb.emitting = on
+	monitoring = on
+	set_physics_process(on)
 	
 @export var speed := 500.0
 var index := 0
@@ -26,7 +26,7 @@ func _physics_process(delta: float) -> void:
 		return
 	
 	var target:Enemy = targets[index]
-	while target.is_dead:
+	while target.collision_layer:
 		index += 1
 		if index == targets.size():
 			explode()
@@ -37,7 +37,5 @@ func explode(_nm=null) -> void:
 	monitorable = true
 	explosion.emitting = true
 	
-	set_physics_process(false)
-	monitoring = false
-	seal_particles.emitting = false
-	tail_particles.emitting = false
+	toggle(false)
+	timer.start()

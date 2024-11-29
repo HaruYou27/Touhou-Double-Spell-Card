@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://bk08ga1mfcleb"]
+[gd_scene load_steps=18 format=3 uid="uid://bk08ga1mfcleb"]
 
 [ext_resource type="PackedScene" uid="uid://ffnff8ahyxxn" path="res://entity/player/reimu/reimu-sprite.tscn" id="2_1gpls"]
 [ext_resource type="Script" path="res://entity/player/reimu/reimu.gd" id="2_ukdaa"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://bsa0xvb26o22u" path="res://entity/player/reimu/yinyang-orb.tscn" id="5_ryrqw"]
 [ext_resource type="PackedScene" uid="uid://cex3540cp47lm" path="res://entity/player/base/graze.tscn" id="5_sq1so"]
 [ext_resource type="Texture2D" uid="uid://cx7ewf38kbh34" path="res://entity/player/reimu/resource/reimu-hitbox.png" id="7_hytxk"]
+[ext_resource type="PackedScene" uid="uid://8587t5a7aa40" path="res://entity/player/reimu/seal.tscn" id="10_730ir"]
 [ext_resource type="Shader" path="res://entity/bullet/resource/Bullet.gdshader" id="12_o8iy5"]
 [ext_resource type="Script" path="res://entity/player/reimu/Seeker.gd" id="13_g7t8t"]
 [ext_resource type="Texture2D" uid="uid://cu2ufhkx3vayf" path="res://entity/player/reimu/resource/ofuda.png" id="14_yebca"]
@@ -40,11 +41,13 @@ height = 32.0
 
 [node name="Reimu" type="Node2D"]
 
-[node name="Player" parent="." instance=ExtResource("4_ftqh1")]
+[node name="Player" parent="." node_paths=PackedStringArray("seals", "sprite", "hitbox") instance=ExtResource("4_ftqh1")]
 position = Vector2(153, 807)
 collision_mask = 0
 script = ExtResource("2_ukdaa")
-fatasy_seal = null
+seals = []
+sprite = NodePath("ReimuSprite")
+hitbox = NodePath("Hitbox")
 
 [node name="ReimuSprite" parent="Player" instance=ExtResource("2_1gpls")]
 position = Vector2(0, 8)
@@ -100,5 +103,15 @@ grazable = false
 hitbox = SubResource("CapsuleShape2D_vc5mj")
 collide_with_areas = true
 collision_mask = 3
+
+[node name="FantasySeal" type="Node2D" parent="."]
+
+[node name="Seal" parent="FantasySeal" instance=ExtResource("10_730ir")]
+
+[node name="Seal2" parent="FantasySeal" instance=ExtResource("10_730ir")]
+
+[node name="Seal3" parent="FantasySeal" instance=ExtResource("10_730ir")]
+
+[node name="Seal4" parent="FantasySeal" instance=ExtResource("10_730ir")]
 
 [connection signal="timeout" from="Player/Timer" to="bullet" method="spawn_bullet"]

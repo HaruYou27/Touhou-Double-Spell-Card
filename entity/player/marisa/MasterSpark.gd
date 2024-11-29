@@ -7,8 +7,9 @@ func _ready():
 	rays.append($RayCast2D)
 	rays.append_array(rays[0].get_children())
 	
-@onready var beam_particle := $Beam/BeamParticle
-@onready var collision_particle := $Beam/CollisionParticle
+@onready var beam_particle: GPUParticles2D = $Beam/BeamParticle
+@onready var collision_particle: GPUParticles2D = $Beam/CollisionParticle
+@onready var collision_particle_fb: CPUParticles2D = $Beam/CollisionParticle2
 
 ## Avoid cheating by increase physics step.
 var cooldown := .0

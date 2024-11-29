@@ -68,6 +68,7 @@ func _update_position(pos:Vector2) -> void:
 	if tween:
 		tween.kill()
 	tween = create_tween()
+	tween.set_ease(Tween.EASE_OUT)
 	tween.tween_property(self, "global_position", pos, 0.03)
 
 signal kaboom
@@ -80,7 +81,7 @@ func _bomb_finished() -> void:
 	if is_multiplayer_authority():
 		hitbox.set_deferred('disabled', false)
 	can_bomb = true
-#####################
+
 @onready var death_sfx := $DeathSFX
 @onready var death_fx := $explosion
 func _on_death_timer_timeout():
@@ -90,7 +91,7 @@ func _on_death_timer_timeout():
 	if Global.player2 and not Global.last_man_standing:
 		Global.hud.player_died()
 	else:
-		Global.leveler.restart()
+		Global.leveler.pause.pressed.emit()
 		
 @rpc("reliable", "call_local", "authority")
 func _sync_death() -> void:

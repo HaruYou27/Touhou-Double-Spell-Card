@@ -2,6 +2,7 @@ extends Control
 class_name Leveler
 
 @onready var screen_effect := $ScreenEffect
+@onready var pause: Button = $pause
 func _ready() -> void:
 	tree.paused = false
 	screen_effect.fade2black(true)

@@ -22,7 +22,7 @@ Label/styles/normal = null
 
 [node name="level" type="Control"]
 z_index = 4000
-texture_filter = 4
+texture_filter = 2
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -125,7 +125,6 @@ bus = &"SFX"
 
 [node name="PauseMenu" type="ColorRect" parent="."]
 process_mode = 3
-visible = false
 custom_minimum_size = Vector2(540, 960)
 layout_mode = 1
 anchors_preset = 15

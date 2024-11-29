@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://bsa0xvb26o22u"]
+[gd_scene load_steps=11 format=3 uid="uid://bsa0xvb26o22u"]
 
 [ext_resource type="Material" uid="uid://df8i0wskbdmia" path="res://entity/player/reimu/resource/yinYangOrb.tres" id="1_qnyaj"]
 [ext_resource type="Texture2D" uid="uid://cmqcue4x2exyv" path="res://entity/player/reimu/resource/Yin-Yang-orb.svg" id="2_0vho0"]
@@ -6,6 +6,7 @@
 [ext_resource type="Material" uid="uid://dox27ncd2r5o3" path="res://entity/resource/glow.tres" id="4_cf5oj"]
 [ext_resource type="Texture2D" uid="uid://d2wacgirqsjjn" path="res://entity/resource/white-trans.tres" id="5_5xmq5"]
 [ext_resource type="Texture2D" uid="uid://dxsf3vpqsosf1" path="res://entity/resource/fire_particle.png" id="6_qyb74"]
+[ext_resource type="Script" path="res://entity/utility/Particles2D.gd" id="7_kau30"]
 
 [sub_resource type="Curve" id="Curve_x8o5l"]
 min_value = -360.0
@@ -44,3 +45,5 @@ rotation = 1.5708
 amount = 64
 process_material = SubResource("ParticleProcessMaterial_85hxn")
 texture = ExtResource("6_qyb74")
+script = ExtResource("7_kau30")
+graphic_level = 1

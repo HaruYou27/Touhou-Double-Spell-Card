@@ -1,6 +1,7 @@
-[gd_scene load_steps=21 format=3 uid="uid://b85g60flfgfr3"]
+[gd_scene load_steps=23 format=3 uid="uid://b85g60flfgfr3"]
 
 [ext_resource type="Script" path="res://entity/player/marisa/MasterSpark.gd" id="1_i45vv"]
+[ext_resource type="Script" path="res://entity/utility/GraphicFallback.gd" id="6_ayuoo"]
 [ext_resource type="Material" uid="uid://dox27ncd2r5o3" path="res://entity/resource/glow.tres" id="6_jefjk"]
 [ext_resource type="Texture2D" uid="uid://d2wacgirqsjjn" path="res://entity/resource/white-trans.tres" id="7_rj3lw"]
 [ext_resource type="Texture2D" uid="uid://dxsf3vpqsosf1" path="res://entity/resource/fire_particle.png" id="8_wltid"]
@@ -291,6 +292,10 @@ color = Color(0.254902, 0.419608, 0.94902, 1)
 color_ramp = ExtResource("7_rj3lw")
 hue_variation_max = 0.03
 
+[sub_resource type="Gradient" id="Gradient_eytyl"]
+offsets = PackedFloat32Array(0, 0.197802, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0)
+
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_rvtdp"]
 particle_flag_disable_z = true
 emission_shape = 3
@@ -334,13 +339,38 @@ z_index = 3000
 z_as_relative = false
 material = ExtResource("6_jefjk")
 position = Vector2(0, -1037)
-amount = 32
+amount = 64
 process_material = SubResource("ParticleProcessMaterial_pud3s")
 texture = ExtResource("8_wltid")
 speed_scale = 2.0
 visibility_rect = Rect2(-100, -20, 200, 172)
 local_coords = true
 script = ExtResource("9_q1ojr")
+graphic_level = 1
+
+[node name="CollisionParticle2" type="CPUParticles2D" parent="Beam"]
+visible = false
+z_index = 3000
+z_as_relative = false
+material = ExtResource("6_jefjk")
+position = Vector2(0, -1037)
+lifetime = 0.5
+speed_scale = 2.0
+local_coords = true
+draw_order = 1
+texture = ExtResource("8_wltid")
+emission_shape = 1
+emission_sphere_radius = 16.0
+gravity = Vector2(0, 200)
+angular_velocity_curve = SubResource("Curve_xum4h")
+radial_accel_min = 100.0
+radial_accel_max = 200.0
+scale_amount_min = 0.5
+color = Color(0.254902, 0.419608, 0.94902, 1)
+color_ramp = SubResource("Gradient_eytyl")
+hue_variation_max = 0.03
+script = ExtResource("6_ayuoo")
+graphic_level = 0
 
 [node name="BeamParticle" type="GPUParticles2D" parent="Beam"]
 z_index = 3000
@@ -355,6 +385,7 @@ lifetime = 2.0
 visibility_rect = Rect2(-270, 800, 540, -1280)
 draw_order = 0
 script = ExtResource("9_q1ojr")
+graphic_level = 2
 
 [node name="RayCast2D" parent="." instance=ExtResource("9_hoe4h")]
 position = Vector2(0, 70)

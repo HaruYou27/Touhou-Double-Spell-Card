@@ -1,5 +1,5 @@
 extends Node2D
-## GlobalGameplay
+## Public variables and signals
 
 ## Emited by bullet when intersect player's graze Area2D.
 signal bullet_graze
@@ -7,11 +7,15 @@ signal bullet_graze
 ## Emited by item when intersect player's hitbox (not item Area2D).
 signal item_collect
 
+## Emit when player change graphic settings.
+signal update_graphic
+
 var hud : HUD
 var leveler : Leveler
 
 var player1: Player
 var player2: Player
+## The game will end if both players die.
 var last_man_standing := false
 
 func _peer_disconnected() -> void:

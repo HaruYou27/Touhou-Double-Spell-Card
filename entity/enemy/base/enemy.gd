@@ -8,7 +8,6 @@ signal died
 ## Fair reward.
 @onready var point = hp
 ## Don't free the node, marked it instead.
-var is_dead := false
 func _hit() -> void:
 	hp -= 1
 	if not hp:
@@ -23,18 +22,17 @@ func _ready() -> void:
 	collision_layer = 0
 
 func die() -> void:
+	collision_layer = 0
 	ItemManager.spawn_item(point, global_position)
 	explosion.emitting = true
 	death_sfx.play()
 	died.emit()
-	is_dead = true
-	_timeout()
+	timeout()
 
 func reset() -> void:
 	collision_layer = layer
 	visual.show()
 	hp = point
-	is_dead = false
 
 func _on_body_entered(body) -> void:
 	if body is Player:
@@ -42,6 +40,6 @@ func _on_body_entered(body) -> void:
 	else:
 		die()
 
-func _timeout():
+func timeout():
 	visual.hide()
 	collision_layer = 0
