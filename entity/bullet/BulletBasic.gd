@@ -40,6 +40,11 @@ var bullets : Array[Bullet] = []
 ## The bullet will be drawn on this node canvas item.
 @onready var canvas_item := get_canvas_item()
 
+func item_convert() -> void:
+	for bullet in bullets:
+		ItemManager.spawn_item(1, bullet.transform.origin)
+	restart()
+
 func _ready() -> void:
 	RenderingServer.canvas_item_set_custom_rect(canvas_item, true)
 	barrels = tree.get_nodes_in_group(barrelGroup)
@@ -47,6 +52,9 @@ func _ready() -> void:
 	query.shape = hitbox
 	query.collide_with_areas = collide_with_areas
 	query.collide_with_bodies = collide_with_bodies
+	
+	if grazable:
+		Global.player_bombing.connect(item_convert)
 	
 ## Override it with your new Bullet class.
 func create_bullet() -> Bullet:
@@ -82,11 +90,15 @@ func restart() -> void:
 	bullets.clear()
 	RenderingServer.canvas_item_clear(canvas_item)
 
-## Bulelt has collided with something, what to do now?
+## Return true means the bullet is still alive.
 func collide(result:Dictionary, bullet:Bullet) -> bool:
-	#Return true means the bullet is still alive.
-	if int(result["linear_velocity"].x) == -1:
-		#Hit the wall.
+	var mask := int(result["linear_velocity"].x)
+	if mask < 700:
+		# Hit player bomb, turn into an item.
+		ItemManager.spawn_item(1, bullet.transform.origin)
+		return false
+	elif mask < 0:
+		# Hit the wall.
 		return false
 		
 	var collider: Node = instance_from_id(result["collider_id"])
@@ -96,7 +108,6 @@ func collide(result:Dictionary, bullet:Bullet) -> bool:
 			Global.bullet_graze.emit()
 		return true
 	
-	ItemManager.spawn_item(1, bullet.transform.origin)
 	collider._hit()
 	return false
 
@@ -143,8 +154,9 @@ func _draw_bullets() -> void:
 var tick := false
 
 ## Loop from back to head.
-var index := 0
+
 func _physics_process(delta:float) -> void:
+	var index := 0
 	if bullets.is_empty():
 		return
 		
@@ -157,7 +169,6 @@ func _physics_process(delta:float) -> void:
 	if tick:
 		end_index = bullets.size() / 2
 		index = bullets.size()
-	
 	var new_bullets = bullets.duplicate()
 	while index > end_index:
 		index -= 1

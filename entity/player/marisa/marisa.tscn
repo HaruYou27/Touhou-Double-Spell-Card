@@ -10,19 +10,17 @@
 radius = 6.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_imnki"]
-radius = 62.0
+radius = 58.0
 height = 194.0
 
 [node name="Marisa" type="Node2D"]
 texture_filter = 1
 
 [node name="Player" parent="." node_paths=PackedStringArray("sprite", "hitbox") instance=ExtResource("1_vjhba")]
-position = Vector2(430, 821)
 sprite = NodePath("marisa")
 hitbox = NodePath("Hitbox")
 
 [node name="marisa" parent="Player" instance=ExtResource("13_sco1m")]
-visible = false
 position = Vector2(2, 0)
 
 [node name="Hitbox" type="CollisionShape2D" parent="Player"]

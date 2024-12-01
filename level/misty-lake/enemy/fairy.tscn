@@ -32,6 +32,3 @@ gizmo_extents = 141.9
 script = ExtResource("4_kds6q")
 min_rad = 0.785
 max_rad = 2.355
-
-[connection signal="timeout" from="." to="." method="_on_timeout"]
-[connection signal="timeout" from="." to="Enemy" method="_timeout"]

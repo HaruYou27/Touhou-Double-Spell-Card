@@ -5,6 +5,7 @@ class_name Seeker
 @export_flags_2d_physics var seek_mask := 2
 var seek_query := PhysicsShapeQueryParameters2D.new()
 @export var seek_shape : CircleShape2D
+@export var turn_speed := 7272
 
 func _ready() -> void:
 	seek_query.shape = seek_shape;
@@ -28,8 +29,9 @@ func create_bullet() -> Bullet:
 	return SeekerBullet.new()
 	
 func move(delta:float, bullet:Bullet) -> void:
-	if bullet.target.y:
-		bullet.velocity = (bullet.target - bullet.transform.origin).normalized() * speed
+	if bullet.target.y > 0.0:
+		bullet.velocity += (bullet.target - bullet.transform.origin).normalized() * turn_speed * delta
+		bullet.velocity = bullet.velocity.normalized() * speed
 		bullet.transform = Transform2D(bullet.velocity.angle() + half_pi, bullet.transform.origin)
 	super(delta, bullet)
 
@@ -37,7 +39,7 @@ func collision_check(bullet:Bullet) -> bool:
 	seek_query.transform = bullet.transform
 	var seek_result = world.direct_space_state.get_rest_info(seek_query)
 	if seek_result.is_empty():
-		bullet.target = Vector2.ZERO
+		bullet.target = Vector2.UP
 		return super(bullet)
 	bullet.target = seek_result["point"]
 	return super(bullet)

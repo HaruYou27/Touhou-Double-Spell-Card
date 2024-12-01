@@ -10,7 +10,9 @@ func move(event:InputEvent) -> void:
 	
 @export var seals:Array[Node2D]
 func spawn_bomb(index:int) -> void:
-	seals[index].global_position = barrels[index].global_position
+	var seal: FantasySeal = seals[index]
+	seal.global_position = barrels[index].global_position
+	seal.toggle(true)
 	
 @onready var barrels:Array = get_tree().get_nodes_in_group("Player Barrel")
 var tween_bomb: Tween
@@ -18,11 +20,11 @@ func bomb() -> void:
 	super()
 	tween_bomb = create_tween()
 	tween_bomb.tween_callback(spawn_bomb.bind(0))
-	tween_bomb.tween_interval(1.0)
+	tween_bomb.tween_interval(0.5)
 	tween_bomb.tween_callback(spawn_bomb.bind(1))
-	tween_bomb.tween_interval(1.0)
+	tween_bomb.tween_interval(0.5)
 	tween_bomb.tween_callback(spawn_bomb.bind(2))
-	tween_bomb.tween_interval(1.0)
+	tween_bomb.tween_interval(0.5)
 	tween_bomb.tween_callback(spawn_bomb.bind(3))
 	tween_bomb.tween_interval(0.5)
 	tween_bomb.tween_callback(barrels.shuffle)

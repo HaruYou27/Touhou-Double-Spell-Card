@@ -124,7 +124,10 @@ point_count = 4
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_g5wds"]
 shader = ExtResource("24_aykys")
-shader_parameter/water_opacity = 0.8
+shader_parameter/water_opacity = 0.5
+shader_parameter/refraction_strength = 0.04
+shader_parameter/speed = 0.1
+shader_parameter/refraction_map = ExtResource("3_l3dc8")
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_506w5"]
 viewport_path = NodePath("SubViewportContainer/SubViewport")

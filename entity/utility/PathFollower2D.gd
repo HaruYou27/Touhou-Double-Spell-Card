@@ -6,6 +6,16 @@ var reverse := false
 
 @onready var enemy: Enemy = $Enemy
 @onready var tween: Tween
+
+func die() -> void:
+	if tween:
+		tween.kill()
+	set_process(false)
+
+func _ready() -> void:
+	enemy.died.connect(die)
+	set_process(false)
+
 func start() -> void:
 	if not is_multiplayer_authority():
 		return
@@ -14,6 +24,7 @@ func start() -> void:
 	enemy.reset()
 	tween = create_tween()
 	progress_ratio = reverse
+	set_process(true)
 	tween.tween_property(self, 'progress_ratio', float(not reverse), time)
 	tween.tween_callback(enemy.timeout)
 	

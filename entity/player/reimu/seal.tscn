@@ -87,6 +87,7 @@ script = ExtResource("5_01jhk")
 graphic_level = 1
 
 [node name="sealParticles2" type="CPUParticles2D" parent="."]
+process_mode = 4
 material = ExtResource("1_jtbc5")
 fixed_fps = 30
 local_coords = true
@@ -113,6 +114,7 @@ script = ExtResource("5_01jhk")
 graphic_level = 1
 
 [node name="explosion2" parent="." instance=ExtResource("8_rypni")]
+process_mode = 4
 position = Vector2(-79, 23)
 script = ExtResource("7_56w1o")
 graphic_level = 0
@@ -126,9 +128,6 @@ monitorable = false
 shape = SubResource("CircleShape2D_lym8p")
 debug_color = Color(0, 0.6, 0.701961, 0)
 
-[node name="Timer" type="Timer" parent="."]
-one_shot = true
-
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="finished" from="explosion" to="." method="set_monitorable" binds= [false]]
 [connection signal="area_entered" from="hitbox" to="." method="explode"]
-[connection signal="timeout" from="Timer" to="." method="set_monitorable" binds= [false]]

@@ -10,6 +10,9 @@ signal item_collect
 ## Emit when player change graphic settings.
 signal update_graphic
 
+## Emit when player bomb explode (Screen-wide effect).
+signal player_bombing
+
 var hud : HUD
 var leveler : Leveler
 

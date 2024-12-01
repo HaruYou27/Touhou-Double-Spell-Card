@@ -2,6 +2,9 @@ extends ColorRect
 
 @onready var tree := get_tree()
 
+func _ready() -> void:
+	hide()
+
 func _on_Quit_pressed() -> void:
 	rpc('quit')
 	

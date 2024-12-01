@@ -14,8 +14,8 @@ func _on_timer_timeout() -> void:
 	rpc("ping", latency)
 	
 @rpc("authority", 'call_remote', "unreliable")
-func ping(latency:int) -> void:
-	update_label(latency)
+func ping(delay:int) -> void:
+	update_label(delay)
 	rpc("ping_server")
 	
 @rpc("any_peer", "call_remote", "unreliable")

@@ -1,18 +1,18 @@
-[gd_scene load_steps=3 format=3 uid="uid://dletx36qco4eh"]
+[gd_scene load_steps=3 format=3 uid="uid://14aea3qau2s8"]
 
-[ext_resource type="Texture2D" uid="uid://dxsf3vpqsosf1" path="res://entity/resource/fire_particle.png" id="2_iae2s"]
+[ext_resource type="Texture2D" uid="uid://dxsf3vpqsosf1" path="res://entity/resource/fire_particle.png" id="1_h22pd"]
 
 [sub_resource type="Gradient" id="Gradient_eytyl"]
 offsets = PackedFloat32Array(0, 0.197802, 1)
-colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0)
+colors = PackedColorArray(1, 0.811, 0.19, 0, 1, 0.811, 0.19, 1, 1, 0.811765, 0.188235, 0)
 
-[node name="explosion" type="CPUParticles2D"]
+[node name="blood" type="CPUParticles2D"]
 emitting = false
 lifetime = 0.5
 one_shot = true
 speed_scale = 2.0
 explosiveness = 1.0
-texture = ExtResource("2_iae2s")
+texture = ExtResource("1_h22pd")
 direction = Vector2(0, 0)
 spread = 180.0
 gravity = Vector2(0, 0)
@@ -20,5 +20,6 @@ initial_velocity_min = 10.0
 initial_velocity_max = 100.0
 angular_velocity_min = 288.0
 angular_velocity_max = 417.6
-scale_amount_min = 0.5
+scale_amount_min = 0.25
+scale_amount_max = 0.25
 color_ramp = SubResource("Gradient_eytyl")

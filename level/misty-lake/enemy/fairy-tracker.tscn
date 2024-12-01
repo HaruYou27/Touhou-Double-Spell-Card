@@ -30,6 +30,3 @@ position = Vector2(0, 20)
 rotation = 1.5708
 gizmo_extents = 58.2
 script = ExtResource("5_ntmqj")
-
-[connection signal="timeout" from="." to="Enemy" method="_timeout"]
-[connection signal="died" from="Enemy" to="." method="_on_enemy_died"]

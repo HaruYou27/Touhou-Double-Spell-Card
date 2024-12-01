@@ -5,7 +5,7 @@ class_name Path2DSpawner
 @onready var available := get_children()
 func _ready() -> void:
 	for follower in available:
-		follower.died.connect(_reclaim_follower.bind(follower))
+		follower.enemy.died.connect(_reclaim_follower.bind(follower))
 	
 	if barrel_group.is_empty():
 		return

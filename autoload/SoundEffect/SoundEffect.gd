@@ -4,6 +4,7 @@ func _ready() -> void:
 	set_process(false)
 
 @export var tick0 : AudioStreamPlayer
+@export var tick1 : AudioStreamPlayer
 func hover() -> void:
 	tick0.play()
 
