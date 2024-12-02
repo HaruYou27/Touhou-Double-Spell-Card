@@ -1264,11 +1264,19 @@ _data = {
 "game": SubResource("Animation_shi7r")
 }
 
-[node name="MistyLake" type="Node2D"]
+[node name="MistyLake" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(270, 480)
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="."]
 z_index = -100
 custom_minimum_size = Vector2(540, 960)
+layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 stretch = true
@@ -1286,15 +1294,13 @@ material = SubResource("ShaderMaterial_r8js3")
 texture = ExtResource("3_l3dc8")
 centered = false
 script = ExtResource("3_00q44")
-graphic_level = 0
+graphic_level = 1
 
 [node name="FullMoon" type="Sprite2D" parent="SubViewportContainer/SubViewport/background"]
 modulate = Color(1, 1, 1, 0)
 material = SubResource("ShaderMaterial_h610u")
 position = Vector2(270, 201)
 texture = ExtResource("6_ja1w8")
-script = ExtResource("3_00q44")
-graphic_level = 1
 
 [node name="fog" parent="SubViewportContainer/SubViewport/background" instance=ExtResource("6_dlknp")]
 modulate = Color(1, 1, 1, 0)
@@ -1725,6 +1731,7 @@ modulate = Color(1, 1, 1, 0)
 z_index = 3000
 
 [node name="level" parent="." node_paths=PackedStringArray("animator") instance=ExtResource("26_n1dlt")]
+layout_mode = 1
 animator = NodePath("../AnimationPlayer")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]

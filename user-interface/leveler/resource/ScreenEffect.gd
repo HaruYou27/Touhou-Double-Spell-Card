@@ -3,6 +3,9 @@ extends ColorRect
 @onready var bgm_volume := AudioServer.get_bus_volume_db(2)
 @onready var tree := get_tree()
 
+func _ready() -> void:
+	Global.player_bombing.connect(flash)
+
 func fade2black(reverse:=false) -> Tween:
 	show()
 	var tween := create_tween()
@@ -21,7 +24,7 @@ func flash() -> void:
 	show()
 	color = Color(1, 1, 1, .5)
 	var tween := create_tween()
-	tween.tween_property(self, 'color', Color.TRANSPARENT, .15)
+	tween.tween_property(self, 'color', Color.TRANSPARENT, .3)
 	tween.finished.connect(hide)
 
 func flash_red() -> void:

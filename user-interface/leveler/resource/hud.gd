@@ -6,14 +6,12 @@ class_name HUD
 func _ready() -> void:
 	if is_instance_valid(Global.player2):
 		hi_score_label.template = 'P2-Score: %09d'
-
 	else:
 		$VBoxContainer/HBoxContainer/ping.queue_free()
 		hi_score_label.update_label(0)
 	
 	Global.item_collect.connect(_add_item)
 	Global.bullet_graze.connect(_add_graze)
-	Global.hud = self
 	
 	score_label.update_label(0)
 	bomb_label.update_label(3)
@@ -53,6 +51,9 @@ func _update_score() -> void:
 func _update_p2_score(value:int) -> void:
 	hi_score_label.update_label(value)
 
+var death_count := 0
 func player_died() -> void:
-	item /= 2
-	graze /= 2
+	death_count += 1
+
+func save_score() -> void:
+	pass

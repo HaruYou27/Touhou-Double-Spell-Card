@@ -12,7 +12,7 @@
 [ext_resource type="Script" path="res://user-interface/resource/custom-node/FormatLabel.gd" id="9_78gx3"]
 [ext_resource type="Script" path="res://user-interface/leveler/resource/ping.gd" id="10_4xdio"]
 [ext_resource type="Script" path="res://user-interface/leveler/resource/fps.gd" id="11_dfhqj"]
-[ext_resource type="AudioStream" uid="uid://bykr1yaisabfe" path="res://autoload/SoundEffect/resource/tick-.wav" id="12_bhemp"]
+[ext_resource type="PackedScene" uid="uid://bmsj0mdtehnxx" path="res://user-interface/local-score.tscn" id="13_nxkqs"]
 
 [sub_resource type="Theme" id="Theme_p2fhi"]
 default_font = ExtResource("2_dqgtt")
@@ -117,10 +117,6 @@ size_flags_vertical = 5
 text = "Score:     %018d"
 script = ExtResource("9_78gx3")
 
-[node name="pickup" type="AudioStreamPlayer" parent="hud"]
-stream = ExtResource("12_bhemp")
-bus = &"SFX"
-
 [node name="reward" type="AudioStreamPlayer" parent="hud"]
 
 [node name="PauseMenu" type="ColorRect" parent="."]
@@ -136,6 +132,7 @@ script = ExtResource("4_3p6qo")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PauseMenu"]
 process_mode = 2
+custom_minimum_size = Vector2(400, 0)
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -174,6 +171,10 @@ focus_neighbor_top = NodePath(".")
 focus_previous = NodePath(".")
 text = "Back to Menu"
 script = ExtResource("6_nikbp")
+
+[node name="score" parent="PauseMenu/VBoxContainer" instance=ExtResource("13_nxkqs")]
+visible = false
+layout_mode = 2
 
 [connection signal="pressed" from="pause" to="PauseMenu" method="_on_pause_pressed"]
 [connection signal="timeout" from="hud/VBoxContainer/HBoxContainer/Timer" to="hud/VBoxContainer/HBoxContainer/ping" method="_on_timer_timeout"]

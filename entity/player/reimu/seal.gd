@@ -35,6 +35,7 @@ func _physics_process(delta: float) -> void:
 	global_position += speed * delta * (target.global_position - global_position).normalized()
 
 func explode(_nm=null) -> void:
+	OS.delay_msec(16)
 	explosion.emitting = true
 	Global.player_bombing.emit()
 	toggle(false)

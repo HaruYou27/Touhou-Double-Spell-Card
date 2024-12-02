@@ -1,4 +1,4 @@
-extends Node2D
+extends StaticBody2D
 class_name Player
 ## Mostly movement code.
 
@@ -8,8 +8,8 @@ func _ready() -> void:
 		return
 	
 	Global.player2 = self
-	hitbox.queue_free()
 	set_process_unhandled_input(false)
+	collision_layer = 0
 
 @onready var death_timer := $DeathTimer
 @onready var hit_sfx := $HitSFX

@@ -1,13 +1,16 @@
-[gd_scene load_steps=5 format=3 uid="uid://bcerm5i08pm5b"]
+[gd_scene load_steps=6 format=3 uid="uid://bcerm5i08pm5b"]
 
 [ext_resource type="Theme" uid="uid://dotibkyt5mm7v" path="res://user-interface/menu/theme/menu.tres" id="1_2tfm8"]
 [ext_resource type="Script" path="res://autoload/LeverLoader.gd" id="1_gveu2"]
 [ext_resource type="Material" uid="uid://df8i0wskbdmia" path="res://entity/player/reimu/resource/yinYangOrb.tres" id="2_3ks0h"]
 [ext_resource type="Texture2D" uid="uid://cmqcue4x2exyv" path="res://entity/player/reimu/resource/Yin-Yang-orb.svg" id="3_p17iu"]
 
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_aouyy"]
+noise_type = 5
+frequency = 0.0188
+
 [node name="Loading" type="Control"]
 process_mode = 3
-visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -16,6 +19,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_2tfm8")
 script = ExtResource("1_gveu2")
+noise = SubResource("FastNoiseLite_aouyy")
 
 [node name="Yin-yang-orb" type="Sprite2D" parent="."]
 material = ExtResource("2_3ks0h")
@@ -37,4 +41,5 @@ offset_right = 200.0
 offset_bottom = 119.0
 grow_horizontal = 2
 grow_vertical = 2
-step = 1.0
+step = 0.0
+rounded = true

@@ -6,6 +6,7 @@ class_name UserData
 
 @export_category('Graphic')
 @export var particle_amount := 1.0
+@export var screen_shake_intensity := 2.0
 @export var graphic_level := GRAPHIC_LEVEL.HIGH
 enum GRAPHIC_LEVEL {
 	MINIMAL,

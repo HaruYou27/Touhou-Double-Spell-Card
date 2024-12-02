@@ -8,8 +8,8 @@
 [ext_resource type="Script" path="res://user-interface/resource/custom-node/FormatLabel.gd" id="4_h21eu"]
 [ext_resource type="PackedScene" uid="uid://bsf3tthvg8rot" path="res://user-interface/menu/settings/reset.tscn" id="5_nrino"]
 [ext_resource type="Script" path="res://user-interface/resource/custom-node/SFXToggler.gd" id="5_vnfn8"]
-[ext_resource type="Script" path="res://user-interface/leveler/resource/local_score.gd" id="6_7bn2b"]
 [ext_resource type="Script" path="res://user-interface/menu/settings/audio.gd" id="6_8l51l"]
+[ext_resource type="PackedScene" uid="uid://bmsj0mdtehnxx" path="res://user-interface/local-score.tscn" id="6_46wtg"]
 [ext_resource type="Script" path="res://entity/player/reimu/Seeker.gd" id="8_7aax7"]
 [ext_resource type="Script" path="res://user-interface/resource/custom-node/PercentageSlider.gd" id="8_b5jhj"]
 [ext_resource type="Shader" path="res://entity/bullet/resource/Bullet.gdshader" id="9_021oy"]
@@ -267,6 +267,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+pivot_offset = Vector2(270, 480)
 theme = ExtResource("1_tnrbu")
 
 [node name="background" type="TabContainer" parent="."]
@@ -366,67 +367,8 @@ tab_alignment = 2
 current_tab = 0
 metadata/_tab_index = 1
 
-[node name="Local" type="VBoxContainer" parent="TabContainer/play/Score"]
+[node name="Local" parent="TabContainer/play/Score" instance=ExtResource("6_46wtg")]
 layout_mode = 2
-script = ExtResource("6_7bn2b")
-metadata/_tab_index = 0
-
-[node name="player1" type="Label" parent="TabContainer/play/Score/Local"]
-layout_mode = 2
-text = "%s"
-script = ExtResource("4_h21eu")
-
-[node name="item1" type="Label" parent="TabContainer/play/Score/Local"]
-layout_mode = 2
-text = "Item collected: %d"
-script = ExtResource("4_h21eu")
-
-[node name="graze1" type="Label" parent="TabContainer/play/Score/Local"]
-layout_mode = 2
-text = "Bullet grazed:  %d"
-script = ExtResource("4_h21eu")
-
-[node name="retry1" type="Label" parent="TabContainer/play/Score/Local"]
-layout_mode = 2
-text = "Total retry: %d"
-script = ExtResource("4_h21eu")
-
-[node name="score1" type="Label" parent="TabContainer/play/Score/Local"]
-layout_mode = 2
-text = "Best score: %d"
-script = ExtResource("4_h21eu")
-
-[node name="ScoreCombine" type="Label" parent="TabContainer/play/Score/Local"]
-layout_mode = 2
-size_flags_vertical = 10
-text = "Combined: %d"
-script = ExtResource("4_h21eu")
-
-[node name="player2" type="Label" parent="TabContainer/play/Score/Local"]
-layout_mode = 2
-size_flags_vertical = 10
-text = "%s"
-script = ExtResource("4_h21eu")
-
-[node name="score2" type="Label" parent="TabContainer/play/Score/Local"]
-layout_mode = 2
-text = "Best score: %d"
-script = ExtResource("4_h21eu")
-
-[node name="retry2" type="Label" parent="TabContainer/play/Score/Local"]
-layout_mode = 2
-text = "Total retry: %d"
-script = ExtResource("4_h21eu")
-
-[node name="graze2" type="Label" parent="TabContainer/play/Score/Local"]
-layout_mode = 2
-text = "Bullet grazed:   %d"
-script = ExtResource("4_h21eu")
-
-[node name="item2" type="Label" parent="TabContainer/play/Score/Local"]
-layout_mode = 2
-text = "Item collected: %d"
-script = ExtResource("4_h21eu")
 
 [node name="Internet" type="VBoxContainer" parent="TabContainer/play/Score"]
 visible = false

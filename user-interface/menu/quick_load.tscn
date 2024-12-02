@@ -2,5 +2,7 @@
 
 [ext_resource type="Script" path="res://user-interface/menu/resource/quick_load.gd" id="1_kdkkr"]
 
-[node name="QuickLoad" type="Node"]
+[node name="QuickLoad" type="Control"]
+layout_mode = 3
+anchors_preset = 0
 script = ExtResource("1_kdkkr")

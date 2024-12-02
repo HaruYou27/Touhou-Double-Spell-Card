@@ -1,4 +1,4 @@
-extends Node
+extends Control
 ## Load the main menu multi-threaded.
 
 func _ready() -> void:

@@ -3,11 +3,13 @@ class_name Leveler
 
 @onready var screen_effect := $ScreenEffect
 @onready var pause: Button = $pause
+@onready var hud: HUD = $hud
 func _ready() -> void:
 	tree.paused = false
 	screen_effect.fade2black(true)
 	Global.leveler = self
 	rpc('start')
+	animator.animation_finished.connect(hud.save_score)
 
 @rpc("reliable", "any_peer", "call_local")
 func start() -> void:
