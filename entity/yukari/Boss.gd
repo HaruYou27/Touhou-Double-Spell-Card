@@ -8,7 +8,7 @@ func _hit() -> void:
 
 func _on_body_entered(body) -> void:
 	if body is Player:
-		body._hit()
+		body.hit()
 
 func spawn_item():
 	ItemManager.spawn_item(point, global_position)

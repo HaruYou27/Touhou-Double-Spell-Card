@@ -7,22 +7,23 @@
 collision_layer = 4
 script = ExtResource("1_ty0s5")
 
-[node name="HitSFX" type="AudioStreamPlayer" parent="."]
-
-[node name="DeathSFX" type="AudioStreamPlayer" parent="."]
-
-[node name="ReviveSFX" type="AudioStreamPlayer" parent="."]
-
-[node name="DeathTimer" type="Timer" parent="."]
-process_mode = 3
-wait_time = 0.3
-one_shot = true
-
-[node name="explosion" parent="." instance=ExtResource("2_r67v6")]
-
 [node name="RecoverTimer" type="Timer" parent="."]
 wait_time = 2.0
 one_shot = true
 
-[connection signal="timeout" from="DeathTimer" to="." method="_on_death_timer_timeout"]
+[node name="ReviveSFX" type="AudioStreamPlayer" parent="."]
+
+[node name="explosion" parent="." instance=ExtResource("2_r67v6")]
+
+[node name="DeathTimer" type="Timer" parent="explosion"]
+wait_time = 0.3
+one_shot = true
+
+[node name="DeathSFX" type="AudioStreamPlayer" parent="explosion"]
+
+[node name="ReviveTimer" type="Timer" parent="explosion"]
+one_shot = true
+
 [connection signal="timeout" from="RecoverTimer" to="." method="_on_recover_timer_timeout"]
+[connection signal="timeout" from="explosion/DeathTimer" to="." method="_on_death_timer_timeout"]
+[connection signal="timeout" from="explosion/ReviveTimer" to="." method="revive"]

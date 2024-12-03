@@ -1,19 +1,21 @@
 extends Control
 
-var task_scene := 0
-var task_player1 := 0
-var task_player2 := 0
-func load_scene(path:String) -> void:
+var scene: Control
+## Thread id. Collect with WorkerThreadPoll.
+var tasks: PackedInt64Array = PackedInt64Array()
+## Non-blocking level loader.
+func load_scene(path:String, player:=false) -> void:
+	tasks.append(WorkerThreadPool.add_task(instance_scene.bind(path)))
+	if player:
+		tasks.append(WorkerThreadPool.add_task(load_player.bind(player1, id1)))
+		if id2 > 0:
+			tasks.append(WorkerThreadPool.add_task(load_player.bind(player2, id2)))
+		
+	scene.queue_free()
 	progess_bar.value = 0.0
 	show()
-	scene.queue_free()
-	task_scene = WorkerThreadPool.add_task(instance_scene.bind(path))
-	if not player2.is_empty():
-		task_player2 = WorkerThreadPool.add_task(load_player.bind(player2, id2))
-	if not player1.is_empty():
-		task_player1 = WorkerThreadPool.add_task(load_player.bind(player1, id1))
 
-@onready var progess_bar := $ProgressBar
+@onready var progess_bar: ProgressBar = $VBoxContainer/ProgressBar
 var player1 := ''
 var player1_packed : PackedScene
 var id1 := 1
@@ -26,22 +28,32 @@ func _set_player2_character(path:String) -> void:
 	id2 = multiplayer.get_remote_sender_id()
 	id1 = multiplayer.get_unique_id()
 
-var tween: Tween
 var progress_value := 0
+var animating := false
+## Should be call deferered.
 func increase_bar() -> void:
 	var percentage := 0
 	if player1.is_empty() and player2.is_empty():
 		percentage = 50
 	else:
 		percentage = 25
-		
 	progress_value += percentage
+	
+	if animating:
+		return
+	animating = true
+	animate_bar.call_deferred()
+	
+var tween: Tween
+func animate_bar() -> void:
 	if tween:
 		tween.kill()
 	tween = create_tween()
 	tween.set_ease(Tween.EASE_OUT)
 	tween.tween_property(progess_bar, "value", progress_value, 1.0)
+	animating = false
 
+## Cache scene.
 var scene_packed : PackedScene
 ## Should be called in a thread.
 func instance_scene(path:String) -> void:
@@ -53,40 +65,49 @@ func instance_scene(path:String) -> void:
 	increase_bar()
 	
 	finished.call_deferred()
-	
+
+## Cache player scene.
 var player1_node: Node
+## Cache player scene.
 var player2_node: Node
 ## Should be called in a thread.
 func load_player(path:String, id:int) -> void:
-	if id == 0:
-		return
-	var packed = load(path)
+	var packed: PackedScene
+	if path.is_empty():
+		if id == id1:
+			packed = player1_packed
+		else:
+			packed = player2_packed
+	else:
+		packed = load(path)
 	var player: Node = packed.instantiate()
 	player.name = str(id)
 	player.set_multiplayer_authority(id)
-	increase_bar()
 	
-	finished.call_deferred()
 	if id == id1:
 		player1_packed = packed
+		player2 = ''
 		player1_node = player
 	else:
+		player2 = ''
 		player2_packed = packed
 		player2_node = player
 	
+	increase_bar()
+	finished.call_deferred()
+	
 @onready var root : Window = get_tree().root
-var scene: Control
+## Called everytime a thread is done. But only collect when all threads are done.
 func finished() -> void:
-	if not WorkerThreadPool.is_task_completed(task_scene):
+	if tasks.is_empty():
+		# What
 		return
-	if not player1.is_empty() and not WorkerThreadPool.is_task_completed(task_player1):
-		return
-	if not player2.is_empty() and not WorkerThreadPool.is_task_completed(task_player2):
-		return
-		
-	WorkerThreadPool.wait_for_task_completion(task_scene)
-	WorkerThreadPool.wait_for_task_completion(task_player1)
-	WorkerThreadPool.wait_for_task_completion(task_player2)
+	for task in tasks:
+		if not WorkerThreadPool.is_task_completed(task):
+			return
+	for task in tasks:
+		WorkerThreadPool.wait_for_task_completion(task)
+	tasks.clear()
 	
 	if player1_node:
 		scene.add_child(player1_node)
@@ -98,9 +119,6 @@ func finished() -> void:
 	
 	progress_value = 0
 	hide()
-
-func restart_level() -> void:
-	load_scene('')
 
 @onready var shake_intensity := Global.user_data.screen_shake_intensity
 @export var noise: FastNoiseLite

@@ -41,11 +41,10 @@ height = 32.0
 
 [node name="Reimu" type="Node2D"]
 
-[node name="Player" parent="." node_paths=PackedStringArray("seals", "sprite", "hitbox") instance=ExtResource("4_ftqh1")]
+[node name="Player" parent="." node_paths=PackedStringArray("sprite", "hitbox") instance=ExtResource("4_ftqh1")]
 position = Vector2(153, 807)
 collision_mask = 0
 script = ExtResource("2_ukdaa")
-seals = [NodePath("../FantasySeal/Seal"), NodePath("../FantasySeal/Seal2"), NodePath("../FantasySeal/Seal3"), NodePath("../FantasySeal/Seal4")]
 sprite = NodePath("ReimuSprite")
 hitbox = NodePath("Hitbox")
 
@@ -104,14 +103,15 @@ hitbox = SubResource("CapsuleShape2D_vc5mj")
 collide_with_areas = true
 collision_mask = 3
 
-[node name="FantasySeal" type="Node2D" parent="."]
+[node name="FantasySeals" type="Node2D" parent="."]
+process_mode = 4
 
-[node name="Seal" parent="FantasySeal" instance=ExtResource("10_730ir")]
+[node name="Seal" parent="FantasySeals" instance=ExtResource("10_730ir")]
 
-[node name="Seal2" parent="FantasySeal" instance=ExtResource("10_730ir")]
+[node name="Seal2" parent="FantasySeals" instance=ExtResource("10_730ir")]
 
-[node name="Seal3" parent="FantasySeal" instance=ExtResource("10_730ir")]
+[node name="Seal3" parent="FantasySeals" instance=ExtResource("10_730ir")]
 
-[node name="Seal4" parent="FantasySeal" instance=ExtResource("10_730ir")]
+[node name="Seal4" parent="FantasySeals" instance=ExtResource("10_730ir")]
 
 [connection signal="timeout" from="Player/Timer" to="bullet" method="spawn_bullet"]

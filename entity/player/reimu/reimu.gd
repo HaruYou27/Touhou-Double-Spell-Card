@@ -1,5 +1,11 @@
 extends Player
 
+@onready var fantasy_seals := $"../FantasySeals"
+func _ready() -> void:
+	super()
+	fantasy_seals.process_mode = Node.PROCESS_MODE_DISABLED
+	seals = fantasy_seals.get_children()
+
 func move(event:InputEvent) -> void:
 	global_position += event.relative * sentivity
 	global_position.x = fposmod(global_position.x, 540.0)
@@ -8,7 +14,7 @@ func move(event:InputEvent) -> void:
 	if is_multiplayer_authority():
 		rpc('_update_position', global_position)
 	
-@export var seals:Array[Node2D]
+var seals: Array[Node]
 func spawn_bomb(index:int) -> void:
 	var seal: FantasySeal = seals[index]
 	seal.global_position = barrels[index].global_position
@@ -18,6 +24,7 @@ func spawn_bomb(index:int) -> void:
 var tween_bomb: Tween
 func bomb() -> void:
 	super()
+	fantasy_seals.process_mode = Node.PROCESS_MODE_INHERIT
 	tween_bomb = create_tween()
 	tween_bomb.tween_callback(spawn_bomb.bind(0))
 	tween_bomb.tween_interval(0.5)

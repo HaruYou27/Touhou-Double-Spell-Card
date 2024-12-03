@@ -4,7 +4,6 @@ class_name Score
 @export var game_speed := .0
 
 @export_category('Personal best')
-@export var username := ""
 @export var item := 0
 @export var graze := 0
 @export var retry_count := 0

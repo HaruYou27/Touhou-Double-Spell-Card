@@ -13,7 +13,8 @@ signal update_graphic
 ## Emit when player bomb explode (Screen-wide effect).
 signal player_bombing
 
-var leveler : Leveler
+var hud: HUD
+var leveler: Leveler
 
 var player1: Player
 var player2: Player

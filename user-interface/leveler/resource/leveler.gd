@@ -4,6 +4,7 @@ class_name Leveler
 @onready var screen_effect := $ScreenEffect
 @onready var pause: Button = $pause
 @onready var hud: HUD = $hud
+@export var animator: AnimationPlayer
 func _ready() -> void:
 	tree.paused = false
 	screen_effect.fade2black(true)
@@ -15,21 +16,22 @@ func _ready() -> void:
 func start() -> void:
 	if is_multiplayer_authority():
 		rpc('_sync_start', Time.get_ticks_msec())
-		var timer := get_tree().create_timer(2., true, true, true)
-		timer.timeout.connect(animator.play.bind("game"))
+		#var timer := get_tree().create_timer(2., true, true, true)
+		#timer.timeout.connect(animator.play.bind("game"))
+		animator.play("game")
 	
-@export var animator: AnimationPlayer
 @rpc("reliable", "authority", "call_remote")
 func _sync_start(host_time:int) -> void:
-	var offset := (Global.get_host_time() - host_time) / 1000000.
-	var timer := get_tree().create_timer(2. - offset, true, true, true)
-	timer.timeout.connect(animator.play.bind("game"))
+	animator.play("game")
+	#var offset := (Global.get_host_time() - host_time) / 1000000.
+	#var timer := get_tree().create_timer(2. - offset, true, true, true)
+	#timer.timeout.connect(animator.play.bind("game"))
 
-func _revive_player() -> void:
+func revive_player() -> void:
 	Global.player1.revive()
 
 @onready var tree := get_tree()
 func restart() -> void:
 	tree.paused = true
 	var tween : Tween = screen_effect.fade2black()
-	tween.finished.connect(LevelLoader.restart_level)
+	tween.finished.connect(LevelLoader.load_scene.bind('', true))

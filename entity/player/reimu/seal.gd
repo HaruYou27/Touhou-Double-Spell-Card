@@ -36,6 +36,7 @@ func _physics_process(delta: float) -> void:
 
 func explode(_nm=null) -> void:
 	OS.delay_msec(16)
+	LevelLoader.screen_shake(0.6)
 	explosion.emitting = true
 	Global.player_bombing.emit()
 	toggle(false)

@@ -2,18 +2,25 @@ extends Resource
 class_name UserData
 
 @export_category('Gameplay')
-@export var language := ''
+enum LANGUAGE
+{
+	ENGLISH,
+}
+@export var language := LANGUAGE.ENGLISH
+@export var user_name := "HaruYou27"
 
 @export_category('Graphic')
 @export var particle_amount := 1.0
 @export var screen_shake_intensity := 2.0
-@export var graphic_level := GRAPHIC_LEVEL.HIGH
-enum GRAPHIC_LEVEL {
+enum GRAPHIC_LEVEL
+{
 	MINIMAL,
 	LOW,
 	MEDIUM,
 	HIGH,
 }
+@export var graphic_level := GRAPHIC_LEVEL.HIGH
+
 
 @export_category("Controls")
 @export var sentivity := 1.2

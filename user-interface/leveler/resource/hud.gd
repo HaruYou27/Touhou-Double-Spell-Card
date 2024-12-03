@@ -10,38 +10,39 @@ func _ready() -> void:
 		$VBoxContainer/HBoxContainer/ping.queue_free()
 		hi_score_label.update_label(0)
 	
-	Global.item_collect.connect(_add_item)
-	Global.bullet_graze.connect(_add_graze)
+	Global.item_collect.connect(add_item)
+	Global.bullet_graze.connect(add_graze)
+	Global.hud = self
 	
 	score_label.update_label(0)
 	bomb_label.update_label(3)
 
 @export var bomb_label : FormatLabel
-func update_bomb(bomb_count) -> void:
-	bomb_label.update_label(bomb_count)
+func update_bomb() -> void:
+	bomb_label.update_label(Global.player1.bomb_count)
 
-#There's no point in updating the score more than 1 per frame.
 var item := 1
-func _add_item() -> void:
+func add_item() -> void:
 	item += 1
 	SoundEffect.hover()
-	update_score()
+	update_score_request()
 	
 var graze := 1
-func _add_graze() -> void:
+func add_graze() -> void:
 	graze += 1
-	update_score()
+	update_score_request()
 	
 var updating_score := false
-func update_score() -> void:
+## There's no point in updating the score more than 1 per frame.
+func update_score_request() -> void:
 	if updating_score:
 		return
 	updating_score = true
-	call_deferred('_update_score')
+	update_score.call_deferred()
 	
 @export var reward_sfx : AudioStreamPlayer
 @export var score_label : FormatLabel
-func _update_score() -> void:
+func update_score() -> void:
 	var score = graze * item * Engine.time_scale
 	score_label.update_label(int(score))
 	rpc('_update_p2_score', score)
@@ -55,5 +56,11 @@ var death_count := 0
 func player_died() -> void:
 	death_count += 1
 
+@onready var pause_menu = $"../PauseMenu"
 func save_score() -> void:
-	pass
+	var score := Score.new()
+	score.graze = graze
+	score.item = item
+	score.retry_count = death_count
+	
+	pause_menu.display_score(score)

@@ -42,7 +42,6 @@ func _physics_process(delta:float) -> void:
 func _on_player_kaboom(offset:float) -> void:
 	set_physics_process(false)
 	animator.play("Master Spark")
-	animator.seek(offset)
 	spark_hitbox.set_deferred("disabled", false)
 	
 signal finished

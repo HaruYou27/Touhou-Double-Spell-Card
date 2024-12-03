@@ -93,7 +93,7 @@ func restart() -> void:
 ## Return true means the bullet is still alive.
 func collide(result:Dictionary, bullet:Bullet) -> bool:
 	var mask := int(result["linear_velocity"].x)
-	if mask < 700:
+	if mask < -700:
 		# Hit player bomb, turn into an item.
 		ItemManager.spawn_item(1, bullet.transform.origin)
 		return false
@@ -108,7 +108,7 @@ func collide(result:Dictionary, bullet:Bullet) -> bool:
 			Global.bullet_graze.emit()
 		return true
 	
-	collider._hit()
+	collider.hit()
 	return false
 
 ## Override to change the way bullet move.

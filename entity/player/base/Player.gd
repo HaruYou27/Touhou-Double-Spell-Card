@@ -11,12 +11,12 @@ func _ready() -> void:
 	set_process_unhandled_input(false)
 	collision_layer = 0
 
-@onready var death_timer := $DeathTimer
-@onready var hit_sfx := $HitSFX
+@onready var death_timer: Timer = $explosion/DeathTimer
 @onready var tree := get_tree()
+var is_alive := true
 @export var sprite : Node2D
-func _hit() -> void:
-	hit_sfx.play()
+func hit() -> void:
+	SoundEffect.press(true)
 	hitbox.set_deferred('disabled', true)
 	Global.leveler.screen_effect.flash_red()
 	death_timer.start()
@@ -54,13 +54,11 @@ func bomb() -> void:
 		
 	bomb_count -= 1
 	can_bomb = false
-	Global.hud.update_bomb(bomb_count)
 	
 	if is_multiplayer_authority():
 		hitbox.set_deferred("disabled", true)
-		
-	kaboom.emit(0)
-	rpc('bomb_go_off', Time.get_ticks_msec())
+	
+	rpc('bomb_go_off')
 
 var tween: Tween
 @rpc("unreliable_ordered", "call_remote", "authority")
@@ -72,9 +70,9 @@ func _update_position(pos:Vector2) -> void:
 	tween.tween_property(self, "global_position", pos, 0.03)
 
 signal kaboom
-@rpc("reliable", "call_remote", "authority")
-func bomb_go_off(host_time:int) -> void:
-	kaboom.emit((host_time - int(Global.get_host_time()) / 1000))
+@rpc("reliable", "call_local", "authority")
+func bomb_go_off() -> void:
+	kaboom.emit()
 	
 @export var hitbox : CollisionShape2D
 func _bomb_finished() -> void:
@@ -82,19 +80,27 @@ func _bomb_finished() -> void:
 		hitbox.set_deferred('disabled', false)
 	can_bomb = true
 
-@onready var death_sfx := $DeathSFX
-@onready var death_fx := $explosion
+@onready var death_sfx: AudioStreamPlayer = $explosion/DeathSFX
+@onready var death_fx: GPUParticles2D = $explosion
+@onready var revive_timer: Timer = $ReviveTimer
 func _on_death_timer_timeout():
 	Global.leveler.screen_effect.hide()
-	rpc("_sync_death")
+	Global.hud.player_died()
+	sync_death()
+	is_alive = false
+	rpc("sync_death")
 	
-	if Global.player2 and not Global.last_man_standing:
-		Global.hud.player_died()
+	if Global.player2:
+		if Global.last_man_standing:
+			Global.leveler.animator.stop()
+		else:
+			revive_timer.start()
 	else:
 		Global.leveler.pause.pressed.emit()
 		
-@rpc("reliable", "call_local", "authority")
-func _sync_death() -> void:
+@rpc("reliable", "authority")
+func sync_death() -> void:
+	set_process_unhandled_input(false)
 	process_mode = Node.PROCESS_MODE_DISABLED
 	death_fx.emitting = true
 	death_sfx.play()
@@ -104,18 +110,22 @@ func _sync_death() -> void:
 @onready var revive_fx := $ReviveSFX
 func _on_recover_timer_timeout():
 	revive_fx.play()
+	set_process_unhandled_input(true)
 	hitbox.set_deferred('disabled', false)
 	modulate = Color.WHITE
 
 @onready var recover_timer := $RecoverTimer
 func revive() -> void:
-	if process_mode == Node.PROCESS_MODE_DISABLED or not Global.player2:
+	print_debug()
+	if is_alive:
 		return
+	sync_revive()
 	rpc("_sync_revive")
+	is_alive = true
 	
 @onready var spawn_pos := position
-@rpc("reliable", "call_local", "authority")
-func _sync_revive() -> void:
+@rpc("reliable", "authority")
+func sync_revive() -> void:
 	process_mode = Node.PROCESS_MODE_INHERIT
 	sprite.show()
 	recover_timer.start()

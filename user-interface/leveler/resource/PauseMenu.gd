@@ -1,4 +1,5 @@
 extends ColorRect
+class_name PauseMenu
 
 @onready var tree := get_tree()
 
@@ -26,3 +27,10 @@ func _on_continue_pressed() -> void:
 	tree.paused = false
 	hide()
 	set_process_input(true)
+
+@onready var score_label := $VBoxContainer/score
+@onready var resume := $VBoxContainer/Continue
+func display_score(score:Score) -> void:
+	score_label.show()
+	score_label.display_score(score)
+	resume.hide()

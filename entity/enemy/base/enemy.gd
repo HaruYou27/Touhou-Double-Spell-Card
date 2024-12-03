@@ -44,7 +44,7 @@ func reset() -> void:
 
 func _on_body_entered(body) -> void:
 	if body is Player:
-		body._hit()
+		body.hit()
 
 func timeout():
 	visual.hide()

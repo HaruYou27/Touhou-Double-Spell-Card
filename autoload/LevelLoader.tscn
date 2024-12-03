@@ -15,31 +15,39 @@ layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 50.0
+offset_right = -50.0
 grow_horizontal = 2
 grow_vertical = 2
+size_flags_horizontal = 4
 theme = ExtResource("1_2tfm8")
 script = ExtResource("1_gveu2")
 noise = SubResource("FastNoiseLite_aouyy")
 
 [node name="Yin-yang-orb" type="Sprite2D" parent="."]
 material = ExtResource("2_3ks0h")
-position = Vector2(270, 480)
+position = Vector2(220, 615)
 scale = Vector2(0.25, 0.25)
 texture = ExtResource("3_p17iu")
 
-[node name="ProgressBar" type="ProgressBar" parent="."]
-custom_minimum_size = Vector2(400, 0)
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
+anchors_preset = 14
 anchor_top = 0.5
-anchor_right = 0.5
+anchor_right = 1.0
 anchor_bottom = 0.5
-offset_left = -200.0
-offset_top = 81.0
-offset_right = 200.0
-offset_bottom = 119.0
+offset_top = -48.0
+offset_bottom = 48.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="ProgressBar" type="ProgressBar" parent="VBoxContainer"]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
 step = 0.0
 rounded = true
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "Loading..."
+horizontal_alignment = 1

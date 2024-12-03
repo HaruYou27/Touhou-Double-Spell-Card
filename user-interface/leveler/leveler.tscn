@@ -120,7 +120,7 @@ script = ExtResource("9_78gx3")
 [node name="reward" type="AudioStreamPlayer" parent="hud"]
 
 [node name="PauseMenu" type="ColorRect" parent="."]
-process_mode = 3
+process_mode = 2
 visible = false
 custom_minimum_size = Vector2(540, 960)
 layout_mode = 1
@@ -131,7 +131,6 @@ color = Color(0.129412, 0.129412, 0.129412, 0.423529)
 script = ExtResource("4_3p6qo")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PauseMenu"]
-process_mode = 2
 custom_minimum_size = Vector2(400, 0)
 layout_mode = 1
 anchors_preset = 8
@@ -179,6 +178,7 @@ layout_mode = 2
 [connection signal="pressed" from="pause" to="PauseMenu" method="_on_pause_pressed"]
 [connection signal="timeout" from="hud/VBoxContainer/HBoxContainer/Timer" to="hud/VBoxContainer/HBoxContainer/ping" method="_on_timer_timeout"]
 [connection signal="timeout" from="hud/VBoxContainer/HBoxContainer/Timer" to="hud/VBoxContainer/HBoxContainer/fps" method="_on_timer_timeout"]
+[connection signal="pressed" from="PauseMenu/VBoxContainer/Continue" to="." method="_revive_player"]
 [connection signal="pressed" from="PauseMenu/VBoxContainer/Continue" to="PauseMenu" method="_on_continue_pressed"]
 [connection signal="pressed" from="PauseMenu/VBoxContainer/Restart" to="." method="restart"]
 [connection signal="pressed" from="PauseMenu/VBoxContainer/Restart" to="PauseMenu" method="hide"]

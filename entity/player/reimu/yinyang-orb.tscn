@@ -45,5 +45,6 @@ rotation = 1.5708
 amount = 64
 process_material = SubResource("ParticleProcessMaterial_85hxn")
 texture = ExtResource("6_qyb74")
+visibility_rect = Rect2(-500, -1500, 1000, 2000)
 script = ExtResource("7_kau30")
 graphic_level = 1
