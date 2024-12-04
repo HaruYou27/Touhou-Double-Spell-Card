@@ -1,10 +1,10 @@
 [gd_scene load_steps=6 format=3 uid="uid://dlimqo8igshs3"]
 
-[ext_resource type="Script" path="res://autoload/SoundEffect/SoundEffect.gd" id="1_12ptu"]
-[ext_resource type="AudioStream" uid="uid://bykr1yaisabfe" path="res://autoload/SoundEffect/resource/tick-.wav" id="2_bltju"]
-[ext_resource type="AudioStream" uid="uid://4t58xs4qdlkr" path="res://autoload/SoundEffect/resource/tick+.wav" id="3_d51pi"]
-[ext_resource type="AudioStream" uid="uid://dlbathqk2uyqy" path="res://autoload/SoundEffect/resource/press-.wav" id="3_g7kf6"]
-[ext_resource type="AudioStream" uid="uid://c0gbantbfid7s" path="res://autoload/SoundEffect/resource/press+.wav" id="4_wlvim"]
+[ext_resource type="Script" path="res://singleton/sound-effect/SoundEffect.gd" id="1_12ptu"]
+[ext_resource type="AudioStream" uid="uid://bykr1yaisabfe" path="res://singleton/sound-effect/resource/tick-.wav" id="2_bltju"]
+[ext_resource type="AudioStream" uid="uid://4t58xs4qdlkr" path="res://singleton/sound-effect/resource/tick+.wav" id="3_d51pi"]
+[ext_resource type="AudioStream" uid="uid://dlbathqk2uyqy" path="res://singleton/sound-effect/resource/press-.wav" id="3_g7kf6"]
+[ext_resource type="AudioStream" uid="uid://c0gbantbfid7s" path="res://singleton/sound-effect/resource/press+.wav" id="4_wlvim"]
 
 [node name="SoundEffect" type="Node" node_paths=PackedStringArray("tick0", "tick1", "press0", "press1", "voice")]
 script = ExtResource("1_12ptu")

@@ -115,7 +115,6 @@ graphic_level = 1
 
 [node name="explosion2" parent="." instance=ExtResource("8_rypni")]
 process_mode = 4
-position = Vector2(-79, 23)
 script = ExtResource("7_56w1o")
 graphic_level = 0
 
@@ -126,8 +125,20 @@ monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hitbox"]
 shape = SubResource("CircleShape2D_lym8p")
+disabled = true
+debug_color = Color(0, 0.6, 0.701961, 0)
+
+[node name="ExplodeBody" type="StaticBody2D" parent="."]
+collision_layer = 4
+collision_mask = 0
+constant_linear_velocity = Vector2(-727, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ExplodeBody"]
+shape = SubResource("CircleShape2D_q5f8i")
+disabled = true
 debug_color = Color(0, 0.6, 0.701961, 0)
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
-[connection signal="finished" from="explosion" to="." method="set_monitorable" binds= [false]]
+[connection signal="finished" from="explosion" to="ExplodeBody/CollisionShape2D" method="set_deferred" binds= [&"disabled", true]]
+[connection signal="finished" from="explosion2" to="ExplodeBody/CollisionShape2D" method="set_deferred" binds= [&"disabled", true]]
 [connection signal="area_entered" from="hitbox" to="." method="explode"]

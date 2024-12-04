@@ -7,6 +7,10 @@ class_name FantasySeal
 @onready var seal_particles_fb: CPUParticles2D = $sealParticles2
 @onready var explosion: GPUParticles2D = $explosion
 
+@onready var hitbox: CollisionShape2D = $hitbox/CollisionShape2D
+@onready var seek: CollisionShape2D = $CollisionShape2D
+@onready var explode_physics: CollisionShape2D = $ExplodeBody/CollisionShape2D
+
 func _ready() -> void:
 	toggle(false)
 
@@ -14,8 +18,10 @@ func toggle(on:=true) -> void:
 	tail_particles.emitting = on
 	seal_particles.emitting = on
 	seal_particles_fb.emitting = on
-	monitoring = on
 	set_physics_process(on)
+	hitbox.set_deferred("disabled", not on)
+	seek.set_deferred("disabled", not on)
+	
 	target_vaild = false
 	target = null
 	
@@ -36,7 +42,8 @@ func _physics_process(delta: float) -> void:
 
 func explode(_nm=null) -> void:
 	OS.delay_msec(16)
-	LevelLoader.screen_shake(0.6)
+	ScreenEffect.screen_shake(0.6)
+	ScreenEffect.flash(0.3)
 	explosion.emitting = true
-	Global.player_bombing.emit()
+	explode_physics.set_deferred("disabled", false)
 	toggle(false)

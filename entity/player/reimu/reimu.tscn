@@ -104,7 +104,6 @@ collide_with_areas = true
 collision_mask = 3
 
 [node name="FantasySeals" type="Node2D" parent="."]
-process_mode = 4
 
 [node name="Seal" parent="FantasySeals" instance=ExtResource("10_730ir")]
 

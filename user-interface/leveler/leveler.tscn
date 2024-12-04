@@ -1,10 +1,9 @@
-[gd_scene load_steps=15 format=3 uid="uid://bfvb372sca8m2"]
+[gd_scene load_steps=14 format=3 uid="uid://bfvb372sca8m2"]
 
 [ext_resource type="StyleBox" uid="uid://bp6kfebep5pa7" path="res://user-interface/menu/theme/black-rounded.tres" id="1_qndui"]
 [ext_resource type="FontFile" uid="uid://cc78r22h75c20" path="res://user-interface/resource/font/NotoSerif-Regular.ttf" id="2_dqgtt"]
 [ext_resource type="Script" path="res://user-interface/leveler/resource/leveler.gd" id="3_i4tu5"]
 [ext_resource type="Script" path="res://user-interface/leveler/resource/PauseMenu.gd" id="4_3p6qo"]
-[ext_resource type="Script" path="res://user-interface/leveler/resource/ScreenEffect.gd" id="4_pauor"]
 [ext_resource type="Shortcut" uid="uid://cmfbyxixc4xv3" path="res://user-interface/resource/shortcut/escape.tres" id="5_ukwdv"]
 [ext_resource type="Script" path="res://user-interface/resource/custom-node/SFXButton.gd" id="6_nikbp"]
 [ext_resource type="Theme" uid="uid://blprm8j3o32j7" path="res://user-interface/leveler/resource/score.tres" id="7_gsru3"]
@@ -32,17 +31,6 @@ grow_vertical = 2
 mouse_filter = 2
 theme = SubResource("Theme_p2fhi")
 script = ExtResource("3_i4tu5")
-
-[node name="ScreenEffect" type="ColorRect" parent="."]
-process_mode = 3
-visible = false
-custom_minimum_size = Vector2(540, 960)
-layout_mode = 1
-offset_right = 540.0
-offset_bottom = 960.0
-mouse_filter = 2
-color = Color(0.0823529, 0.0823529, 0.0823529, 1)
-script = ExtResource("4_pauor")
 
 [node name="pause" type="Button" parent="."]
 modulate = Color(1, 1, 1, 0.501961)
@@ -146,6 +134,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Continue" type="Button" parent="PauseMenu/VBoxContainer"]
+visible = false
 layout_mode = 2
 size_flags_vertical = 3
 shortcut = ExtResource("5_ukwdv")

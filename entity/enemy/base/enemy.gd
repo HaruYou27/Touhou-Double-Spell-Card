@@ -33,7 +33,6 @@ func die() -> void:
 	timeout()
 	
 func _ready() -> void:
-	Global.player_bombing.connect(die)
 	layer = collision_layer
 	collision_layer = 0
 
@@ -45,6 +44,8 @@ func reset() -> void:
 func _on_body_entered(body) -> void:
 	if body is Player:
 		body.hit()
+	else:
+		die()
 
 func timeout():
 	visual.hide()

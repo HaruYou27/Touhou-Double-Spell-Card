@@ -3,7 +3,6 @@ extends Player
 @onready var fantasy_seals := $"../FantasySeals"
 func _ready() -> void:
 	super()
-	fantasy_seals.process_mode = Node.PROCESS_MODE_DISABLED
 	seals = fantasy_seals.get_children()
 
 func move(event:InputEvent) -> void:
@@ -24,7 +23,6 @@ func spawn_bomb(index:int) -> void:
 var tween_bomb: Tween
 func bomb() -> void:
 	super()
-	fantasy_seals.process_mode = Node.PROCESS_MODE_INHERIT
 	tween_bomb = create_tween()
 	tween_bomb.tween_callback(spawn_bomb.bind(0))
 	tween_bomb.tween_interval(0.5)
@@ -36,4 +34,4 @@ func bomb() -> void:
 	tween_bomb.tween_interval(0.5)
 	tween_bomb.tween_callback(barrels.shuffle)
 	tween_bomb.tween_interval(0.5)
-	tween_bomb.tween_callback(_bomb_finished)
+	tween_bomb.tween_callback(bomb_finished)

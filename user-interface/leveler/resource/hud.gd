@@ -15,11 +15,10 @@ func _ready() -> void:
 	Global.hud = self
 	
 	score_label.update_label(0)
-	bomb_label.update_label(3)
 
 @export var bomb_label : FormatLabel
-func update_bomb() -> void:
-	bomb_label.update_label(Global.player1.bomb_count)
+func update_bomb(bomb_count) -> void:
+	bomb_label.update_label(bomb_count)
 
 var item := 1
 func add_item() -> void:

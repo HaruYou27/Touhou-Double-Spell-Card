@@ -40,11 +40,6 @@ var bullets : Array[Bullet] = []
 ## The bullet will be drawn on this node canvas item.
 @onready var canvas_item := get_canvas_item()
 
-func item_convert() -> void:
-	for bullet in bullets:
-		ItemManager.spawn_item(1, bullet.transform.origin)
-	restart()
-
 func _ready() -> void:
 	RenderingServer.canvas_item_set_custom_rect(canvas_item, true)
 	barrels = tree.get_nodes_in_group(barrelGroup)
@@ -52,9 +47,6 @@ func _ready() -> void:
 	query.shape = hitbox
 	query.collide_with_areas = collide_with_areas
 	query.collide_with_bodies = collide_with_bodies
-	
-	if grazable:
-		Global.player_bombing.connect(item_convert)
 	
 ## Override it with your new Bullet class.
 func create_bullet() -> Bullet:

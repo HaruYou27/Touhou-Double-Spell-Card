@@ -1,13 +1,12 @@
 extends Control
 class_name Leveler
 
-@onready var screen_effect := $ScreenEffect
 @onready var pause: Button = $pause
 @onready var hud: HUD = $hud
 @export var animator: AnimationPlayer
 func _ready() -> void:
 	tree.paused = false
-	screen_effect.fade2black(true)
+	ScreenEffect.fade2black(true)
 	Global.leveler = self
 	rpc('start')
 	animator.animation_finished.connect(hud.save_score)
@@ -28,10 +27,10 @@ func _sync_start(host_time:int) -> void:
 	#timer.timeout.connect(animator.play.bind("game"))
 
 func revive_player() -> void:
-	Global.player1.revive()
-
+	LevelLoader
+	
 @onready var tree := get_tree()
 func restart() -> void:
 	tree.paused = true
-	var tween : Tween = screen_effect.fade2black()
+	var tween : Tween = ScreenEffect.fade2black()
 	tween.finished.connect(LevelLoader.load_scene.bind('', true))

@@ -40,4 +40,4 @@ shape = SubResource("CapsuleShape2D_imnki")
 position = Vector2(0, -77)
 
 [connection signal="kaboom" from="Player" to="Player/MasterSpark" method="_on_player_kaboom"]
-[connection signal="finished" from="Player/MasterSpark" to="Player" method="_bomb_finished"]
+[connection signal="finished" from="Player/MasterSpark" to="Player" method="bomb_finished"]

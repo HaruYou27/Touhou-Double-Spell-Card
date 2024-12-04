@@ -3,12 +3,12 @@
 importer="wav"
 type="AudioStreamWAV"
 uid="uid://bykr1yaisabfe"
-path="res://.godot/imported/tick-.wav-8576a8232b700d909d1282a35d548ec9.sample"
+path="res://.godot/imported/tick-.wav-fcda6f259e025687297e31f395502d20.sample"
 
 [deps]
 
-source_file="res://autoload/SoundEffect/resource/tick-.wav"
-dest_files=["res://.godot/imported/tick-.wav-8576a8232b700d909d1282a35d548ec9.sample"]
+source_file="res://singleton/sound-effect/resource/tick-.wav"
+dest_files=["res://.godot/imported/tick-.wav-fcda6f259e025687297e31f395502d20.sample"]
 
 [params]
 

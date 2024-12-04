@@ -10,6 +10,7 @@ func _ready() -> void:
 	Global.player2 = self
 	set_process_unhandled_input(false)
 	collision_layer = 0
+	Global.hud.update_bomb.call_deferred(bomb_count)
 
 @onready var death_timer: Timer = $explosion/DeathTimer
 @onready var tree := get_tree()
@@ -18,7 +19,7 @@ var is_alive := true
 func hit() -> void:
 	SoundEffect.press(true)
 	hitbox.set_deferred('disabled', true)
-	Global.leveler.screen_effect.flash_red()
+	ScreenEffect.flash_red()
 	death_timer.start()
 	if not Global.player2:
 		tree.paused = true
@@ -54,6 +55,7 @@ func bomb() -> void:
 		
 	bomb_count -= 1
 	can_bomb = false
+	Global.hud.update_bomb(bomb_count)
 	
 	if is_multiplayer_authority():
 		hitbox.set_deferred("disabled", true)
@@ -75,16 +77,16 @@ func bomb_go_off() -> void:
 	kaboom.emit()
 	
 @export var hitbox : CollisionShape2D
-func _bomb_finished() -> void:
+func bomb_finished() -> void:
 	if is_multiplayer_authority():
 		hitbox.set_deferred('disabled', false)
 	can_bomb = true
 
 @onready var death_sfx: AudioStreamPlayer = $explosion/DeathSFX
 @onready var death_fx: GPUParticles2D = $explosion
-@onready var revive_timer: Timer = $ReviveTimer
+@onready var revive_timer: Timer = $explosion/ReviveTimer
 func _on_death_timer_timeout():
-	Global.leveler.screen_effect.hide()
+	ScreenEffect.hide()
 	Global.hud.player_died()
 	sync_death()
 	is_alive = false
@@ -116,7 +118,6 @@ func _on_recover_timer_timeout():
 
 @onready var recover_timer := $RecoverTimer
 func revive() -> void:
-	print_debug()
 	if is_alive:
 		return
 	sync_revive()

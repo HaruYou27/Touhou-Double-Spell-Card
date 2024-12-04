@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://cu1o7xqqwep3b"]
+
+[ext_resource type="Script" path="res://singleton/screen-effect/ScreenEffect.gd" id="1_lrryq"]
+
+[node name="ScreenEffect" type="ColorRect"]
+process_mode = 3
+visible = false
+z_index = 3999
+custom_minimum_size = Vector2(540, 960)
+offset_right = 540.0
+offset_bottom = 960.0
+mouse_filter = 2
+color = Color(0.0823529, 0.0823529, 0.0823529, 1)
+script = ExtResource("1_lrryq")
