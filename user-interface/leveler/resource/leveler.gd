@@ -27,7 +27,7 @@ func _sync_start(host_time:int) -> void:
 	#timer.timeout.connect(animator.play.bind("game"))
 
 func revive_player() -> void:
-	LevelLoader
+	Global.player1.revive()
 	
 @onready var tree := get_tree()
 func restart() -> void:

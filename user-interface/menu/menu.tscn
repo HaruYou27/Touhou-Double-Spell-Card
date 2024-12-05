@@ -510,10 +510,11 @@ alignment = 2
 [node name="Settings" type="TabContainer" parent="TabContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
-current_tab = 0
+current_tab = 3
 metadata/_tab_index = 1
 
 [node name="Game" type="VBoxContainer" parent="TabContainer/Settings"]
+visible = false
 layout_mode = 2
 script = ExtResource("2_dgpou")
 metadata/_tab_index = 0
@@ -538,6 +539,9 @@ popup/item_0/text = "Language: English"
 [node name="UserName" type="LineEdit" parent="TabContainer/Settings/Game"]
 layout_mode = 2
 placeholder_text = "User Name"
+
+[node name="reset" parent="TabContainer/Settings/Game" instance=ExtResource("5_nrino")]
+layout_mode = 2
 
 [node name="Controls" type="VBoxContainer" parent="TabContainer/Settings"]
 visible = false
@@ -681,14 +685,13 @@ label = NodePath("../voiceLabel")
 layout_mode = 2
 
 [node name="Graphic" type="VBoxContainer" parent="TabContainer/Settings"]
-visible = false
 layout_mode = 2
 script = ExtResource("30_jysfy")
 metadata/_tab_index = 3
 
 [node name="Renderer" type="Label" parent="TabContainer/Settings/Graphic"]
 layout_mode = 2
-text = "Vulkan has better performance on modern phone. (Please close then reopen application)"
+text = "Vulkan has better performance on modern phone. (Need restart application)"
 autowrap_mode = 3
 
 [node name="vulkan" type="CheckBox" parent="TabContainer/Settings/Graphic"]
@@ -957,6 +960,7 @@ script = ExtResource("34_wrdal")
 [connection signal="item_selected" from="TabContainer/play/Character/title" to="TabContainer/play/Character" method="_on_title_item_selected"]
 [connection signal="pressed" from="TabContainer/play/Character/HBoxContainer/previous" to="TabContainer/play/Character" method="_change_character" binds= [false]]
 [connection signal="pressed" from="TabContainer/play/Character/HBoxContainer/next" to="TabContainer/play/Character" method="_change_character" binds= [true]]
+[connection signal="pressed" from="TabContainer/Settings/Game/reset" to="TabContainer/Settings/Game" method="_on_reset_pressed"]
 [connection signal="value_changed" from="TabContainer/Settings/Controls/sentivity" to="TabContainer/Settings/Controls/SentivityLabel" method="update_label"]
 [connection signal="pressed" from="TabContainer/Settings/Controls/reset" to="TabContainer/Settings/Controls" method="_on_reset_pressed"]
 [connection signal="value_changed" from="TabContainer/Settings/Audio/master" to="TabContainer/Settings/Audio" method="_on_master_value_changed"]

@@ -9,7 +9,7 @@ class_name FantasySeal
 
 @onready var hitbox: CollisionShape2D = $hitbox/CollisionShape2D
 @onready var seek: CollisionShape2D = $CollisionShape2D
-@onready var explode_physics: CollisionShape2D = $ExplodeBody/CollisionShape2D
+@onready var explode_physics: Node = $ExplodeBody
 
 func _ready() -> void:
 	toggle(false)
@@ -33,17 +33,28 @@ func _on_area_entered(area: Area2D) -> void:
 	target = area
 	
 @export var speed := 527.0
+@export var speed_turn := 727.0
+@onready var velocity := Vector2.UP * speed
 func _physics_process(delta: float) -> void:
 	target_vaild = target and target.hp
-	if not target_vaild:
-		global_position.y -= speed * delta
-		return
-	global_position += speed * delta * (target.global_position - global_position).normalized()
+	if target_vaild:
+		velocity += (target.global_position - global_position).normalized() * speed_turn
+		velocity = velocity.normalized() * speed
+	
+	global_position += delta * velocity
+
+signal exploded
 
 func explode(_nm=null) -> void:
+	exploded.emit()
 	OS.delay_msec(16)
-	ScreenEffect.screen_shake(0.6)
 	ScreenEffect.flash(0.3)
 	explosion.emitting = true
-	explode_physics.set_deferred("disabled", false)
+	explode_physics.process_mode = Node.PROCESS_MODE_INHERIT
 	toggle(false)
+
+func _on_hitbox_body_entered(_body: Node2D) -> void:
+	toggle(false)
+
+func _on_explosion_finished() -> void:
+	explode_physics.process_mode = Node.PROCESS_MODE_DISABLED

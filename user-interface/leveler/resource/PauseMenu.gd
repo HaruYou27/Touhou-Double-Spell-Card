@@ -5,6 +5,8 @@ class_name PauseMenu
 
 func _ready() -> void:
 	hide()
+	score_label.hide()
+	resume.show()
 
 func _on_Quit_pressed() -> void:
 	rpc('quit')

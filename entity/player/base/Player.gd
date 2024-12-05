@@ -11,10 +11,9 @@ func _ready() -> void:
 	set_process_unhandled_input(false)
 	collision_layer = 0
 	Global.hud.update_bomb.call_deferred(bomb_count)
-
+	
 @onready var death_timer: Timer = $explosion/DeathTimer
 @onready var tree := get_tree()
-var is_alive := true
 @export var sprite : Node2D
 func hit() -> void:
 	SoundEffect.press(true)
@@ -88,8 +87,9 @@ func bomb_finished() -> void:
 func _on_death_timer_timeout():
 	ScreenEffect.hide()
 	Global.hud.player_died()
-	sync_death()
 	is_alive = false
+	sync_death()
+	
 	rpc("sync_death")
 	
 	if Global.player2:
@@ -104,31 +104,37 @@ func _on_death_timer_timeout():
 func sync_death() -> void:
 	set_process_unhandled_input(false)
 	process_mode = Node.PROCESS_MODE_DISABLED
+	sprite.hide()
+	
 	death_fx.emitting = true
 	death_sfx.play()
-	sprite.hide()
+	
 	Global.last_man_standing = true
 
 @onready var revive_fx := $ReviveSFX
 func _on_recover_timer_timeout():
 	revive_fx.play()
-	set_process_unhandled_input(true)
 	hitbox.set_deferred('disabled', false)
 	modulate = Color.WHITE
 
-@onready var recover_timer := $RecoverTimer
+var is_alive := true
 func revive() -> void:
 	if is_alive:
 		return
-	sync_revive()
-	rpc("_sync_revive")
+		
 	is_alive = true
-	
+	sync_revive()
+	rpc("sync_revive")
+
+@onready var recover_timer := $RecoverTimer
 @onready var spawn_pos := position
 @rpc("reliable", "authority")
 func sync_revive() -> void:
+	print_debug('revive')
 	process_mode = Node.PROCESS_MODE_INHERIT
+	set_process_unhandled_input(true)
 	sprite.show()
+	
 	recover_timer.start()
 	modulate = Color(Color.WHITE, .5)
 	position = spawn_pos

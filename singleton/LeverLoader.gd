@@ -93,3 +93,4 @@ func revive_player() -> void:
 func _ready() -> void:
 	multiplayer.peer_disconnected.connect(_peer_disconnected)
 	set_process(false)
+	hide()

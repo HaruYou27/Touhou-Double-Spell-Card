@@ -11,7 +11,6 @@ enum LANGUAGE
 
 @export_category('Graphic')
 @export var particle_amount := 1.0
-@export var screen_shake_intensity := 2.0
 enum GRAPHIC_LEVEL
 {
 	MINIMAL,

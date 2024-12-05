@@ -134,7 +134,6 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Continue" type="Button" parent="PauseMenu/VBoxContainer"]
-visible = false
 layout_mode = 2
 size_flags_vertical = 3
 shortcut = ExtResource("5_ukwdv")
@@ -167,7 +166,7 @@ layout_mode = 2
 [connection signal="pressed" from="pause" to="PauseMenu" method="_on_pause_pressed"]
 [connection signal="timeout" from="hud/VBoxContainer/HBoxContainer/Timer" to="hud/VBoxContainer/HBoxContainer/ping" method="_on_timer_timeout"]
 [connection signal="timeout" from="hud/VBoxContainer/HBoxContainer/Timer" to="hud/VBoxContainer/HBoxContainer/fps" method="_on_timer_timeout"]
-[connection signal="pressed" from="PauseMenu/VBoxContainer/Continue" to="." method="_revive_player"]
+[connection signal="pressed" from="PauseMenu/VBoxContainer/Continue" to="." method="revive_player"]
 [connection signal="pressed" from="PauseMenu/VBoxContainer/Continue" to="PauseMenu" method="_on_continue_pressed"]
 [connection signal="pressed" from="PauseMenu/VBoxContainer/Restart" to="." method="restart"]
 [connection signal="pressed" from="PauseMenu/VBoxContainer/Restart" to="PauseMenu" method="hide"]

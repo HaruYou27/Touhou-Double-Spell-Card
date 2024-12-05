@@ -2,7 +2,7 @@ extends VBoxContainer
 
 @onready var user_data :UserData = Global.user_data
 @onready var vulkan: CheckBox = $vulkan
-@onready var particles: HSlider = $Particles
+@onready var particles: Slider = $Particles
 @onready var effect_level: OptionButton = $EffectLevel
 
 func _ready() -> void:
@@ -26,3 +26,4 @@ func _on_reset_pressed() -> void:
 	particles.value = 1.0
 	effect_level.select(3)
 	vulkan.button_pressed = false
+	

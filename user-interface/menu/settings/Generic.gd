@@ -15,3 +15,6 @@ func _exit_tree() -> void:
 	Engine.time_scale = speed.value
 	user_data.user_name = user_name.text
 	user_data.language = language.selected
+
+func _on_reset_pressed() -> void:
+	speed.value = 1.0
