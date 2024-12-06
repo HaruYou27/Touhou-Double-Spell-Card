@@ -2,6 +2,7 @@ extends StaticBody2D
 class_name Player
 ## Mostly movement code.
 
+var bomb_count := 3
 func _ready() -> void:
 	if is_multiplayer_authority():
 		Global.player1 = self
@@ -24,7 +25,6 @@ func hit() -> void:
 		tree.paused = true
 
 var can_bomb := true
-var bomb_count := 3
 @onready var sentivity := Global.user_data.sentivity
 var can_move := false
 func _input(event:InputEvent) -> void:
@@ -48,18 +48,21 @@ func move(event:InputEvent) -> void:
 	if is_multiplayer_authority():
 		rpc('_update_position', global_position)
 
-func bomb() -> void:
+var tween_bomb: Tween
+func bomb() -> bool:
 	if not (bomb_count and can_bomb):
-		return
+		return true
 		
 	bomb_count -= 1
 	can_bomb = false
 	Global.hud.update_bomb(bomb_count)
-	
+	tween_bomb = create_tween()
+	tween_bomb.tween_property(sprite, "modulate", Color(1.0,1.0,1.0,0.5), 1.0)
 	if is_multiplayer_authority():
 		hitbox.set_deferred("disabled", true)
 	
 	rpc('bomb_go_off')
+	return false
 
 var tween: Tween
 @rpc("unreliable_ordered", "call_remote", "authority")
@@ -80,6 +83,8 @@ func bomb_finished() -> void:
 	if is_multiplayer_authority():
 		hitbox.set_deferred('disabled', false)
 	can_bomb = true
+	tween_bomb = create_tween()
+	tween_bomb.tween_property(sprite, "modulate", Color.WHITE, 1.0)
 
 @onready var death_sfx: AudioStreamPlayer = $explosion/DeathSFX
 @onready var death_fx: GPUParticles2D = $explosion

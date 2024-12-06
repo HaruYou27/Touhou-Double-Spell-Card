@@ -10,10 +10,11 @@ collision_mask = 4
 script = ExtResource("1_a5f4m")
 
 [node name="explosion" parent="." instance=ExtResource("2_7l4kj")]
+process_mode = 3
 lifetime = 1.0
 
-[node name="blood" parent="." instance=ExtResource("3_v351r")]
+[node name="blood" parent="explosion" instance=ExtResource("3_v351r")]
 
-[node name="blood2" parent="." instance=ExtResource("3_v351r")]
+[node name="blood2" parent="explosion" instance=ExtResource("3_v351r")]
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

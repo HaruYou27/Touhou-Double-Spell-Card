@@ -20,9 +20,10 @@ func spawn_bomb(index:int) -> void:
 	seal.toggle(true)
 	
 @onready var barrels:Array = get_tree().get_nodes_in_group("Player Barrel")
-var tween_bomb: Tween
-func bomb() -> void:
-	super()
+func bomb() -> bool:
+	if super():
+		return true
+		
 	tween_bomb = create_tween()
 	tween_bomb.tween_callback(spawn_bomb.bind(0))
 	tween_bomb.tween_interval(0.5)
@@ -35,3 +36,4 @@ func bomb() -> void:
 	tween_bomb.tween_callback(barrels.shuffle)
 	tween_bomb.tween_interval(0.5)
 	tween_bomb.tween_callback(bomb_finished)
+	return false

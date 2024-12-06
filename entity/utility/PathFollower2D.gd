@@ -4,7 +4,7 @@ class_name  PathFollower2D
 @export var time := 0.
 var reverse := false
 
-@onready var enemy: Enemy = $Enemy
+@export var enemy: Enemy
 @onready var tween: Tween
 
 func die() -> void:
@@ -20,16 +20,16 @@ func start() -> void:
 	if not is_multiplayer_authority():
 		return
 	
-	rpc("_sync_start")
-	enemy.reset()
+	rpc("sync_start")
+	sync_start()
+	
 	tween = create_tween()
-	progress_ratio = reverse
 	set_process(true)
 	tween.tween_property(self, 'progress_ratio', float(not reverse), time)
 	tween.tween_callback(enemy.timeout)
 	
 var tick := false
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	tick = not tick
 	if tick:
 		return
@@ -44,6 +44,6 @@ func _sync_position(pos:float) -> void:
 	tween.tween_property(self, 'progress_ratio', pos, 0.05)
 
 @rpc("reliable", "authority", "call_remote")
-func _sync_start() -> void:
-	enemy.reset()
+func sync_start() -> void:
+	enemy.reset.call_deferred()
 	progress_ratio = reverse

@@ -7,10 +7,9 @@ signal died
 @export var hp := 1
 ## Fair reward.
 @onready var point = hp
-## Don't free the node, marked it instead.
 var tick := false
-@onready var blood: CPUParticles2D = $blood
-@onready var blood2: CPUParticles2D = $blood2
+@onready var blood: CPUParticles2D = $explosion/blood
+@onready var blood2: CPUParticles2D = $explosion/blood2
 func _hit() -> void:
 	hp -= 1
 	if tick:
@@ -21,25 +20,25 @@ func _hit() -> void:
 		die()
 		
 @onready var explosion: CPUParticles2D = $explosion
-@onready var visual := $visual
-var layer := 0
+@export var visual: Node2D
 
 func die() -> void:
-	collision_layer = 0
+	disable.call_deferred()
 	ItemManager.spawn_item(point, global_position)
 	explosion.emitting = true
 	SoundEffect.tick1.play()
 	died.emit()
+	
 	timeout()
 	
-func _ready() -> void:
-	layer = collision_layer
-	collision_layer = 0
-
 func reset() -> void:
-	collision_layer = layer
+	monitoring = true
+	monitorable = true
 	visual.show()
 	hp = point
+
+func _ready() -> void:
+	disable.call_deferred()
 
 func _on_body_entered(body) -> void:
 	if body is Player:
@@ -47,6 +46,10 @@ func _on_body_entered(body) -> void:
 	else:
 		die()
 
-func timeout():
+func timeout() -> void:
+	disable.call_deferred()
+	
+func disable() -> void:
+	monitorable = false
+	monitoring = false
 	visual.hide()
-	collision_layer = 0

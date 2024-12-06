@@ -2,7 +2,7 @@ extends VBoxContainer
 
 func _ready():
 	speed.value = Engine.time_scale
-	user_data.language
+	language.select(user_data.language)
 	if user_data.user_name != "HaruYou27":
 		user_name.text = user_data.user_name
 

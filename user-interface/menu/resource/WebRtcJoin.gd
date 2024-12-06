@@ -6,7 +6,6 @@ var connection
 var SDP : String
 var ICE : String
 
-@onready var disconnect := $Disconnect
 @onready var label := $Label
 @onready var offer := $Offer
 @onready var ice_timer := $IceTimer
@@ -74,7 +73,7 @@ func _peer_connected(id: int) -> void:
 	print("******* PEER CONNECTED WITH ID %s *******" %[str(id)])
 #	label.text = "Connected."
 
-func _peer_disconnected(id: int) -> void:
+func _peer_disconnected(_id: int) -> void:
 	label.text = "Connection lost."
 
 func _on_ice_timer_timeout():

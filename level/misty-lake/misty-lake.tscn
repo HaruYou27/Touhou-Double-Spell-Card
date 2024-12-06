@@ -1470,123 +1470,119 @@ visible = false
 
 [node name="Fairy" type="Node2D" parent="BigHpFairy3"]
 
-[node name="TopLeft" parent="BigHpFairy3/Fairy" instance=ExtResource("16_bi0tp")]
+[node name="TopLeft" parent="BigHpFairy3/Fairy" node_paths=PackedStringArray("visual") instance=ExtResource("16_bi0tp")]
 position = Vector2(651, 41)
 hp = 32
+visual = NodePath("visual")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BigHpFairy3/Fairy/TopLeft"]
 shape = SubResource("CircleShape2D_1j2c8")
 
 [node name="visual" type="Sprite2D" parent="BigHpFairy3/Fairy/TopLeft"]
-visible = false
 texture = ExtResource("17_2fadj")
 
 [node name="barrel" parent="BigHpFairy3/Fairy/TopLeft/visual" instance=ExtResource("20_mqptk")]
 
-[node name="TopRight" parent="BigHpFairy3/Fairy" instance=ExtResource("16_bi0tp")]
+[node name="TopRight" parent="BigHpFairy3/Fairy" node_paths=PackedStringArray("visual") instance=ExtResource("16_bi0tp")]
 position = Vector2(-120, 28)
 hp = 32
+visual = NodePath("visual")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BigHpFairy3/Fairy/TopRight"]
 shape = SubResource("CircleShape2D_1j2c8")
 
 [node name="visual" type="Sprite2D" parent="BigHpFairy3/Fairy/TopRight"]
-visible = false
 texture = ExtResource("17_2fadj")
 
 [node name="barrel" parent="BigHpFairy3/Fairy/TopRight/visual" instance=ExtResource("20_mqptk")]
 
-[node name="BotLeft" parent="BigHpFairy3/Fairy" instance=ExtResource("16_bi0tp")]
-visible = false
+[node name="BotLeft" parent="BigHpFairy3/Fairy" node_paths=PackedStringArray("visual") instance=ExtResource("16_bi0tp")]
 position = Vector2(-95, 26)
 hp = 32
+visual = NodePath("visual")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BigHpFairy3/Fairy/BotLeft"]
 shape = SubResource("CircleShape2D_1j2c8")
 
 [node name="visual" type="Sprite2D" parent="BigHpFairy3/Fairy/BotLeft"]
-visible = false
 texture = ExtResource("17_2fadj")
 
 [node name="barrel" parent="BigHpFairy3/Fairy/BotLeft/visual" instance=ExtResource("20_mqptk")]
 
-[node name="BotRight" parent="BigHpFairy3/Fairy" instance=ExtResource("16_bi0tp")]
+[node name="BotRight" parent="BigHpFairy3/Fairy" node_paths=PackedStringArray("visual") instance=ExtResource("16_bi0tp")]
 position = Vector2(-98, -54)
 hp = 32
+visual = NodePath("visual")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BigHpFairy3/Fairy/BotRight"]
 shape = SubResource("CircleShape2D_1j2c8")
 
 [node name="visual" type="Sprite2D" parent="BigHpFairy3/Fairy/BotRight"]
-visible = false
 texture = ExtResource("17_2fadj")
 
 [node name="barrel" parent="BigHpFairy3/Fairy/BotRight/visual" instance=ExtResource("20_mqptk")]
 
-[node name="Middle" parent="BigHpFairy3/Fairy" instance=ExtResource("16_bi0tp")]
+[node name="Middle" parent="BigHpFairy3/Fairy" node_paths=PackedStringArray("visual") instance=ExtResource("16_bi0tp")]
 position = Vector2(432, -49)
 hp = 32
+visual = NodePath("visual")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BigHpFairy3/Fairy/Middle"]
 shape = SubResource("CircleShape2D_1j2c8")
 
 [node name="visual" type="Sprite2D" parent="BigHpFairy3/Fairy/Middle"]
-visible = false
 texture = ExtResource("17_2fadj")
 
 [node name="barrel" parent="BigHpFairy3/Fairy/Middle/visual" instance=ExtResource("20_mqptk")]
 
-[node name="MiddleLeft" parent="BigHpFairy3/Fairy" instance=ExtResource("16_bi0tp")]
-visible = false
+[node name="MiddleLeft" parent="BigHpFairy3/Fairy" node_paths=PackedStringArray("visual") instance=ExtResource("16_bi0tp")]
 position = Vector2(539, -81)
 hp = 32
+visual = NodePath("visual")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BigHpFairy3/Fairy/MiddleLeft"]
 shape = SubResource("CircleShape2D_1j2c8")
 
 [node name="visual" type="Sprite2D" parent="BigHpFairy3/Fairy/MiddleLeft"]
-visible = false
 texture = ExtResource("17_2fadj")
 
 [node name="barrel" parent="BigHpFairy3/Fairy/MiddleLeft/visual" instance=ExtResource("20_mqptk")]
 
-[node name="BotMiddle" parent="BigHpFairy3/Fairy" instance=ExtResource("16_bi0tp")]
-visible = false
+[node name="BotMiddle" parent="BigHpFairy3/Fairy" node_paths=PackedStringArray("visual") instance=ExtResource("16_bi0tp")]
 position = Vector2(228, -72)
 hp = 32
+visual = NodePath("visual")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BigHpFairy3/Fairy/BotMiddle"]
 shape = SubResource("CircleShape2D_1j2c8")
 
 [node name="visual" type="Sprite2D" parent="BigHpFairy3/Fairy/BotMiddle"]
-visible = false
 texture = ExtResource("17_2fadj")
 
 [node name="barrel" parent="BigHpFairy3/Fairy/BotMiddle/visual" instance=ExtResource("20_mqptk")]
 
-[node name="MiddleRight" parent="BigHpFairy3/Fairy" instance=ExtResource("16_bi0tp")]
-visible = false
+[node name="MiddleRight" parent="BigHpFairy3/Fairy" node_paths=PackedStringArray("visual") instance=ExtResource("16_bi0tp")]
 position = Vector2(-90, -13)
 hp = 32
+visual = NodePath("visual")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BigHpFairy3/Fairy/MiddleRight"]
 shape = SubResource("CircleShape2D_1j2c8")
 
 [node name="visual" type="Sprite2D" parent="BigHpFairy3/Fairy/MiddleRight"]
-visible = false
 texture = ExtResource("17_2fadj")
 
 [node name="barrel" parent="BigHpFairy3/Fairy/MiddleRight/visual" instance=ExtResource("20_mqptk")]
 
-[node name="TopMiddle" parent="BigHpFairy3/Fairy" instance=ExtResource("16_bi0tp")]
+[node name="TopMiddle" parent="BigHpFairy3/Fairy" node_paths=PackedStringArray("visual") instance=ExtResource("16_bi0tp")]
 position = Vector2(613, 405)
 hp = 32
+visual = NodePath("visual")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BigHpFairy3/Fairy/TopMiddle"]
 shape = SubResource("CircleShape2D_1j2c8")
 
 [node name="visual" type="Sprite2D" parent="BigHpFairy3/Fairy/TopMiddle"]
-visible = false
 texture = ExtResource("17_2fadj")
 
 [node name="barrel" parent="BigHpFairy3/Fairy/TopMiddle/visual" instance=ExtResource("20_mqptk")]

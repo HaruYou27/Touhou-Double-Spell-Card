@@ -7,20 +7,24 @@ class_name FantasySeal
 @onready var seal_particles_fb: CPUParticles2D = $sealParticles2
 @onready var explosion: GPUParticles2D = $explosion
 
+## It's more convenient this way.
 @onready var hitbox: CollisionShape2D = $hitbox/CollisionShape2D
 @onready var seek: CollisionShape2D = $CollisionShape2D
 @onready var explode_physics: Node = $ExplodeBody
 
 func _ready() -> void:
-	toggle(false)
+	toggle.call_deferred(false)
+	toggle_explode.call_deferred(false)
 
-func toggle(on:=true) -> void:
+func toggle(on:bool) -> void:
+	velocity = Vector2.UP * speed
 	tail_particles.emitting = on
 	seal_particles.emitting = on
 	seal_particles_fb.emitting = on
 	set_physics_process(on)
-	hitbox.set_deferred("disabled", not on)
-	seek.set_deferred("disabled", not on)
+	
+	hitbox.disabled = not on
+	seek.disabled = not on
 	
 	target_vaild = false
 	target = null
@@ -42,19 +46,22 @@ func _physics_process(delta: float) -> void:
 		velocity = velocity.normalized() * speed
 	
 	global_position += delta * velocity
-
-signal exploded
-
+ 
 func explode(_nm=null) -> void:
-	exploded.emit()
 	OS.delay_msec(16)
 	ScreenEffect.flash(0.3)
 	explosion.emitting = true
-	explode_physics.process_mode = Node.PROCESS_MODE_INHERIT
-	toggle(false)
+	toggle.call_deferred(false)
+	toggle_explode.call_deferred(true)
 
 func _on_hitbox_body_entered(_body: Node2D) -> void:
-	toggle(false)
+	toggle.call_deferred(false)
 
 func _on_explosion_finished() -> void:
-	explode_physics.process_mode = Node.PROCESS_MODE_DISABLED
+	toggle_explode.call_deferred(false)
+	
+func toggle_explode(on:bool) -> void:
+	if on:
+		explode_physics.process_mode = Node.PROCESS_MODE_INHERIT
+	else:
+		explode_physics.process_mode = Node.PROCESS_MODE_DISABLED

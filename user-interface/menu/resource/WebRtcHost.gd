@@ -76,7 +76,7 @@ func _peer_connected(id: int) -> void:
 #	host.text = "Disband Party"
 
 
-func _peer_disconnected(id: int) -> void:
+func _peer_disconnected(_id: int) -> void:
 	label.text = "Connection lost."
 	host.text = "Host Party"
 

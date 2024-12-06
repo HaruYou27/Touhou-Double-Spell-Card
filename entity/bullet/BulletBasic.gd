@@ -66,7 +66,7 @@ func spawn_bullet() -> void:
 ## Just Pi/2
 const half_pi := PI / 2
 
-## Capsule collision shape in Godot is vertical.
+## Capsule collision shape in Godot is vertical. However, Vector2.RIGHT is the root angle.
 func set_bullet_transform(barrel:Node2D, bullet:Bullet):
 	var angle := 0.0
 	if localRotation:
@@ -100,8 +100,8 @@ func collide(result:Dictionary, bullet:Bullet) -> bool:
 			Global.bullet_graze.emit()
 		return true
 	
-	collider.hit()
-	return false
+	collider.hit.call_deferred()
+	return true
 
 ## Override to change the way bullet move.
 func move(delta:float, bullet:Bullet) -> void:
@@ -154,7 +154,6 @@ func _physics_process(delta:float) -> void:
 		
 	var move_task := WorkerThreadPool.add_task(_process_bullet.bind(delta), true)
 	var draw_task := WorkerThreadPool.add_task(_draw_bullets, true)
-	
 	
 	var end_index := 0
 	tick = not tick
