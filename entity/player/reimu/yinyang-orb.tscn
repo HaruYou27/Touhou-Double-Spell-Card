@@ -6,7 +6,7 @@
 [ext_resource type="Material" uid="uid://dox27ncd2r5o3" path="res://entity/resource/glow.tres" id="4_cf5oj"]
 [ext_resource type="Texture2D" uid="uid://d2wacgirqsjjn" path="res://entity/resource/white-trans.tres" id="5_5xmq5"]
 [ext_resource type="Texture2D" uid="uid://dxsf3vpqsosf1" path="res://entity/resource/fire_particle.png" id="6_qyb74"]
-[ext_resource type="Script" path="res://entity/utility/Particles2D.gd" id="7_kau30"]
+[ext_resource type="Script" path="res://entity/utility/graphic/Particles2D.gd" id="7_kau30"]
 
 [sub_resource type="Curve" id="Curve_x8o5l"]
 min_value = -360.0

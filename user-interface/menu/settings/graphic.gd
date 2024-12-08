@@ -26,4 +26,3 @@ func _on_reset_pressed() -> void:
 	particles.value = 1.0
 	effect_level.select(3)
 	vulkan.button_pressed = false
-	

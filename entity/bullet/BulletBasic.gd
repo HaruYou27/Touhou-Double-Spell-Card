@@ -120,8 +120,8 @@ func collision_check(bullet:Bullet) -> bool:
 	else:
 		query.collision_mask = collision_mask
 	
-	#Since most bullet hit wall, get_rest_info provide a faster way to check (linear_velocity).
-	#Tho it did make harder to get collider object, but the bullet rarely hit the target anyways.
+	# Since most bullet hit wall, get_rest_info provide a faster way to check (linear_velocity).
+	# Tho it did make harder to get collider object, but the bullet rarely hit the target anyways.
 	var result := world.direct_space_state.get_rest_info(query)
 	if result.is_empty():
 		return true
@@ -146,7 +146,6 @@ func _draw_bullets() -> void:
 var tick := false
 
 ## Loop from back to head.
-
 func _physics_process(delta:float) -> void:
 	var index := 0
 	if bullets.is_empty():

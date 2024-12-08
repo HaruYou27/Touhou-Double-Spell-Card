@@ -2,7 +2,7 @@
 
 [ext_resource type="Shader" path="res://level/misty-lake/water.gdshader" id="1_kv0nh"]
 [ext_resource type="Texture2D" uid="uid://coq45et7pnhnx" path="res://level/misty-lake/resource/water-gradient.tres" id="2_yt2xx"]
-[ext_resource type="Script" path="res://entity/utility/GraphicOptional.gd" id="3_00q44"]
+[ext_resource type="Script" path="res://entity/utility/graphic/GraphicOptional.gd" id="3_00q44"]
 [ext_resource type="Shader" path="res://level/misty-lake/sky-reflection.gdshader" id="3_er50l"]
 [ext_resource type="Texture2D" uid="uid://bgh4r80tk5o7v" path="res://level/misty-lake/resource/water-noise.tres" id="3_l3dc8"]
 [ext_resource type="PackedScene" uid="uid://6wuhmc2p8byc" path="res://level/misty-lake/fog.tscn" id="6_dlknp"]

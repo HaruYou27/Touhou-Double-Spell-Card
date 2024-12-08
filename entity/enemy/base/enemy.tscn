@@ -1,8 +1,8 @@
 [gd_scene load_steps=4 format=3 uid="uid://dtlscerig62nv"]
 
 [ext_resource type="Script" path="res://entity/enemy/base/enemy.gd" id="1_a5f4m"]
-[ext_resource type="PackedScene" uid="uid://dletx36qco4eh" path="res://entity/utility/explosion.tscn" id="2_7l4kj"]
-[ext_resource type="PackedScene" uid="uid://14aea3qau2s8" path="res://entity/utility/blood.tscn" id="3_v351r"]
+[ext_resource type="PackedScene" uid="uid://dletx36qco4eh" path="res://entity/utility/graphic/explosion.tscn" id="2_7l4kj"]
+[ext_resource type="PackedScene" uid="uid://14aea3qau2s8" path="res://entity/utility/graphic/blood.tscn" id="3_v351r"]
 
 [node name="Enemy" type="Area2D"]
 collision_layer = 2

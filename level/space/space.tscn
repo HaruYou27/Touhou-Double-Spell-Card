@@ -1,8 +1,8 @@
 [gd_scene load_steps=9 format=3 uid="uid://c86prfv7djel5"]
 
 [ext_resource type="Material" uid="uid://q5nkdgcdwaci" path="res://level/space/space-low.tres" id="1_3kslh"]
-[ext_resource type="Script" path="res://entity/utility/ShaderOptional.gd" id="2_cdvf4"]
-[ext_resource type="PackedScene" uid="uid://bfvb372sca8m2" path="res://level/leveler/leveler.tscn" id="3_55qid"]
+[ext_resource type="Script" path="res://entity/utility/graphic/ShaderOptional.gd" id="2_cdvf4"]
+[ext_resource type="PackedScene" uid="uid://bfvb372sca8m2" path="res://user-interface/leveler/leveler.tscn" id="3_55qid"]
 [ext_resource type="Material" uid="uid://dr20u75y4dglk" path="res://level/space/space-high.tres" id="3_q0l4k"]
 [ext_resource type="Material" uid="uid://xmhvi7u7hc1k" path="res://level/space/space-medium.tres" id="3_tiya2"]
 

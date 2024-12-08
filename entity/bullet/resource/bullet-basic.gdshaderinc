@@ -11,14 +11,21 @@ void vertex()
                    vec2(sin(theta),cos(theta)));
 
 	float time = TIME * time_scale;
-	#ifdef OFFSET_TIME
+
+	#ifdef TIME_OFFSET
 		//Offset time by r channel.
 		time *= sign(COLOR.r - .5);
 		time += 100.0 * COLOR.r;
 	#endif
 
-	//shift color through time across color map - mix it with white color.
-	color = texture(color_map, vec2(abs(sin(time)))).rgb;
+	#ifdef COLOR_TIME
+		//shift color through time across color map & mix it with white color.
+		color = texture(color_map, vec2(abs(sin(time)))).rgb;
+	#endif
+
+	#ifdef COLOR_ROTATION
+		color = texture(color_map, vec2(theta / TAU)).rgb;
+	#endif
 
 	#ifdef BLINKING
 		//Blinking effect.
@@ -30,5 +37,6 @@ void vertex()
 }
 void fragment()
 {
+	// Only change color of the gray -> black pixels.
 	COLOR.rgb = mix(color, vec3(1.), COLOR.r);
 }

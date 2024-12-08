@@ -5,9 +5,9 @@
 [ext_resource type="Material" uid="uid://dox27ncd2r5o3" path="res://entity/resource/glow.tres" id="1_jtbc5"]
 [ext_resource type="Texture2D" uid="uid://batbnxisqv8ly" path="res://entity/resource/easeOutCurve.tres" id="2_mi5v7"]
 [ext_resource type="Texture2D" uid="uid://dxsf3vpqsosf1" path="res://entity/resource/fire_particle.png" id="2_nfihp"]
-[ext_resource type="Script" path="res://entity/utility/Particles2D.gd" id="5_01jhk"]
-[ext_resource type="Script" path="res://entity/utility/GraphicFallback.gd" id="7_56w1o"]
-[ext_resource type="PackedScene" uid="uid://dletx36qco4eh" path="res://entity/utility/explosion.tscn" id="8_rypni"]
+[ext_resource type="Script" path="res://entity/utility/graphic/Particles2D.gd" id="5_01jhk"]
+[ext_resource type="Script" path="res://entity/utility/graphic/GraphicFallback.gd" id="7_56w1o"]
+[ext_resource type="PackedScene" uid="uid://dletx36qco4eh" path="res://entity/utility/graphic/explosion.tscn" id="8_rypni"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_q5f8i"]
 radius = 256.0

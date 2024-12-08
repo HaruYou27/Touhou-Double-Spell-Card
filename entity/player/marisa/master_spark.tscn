@@ -1,12 +1,12 @@
 [gd_scene load_steps=23 format=3 uid="uid://b85g60flfgfr3"]
 
 [ext_resource type="Script" path="res://entity/player/marisa/MasterSpark.gd" id="1_i45vv"]
-[ext_resource type="Script" path="res://entity/utility/GraphicFallback.gd" id="6_ayuoo"]
+[ext_resource type="Script" path="res://entity/utility/graphic/GraphicFallback.gd" id="6_ayuoo"]
 [ext_resource type="Material" uid="uid://dox27ncd2r5o3" path="res://entity/resource/glow.tres" id="6_jefjk"]
 [ext_resource type="Texture2D" uid="uid://d2wacgirqsjjn" path="res://entity/resource/white-trans.tres" id="7_rj3lw"]
 [ext_resource type="Texture2D" uid="uid://dxsf3vpqsosf1" path="res://entity/resource/fire_particle.png" id="8_wltid"]
 [ext_resource type="PackedScene" uid="uid://bsnqtgxxjmolk" path="res://entity/player/marisa/ray_cast.tscn" id="9_hoe4h"]
-[ext_resource type="Script" path="res://entity/utility/Particles2D.gd" id="9_q1ojr"]
+[ext_resource type="Script" path="res://entity/utility/graphic/Particles2D.gd" id="9_q1ojr"]
 
 [sub_resource type="Animation" id="Animation_d3sxi"]
 resource_name = "Master Spark"

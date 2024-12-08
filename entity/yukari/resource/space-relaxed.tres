@@ -1,9 +1,9 @@
 [gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://dtxk3nb6pubej"]
 
-[ext_resource type="Shader" path="res://level/space/universe.gdshader" id="1_826t1"]
+[ext_resource type="Shader" path="res://level/space/universe.gdshader" id="1_kq5t1"]
 
 [resource]
-shader = ExtResource("1_826t1")
+shader = ExtResource("1_kq5t1")
 shader_parameter/iterations = 10
 shader_parameter/formuparam = 0.983
 shader_parameter/volsteps = 5

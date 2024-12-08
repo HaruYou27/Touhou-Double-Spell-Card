@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://entity/utility/PathFollower2D.gd" id="1_q5ad0"]
 [ext_resource type="PackedScene" uid="uid://dtlscerig62nv" path="res://entity/enemy/base/enemy.tscn" id="2_fw23a"]
 [ext_resource type="Texture2D" uid="uid://ejrqvn5h5jxu" path="res://entity/enemy/fairy/Fairy.1.png" id="3_anm3e"]
-[ext_resource type="Script" path="res://entity/utility/SinRotator.gd" id="4_kds6q"]
+[ext_resource type="Script" path="res://entity/utility/RotatorRandom.gd" id="4_kds6q"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_noovt"]
 radius = 29.0172
