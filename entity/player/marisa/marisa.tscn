@@ -17,6 +17,7 @@ height = 194.0
 texture_filter = 1
 
 [node name="Player" parent="." node_paths=PackedStringArray("sprite", "hitbox") instance=ExtResource("1_vjhba")]
+position = Vector2(424, 848)
 sprite = NodePath("marisa")
 hitbox = NodePath("Hitbox")
 

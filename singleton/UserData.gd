@@ -19,6 +19,7 @@ enum GRAPHIC_LEVEL
 	HIGH,
 }
 @export var graphic_level := GRAPHIC_LEVEL.HIGH
+@export var screen_shake_intensity := 2.0
 
 
 @export_category("Controls")

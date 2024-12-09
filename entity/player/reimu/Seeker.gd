@@ -21,7 +21,7 @@ func collide(result:Dictionary, _bullet:Bullet) -> bool:
 		return false
 	
 	var collider = instance_from_id(result["collider_id"])
-	collider.call("_hit")
+	collider.hit.call_deferred()
 	
 	return false;
 	

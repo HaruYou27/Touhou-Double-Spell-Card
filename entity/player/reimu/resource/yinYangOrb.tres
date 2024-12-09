@@ -20,7 +20,7 @@ void fragment()
 
 [sub_resource type="Gradient" id="Gradient_561th"]
 interpolation_mode = 1
-offsets = PackedFloat32Array(0, 0.51087)
+offsets = PackedFloat32Array(0, 0.56044)
 colors = PackedColorArray(1, 0.4, 0.4, 1, 1, 1, 1, 1)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_obk0t"]

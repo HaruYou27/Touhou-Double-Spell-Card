@@ -50,6 +50,7 @@ func _physics_process(delta: float) -> void:
 func explode(_nm=null) -> void:
 	OS.delay_msec(16)
 	ScreenEffect.flash(0.3)
+	ScreenEffect.shake(0.3)
 	explosion.emitting = true
 	toggle.call_deferred(false)
 	toggle_explode.call_deferred(true)

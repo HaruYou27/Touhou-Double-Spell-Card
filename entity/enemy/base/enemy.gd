@@ -10,19 +10,23 @@ signal died
 var tick := false
 @onready var blood: CPUParticles2D = $explosion/blood
 @onready var blood2: CPUParticles2D = $explosion/blood2
-func _hit() -> void:
+func hit() -> void:
+	if not hp and is_alive:
+		die()
+		return
+		
 	hp -= 1
 	if tick:
 		blood.emitting = true
 	else:
 		blood2.emitting = true
-	if not hp:
-		die()
-		
+	
 @onready var explosion: CPUParticles2D = $explosion
 @export var visual: Node2D
 
+var is_alive := true
 func die() -> void:
+	is_alive = false
 	disable.call_deferred()
 	ItemManager.spawn_item(point, global_position)
 	explosion.emitting = true
@@ -36,6 +40,7 @@ func reset() -> void:
 	monitorable = true
 	visual.show()
 	hp = point
+	is_alive = true
 
 func _ready() -> void:
 	disable.call_deferred()

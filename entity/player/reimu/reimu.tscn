@@ -19,11 +19,13 @@ radius = 39.0
 height = 174.0
 
 [sub_resource type="Gradient" id="Gradient_561th"]
-colors = PackedColorArray(1, 0.4, 0.4, 1, 0.987334, 0.24, 1, 1)
+interpolation_mode = 1
+offsets = PackedFloat32Array(0.376147)
+colors = PackedColorArray(1, 0.4, 0.4, 1)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_obk0t"]
 gradient = SubResource("Gradient_561th")
-width = 64
+width = 1
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_v1vkg"]
 shader = ExtResource("12_o8iy5")
@@ -89,6 +91,7 @@ wait_time = 0.2
 autostart = true
 
 [node name="bullet" type="Node2D" parent="."]
+top_level = true
 z_index = 1
 material = SubResource("ShaderMaterial_v1vkg")
 script = ExtResource("13_g7t8t")

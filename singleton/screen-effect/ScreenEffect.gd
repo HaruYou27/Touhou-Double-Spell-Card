@@ -28,6 +28,29 @@ func flash(duration:float) -> void:
 func flash_red() -> void:
 	show()
 	color = Color(0.996078, 0.203922, 0.203922, 0.592157)
+
+func shake(duration:float) -> void:
+	set_process(true)
+	shake_duration += duration
+
+@onready var shake_intensity: float = Global.user_data.screen_shake_intensity
+var noise: FastNoiseLite = preload("res://singleton/screen-effect/noise-cheap.tres")
+var shake_duration := 0.0
+func _process(delta: float) -> void:
+	var scene : Control = LevelLoader.scene
+	if shake_duration < 0.0 or shake_intensity < 0.001:
+		shake_duration = 0.0
+		set_process(false)
+		scene.position = Vector2.ZERO
+		scene.rotation_degrees = 0.0
+	shake_duration -= delta
+	
+	scene.position.x += noise.get_noise_2d(-Time.get_ticks_msec(), -Time.get_ticks_msec()) * shake_intensity
+	scene.position.y += noise.get_noise_2d(Time.get_ticks_msec(), Time.get_ticks_msec()) * shake_intensity
+	scene.position = scene.position.clampf(-5.0, 5.0)
+	
+	scene.rotation_degrees += noise.get_noise_1d(Time.get_ticks_msec())
+	scene.rotation_degrees = clampf(scene.rotation_degrees, -0.25, 0.25)
 	
 func _ready() -> void:
 	set_process(false)

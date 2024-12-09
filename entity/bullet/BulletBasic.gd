@@ -41,6 +41,7 @@ var bullets : Array[Bullet] = []
 @onready var canvas_item := get_canvas_item()
 
 func _ready() -> void:
+	top_level = true
 	RenderingServer.canvas_item_set_custom_rect(canvas_item, true)
 	barrels = tree.get_nodes_in_group(barrelGroup)
 	
