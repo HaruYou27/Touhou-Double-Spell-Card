@@ -1,6 +1,7 @@
 [gd_scene load_steps=23 format=3 uid="uid://b85g60flfgfr3"]
 
 [ext_resource type="Script" path="res://entity/player/marisa/MasterSpark.gd" id="1_i45vv"]
+[ext_resource type="Shader" path="res://entity/player/marisa/resource/master_spark.gdshader" id="2_5d4p8"]
 [ext_resource type="Script" path="res://entity/utility/graphic/GraphicFallback.gd" id="6_ayuoo"]
 [ext_resource type="Material" uid="uid://dox27ncd2r5o3" path="res://entity/resource/glow.tres" id="6_jefjk"]
 [ext_resource type="Texture2D" uid="uid://d2wacgirqsjjn" path="res://entity/resource/white-trans.tres" id="7_rj3lw"]
@@ -120,6 +121,42 @@ tracks/8/keys = {
 "update": 0,
 "values": [Vector2(1, 1), Vector2(1, 1.2), Vector2(1, 1.2), Vector2(1, 1)]
 }
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("Beam:points")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [PackedVector2Array(0, 0, 0, -960)]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("Beam/CollisionParticle:visible")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/11/type = "value"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("Beam/CollisionParticle2:visible")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
 [sub_resource type="Animation" id="Animation_65s67"]
 length = 0.001
@@ -219,6 +256,42 @@ tracks/7/keys = {
 "update": 0,
 "values": [Vector2(1, 1.2)]
 }
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("Beam:points")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [PackedVector2Array(0, 0, 0, -960)]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("Beam/CollisionParticle:visible")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("Beam/CollisionParticle2:visible")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_huuam"]
 _data = {
@@ -226,39 +299,21 @@ _data = {
 "RESET": SubResource("Animation_65s67")
 }
 
-[sub_resource type="Shader" id="Shader_ppfoa"]
-code = "shader_type canvas_item;
-#pragma disable_preprocessor
-render_mode blend_add;
-
-uniform float time_scale = 1.0;
-uniform sampler2D color_map : repeat_enable, filter_nearest;
-
-varying vec2 uv;
-void vertex()
-{
-	//shift color through time across color map - mix it with white color.
-	uv = vec2(TIME * time_scale);
-}
-void fragment()
-{
-	COLOR.rgb = mix(texture(color_map, uv).rgb, vec3(1.), COLOR.r);
-
-}
-"
-
 [sub_resource type="Gradient" id="Gradient_nn53k"]
+interpolation_mode = 2
 interpolation_color_space = 2
-offsets = PackedFloat32Array(0, 0.5, 1)
-colors = PackedColorArray(0, 0.6, 1, 1, 0.483333, 1, 0, 1, 0, 0.6, 1, 1)
+offsets = PackedFloat32Array(0, 0.197802, 0.395604, 0.626374, 0.813187, 1)
+colors = PackedColorArray(1, 0.2, 0.211765, 1, 0.433833, 1, 0.21, 1, 0.933333, 0, 1, 1, 0.0168, 0.16772, 0.84, 1, 1, 0.2, 0.213333, 1, 0.435294, 1, 0.211765, 1)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_k8r5t"]
 gradient = SubResource("Gradient_nn53k")
-width = 32
+width = 512
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_2swgb"]
-shader = SubResource("Shader_ppfoa")
-shader_parameter/time_scale = 0.5
+shader = ExtResource("2_5d4p8")
+shader_parameter/speed_color = -1.0
+shader_parameter/alpha_delta = 0.4
+shader_parameter/speed_alpha = -2.0
 shader_parameter/color_map = SubResource("GradientTexture1D_k8r5t")
 
 [sub_resource type="Gradient" id="Gradient_8pqvy"]

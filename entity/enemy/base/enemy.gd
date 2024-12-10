@@ -36,6 +36,7 @@ func die() -> void:
 	timeout()
 	
 func reset() -> void:
+	process_mode = Node.PROCESS_MODE_INHERIT
 	monitoring = true
 	monitorable = true
 	visual.show()
@@ -55,6 +56,7 @@ func timeout() -> void:
 	disable.call_deferred()
 	
 func disable() -> void:
+	process_mode = Node.PROCESS_MODE_DISABLED
 	monitorable = false
 	monitoring = false
 	visual.hide()

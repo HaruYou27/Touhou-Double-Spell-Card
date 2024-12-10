@@ -46,7 +46,7 @@ func _physics_process(delta:float) -> void:
 		beam_particle.process_material.emission_box_extents.y = -960
 
 @onready var spark_hitbox := $Spark/SparkHitbox
-func _on_player_kaboom(offset:float) -> void:
+func _on_player_kaboom() -> void:
 	set_physics_process(false)
 	animator.play("Master Spark")
 	spark_hitbox.set_deferred("disabled", false)

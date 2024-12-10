@@ -1,4 +1,4 @@
-[gd_scene load_steps=53 format=3 uid="uid://bxvy3qa8esorq"]
+[gd_scene load_steps=52 format=3 uid="uid://bxvy3qa8esorq"]
 
 [ext_resource type="Shader" path="res://level/misty-lake/water.gdshader" id="1_kv0nh"]
 [ext_resource type="Texture2D" uid="uid://coq45et7pnhnx" path="res://level/misty-lake/resource/water-gradient.tres" id="2_yt2xx"]
@@ -18,7 +18,6 @@
 [ext_resource type="PackedScene" uid="uid://qcqdhn5ssewn" path="res://level/misty-lake/enemy/fairy-tracker.tscn" id="15_43q5m"]
 [ext_resource type="PackedScene" uid="uid://dtlscerig62nv" path="res://entity/enemy/base/enemy.tscn" id="16_bi0tp"]
 [ext_resource type="Texture2D" uid="uid://cqt1oe248vvwn" path="res://entity/enemy/fairy/Fairy.2.png" id="17_2fadj"]
-[ext_resource type="Shader" path="res://entity/bullet/resource/BulletGlow.gdshader" id="19_nhcav"]
 [ext_resource type="PackedScene" uid="uid://c7plqidxhf5bq" path="res://level/misty-lake/barrel-big-fairy.tscn" id="20_mqptk"]
 [ext_resource type="Texture2D" uid="uid://dilcwhuq6brnv" path="res://entity/bullet/resource/ball.png" id="20_r16r1"]
 [ext_resource type="Shape2D" uid="uid://bflxt0dqc7na4" path="res://entity/bullet/resource/ball-hitbox.tres" id="21_lvtat"]
@@ -94,7 +93,7 @@ gradient = SubResource("Gradient_nhfr7")
 width = 8
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_d3uy2"]
-shader = ExtResource("19_nhcav")
+shader = ExtResource("8_nrdry")
 shader_parameter/time_scale = 1.0
 shader_parameter/color_map = SubResource("GradientTexture1D_jpep5")
 
@@ -106,7 +105,7 @@ gradient = SubResource("Gradient_wmneh")
 width = 8
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_kukqw"]
-shader = ExtResource("19_nhcav")
+shader = ExtResource("8_nrdry")
 shader_parameter/time_scale = 4.0
 shader_parameter/color_map = SubResource("GradientTexture1D_b6iio")
 

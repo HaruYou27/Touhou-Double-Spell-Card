@@ -43,7 +43,7 @@ func _input(event:InputEvent) -> void:
 func move(event:InputEvent) -> void:
 	global_position += event.relative * sentivity
 	global_position.x = clampf(global_position.x, 0.0, 540.0)
-	global_position.y = clampf(global_position.y, 0.0, 960.0)
+	global_position.y = clampf(global_position.y, 0.0, 852.0)
 	
 	if is_multiplayer_authority():
 		rpc('_update_position', global_position)

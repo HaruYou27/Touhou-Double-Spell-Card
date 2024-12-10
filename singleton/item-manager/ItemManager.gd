@@ -25,7 +25,7 @@ func move(delta:float, item:Bullet) -> void:
 
 func collide(result:Dictionary, _item:Bullet) -> bool:
 	var mask = int(result["linear_velocity"].x)
-	if mask == 1:
+	if mask < 10:
 		return false
 		
 	var collider: Node = instance_from_id(result["collider_id"])
