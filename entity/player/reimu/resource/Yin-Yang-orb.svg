@@ -4,8 +4,8 @@
    height="250"
    version="1.1"
    id="svg287"
-   sodipodi:docname="Yin_and_Yang_symbol.svg"
-   inkscape:version="1.2.2 (b0a8486541, 2022-12-01)"
+   sodipodi:docname="Yin-Yang-orb.svg"
+   inkscape:version="1.3.2 (091e20e, 2023-11-25)"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns="http://www.w3.org/2000/svg"
@@ -21,10 +21,10 @@
      inkscape:deskcolor="#4b4b4b"
      showgrid="false"
      inkscape:zoom="2.216"
-     inkscape:cx="201.03791"
-     inkscape:cy="133.34838"
+     inkscape:cx="201.26354"
+     inkscape:cy="79.196751"
      inkscape:window-width="1366"
-     inkscape:window-height="739"
+     inkscape:window-height="740"
      inkscape:window-x="0"
      inkscape:window-y="0"
      inkscape:window-maximized="1"
@@ -52,12 +52,12 @@
   <path
      d="m 125,0 a 62.5,62.5 0 0 1 0,125 62.5,62.5 0 0 0 0,125 125,125 0 0 0 0,-250"
      id="path281"
-     style="display:inline;stroke-width:1.10424" />
+     style="display:inline;stroke-width:1.10424;fill:#ff5454;fill-opacity:1" />
   <circle
      cx="125"
      cy="62.500004"
      id="circle283"
-     style="stroke-width:1.10424"
+     style="stroke-width:1.10424;fill:#ff5454;fill-opacity:1"
      r="19.434629" />
   <circle
      cx="125"

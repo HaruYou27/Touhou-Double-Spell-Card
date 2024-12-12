@@ -1,7 +1,7 @@
 [gd_scene load_steps=14 format=3 uid="uid://dg3c0gdslbpa4"]
 
 [ext_resource type="Shader" path="res://level/shader/noise-colorize.gdshader" id="1_7xp7d"]
-[ext_resource type="Shader" path="res://tool/image-baker/background/shader/grid.gdshader" id="3_38whw"]
+[ext_resource type="Shader" path="res://level/dream-world/grid.gdshader" id="3_38whw"]
 [ext_resource type="PackedScene" uid="uid://bfvb372sca8m2" path="res://user-interface/leveler/leveler.tscn" id="4_aeo0o"]
 
 [sub_resource type="Gradient" id="Gradient_hb3xu"]

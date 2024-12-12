@@ -42,6 +42,8 @@ func get_host_time() -> int:
 
 var user_data : UserData
 func _ready() -> void:
+	if not Engine.is_editor_hint:
+		print(Engine.get_license_text())
 	multiplayer.peer_disconnected.connect(_peer_disconnected)
 	user_data = load('user://saveData.res')
 	if user_data:

@@ -1,33 +1,7 @@
-[gd_resource type="ShaderMaterial" load_steps=4 format=3 uid="uid://df8i0wskbdmia"]
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://df8i0wskbdmia"]
 
-[sub_resource type="Shader" id="Shader_ieck5"]
-code = "shader_type canvas_item;
-#pragma disable_preprocessor
-
-uniform float time_scale;
-uniform sampler2D color_map;
-
-void vertex()
-{
-    float phi = TIME * time_scale * PI;
-    VERTEX *= mat2(vec2(cos(phi),-sin(phi)),
-                   vec2(sin(phi),cos(phi)));
-}
-void fragment()
-{
-	COLOR.rgb = texture(color_map, COLOR.rg).rgb;
-}"
-
-[sub_resource type="Gradient" id="Gradient_561th"]
-interpolation_mode = 1
-offsets = PackedFloat32Array(0, 0.56044)
-colors = PackedColorArray(1, 0.4, 0.4, 1, 1, 1, 1, 1)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_obk0t"]
-gradient = SubResource("Gradient_561th")
-width = 2
+[ext_resource type="Shader" path="res://entity/resource/spin.gdshader" id="1_cpahg"]
 
 [resource]
-shader = SubResource("Shader_ieck5")
+shader = ExtResource("1_cpahg")
 shader_parameter/time_scale = 1.0
-shader_parameter/color_map = SubResource("GradientTexture1D_obk0t")

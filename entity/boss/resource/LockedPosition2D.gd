@@ -1,9 +1,10 @@
 extends Sprite2D
 class_name LockedPosition2D
-##Remain fixed at a value in 1 axie.
+## Remain fixed at a value in 1 axie.
 
-##The fixed value.
+## The fixed value.
 @export var value := 0
+## If true, set y position to value every frame.
 @export var locked_y := false
 
 func _process(_delta) -> void:

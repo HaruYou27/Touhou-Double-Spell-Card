@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bn8nged18pm41"
-path="res://.godot/imported/Yukari.png-d6484758d831668e97cefb0186cc9eac.ctex"
+path="res://.godot/imported/Yukari.png-7e301bfe4ae4ac8b1197cfdf6a98c7cd.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://entity/yukari/resource/Yukari.png"
-dest_files=["res://.godot/imported/Yukari.png-d6484758d831668e97cefb0186cc9eac.ctex"]
+source_file="res://entity/boss/yukari/resource/Yukari.png"
+dest_files=["res://.godot/imported/Yukari.png-7e301bfe4ae4ac8b1197cfdf6a98c7cd.ctex"]
 
 [params]
 

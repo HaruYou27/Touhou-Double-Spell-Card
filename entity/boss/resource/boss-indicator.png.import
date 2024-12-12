@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cnecndeyl8vpm"
-path="res://.godot/imported/boss-indicator.png-6d774f4e92c8ceaf471900e17cd722af.ctex"
+path="res://.godot/imported/boss-indicator.png-af0983e88b555caf9ca3977608fa082f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://entity/utility/graphic/boss-indicator.png"
-dest_files=["res://.godot/imported/boss-indicator.png-6d774f4e92c8ceaf471900e17cd722af.ctex"]
+source_file="res://entity/boss/resource/boss-indicator.png"
+dest_files=["res://.godot/imported/boss-indicator.png-af0983e88b555caf9ca3977608fa082f.ctex"]
 
 [params]
 

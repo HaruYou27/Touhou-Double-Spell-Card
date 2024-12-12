@@ -1,7 +1,14 @@
-uniform float time_scale;
-uniform sampler2D color_map;
 
+#ifdef TIME_FLOW
+uniform float time_scale;
+#endif
+
+#ifdef COLORIZE
+group_uniforms colorize;
+uniform sampler2D color_map;
 varying vec3 color;
+#endif
+
 void vertex()
 {
 	//Offset vertex to the center of the image.
@@ -10,33 +17,37 @@ void vertex()
 	VERTEX *= mat2(vec2(cos(theta),-sin(theta)),
                    vec2(sin(theta),cos(theta)));
 
+#ifdef TIME_FLOW
 	float time = TIME * time_scale;
+#endif
 
-	#ifdef TIME_OFFSET
-		//Offset time by r channel.
-		time *= sign(COLOR.r - .5);
-		time += 100.0 * COLOR.r;
-	#endif
+#ifdef TIME_OFFSET
+	//Offset time by r channel.
+	time *= sign(COLOR.r - .5);
+	time += 100.0 * COLOR.r;
+#endif
 
-	#ifdef COLOR_TIME
-		//shift color through time across color map & mix it with white color.
-		color = texture(color_map, vec2(abs(sin(time)))).rgb;
-	#endif
+#ifdef COLOR_TIME
+	//shift color through time across color map & mix it with white color.
+	color = texture(color_map, vec2(abs(sin(time)))).rgb;
+#endif
 
-	#ifdef COLOR_ROTATION
-		color = texture(color_map, vec2(theta / TAU)).rgb;
-	#endif
+#ifdef COLOR_ROTATION
+	color = texture(color_map, vec2(theta / TAU)).rgb;
+#endif
 
-	#ifdef BLINKING
-		//Blinking effect.
-		COLOR.a = sin(time);
-	#endif
+#ifdef BLINKING
+	// Blinking effect.
+	COLOR.a = abs(sin(time));
+#endif
 
-	//Block color modulate pass through fragment.
+	// Block color modulate pass through fragment.
 	COLOR.rgb = vec3(1.0);
 }
 void fragment()
 {
-	// Only change color of the gray -> black pixels.
-	COLOR.rgb = mix(color, vec3(1.), COLOR.r);
+	#ifdef COLORIZE
+		// Only change color of the gray -> black pixels.
+		COLOR.rgb = mix(color, vec3(1.), COLOR.r);
+	#endif
 }

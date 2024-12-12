@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://bk08ga1mfcleb"]
+[gd_scene load_steps=16 format=3 uid="uid://bk08ga1mfcleb"]
 
 [ext_resource type="PackedScene" uid="uid://ffnff8ahyxxn" path="res://entity/player/reimu/reimu-sprite.tscn" id="2_1gpls"]
 [ext_resource type="Script" path="res://entity/player/reimu/reimu.gd" id="2_ukdaa"]
@@ -7,7 +7,6 @@
 [ext_resource type="PackedScene" uid="uid://cex3540cp47lm" path="res://entity/player/base/graze.tscn" id="5_sq1so"]
 [ext_resource type="Texture2D" uid="uid://cx7ewf38kbh34" path="res://entity/player/reimu/resource/reimu-hitbox.png" id="7_hytxk"]
 [ext_resource type="PackedScene" uid="uid://8587t5a7aa40" path="res://entity/player/reimu/seal.tscn" id="10_730ir"]
-[ext_resource type="Shader" path="res://entity/bullet/resource/Bullet.gdshader" id="12_o8iy5"]
 [ext_resource type="Script" path="res://entity/player/reimu/Seeker.gd" id="13_g7t8t"]
 [ext_resource type="Texture2D" uid="uid://cu2ufhkx3vayf" path="res://entity/player/reimu/resource/ofuda.png" id="14_yebca"]
 
@@ -18,19 +17,14 @@ radius = 3.0
 radius = 39.0
 height = 174.0
 
-[sub_resource type="Gradient" id="Gradient_561th"]
-interpolation_mode = 1
-offsets = PackedFloat32Array(0.376147)
-colors = PackedColorArray(1, 0.4, 0.4, 1)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_obk0t"]
-gradient = SubResource("Gradient_561th")
-width = 1
+[sub_resource type="Shader" id="Shader_mn2l2"]
+code = "shader_type canvas_item;
+#include \"res://entity/bullet/resource/bullet-basic.gdshaderinc\"
+"
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_v1vkg"]
-shader = ExtResource("12_o8iy5")
+shader = SubResource("Shader_mn2l2")
 shader_parameter/time_scale = 1.0
-shader_parameter/color_map = SubResource("GradientTexture1D_obk0t")
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_jbjdf"]
 radius = 270.0

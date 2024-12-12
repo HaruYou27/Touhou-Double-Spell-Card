@@ -1,4 +1,5 @@
 shader_type canvas_item;
+#pragma disable_preprocessor
 
 uniform int iterations = 10;
 uniform float formuparam = 1.00;
@@ -38,7 +39,7 @@ void fragment()
 	lowp vec3 v=vec3(0.);
 	for (int r=0; r<volsteps; r++)
 	{
-		lowp vec3 p = fma(dir * 0.5, s, from);
+		lowp vec3 p = fma(dir * 0.5, vec3(s), from);
 		p = abs(vec3(tile)-mod(p,vec3(tile*2.))); // tiling fold
 		lowp float pa,a=pa=0.;
 

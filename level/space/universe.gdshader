@@ -1,4 +1,5 @@
 shader_type canvas_item;
+#pragma disable_preprocessor
 
 uniform int iterations = 10;
 uniform float formuparam = 1.00;
