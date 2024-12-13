@@ -1,0 +1,242 @@
+[gd_scene load_steps=10 format=3 uid="uid://367sgrtmiojj"]
+
+[ext_resource type="PackedScene" uid="uid://bncu813gm4hx8" path="res://entity/boss/yukari/yukari.tscn" id="1_glhef"]
+[ext_resource type="Script" path="res://entity/utility/Rotator.gd" id="2_vvjy5"]
+[ext_resource type="Script" path="res://entity/bullet/BulletBasic.gd" id="3_7ivcl"]
+[ext_resource type="Texture2D" uid="uid://d1nkk7km71ule" path="res://entity/bullet/resource/kunai1.png" id="4_54uqq"]
+[ext_resource type="Shape2D" uid="uid://brtfnhe3eksr4" path="res://entity/bullet/resource/kunai-hitbox.tres" id="5_fle8w"]
+
+[sub_resource type="Shader" id="Shader_muqwk"]
+code = "shader_type canvas_item;
+
+#define TIME_FLOW
+#define TIME_OFFSET
+#define COLOR_TIME
+#define COLORIZE
+
+
+
+
+#include \"res://entity/bullet/resource/bullet-basic.gdshaderinc\"
+"
+
+[sub_resource type="Gradient" id="Gradient_56why"]
+interpolation_mode = 2
+interpolation_color_space = 2
+offsets = PackedFloat32Array(0, 0.318681, 0.681319, 1)
+colors = PackedColorArray(0, 0.623529, 0.717647, 1, 0.490196, 0.180392, 0.407843, 1, 1, 0.564706, 0.701961, 1, 0.839216, 1, 0.47451, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_ctw62"]
+gradient = SubResource("Gradient_56why")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fiyn2"]
+shader = SubResource("Shader_muqwk")
+shader_parameter/time_scale = null
+shader_parameter/color_map = SubResource("GradientTexture1D_ctw62")
+
+[node name="Node2D" type="Node2D"]
+
+[node name="yukari" parent="." instance=ExtResource("1_glhef")]
+position = Vector2(261, 252)
+
+[node name="Barrel1" type="Node2D" parent="yukari"]
+script = ExtResource("2_vvjy5")
+
+[node name="@Marker2D@27672" type="Marker2D" parent="yukari/Barrel1" groups=["Boss Spell Card 1"]]
+position = Vector2(142.004, 0)
+gizmo_extents = 20.0
+
+[node name="@Marker2D@27673" type="Marker2D" parent="yukari/Barrel1" groups=["Boss Spell Card 1"]]
+position = Vector2(139.275, 27.7035)
+rotation = 0.19635
+scale = Vector2(1, 1)
+gizmo_extents = 20.0
+
+[node name="@Marker2D@27674" type="Marker2D" parent="yukari/Barrel1" groups=["Boss Spell Card 1"]]
+position = Vector2(131.194, 54.3424)
+rotation = 0.392699
+gizmo_extents = 20.0
+
+[node name="@Marker2D@27675" type="Marker2D" parent="yukari/Barrel1" groups=["Boss Spell Card 1"]]
+position = Vector2(118.072, 78.8929)
+rotation = 0.589049
+gizmo_extents = 20.0
+
+[node name="@Marker2D@27676" type="Marker2D" parent="yukari/Barrel1" groups=["Boss Spell Card 1"]]
+position = Vector2(100.412, 100.412)
+rotation = 0.785398
+scale = Vector2(1, 1)
+gizmo_extents = 20.0
+
+[node name="@Marker2D@27677" type="Marker2D" parent="yukari/Barrel1" groups=["Boss Spell Card 1"]]
+position = Vector2(78.8929, 118.072)
+rotation = 0.981748
+gizmo_extents = 20.0
+
+[node name="@Marker2D@27678" type="Marker2D" parent="yukari/Barrel1" groups=["Boss Spell Card 1"]]
+position = Vector2(54.3424, 131.194)
+rotation = 1.1781
+scale = Vector2(1, 1)
+gizmo_extents = 20.0
+
+[node name="@Marker2D@27679" type="Marker2D" parent="yukari/Barrel1" groups=["Boss Spell Card 1"]]
+position = Vector2(27.7035, 139.275)
+rotation = 1.37445
+scale = Vector2(1, 1)
+gizmo_extents = 20.0
+
+[node name="@Marker2D@27680" type="Marker2D" parent="yukari/Barrel1" groups=["Boss Spell Card 1"]]
+position = Vector2(-6.20717e-06, 142.004)
+rotation = 1.5708
+gizmo_extents = 20.0
+
+[node name="@Marker2D@27681" type="Marker2D" parent="yukari/Barrel1" groups=["Boss Spell Card 1"]]
+position = Vector2(-27.7035, 139.275)
+rotation = 1.76715
+scale = Vector2(1, 1)
+gizmo_extents = 20.0
+
+[node name="@Marker2D@27682" type="Marker2D" parent="yukari/Barrel1" groups=["Boss Spell Card 1"]]
+position = Vector2(-54.3424, 131.194)
+rotation = 1.9635
+gizmo_extents = 20.0
+
+[node name="@Marker2D@27683" type="Marker2D" parent="yukari/Barrel1" groups=["Boss Spell Card 1"]]
+position = Vector2(-78.8929, 118.072)
+rotation = 2.15984
+gizmo_extents = 20.0
+
+[node name="@Marker2D@27684" type="Marker2D" parent="yukari/Barrel1" groups=["Boss Spell Card 1"]]
+position = Vector2(-100.412, 100.412)
+rotation = 2.35619
+scale = Vector2(1, 1)
+gizmo_extents = 20.0
+
+[node name="@Marker2D@27685" type="Marker2D" parent="yukari/Barrel1" groups=["Boss Spell Card 1"]]
+position = Vector2(-118.072, 78.8929)
+rotation = 2.55254
+gizmo_extents = 20.0
+
+[node name="@Marker2D@27686" type="Marker2D" parent="yukari/Barrel1" groups=["Boss Spell Card 1"]]
+position = Vector2(-131.194, 54.3424)
+rotation = 2.74889
+gizmo_extents = 20.0
+
+[node name="@Marker2D@27687" type="Marker2D" parent="yukari/Barrel1" groups=["Boss Spell Card 1"]]
+position = Vector2(-139.275, 27.7035)
+rotation = 2.94524
+gizmo_extents = 20.0
+
+[node name="@Marker2D@27688" type="Marker2D" parent="yukari/Barrel1" groups=["Boss Spell Card 1"]]
+position = Vector2(-142.004, -1.24143e-05)
+rotation = -3.14159
+gizmo_extents = 20.0
+
+[node name="Barrel2" type="Node2D" parent="yukari"]
+script = ExtResource("2_vvjy5")
+speed = -3.142
+
+[node name="_Marker2D_27672" type="Marker2D" parent="yukari/Barrel2" groups=["Boss Spell Card 1"]]
+position = Vector2(142.004, 0)
+gizmo_extents = 20.0
+
+[node name="_Marker2D_27673" type="Marker2D" parent="yukari/Barrel2" groups=["Boss Spell Card 1"]]
+position = Vector2(139.275, 27.7035)
+rotation = 0.19635
+scale = Vector2(1, 1)
+gizmo_extents = 20.0
+
+[node name="_Marker2D_27674" type="Marker2D" parent="yukari/Barrel2" groups=["Boss Spell Card 1"]]
+position = Vector2(131.194, 54.3424)
+rotation = 0.392699
+gizmo_extents = 20.0
+
+[node name="_Marker2D_27675" type="Marker2D" parent="yukari/Barrel2" groups=["Boss Spell Card 1"]]
+position = Vector2(118.072, 78.8929)
+rotation = 0.589049
+gizmo_extents = 20.0
+
+[node name="_Marker2D_27676" type="Marker2D" parent="yukari/Barrel2" groups=["Boss Spell Card 1"]]
+position = Vector2(100.412, 100.412)
+rotation = 0.785398
+scale = Vector2(1, 1)
+gizmo_extents = 20.0
+
+[node name="_Marker2D_27677" type="Marker2D" parent="yukari/Barrel2" groups=["Boss Spell Card 1"]]
+position = Vector2(78.8929, 118.072)
+rotation = 0.981748
+gizmo_extents = 20.0
+
+[node name="_Marker2D_27678" type="Marker2D" parent="yukari/Barrel2" groups=["Boss Spell Card 1"]]
+position = Vector2(54.3424, 131.194)
+rotation = 1.1781
+scale = Vector2(1, 1)
+gizmo_extents = 20.0
+
+[node name="_Marker2D_27679" type="Marker2D" parent="yukari/Barrel2" groups=["Boss Spell Card 1"]]
+position = Vector2(27.7035, 139.275)
+rotation = 1.37445
+scale = Vector2(1, 1)
+gizmo_extents = 20.0
+
+[node name="_Marker2D_27680" type="Marker2D" parent="yukari/Barrel2" groups=["Boss Spell Card 1"]]
+position = Vector2(-6.20717e-06, 142.004)
+rotation = 1.5708
+gizmo_extents = 20.0
+
+[node name="_Marker2D_27681" type="Marker2D" parent="yukari/Barrel2" groups=["Boss Spell Card 1"]]
+position = Vector2(-27.7035, 139.275)
+rotation = 1.76715
+scale = Vector2(1, 1)
+gizmo_extents = 20.0
+
+[node name="_Marker2D_27682" type="Marker2D" parent="yukari/Barrel2" groups=["Boss Spell Card 1"]]
+position = Vector2(-54.3424, 131.194)
+rotation = 1.9635
+gizmo_extents = 20.0
+
+[node name="_Marker2D_27683" type="Marker2D" parent="yukari/Barrel2" groups=["Boss Spell Card 1"]]
+position = Vector2(-78.8929, 118.072)
+rotation = 2.15984
+gizmo_extents = 20.0
+
+[node name="_Marker2D_27684" type="Marker2D" parent="yukari/Barrel2" groups=["Boss Spell Card 1"]]
+position = Vector2(-100.412, 100.412)
+rotation = 2.35619
+scale = Vector2(1, 1)
+gizmo_extents = 20.0
+
+[node name="_Marker2D_27685" type="Marker2D" parent="yukari/Barrel2" groups=["Boss Spell Card 1"]]
+position = Vector2(-118.072, 78.8929)
+rotation = 2.55254
+gizmo_extents = 20.0
+
+[node name="_Marker2D_27686" type="Marker2D" parent="yukari/Barrel2" groups=["Boss Spell Card 1"]]
+position = Vector2(-131.194, 54.3424)
+rotation = 2.74889
+gizmo_extents = 20.0
+
+[node name="_Marker2D_27687" type="Marker2D" parent="yukari/Barrel2" groups=["Boss Spell Card 1"]]
+position = Vector2(-139.275, 27.7035)
+rotation = 2.94524
+gizmo_extents = 20.0
+
+[node name="_Marker2D_27688" type="Marker2D" parent="yukari/Barrel2" groups=["Boss Spell Card 1"]]
+position = Vector2(-142.004, -1.24143e-05)
+rotation = -3.14159
+gizmo_extents = 20.0
+
+[node name="BossSpellCard1" type="Node2D" parent="."]
+material = SubResource("ShaderMaterial_fiyn2")
+script = ExtResource("3_7ivcl")
+texture = ExtResource("4_54uqq")
+barrelGroup = "Boss Spell Card 1"
+speed = 272.0
+hitbox = ExtResource("5_fle8w")
+collision_mask = 5
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.1
+autostart = true
+
+[connection signal="timeout" from="Timer" to="BossSpellCard1" method="spawn_bullet"]

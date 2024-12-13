@@ -1,4 +1,5 @@
 extends Timer
+class_name TimerBurst
 
 @export var cycle := 1.
 @export var burst_count := 1

@@ -1,8 +1,10 @@
-extends Marker2D
+extends Node2D
 class_name RotatorRandom
 ## Only works with moving entity.
 
+## In radian.
 @export var min_rad := 0.
+## In radian.
 @export var max_rad := TAU
 ## Use global position so that i don't have to sync over network.
 func transform_barrel() -> void:

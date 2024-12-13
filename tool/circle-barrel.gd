@@ -1,24 +1,24 @@
 @tool
 extends CollisionShape2D
 class_name CircleBarrel
-#Create a bunch of barrels node in circle.
+## Create a bunch of barrels node in circle.
 
-#How to use:
-#1. Change the radius of CirleShape2D however you want.
-#2. Click the Add node checkbox.
 
-#You can reparent all the child node after that.
-#Uncheck if you want to remove all the barrels (in case all the barrel is still children of this node)
-
-@export var add_node := false : set = _add_node
+## Add node around circle radius.
+## Uncheck if you want to remove all the node.
+@export var add_node := false : set = add_nodes
+## The total number of child nodes.
 @export var barrels := 4
+## All the child nodes will be of this group.
 @export var node_group := ''
+## Child node are Marked2D.
 @export var gizmo := 20
 
 func _ready():
 	shape = CircleShape2D.new()
 
-func _add_node(value:bool):
+## Call this func to add child nodes.
+func add_nodes(value:bool):
 	if value:
 		add_node = true
 		var deltaR : float = 2 * PI / barrels

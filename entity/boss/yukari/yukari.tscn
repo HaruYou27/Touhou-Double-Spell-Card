@@ -8,10 +8,6 @@
 [ext_resource type="Texture2D" uid="uid://bpq670j72ij4b" path="res://entity/boss/resource/boss-heathbar-progress.svg" id="6_cd3e3"]
 [ext_resource type="Texture2D" uid="uid://bn8nged18pm41" path="res://entity/boss/yukari/resource/Yukari.png" id="7"]
 
-[sub_resource type="CapsuleShape2D" id="1"]
-radius = 72.0
-height = 256.0
-
 [sub_resource type="Shader" id="Shader_mj5lh"]
 code = "shader_type canvas_item;
 
@@ -25,9 +21,13 @@ code = "shader_type canvas_item;
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_456eo"]
 shader = SubResource("Shader_mj5lh")
-shader_parameter/time_scale = 1.5
-shader_parameter/scale_min = 0.6
+shader_parameter/time_scale = -1.5
+shader_parameter/scale_min = 0.5
 shader_parameter/scale_max = 1.0
+
+[sub_resource type="CapsuleShape2D" id="1"]
+radius = 72.0
+height = 256.0
 
 [sub_resource type="SpriteFrames" id="2"]
 animations = [{
@@ -40,25 +40,20 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="yukari" type="Area2D"]
+[node name="yukari" type="Area2D" node_paths=PackedStringArray("heath_bar")]
 texture_filter = 1
-position = Vector2(273, 249)
 collision_layer = 2
 collision_mask = 4
 monitorable = false
 script = ExtResource("3")
+heath_bar = NodePath("HeathBar")
 
 [node name="indicator" type="Sprite2D" parent="."]
 texture_filter = 2
 texture = ExtResource("2_wallc")
-centered = false
 script = ExtResource("3_fqo85")
-value = 908
+value = 852
 locked_y = true
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("1")
-disabled = true
 
 [node name="Background" type="Sprite2D" parent="."]
 texture_filter = 2
@@ -70,20 +65,18 @@ texture_filter = 2
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -256.0
-offset_top = -256.0
-offset_right = 256.0
-offset_bottom = 256.0
 grow_horizontal = 2
 grow_vertical = 2
-value = 5.0
 fill_mode = 8
-radial_initial_angle = 180.0
 texture_under = ExtResource("6_28uxw")
 texture_progress = ExtResource("6_cd3e3")
 tint_progress = Color(0.828, 0, 0.92, 1)
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("1")
+disabled = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CollisionShape2D"]
 sprite_frames = SubResource("2")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

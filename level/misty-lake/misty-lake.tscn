@@ -53,7 +53,6 @@ width = 8
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_w081n"]
 shader = ExtResource("8_nrdry")
-shader_parameter/time_scale = 2.0
 shader_parameter/color_map = SubResource("GradientTexture1D_kammw")
 
 [sub_resource type="Curve2D" id="Curve2D_rvgc8"]
@@ -72,7 +71,6 @@ width = 8
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_2rgkm"]
 shader = ExtResource("8_nrdry")
-shader_parameter/time_scale = 1.0
 shader_parameter/color_map = SubResource("GradientTexture1D_mflqg")
 
 [sub_resource type="Curve2D" id="Curve2D_va8k1"]
@@ -94,7 +92,6 @@ width = 8
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_d3uy2"]
 shader = ExtResource("8_nrdry")
-shader_parameter/time_scale = 1.0
 shader_parameter/color_map = SubResource("GradientTexture1D_jpep5")
 
 [sub_resource type="Gradient" id="Gradient_wmneh"]
@@ -106,7 +103,6 @@ width = 8
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_kukqw"]
 shader = ExtResource("8_nrdry")
-shader_parameter/time_scale = 4.0
 shader_parameter/color_map = SubResource("GradientTexture1D_b6iio")
 
 [sub_resource type="Curve2D" id="Curve2D_c4b5w"]

@@ -2,7 +2,7 @@ extends RotatorRandom
 class_name Rotator
 ## Should only be use on bosses.
 
-var speed := PI
+@export var speed := PI
 
 func _physics_process(delta: float) -> void:
 	rotation += speed * delta
