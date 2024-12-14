@@ -26,7 +26,7 @@ shader_parameter/scale_min = 0.5
 shader_parameter/scale_max = 1.0
 
 [sub_resource type="CapsuleShape2D" id="1"]
-radius = 72.0
+radius = 94.0
 height = 256.0
 
 [sub_resource type="SpriteFrames" id="2"]

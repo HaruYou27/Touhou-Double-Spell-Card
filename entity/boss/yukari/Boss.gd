@@ -5,13 +5,37 @@ class_name Boss
 var point := 0
 @export var heath_bar: Range
 
-func _hit() -> void:
+func hit() -> void:
 	point += 1
 
 func _on_body_entered(body) -> void:
 	if body is Player:
 		body.hit()
 
+func _ready() -> void:
+	set_process(false)
+
+var item_count := 0
+var tick := true
+func _process(_delta: float) -> void:
+	if tick:
+		tick = false
+		return
+	tick = true
+	
+	if item_count < 0:
+		return
+		set_process(false)
+	
+	if item_count > 100:
+		item_count -= 100
+		ItemManager.spawn_item(100, global_position)
+		return
+	
+	ItemManager.spawn_item(item_count, global_position)
+	item_count = 0
+	
 func spawn_item():
-	ItemManager.spawn_item(point, global_position)
+	set_process(true)
+	item_count = point
 	point = 0

@@ -4,8 +4,9 @@ func spawn_item(count:int, pos:Vector2) -> void:
 	var i := 1
 	while i <= count:
 		var item := create_bullet()
-		var rot := TAU * sin(pos.x * pos.y * i)
-		item.velocity = Vector2(speed, 0).rotated(rot)
+		var random_number := sin(pos.x * pos.y * i)
+		var rot := TAU * random_number
+		item.velocity = Vector2(speed * random_number, 0).rotated(rot)
 		item.transform = Transform2D(rot, pos)
 		
 		bullets.append(item)

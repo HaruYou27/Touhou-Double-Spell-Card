@@ -10,11 +10,11 @@ uniform float scale_max;
 void vertex()
 {
 	time =  TIME * time_scale;
-	
+
 #ifdef ZOOM
 	VERTEX *= abs(sin(time)) * (scale_max - scale_min) + scale_min;
 #endif
-	
+
 #ifdef SPIN
     float phi = time * PI;
     VERTEX *= mat2(vec2(cos(phi),-sin(phi)),

@@ -11,21 +11,21 @@ varying vec3 color;
 
 void vertex()
 {
-	//Offset vertex to the center of the image.
-	VERTEX -= 0.5 / TEXTURE_PIXEL_SIZE;
-	float theta = COLOR.g;
-	VERTEX *= mat2(vec2(cos(theta),-sin(theta)),
-                   vec2(sin(theta),cos(theta)));
-
 #ifdef TIME_FLOW
 	float time = TIME * time_scale;
 #endif
 
 #ifdef TIME_OFFSET
-	//Offset time by r channel.
+	// Offset time by r channel.
 	time *= sign(COLOR.r - .5);
 	time += 100.0 * COLOR.r;
 #endif
+
+	// Offset vertex to the center of the image.
+	VERTEX -= 0.5 / TEXTURE_PIXEL_SIZE;
+	float theta = COLOR.g;
+	VERTEX *= mat2(vec2(cos(theta),-sin(theta)),
+                   vec2(sin(theta),cos(theta)));
 
 #ifdef COLOR_TIME
 	//shift color through time across color map & mix it with white color.
