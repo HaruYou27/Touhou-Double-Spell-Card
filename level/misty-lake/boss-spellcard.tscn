@@ -1,9 +1,9 @@
 [gd_scene load_steps=9 format=3 uid="uid://367sgrtmiojj"]
 
+[ext_resource type="Texture2D" uid="uid://d1nkk7km71ule" path="res://entity/bullet/resource/kunai1.png" id="2_rb2lr"]
 [ext_resource type="Script" path="res://entity/utility/Rotator.gd" id="2_vvjy5"]
-[ext_resource type="Script" path="res://entity/bullet/BulletBasic.gd" id="3_7ivcl"]
-[ext_resource type="Texture2D" uid="uid://d1nkk7km71ule" path="res://entity/bullet/resource/kunai1.png" id="4_54uqq"]
-[ext_resource type="Shape2D" uid="uid://brtfnhe3eksr4" path="res://entity/bullet/resource/kunai-hitbox.tres" id="5_fle8w"]
+[ext_resource type="Script" path="res://entity/bullet/BulletSharp.cs" id="2_xrmse"]
+[ext_resource type="Shape2D" uid="uid://brtfnhe3eksr4" path="res://entity/bullet/resource/kunai-hitbox.tres" id="3_qtosp"]
 
 [sub_resource type="Shader" id="Shader_muqwk"]
 code = "shader_type canvas_item;
@@ -35,13 +35,13 @@ shader_parameter/color_map = SubResource("GradientTexture1D_ctw62")
 
 [node name="BossSpellCard" type="Node2D"]
 material = SubResource("ShaderMaterial_fiyn2")
-script = ExtResource("3_7ivcl")
-texture = ExtResource("4_54uqq")
-barrelGroup = "Boss Spell Card 1"
-speed = 172.0
+script = ExtResource("2_xrmse")
+texture = ExtResource("2_rb2lr")
+barrelGroup = &"Boss Spell Card 1"
+speed = 125.0
 localRotation = true
-hitbox = ExtResource("5_fle8w")
-collision_mask = 5
+hitBox = ExtResource("3_qtosp")
+collisionMask = 5
 
 [node name="Barrel1" type="Node2D" parent="."]
 position = Vector2(270, 300)
@@ -224,4 +224,4 @@ gizmo_extents = 20.0
 wait_time = 0.1
 autostart = true
 
-[connection signal="timeout" from="Timer" to="." method="spawn_bullet"]
+[connection signal="timeout" from="Timer" to="." method="SpawnBullet"]

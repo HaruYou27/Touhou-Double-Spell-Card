@@ -13,7 +13,7 @@ config_version=5
 config/name="Touhou Double Spell Card"
 config/description="Why i make bullet shmups game."
 run/main_scene="res://user-interface/menu/quick_load.tscn"
-config/features=PackedStringArray("4.3")
+config/features=PackedStringArray("4.3", "C#")
 run/max_fps=60
 
 [autoload]
@@ -31,6 +31,10 @@ window/size/viewport_height=960
 window/stretch/mode="viewport"
 window/handheld/orientation=1
 window/vsync/vsync_mode=false
+
+[dotnet]
+
+project/assembly_name="Touhou Double Spell Card"
 
 [filesystem]
 

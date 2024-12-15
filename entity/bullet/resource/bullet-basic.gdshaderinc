@@ -23,7 +23,7 @@ void vertex()
 
 	// Offset vertex to the center of the image.
 	VERTEX -= 0.5 / TEXTURE_PIXEL_SIZE;
-	float theta = COLOR.g;
+	float theta = COLOR.r;
 	VERTEX *= mat2(vec2(cos(theta),-sin(theta)),
                    vec2(sin(theta),cos(theta)));
 
@@ -36,13 +36,14 @@ void vertex()
 	color = texture(color_map, vec2(theta / TAU)).rgb;
 #endif
 
+// Block color modulate pass through fragment.
+	COLOR = vec4(1.0);
+
 #ifdef BLINKING
 	// Blinking effect.
 	COLOR.a = abs(sin(time));
 #endif
 
-	// Block color modulate pass through fragment.
-	COLOR.rgb = vec3(1.0);
 }
 void fragment()
 {

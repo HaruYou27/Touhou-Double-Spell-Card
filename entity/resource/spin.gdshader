@@ -4,4 +4,3 @@ shader_type canvas_item;
 
 
 #include "res://entity/resource/vfx.gdshaderinc"
-

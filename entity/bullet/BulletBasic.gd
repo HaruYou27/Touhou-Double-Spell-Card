@@ -160,6 +160,8 @@ func _physics_process(delta:float) -> void:
 	if tick:
 		end_index = bullets.size() / 2
 		index = bullets.size()
+	else:
+		index = bullets.size() / 2
 	var new_bullets = bullets.duplicate()
 	while index > end_index:
 		index -= 1
