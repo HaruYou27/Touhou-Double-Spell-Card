@@ -15,12 +15,12 @@ dest_files=["res://.godot/imported/uncutmari.1.png-ee3c6cb0d63608e25e711dde8a444
 
 [params]
 
-compress/mode=4
+compress/mode=0
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1
 compress/normal_map=0
-compress/channel_pack=1
+compress/channel_pack=0
 mipmaps/generate=false
 mipmaps/limit=-1
 roughness/mode=1

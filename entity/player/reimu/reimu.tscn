@@ -87,9 +87,9 @@ material = SubResource("ShaderMaterial_v1vkg")
 script = ExtResource("7_3q5yl")
 seekShape = SubResource("CircleShape2D_iup0u")
 texture = ExtResource("14_yebca")
-maxBullet = 472
+maxBullet = 572
 barrelGroup = &"Reimu Barrel"
-speed = 272.0
+speed = 572.0
 localRotation = true
 hitBox = ExtResource("8_jyhni")
 grazable = false
@@ -107,4 +107,4 @@ collisionMask = 3
 
 [node name="Seal4" parent="FantasySeals" instance=ExtResource("10_730ir")]
 
-[connection signal="timeout" from="Player/Timer" to="bullet" method="spawn_bullet"]
+[connection signal="timeout" from="Player/Timer" to="bullet" method="SpawnBullet"]

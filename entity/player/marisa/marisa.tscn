@@ -24,6 +24,11 @@ hitbox = NodePath("Hitbox")
 [node name="marisa" parent="Player" instance=ExtResource("13_sco1m")]
 position = Vector2(2, 0)
 
+[node name="MasterSpark" parent="Player/marisa" instance=ExtResource("4_i3cgm")]
+z_index = 9
+z_as_relative = false
+position = Vector2(-2, -77)
+
 [node name="Hitbox" type="CollisionShape2D" parent="Player"]
 z_index = 100
 shape = SubResource("CircleShape2D_ttfkj")
@@ -37,8 +42,5 @@ texture = ExtResource("2_h730r")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player/graze"]
 shape = SubResource("CapsuleShape2D_imnki")
 
-[node name="MasterSpark" parent="Player" instance=ExtResource("4_i3cgm")]
-position = Vector2(0, -77)
-
-[connection signal="kaboom" from="Player" to="Player/MasterSpark" method="_on_player_kaboom"]
-[connection signal="finished" from="Player/MasterSpark" to="Player" method="bomb_finished"]
+[connection signal="kaboom" from="Player" to="Player/marisa/MasterSpark" method="_on_player_kaboom"]
+[connection signal="finished" from="Player/marisa/MasterSpark" to="Player" method="bomb_finished"]

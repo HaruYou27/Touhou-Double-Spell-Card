@@ -15,7 +15,7 @@ dest_files=["res://.godot/imported/reimu.png-ce68ca3f4bd20b2e9e3be9ff459e4434.ct
 
 [params]
 
-compress/mode=4
+compress/mode=0
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1
