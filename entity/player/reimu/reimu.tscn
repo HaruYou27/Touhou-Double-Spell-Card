@@ -5,9 +5,10 @@
 [ext_resource type="PackedScene" uid="uid://c34lwlqwsc4ve" path="res://entity/player/base/player.tscn" id="4_ftqh1"]
 [ext_resource type="PackedScene" uid="uid://bsa0xvb26o22u" path="res://entity/player/reimu/yinyang-orb.tscn" id="5_ryrqw"]
 [ext_resource type="PackedScene" uid="uid://cex3540cp47lm" path="res://entity/player/base/graze.tscn" id="5_sq1so"]
+[ext_resource type="Script" path="res://entity/player/reimu/Seeker.cs" id="7_3q5yl"]
 [ext_resource type="Texture2D" uid="uid://cx7ewf38kbh34" path="res://entity/player/reimu/resource/reimu-hitbox.png" id="7_hytxk"]
+[ext_resource type="Shape2D" uid="uid://57c5btn7th0e" path="res://entity/bullet/resource/rice-hitbox.tres" id="8_jyhni"]
 [ext_resource type="PackedScene" uid="uid://8587t5a7aa40" path="res://entity/player/reimu/seal.tscn" id="10_730ir"]
-[ext_resource type="Script" path="res://entity/player/reimu/Seeker.gd" id="13_g7t8t"]
 [ext_resource type="Texture2D" uid="uid://cu2ufhkx3vayf" path="res://entity/player/reimu/resource/ofuda.png" id="14_yebca"]
 
 [sub_resource type="CircleShape2D" id="7"]
@@ -25,12 +26,8 @@ code = "shader_type canvas_item;
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_v1vkg"]
 shader = SubResource("Shader_mn2l2")
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_jbjdf"]
-radius = 270.0
-
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_vc5mj"]
-radius = 8.0
-height = 32.0
+[sub_resource type="CircleShape2D" id="CircleShape2D_iup0u"]
+radius = 256.0
 
 [node name="Reimu" type="Node2D"]
 
@@ -44,21 +41,21 @@ hitbox = NodePath("Hitbox")
 [node name="ReimuSprite" parent="Player" instance=ExtResource("2_1gpls")]
 position = Vector2(0, 8)
 
-[node name="YinyangOrb" parent="Player/ReimuSprite" groups=["Player Barrel"] instance=ExtResource("5_ryrqw")]
+[node name="YinyangOrb" parent="Player/ReimuSprite" groups=["Reimu Barrel"] instance=ExtResource("5_ryrqw")]
 position = Vector2(72, 0)
 flip_v = true
 
-[node name="YinyangOrb2" parent="Player/ReimuSprite" groups=["Player Barrel"] instance=ExtResource("5_ryrqw")]
+[node name="YinyangOrb2" parent="Player/ReimuSprite" groups=["Reimu Barrel"] instance=ExtResource("5_ryrqw")]
 texture_filter = 1
 position = Vector2(-72, 0)
 flip_h = false
 
-[node name="Marker2D" type="Marker2D" parent="Player/ReimuSprite" groups=["Player Barrel"]]
+[node name="Marker2D" type="Marker2D" parent="Player/ReimuSprite" groups=["Reimu Barrel"]]
 position = Vector2(13.0002, -39.9999)
 rotation = -1.5708
 gizmo_extents = 51.7
 
-[node name="Position2D2" type="Marker2D" parent="Player/ReimuSprite" groups=["Player Barrel"]]
+[node name="Position2D2" type="Marker2D" parent="Player/ReimuSprite" groups=["Reimu Barrel"]]
 position = Vector2(-13, -40)
 rotation = -1.5708
 gizmo_extents = 82.9
@@ -87,15 +84,18 @@ autostart = true
 top_level = true
 z_index = 1
 material = SubResource("ShaderMaterial_v1vkg")
-script = ExtResource("13_g7t8t")
-seek_shape = SubResource("CircleShape2D_jbjdf")
+script = ExtResource("7_3q5yl")
+seekShape = SubResource("CircleShape2D_iup0u")
 texture = ExtResource("14_yebca")
-barrelGroup = "Player Barrel"
-speed = 627.0
+maxBullet = 472
+barrelGroup = &"Reimu Barrel"
+speed = 272.0
+localRotation = true
+hitBox = ExtResource("8_jyhni")
 grazable = false
-hitbox = SubResource("CapsuleShape2D_vc5mj")
-collide_with_areas = true
-collision_mask = 3
+collideAreas = true
+collideBodies = false
+collisionMask = 3
 
 [node name="FantasySeals" type="Node2D" parent="."]
 

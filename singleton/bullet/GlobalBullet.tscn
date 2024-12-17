@@ -1,14 +1,12 @@
 [gd_scene load_steps=10 format=3 uid="uid://c3rxoiw7os1of"]
 
-[ext_resource type="Shader" path="res://singleton/item-manager/bullet-monochrome.gdshader" id="1_4vpwl"]
-[ext_resource type="Script" path="res://singleton/item-manager/ItemManager.gd" id="2_wca42"]
-[ext_resource type="Texture2D" uid="uid://ccgackr4sld8n" path="res://singleton/item-manager/point.png" id="3_kgvap"]
+[ext_resource type="Shader" path="res://singleton/bullet/bullet-monochrome.gdshader" id="1_4vpwl"]
+[ext_resource type="Script" path="res://singleton/bullet/GlobalBullet.cs" id="2_wmxr2"]
+[ext_resource type="Texture2D" uid="uid://ccgackr4sld8n" path="res://singleton/bullet/point.png" id="3_kgvap"]
+[ext_resource type="Shape2D" uid="uid://bflxt0dqc7na4" path="res://entity/bullet/resource/ball-hitbox.tres" id="4_v8hfc"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_4ux2n"]
 shader = ExtResource("1_4vpwl")
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_atke6"]
-radius = 8.0
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_5a814"]
 distance = -1160.0
@@ -28,12 +26,12 @@ distance = -740.0
 [node name="ItemManager" type="Node2D"]
 z_index = 1
 material = SubResource("ShaderMaterial_4ux2n")
-script = ExtResource("2_wca42")
+script = ExtResource("2_wmxr2")
 texture = ExtResource("3_kgvap")
-speed = 20.0
+maxBullet = 5000
+hitBox = ExtResource("4_v8hfc")
 grazable = false
-hitbox = SubResource("CircleShape2D_atke6")
-collision_mask = 9
+collisionMask = 9
 
 [node name="WorldBoundary" type="StaticBody2D" parent="."]
 collision_mask = 0

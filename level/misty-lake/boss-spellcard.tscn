@@ -39,7 +39,6 @@ script = ExtResource("2_xrmse")
 texture = ExtResource("2_rb2lr")
 barrelGroup = &"Boss Spell Card 1"
 speed = 125.0
-localRotation = true
 hitBox = ExtResource("3_qtosp")
 collisionMask = 5
 

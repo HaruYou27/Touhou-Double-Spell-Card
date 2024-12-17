@@ -28,7 +28,7 @@ var is_alive := true
 func die() -> void:
 	is_alive = false
 	disable.call_deferred()
-	ItemManager.spawn_item(point, global_position)
+	GlobalBullet.SpawnItems(point, global_position)
 	explosion.emitting = true
 	SoundEffect.tick1.play()
 	died.emit()

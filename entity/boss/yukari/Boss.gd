@@ -29,10 +29,10 @@ func _process(_delta: float) -> void:
 	
 	if item_count > 100:
 		item_count -= 100
-		ItemManager.spawn_item(100, global_position)
+		GlobalBullet.SpawnItems(100, global_position)
 		return
 	
-	ItemManager.spawn_item(item_count, global_position)
+	GlobalBullet.SpawnItems(item_count, global_position)
 	item_count = 0
 	
 func spawn_item():

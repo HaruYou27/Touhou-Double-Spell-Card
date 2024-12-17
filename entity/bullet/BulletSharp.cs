@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using Godot.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -12,42 +13,44 @@ public partial class BulletSharp : Node2D
 		public bool grazable;
 	}
 	[Export] protected Texture2D texture;
-	[Export] private int maxBullet = 3000;
+	[Export] protected int maxBullet = 727;
 
 	[ExportCategory("Barrel")]
 	[Export] private StringName barrelGroup;
-	[Export] protected float speed = 525;
+	[Export] protected float speed = 227;
 	[Export] private bool localRotation;
 	protected Node2D[] barrels;
 
 	[ExportCategory("Physics")]
 	[Export] private Shape2D hitBox;
 	[Export] private bool grazable = true;
-	[Export] private bool collideAreas;
-	[Export] private bool collideBodies = true;
+	[Export] protected bool collideAreas;
+	[Export] protected bool collideBodies = true;
 	[Export(PropertyHint.Layers2DPhysics)] private uint collisionMask = 1;
+	
 	private PhysicsShapeQueryParameters2D query = new();
 
-	
-	private PhysicsDirectSpaceState2D space;
-	private SceneTree tree;
 	private uint collisionGraze;
 	protected Rid canvasItem;
 	// Avoid garbage collector.
 	private Stack<Bullet> bulletPool;
-	private Bullet[] bullets;
-	private nint tailIndex = 0;
+	protected Bullet[] bullets;
+	protected nint indexTail = 0;
+
+	protected static GlobalBullet globalBullet;
+	protected static PhysicsDirectSpaceState2D space;
+	protected static SceneTree tree;
+
+	protected const float halfPI = MathF.PI / 2;
 	public override void _Ready()
 	{
-		tree = GetTree();
-		space = GetWorld2D().DirectSpaceState;
 		canvasItem = GetCanvasItem();
 		collisionGraze = collisionMask + 8;
 		TopLevel = true;
 		// Avoid Bullet get culled.
 		RenderingServer.CanvasItemSetCustomRect(canvasItem, true);
 
-		Godot.Collections.Array<Node> nodes = tree.GetNodesInGroup(barrelGroup);
+		Array<Node> nodes = tree.GetNodesInGroup(barrelGroup);
 		barrels = new Node2D[nodes.Count];
 		nint index = 0;
 		foreach (Node node in nodes)
@@ -55,8 +58,8 @@ public partial class BulletSharp : Node2D
 			if (node.IsClass("Node2D"))
 			{
 				barrels[index] = (Node2D) node;
-				index++;
 			}
+			index++;
 		}
 		query.Shape = hitBox;
 		query.CollideWithAreas = collideAreas;
@@ -64,12 +67,13 @@ public partial class BulletSharp : Node2D
 
 		bulletPool = new Stack<Bullet>(maxBullet);
 		bullets = new Bullet[maxBullet];
+
+		actions[0] = DrawBullets;
 	}
-	protected const float halfPI = MathF.PI / 2;
 	protected virtual void ResetBullet(Node2D barrel, Bullet bullet)
 	{
 		bullet.grazable = grazable;
-		float angle = 0;
+		float angle;
 		if (localRotation)
 		{
 			angle = barrel.Rotation;
@@ -82,20 +86,33 @@ public partial class BulletSharp : Node2D
 		bullet.velocity = new Vector2(speed, 0).Rotated(angle);
 		bullet.transform = new Transform2D(angle + halfPI, Scale, 0, barrel.GlobalPosition);
 	}
+	// Override to introduce custom bullet type.
+	// Call GetBulletPool() to get a bullet.
 	protected virtual Bullet CreateBullet()
 	{
 		return new Bullet();
 	}
+	protected Bullet GetBulletPool()
+	{
+		if (bulletPool.Count == 0)
+		{
+			return CreateBullet();
+		}
+		else
+		{
+			return bulletPool.Pop();
+		}
+	}
 	public void SpawnBullet()
 	{
-		if (tailIndex == maxBullet)
+		if (indexTail == maxBullet)
 		{
 			return;
 		}
 
 		foreach (Node2D barrel in barrels)
 		{
-			if (tailIndex == maxBullet)
+			if (indexTail == maxBullet)
 			{
 				return;
 			}
@@ -103,66 +120,63 @@ public partial class BulletSharp : Node2D
 			{
 				continue;
 			}
-			Bullet bullet;
-			if (bulletPool.Count == 0)
-			{
-				bullet = CreateBullet();
-			}
-			else
-			{
-				bullet = bulletPool.Pop();
-			}
+			Bullet bullet = GetBulletPool();
+			
 			ResetBullet(barrel, bullet);
-			bullets[tailIndex] = bullet;
-			tailIndex++;
+			bullets[indexTail] = bullet;
+			indexTail++;
 		}
 	}
 	public void Clear()
 	{
-		if (tailIndex == 0)
+		if (indexTail == 0)
 		{
 			return;
 		}
-		for (nint index = 0; index < tailIndex; index++)
+		for (nint index = 0; index < indexTail; index++)
 		{
 			Bullet bullet = bullets[index];
 			bulletPool.Push(bullet);
 		}
-		tailIndex = 0;
+		indexTail = 0;
 		RenderingServer.CanvasItemClear(canvasItem);
 	}
-	protected virtual bool Collide(Godot.Collections.Dictionary result, Bullet bullet)
+	protected static float GetCollisionMask(Dictionary result)
 	{
-		if (result.Count == 0)
-		{
-			return true;
-		}
-		float mask = ((Vector2) result["linear_velocity"]).X;
+		return ((Vector2) result["linear_velocity"]).X;
+	}
+	protected static Node GetCollider(Dictionary result)
+	{
+		return (Node) InstanceFromId((ulong) result["collider_id"]);
+	}
+	protected virtual bool Collide(Dictionary result, Bullet bullet)
+	{
+		float mask = GetCollisionMask(result);
 		if (mask < -700)
 		{
-			//itemmanager
+			globalBullet.SpawnItem(bullet.transform.Origin);
 			return false;
 		}
 		else if (mask < 0)
 		{
 			return false;
 		}
-		Node collider = (Node) InstanceFromId((ulong) result["collider_id"]);
+		Node collider = GetCollider(result);
 		if (bullet.grazable)
 		{
 			bullet.grazable = false;
 			if (collider.IsMultiplayerAuthority())
 			{
-				// Bullet Global
+				globalBullet.EmitSignal("Graze");
 			}
 			return true;
 		}
 		collider.CallDeferred("hit");
 		return true;
 	}
-	protected virtual void Move(float delta, Bullet bullet)
+	protected virtual void Move(Bullet bullet)
 	{
-		bullet.transform.Origin += bullet.velocity * delta;
+		bullet.transform.Origin += bullet.velocity * delta32;
 	}
 	protected virtual void DrawBullet(Bullet bullet, Color bulletModulate)
 	{
@@ -170,59 +184,51 @@ public partial class BulletSharp : Node2D
 		bulletModulate.R = bulletRotation;
 		texture.Draw(canvasItem, bullet.transform.Origin.Rotated(-bulletRotation) / bullet.transform.Scale, bulletModulate);
 	}
-	private bool tick;
+	protected bool tick;
+	protected float delta32;
+	protected Action[] actions = new Action[4];
+	private void DrawBullets()
+	{
+		RenderingServer.CanvasItemClear(canvasItem);
+		for (nint index = 0; index < indexTail; index++)
+		{
+			DrawBullet(bullets[index], new Color());
+		}
+	}
 	public override void _PhysicsProcess(double delta)
 	{
-		if (tailIndex == 0)
+		if (indexTail == 0)
 		{
 			return;
 		}
-		void DrawBullets()
-		{
-			RenderingServer.CanvasItemClear(canvasItem);
-			for (nint index = 0; index < tailIndex; index++)
-			{
-				DrawBullet(bullets[index], new Color());
-			}
-		}
 		void MoveBullets()
 		{
-			float delta32 = (float)delta;
-			for (nint index = 0; index < tailIndex; index++)
+			delta32 = (float) delta;
+			for (nint index = 0; index < indexTail; index++)
 			{
-				Move(delta32, bullets[index]);
+				Move(bullets[index]);
 			}
 		}
 		nint newIndex = 0;
 		Bullet[] newBullets = new Bullet[maxBullet];
+		tick = !tick;
 		void CollisionCheck()
 		{
-			nint stopIndex = tailIndex;
+			nint indexHalt;
 			nint index = 0;
-			nint indexCopy = 0;
-			nint stopCopy;
 			
-			tick = !tick;
 			if (tick)
 			{
-				index = tailIndex / 2;
-				stopIndex = tailIndex;
-				stopCopy = index;
-				//Console.WriteLine(tailIndex);
+				index = indexTail / 2;
+				indexHalt = indexTail;
+				newIndex = index;
 			}
 			else
 			{
-				stopIndex = tailIndex / 2;
-				stopCopy = tailIndex;
-				indexCopy = stopIndex;
+				indexHalt = indexTail / 2;
+				newIndex = indexHalt;
 			}
-			while (indexCopy < stopCopy)
-			{
-				newBullets[newIndex] = bullets[indexCopy];
-				newIndex++;
-				indexCopy++;
-			}
-			while (index < stopIndex)
+			while (index < indexHalt)
 			{
 				Bullet bullet = bullets[index];
 				index++;
@@ -235,8 +241,8 @@ public partial class BulletSharp : Node2D
 				{
 					query.CollisionMask = collisionMask;
 				}
-				Godot.Collections.Dictionary result = space.GetRestInfo(query);
-				if (Collide(result, bullet))
+				Dictionary result = space.GetRestInfo(query);
+				if (result.Count == 0 || Collide(result, bullet))
 				{
 					newBullets[newIndex] = bullet;
 					newIndex++;
@@ -245,8 +251,33 @@ public partial class BulletSharp : Node2D
 				bulletPool.Push(bullet);
 			}
 		}
-		Parallel.Invoke(DrawBullets, MoveBullets, CollisionCheck);
+		void CopyBullet()
+		{
+			nint index = 0;
+			nint indexHalt;
+			nint newI = 0;
+			if (tick)
+			{
+				indexHalt = indexTail / 2;
+				//Console.WriteLine(tailIndex);
+			}
+			else
+			{
+				index = indexTail / 2;
+				indexHalt = indexTail;
+			}
+			while (index < indexHalt)
+			{
+				newBullets[newI] = bullets[index];
+				newI++;
+				index++;
+			}
+		}
+		actions[1] = MoveBullets;
+		actions[2] = CopyBullet;
+		actions[3] = CollisionCheck;
+		Parallel.Invoke(actions);
 		bullets = newBullets;
-		tailIndex = newIndex;
+		indexTail = newIndex;
 	}
 }
