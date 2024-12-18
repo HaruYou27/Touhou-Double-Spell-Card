@@ -10,8 +10,6 @@ func _ready() -> void:
 		$VBoxContainer/HBoxContainer/ping.queue_free()
 		hi_score_label.update_label(0)
 	
-	Global.item_collect.connect(add_item)
-	Global.bullet_graze.connect(add_graze)
 	Global.hud = self
 	
 	score_label.update_label(0)

@@ -145,9 +145,9 @@ public partial class BulletSharp : Node2D
 	{
 		return ((Vector2) result["linear_velocity"]).X;
 	}
-	protected static Node GetCollider(Dictionary result)
+	protected static GodotObject GetCollider(Dictionary result)
 	{
-		return (Node) InstanceFromId((ulong) result["collider_id"]);
+		return InstanceFromId((ulong) result["collider_id"]);
 	}
 	protected virtual bool Collide(Dictionary result, Bullet bullet)
 	{
@@ -161,17 +161,11 @@ public partial class BulletSharp : Node2D
 		{
 			return false;
 		}
-		Node collider = GetCollider(result);
 		if (bullet.grazable)
 		{
 			bullet.grazable = false;
-			if (collider.IsMultiplayerAuthority())
-			{
-				globalBullet.EmitSignal("Graze");
-			}
-			return true;
 		}
-		collider.CallDeferred("hit");
+		GetCollider(result).CallDeferred("hit");
 		return true;
 	}
 	protected virtual void Move(Bullet bullet)

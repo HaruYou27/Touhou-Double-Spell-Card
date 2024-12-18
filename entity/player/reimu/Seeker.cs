@@ -26,8 +26,7 @@ public partial class Seeker : BulletSharp
         {
             return false;
         }
-        Node collider = GetCollider(result);
-        collider.CallDeferred("hit");
+        GetCollider(result).CallDeferred("hit");
 
         return false;
     }

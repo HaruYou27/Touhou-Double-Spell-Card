@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://367sgrtmiojj"]
+[gd_scene load_steps=9 format=3 uid="uid://dk5qp14p61ecm"]
 
 [ext_resource type="Texture2D" uid="uid://d1nkk7km71ule" path="res://entity/bullet/resource/kunai1.png" id="2_rb2lr"]
 [ext_resource type="Script" path="res://entity/utility/Rotator.gd" id="2_vvjy5"]
@@ -37,6 +37,7 @@ shader_parameter/color_map = SubResource("GradientTexture1D_ctw62")
 material = SubResource("ShaderMaterial_fiyn2")
 script = ExtResource("2_xrmse")
 texture = ExtResource("2_rb2lr")
+maxBullet = 5727
 barrelGroup = &"Boss Spell Card 1"
 speed = 125.0
 hitBox = ExtResource("3_qtosp")

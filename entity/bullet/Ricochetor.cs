@@ -17,7 +17,7 @@ public partial class Ricochetor : BulletSharp
         if (richochet.count)
         {
             float mask = GetCollisionMask(result);
-            if (mask < 0 && mask > -10)
+            if (mask > -10 && mask < 0)
             {
                 richochet.velocity = richochet.velocity.Bounce((Vector2) result["normal"]);
                 richochet.transform = new Transform2D(richochet.velocity.Angle() + halfPI, bullet.transform.Origin);

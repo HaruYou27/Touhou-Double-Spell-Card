@@ -33,4 +33,4 @@ func revive_player() -> void:
 func restart() -> void:
 	tree.paused = true
 	var tween : Tween = ScreenEffect.fade2black()
-	tween.finished.connect(LevelLoader.load_scene.bind('', true))
+	tween.finished.connect(LevelLoader.load_scene.call_deferred.bind('', true))

@@ -4,9 +4,6 @@ using System;
 
 public partial class GlobalBullet : BulletSharp
 {
-	[Signal] public delegate void GrazeEventHandler();
-	[Signal] public delegate void ItemEventHandler();
-
 	[Export] private float gravity = 98;
 	[Export] private float speedAngular = MathF.PI;
 
@@ -34,6 +31,7 @@ public partial class GlobalBullet : BulletSharp
 		{
 			return;
 		}
+		//Console.WriteLine(indexTail);
 		CreateItem(MathF.Sin(position.X * position.Y), position);
 	}
 	public void SpawnItems(long count, Vector2 position)
@@ -42,7 +40,8 @@ public partial class GlobalBullet : BulletSharp
 		{
 			return;
 		}
-		for (nint index = 1; index <= count; index++)
+		//Console.WriteLine(indexTail);
+		for (long index = 1; index <= count; index++)
 		{
 			if (indexTail == maxBullet)
 			{
@@ -64,11 +63,7 @@ public partial class GlobalBullet : BulletSharp
 		{
 			return false;
 		}
-		Node collider = GetCollider(result);
-		if (collider.IsMultiplayerAuthority())
-		{
-			EmitSignal("Item");
-		}
+		GetCollider(result).CallDeferred("item_collect");
 		return false;
 	}
 }

@@ -226,11 +226,10 @@ tabs_visible = false
 [node name="play" type="TabContainer" parent="TabContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
-current_tab = 2
+current_tab = 0
 metadata/_tab_index = 0
 
 [node name="Level" type="VBoxContainer" parent="TabContainer/play"]
-visible = false
 layout_mode = 2
 script = ExtResource("2_hncmy")
 metadata/_tab_index = 0
@@ -307,6 +306,7 @@ layout_mode = 2
 metadata/_tab_index = 1
 
 [node name="Character" type="VBoxContainer" parent="TabContainer/play"]
+visible = false
 layout_mode = 2
 script = ExtResource("13_rskvb")
 metadata/_tab_index = 2
@@ -356,10 +356,10 @@ position = Vector2(-13, -40)
 rotation = -1.5708
 gizmo_extents = 82.9
 
-[node name="bullet" type="Node2D" parent="TabContainer/play/Character/Preview/Reimu" groups=["Bullet Manager"]]
+[node name="bullet" type="Node2D" parent="TabContainer/play/Character/Preview/Reimu/Reimu" groups=["Bullet Manager"]]
 z_index = 1
 material = SubResource("ShaderMaterial_v1vkg")
-scale = Vector2(2, 2)
+position = Vector2(-135, -325.5)
 script = ExtResource("11_i5b3a")
 texture = ExtResource("9_f05ce")
 barrelGroup = &"Player Barrel"
@@ -892,7 +892,7 @@ script = ExtResource("34_wrdal")
 
 [connection signal="item_selected" from="TabContainer/play/Level/LevelList" to="TabContainer/play/Level" method="_on_level_list_item_selected"]
 [connection signal="pressed" from="TabContainer/play/Level/enter" to="TabContainer/play/Level" method="_on_enter_pressed" flags=6]
-[connection signal="timeout" from="TabContainer/play/Character/Preview/Reimu/Reimu/Timer" to="TabContainer/play/Character/Preview/Reimu/bullet" method="spawn_bullet"]
+[connection signal="timeout" from="TabContainer/play/Character/Preview/Reimu/Reimu/Timer" to="TabContainer/play/Character/Preview/Reimu/Reimu/bullet" method="SpawnBullet"]
 [connection signal="item_selected" from="TabContainer/play/Character/title" to="TabContainer/play/Character" method="_on_title_item_selected"]
 [connection signal="pressed" from="TabContainer/play/Character/HBoxContainer/previous" to="TabContainer/play/Character" method="_change_character" binds= [false]]
 [connection signal="pressed" from="TabContainer/play/Character/HBoxContainer/next" to="TabContainer/play/Character" method="_change_character" binds= [true]]

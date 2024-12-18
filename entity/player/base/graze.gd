@@ -1,15 +1,19 @@
 extends StaticBody2D
 
-func _ready() -> void:
-	if not is_multiplayer_authority():
-		return
-	Global.bullet_graze.connect(_graze)
 	
 @onready var vfx: GPUParticles2D = $vfx
 @onready var sfx: AudioStreamPlayer = $sfx
-func _graze() -> void:
+@onready var hud: HUD = Global.hud
+func hit() -> void:
 	if not is_multiplayer_authority():
 		return
 		
 	sfx.play()
 	vfx.emitting = true
+	hud.add_graze()
+
+func item_collect() -> void:
+	if not is_multiplayer_authority():
+		return
+		
+	hud.add_item()

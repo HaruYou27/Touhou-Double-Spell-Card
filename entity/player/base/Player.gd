@@ -17,6 +17,8 @@ func _ready() -> void:
 @onready var tree := get_tree()
 @export var sprite : Node2D
 func hit() -> void:
+	if not is_multiplayer_authority():
+		return
 	SoundEffect.press(true)
 	hitbox.set_deferred('disabled', true)
 	ScreenEffect.flash_red()
