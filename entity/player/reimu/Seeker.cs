@@ -57,7 +57,7 @@ public partial class Seeker : BulletSharp
             Vector2 target = (Vector2) result["point"];
             bullet.velocity += (target - bullet.transform.Origin).Normalized() * turnSpeed * delta32;
             bullet.velocity = bullet.velocity.Normalized() * speed;
-            bullet.transform = new Transform2D(bullet.velocity.Angle() + halfPI, bullet.transform.Origin);
+            bullet.transform = new Transform2D(bullet.velocity.Angle() + PIhalf, bullet.transform.Origin);
 	    }
     }
 }

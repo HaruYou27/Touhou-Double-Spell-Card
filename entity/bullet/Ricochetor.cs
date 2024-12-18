@@ -20,7 +20,7 @@ public partial class Ricochetor : BulletSharp
             if (mask > -10 && mask < 0)
             {
                 richochet.velocity = richochet.velocity.Bounce((Vector2) result["normal"]);
-                richochet.transform = new Transform2D(richochet.velocity.Angle() + halfPI, bullet.transform.Origin);
+                richochet.transform = new Transform2D(richochet.velocity.Angle() + PIhalf, bullet.transform.Origin);
                 richochet.count = false;
                 return true;
             }

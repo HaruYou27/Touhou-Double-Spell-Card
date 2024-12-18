@@ -1,4 +1,4 @@
-[gd_scene load_steps=54 format=3 uid="uid://bxvy3qa8esorq"]
+[gd_scene load_steps=55 format=3 uid="uid://bxvy3qa8esorq"]
 
 [ext_resource type="Shader" path="res://level/misty-lake/water.gdshader" id="1_kv0nh"]
 [ext_resource type="Texture2D" uid="uid://coq45et7pnhnx" path="res://level/misty-lake/resource/water-gradient.tres" id="2_yt2xx"]
@@ -25,6 +25,7 @@
 [ext_resource type="PackedScene" uid="uid://bc4tw8t6g734m" path="res://level/misty-lake/enemy/fairy-unarmed1.tscn" id="22_mjcsd"]
 [ext_resource type="PackedScene" uid="uid://c7lcs65yc2vea" path="res://level/misty-lake/enemy/fairy-unarmed2.tscn" id="23_i2700"]
 [ext_resource type="Shader" path="res://level/misty-lake/reflection.gdshader" id="24_aykys"]
+[ext_resource type="PackedScene" uid="uid://dk5qp14p61ecm" path="res://level/misty-lake/spellcard-wave-circle.tscn" id="25_11tq2"]
 [ext_resource type="PackedScene" uid="uid://uiwkegjhrq51" path="res://level/misty-lake/fog_overlay.tscn" id="25_egtn7"]
 [ext_resource type="PackedScene" uid="uid://bncu813gm4hx8" path="res://entity/boss/yukari/yukari.tscn" id="25_ux2t3"]
 [ext_resource type="PackedScene" uid="uid://bfvb372sca8m2" path="res://user-interface/leveler/leveler.tscn" id="26_n1dlt"]
@@ -1710,6 +1711,8 @@ position = Vector2(88.6195, -61.0539)
 [node name="GiveawayTimer" type="Timer" parent="ScoreGiveaway4"]
 wait_time = 0.5
 autostart = true
+
+[node name="BossSpellCard" parent="." instance=ExtResource("25_11tq2")]
 
 [node name="yukari" parent="." instance=ExtResource("25_ux2t3")]
 position = Vector2(270, 228)

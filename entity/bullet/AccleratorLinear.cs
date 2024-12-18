@@ -11,6 +11,6 @@ public partial class AccleratorLinear : AcceleratorSine
     protected override void Accelerate(BulletCounter bullet)
     {
         bullet.count += delta32;
-        bullet.velocity = new Vector2(CalulateSpeed(bullet.count), 0).Rotated(bullet.transform.Rotation - halfPI);
+        bullet.velocity = new Vector2(CalulateSpeed(bullet.count), 0).Rotated(bullet.transform.Rotation - PIhalf);
     }
 }

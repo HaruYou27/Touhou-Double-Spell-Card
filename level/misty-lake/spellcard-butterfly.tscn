@@ -1,0 +1,193 @@
+[gd_scene load_steps=7 format=3 uid="uid://brpxoomffrb1k"]
+
+[ext_resource type="Material" uid="uid://drtql0pfli77d" path="res://level/misty-lake/resource/spellcard-wave-particle.tres" id="1_avy2t"]
+[ext_resource type="Script" path="res://entity/bullet/BulletSharp.cs" id="2_v3ng2"]
+[ext_resource type="Texture2D" uid="uid://bfp5momdip3ss" path="res://entity/bullet/resource/butterfly.png" id="3_fya4b"]
+[ext_resource type="Shape2D" uid="uid://cdhtnr4opiiga" path="res://entity/bullet/resource/butterfly-hitbox.tres" id="4_oqjk6"]
+[ext_resource type="Script" path="res://entity/utility/Rotator.gd" id="5_yjnrk"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7y1ng"]
+radius = 32.0
+
+[node name="Node2D" type="Node2D"]
+
+[node name="SpellcardCircle" type="Node2D" parent="."]
+material = ExtResource("1_avy2t")
+scale = Vector2(0.5, 0.5)
+script = ExtResource("2_v3ng2")
+texture = ExtResource("3_fya4b")
+maxBullet = 1000
+barrelGroup = &"Spellcard Circle"
+speed = 127.0
+localRotation = true
+hitBox = ExtResource("4_oqjk6")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.2
+autostart = true
+
+[node name="CircleBarrel2" type="CollisionShape2D" parent="."]
+position = Vector2(270, 300)
+shape = SubResource("CircleShape2D_7y1ng")
+script = ExtResource("5_yjnrk")
+
+[node name="@Marker2D@76187" type="Marker2D" parent="CircleBarrel2" groups=["Spellcard Circle"]]
+position = Vector2(32, 0)
+gizmo_extents = 40.0
+
+[node name="@Marker2D@76188" type="Marker2D" parent="CircleBarrel2" groups=["Spellcard Circle"]]
+position = Vector2(31.3851, 6.24289)
+rotation = 0.19635
+gizmo_extents = 40.0
+
+[node name="@Marker2D@76189" type="Marker2D" parent="CircleBarrel2" groups=["Spellcard Circle"]]
+position = Vector2(29.5641, 12.2459)
+rotation = 0.392699
+gizmo_extents = 40.0
+
+[node name="@Marker2D@76190" type="Marker2D" parent="CircleBarrel2" groups=["Spellcard Circle"]]
+position = Vector2(26.607, 17.7782)
+rotation = 0.589049
+gizmo_extents = 40.0
+
+[node name="@Marker2D@76191" type="Marker2D" parent="CircleBarrel2" groups=["Spellcard Circle"]]
+position = Vector2(22.6274, 22.6274)
+rotation = 0.785398
+gizmo_extents = 40.0
+
+[node name="@Marker2D@76192" type="Marker2D" parent="CircleBarrel2" groups=["Spellcard Circle"]]
+position = Vector2(17.7782, 26.607)
+rotation = 0.981748
+gizmo_extents = 40.0
+
+[node name="@Marker2D@76193" type="Marker2D" parent="CircleBarrel2" groups=["Spellcard Circle"]]
+position = Vector2(12.2459, 29.5641)
+rotation = 1.1781
+gizmo_extents = 40.0
+
+[node name="@Marker2D@76194" type="Marker2D" parent="CircleBarrel2" groups=["Spellcard Circle"]]
+position = Vector2(6.24289, 31.3851)
+rotation = 1.37445
+gizmo_extents = 40.0
+
+[node name="@Marker2D@76195" type="Marker2D" parent="CircleBarrel2" groups=["Spellcard Circle"]]
+position = Vector2(-1.39876e-06, 32)
+rotation = 1.5708
+gizmo_extents = 40.0
+
+[node name="@Marker2D@76196" type="Marker2D" parent="CircleBarrel2" groups=["Spellcard Circle"]]
+position = Vector2(-6.24289, 31.3851)
+rotation = 1.76715
+gizmo_extents = 40.0
+
+[node name="@Marker2D@76197" type="Marker2D" parent="CircleBarrel2" groups=["Spellcard Circle"]]
+position = Vector2(-12.2459, 29.5641)
+rotation = 1.9635
+gizmo_extents = 40.0
+
+[node name="@Marker2D@76198" type="Marker2D" parent="CircleBarrel2" groups=["Spellcard Circle"]]
+position = Vector2(-17.7782, 26.607)
+rotation = 2.15984
+gizmo_extents = 40.0
+
+[node name="@Marker2D@76199" type="Marker2D" parent="CircleBarrel2" groups=["Spellcard Circle"]]
+position = Vector2(-22.6274, 22.6274)
+rotation = 2.35619
+gizmo_extents = 40.0
+
+[node name="@Marker2D@76200" type="Marker2D" parent="CircleBarrel2" groups=["Spellcard Circle"]]
+position = Vector2(-26.607, 17.7782)
+rotation = 2.55254
+gizmo_extents = 40.0
+
+[node name="@Marker2D@76201" type="Marker2D" parent="CircleBarrel2" groups=["Spellcard Circle"]]
+position = Vector2(-29.5641, 12.2459)
+rotation = 2.74889
+gizmo_extents = 40.0
+
+[node name="@Marker2D@76202" type="Marker2D" parent="CircleBarrel2" groups=["Spellcard Circle"]]
+position = Vector2(-31.3851, 6.24289)
+rotation = 2.94524
+gizmo_extents = 40.0
+
+[node name="@Marker2D@76203" type="Marker2D" parent="CircleBarrel2" groups=["Spellcard Circle"]]
+position = Vector2(-32, -2.79753e-06)
+rotation = 3.14159
+gizmo_extents = 40.0
+
+[node name="@Marker2D@76204" type="Marker2D" parent="CircleBarrel2" groups=["Spellcard Circle"]]
+position = Vector2(-31.3851, -6.24289)
+rotation = 3.33794
+gizmo_extents = 40.0
+
+[node name="@Marker2D@76205" type="Marker2D" parent="CircleBarrel2" groups=["Spellcard Circle"]]
+position = Vector2(-29.5641, -12.2459)
+rotation = 3.53429
+gizmo_extents = 40.0
+
+[node name="@Marker2D@76206" type="Marker2D" parent="CircleBarrel2" groups=["Spellcard Circle"]]
+position = Vector2(-26.607, -17.7782)
+rotation = 3.73064
+gizmo_extents = 40.0
+
+[node name="@Marker2D@76207" type="Marker2D" parent="CircleBarrel2" groups=["Spellcard Circle"]]
+position = Vector2(-22.6274, -22.6274)
+rotation = 3.92699
+gizmo_extents = 40.0
+
+[node name="@Marker2D@76208" type="Marker2D" parent="CircleBarrel2" groups=["Spellcard Circle"]]
+position = Vector2(-17.7783, -26.607)
+rotation = 4.12334
+gizmo_extents = 40.0
+
+[node name="@Marker2D@76209" type="Marker2D" parent="CircleBarrel2" groups=["Spellcard Circle"]]
+position = Vector2(-12.2459, -29.5641)
+rotation = 4.31969
+gizmo_extents = 40.0
+
+[node name="@Marker2D@76210" type="Marker2D" parent="CircleBarrel2" groups=["Spellcard Circle"]]
+position = Vector2(-6.24289, -31.3851)
+rotation = 4.51604
+gizmo_extents = 40.0
+
+[node name="@Marker2D@76211" type="Marker2D" parent="CircleBarrel2" groups=["Spellcard Circle"]]
+position = Vector2(3.81596e-07, -32)
+rotation = 4.71239
+gizmo_extents = 40.0
+
+[node name="@Marker2D@76212" type="Marker2D" parent="CircleBarrel2" groups=["Spellcard Circle"]]
+position = Vector2(6.24289, -31.3851)
+rotation = 4.90874
+gizmo_extents = 40.0
+
+[node name="@Marker2D@76213" type="Marker2D" parent="CircleBarrel2" groups=["Spellcard Circle"]]
+position = Vector2(12.2459, -29.5641)
+rotation = 5.10509
+gizmo_extents = 40.0
+
+[node name="@Marker2D@76214" type="Marker2D" parent="CircleBarrel2" groups=["Spellcard Circle"]]
+position = Vector2(17.7782, -26.607)
+rotation = 5.30144
+gizmo_extents = 40.0
+
+[node name="@Marker2D@76215" type="Marker2D" parent="CircleBarrel2" groups=["Spellcard Circle"]]
+position = Vector2(22.6274, -22.6274)
+rotation = 5.49779
+gizmo_extents = 40.0
+
+[node name="@Marker2D@76216" type="Marker2D" parent="CircleBarrel2" groups=["Spellcard Circle"]]
+position = Vector2(26.607, -17.7782)
+rotation = 5.69414
+gizmo_extents = 40.0
+
+[node name="@Marker2D@76217" type="Marker2D" parent="CircleBarrel2" groups=["Spellcard Circle"]]
+position = Vector2(29.5641, -12.2459)
+rotation = 5.89049
+gizmo_extents = 40.0
+
+[node name="@Marker2D@76218" type="Marker2D" parent="CircleBarrel2" groups=["Spellcard Circle"]]
+position = Vector2(31.3851, -6.24289)
+rotation = 6.08684
+gizmo_extents = 40.0
+
+[connection signal="timeout" from="Timer" to="SpellcardCircle" method="SpawnBullet"]

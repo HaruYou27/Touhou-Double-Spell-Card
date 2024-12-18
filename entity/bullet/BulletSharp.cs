@@ -41,7 +41,7 @@ public partial class BulletSharp : Node2D
 	protected static PhysicsDirectSpaceState2D space;
 	protected static SceneTree tree;
 
-	protected const float halfPI = MathF.PI / 2;
+	protected const float PIhalf = MathF.PI / 2;
 	public override void _Ready()
 	{
 		canvasItem = GetCanvasItem();
@@ -84,7 +84,7 @@ public partial class BulletSharp : Node2D
 		}
 		// Capsule collision shape in Godot is vertical. However, Vector2.RIGHT is the root angle.
 		bullet.velocity = new Vector2(speed, 0).Rotated(angle);
-		bullet.transform = new Transform2D(angle + halfPI, Scale, 0, barrel.GlobalPosition);
+		bullet.transform = new Transform2D(angle + PIhalf, Scale, 0, barrel.GlobalPosition);
 	}
 	// Override to introduce custom bullet type.
 	// Call GetBulletPool() to get a bullet.
@@ -203,26 +203,27 @@ public partial class BulletSharp : Node2D
 				Move(bullets[index]);
 			}
 		}
-		nint newIndex = 0;
+
 		Bullet[] newBullets = new Bullet[maxBullet];
 		tick = !tick;
+		nint indexHalf = indexTail / 2;
+		nint newIndex = indexHalf;
+
 		void CollisionCheck()
 		{
-			nint indexHalt;
+			nint indexStop;
 			nint index = 0;
 			
 			if (tick)
 			{
-				index = indexTail / 2;
-				indexHalt = indexTail;
-				newIndex = index;
+				index = indexHalf;
+				indexStop = indexTail;
 			}
 			else
 			{
-				indexHalt = indexTail / 2;
-				newIndex = indexHalt;
+				indexStop = indexHalf;
 			}
-			while (index < indexHalt)
+			while (index < indexStop)
 			{
 				Bullet bullet = bullets[index];
 				index++;
@@ -248,19 +249,19 @@ public partial class BulletSharp : Node2D
 		void CopyBullet()
 		{
 			nint index = 0;
-			nint indexHalt;
+			nint indexStop;
 			nint newI = 0;
 			if (tick)
 			{
-				indexHalt = indexTail / 2;
-				//Console.WriteLine(tailIndex);
+				indexStop = indexHalf;
+				//Console.WriteLine(indexTail);
 			}
 			else
 			{
-				index = indexTail / 2;
-				indexHalt = indexTail;
+				index = indexHalf;
+				indexStop = indexTail;
 			}
-			while (index < indexHalt)
+			while (index < indexStop)
 			{
 				newBullets[newI] = bullets[index];
 				newI++;

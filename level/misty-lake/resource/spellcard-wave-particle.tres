@@ -1,0 +1,29 @@
+[gd_resource type="ShaderMaterial" load_steps=4 format=3 uid="uid://drtql0pfli77d"]
+
+[sub_resource type="Shader" id="Shader_muqwk"]
+code = "shader_type canvas_item;
+
+#define TIME_FLOW
+#define TIME_OFFSET
+#define COLOR_TIME
+#define COLORIZE
+
+
+
+
+#include \"res://entity/bullet/resource/bullet-basic.gdshaderinc\"
+"
+
+[sub_resource type="Gradient" id="Gradient_56why"]
+interpolation_mode = 2
+interpolation_color_space = 2
+offsets = PackedFloat32Array(0, 0.318681, 0.681319, 1)
+colors = PackedColorArray(0, 0.623529, 0.717647, 1, 0.490196, 0.180392, 0.407843, 1, 1, 0.564706, 0.701961, 1, 0.839216, 1, 0.47451, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_ctw62"]
+gradient = SubResource("Gradient_56why")
+
+[resource]
+shader = SubResource("Shader_muqwk")
+shader_parameter/time_scale = null
+shader_parameter/color_map = SubResource("GradientTexture1D_ctw62")
