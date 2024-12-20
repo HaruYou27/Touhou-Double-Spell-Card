@@ -127,6 +127,26 @@ public partial class BulletSharp : Node2D
 			indexTail++;
 		}
 	}
+	public virtual void SpawnCircle(long count, Vector2 position)
+	{
+		if (indexTail == maxBullet)
+		{
+			return;
+		}
+		Bullet bullet = GetBulletPool();
+
+		bullet.grazable = grazable;
+		float deltaRotation = MathF.Tau / count;
+		float rotation = 0;
+		for (nint index = 0; index < count; index++)
+		{
+			bullet.velocity = new Vector2(speed, 0).Rotated(rotation);
+			bullet.transform = new Transform2D(rotation + PIhalf, position);
+			rotation += deltaRotation;
+			bullets[indexTail] = bullet;
+			indexTail++;
+		}
+	}
 	public void Clear()
 	{
 		if (indexTail == 0)
@@ -172,11 +192,10 @@ public partial class BulletSharp : Node2D
 	{
 		bullet.transform.Origin += bullet.velocity * delta32;
 	}
-	protected virtual void DrawBullet(Bullet bullet, Color bulletModulate)
+	protected virtual void DrawBullet(Transform2D transform, Color bulletModulate)
 	{
-		float bulletRotation = bullet.transform.Rotation;
-		bulletModulate.R = bulletRotation;
-		texture.Draw(canvasItem, bullet.transform.Origin.Rotated(-bulletRotation) / bullet.transform.Scale, bulletModulate);
+		bulletModulate.R = transform.Rotation;
+		texture.Draw(canvasItem, transform.Origin.Rotated(-transform.Rotation) / transform.Scale, bulletModulate);
 	}
 	protected bool tick;
 	protected float delta32;
@@ -186,7 +205,7 @@ public partial class BulletSharp : Node2D
 		RenderingServer.CanvasItemClear(canvasItem);
 		for (nint index = 0; index < indexTail; index++)
 		{
-			DrawBullet(bullets[index], new Color());
+			DrawBullet(bullets[index].transform, new Color());
 		}
 	}
 	public override void _PhysicsProcess(double delta)
@@ -195,6 +214,7 @@ public partial class BulletSharp : Node2D
 		{
 			return;
 		}
+
 		void MoveBullets()
 		{
 			delta32 = (float) delta;
@@ -208,7 +228,6 @@ public partial class BulletSharp : Node2D
 		tick = !tick;
 		nint indexHalf = indexTail / 2;
 		nint newIndex = indexHalf;
-
 		void CollisionCheck()
 		{
 			nint indexStop;

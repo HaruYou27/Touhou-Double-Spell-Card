@@ -5,6 +5,7 @@ extends StaticBody2D
 @onready var sfx: AudioStreamPlayer = $sfx
 @onready var hud: HUD = Global.hud
 func hit() -> void:
+	return
 	if not is_multiplayer_authority():
 		return
 		
@@ -13,6 +14,7 @@ func hit() -> void:
 	hud.add_graze()
 
 func item_collect() -> void:
+	return
 	if not is_multiplayer_authority():
 		return
 		

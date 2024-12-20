@@ -109,6 +109,7 @@ common/enable_object_picking=false
 textures/canvas_textures/default_texture_filter=0
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
+driver/threads/thread_model=0
 textures/vram_compression/import_s3tc_bptc=true
 textures/vram_compression/import_etc2_astc=true
 textures/webp_compression/compression_method=4

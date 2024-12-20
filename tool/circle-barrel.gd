@@ -19,9 +19,9 @@ func _ready():
 
 ## Call this func to add child nodes.
 func add_nodes(value:bool):
+	add_node = value
 	if value:
-		add_node = true
-		var deltaR : float = 2 * PI / barrels
+		var deltaR : float = TAU / barrels
 		var angle := 0.0
 		for _i in range(barrels):
 			var node = Marker2D.new()
@@ -39,4 +39,3 @@ func add_nodes(value:bool):
 	var children = get_children()
 	for child in children:
 		child.queue_free()
-	add_node = false

@@ -10,7 +10,7 @@
 material = ExtResource("1_tsskw")
 script = ExtResource("2_xrmse")
 texture = ExtResource("2_rb2lr")
-maxBullet = 5727
+maxBullet = 2727
 barrelGroup = &"Boss Spell Card 1"
 speed = 125.0
 hitBox = ExtResource("3_qtosp")

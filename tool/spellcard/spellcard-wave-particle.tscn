@@ -38,10 +38,8 @@ shader_parameter/color_map = SubResource("GradientTexture1D_ctw62")
 material = SubResource("ShaderMaterial_fiyn2")
 script = ExtResource("1_amoda")
 texture = ExtResource("2_3dkrf")
-maxBullet = 7272
 barrelGroup = &"SpellCard 4 Barrel"
 speed = 127.0
-localRotation = true
 hitBox = ExtResource("3_x1v6d")
 collisionMask = 5
 
