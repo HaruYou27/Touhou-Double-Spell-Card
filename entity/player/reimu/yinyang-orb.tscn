@@ -1,6 +1,6 @@
 [gd_scene load_steps=11 format=3 uid="uid://bsa0xvb26o22u"]
 
-[ext_resource type="Material" uid="uid://df8i0wskbdmia" path="res://entity/player/reimu/resource/yinYangOrb.tres" id="1_qnyaj"]
+[ext_resource type="Material" uid="uid://bco5xa2mbpbkr" path="res://entity/player/reimu/resource/yinYangOrb.material" id="1_1mh1a"]
 [ext_resource type="Texture2D" uid="uid://cmqcue4x2exyv" path="res://entity/player/reimu/resource/Yin-Yang-orb.svg" id="2_0vho0"]
 [ext_resource type="Script" path="res://entity/player/reimu/yinyang-orb.gd" id="3_1aee1"]
 [ext_resource type="Material" uid="uid://dox27ncd2r5o3" path="res://entity/resource/glow.tres" id="4_cf5oj"]
@@ -31,7 +31,7 @@ color_ramp = ExtResource("5_5xmq5")
 
 [node name="YinyangOrb" type="Sprite2D"]
 z_index = 9
-material = ExtResource("1_qnyaj")
+material = ExtResource("1_1mh1a")
 rotation = -1.5708
 scale = Vector2(0.06, 0.06)
 texture = ExtResource("2_0vho0")

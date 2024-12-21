@@ -1,7 +1,0 @@
-[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://df8i0wskbdmia"]
-
-[ext_resource type="Shader" path="res://entity/resource/spin.gdshader" id="1_cpahg"]
-
-[resource]
-shader = ExtResource("1_cpahg")
-shader_parameter/time_scale = 1.0

@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://bk08ga1mfcleb"]
+[gd_scene load_steps=15 format=3 uid="uid://bk08ga1mfcleb"]
 
 [ext_resource type="PackedScene" uid="uid://ffnff8ahyxxn" path="res://entity/player/reimu/reimu-sprite.tscn" id="2_1gpls"]
 [ext_resource type="Script" path="res://entity/player/reimu/reimu.gd" id="2_ukdaa"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://cex3540cp47lm" path="res://entity/player/base/graze.tscn" id="5_sq1so"]
 [ext_resource type="Script" path="res://entity/player/reimu/Seeker.cs" id="7_3q5yl"]
 [ext_resource type="Texture2D" uid="uid://cx7ewf38kbh34" path="res://entity/player/reimu/resource/reimu-hitbox.png" id="7_hytxk"]
+[ext_resource type="Material" uid="uid://c5frc6pfgn8xs" path="res://singleton/bullet/bullet-monochrome.material" id="7_w7two"]
 [ext_resource type="Shape2D" uid="uid://57c5btn7th0e" path="res://entity/bullet/resource/rice-hitbox.tres" id="8_jyhni"]
 [ext_resource type="PackedScene" uid="uid://8587t5a7aa40" path="res://entity/player/reimu/seal.tscn" id="10_730ir"]
 [ext_resource type="Texture2D" uid="uid://cu2ufhkx3vayf" path="res://entity/player/reimu/resource/ofuda.png" id="14_yebca"]
@@ -17,14 +18,6 @@ radius = 3.0
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_sx7ua"]
 radius = 39.0
 height = 174.0
-
-[sub_resource type="Shader" id="Shader_mn2l2"]
-code = "shader_type canvas_item;
-#include \"res://entity/bullet/resource/bullet-basic.gdshaderinc\"
-"
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_v1vkg"]
-shader = SubResource("Shader_mn2l2")
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_iup0u"]
 radius = 256.0
@@ -83,7 +76,7 @@ autostart = true
 [node name="bullet" type="Node2D" parent="."]
 top_level = true
 z_index = 1
-material = SubResource("ShaderMaterial_v1vkg")
+material = ExtResource("7_w7two")
 script = ExtResource("7_3q5yl")
 seekShape = SubResource("CircleShape2D_iup0u")
 texture = ExtResource("14_yebca")
@@ -107,4 +100,5 @@ collisionMask = 3
 
 [node name="Seal4" parent="FantasySeals" instance=ExtResource("10_730ir")]
 
+[connection signal="add_bomb" from="Player/graze" to="Player" method="_on_graze_add_bomb"]
 [connection signal="timeout" from="Player/Timer" to="bullet" method="SpawnBullet"]

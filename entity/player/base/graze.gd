@@ -1,6 +1,7 @@
 extends StaticBody2D
 
-	
+signal add_bomb
+
 @onready var vfx: GPUParticles2D = $vfx
 @onready var sfx: AudioStreamPlayer = $sfx
 @onready var hud: HUD = Global.hud

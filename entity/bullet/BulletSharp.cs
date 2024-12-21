@@ -174,7 +174,7 @@ public partial class BulletSharp : Node2D
 		float mask = GetCollisionMask(result);
 		if (mask < -700)
 		{
-			globalBullet.SpawnItem(bullet.transform.Origin);
+			globalBullet.CallDeferred("SpawnItem", bullet.transform.Origin);
 			return false;
 		}
 		else if (mask < 0)
@@ -226,7 +226,7 @@ public partial class BulletSharp : Node2D
 
 		Bullet[] newBullets = new Bullet[maxBullet];
 		tick = !tick;
-		nint indexHalf = indexTail / 2;
+		nint indexHalf = Mathf.RoundToInt(indexTail / 2);
 		nint newIndex = indexHalf;
 		void CollisionCheck()
 		{

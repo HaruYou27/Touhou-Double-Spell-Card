@@ -2,6 +2,10 @@ extends StaticBody2D
 class_name Player
 ## Mostly movement code.
 
+func _on_graze_add_bomb() -> void:
+	bomb_count += 1
+	Global.hud.update_bomb(bomb_count)
+
 var bomb_count := 3
 func _ready() -> void:
 	if is_multiplayer_authority():
@@ -11,7 +15,7 @@ func _ready() -> void:
 	Global.player2 = self
 	set_process_unhandled_input(false)
 	collision_layer = 0
-	Global.hud.update_bomb.call_deferred(bomb_count)
+	Global.hud.update_bomb(bomb_count)
 	
 @onready var death_timer: Timer = $explosion/DeathTimer
 @onready var tree := get_tree()

@@ -28,7 +28,7 @@ var is_alive := true
 func die() -> void:
 	is_alive = false
 	disable.call_deferred()
-	GlobalBullet.SpawnItems(point, global_position)
+	GlobalBullet.call_deferred("SpawnItems", point, global_position)
 	explosion.emitting = true
 	SoundEffect.tick1.play()
 	died.emit()
@@ -46,11 +46,10 @@ func reset() -> void:
 func _ready() -> void:
 	disable.call_deferred()
 
-func _on_body_entered(body) -> void:
-	if body is Player:
-		body.hit()
-	else:
-		die()
+func _on_body_entered(body:Node2D) -> void:
+	if not body.is_multiplayer_authority():
+		return
+	body.hit.call_deferred()
 
 func timeout() -> void:
 	disable.call_deferred()

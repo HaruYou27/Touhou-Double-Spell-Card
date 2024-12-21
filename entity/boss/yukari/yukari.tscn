@@ -74,7 +74,6 @@ tint_progress = Color(0.684, 0, 0.76, 0.733333)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("1")
-disabled = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CollisionShape2D"]
 sprite_frames = SubResource("2")

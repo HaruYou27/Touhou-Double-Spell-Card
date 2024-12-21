@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=3 uid="uid://bn5nhkofewyh8"]
+[gd_scene load_steps=43 format=3 uid="uid://bn5nhkofewyh8"]
 
 [ext_resource type="Theme" uid="uid://dotibkyt5mm7v" path="res://user-interface/menu/theme/menu.tres" id="1_tnrbu"]
 [ext_resource type="Texture2D" uid="uid://bgh4r80tk5o7v" path="res://level/misty-lake-hard/resource/water-noise.tres" id="2_57hu4"]
@@ -12,11 +12,11 @@
 [ext_resource type="Script" path="res://user-interface/menu/settings/audio.gd" id="6_8l51l"]
 [ext_resource type="PackedScene" uid="uid://bmsj0mdtehnxx" path="res://user-interface/local-score.tscn" id="6_46wtg"]
 [ext_resource type="Script" path="res://user-interface/resource/custom-node/PercentageSlider.gd" id="8_b5jhj"]
-[ext_resource type="Shader" path="res://entity/bullet/resource/Bullet.gdshader" id="9_021oy"]
 [ext_resource type="Texture2D" uid="uid://cu2ufhkx3vayf" path="res://entity/player/reimu/resource/ofuda.png" id="9_f05ce"]
 [ext_resource type="PackedScene" uid="uid://ffnff8ahyxxn" path="res://entity/player/reimu/reimu-sprite.tscn" id="10_dtu3c"]
 [ext_resource type="Script" path="res://entity/bullet/BulletSharp.cs" id="11_i5b3a"]
 [ext_resource type="PackedScene" uid="uid://bsa0xvb26o22u" path="res://entity/player/reimu/yinyang-orb.tscn" id="11_uxxtn"]
+[ext_resource type="Material" uid="uid://c5frc6pfgn8xs" path="res://singleton/bullet/bullet-monochrome.material" id="11_wt44o"]
 [ext_resource type="PackedScene" uid="uid://cw6ldgxnk6nf3" path="res://entity/player/marisa/marisa-sprite.tscn" id="12_3ecnw"]
 [ext_resource type="Script" path="res://user-interface/menu/character/character.gd" id="13_rskvb"]
 [ext_resource type="PackedScene" uid="uid://ecqcoejg1lj8" path="res://entity/player/marisa/beam.tscn" id="14_7sa2c"]
@@ -65,20 +65,8 @@ shader_parameter/wave_multipler = -7.0
 shader_parameter/water_velocity = Vector2(0, -0.2)
 shader_parameter/color_map = SubResource("GradientTexture1D_qxer6")
 
-[sub_resource type="Gradient" id="Gradient_561th"]
-interpolation_mode = 1
-offsets = PackedFloat32Array(0.376147)
-colors = PackedColorArray(1, 0.4, 0.4, 1)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_obk0t"]
-gradient = SubResource("Gradient_561th")
-width = 1
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_v1vkg"]
-shader = ExtResource("9_021oy")
-shader_parameter/color_map = SubResource("GradientTexture1D_obk0t")
-
 [sub_resource type="CircleShape2D" id="CircleShape2D_xp443"]
+radius = 8.0
 
 [sub_resource type="Animation" id="Animation_o46ky"]
 length = 0.001
@@ -340,8 +328,9 @@ rotation = -1.5708
 gizmo_extents = 82.9
 
 [node name="bullet" type="Node2D" parent="TabContainer/play/Character/Preview/Reimu/Reimu" groups=["Bullet Manager"]]
+top_level = true
 z_index = 1
-material = SubResource("ShaderMaterial_v1vkg")
+material = ExtResource("11_wt44o")
 script = ExtResource("11_i5b3a")
 texture = ExtResource("9_f05ce")
 barrelGroup = &"Reimu Barrel"
@@ -874,6 +863,8 @@ dialog_text = "Lost connection with your friend."
 script = ExtResource("34_wrdal")
 
 [connection signal="item_selected" from="TabContainer/play/Level/LevelList" to="TabContainer/play/Level" method="_on_level_list_item_selected"]
+[connection signal="pressed" from="TabContainer/play/Level/LeftRightButton/previous" to="TabContainer/play/Level" method="select_level" binds= [false]]
+[connection signal="pressed" from="TabContainer/play/Level/LeftRightButton/next" to="TabContainer/play/Level" method="select_level" binds= [true]]
 [connection signal="pressed" from="TabContainer/play/Level/enter" to="TabContainer/play/Level" method="_on_enter_pressed" flags=6]
 [connection signal="timeout" from="TabContainer/play/Character/Preview/Reimu/Reimu/Timer" to="TabContainer/play/Character/Preview/Reimu/Reimu/bullet" method="SpawnBullet"]
 [connection signal="item_selected" from="TabContainer/play/Character/title" to="TabContainer/play/Character" method="_on_title_item_selected"]

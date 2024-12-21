@@ -2,7 +2,7 @@
 
 [ext_resource type="Theme" uid="uid://dotibkyt5mm7v" path="res://user-interface/menu/theme/menu.tres" id="1_2tfm8"]
 [ext_resource type="Script" path="res://singleton/LeverLoader.gd" id="1_gveu2"]
-[ext_resource type="Material" uid="uid://df8i0wskbdmia" path="res://entity/player/reimu/resource/yinYangOrb.tres" id="2_3ks0h"]
+[ext_resource type="Material" uid="uid://bco5xa2mbpbkr" path="res://entity/player/reimu/resource/yinYangOrb.material" id="2_3ks0h"]
 [ext_resource type="Texture2D" uid="uid://cmqcue4x2exyv" path="res://entity/player/reimu/resource/Yin-Yang-orb.svg" id="3_p17iu"]
 
 [node name="Loading" type="Control"]

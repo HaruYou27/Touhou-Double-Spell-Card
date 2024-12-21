@@ -8,8 +8,10 @@ func hit() -> void:
 	heath_bar.value += 1
 
 func _on_body_entered(body) -> void:
-	if body is Player:
-		body.hit()
+	if not body.is_multiplayer_authority():
+		return
+		
+	body.hit()
 
 func _ready() -> void:
 	set_process(false)
@@ -23,10 +25,10 @@ func _process(_delta: float) -> void:
 	
 	if item_count > 27:
 		item_count -= 27
-		GlobalBullet.SpawnItems(27, global_position)
+		GlobalBullet.call_deferred("SpawnItems", 27, global_position)
 		return
 	
-	GlobalBullet.SpawnItems(item_count, global_position)
+	GlobalBullet.call_deferred("SpawnItems", item_count, global_position)
 	item_count = 0
 	
 var tween
