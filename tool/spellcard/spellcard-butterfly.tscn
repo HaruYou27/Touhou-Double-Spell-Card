@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://brpxoomffrb1k"]
 
-[ext_resource type="Material" uid="uid://drtql0pfli77d" path="res://level/misty-lake/resource/spellcard-wave-particle.tres" id="1_avy2t"]
+[ext_resource type="Material" uid="uid://drtql0pfli77d" path="res://level/misty-lake-hard/resource/spellcard-wave-particle.tres" id="1_avy2t"]
 [ext_resource type="Script" path="res://entity/bullet/BulletSharp.cs" id="2_v3ng2"]
 [ext_resource type="Texture2D" uid="uid://bfp5momdip3ss" path="res://entity/bullet/resource/butterfly.png" id="3_fya4b"]
 [ext_resource type="Shape2D" uid="uid://cdhtnr4opiiga" path="res://entity/bullet/resource/butterfly-hitbox.tres" id="4_oqjk6"]

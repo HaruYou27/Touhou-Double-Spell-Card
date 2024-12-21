@@ -1,35 +1,35 @@
 [gd_scene load_steps=67 format=3 uid="uid://bxvy3qa8esorq"]
 
-[ext_resource type="Shader" path="res://level/misty-lake/water.gdshader" id="1_kv0nh"]
-[ext_resource type="Texture2D" uid="uid://coq45et7pnhnx" path="res://level/misty-lake/resource/water-gradient.tres" id="2_yt2xx"]
+[ext_resource type="Shader" path="res://level/misty-lake-hard/water.gdshader" id="1_kv0nh"]
+[ext_resource type="Texture2D" uid="uid://coq45et7pnhnx" path="res://level/misty-lake-hard/resource/water-gradient.tres" id="2_yt2xx"]
 [ext_resource type="Script" path="res://entity/utility/graphic/GraphicOptional.gd" id="3_00q44"]
-[ext_resource type="Shader" path="res://level/misty-lake/sky-reflection.gdshader" id="3_er50l"]
-[ext_resource type="Texture2D" uid="uid://bgh4r80tk5o7v" path="res://level/misty-lake/resource/water-noise.tres" id="3_l3dc8"]
-[ext_resource type="PackedScene" uid="uid://6wuhmc2p8byc" path="res://level/misty-lake/fog.tscn" id="6_dlknp"]
-[ext_resource type="Texture2D" uid="uid://x1e8a67qetah" path="res://level/misty-lake/resource/FullMoon.png" id="6_ja1w8"]
+[ext_resource type="Shader" path="res://level/misty-lake-hard/sky-reflection.gdshader" id="3_er50l"]
+[ext_resource type="Texture2D" uid="uid://bgh4r80tk5o7v" path="res://level/misty-lake-hard/resource/water-noise.tres" id="3_l3dc8"]
+[ext_resource type="PackedScene" uid="uid://6wuhmc2p8byc" path="res://level/misty-lake-hard/fog.tscn" id="6_dlknp"]
+[ext_resource type="Texture2D" uid="uid://x1e8a67qetah" path="res://level/misty-lake-hard/resource/FullMoon.png" id="6_ja1w8"]
 [ext_resource type="Shader" path="res://entity/bullet/resource/Bullet.gdshader" id="8_nrdry"]
 [ext_resource type="Texture2D" uid="uid://ci8njay8ma26f" path="res://entity/bullet/resource/cystal.png" id="9_5uwhi"]
 [ext_resource type="Script" path="res://entity/bullet/BulletSharp.cs" id="9_yjnvc"]
 [ext_resource type="Shape2D" uid="uid://borrvdxc7pflf" path="res://entity/bullet/resource/cystal-hitbox.tres" id="10_xyp3x"]
 [ext_resource type="Script" path="res://entity/utility/Path2DSpawner.gd" id="11_ym16e"]
-[ext_resource type="PackedScene" uid="uid://cyvf0ik0p568i" path="res://level/misty-lake/enemy/fairy.tscn" id="12_1xc1c"]
+[ext_resource type="PackedScene" uid="uid://cyvf0ik0p568i" path="res://level/misty-lake-hard/enemy/fairy.tscn" id="12_1xc1c"]
 [ext_resource type="Texture2D" uid="uid://bb6gmgus0empe" path="res://entity/bullet/resource/rice.png" id="13_o07g8"]
 [ext_resource type="Shape2D" uid="uid://57c5btn7th0e" path="res://entity/bullet/resource/rice-hitbox.tres" id="14_rf64e"]
-[ext_resource type="PackedScene" uid="uid://qcqdhn5ssewn" path="res://level/misty-lake/enemy/fairy-tracker.tscn" id="15_43q5m"]
+[ext_resource type="PackedScene" uid="uid://qcqdhn5ssewn" path="res://level/misty-lake-hard/enemy/fairy-tracker.tscn" id="15_43q5m"]
 [ext_resource type="PackedScene" uid="uid://dtlscerig62nv" path="res://entity/enemy/base/enemy.tscn" id="16_bi0tp"]
 [ext_resource type="Texture2D" uid="uid://cqt1oe248vvwn" path="res://entity/enemy/fairy/Fairy.2.png" id="17_2fadj"]
-[ext_resource type="PackedScene" uid="uid://c7plqidxhf5bq" path="res://level/misty-lake/barrel-big-fairy.tscn" id="20_mqptk"]
+[ext_resource type="PackedScene" uid="uid://c7plqidxhf5bq" path="res://level/misty-lake-hard/barrel-big-fairy.tscn" id="20_mqptk"]
 [ext_resource type="Shader" path="res://entity/bullet/resource/BulletGlow.gdshader" id="20_nk1se"]
 [ext_resource type="Texture2D" uid="uid://dilcwhuq6brnv" path="res://entity/bullet/resource/ball.png" id="20_r16r1"]
 [ext_resource type="Shape2D" uid="uid://bflxt0dqc7na4" path="res://entity/bullet/resource/ball-hitbox.tres" id="21_lvtat"]
-[ext_resource type="PackedScene" uid="uid://bc4tw8t6g734m" path="res://level/misty-lake/enemy/fairy-unarmed1.tscn" id="22_mjcsd"]
-[ext_resource type="PackedScene" uid="uid://c7lcs65yc2vea" path="res://level/misty-lake/enemy/fairy-unarmed2.tscn" id="23_i2700"]
-[ext_resource type="Shader" path="res://level/misty-lake/reflection.gdshader" id="24_aykys"]
-[ext_resource type="PackedScene" uid="uid://uiwkegjhrq51" path="res://level/misty-lake/fog_overlay.tscn" id="25_egtn7"]
+[ext_resource type="PackedScene" uid="uid://bc4tw8t6g734m" path="res://level/misty-lake-hard/enemy/fairy-unarmed1.tscn" id="22_mjcsd"]
+[ext_resource type="PackedScene" uid="uid://c7lcs65yc2vea" path="res://level/misty-lake-hard/enemy/fairy-unarmed2.tscn" id="23_i2700"]
+[ext_resource type="Shader" path="res://level/misty-lake-hard/reflection.gdshader" id="24_aykys"]
+[ext_resource type="PackedScene" uid="uid://uiwkegjhrq51" path="res://level/misty-lake-hard/fog_overlay.tscn" id="25_egtn7"]
 [ext_resource type="PackedScene" uid="uid://bncu813gm4hx8" path="res://entity/boss/yukari/yukari.tscn" id="25_ux2t3"]
-[ext_resource type="Material" uid="uid://drtql0pfli77d" path="res://level/misty-lake/resource/spellcard-wave-particle.tres" id="26_iea8i"]
+[ext_resource type="Material" uid="uid://drtql0pfli77d" path="res://level/misty-lake-hard/resource/spellcard-wave-particle.tres" id="26_iea8i"]
 [ext_resource type="PackedScene" uid="uid://bfvb372sca8m2" path="res://user-interface/leveler/leveler.tscn" id="26_n1dlt"]
-[ext_resource type="AudioStream" uid="uid://bt7vy6thn8yac" path="res://level/misty-lake/resource/guava-mono.ogg" id="27_4i2xy"]
+[ext_resource type="AudioStream" uid="uid://bt7vy6thn8yac" path="res://level/misty-lake-hard/resource/guava-mono.ogg" id="27_4i2xy"]
 [ext_resource type="Texture2D" uid="uid://d1nkk7km71ule" path="res://entity/bullet/resource/kunai1.png" id="27_amgam"]
 [ext_resource type="Shape2D" uid="uid://brtfnhe3eksr4" path="res://entity/bullet/resource/kunai-hitbox.tres" id="28_h2ync"]
 [ext_resource type="Script" path="res://entity/utility/Rotator.gd" id="29_epq8m"]
@@ -955,9 +955,54 @@ tracks/15/path = NodePath("BigHpFairy3/TransformBarrel")
 tracks/15/interp = 1
 tracks/15/loop_wrap = true
 tracks/15/keys = {
-"times": PackedFloat32Array(29.4, 31.6, 34.6, 37.6, 40.5, 43.5, 46.4, 49.3, 52.2),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
+"times": PackedFloat32Array(29.4, 30.303, 31.6, 32.4342, 33.8994, 34.6, 35.4312, 36.1305, 37.6, 38.4282, 39.0667, 40.6, 41.2254, 42.0579, 43.6333, 44.3223, 45.1215, 46.6333, 47.2194, 48.285, 49.4667, 50.283, 51.1155, 52.3667),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
 "values": [{
+"args": [],
+"method": &"_transform_barrel"
+}, {
+"args": [],
+"method": &"_transform_barrel"
+}, {
+"args": [],
+"method": &"_transform_barrel"
+}, {
+"args": [],
+"method": &"_transform_barrel"
+}, {
+"args": [],
+"method": &"_transform_barrel"
+}, {
+"args": [],
+"method": &"_transform_barrel"
+}, {
+"args": [],
+"method": &"_transform_barrel"
+}, {
+"args": [],
+"method": &"_transform_barrel"
+}, {
+"args": [],
+"method": &"_transform_barrel"
+}, {
+"args": [],
+"method": &"_transform_barrel"
+}, {
+"args": [],
+"method": &"_transform_barrel"
+}, {
+"args": [],
+"method": &"_transform_barrel"
+}, {
+"args": [],
+"method": &"_transform_barrel"
+}, {
+"args": [],
+"method": &"_transform_barrel"
+}, {
+"args": [],
+"method": &"_transform_barrel"
+}, {
 "args": [],
 "method": &"_transform_barrel"
 }, {
@@ -1586,10 +1631,10 @@ tracks/53/path = NodePath("SpellWaveParticle:process_mode")
 tracks/53/interp = 1
 tracks/53/loop_wrap = true
 tracks/53/keys = {
-"times": PackedFloat32Array(0, 136.7),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0, 134.898, 136.7),
+"transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
-"values": [4, 0]
+"values": [4, 4, 0]
 }
 tracks/54/type = "value"
 tracks/54/imported = false
@@ -1598,10 +1643,10 @@ tracks/54/path = NodePath("SpellWaveParticle:visible")
 tracks/54/interp = 1
 tracks/54/loop_wrap = true
 tracks/54/keys = {
-"times": PackedFloat32Array(0, 136.364),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0, 134.898, 136.364),
+"transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
-"values": [false, true]
+"values": [false, false, true]
 }
 tracks/55/type = "value"
 tracks/55/imported = false
@@ -1984,36 +2029,52 @@ script = ExtResource("11_ym16e")
 mirror = true
 
 [node name="Fairy" parent="ScoreGiveaway4/GiveawaySpawner" instance=ExtResource("22_mjcsd")]
+time = 3.0
 
 [node name="Fairy2" parent="ScoreGiveaway4/GiveawaySpawner" instance=ExtResource("22_mjcsd")]
+time = 3.0
 
 [node name="Fairy3" parent="ScoreGiveaway4/GiveawaySpawner" instance=ExtResource("22_mjcsd")]
+time = 3.0
 
 [node name="Fairy4" parent="ScoreGiveaway4/GiveawaySpawner" instance=ExtResource("22_mjcsd")]
+time = 3.0
 
 [node name="Fairy5" parent="ScoreGiveaway4/GiveawaySpawner" instance=ExtResource("22_mjcsd")]
+time = 3.0
 
 [node name="Fairy6" parent="ScoreGiveaway4/GiveawaySpawner" instance=ExtResource("22_mjcsd")]
+time = 3.0
 
 [node name="Fairy7" parent="ScoreGiveaway4/GiveawaySpawner" instance=ExtResource("22_mjcsd")]
+time = 3.0
 
 [node name="Fairy8" parent="ScoreGiveaway4/GiveawaySpawner" instance=ExtResource("22_mjcsd")]
+time = 3.0
 
 [node name="Fairy9" parent="ScoreGiveaway4/GiveawaySpawner" instance=ExtResource("22_mjcsd")]
+time = 3.0
 
 [node name="Fairy10" parent="ScoreGiveaway4/GiveawaySpawner" instance=ExtResource("22_mjcsd")]
+time = 3.0
 
 [node name="Fairy11" parent="ScoreGiveaway4/GiveawaySpawner" instance=ExtResource("22_mjcsd")]
+time = 3.0
 
 [node name="Fairy12" parent="ScoreGiveaway4/GiveawaySpawner" instance=ExtResource("22_mjcsd")]
+time = 3.0
 
 [node name="Fairy13" parent="ScoreGiveaway4/GiveawaySpawner" instance=ExtResource("22_mjcsd")]
+time = 3.0
 
 [node name="Fairy14" parent="ScoreGiveaway4/GiveawaySpawner" instance=ExtResource("22_mjcsd")]
+time = 3.0
 
 [node name="Fairy15" parent="ScoreGiveaway4/GiveawaySpawner" instance=ExtResource("22_mjcsd")]
+time = 3.0
 
 [node name="Fairy16" parent="ScoreGiveaway4/GiveawaySpawner" instance=ExtResource("22_mjcsd")]
+time = 3.0
 
 [node name="GiveawaySpawner2" type="Path2D" parent="ScoreGiveaway4"]
 position = Vector2(27, -13)
@@ -2023,51 +2084,67 @@ mirror = true
 
 [node name="Fairy" parent="ScoreGiveaway4/GiveawaySpawner2" instance=ExtResource("23_i2700")]
 position = Vector2(88.6195, -61.0539)
+time = 3.0
 
 [node name="Fairy2" parent="ScoreGiveaway4/GiveawaySpawner2" instance=ExtResource("23_i2700")]
 position = Vector2(88.6195, -61.0539)
+time = 3.0
 
 [node name="Fairy3" parent="ScoreGiveaway4/GiveawaySpawner2" instance=ExtResource("23_i2700")]
 position = Vector2(88.6195, -61.0539)
+time = 3.0
 
 [node name="Fairy4" parent="ScoreGiveaway4/GiveawaySpawner2" instance=ExtResource("23_i2700")]
 position = Vector2(88.6195, -61.0539)
+time = 3.0
 
 [node name="Fairy5" parent="ScoreGiveaway4/GiveawaySpawner2" instance=ExtResource("23_i2700")]
 position = Vector2(88.6195, -61.0539)
+time = 3.0
 
 [node name="Fairy6" parent="ScoreGiveaway4/GiveawaySpawner2" instance=ExtResource("23_i2700")]
 position = Vector2(88.6195, -61.0539)
+time = 3.0
 
 [node name="Fairy7" parent="ScoreGiveaway4/GiveawaySpawner2" instance=ExtResource("23_i2700")]
 position = Vector2(88.6195, -61.0539)
+time = 3.0
 
 [node name="Fairy8" parent="ScoreGiveaway4/GiveawaySpawner2" instance=ExtResource("23_i2700")]
 position = Vector2(88.6195, -61.0539)
+time = 3.0
 
 [node name="Fairy9" parent="ScoreGiveaway4/GiveawaySpawner2" instance=ExtResource("23_i2700")]
 position = Vector2(88.6195, -61.0539)
+time = 3.0
 
 [node name="Fairy10" parent="ScoreGiveaway4/GiveawaySpawner2" instance=ExtResource("23_i2700")]
 position = Vector2(88.6195, -61.0539)
+time = 3.0
 
 [node name="Fairy11" parent="ScoreGiveaway4/GiveawaySpawner2" instance=ExtResource("23_i2700")]
 position = Vector2(88.6195, -61.0539)
+time = 3.0
 
 [node name="Fairy12" parent="ScoreGiveaway4/GiveawaySpawner2" instance=ExtResource("23_i2700")]
 position = Vector2(88.6195, -61.0539)
+time = 3.0
 
 [node name="Fairy13" parent="ScoreGiveaway4/GiveawaySpawner2" instance=ExtResource("23_i2700")]
 position = Vector2(88.6195, -61.0539)
+time = 3.0
 
 [node name="Fairy14" parent="ScoreGiveaway4/GiveawaySpawner2" instance=ExtResource("23_i2700")]
 position = Vector2(88.6195, -61.0539)
+time = 3.0
 
 [node name="Fairy15" parent="ScoreGiveaway4/GiveawaySpawner2" instance=ExtResource("23_i2700")]
 position = Vector2(88.6195, -61.0539)
+time = 3.0
 
 [node name="Fairy16" parent="ScoreGiveaway4/GiveawaySpawner2" instance=ExtResource("23_i2700")]
 position = Vector2(88.6195, -61.0539)
+time = 3.0
 
 [node name="GiveawayTimer" type="Timer" parent="ScoreGiveaway4"]
 wait_time = 0.5

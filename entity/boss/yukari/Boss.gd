@@ -1,7 +1,7 @@
 extends Area2D
 class_name Boss
 
-@export var bonus_threshold := 7272
+@export var bonus_threshold := 3272
 @export var heath_bar: Range
 
 func hit() -> void:

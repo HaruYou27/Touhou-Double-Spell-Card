@@ -3,6 +3,7 @@
 [ext_resource type="Script" path="res://entity/utility/TargetLocker.gd" id="1_6f5fp"]
 
 [node name="barrel" type="Node2D" groups=["Enemy Barrel 4"]]
+rotation = 1.5708
 script = ExtResource("1_6f5fp")
 
 [node name="_Marker2D_28732" type="Marker2D" parent="." groups=["Enemy Barrel 3"]]

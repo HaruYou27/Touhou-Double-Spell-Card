@@ -48,7 +48,7 @@ public partial class BulletSharp : Node2D
 		collisionGraze = collisionMask + 8;
 		TopLevel = true;
 		// Avoid Bullet get culled.
-		RenderingServer.CanvasItemSetCustomRect(canvasItem, true);
+		RenderingServer.CanvasItemSetCustomRect(canvasItem, true, new Rect2(0, 960, 540, 960));
 
 		Array<Node> nodes = tree.GetNodesInGroup(barrelGroup);
 		barrels = new Node2D[nodes.Count];

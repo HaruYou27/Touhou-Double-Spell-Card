@@ -1,8 +1,8 @@
 [gd_scene load_steps=8 format=3 uid="uid://6wuhmc2p8byc"]
 
 [ext_resource type="Shader" uid="uid://bs3tr5f6a4thq" path="res://level/shader/moving-noise.tres" id="1_d0rlm"]
-[ext_resource type="Texture2D" uid="uid://rooeax5tkuf4" path="res://level/misty-lake/resource/fog-noise-2.tres" id="2_txwd4"]
-[ext_resource type="Texture2D" uid="uid://clt15wekn0gcj" path="res://level/misty-lake/resource/fog-noise.tres" id="3_7i6gy"]
+[ext_resource type="Texture2D" uid="uid://rooeax5tkuf4" path="res://level/misty-lake-hard/resource/fog-noise-2.tres" id="2_txwd4"]
+[ext_resource type="Texture2D" uid="uid://clt15wekn0gcj" path="res://level/misty-lake-hard/resource/fog-noise.tres" id="3_7i6gy"]
 [ext_resource type="Script" path="res://entity/utility/graphic/GraphicOptional.gd" id="3_m5kq3"]
 
 [sub_resource type="Gradient" id="Gradient_6hvbg"]

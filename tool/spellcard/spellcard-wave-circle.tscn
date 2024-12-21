@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://dk5qp14p61ecm"]
 
-[ext_resource type="Material" uid="uid://drtql0pfli77d" path="res://level/misty-lake/resource/spellcard-wave-particle.tres" id="1_tsskw"]
+[ext_resource type="Material" uid="uid://drtql0pfli77d" path="res://level/misty-lake-hard/resource/spellcard-wave-particle.tres" id="1_tsskw"]
 [ext_resource type="Texture2D" uid="uid://d1nkk7km71ule" path="res://entity/bullet/resource/kunai1.png" id="2_rb2lr"]
 [ext_resource type="Script" path="res://entity/utility/Rotator.gd" id="2_vvjy5"]
 [ext_resource type="Script" path="res://entity/bullet/BulletSharp.cs" id="2_xrmse"]

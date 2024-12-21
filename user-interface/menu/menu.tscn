@@ -1,9 +1,10 @@
-[gd_scene load_steps=44 format=3 uid="uid://bn5nhkofewyh8"]
+[gd_scene load_steps=46 format=3 uid="uid://bn5nhkofewyh8"]
 
 [ext_resource type="Theme" uid="uid://dotibkyt5mm7v" path="res://user-interface/menu/theme/menu.tres" id="1_tnrbu"]
-[ext_resource type="Texture2D" uid="uid://bgh4r80tk5o7v" path="res://level/misty-lake/resource/water-noise.tres" id="2_57hu4"]
+[ext_resource type="Texture2D" uid="uid://bgh4r80tk5o7v" path="res://level/misty-lake-hard/resource/water-noise.tres" id="2_57hu4"]
 [ext_resource type="Script" path="res://user-interface/menu/settings/Generic.gd" id="2_dgpou"]
 [ext_resource type="Script" path="res://user-interface/menu/resource/Level.gd" id="2_hncmy"]
+[ext_resource type="Shader" path="res://level/misty-lake-hard/water.gdshader" id="2_hrrn6"]
 [ext_resource type="Script" path="res://user-interface/resource/custom-node/SFXButton.gd" id="3_wn432"]
 [ext_resource type="Script" path="res://user-interface/resource/custom-node/FormatLabel.gd" id="4_h21eu"]
 [ext_resource type="PackedScene" uid="uid://bsf3tthvg8rot" path="res://user-interface/menu/settings/reset.tscn" id="5_nrino"]
@@ -29,74 +30,40 @@
 [ext_resource type="Script" path="res://user-interface/menu/resource/WebRtcJoin.gd" id="33_3cq4k"]
 [ext_resource type="Script" path="res://user-interface/menu/resource/ConnectionNotifier.gd" id="34_wrdal"]
 
-[sub_resource type="Shader" id="Shader_c07er"]
-code = "//#pragma disable_preprocessor
-shader_type canvas_item;
-
-uniform sampler2D reflection : filter_nearest;
-
-group_uniforms wave;
-uniform vec2 wave_velocity = vec2(0., 2.);
-uniform float wave_distortion = 0.2;
-uniform float wave_multiplyer = -7.;
-
-group_uniforms water;
-uniform vec2 water_velocity = vec2(0, -.2);
-uniform float water_opacity : hint_range(0.0, 1.0, 0.1) = .5;
-uniform sampler2D color_map : filter_nearest, repeat_enable;
-
-varying vec2 wave_uv;
-varying vec2 water_uv;
-
-float when_gt(vec2 x, vec2 y) {
-  return max(sign(x - y), 0.0).x;
-}
-
-void vertex()
-{
-	wave_uv = UV * wave_multiplyer + TIME * wave_velocity;
-	water_uv = UV + TIME * water_velocity;
-}
-void fragment()
-{
-	float noise = texture(TEXTURE, wave_uv).x * wave_distortion;
-	
-	vec4 water_color = texture(color_map, texture(TEXTURE, vec2(water_uv.x + noise, water_uv.y)).rg);
-	
-	//Avoid glitch when uv is bigger than 1.0
-	//Reflection texture shouldn't be reapeat.
-	vec2 reflection_uv = vec2(UV.x + noise, UV.y - .1);
-	vec4 reflect_color = texture(reflection, reflection_uv) * when_gt(vec2(1.0), reflection_uv);
-							//Avoid water get destatured when reflection is transparent.
-	COLOR = mix(water_color, reflect_color, min(water_opacity, sign(reflect_color.a)));
-}"
-
 [sub_resource type="Gradient" id="Gradient_a3m1y"]
-offsets = PackedFloat32Array(0.00961538, 1)
-colors = PackedColorArray(0.4, 1, 0.95, 1, 0.1105, 0.16445, 0.65, 1)
+interpolation_mode = 2
+interpolation_color_space = 2
+offsets = PackedFloat32Array(0, 0.282609, 1)
+colors = PackedColorArray(0.91, 0.3276, 0.3276, 1, 0.4, 1, 0.95, 1, 0.1105, 0.16445, 0.65, 1)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_snijx"]
 gradient = SubResource("Gradient_a3m1y")
-width = 16
-
-[sub_resource type="Gradient" id="Gradient_pgb60"]
-offsets = PackedFloat32Array(0.513761)
-colors = PackedColorArray(0, 0, 0, 0)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_2kmo3"]
-gradient = SubResource("Gradient_pgb60")
-width = 1
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_26hbj"]
 resource_local_to_scene = true
-shader = SubResource("Shader_c07er")
+shader = ExtResource("2_hrrn6")
 shader_parameter/wave_velocity = Vector2(0, 2)
 shader_parameter/wave_distortion = 0.2
-shader_parameter/wave_multiplyer = -6.0
+shader_parameter/wave_multipler = -7.0
 shader_parameter/water_velocity = Vector2(0, -0.2)
-shader_parameter/water_opacity = 0.5
 shader_parameter/color_map = SubResource("GradientTexture1D_snijx")
-shader_parameter/reflection = SubResource("GradientTexture1D_2kmo3")
+
+[sub_resource type="Gradient" id="Gradient_42y17"]
+interpolation_mode = 2
+interpolation_color_space = 2
+offsets = PackedFloat32Array(0, 0.804348, 1)
+colors = PackedColorArray(0, 0.0733334, 0.22, 1, 0.1105, 0.2184, 0.65, 1, 0.529667, 0.17, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_qxer6"]
+gradient = SubResource("Gradient_42y17")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_g6wu2"]
+shader = ExtResource("2_hrrn6")
+shader_parameter/wave_velocity = Vector2(0, 2)
+shader_parameter/wave_distortion = 0.2
+shader_parameter/wave_multipler = -7.0
+shader_parameter/water_velocity = Vector2(0, -0.2)
+shader_parameter/color_map = SubResource("GradientTexture1D_qxer6")
 
 [sub_resource type="Gradient" id="Gradient_561th"]
 interpolation_mode = 1
@@ -110,6 +77,8 @@ width = 1
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_v1vkg"]
 shader = ExtResource("9_021oy")
 shader_parameter/color_map = SubResource("GradientTexture1D_obk0t")
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_xp443"]
 
 [sub_resource type="Animation" id="Animation_o46ky"]
 length = 0.001
@@ -207,13 +176,24 @@ current_tab = 0
 clip_tabs = false
 tabs_visible = false
 
-[node name="Control" type="Control" parent="background"]
+[node name="Mistylake" type="Control" parent="background"]
 layout_mode = 2
 metadata/_tab_index = 0
 
-[node name="background" type="Sprite2D" parent="background/Control"]
+[node name="background" type="Sprite2D" parent="background/Mistylake"]
 texture_repeat = 2
 material = SubResource("ShaderMaterial_26hbj")
+texture = ExtResource("2_57hu4")
+centered = false
+
+[node name="MistylakeHARD" type="Control" parent="background"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 1
+
+[node name="background" type="Sprite2D" parent="background/MistylakeHARD"]
+texture_repeat = 2
+material = SubResource("ShaderMaterial_g6wu2")
 texture = ExtResource("2_57hu4")
 centered = false
 
@@ -245,9 +225,10 @@ layout_mode = 2
 metadata/level = &"res://level/misty-lake/misty-lake.tscn"
 metadata/_tab_index = 0
 
-[node name="DreamWorld" type="Control" parent="TabContainer/play/Level/Preview"]
+[node name="MistyLake-hard" type="Control" parent="TabContainer/play/Level/Preview"]
 visible = false
 layout_mode = 2
+metadata/level = &"res://level/misty-lake-hard/misty-lake.tscn"
 metadata/_tab_index = 1
 
 [node name="LevelList" type="OptionButton" parent="TabContainer/play/Level"]
@@ -255,8 +236,10 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 48
 alignment = 1
 selected = 0
-item_count = 1
+item_count = 2
 popup/item_0/text = "Misty Lake"
+popup/item_1/text = "Misty Lake Hard"
+popup/item_1/id = 1
 
 [node name="LeftRightButton" type="HBoxContainer" parent="TabContainer/play/Level"]
 layout_mode = 2
@@ -332,7 +315,7 @@ scale = Vector2(2, 2)
 position = Vector2(0, 0)
 
 [node name="Timer" type="Timer" parent="TabContainer/play/Character/Preview/Reimu/Reimu"]
-wait_time = 0.2
+wait_time = 0.15
 autostart = true
 
 [node name="barrel" type="Node2D" parent="TabContainer/play/Character/Preview/Reimu/Reimu"]
@@ -359,11 +342,11 @@ gizmo_extents = 82.9
 [node name="bullet" type="Node2D" parent="TabContainer/play/Character/Preview/Reimu/Reimu" groups=["Bullet Manager"]]
 z_index = 1
 material = SubResource("ShaderMaterial_v1vkg")
-position = Vector2(-135, -325.5)
 script = ExtResource("11_i5b3a")
 texture = ExtResource("9_f05ce")
-barrelGroup = &"Player Barrel"
+barrelGroup = &"Reimu Barrel"
 speed = 727.0
+hitBox = SubResource("CircleShape2D_xp443")
 grazable = false
 
 [node name="Marisa" type="Control" parent="TabContainer/play/Character/Preview"]

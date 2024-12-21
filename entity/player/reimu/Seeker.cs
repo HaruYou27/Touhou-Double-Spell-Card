@@ -5,7 +5,6 @@ public partial class Seeker : BulletSharp
 {
 	[Export(PropertyHint.Layers2DPhysics)] private uint seekMask = 2;
 	[Export] Shape2D seekShape;
-	[Export] float turnSpeed = 7272;
 
 	private PhysicsShapeQueryParameters2D seekQuery = new();
 	public override void _Ready()
@@ -55,8 +54,7 @@ public partial class Seeker : BulletSharp
 				continue;
 			}
 			Vector2 target = (Vector2) result["point"];
-			bullet.velocity += (target - bullet.transform.Origin).Normalized() * turnSpeed * delta32;
-			bullet.velocity = bullet.velocity.Normalized() * speed;
+			bullet.velocity = (target - bullet.transform.Origin).Normalized() * speed;
 			bullet.transform = new Transform2D(bullet.velocity.Angle() + PIhalf, bullet.transform.Origin);
 		}
 	}
