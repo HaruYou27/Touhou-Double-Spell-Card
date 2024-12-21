@@ -18,8 +18,8 @@ func _ready() -> void:
 var item_count := 0
 func _process(_delta: float) -> void:
 	if item_count < 0:
-		return
 		set_process(false)
+		return
 	
 	if item_count > 27:
 		item_count -= 27

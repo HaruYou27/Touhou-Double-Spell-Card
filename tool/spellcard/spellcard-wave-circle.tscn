@@ -10,9 +10,10 @@
 material = ExtResource("1_tsskw")
 script = ExtResource("2_xrmse")
 texture = ExtResource("2_rb2lr")
-maxBullet = 2727
+maxBullet = 1727
 barrelGroup = &"Boss Spell Card 1"
 speed = 125.0
+localRotation = true
 hitBox = ExtResource("3_qtosp")
 collisionMask = 5
 
@@ -24,19 +25,9 @@ script = ExtResource("2_vvjy5")
 position = Vector2(142.004, 0)
 gizmo_extents = 20.0
 
-[node name="@Marker2D@27673" type="Marker2D" parent="Barrel1" groups=["Boss Spell Card 1"]]
-position = Vector2(139.275, 27.7035)
-rotation = 0.19635
-gizmo_extents = 20.0
-
 [node name="@Marker2D@27674" type="Marker2D" parent="Barrel1" groups=["Boss Spell Card 1"]]
 position = Vector2(131.194, 54.3424)
 rotation = 0.392699
-gizmo_extents = 20.0
-
-[node name="@Marker2D@27675" type="Marker2D" parent="Barrel1" groups=["Boss Spell Card 1"]]
-position = Vector2(118.072, 78.8929)
-rotation = 0.589049
 gizmo_extents = 20.0
 
 [node name="@Marker2D@27676" type="Marker2D" parent="Barrel1" groups=["Boss Spell Card 1"]]
@@ -44,19 +35,9 @@ position = Vector2(100.412, 100.412)
 rotation = 0.785398
 gizmo_extents = 20.0
 
-[node name="@Marker2D@27677" type="Marker2D" parent="Barrel1" groups=["Boss Spell Card 1"]]
-position = Vector2(78.8929, 118.072)
-rotation = 0.981748
-gizmo_extents = 20.0
-
 [node name="@Marker2D@27678" type="Marker2D" parent="Barrel1" groups=["Boss Spell Card 1"]]
 position = Vector2(54.3424, 131.194)
 rotation = 1.1781
-gizmo_extents = 20.0
-
-[node name="@Marker2D@27679" type="Marker2D" parent="Barrel1" groups=["Boss Spell Card 1"]]
-position = Vector2(27.7035, 139.275)
-rotation = 1.37445
 gizmo_extents = 20.0
 
 [node name="@Marker2D@27680" type="Marker2D" parent="Barrel1" groups=["Boss Spell Card 1"]]
@@ -64,19 +45,9 @@ position = Vector2(-6.20717e-06, 142.004)
 rotation = 1.5708
 gizmo_extents = 20.0
 
-[node name="@Marker2D@27681" type="Marker2D" parent="Barrel1" groups=["Boss Spell Card 1"]]
-position = Vector2(-27.7035, 139.275)
-rotation = 1.76715
-gizmo_extents = 20.0
-
 [node name="@Marker2D@27682" type="Marker2D" parent="Barrel1" groups=["Boss Spell Card 1"]]
 position = Vector2(-54.3424, 131.194)
 rotation = 1.9635
-gizmo_extents = 20.0
-
-[node name="@Marker2D@27683" type="Marker2D" parent="Barrel1" groups=["Boss Spell Card 1"]]
-position = Vector2(-78.8929, 118.072)
-rotation = 2.15984
 gizmo_extents = 20.0
 
 [node name="@Marker2D@27684" type="Marker2D" parent="Barrel1" groups=["Boss Spell Card 1"]]
@@ -84,19 +55,9 @@ position = Vector2(-100.412, 100.412)
 rotation = 2.35619
 gizmo_extents = 20.0
 
-[node name="@Marker2D@27685" type="Marker2D" parent="Barrel1" groups=["Boss Spell Card 1"]]
-position = Vector2(-118.072, 78.8929)
-rotation = 2.55254
-gizmo_extents = 20.0
-
 [node name="@Marker2D@27686" type="Marker2D" parent="Barrel1" groups=["Boss Spell Card 1"]]
 position = Vector2(-131.194, 54.3424)
 rotation = 2.74889
-gizmo_extents = 20.0
-
-[node name="@Marker2D@27687" type="Marker2D" parent="Barrel1" groups=["Boss Spell Card 1"]]
-position = Vector2(-139.275, 27.7035)
-rotation = 2.94524
 gizmo_extents = 20.0
 
 [node name="@Marker2D@27688" type="Marker2D" parent="Barrel1" groups=["Boss Spell Card 1"]]
@@ -109,18 +70,9 @@ position = Vector2(270, 300)
 script = ExtResource("2_vvjy5")
 speed = 3.142
 
-[node name="_Marker2D_27672" type="Marker2D" parent="Barrel2" groups=["Boss Spell Card 1"]]
-position = Vector2(142.004, 0)
-gizmo_extents = 20.0
-
 [node name="_Marker2D_27673" type="Marker2D" parent="Barrel2" groups=["Boss Spell Card 1"]]
 position = Vector2(139.275, 27.7035)
 rotation = 0.19635
-gizmo_extents = 20.0
-
-[node name="_Marker2D_27674" type="Marker2D" parent="Barrel2" groups=["Boss Spell Card 1"]]
-position = Vector2(131.194, 54.3424)
-rotation = 0.392699
 gizmo_extents = 20.0
 
 [node name="_Marker2D_27675" type="Marker2D" parent="Barrel2" groups=["Boss Spell Card 1"]]
@@ -128,19 +80,9 @@ position = Vector2(118.072, 78.8929)
 rotation = 0.589049
 gizmo_extents = 20.0
 
-[node name="_Marker2D_27676" type="Marker2D" parent="Barrel2" groups=["Boss Spell Card 1"]]
-position = Vector2(100.412, 100.412)
-rotation = 0.785398
-gizmo_extents = 20.0
-
 [node name="_Marker2D_27677" type="Marker2D" parent="Barrel2" groups=["Boss Spell Card 1"]]
 position = Vector2(78.8929, 118.072)
 rotation = 0.981748
-gizmo_extents = 20.0
-
-[node name="_Marker2D_27678" type="Marker2D" parent="Barrel2" groups=["Boss Spell Card 1"]]
-position = Vector2(54.3424, 131.194)
-rotation = 1.1781
 gizmo_extents = 20.0
 
 [node name="_Marker2D_27679" type="Marker2D" parent="Barrel2" groups=["Boss Spell Card 1"]]
@@ -148,19 +90,9 @@ position = Vector2(27.7035, 139.275)
 rotation = 1.37445
 gizmo_extents = 20.0
 
-[node name="_Marker2D_27680" type="Marker2D" parent="Barrel2" groups=["Boss Spell Card 1"]]
-position = Vector2(-6.20717e-06, 142.004)
-rotation = 1.5708
-gizmo_extents = 20.0
-
 [node name="_Marker2D_27681" type="Marker2D" parent="Barrel2" groups=["Boss Spell Card 1"]]
 position = Vector2(-27.7035, 139.275)
 rotation = 1.76715
-gizmo_extents = 20.0
-
-[node name="_Marker2D_27682" type="Marker2D" parent="Barrel2" groups=["Boss Spell Card 1"]]
-position = Vector2(-54.3424, 131.194)
-rotation = 1.9635
 gizmo_extents = 20.0
 
 [node name="_Marker2D_27683" type="Marker2D" parent="Barrel2" groups=["Boss Spell Card 1"]]
@@ -168,29 +100,14 @@ position = Vector2(-78.8929, 118.072)
 rotation = 2.15984
 gizmo_extents = 20.0
 
-[node name="_Marker2D_27684" type="Marker2D" parent="Barrel2" groups=["Boss Spell Card 1"]]
-position = Vector2(-100.412, 100.412)
-rotation = 2.35619
-gizmo_extents = 20.0
-
 [node name="_Marker2D_27685" type="Marker2D" parent="Barrel2" groups=["Boss Spell Card 1"]]
 position = Vector2(-118.072, 78.8929)
 rotation = 2.55254
 gizmo_extents = 20.0
 
-[node name="_Marker2D_27686" type="Marker2D" parent="Barrel2" groups=["Boss Spell Card 1"]]
-position = Vector2(-131.194, 54.3424)
-rotation = 2.74889
-gizmo_extents = 20.0
-
 [node name="_Marker2D_27687" type="Marker2D" parent="Barrel2" groups=["Boss Spell Card 1"]]
 position = Vector2(-139.275, 27.7035)
 rotation = 2.94524
-gizmo_extents = 20.0
-
-[node name="_Marker2D_27688" type="Marker2D" parent="Barrel2" groups=["Boss Spell Card 1"]]
-position = Vector2(-142.004, -1.24143e-05)
-rotation = -3.14159
 gizmo_extents = 20.0
 
 [node name="Timer" type="Timer" parent="."]

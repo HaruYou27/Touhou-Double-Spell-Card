@@ -1454,10 +1454,10 @@ tracks/43/path = NodePath("yukari:position")
 tracks/43/interp = 1
 tracks/43/loop_wrap = true
 tracks/43/keys = {
-"times": PackedFloat32Array(75, 77, 99.4, 100.033, 111.6, 112.754, 148.033, 159.333),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0, 75.1333, 75.4, 99.6, 99.8, 112.033, 112.333, 158.567, 159.333),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 0,
-"values": [Vector2(270, -274), Vector2(270, 300), Vector2(270, 300), Vector2(270, 127), Vector2(270, 127), Vector2(270, 300), Vector2(270, 300), Vector2(270, -274)]
+"values": [Vector2(270, -274), Vector2(270, -274), Vector2(270, 300), Vector2(270, 300), Vector2(270, 127), Vector2(270, 127), Vector2(270, 300), Vector2(270, 300), Vector2(270, -274)]
 }
 tracks/44/type = "value"
 tracks/44/imported = false
@@ -1490,7 +1490,7 @@ tracks/46/path = NodePath("SpellCircle/SpellCircleTimer")
 tracks/46/interp = 1
 tracks/46/loop_wrap = true
 tracks/46/keys = {
-"times": PackedFloat32Array(110.767),
+"times": PackedFloat32Array(106.867),
 "transitions": PackedFloat32Array(1),
 "values": [{
 "args": [],
@@ -1560,7 +1560,7 @@ tracks/51/path = NodePath("SpellCircle/barrel:position")
 tracks/51/interp = 1
 tracks/51/loop_wrap = true
 tracks/51/keys = {
-"times": PackedFloat32Array(0, 99.6336, 100.366),
+"times": PackedFloat32Array(0, 99.6336, 99.8),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [Vector2(0, 0), Vector2(0, 0), Vector2(0, -288)]
@@ -1675,12 +1675,12 @@ material = SubResource("ShaderMaterial_w081n")
 script = ExtResource("9_yjnvc")
 texture = ExtResource("9_5uwhi")
 barrelGroup = &"Enemy Barrel 1"
-speed = 527.0
+speed = 427.0
 hitBox = ExtResource("10_xyp3x")
 collisionMask = 5
 
 [node name="CystalTimer" type="Timer" parent="CystalDrop1"]
-wait_time = 0.2
+wait_time = 0.1
 autostart = true
 
 [node name="CystalSpawner" type="Path2D" parent="CystalDrop1"]
@@ -1764,12 +1764,12 @@ scale = Vector2(0.5, 0.5)
 script = ExtResource("9_yjnvc")
 texture = ExtResource("13_o07g8")
 barrelGroup = &"Enemy Barrel 2"
-speed = 727.0
+speed = 127.0
 hitBox = ExtResource("14_rf64e")
 collisionMask = 5
 
 [node name="TrackingTimer" type="Timer" parent="Tracking2"]
-wait_time = 0.5
+wait_time = 0.2
 autostart = true
 
 [node name="TrackingSpawner" type="Path2D" parent="Tracking2"]
@@ -2081,6 +2081,7 @@ position = Vector2(270, 300)
 [node name="SpellCircle" type="Node2D" parent="."]
 process_mode = 4
 visible = false
+z_index = 100
 material = ExtResource("26_iea8i")
 script = ExtResource("9_yjnvc")
 texture = ExtResource("27_amgam")
@@ -2100,19 +2101,9 @@ script = ExtResource("29_epq8m")
 position = Vector2(142.004, 0)
 gizmo_extents = 20.0
 
-[node name="@Marker2D@27673" type="Marker2D" parent="SpellCircle/barrel/Barrel1" groups=["Boss Spell Card 1"]]
-position = Vector2(139.275, 27.7035)
-rotation = 0.19635
-gizmo_extents = 20.0
-
 [node name="@Marker2D@27674" type="Marker2D" parent="SpellCircle/barrel/Barrel1" groups=["Boss Spell Card 1"]]
 position = Vector2(131.194, 54.3424)
 rotation = 0.392699
-gizmo_extents = 20.0
-
-[node name="@Marker2D@27675" type="Marker2D" parent="SpellCircle/barrel/Barrel1" groups=["Boss Spell Card 1"]]
-position = Vector2(118.072, 78.8929)
-rotation = 0.589049
 gizmo_extents = 20.0
 
 [node name="@Marker2D@27676" type="Marker2D" parent="SpellCircle/barrel/Barrel1" groups=["Boss Spell Card 1"]]
@@ -2120,19 +2111,9 @@ position = Vector2(100.412, 100.412)
 rotation = 0.785398
 gizmo_extents = 20.0
 
-[node name="@Marker2D@27677" type="Marker2D" parent="SpellCircle/barrel/Barrel1" groups=["Boss Spell Card 1"]]
-position = Vector2(78.8929, 118.072)
-rotation = 0.981748
-gizmo_extents = 20.0
-
 [node name="@Marker2D@27678" type="Marker2D" parent="SpellCircle/barrel/Barrel1" groups=["Boss Spell Card 1"]]
 position = Vector2(54.3424, 131.194)
 rotation = 1.1781
-gizmo_extents = 20.0
-
-[node name="@Marker2D@27679" type="Marker2D" parent="SpellCircle/barrel/Barrel1" groups=["Boss Spell Card 1"]]
-position = Vector2(27.7035, 139.275)
-rotation = 1.37445
 gizmo_extents = 20.0
 
 [node name="@Marker2D@27680" type="Marker2D" parent="SpellCircle/barrel/Barrel1" groups=["Boss Spell Card 1"]]
@@ -2140,19 +2121,9 @@ position = Vector2(-6.20717e-06, 142.004)
 rotation = 1.5708
 gizmo_extents = 20.0
 
-[node name="@Marker2D@27681" type="Marker2D" parent="SpellCircle/barrel/Barrel1" groups=["Boss Spell Card 1"]]
-position = Vector2(-27.7035, 139.275)
-rotation = 1.76715
-gizmo_extents = 20.0
-
 [node name="@Marker2D@27682" type="Marker2D" parent="SpellCircle/barrel/Barrel1" groups=["Boss Spell Card 1"]]
 position = Vector2(-54.3424, 131.194)
 rotation = 1.9635
-gizmo_extents = 20.0
-
-[node name="@Marker2D@27683" type="Marker2D" parent="SpellCircle/barrel/Barrel1" groups=["Boss Spell Card 1"]]
-position = Vector2(-78.8929, 118.072)
-rotation = 2.15984
 gizmo_extents = 20.0
 
 [node name="@Marker2D@27684" type="Marker2D" parent="SpellCircle/barrel/Barrel1" groups=["Boss Spell Card 1"]]
@@ -2160,19 +2131,9 @@ position = Vector2(-100.412, 100.412)
 rotation = 2.35619
 gizmo_extents = 20.0
 
-[node name="@Marker2D@27685" type="Marker2D" parent="SpellCircle/barrel/Barrel1" groups=["Boss Spell Card 1"]]
-position = Vector2(-118.072, 78.8929)
-rotation = 2.55254
-gizmo_extents = 20.0
-
 [node name="@Marker2D@27686" type="Marker2D" parent="SpellCircle/barrel/Barrel1" groups=["Boss Spell Card 1"]]
 position = Vector2(-131.194, 54.3424)
 rotation = 2.74889
-gizmo_extents = 20.0
-
-[node name="@Marker2D@27687" type="Marker2D" parent="SpellCircle/barrel/Barrel1" groups=["Boss Spell Card 1"]]
-position = Vector2(-139.275, 27.7035)
-rotation = 2.94524
 gizmo_extents = 20.0
 
 [node name="@Marker2D@27688" type="Marker2D" parent="SpellCircle/barrel/Barrel1" groups=["Boss Spell Card 1"]]
@@ -2185,18 +2146,9 @@ position = Vector2(270, 300)
 script = ExtResource("29_epq8m")
 speed = 3.142
 
-[node name="_Marker2D_27672" type="Marker2D" parent="SpellCircle/barrel/Barrel2" groups=["Boss Spell Card 1"]]
-position = Vector2(142.004, 0)
-gizmo_extents = 20.0
-
 [node name="_Marker2D_27673" type="Marker2D" parent="SpellCircle/barrel/Barrel2" groups=["Boss Spell Card 1"]]
 position = Vector2(139.275, 27.7035)
 rotation = 0.19635
-gizmo_extents = 20.0
-
-[node name="_Marker2D_27674" type="Marker2D" parent="SpellCircle/barrel/Barrel2" groups=["Boss Spell Card 1"]]
-position = Vector2(131.194, 54.3424)
-rotation = 0.392699
 gizmo_extents = 20.0
 
 [node name="_Marker2D_27675" type="Marker2D" parent="SpellCircle/barrel/Barrel2" groups=["Boss Spell Card 1"]]
@@ -2204,19 +2156,9 @@ position = Vector2(118.072, 78.8929)
 rotation = 0.589049
 gizmo_extents = 20.0
 
-[node name="_Marker2D_27676" type="Marker2D" parent="SpellCircle/barrel/Barrel2" groups=["Boss Spell Card 1"]]
-position = Vector2(100.412, 100.412)
-rotation = 0.785398
-gizmo_extents = 20.0
-
 [node name="_Marker2D_27677" type="Marker2D" parent="SpellCircle/barrel/Barrel2" groups=["Boss Spell Card 1"]]
 position = Vector2(78.8929, 118.072)
 rotation = 0.981748
-gizmo_extents = 20.0
-
-[node name="_Marker2D_27678" type="Marker2D" parent="SpellCircle/barrel/Barrel2" groups=["Boss Spell Card 1"]]
-position = Vector2(54.3424, 131.194)
-rotation = 1.1781
 gizmo_extents = 20.0
 
 [node name="_Marker2D_27679" type="Marker2D" parent="SpellCircle/barrel/Barrel2" groups=["Boss Spell Card 1"]]
@@ -2224,19 +2166,9 @@ position = Vector2(27.7035, 139.275)
 rotation = 1.37445
 gizmo_extents = 20.0
 
-[node name="_Marker2D_27680" type="Marker2D" parent="SpellCircle/barrel/Barrel2" groups=["Boss Spell Card 1"]]
-position = Vector2(-6.20717e-06, 142.004)
-rotation = 1.5708
-gizmo_extents = 20.0
-
 [node name="_Marker2D_27681" type="Marker2D" parent="SpellCircle/barrel/Barrel2" groups=["Boss Spell Card 1"]]
 position = Vector2(-27.7035, 139.275)
 rotation = 1.76715
-gizmo_extents = 20.0
-
-[node name="_Marker2D_27682" type="Marker2D" parent="SpellCircle/barrel/Barrel2" groups=["Boss Spell Card 1"]]
-position = Vector2(-54.3424, 131.194)
-rotation = 1.9635
 gizmo_extents = 20.0
 
 [node name="_Marker2D_27683" type="Marker2D" parent="SpellCircle/barrel/Barrel2" groups=["Boss Spell Card 1"]]
@@ -2244,29 +2176,14 @@ position = Vector2(-78.8929, 118.072)
 rotation = 2.15984
 gizmo_extents = 20.0
 
-[node name="_Marker2D_27684" type="Marker2D" parent="SpellCircle/barrel/Barrel2" groups=["Boss Spell Card 1"]]
-position = Vector2(-100.412, 100.412)
-rotation = 2.35619
-gizmo_extents = 20.0
-
 [node name="_Marker2D_27685" type="Marker2D" parent="SpellCircle/barrel/Barrel2" groups=["Boss Spell Card 1"]]
 position = Vector2(-118.072, 78.8929)
 rotation = 2.55254
 gizmo_extents = 20.0
 
-[node name="_Marker2D_27686" type="Marker2D" parent="SpellCircle/barrel/Barrel2" groups=["Boss Spell Card 1"]]
-position = Vector2(-131.194, 54.3424)
-rotation = 2.74889
-gizmo_extents = 20.0
-
 [node name="_Marker2D_27687" type="Marker2D" parent="SpellCircle/barrel/Barrel2" groups=["Boss Spell Card 1"]]
 position = Vector2(-139.275, 27.7035)
 rotation = 2.94524
-gizmo_extents = 20.0
-
-[node name="_Marker2D_27688" type="Marker2D" parent="SpellCircle/barrel/Barrel2" groups=["Boss Spell Card 1"]]
-position = Vector2(-142.004, -1.24143e-05)
-rotation = -3.14159
 gizmo_extents = 20.0
 
 [node name="SpellCircleTimer" type="Timer" parent="SpellCircle"]
@@ -2278,6 +2195,7 @@ process_mode = 4
 visible = false
 
 [node name="SpellcardCircle" type="Node2D" parent="SpellButterfly"]
+z_index = 100
 material = ExtResource("26_iea8i")
 scale = Vector2(0.5, 0.5)
 script = ExtResource("9_yjnvc")
@@ -2460,6 +2378,7 @@ gizmo_extents = 40.0
 [node name="SpellWaveParticle" type="Node2D" parent="."]
 process_mode = 4
 visible = false
+z_index = 100
 material = SubResource("ShaderMaterial_fiyn2")
 script = ExtResource("9_yjnvc")
 texture = ExtResource("27_amgam")

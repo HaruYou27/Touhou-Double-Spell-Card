@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://cw6ldgxnk6nf3" path="res://entity/player/marisa/marisa-sprite.tscn" id="13_sco1m"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ttfkj"]
-radius = 6.0
+radius = 8.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_imnki"]
 radius = 58.0
@@ -22,7 +22,6 @@ sprite = NodePath("marisa")
 hitbox = NodePath("Hitbox")
 
 [node name="marisa" parent="Player" instance=ExtResource("13_sco1m")]
-position = Vector2(2, 0)
 
 [node name="MasterSpark" parent="Player/marisa" instance=ExtResource("4_i3cgm")]
 z_index = 9

@@ -19,7 +19,7 @@ func spawn_bomb(index:int) -> void:
 	seal.global_position = barrels[index].global_position
 	seal.toggle(true)
 	
-@onready var barrels:Array = get_tree().get_nodes_in_group("Player Barrel")
+@onready var barrels:Array = get_tree().get_nodes_in_group("Reimu Barrel")
 func bomb() -> bool:
 	if super():
 		return true

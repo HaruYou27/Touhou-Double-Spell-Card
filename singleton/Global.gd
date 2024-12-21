@@ -1,12 +1,6 @@
 extends Node2D
 ## Public variables and signals
 
-## Emited by bullet when intersect player's graze Area2D.
-signal bullet_graze
-
-## Emited by item when intersect player's hitbox (not item Area2D).
-signal item_collect
-
 ## Emit when player change graphic settings.
 signal update_graphic
 

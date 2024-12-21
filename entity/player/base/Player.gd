@@ -137,7 +137,7 @@ func revive() -> void:
 @onready var spawn_pos := position
 @rpc("reliable", "authority")
 func sync_revive() -> void:
-	print_debug('revive')
+	#print_debug('revive')
 	process_mode = Node.PROCESS_MODE_INHERIT
 	set_process_unhandled_input(true)
 	sprite.show()
