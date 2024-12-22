@@ -1,4 +1,5 @@
 extends StaticBody2D
+class_name GrazeBody
 
 signal add_bomb
 

@@ -56,14 +56,14 @@ public partial class GlobalBullet : BulletSharp
 		item.transform = item.transform.RotatedLocal(speedAngular * delta32);
 		base.Move(item);
 	}
-	protected override bool Collide(Dictionary result, Bullet bullet)
+	protected override bool Collide(Bullet bullet)
 	{
-		float mask = GetCollisionMask(result);
+		float mask = GetCollisionMask(bullet.result);
 		if (mask < 10)
 		{
 			return false;
 		}
-		GetCollider(result).CallDeferred("item_collect");
+		GetCollider(bullet.result).CallDeferred("item_collect");
 		return false;
 	}
 }

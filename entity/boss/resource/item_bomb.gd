@@ -1,6 +1,11 @@
 extends Area2D
 
 func _on_body_entered(body: Node2D) -> void:
-	if not body.is_multiplayer_authority():
+	if not body.is_multiplayer_authority() and body is not GrazeBody:
 		return
 	body.add_bomb.emit()
+
+var velocity = Vector2.ZERO
+func _physics_process(delta: float) -> void:
+	velocity.y += 98 * delta
+	global_position += velocity * delta

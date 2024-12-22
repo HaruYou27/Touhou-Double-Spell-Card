@@ -3,11 +3,13 @@ class_name Boss
 
 @export var bonus_threshold := 3272
 @export var heath_bar: Range
+## Avoid reimu bomb bug.
+const hp := 1
 
 func hit() -> void:
 	heath_bar.value += 1
 
-func _on_body_entered(body) -> void:
+func _on_body_entered(body:Player) -> void:
 	if not body.is_multiplayer_authority():
 		return
 		

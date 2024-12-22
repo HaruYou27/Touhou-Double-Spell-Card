@@ -1549,9 +1549,12 @@ tracks/47/path = NodePath("yukari")
 tracks/47/interp = 1
 tracks/47/loop_wrap = true
 tracks/47/keys = {
-"times": PackedFloat32Array(98.9, 136.467, 148.067),
-"transitions": PackedFloat32Array(1, 1, 1),
+"times": PackedFloat32Array(99.9667, 112.487, 136.467, 148.067),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
 "values": [{
+"args": [],
+"method": &"spawn_item"
+}, {
 "args": [],
 "method": &"spawn_item"
 }, {
@@ -1878,7 +1881,7 @@ visible = false
 
 [node name="TopLeft" parent="BigHpFairy3/Fairy" node_paths=PackedStringArray("visual") instance=ExtResource("16_bi0tp")]
 position = Vector2(651, 41)
-hp = 32
+hp = 64
 visual = NodePath("visual")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BigHpFairy3/Fairy/TopLeft"]
@@ -1891,7 +1894,7 @@ texture = ExtResource("17_2fadj")
 
 [node name="TopRight" parent="BigHpFairy3/Fairy" node_paths=PackedStringArray("visual") instance=ExtResource("16_bi0tp")]
 position = Vector2(-120, 28)
-hp = 32
+hp = 64
 visual = NodePath("visual")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BigHpFairy3/Fairy/TopRight"]
@@ -1904,7 +1907,7 @@ texture = ExtResource("17_2fadj")
 
 [node name="BotLeft" parent="BigHpFairy3/Fairy" node_paths=PackedStringArray("visual") instance=ExtResource("16_bi0tp")]
 position = Vector2(-95, 26)
-hp = 32
+hp = 64
 visual = NodePath("visual")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BigHpFairy3/Fairy/BotLeft"]
@@ -1917,7 +1920,7 @@ texture = ExtResource("17_2fadj")
 
 [node name="BotRight" parent="BigHpFairy3/Fairy" node_paths=PackedStringArray("visual") instance=ExtResource("16_bi0tp")]
 position = Vector2(-98, -54)
-hp = 32
+hp = 64
 visual = NodePath("visual")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BigHpFairy3/Fairy/BotRight"]
@@ -1930,7 +1933,7 @@ texture = ExtResource("17_2fadj")
 
 [node name="Middle" parent="BigHpFairy3/Fairy" node_paths=PackedStringArray("visual") instance=ExtResource("16_bi0tp")]
 position = Vector2(432, -49)
-hp = 32
+hp = 64
 visual = NodePath("visual")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BigHpFairy3/Fairy/Middle"]
@@ -1943,7 +1946,7 @@ texture = ExtResource("17_2fadj")
 
 [node name="MiddleLeft" parent="BigHpFairy3/Fairy" node_paths=PackedStringArray("visual") instance=ExtResource("16_bi0tp")]
 position = Vector2(539, -81)
-hp = 32
+hp = 64
 visual = NodePath("visual")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BigHpFairy3/Fairy/MiddleLeft"]
@@ -1956,7 +1959,7 @@ texture = ExtResource("17_2fadj")
 
 [node name="BotMiddle" parent="BigHpFairy3/Fairy" node_paths=PackedStringArray("visual") instance=ExtResource("16_bi0tp")]
 position = Vector2(228, -72)
-hp = 32
+hp = 64
 visual = NodePath("visual")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BigHpFairy3/Fairy/BotMiddle"]
@@ -1969,7 +1972,7 @@ texture = ExtResource("17_2fadj")
 
 [node name="MiddleRight" parent="BigHpFairy3/Fairy" node_paths=PackedStringArray("visual") instance=ExtResource("16_bi0tp")]
 position = Vector2(-90, -13)
-hp = 32
+hp = 64
 visual = NodePath("visual")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BigHpFairy3/Fairy/MiddleRight"]
@@ -1982,7 +1985,7 @@ texture = ExtResource("17_2fadj")
 
 [node name="TopMiddle" parent="BigHpFairy3/Fairy" node_paths=PackedStringArray("visual") instance=ExtResource("16_bi0tp")]
 position = Vector2(613, 405)
-hp = 32
+hp = 64
 visual = NodePath("visual")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BigHpFairy3/Fairy/TopMiddle"]
@@ -2154,6 +2157,7 @@ autostart = true
 process_mode = 4
 visible = false
 position = Vector2(270, 300)
+bonus_threshold = 2727
 
 [node name="SpellCircle" type="Node2D" parent="."]
 process_mode = 4

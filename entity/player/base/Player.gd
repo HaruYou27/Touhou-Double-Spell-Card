@@ -21,10 +21,10 @@ func _ready() -> void:
 @onready var tree := get_tree()
 @export var sprite : Node2D
 func hit() -> void:
-	if not is_multiplayer_authority():
+	if not is_multiplayer_authority() or is_alive:
 		return
 	SoundEffect.press(true)
-	hitbox.set_deferred('disabled', true)
+	hitbox.disabled = true
 	ScreenEffect.flash_red()
 	death_timer.start()
 	if not Global.player2:
@@ -65,7 +65,7 @@ func bomb() -> bool:
 	tween_bomb = create_tween()
 	tween_bomb.tween_property(sprite, "modulate", Color(1.0,1.0,1.0,0.5), 1.0)
 	if is_multiplayer_authority():
-		hitbox.set_deferred("disabled", true)
+		hitbox.disabled = true
 	
 	rpc('bomb_go_off')
 	return false

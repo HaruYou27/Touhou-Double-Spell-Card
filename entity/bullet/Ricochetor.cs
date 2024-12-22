@@ -11,20 +11,20 @@ public partial class Ricochetor : BulletSharp
     {
         return new BulletBool();
     }
-    protected override bool Collide(Dictionary result, Bullet bullet)
+    protected override bool Collide(Bullet bullet)
     {
         BulletBool richochet = (BulletBool) bullet;
         if (richochet.count)
         {
-            float mask = GetCollisionMask(result);
+            float mask = GetCollisionMask(bullet.result);
             if (mask > -10 && mask < 0)
             {
-                richochet.velocity = richochet.velocity.Bounce((Vector2) result["normal"]);
+                richochet.velocity = richochet.velocity.Bounce((Vector2) bullet.result["normal"]);
                 richochet.transform = new Transform2D(richochet.velocity.Angle() + PIhalf, bullet.transform.Origin);
                 richochet.count = false;
                 return true;
             }
         }
-        return base.Collide(result, bullet);
+        return base.Collide(bullet);
     }
 }

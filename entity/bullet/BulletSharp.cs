@@ -11,6 +11,7 @@ public partial class BulletSharp : Node2D
 		public Vector2 velocity;
 		public Transform2D transform;
 		public bool grazable;
+		public Dictionary result = new();
 	}
 	[Export] protected Texture2D texture;
 	[Export] protected int maxBullet = 727;
@@ -73,6 +74,7 @@ public partial class BulletSharp : Node2D
 	protected virtual void ResetBullet(Node2D barrel, Bullet bullet)
 	{
 		bullet.grazable = grazable;
+		bullet.result = new Dictionary();
 		float angle;
 		if (localRotation)
 		{
@@ -169,9 +171,9 @@ public partial class BulletSharp : Node2D
 	{
 		return InstanceFromId((ulong) result["collider_id"]);
 	}
-	protected virtual bool Collide(Dictionary result, Bullet bullet)
+	protected virtual bool Collide(Bullet bullet)
 	{
-		float mask = GetCollisionMask(result);
+		float mask = GetCollisionMask(bullet.result);
 		if (mask < -700)
 		{
 			globalBullet.CallDeferred("SpawnItem", bullet.transform.Origin);
@@ -185,7 +187,7 @@ public partial class BulletSharp : Node2D
 		{
 			bullet.grazable = false;
 		}
-		GetCollider(result).CallDeferred("hit");
+		GetCollider(bullet.result).CallDeferred("hit");
 		return true;
 	}
 	protected virtual void Move(Bullet bullet)
@@ -226,8 +228,8 @@ public partial class BulletSharp : Node2D
 
 		Bullet[] newBullets = new Bullet[maxBullet];
 		tick = !tick;
-		nint indexHalf = Mathf.RoundToInt(indexTail / 2);
-		nint newIndex = indexHalf;
+		nint newIndex = 0;
+
 		void CollisionCheck()
 		{
 			nint indexStop;
@@ -235,12 +237,12 @@ public partial class BulletSharp : Node2D
 			
 			if (tick)
 			{
-				index = indexHalf;
+				index = Mathf.RoundToInt(indexTail / 2);
 				indexStop = indexTail;
 			}
 			else
 			{
-				indexStop = indexHalf;
+				indexStop = Mathf.RoundToInt(indexTail / 2);
 			}
 			while (index < indexStop)
 			{
@@ -255,8 +257,15 @@ public partial class BulletSharp : Node2D
 				{
 					query.CollisionMask = collisionMask;
 				}
-				Dictionary result = space.GetRestInfo(query);
-				if (result.Count == 0 || Collide(result, bullet))
+				bullet.result = space.GetRestInfo(query);
+			}
+		}
+		void CollisionSolve()
+		{
+			for (nint index = 0; index < indexTail; index++)
+			{
+				Bullet bullet = bullets[index];
+				if (bullet.result.Count == 0 || Collide(bullet))
 				{
 					newBullets[newIndex] = bullet;
 					newIndex++;
@@ -265,31 +274,9 @@ public partial class BulletSharp : Node2D
 				bulletPool.Push(bullet);
 			}
 		}
-		void CopyBullet()
-		{
-			nint index = 0;
-			nint indexStop;
-			nint newI = 0;
-			if (tick)
-			{
-				indexStop = indexHalf;
-				//Console.WriteLine(indexTail);
-			}
-			else
-			{
-				index = indexHalf;
-				indexStop = indexTail;
-			}
-			while (index < indexStop)
-			{
-				newBullets[newI] = bullets[index];
-				newI++;
-				index++;
-			}
-		}
 		actions[1] = MoveBullets;
-		actions[2] = CopyBullet;
-		actions[3] = CollisionCheck;
+		actions[2] = CollisionCheck;
+		actions[3] = CollisionSolve;
 		Parallel.Invoke(actions);
 		bullets = newBullets;
 		indexTail = newIndex;

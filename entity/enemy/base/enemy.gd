@@ -44,15 +44,15 @@ func reset() -> void:
 	is_alive = true
 
 func _ready() -> void:
-	disable.call_deferred()
+	disable()
 
-func _on_body_entered(body:Node2D) -> void:
+func _on_body_entered(body:Player) -> void:
 	if not body.is_multiplayer_authority():
 		return
-	body.hit.call_deferred()
+	body.hit()
 
 func timeout() -> void:
-	disable.call_deferred()
+	disable()
 	
 func disable() -> void:
 	process_mode = Node.PROCESS_MODE_DISABLED

@@ -18,32 +18,32 @@ public partial class Seeker : BulletSharp
 		actions[4] = SeekTarget;
 		base._Ready();
 	}
-	protected override bool Collide(Dictionary result, Bullet bullet)
+	protected override bool Collide(Bullet bullet)
 	{
-		float mask = GetCollisionMask(result);
+		float mask = GetCollisionMask(bullet.result);
 		if (mask < 0)
 		{
 			return false;
 		}
-		GetCollider(result).CallDeferred("hit");
+		GetCollider(bullet.result).CallDeferred("hit");
 
 		return false;
 	}
 	private void SeekTarget()
 	{
-		nint indexHalt;
+		nint indexStop;
 		nint index = 0;
 		
 		if (tick)
 		{
-			index = indexTail / 2;
-			indexHalt = indexTail;
+			indexStop = Mathf.RoundToInt(indexTail / 2);
 		}
 		else
 		{
-			indexHalt = indexTail / 2;
+			index = Mathf.RoundToInt(indexTail / 2);
+			indexStop = indexTail;
 		}
-		while (index < indexHalt)
+		while (index < indexStop)
 		{
 			Bullet bullet = bullets[index];
 			index++;
