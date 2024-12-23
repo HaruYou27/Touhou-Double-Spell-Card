@@ -24,6 +24,11 @@ one_shot = true
 [node name="ReviveTimer" type="Timer" parent="explosion"]
 one_shot = true
 
+[node name="BombTimer" type="Timer" parent="."]
+one_shot = true
+autostart = true
+
 [connection signal="timeout" from="RecoverTimer" to="." method="_on_recover_timer_timeout"]
 [connection signal="timeout" from="explosion/DeathTimer" to="." method="_on_death_timer_timeout"]
 [connection signal="timeout" from="explosion/ReviveTimer" to="." method="revive"]
+[connection signal="timeout" from="BombTimer" to="." method="_on_bomb_timer_timeout"]

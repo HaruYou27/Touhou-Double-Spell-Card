@@ -87,9 +87,6 @@ func finished() -> void:
 func _peer_disconnected() -> void:
 	id2 = 0
 
-func revive_player() -> void:
-	scene.add_child(load_player(player1_packed, id1))
-
 func _ready() -> void:
 	multiplayer.peer_disconnected.connect(_peer_disconnected)
 	set_process(false)

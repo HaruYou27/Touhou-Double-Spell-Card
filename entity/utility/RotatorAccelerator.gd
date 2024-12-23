@@ -2,7 +2,7 @@ extends Rotator
 class_name RotatorAccelerator
 ## Should only be use on bosses.
 
-@export var speed_final := PI
+@export var speed_final := -TAU
 @export var duration := 5.727
 @export var ease_type : Tween.EaseType = Tween.EASE_IN
 

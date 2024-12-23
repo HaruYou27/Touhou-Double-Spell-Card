@@ -15,13 +15,12 @@ func _ready() -> void:
 	Global.player2 = self
 	set_process_unhandled_input(false)
 	collision_layer = 0
-	Global.hud.update_bomb(bomb_count)
 	
 @onready var death_timer: Timer = $explosion/DeathTimer
 @onready var tree := get_tree()
 @export var sprite : Node2D
 func hit() -> void:
-	if not is_multiplayer_authority() or is_alive:
+	if not (is_multiplayer_authority() or is_alive):
 		return
 	SoundEffect.press(true)
 	hitbox.disabled = true
@@ -151,3 +150,6 @@ func sync_revive() -> void:
 	position = spawn_pos
 	
 	Global.last_man_standing = false
+
+func _on_bomb_timer_timeout() -> void:
+	Global.hud.update_bomb(bomb_count)

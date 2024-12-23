@@ -13,13 +13,13 @@ texture = ExtResource("2_rb2lr")
 maxBullet = 1727
 barrelGroup = &"Boss Spell Card 1"
 speed = 125.0
-localRotation = true
 hitBox = ExtResource("3_qtosp")
 collisionMask = 5
 
 [node name="Barrel1" type="Node2D" parent="."]
 position = Vector2(270, 300)
 script = ExtResource("2_vvjy5")
+speed = -3.0
 
 [node name="@Marker2D@27672" type="Marker2D" parent="Barrel1" groups=["Boss Spell Card 1"]]
 position = Vector2(142.004, 0)
@@ -68,7 +68,7 @@ gizmo_extents = 20.0
 [node name="Barrel2" type="Node2D" parent="."]
 position = Vector2(270, 300)
 script = ExtResource("2_vvjy5")
-speed = 3.142
+speed = 3.0
 
 [node name="_Marker2D_27673" type="Marker2D" parent="Barrel2" groups=["Boss Spell Card 1"]]
 position = Vector2(139.275, 27.7035)

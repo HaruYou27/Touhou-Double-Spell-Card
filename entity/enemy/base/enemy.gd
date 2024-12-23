@@ -8,18 +8,12 @@ signal died
 ## Fair reward.
 @onready var point = hp
 var tick := false
-@onready var blood: CPUParticles2D = $explosion/blood
-@onready var blood2: CPUParticles2D = $explosion/blood2
 func hit() -> void:
 	if not hp and is_alive:
 		die()
 		return
 		
 	hp -= 1
-	if tick:
-		blood.emitting = true
-	else:
-		blood2.emitting = true
 	
 @onready var explosion: CPUParticles2D = $explosion
 @export var visual: Node2D
