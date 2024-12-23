@@ -11,12 +11,12 @@ public partial class Ricochetor : BulletSharp
     {
         return new BulletBool();
     }
-    protected override bool Collide(Bullet bullet)
+    protected override bool Collide(Bullet bullet, Dictionary result)
     {
         BulletBool richochet = (BulletBool) bullet;
         if (richochet.count)
         {
-            float mask = GetCollisionMask(bullet.result);
+            float mask = GetCollisionMask(result);
             if (mask > -10 && mask < 0)
             {
                 richochet.velocity = richochet.velocity.Bounce((Vector2) bullet.result["normal"]);
@@ -25,6 +25,6 @@ public partial class Ricochetor : BulletSharp
                 return true;
             }
         }
-        return base.Collide(bullet);
+        return base.Collide(bullet, result);
     }
 }

@@ -18,14 +18,14 @@ public partial class Seeker : BulletSharp
 		actions[4] = SeekTarget;
 		base._Ready();
 	}
-	protected override bool Collide(Bullet bullet)
+	protected override bool Collide(Bullet bullet, Dictionary result)
 	{
-		float mask = GetCollisionMask(bullet.result);
+		float mask = GetCollisionMask(result);
 		if (mask < 0)
 		{
 			return false;
 		}
-		GetCollider(bullet.result).CallDeferred("hit");
+		GetCollider(result).CallDeferred("hit");
 
 		return false;
 	}

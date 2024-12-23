@@ -26,7 +26,7 @@ func _physics_process(delta:float) -> void:
 			
 		var collider := ray.get_collider()
 		if is_multiplayer_authority():
-			collider.hit.call_deferred()
+			collider.hit()
 		
 		# The code below should only run 1 per frame at most.
 		if is_colliding:

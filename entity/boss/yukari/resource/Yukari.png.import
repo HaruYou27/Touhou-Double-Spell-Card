@@ -15,7 +15,7 @@ dest_files=["res://.godot/imported/Yukari.png-7e301bfe4ae4ac8b1197cfdf6a98c7cd.c
 
 [params]
 
-compress/mode=4
+compress/mode=0
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1

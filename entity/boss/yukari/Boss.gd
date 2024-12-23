@@ -9,10 +9,9 @@ const hp := 1
 func hit() -> void:
 	heath_bar.value += 1
 
-func _on_body_entered(body:Player) -> void:
-	if not body.is_multiplayer_authority():
+func _on_body_entered(body:Node2D) -> void:
+	if body is not Player or not body.is_multiplayer_authority():
 		return
-		
 	body.hit()
 
 func _ready() -> void:

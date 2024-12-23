@@ -56,7 +56,7 @@ public partial class GlobalBullet : BulletSharp
 		item.transform = item.transform.RotatedLocal(speedAngular * delta32);
 		base.Move(item);
 	}
-	protected override bool Collide(Bullet bullet)
+	protected override bool Collide(Bullet bullet, Dictionary result)
 	{
 		float mask = GetCollisionMask(bullet.result);
 		if (mask < 10)

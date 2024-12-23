@@ -15,7 +15,7 @@ dest_files=["res://.godot/imported/boss-heathbar-frame.svg-7c3eff81c3491c473e5e3
 
 [params]
 
-compress/mode=0
+compress/mode=4
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1

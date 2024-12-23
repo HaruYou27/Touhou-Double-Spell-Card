@@ -9,7 +9,7 @@ signal died
 @onready var point = hp
 var tick := false
 func hit() -> void:
-	if not hp and is_alive:
+	if not hp:
 		die()
 		return
 		
@@ -18,9 +18,8 @@ func hit() -> void:
 @onready var explosion: CPUParticles2D = $explosion
 @export var visual: Node2D
 
-var is_alive := true
 func die() -> void:
-	is_alive = false
+	hp = 0
 	disable.call_deferred()
 	GlobalBullet.call_deferred("SpawnItems", point, global_position)
 	explosion.emitting = true
@@ -35,18 +34,21 @@ func reset() -> void:
 	monitorable = true
 	visual.show()
 	hp = point
-	is_alive = true
 
 func _ready() -> void:
-	disable()
+	disable.call_deferred()
 
-func _on_body_entered(body:Player) -> void:
+func _on_body_entered(body:Node2D) -> void:
+	if body is not Player:
+		die()
+		return
+		
 	if not body.is_multiplayer_authority():
 		return
 	body.hit()
 
 func timeout() -> void:
-	disable()
+	disable.call_deferred()
 	
 func disable() -> void:
 	process_mode = Node.PROCESS_MODE_DISABLED

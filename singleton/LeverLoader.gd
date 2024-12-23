@@ -5,6 +5,7 @@ var scene: Control
 var task := 0
 ## Non-blocking level loader.
 func load_scene(path:String, player:=false) -> void:
+	ScreenEffect.hide()
 	task = WorkerThreadPool.add_task(instance_scene.bind(path, player))
 	
 	scene.queue_free()

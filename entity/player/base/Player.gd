@@ -121,7 +121,7 @@ func sync_death() -> void:
 	
 	Global.last_man_standing = true
 
-@onready var revive_fx := $ReviveSFX
+@onready var revive_fx: AudioStreamPlayer = $ReviveSFX
 func _on_recover_timer_timeout():
 	revive_fx.play()
 	hitbox.set_deferred('disabled', false)
@@ -136,7 +136,7 @@ func revive() -> void:
 	sync_revive()
 	rpc("sync_revive")
 
-@onready var recover_timer := $RecoverTimer
+@onready var recover_timer: Timer = $RecoverTimer
 @onready var spawn_pos := position
 @rpc("reliable", "authority")
 func sync_revive() -> void:

@@ -35,11 +35,12 @@ hitbox = NodePath("Hitbox")
 position = Vector2(0, 8)
 
 [node name="YinyangOrb" parent="Player/ReimuSprite" groups=["Reimu Barrel"] instance=ExtResource("5_ryrqw")]
+texture_filter = 2
 position = Vector2(72, 0)
 flip_v = true
 
 [node name="YinyangOrb2" parent="Player/ReimuSprite" groups=["Reimu Barrel"] instance=ExtResource("5_ryrqw")]
-texture_filter = 1
+texture_filter = 2
 position = Vector2(-72, 0)
 flip_h = false
 

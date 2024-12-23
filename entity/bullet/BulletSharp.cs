@@ -11,7 +11,7 @@ public partial class BulletSharp : Node2D
 		public Vector2 velocity;
 		public Transform2D transform;
 		public bool grazable;
-		public Dictionary result = new();
+		public Dictionary result = null;
 	}
 	[Export] protected Texture2D texture;
 	[Export] protected int maxBullet = 727;
@@ -171,9 +171,9 @@ public partial class BulletSharp : Node2D
 	{
 		return InstanceFromId((ulong) result["collider_id"]);
 	}
-	protected virtual bool Collide(Bullet bullet)
+	protected virtual bool Collide(Bullet bullet, Dictionary result)
 	{
-		float mask = GetCollisionMask(bullet.result);
+		float mask = GetCollisionMask(result);
 		if (mask < -700)
 		{
 			globalBullet.CallDeferred("SpawnItem", bullet.transform.Origin);
@@ -187,7 +187,7 @@ public partial class BulletSharp : Node2D
 		{
 			bullet.grazable = false;
 		}
-		GetCollider(bullet.result).CallDeferred("hit");
+		GetCollider(result).CallDeferred("hit");
 		return true;
 	}
 	protected virtual void Move(Bullet bullet)
@@ -265,8 +265,11 @@ public partial class BulletSharp : Node2D
 			for (nint index = 0; index < indexTail; index++)
 			{
 				Bullet bullet = bullets[index];
-				if (bullet.result.Count == 0 || Collide(bullet))
+				// Avoid race condition.
+				Dictionary result = bullet.result.Duplicate();
+				if (result == null || result.Count == 0 || Collide(bullet, result))
 				{
+					bullet.result = null;
 					newBullets[newIndex] = bullet;
 					newIndex++;
 					continue;
