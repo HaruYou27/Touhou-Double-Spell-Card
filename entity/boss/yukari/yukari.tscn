@@ -10,6 +10,7 @@
 
 [sub_resource type="Shader" id="Shader_mj5lh"]
 code = "shader_type canvas_item;
+render_mode blend_add;
 
 #define SPIN
 #define ZOOM

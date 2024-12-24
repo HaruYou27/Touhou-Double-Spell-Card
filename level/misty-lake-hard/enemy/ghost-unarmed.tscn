@@ -2,13 +2,12 @@
 
 [ext_resource type="Script" path="res://entity/utility/PathFollower2D.gd" id="1_3qi0t"]
 [ext_resource type="PackedScene" uid="uid://dtlscerig62nv" path="res://entity/enemy/base/enemy.tscn" id="2_wexhf"]
-[ext_resource type="Texture2D" uid="uid://ejrqvn5h5jxu" path="res://entity/enemy/fairy/Fairy.1.png" id="3_mgtmb"]
+[ext_resource type="PackedScene" uid="uid://x6m45dr4ylyl" path="res://entity/enemy/phantom/blue-phantom.tscn" id="3_gl4or"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_noovt"]
-radius = 29.0172
+radius = 18.1108
 
 [node name="Fairy" type="PathFollow2D" node_paths=PackedStringArray("enemy")]
-position = Vector2(253.864, -60.6458)
 rotates = false
 cubic_interp = false
 loop = false
@@ -17,13 +16,12 @@ time = 7.0
 enemy = NodePath("Enemy")
 
 [node name="Enemy" parent="." node_paths=PackedStringArray("visual") instance=ExtResource("2_wexhf")]
-hp = 16
-visual = NodePath("visual")
+hp = 8
+visual = NodePath("../phantom")
 
 [node name="hitbox" type="CollisionShape2D" parent="Enemy"]
 shape = SubResource("CircleShape2D_noovt")
 
-[node name="visual" type="Sprite2D" parent="Enemy"]
-texture = ExtResource("3_mgtmb")
+[node name="phantom" parent="." instance=ExtResource("3_gl4or")]
 
 [connection signal="died" from="Enemy" to="." method="_on_enemy_died"]

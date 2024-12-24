@@ -1,15 +1,43 @@
-[gd_scene load_steps=6 format=3 uid="uid://brpxoomffrb1k"]
+[gd_scene load_steps=9 format=3 uid="uid://c4o2oanaiajtg"]
 
-[ext_resource type="Material" uid="uid://drtql0pfli77d" path="res://level/misty-lake-hard/resource/spellcard-wave-particle.tres" id="1_avy2t"]
 [ext_resource type="Script" path="res://entity/bullet/BulletSharp.cs" id="2_v3ng2"]
 [ext_resource type="Texture2D" uid="uid://bfp5momdip3ss" path="res://entity/bullet/resource/butterfly.png" id="3_fya4b"]
 [ext_resource type="Shape2D" uid="uid://cdhtnr4opiiga" path="res://entity/bullet/resource/butterfly-hitbox.tres" id="4_oqjk6"]
 [ext_resource type="Script" path="res://entity/utility/Rotator.gd" id="5_yjnrk"]
 
+[sub_resource type="Shader" id="Shader_muqwk"]
+code = "shader_type canvas_item;
+
+#define TIME_FLOW
+#define TIME_OFFSET
+#define COLOR_TIME
+#define COLORIZE
+
+
+
+
+#include \"res://entity/bullet/resource/bullet-basic.gdshaderinc\"
+"
+
+[sub_resource type="Gradient" id="Gradient_56why"]
+interpolation_mode = 2
+interpolation_color_space = 2
+offsets = PackedFloat32Array(0, 0.318681, 0.681319, 1)
+colors = PackedColorArray(0, 0.623529, 0.717647, 1, 0.490196, 0.180392, 0.407843, 1, 1, 0.564706, 0.701961, 1, 0.839216, 1, 0.47451, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_ctw62"]
+gradient = SubResource("Gradient_56why")
+width = 64
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_kpi4i"]
+shader = SubResource("Shader_muqwk")
+shader_parameter/time_scale = null
+shader_parameter/color_map = SubResource("GradientTexture1D_ctw62")
+
 [node name="Node2D" type="Node2D"]
 
 [node name="SpellcardCircle" type="Node2D" parent="."]
-material = ExtResource("1_avy2t")
+material = SubResource("ShaderMaterial_kpi4i")
 scale = Vector2(0.5, 0.5)
 script = ExtResource("2_v3ng2")
 texture = ExtResource("3_fya4b")
@@ -98,7 +126,6 @@ gizmo_extents = 40.0
 [node name="@Marker2D@76200" type="Marker2D" parent="CircleBarrel2" groups=["Spellcard Circle"]]
 position = Vector2(-26.607, 17.7782)
 rotation = 2.55254
-scale = Vector2(1, 1)
 gizmo_extents = 40.0
 
 [node name="@Marker2D@76201" type="Marker2D" parent="CircleBarrel2" groups=["Spellcard Circle"]]

@@ -8,7 +8,6 @@
 radius = 29.0172
 
 [node name="Fairy" type="PathFollow2D" node_paths=PackedStringArray("enemy")]
-position = Vector2(253.864, -60.6458)
 rotates = false
 cubic_interp = false
 loop = false
@@ -17,7 +16,7 @@ time = 7.0
 enemy = NodePath("Enemy")
 
 [node name="Enemy" parent="." node_paths=PackedStringArray("visual") instance=ExtResource("2_h6tah")]
-hp = 8
+hp = 64
 visual = NodePath("visual")
 
 [node name="hitbox" type="CollisionShape2D" parent="Enemy"]

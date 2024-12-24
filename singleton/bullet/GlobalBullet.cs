@@ -58,12 +58,12 @@ public partial class GlobalBullet : BulletSharp
 	}
 	protected override bool Collide(Bullet bullet, Dictionary result)
 	{
-		float mask = GetCollisionMask(bullet.result);
+		float mask = GetCollisionMask(result);
 		if (mask < 10)
 		{
 			return false;
 		}
-		GetCollider(bullet.result).CallDeferred("item_collect");
+		GetCollider(result).CallDeferred("item_collect");
 		return false;
 	}
 }

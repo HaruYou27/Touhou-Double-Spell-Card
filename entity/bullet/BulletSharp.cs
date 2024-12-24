@@ -262,16 +262,33 @@ public partial class BulletSharp : Node2D
 		}
 		void CollisionSolve()
 		{
+			void KeepBullet(Bullet bullet)
+			{
+				bullet.result = null;
+				newBullets[newIndex] = bullet;
+				newIndex++;
+			}
 			for (nint index = 0; index < indexTail; index++)
 			{
 				Bullet bullet = bullets[index];
-				// Avoid race condition.
-				Dictionary result = bullet.result.Duplicate();
-				if (result == null || result.Count == 0 || Collide(bullet, result))
+				if (bullet.result == null)
 				{
-					bullet.result = null;
-					newBullets[newIndex] = bullet;
-					newIndex++;
+					KeepBullet(bullet);
+					continue;
+				}
+				// In very rare case of race condition.
+				Dictionary result;
+				try
+				{
+					result = bullet.result.Duplicate();
+				}
+				catch
+				{
+					result = new Dictionary();
+				}
+				if (result.Count == 0 || Collide(bullet, result))
+				{
+					KeepBullet(bullet);
 					continue;
 				}
 				bulletPool.Push(bullet);

@@ -7,9 +7,9 @@ signal died
 @export var hp := 1
 ## Fair reward.
 @onready var point = hp
-var tick := false
+var is_alive := true
 func hit() -> void:
-	if not hp:
+	if not hp and is_alive:
 		die()
 		return
 		
@@ -32,6 +32,7 @@ func reset() -> void:
 	process_mode = Node.PROCESS_MODE_INHERIT
 	monitoring = true
 	monitorable = true
+	is_alive = true
 	visual.show()
 	hp = point
 
@@ -51,6 +52,7 @@ func timeout() -> void:
 	disable.call_deferred()
 	
 func disable() -> void:
+	is_alive = false
 	process_mode = Node.PROCESS_MODE_DISABLED
 	monitorable = false
 	monitoring = false

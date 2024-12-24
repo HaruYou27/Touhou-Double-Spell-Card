@@ -4,7 +4,7 @@ class_name Boss
 @export var bonus_threshold := 3272
 @export var heath_bar: Range
 ## Avoid reimu bomb bug.
-const hp := 1
+const is_alive = true
 
 func hit() -> void:
 	heath_bar.value += 1

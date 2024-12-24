@@ -46,4 +46,4 @@ func _sync_position(pos:float) -> void:
 @rpc("reliable", "authority", "call_remote")
 func sync_start() -> void:
 	enemy.reset.call_deferred()
-	progress_ratio = reverse
+	progress_ratio = float(reverse)

@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://b85g60flfgfr3"]
+[gd_scene load_steps=12 format=3 uid="uid://b85g60flfgfr3"]
 
 [ext_resource type="Script" path="res://entity/player/marisa/MasterSpark.gd" id="1_i45vv"]
 [ext_resource type="PackedScene" uid="uid://ecqcoejg1lj8" path="res://entity/player/marisa/beam.tscn" id="2_wwrg5"]
+[ext_resource type="Shader" path="res://entity/player/marisa/resource/master_spark.gdshader" id="3_kqvhu"]
 [ext_resource type="PackedScene" uid="uid://bsnqtgxxjmolk" path="res://entity/player/marisa/ray_cast.tscn" id="9_hoe4h"]
 
 [sub_resource type="Animation" id="Animation_d3sxi"]
@@ -125,7 +126,7 @@ tracks/9/loop_wrap = true
 tracks/9/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
+"update": 1,
 "values": [PackedVector2Array(0, 0, 0, -960)]
 }
 tracks/10/type = "value"
@@ -151,6 +152,18 @@ tracks/11/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [false]
+}
+tracks/12/type = "value"
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/path = NodePath("Beam:material:shader_parameter/alpha_delta")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/keys = {
+"times": PackedFloat32Array(0, 1, 5, 6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0.4, 0.0, 0.0, 0.4]
 }
 
 [sub_resource type="Animation" id="Animation_65s67"]
@@ -287,12 +300,41 @@ tracks/10/keys = {
 "update": 1,
 "values": [false]
 }
+tracks/11/type = "value"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("Beam:material:shader_parameter/alpha_delta")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.4]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_huuam"]
 _data = {
 "Master Spark": SubResource("Animation_d3sxi"),
 "RESET": SubResource("Animation_65s67")
 }
+
+[sub_resource type="Gradient" id="Gradient_nn53k"]
+interpolation_mode = 2
+interpolation_color_space = 2
+offsets = PackedFloat32Array(0, 0.197802, 0.395604, 0.626374, 0.813187, 1)
+colors = PackedColorArray(1, 0.2, 0.211765, 1, 0.433833, 1, 0.21, 1, 0.933333, 0, 1, 1, 0.0168, 0.16772, 0.84, 1, 1, 0.2, 0.213333, 1, 0.435294, 1, 0.211765, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_k8r5t"]
+gradient = SubResource("Gradient_nn53k")
+width = 512
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0nkt0"]
+shader = ExtResource("3_kqvhu")
+shader_parameter/speed_color = -1.0
+shader_parameter/alpha_delta = 0.4
+shader_parameter/speed_alpha = -2.0
+shader_parameter/color_map = SubResource("GradientTexture1D_k8r5t")
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_s1f2m"]
 radius = 230.0
@@ -307,6 +349,7 @@ libraries = {
 }
 
 [node name="Beam" parent="." instance=ExtResource("2_wwrg5")]
+material = SubResource("ShaderMaterial_0nkt0")
 
 [node name="RayCast2D" parent="." instance=ExtResource("9_hoe4h")]
 position = Vector2(0, 70)
