@@ -1,4 +1,4 @@
-[gd_scene load_steps=59 format=3 uid="uid://bxvy3qa8esorq"]
+[gd_scene load_steps=60 format=3 uid="uid://bxvy3qa8esorq"]
 
 [ext_resource type="Shader" path="res://level/misty-lake-hard/water.gdshader" id="1_kv0nh"]
 [ext_resource type="Texture2D" uid="uid://coq45et7pnhnx" path="res://level/misty-lake-hard/resource/water-gradient.tres" id="2_yt2xx"]
@@ -32,6 +32,7 @@
 [ext_resource type="Texture2D" uid="uid://d1nkk7km71ule" path="res://entity/bullet/resource/kunai1.png" id="27_amgam"]
 [ext_resource type="Shape2D" uid="uid://brtfnhe3eksr4" path="res://entity/bullet/resource/kunai-hitbox.tres" id="28_h2ync"]
 [ext_resource type="Script" path="res://entity/utility/Rotator.gd" id="29_epq8m"]
+[ext_resource type="Script" path="res://entity/utility/TargetLocker.gd" id="30_8noa5"]
 [ext_resource type="Script" path="res://entity/utility/RotatorAccelerator.gd" id="30_j1w3q"]
 [ext_resource type="Script" path="res://entity/utility/PreciseTimer.gd" id="31_ssamr"]
 [ext_resource type="Material" uid="uid://c5ahns6t1w0c" path="res://level/misty-lake-hard/resource/boss-bullet.material" id="32_2t71u"]
@@ -421,55 +422,55 @@ tracks/23/keys = {
 tracks/24/type = "value"
 tracks/24/imported = false
 tracks/24/enabled = true
-tracks/24/path = NodePath("SpellCircle:localRotation")
+tracks/24/path = NodePath("SpellCircle/barrel:position")
 tracks/24/interp = 1
 tracks/24/loop_wrap = true
 tracks/24/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [false]
+"values": [Vector2(0, 0)]
 }
 tracks/25/type = "value"
 tracks/25/imported = false
 tracks/25/enabled = true
-tracks/25/path = NodePath("SpellCircle:process_mode")
+tracks/25/path = NodePath("SpellCircle:localRotation")
 tracks/25/interp = 1
 tracks/25/loop_wrap = true
 tracks/25/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [4]
+"values": [false]
 }
 tracks/26/type = "value"
 tracks/26/imported = false
 tracks/26/enabled = true
-tracks/26/path = NodePath("SpellCircle/barrel:position")
+tracks/26/path = NodePath("yukari:process_mode")
 tracks/26/interp = 1
 tracks/26/loop_wrap = true
 tracks/26/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0, 0)]
+"update": 1,
+"values": [4]
 }
 tracks/27/type = "value"
 tracks/27/imported = false
 tracks/27/enabled = true
-tracks/27/path = NodePath("SpellCircle:localRotation")
+tracks/27/path = NodePath("SpellButterfly:visible")
 tracks/27/interp = 1
 tracks/27/loop_wrap = true
 tracks/27/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
+"update": 1,
 "values": [false]
 }
 tracks/28/type = "value"
 tracks/28/imported = false
 tracks/28/enabled = true
-tracks/28/path = NodePath("yukari:process_mode")
+tracks/28/path = NodePath("SpellWaveParticle:process_mode")
 tracks/28/interp = 1
 tracks/28/loop_wrap = true
 tracks/28/keys = {
@@ -481,7 +482,7 @@ tracks/28/keys = {
 tracks/29/type = "value"
 tracks/29/imported = false
 tracks/29/enabled = true
-tracks/29/path = NodePath("SpellButterfly:visible")
+tracks/29/path = NodePath("SpellWaveParticle:visible")
 tracks/29/interp = 1
 tracks/29/loop_wrap = true
 tracks/29/keys = {
@@ -493,7 +494,7 @@ tracks/29/keys = {
 tracks/30/type = "value"
 tracks/30/imported = false
 tracks/30/enabled = true
-tracks/30/path = NodePath("SpellWaveParticle:process_mode")
+tracks/30/path = NodePath("SpellWaveParticle/TimerPrecise:process_mode")
 tracks/30/interp = 1
 tracks/30/loop_wrap = true
 tracks/30/keys = {
@@ -505,22 +506,10 @@ tracks/30/keys = {
 tracks/31/type = "value"
 tracks/31/imported = false
 tracks/31/enabled = true
-tracks/31/path = NodePath("SpellWaveParticle:visible")
+tracks/31/path = NodePath("SpellButterfly:process_mode")
 tracks/31/interp = 1
 tracks/31/loop_wrap = true
 tracks/31/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/32/type = "value"
-tracks/32/imported = false
-tracks/32/enabled = true
-tracks/32/path = NodePath("SpellWaveParticle/TimerPrecise:process_mode")
-tracks/32/interp = 1
-tracks/32/loop_wrap = true
-tracks/32/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
@@ -529,7 +518,7 @@ tracks/32/keys = {
 
 [sub_resource type="Animation" id="Animation_shi7r"]
 resource_name = "game"
-length = 160.0
+length = 156.0
 step = 0.0333
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -805,9 +794,12 @@ tracks/10/path = NodePath("CystalDrop1/CystalTimer")
 tracks/10/interp = 1
 tracks/10/loop_wrap = true
 tracks/10/keys = {
-"times": PackedFloat32Array(16.6),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(5.86667, 16.6),
+"transitions": PackedFloat32Array(1, 1),
 "values": [{
+"args": [-1],
+"method": &"start"
+}, {
 "args": [],
 "method": &"stop"
 }]
@@ -819,9 +811,12 @@ tracks/11/path = NodePath("Tracking2/TrackingTimer")
 tracks/11/interp = 1
 tracks/11/loop_wrap = true
 tracks/11/keys = {
-"times": PackedFloat32Array(27.2),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(18.2, 27.2),
+"transitions": PackedFloat32Array(1, 1),
 "values": [{
+"args": [-1],
+"method": &"start"
+}, {
 "args": [],
 "method": &"stop"
 }]
@@ -833,10 +828,10 @@ tracks/12/path = NodePath("BigHpFairy3/Fairy/TopLeft:position")
 tracks/12/interp = 1
 tracks/12/loop_wrap = true
 tracks/12/keys = {
-"times": PackedFloat32Array(29.6, 31.6, 53.5, 54.5),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
+"times": PackedFloat32Array(0, 29.6, 31.6, 53.5, 54.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 0,
-"values": [Vector2(609, 349), Vector2(96, 126), Vector2(96, 126), Vector2(-112, 116)]
+"values": [Vector2(609, 349), Vector2(609, 349), Vector2(96, 126), Vector2(96, 126), Vector2(-112, 116)]
 }
 tracks/13/type = "value"
 tracks/13/imported = false
@@ -845,10 +840,10 @@ tracks/13/path = NodePath("BigHpFairy3/Fairy/TopRight:position")
 tracks/13/interp = 1
 tracks/13/loop_wrap = true
 tracks/13/keys = {
-"times": PackedFloat32Array(29.6, 31.6, 53.5, 54.5),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
+"times": PackedFloat32Array(0, 29.6, 31.6, 53.5, 54.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 0,
-"values": [Vector2(-84, 329), Vector2(467, 80), Vector2(467, 80), Vector2(635, 78)]
+"values": [Vector2(-84, 329), Vector2(-84, 329), Vector2(467, 80), Vector2(467, 80), Vector2(635, 78)]
 }
 tracks/14/type = "method"
 tracks/14/imported = false
@@ -857,30 +852,9 @@ tracks/14/path = NodePath("BigHpFairy3/TransformBarrel")
 tracks/14/interp = 1
 tracks/14/loop_wrap = true
 tracks/14/keys = {
-"times": PackedFloat32Array(29.4, 30.303, 31.6, 32.4342, 33.8994, 34.6, 35.4312, 36.1305, 37.6, 38.4282, 39.0667, 40.6, 41.2254, 42.0579, 43.6333, 44.3223, 45.1215, 46.6333, 47.2194, 48.285, 49.4667, 50.283, 51.1155, 52.3667),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"times": PackedFloat32Array(29.4, 31.8667, 32.2667, 34.8, 35.2333, 37.7955, 38.2288, 40.7259, 41.1592, 43.6896, 44.1229, 46.62, 47.0533, 49.617, 50.0503, 52.5474, 52.9807),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
 "values": [{
-"args": [],
-"method": &"_transform_barrel"
-}, {
-"args": [],
-"method": &"_transform_barrel"
-}, {
-"args": [],
-"method": &"_transform_barrel"
-}, {
-"args": [],
-"method": &"_transform_barrel"
-}, {
-"args": [],
-"method": &"_transform_barrel"
-}, {
-"args": [],
-"method": &"_transform_barrel"
-}, {
-"args": [],
-"method": &"_transform_barrel"
-}, {
 "args": [],
 "method": &"_transform_barrel"
 }, {
@@ -936,13 +910,64 @@ tracks/14/keys = {
 tracks/15/type = "method"
 tracks/15/imported = false
 tracks/15/enabled = true
-tracks/15/path = NodePath("BigHpFairy3/Bullet-")
+tracks/15/path = NodePath("BigHpFairy3/BigFairyBullet")
 tracks/15/interp = 1
 tracks/15/loop_wrap = true
 tracks/15/keys = {
-"times": PackedFloat32Array(29.6, 29.9, 30.2, 30.4, 30.7, 32.6, 32.9, 33.2, 33.4, 33.7, 35.5, 35.8, 36.1, 36.3, 36.6, 38.5, 38.8, 39.1, 39.3, 39.6, 41.4, 41.7, 42, 42.2, 42.5, 44.4, 44.7, 45, 45.2, 45.5, 47.4, 47.7, 48, 48.2, 48.5, 50.4, 50.7, 51, 51.2, 51.5),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"times": PackedFloat32Array(29.6, 29.9, 30.2, 30.4, 30.7, 31.9, 32.3343, 32.6, 32.9, 33.2, 33.4, 33.7, 34.8318, 35.2661, 35.5318, 35.8318, 36.1318, 36.3318, 36.6318, 37.8288, 38.2631, 38.5288, 38.8288, 39.1288, 39.3288, 39.6288, 40.7592, 41.1935, 41.4592, 41.7592, 42.0592, 42.2592, 42.5592, 43.7229, 44.1572, 44.4229, 44.7229, 45.0229, 45.2229, 45.5229, 46.6533, 47.0876, 47.3533, 47.6533, 47.9533, 48.1533, 48.4533, 49.6503, 49.916, 50.216, 50.516, 50.716, 51.016, 51.4836, 52.5807, 52.8464, 53.1464),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
 "values": [{
+"args": [],
+"method": &"SpawnBullet"
+}, {
+"args": [],
+"method": &"SpawnBullet"
+}, {
+"args": [],
+"method": &"SpawnBullet"
+}, {
+"args": [],
+"method": &"SpawnBullet"
+}, {
+"args": [],
+"method": &"SpawnBullet"
+}, {
+"args": [],
+"method": &"SpawnBullet"
+}, {
+"args": [],
+"method": &"SpawnBullet"
+}, {
+"args": [],
+"method": &"SpawnBullet"
+}, {
+"args": [],
+"method": &"SpawnBullet"
+}, {
+"args": [],
+"method": &"SpawnBullet"
+}, {
+"args": [],
+"method": &"SpawnBullet"
+}, {
+"args": [],
+"method": &"SpawnBullet"
+}, {
+"args": [],
+"method": &"SpawnBullet"
+}, {
+"args": [],
+"method": &"SpawnBullet"
+}, {
+"args": [],
+"method": &"SpawnBullet"
+}, {
+"args": [],
+"method": &"SpawnBullet"
+}, {
+"args": [],
+"method": &"SpawnBullet"
+}, {
 "args": [],
 "method": &"SpawnBullet"
 }, {
@@ -1127,10 +1152,10 @@ tracks/20/path = NodePath("BigHpFairy3/Fairy/BotLeft:position")
 tracks/20/interp = 1
 tracks/20/loop_wrap = true
 tracks/20/keys = {
-"times": PackedFloat32Array(32.5, 34.4, 53.5, 54.5),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
+"times": PackedFloat32Array(0, 32.5, 34.4, 53.5, 54.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 0,
-"values": [Vector2(620, -49), Vector2(77, 418), Vector2(77, 418), Vector2(-120, 418)]
+"values": [Vector2(620, -49), Vector2(620, -49), Vector2(77, 418), Vector2(77, 418), Vector2(-120, 418)]
 }
 tracks/21/type = "value"
 tracks/21/imported = false
@@ -1139,10 +1164,10 @@ tracks/21/path = NodePath("BigHpFairy3/Fairy/BotRight:position")
 tracks/21/interp = 1
 tracks/21/loop_wrap = true
 tracks/21/keys = {
-"times": PackedFloat32Array(32.5, 34.4, 53.5, 54.5),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
+"times": PackedFloat32Array(0, 32.5, 34.4, 53.5, 54.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 0,
-"values": [Vector2(-98, -54), Vector2(458, 393), Vector2(458, 393), Vector2(619, 395)]
+"values": [Vector2(-98, -54), Vector2(-98, -54), Vector2(458, 393), Vector2(458, 393), Vector2(619, 395)]
 }
 tracks/22/type = "value"
 tracks/22/imported = false
@@ -1177,10 +1202,10 @@ tracks/24/path = NodePath("BigHpFairy3/Fairy/MiddleLeft:position")
 tracks/24/interp = 1
 tracks/24/loop_wrap = true
 tracks/24/keys = {
-"times": PackedFloat32Array(38.3, 40.1, 53.5, 54.5),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
+"times": PackedFloat32Array(0, 38.3, 40.1, 53.5, 54.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 0,
-"values": [Vector2(539, -81), Vector2(61, 264), Vector2(61, 264), Vector2(-109, 272)]
+"values": [Vector2(539, -81), Vector2(539, -81), Vector2(61, 264), Vector2(61, 264), Vector2(-109, 272)]
 }
 tracks/25/type = "method"
 tracks/25/imported = false
@@ -1203,10 +1228,10 @@ tracks/26/path = NodePath("BigHpFairy3/Fairy/BotMiddle:position")
 tracks/26/interp = 1
 tracks/26/loop_wrap = true
 tracks/26/keys = {
-"times": PackedFloat32Array(41.3, 43.3, 53.5, 54.5),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
+"times": PackedFloat32Array(0, 41.3, 43.3, 53.5, 54.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 0,
-"values": [Vector2(228, -72), Vector2(266, 389), Vector2(266, 389), Vector2(620, 394)]
+"values": [Vector2(228, -72), Vector2(228, -72), Vector2(266, 389), Vector2(266, 389), Vector2(620, 394)]
 }
 tracks/27/type = "method"
 tracks/27/imported = false
@@ -1257,10 +1282,10 @@ tracks/30/path = NodePath("BigHpFairy3/Fairy/TopMiddle:position")
 tracks/30/interp = 1
 tracks/30/loop_wrap = true
 tracks/30/keys = {
-"times": PackedFloat32Array(47.3, 49.1, 53.5, 54.5),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
+"times": PackedFloat32Array(0, 47.3, 49.1, 53.5, 54.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 0,
-"values": [Vector2(613, 405), Vector2(265, 73), Vector2(265, 73), Vector2(254, -85)]
+"values": [Vector2(613, 405), Vector2(613, 405), Vector2(265, 73), Vector2(265, 73), Vector2(254, -85)]
 }
 tracks/31/type = "value"
 tracks/31/imported = false
@@ -1269,10 +1294,10 @@ tracks/31/path = NodePath("BigHpFairy3/Fairy/MiddleRight:position")
 tracks/31/interp = 1
 tracks/31/loop_wrap = true
 tracks/31/keys = {
-"times": PackedFloat32Array(44.3, 46.2, 53.5, 54.5),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
+"times": PackedFloat32Array(0, 44.3, 46.2, 53.5, 54.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 0,
-"values": [Vector2(-90, -13), Vector2(461, 254), Vector2(461, 254), Vector2(626, 242)]
+"values": [Vector2(-90, -13), Vector2(-90, -13), Vector2(461, 254), Vector2(461, 254), Vector2(626, 242)]
 }
 tracks/32/type = "value"
 tracks/32/imported = false
@@ -1281,10 +1306,10 @@ tracks/32/path = NodePath("Tracking2:process_mode")
 tracks/32/interp = 1
 tracks/32/loop_wrap = true
 tracks/32/keys = {
-"times": PackedFloat32Array(0, 17.2, 34.8),
-"transitions": PackedFloat32Array(1, 1, 1),
+"times": PackedFloat32Array(0, 16.2333, 17.3, 34.2333, 34.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 1,
-"values": [4, 0, 4]
+"values": [4, 4, 0, 0, 4]
 }
 tracks/33/type = "value"
 tracks/33/imported = false
@@ -1293,10 +1318,10 @@ tracks/33/path = NodePath("CystalDrop1:process_mode")
 tracks/33/interp = 1
 tracks/33/loop_wrap = true
 tracks/33/keys = {
-"times": PackedFloat32Array(0, 5.5, 23),
-"transitions": PackedFloat32Array(1, 1, 1),
+"times": PackedFloat32Array(0, 4.96667, 5.5, 23.1, 23.2667),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 1,
-"values": [4, 0, 4]
+"values": [4, 4, 0, 0, 4]
 }
 tracks/34/type = "value"
 tracks/34/imported = false
@@ -1317,7 +1342,7 @@ tracks/35/path = NodePath("ScoreGiveaway4:process_mode")
 tracks/35/interp = 1
 tracks/35/loop_wrap = true
 tracks/35/keys = {
-"times": PackedFloat32Array(0, 54, 76.5),
+"times": PackedFloat32Array(0, 54, 76.4),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
 "values": [4, 0, 4]
@@ -1341,10 +1366,10 @@ tracks/37/path = NodePath("ScoreGiveaway4:visible")
 tracks/37/interp = 1
 tracks/37/loop_wrap = true
 tracks/37/keys = {
-"times": PackedFloat32Array(0, 55, 76.7),
-"transitions": PackedFloat32Array(1, 1, 1),
+"times": PackedFloat32Array(0, 53.1333, 53.9, 75, 75.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 1,
-"values": [false, true, false]
+"values": [false, false, true, true, false]
 }
 tracks/38/type = "value"
 tracks/38/imported = false
@@ -1353,10 +1378,10 @@ tracks/38/path = NodePath("CystalDrop1:visible")
 tracks/38/interp = 1
 tracks/38/loop_wrap = true
 tracks/38/keys = {
-"times": PackedFloat32Array(0, 5.1, 22.7),
-"transitions": PackedFloat32Array(1, 1, 1),
+"times": PackedFloat32Array(0, 4.93333, 5.36667, 22.5333, 22.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 1,
-"values": [false, true, false]
+"values": [false, false, true, true, false]
 }
 tracks/39/type = "value"
 tracks/39/imported = false
@@ -1365,10 +1390,10 @@ tracks/39/path = NodePath("Tracking2:visible")
 tracks/39/interp = 1
 tracks/39/loop_wrap = true
 tracks/39/keys = {
-"times": PackedFloat32Array(0, 16.8, 35.2),
-"transitions": PackedFloat32Array(1, 1, 1),
+"times": PackedFloat32Array(0, 16.2333, 17.0667, 34.3667, 35.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 1,
-"values": [false, true, false]
+"values": [false, false, true, true, false]
 }
 tracks/40/type = "value"
 tracks/40/imported = false
@@ -1377,10 +1402,10 @@ tracks/40/path = NodePath("yukari:visible")
 tracks/40/interp = 1
 tracks/40/loop_wrap = true
 tracks/40/keys = {
-"times": PackedFloat32Array(0, 74.6667),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0, 72.5333, 74.0333),
+"transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
-"values": [false, true]
+"values": [false, false, true]
 }
 tracks/41/type = "value"
 tracks/41/imported = false
@@ -1389,10 +1414,10 @@ tracks/41/path = NodePath("SpellCircle:visible")
 tracks/41/interp = 1
 tracks/41/loop_wrap = true
 tracks/41/keys = {
-"times": PackedFloat32Array(0, 77.2333, 113.767, 114.319),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
+"times": PackedFloat32Array(0, 76.5227, 77.1333, 124.848, 125.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 0,
-"values": [false, true, true, false]
+"values": [false, false, true, true, false]
 }
 tracks/42/type = "value"
 tracks/42/imported = false
@@ -1401,10 +1426,10 @@ tracks/42/path = NodePath("SpellCircle:process_mode")
 tracks/42/interp = 1
 tracks/42/loop_wrap = true
 tracks/42/keys = {
-"times": PackedFloat32Array(0, 77.2667, 114.167, 114.319),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
+"times": PackedFloat32Array(0, 76.3569, 77.2667, 125.248, 125.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 0,
-"values": [4, 0, 0, 4]
+"values": [4, 4, 0, 0, 4]
 }
 tracks/43/type = "method"
 tracks/43/imported = false
@@ -1413,9 +1438,12 @@ tracks/43/path = NodePath("SpellCircle/SpellCircleTimer")
 tracks/43/interp = 1
 tracks/43/loop_wrap = true
 tracks/43/keys = {
-"times": PackedFloat32Array(106.867),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(77.0667, 106.867),
+"transitions": PackedFloat32Array(1, 1),
 "values": [{
+"args": [-1],
+"method": &"start"
+}, {
 "args": [],
 "method": &"stop"
 }]
@@ -1435,14 +1463,14 @@ tracks/44/keys = {
 tracks/45/type = "value"
 tracks/45/imported = false
 tracks/45/enabled = true
-tracks/45/path = NodePath("SpellCircle:process_mode")
+tracks/45/path = NodePath("SpellCircle/barrel:position")
 tracks/45/interp = 1
 tracks/45/loop_wrap = true
 tracks/45/keys = {
-"times": PackedFloat32Array(0, 77.2667, 114.167, 114.319),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 0,
-"values": [4, 0, 0, 4]
+"times": PackedFloat32Array(0, 99.6336, 99.8),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [Vector2(0, 0), Vector2(0, 0), Vector2(0, -288)]
 }
 tracks/46/type = "value"
 tracks/46/imported = false
@@ -1453,41 +1481,17 @@ tracks/46/loop_wrap = true
 tracks/46/keys = {
 "times": PackedFloat32Array(0, 99.6336, 99.8),
 "transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
+"update": 1,
 "values": [Vector2(0, 0), Vector2(0, 0), Vector2(0, -288)]
 }
-tracks/47/type = "value"
+tracks/47/type = "method"
 tracks/47/imported = false
 tracks/47/enabled = true
-tracks/47/path = NodePath("SpellCircle:localRotation")
+tracks/47/path = NodePath("yukari")
 tracks/47/interp = 1
 tracks/47/loop_wrap = true
 tracks/47/keys = {
-"times": PackedFloat32Array(0, 99.5667, 100.1),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [false, false, true]
-}
-tracks/48/type = "value"
-tracks/48/imported = false
-tracks/48/enabled = true
-tracks/48/path = NodePath("SpellCircle/barrel:position")
-tracks/48/interp = 1
-tracks/48/loop_wrap = true
-tracks/48/keys = {
-"times": PackedFloat32Array(0, 99.6336, 99.8),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector2(0, 0), Vector2(0, 0), Vector2(0, -288)]
-}
-tracks/49/type = "method"
-tracks/49/imported = false
-tracks/49/enabled = true
-tracks/49/path = NodePath("yukari")
-tracks/49/interp = 1
-tracks/49/loop_wrap = true
-tracks/49/keys = {
-"times": PackedFloat32Array(100, 112.487, 136.467, 148.067),
+"times": PackedFloat32Array(100, 112.487, 136.467, 151.067),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "values": [{
 "args": [],
@@ -1503,67 +1507,278 @@ tracks/49/keys = {
 "method": &"spawn_item"
 }]
 }
-tracks/50/type = "value"
-tracks/50/imported = false
-tracks/50/enabled = true
-tracks/50/path = NodePath("SpellButterfly:visible")
-tracks/50/interp = 1
-tracks/50/loop_wrap = true
-tracks/50/keys = {
-"times": PackedFloat32Array(0, 112.2, 112.354, 141.433, 141.633),
+tracks/48/type = "value"
+tracks/48/imported = false
+tracks/48/enabled = true
+tracks/48/path = NodePath("SpellButterfly:visible")
+tracks/48/interp = 1
+tracks/48/loop_wrap = true
+tracks/48/keys = {
+"times": PackedFloat32Array(0, 112.2, 112.354, 143.1, 143.3),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 1,
 "values": [false, false, true, true, false]
 }
-tracks/51/type = "method"
-tracks/51/imported = false
-tracks/51/enabled = true
-tracks/51/path = NodePath("SpellButterfly/SpellButterflyTimer")
-tracks/51/interp = 1
-tracks/51/loop_wrap = true
-tracks/51/keys = {
-"times": PackedFloat32Array(134.9),
-"transitions": PackedFloat32Array(1),
+tracks/49/type = "method"
+tracks/49/imported = false
+tracks/49/enabled = true
+tracks/49/path = NodePath("SpellButterfly/SpellButterflyTimer")
+tracks/49/interp = 1
+tracks/49/loop_wrap = true
+tracks/49/keys = {
+"times": PackedFloat32Array(112.3, 134.9),
+"transitions": PackedFloat32Array(1, 1),
 "values": [{
+"args": [-1],
+"method": &"start"
+}, {
 "args": [],
 "method": &"stop"
 }]
 }
-tracks/52/type = "value"
-tracks/52/imported = false
-tracks/52/enabled = true
-tracks/52/path = NodePath("SpellWaveParticle:process_mode")
-tracks/52/interp = 1
-tracks/52/loop_wrap = true
-tracks/52/keys = {
+tracks/50/type = "value"
+tracks/50/imported = false
+tracks/50/enabled = true
+tracks/50/path = NodePath("SpellWaveParticle:process_mode")
+tracks/50/interp = 1
+tracks/50/loop_wrap = true
+tracks/50/keys = {
 "times": PackedFloat32Array(0, 136.233, 136.7),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
 "values": [4, 4, 0]
 }
-tracks/53/type = "value"
-tracks/53/imported = false
-tracks/53/enabled = true
-tracks/53/path = NodePath("SpellWaveParticle:visible")
-tracks/53/interp = 1
-tracks/53/loop_wrap = true
-tracks/53/keys = {
+tracks/51/type = "value"
+tracks/51/imported = false
+tracks/51/enabled = true
+tracks/51/path = NodePath("SpellWaveParticle:visible")
+tracks/51/interp = 1
+tracks/51/loop_wrap = true
+tracks/51/keys = {
 "times": PackedFloat32Array(0, 136, 136.364),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
 "values": [false, false, true]
 }
-tracks/54/type = "value"
-tracks/54/imported = false
-tracks/54/enabled = true
-tracks/54/path = NodePath("SpellWaveParticle/TimerPrecise:process_mode")
-tracks/54/interp = 1
-tracks/54/loop_wrap = true
-tracks/54/keys = {
+tracks/52/type = "value"
+tracks/52/imported = false
+tracks/52/enabled = true
+tracks/52/path = NodePath("SpellWaveParticle/TimerPrecise:process_mode")
+tracks/52/interp = 1
+tracks/52/loop_wrap = true
+tracks/52/keys = {
 "times": PackedFloat32Array(136.563, 147.919),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [0, 4]
+}
+tracks/53/type = "value"
+tracks/53/imported = false
+tracks/53/enabled = true
+tracks/53/path = NodePath("yukari:position")
+tracks/53/interp = 1
+tracks/53/loop_wrap = true
+tracks/53/keys = {
+"times": PackedFloat32Array(0, 75, 76, 98.5, 99.6669, 111.533, 112.321, 135.6, 136.5, 154.312, 155),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(270, -300), Vector2(270, -300), Vector2(270, 300), Vector2(270, 300), Vector2(270, 128), Vector2(270, 128), Vector2(270, 371), Vector2(270, 371), Vector2(270, 428), Vector2(270, 428), Vector2(270, -300)]
+}
+tracks/54/type = "value"
+tracks/54/imported = false
+tracks/54/enabled = true
+tracks/54/path = NodePath("yukari:process_mode")
+tracks/54/interp = 1
+tracks/54/loop_wrap = true
+tracks/54/keys = {
+"times": PackedFloat32Array(0, 73.3006, 73.9),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [4, 4, 0]
+}
+tracks/55/type = "value"
+tracks/55/imported = false
+tracks/55/enabled = true
+tracks/55/path = NodePath("SpellButterfly:process_mode")
+tracks/55/interp = 1
+tracks/55/loop_wrap = true
+tracks/55/keys = {
+"times": PackedFloat32Array(0, 111.833, 112.421, 143.133, 143.49),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [4, 4, 0, 0, 4]
+}
+tracks/56/type = "method"
+tracks/56/imported = false
+tracks/56/enabled = true
+tracks/56/path = NodePath("Ball")
+tracks/56/interp = 1
+tracks/56/loop_wrap = true
+tracks/56/keys = {
+"times": PackedFloat32Array(79.5333, 80.0628, 82.5033, 85.3039, 85.8333, 88.3667, 91.3039, 91.8333, 94.5, 97.1372, 97.6667, 100.6, 103.23, 103.759, 106.2, 109.001, 109.53, 112.063, 115.001, 115.53, 118.197, 120.834, 121.363, 124.297, 126.8, 127.329, 129.77, 132.571, 133.1, 135.633),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"values": [{
+"args": [],
+"method": &"SpawnBullet"
+}, {
+"args": [],
+"method": &"SpawnBullet"
+}, {
+"args": [],
+"method": &"SpawnBullet"
+}, {
+"args": [],
+"method": &"SpawnBullet"
+}, {
+"args": [],
+"method": &"SpawnBullet"
+}, {
+"args": [],
+"method": &"SpawnBullet"
+}, {
+"args": [],
+"method": &"SpawnBullet"
+}, {
+"args": [],
+"method": &"SpawnBullet"
+}, {
+"args": [],
+"method": &"SpawnBullet"
+}, {
+"args": [],
+"method": &"SpawnBullet"
+}, {
+"args": [],
+"method": &"SpawnBullet"
+}, {
+"args": [],
+"method": &"SpawnBullet"
+}, {
+"args": [],
+"method": &"SpawnBullet"
+}, {
+"args": [],
+"method": &"SpawnBullet"
+}, {
+"args": [],
+"method": &"SpawnBullet"
+}, {
+"args": [],
+"method": &"SpawnBullet"
+}, {
+"args": [],
+"method": &"SpawnBullet"
+}, {
+"args": [],
+"method": &"SpawnBullet"
+}, {
+"args": [],
+"method": &"SpawnBullet"
+}, {
+"args": [],
+"method": &"SpawnBullet"
+}, {
+"args": [],
+"method": &"SpawnBullet"
+}, {
+"args": [],
+"method": &"SpawnBullet"
+}, {
+"args": [],
+"method": &"SpawnBullet"
+}, {
+"args": [],
+"method": &"SpawnBullet"
+}, {
+"args": [],
+"method": &"SpawnBullet"
+}, {
+"args": [],
+"method": &"SpawnBullet"
+}, {
+"args": [],
+"method": &"SpawnBullet"
+}, {
+"args": [],
+"method": &"SpawnBullet"
+}, {
+"args": [],
+"method": &"SpawnBullet"
+}, {
+"args": [],
+"method": &"SpawnBullet"
+}]
+}
+tracks/57/type = "method"
+tracks/57/imported = false
+tracks/57/enabled = true
+tracks/57/path = NodePath("yukari/TargetLocker")
+tracks/57/interp = 1
+tracks/57/loop_wrap = true
+tracks/57/keys = {
+"times": PackedFloat32Array(79.2333, 82.4, 85.0039, 88.2634, 91.0039, 94.3967, 96.8372, 100.497, 102.93, 106.097, 108.701, 111.96, 114.701, 118.093, 120.534, 124.193, 126.5, 129.667, 132.271, 135.53),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"values": [{
+"args": [],
+"method": &"transform_barrel"
+}, {
+"args": [],
+"method": &"transform_barrel"
+}, {
+"args": [],
+"method": &"transform_barrel"
+}, {
+"args": [],
+"method": &"transform_barrel"
+}, {
+"args": [],
+"method": &"transform_barrel"
+}, {
+"args": [],
+"method": &"transform_barrel"
+}, {
+"args": [],
+"method": &"transform_barrel"
+}, {
+"args": [],
+"method": &"transform_barrel"
+}, {
+"args": [],
+"method": &"transform_barrel"
+}, {
+"args": [],
+"method": &"transform_barrel"
+}, {
+"args": [],
+"method": &"transform_barrel"
+}, {
+"args": [],
+"method": &"transform_barrel"
+}, {
+"args": [],
+"method": &"transform_barrel"
+}, {
+"args": [],
+"method": &"transform_barrel"
+}, {
+"args": [],
+"method": &"transform_barrel"
+}, {
+"args": [],
+"method": &"transform_barrel"
+}, {
+"args": [],
+"method": &"transform_barrel"
+}, {
+"args": [],
+"method": &"transform_barrel"
+}, {
+"args": [],
+"method": &"transform_barrel"
+}, {
+"args": [],
+"method": &"transform_barrel"
+}]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_lj1a4"]
@@ -1635,7 +1850,6 @@ collisionMask = 5
 
 [node name="CystalTimer" type="Timer" parent="CystalDrop1"]
 wait_time = 0.1
-autostart = true
 
 [node name="CystalSpawner" type="Path2D" parent="CystalDrop1"]
 position = Vector2(4, -54)
@@ -1724,7 +1938,6 @@ collisionMask = 5
 
 [node name="TrackingTimer" type="Timer" parent="Tracking2"]
 wait_time = 0.2
-autostart = true
 
 [node name="TrackingSpawner" type="Path2D" parent="Tracking2"]
 curve = SubResource("Curve2D_va8k1")
@@ -1902,7 +2115,7 @@ texture = ExtResource("17_2fadj")
 
 [node name="barrel" parent="BigHpFairy3/Fairy/TopMiddle/visual" instance=ExtResource("20_mqptk")]
 
-[node name="Bullet-" type="Node2D" parent="BigHpFairy3"]
+[node name="BigFairyBullet" type="Node2D" parent="BigHpFairy3"]
 z_index = 100
 material = SubResource("ShaderMaterial_d3uy2")
 scale = Vector2(0.5, 0.5)
@@ -1928,67 +2141,51 @@ mirror = true
 
 [node name="Fairy" parent="ScoreGiveaway4/GiveawaySpawner" instance=ExtResource("22_mjcsd")]
 position = Vector2(253.864, -60.6458)
-time = 3.0
 
 [node name="Fairy2" parent="ScoreGiveaway4/GiveawaySpawner" instance=ExtResource("22_mjcsd")]
 position = Vector2(253.864, -60.6458)
-time = 3.0
 
 [node name="Fairy3" parent="ScoreGiveaway4/GiveawaySpawner" instance=ExtResource("22_mjcsd")]
 position = Vector2(253.864, -60.6458)
-time = 3.0
 
 [node name="Fairy4" parent="ScoreGiveaway4/GiveawaySpawner" instance=ExtResource("22_mjcsd")]
 position = Vector2(253.864, -60.6458)
-time = 3.0
 
 [node name="Fairy5" parent="ScoreGiveaway4/GiveawaySpawner" instance=ExtResource("22_mjcsd")]
 position = Vector2(253.864, -60.6458)
-time = 3.0
 
 [node name="Fairy6" parent="ScoreGiveaway4/GiveawaySpawner" instance=ExtResource("22_mjcsd")]
 position = Vector2(253.864, -60.6458)
-time = 3.0
 
 [node name="Fairy7" parent="ScoreGiveaway4/GiveawaySpawner" instance=ExtResource("22_mjcsd")]
 position = Vector2(253.864, -60.6458)
-time = 3.0
 
 [node name="Fairy8" parent="ScoreGiveaway4/GiveawaySpawner" instance=ExtResource("22_mjcsd")]
 position = Vector2(253.864, -60.6458)
-time = 3.0
 
 [node name="Fairy9" parent="ScoreGiveaway4/GiveawaySpawner" instance=ExtResource("22_mjcsd")]
 position = Vector2(253.864, -60.6458)
-time = 3.0
 
 [node name="Fairy10" parent="ScoreGiveaway4/GiveawaySpawner" instance=ExtResource("22_mjcsd")]
 position = Vector2(253.864, -60.6458)
-time = 3.0
 
 [node name="Fairy11" parent="ScoreGiveaway4/GiveawaySpawner" instance=ExtResource("22_mjcsd")]
 position = Vector2(253.864, -60.6458)
-time = 3.0
 
 [node name="Fairy12" parent="ScoreGiveaway4/GiveawaySpawner" instance=ExtResource("22_mjcsd")]
 position = Vector2(253.864, -60.6458)
-time = 3.0
 
 [node name="Fairy13" parent="ScoreGiveaway4/GiveawaySpawner" instance=ExtResource("22_mjcsd")]
 position = Vector2(253.864, -60.6458)
-time = 3.0
 
 [node name="Fairy14" parent="ScoreGiveaway4/GiveawaySpawner" instance=ExtResource("22_mjcsd")]
 position = Vector2(253.864, -60.6458)
-time = 3.0
 
 [node name="Fairy15" parent="ScoreGiveaway4/GiveawaySpawner" instance=ExtResource("22_mjcsd")]
 position = Vector2(253.864, -60.6458)
-time = 3.0
 
 [node name="Fairy16" parent="ScoreGiveaway4/GiveawaySpawner" instance=ExtResource("22_mjcsd")]
 position = Vector2(253.864, -60.6458)
-time = 3.0
 
 [node name="GiveawaySpawner2" type="Path2D" parent="ScoreGiveaway4"]
 position = Vector2(27, -13)
@@ -1996,53 +2193,69 @@ curve = SubResource("Curve2D_k6wgk")
 script = ExtResource("11_ym16e")
 mirror = true
 
-[node name="Fairy" parent="ScoreGiveaway4/GiveawaySpawner2" instance=ExtResource("23_i2700")]
+[node name="Ghost" parent="ScoreGiveaway4/GiveawaySpawner2" instance=ExtResource("23_i2700")]
 position = Vector2(88.6195, -61.0539)
+time = 3.0
 
-[node name="Fairy2" parent="ScoreGiveaway4/GiveawaySpawner2" instance=ExtResource("23_i2700")]
+[node name="Ghost2" parent="ScoreGiveaway4/GiveawaySpawner2" instance=ExtResource("23_i2700")]
 position = Vector2(88.6195, -61.0539)
+time = 3.0
 
-[node name="Fairy3" parent="ScoreGiveaway4/GiveawaySpawner2" instance=ExtResource("23_i2700")]
+[node name="Ghost3" parent="ScoreGiveaway4/GiveawaySpawner2" instance=ExtResource("23_i2700")]
 position = Vector2(88.6195, -61.0539)
+time = 3.0
 
-[node name="Fairy4" parent="ScoreGiveaway4/GiveawaySpawner2" instance=ExtResource("23_i2700")]
+[node name="Ghost4" parent="ScoreGiveaway4/GiveawaySpawner2" instance=ExtResource("23_i2700")]
 position = Vector2(88.6195, -61.0539)
+time = 3.0
 
-[node name="Fairy5" parent="ScoreGiveaway4/GiveawaySpawner2" instance=ExtResource("23_i2700")]
+[node name="Ghost5" parent="ScoreGiveaway4/GiveawaySpawner2" instance=ExtResource("23_i2700")]
 position = Vector2(88.6195, -61.0539)
+time = 3.0
 
-[node name="Fairy6" parent="ScoreGiveaway4/GiveawaySpawner2" instance=ExtResource("23_i2700")]
+[node name="Ghost6" parent="ScoreGiveaway4/GiveawaySpawner2" instance=ExtResource("23_i2700")]
 position = Vector2(88.6195, -61.0539)
+time = 3.0
 
-[node name="Fairy7" parent="ScoreGiveaway4/GiveawaySpawner2" instance=ExtResource("23_i2700")]
+[node name="Ghost7" parent="ScoreGiveaway4/GiveawaySpawner2" instance=ExtResource("23_i2700")]
 position = Vector2(88.6195, -61.0539)
+time = 3.0
 
-[node name="Fairy8" parent="ScoreGiveaway4/GiveawaySpawner2" instance=ExtResource("23_i2700")]
+[node name="Ghost8" parent="ScoreGiveaway4/GiveawaySpawner2" instance=ExtResource("23_i2700")]
 position = Vector2(88.6195, -61.0539)
+time = 3.0
 
-[node name="Fairy9" parent="ScoreGiveaway4/GiveawaySpawner2" instance=ExtResource("23_i2700")]
+[node name="Ghost9" parent="ScoreGiveaway4/GiveawaySpawner2" instance=ExtResource("23_i2700")]
 position = Vector2(88.6195, -61.0539)
+time = 3.0
 
-[node name="Fairy10" parent="ScoreGiveaway4/GiveawaySpawner2" instance=ExtResource("23_i2700")]
+[node name="Ghost10" parent="ScoreGiveaway4/GiveawaySpawner2" instance=ExtResource("23_i2700")]
 position = Vector2(88.6195, -61.0539)
+time = 3.0
 
-[node name="Fairy11" parent="ScoreGiveaway4/GiveawaySpawner2" instance=ExtResource("23_i2700")]
+[node name="Ghost11" parent="ScoreGiveaway4/GiveawaySpawner2" instance=ExtResource("23_i2700")]
 position = Vector2(88.6195, -61.0539)
+time = 3.0
 
-[node name="Fairy12" parent="ScoreGiveaway4/GiveawaySpawner2" instance=ExtResource("23_i2700")]
+[node name="Ghost12" parent="ScoreGiveaway4/GiveawaySpawner2" instance=ExtResource("23_i2700")]
 position = Vector2(88.6195, -61.0539)
+time = 3.0
 
-[node name="Fairy13" parent="ScoreGiveaway4/GiveawaySpawner2" instance=ExtResource("23_i2700")]
+[node name="Ghost13" parent="ScoreGiveaway4/GiveawaySpawner2" instance=ExtResource("23_i2700")]
 position = Vector2(88.6195, -61.0539)
+time = 3.0
 
-[node name="Fairy14" parent="ScoreGiveaway4/GiveawaySpawner2" instance=ExtResource("23_i2700")]
+[node name="Ghost14" parent="ScoreGiveaway4/GiveawaySpawner2" instance=ExtResource("23_i2700")]
 position = Vector2(88.6195, -61.0539)
+time = 3.0
 
-[node name="Fairy15" parent="ScoreGiveaway4/GiveawaySpawner2" instance=ExtResource("23_i2700")]
+[node name="Ghost15" parent="ScoreGiveaway4/GiveawaySpawner2" instance=ExtResource("23_i2700")]
 position = Vector2(88.6195, -61.0539)
+time = 3.0
 
-[node name="Fairy16" parent="ScoreGiveaway4/GiveawaySpawner2" instance=ExtResource("23_i2700")]
+[node name="Ghost16" parent="ScoreGiveaway4/GiveawaySpawner2" instance=ExtResource("23_i2700")]
 position = Vector2(88.6195, -61.0539)
+time = 3.0
 
 [node name="GiveawayTimer" type="Timer" parent="ScoreGiveaway4"]
 wait_time = 0.5
@@ -2053,6 +2266,12 @@ process_mode = 4
 visible = false
 position = Vector2(270, 300)
 bonus_threshold = 2727
+
+[node name="TargetLocker" type="Marker2D" parent="yukari" groups=["SpellCircleBall"]]
+position = Vector2(0, 145)
+rotation = 1.5708
+gizmo_extents = 25.9
+script = ExtResource("30_8noa5")
 
 [node name="SpellCircle" type="Node2D" parent="."]
 process_mode = 4
@@ -2165,7 +2384,6 @@ gizmo_extents = 20.0
 
 [node name="SpellCircleTimer" type="Timer" parent="SpellCircle"]
 wait_time = 0.1
-autostart = true
 
 [node name="SpellButterfly" type="Node2D" parent="."]
 process_mode = 4
@@ -2186,7 +2404,6 @@ collisionMask = 5
 
 [node name="SpellButterflyTimer" type="Timer" parent="SpellButterfly"]
 wait_time = 0.15
-autostart = true
 
 [node name="CircleBarrel2" type="Node2D" parent="SpellButterfly"]
 position = Vector2(270, 300)
@@ -2368,6 +2585,8 @@ collisionMask = 5
 
 [node name="CircleBarrel" type="Node2D" parent="SpellWaveParticle"]
 position = Vector2(270, 396)
+rotation = 0.820527
+scale = Vector2(2, 2)
 script = ExtResource("30_j1w3q")
 speed_final = -6.283
 ease_type = 1
@@ -2396,6 +2615,15 @@ gizmo_extents = 20.0
 process_mode = 4
 script = ExtResource("31_ssamr")
 wait_time = 0.03
+
+[node name="Ball" type="Node2D" parent="."]
+material = ExtResource("32_2t71u")
+script = ExtResource("9_yjnvc")
+texture = ExtResource("20_r16r1")
+maxBullet = 27
+barrelGroup = &"SpellCircleBall"
+hitBox = ExtResource("21_lvtat")
+collisionMask = 5
 
 [node name="BackBufferCopy" type="Node2D" parent="."]
 z_index = 2000

@@ -1,47 +1,25 @@
-[gd_scene load_steps=7 format=3 uid="uid://x6m45dr4ylyl"]
+[gd_scene load_steps=6 format=3 uid="uid://x6m45dr4ylyl"]
 
 [ext_resource type="Texture2D" uid="uid://dxsf3vpqsosf1" path="res://entity/resource/fire_particle.png" id="2"]
 [ext_resource type="Script" path="res://entity/enemy/phantom/CPUparticles.gd" id="2_qvk8y"]
-[ext_resource type="Script" path="res://entity/enemy/phantom/CPUparticlesOptional.gd" id="3_ytair"]
-
-[sub_resource type="CanvasItemMaterial" id="1"]
-blend_mode = 1
+[ext_resource type="Gradient" uid="uid://432bbqehslyp" path="res://entity/resource/fade-gradient.tres" id="3_8tsna"]
+[ext_resource type="Material" uid="uid://dox27ncd2r5o3" path="res://entity/resource/glow.tres" id="3_nakk0"]
 
 [sub_resource type="Curve" id="4"]
-_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.972222, 0.53527), 0.0, 0.0, 0, 0]
 point_count = 2
-
-[sub_resource type="Gradient" id="Gradient_eytyl"]
-offsets = PackedFloat32Array(0, 0.197802, 1)
-colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0)
 
 [node name="phantom" type="CPUParticles2D"]
 process_thread_group = 2
 process_thread_group_order = 0
 process_thread_messages = 0
-modulate = Color(0.392157, 1, 1, 1)
-material = SubResource("1")
-lifetime = 3.0
+material = ExtResource("3_nakk0")
 local_coords = true
 texture = ExtResource("2")
-emission_shape = 1
-emission_sphere_radius = 3.0
-gravity = Vector2(0, 0)
+gravity = Vector2(0, -172)
 angular_velocity_min = 311.53
 angular_velocity_max = 494.06
 scale_amount_curve = SubResource("4")
+color = Color(0.392157, 1, 1, 1)
+color_ramp = ExtResource("3_8tsna")
 script = ExtResource("2_qvk8y")
-
-[node name="trail" type="CPUParticles2D" parent="."]
-material = SubResource("1")
-draw_order = 1
-texture = ExtResource("2")
-emission_shape = 1
-emission_sphere_radius = 8.0
-gravity = Vector2(0, -150)
-angular_velocity_min = 476.62
-angular_velocity_max = 618.59
-scale_amount_min = 0.5
-scale_amount_max = 0.5
-color_ramp = SubResource("Gradient_eytyl")
-script = ExtResource("3_ytair")

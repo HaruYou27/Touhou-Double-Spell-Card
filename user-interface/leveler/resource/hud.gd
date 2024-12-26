@@ -54,7 +54,7 @@ func player_died() -> void:
 	death_count += 1
 
 @onready var pause_menu = $"../PauseMenu"
-func save_score() -> void:
+func save_score(_nm) -> void:
 	var score := Score.new()
 	score.graze = graze
 	score.item = item

@@ -11,7 +11,8 @@ extends VBoxContainer
 @onready var graze2: FormatLabel = $graze2
 @onready var retry2: FormatLabel = $retry2
 @onready var score2: FormatLabel = $score2
-func diplay_score(score:Score) -> void:
+func display_score(score:Score) -> void:
+	show()
 	player1.update_label(score.username)
 	item1.update_label(score.item)
 	graze1.update_label(score.graze)

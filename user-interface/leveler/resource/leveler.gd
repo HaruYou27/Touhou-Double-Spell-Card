@@ -18,10 +18,12 @@ func start() -> void:
 		#var timer := get_tree().create_timer(2., true, true, true)
 		#timer.timeout.connect(animator.play.bind("game"))
 		animator.play("game")
+	#if not Global.player2:
+	#	animator.seek(3.0)
 	
 @rpc("reliable", "authority", "call_remote")
 func _sync_start(host_time:int) -> void:
-	animator.play.call_deferred("game")
+	animator.play("game")
 	#var offset := (Global.get_host_time() - host_time) / 1000000.
 	#var timer := get_tree().create_timer(2. - offset, true, true, true)
 	#timer.timeout.connect(animator.play.bind("game"))
