@@ -62,7 +62,7 @@ func bomb() -> bool:
 	can_bomb = false
 	Global.hud.update_bomb(bomb_count)
 	tween_bomb = create_tween()
-	tween_bomb.tween_property(sprite, "modulate", Color(1.0,1.0,1.0,0.5), 1.0)
+	tween_bomb.tween_property(sprite, "self_modulate", Color(1.0,1.0,1.0,0.5), 1.0)
 	if is_multiplayer_authority():
 		hitbox.disabled = true
 	

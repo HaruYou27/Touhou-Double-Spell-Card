@@ -1,4 +1,4 @@
-[gd_scene load_steps=54 format=3 uid="uid://820qlg5cbdi"]
+[gd_scene load_steps=49 format=3 uid="uid://820qlg5cbdi"]
 
 [ext_resource type="Shader" path="res://level/misty-lake-hard/resource/water.gdshader" id="1_dpvkb"]
 [ext_resource type="Texture2D" uid="uid://coq45et7pnhnx" path="res://level/misty-lake-hard/resource/water-gradient.tres" id="2_03a50"]
@@ -7,7 +7,6 @@
 [ext_resource type="Shader" path="res://level/misty-lake-hard/resource/sky-reflection.gdshader" id="5_thpg0"]
 [ext_resource type="Texture2D" uid="uid://x1e8a67qetah" path="res://level/misty-lake-hard/resource/FullMoon.png" id="6_aaqhm"]
 [ext_resource type="PackedScene" uid="uid://6wuhmc2p8byc" path="res://level/misty-lake-hard/fog.tscn" id="7_pvwld"]
-[ext_resource type="Shader" path="res://entity/bullet/resource/Bullet.gdshader" id="8_kgagg"]
 [ext_resource type="Script" path="res://entity/bullet/BulletSharp.cs" id="9_t5cur"]
 [ext_resource type="Texture2D" uid="uid://ci8njay8ma26f" path="res://entity/bullet/resource/cystal.png" id="10_8mvcl"]
 [ext_resource type="Shape2D" uid="uid://borrvdxc7pflf" path="res://entity/bullet/resource/cystal-hitbox.tres" id="11_1md7t"]
@@ -19,7 +18,6 @@
 [ext_resource type="PackedScene" uid="uid://dtlscerig62nv" path="res://entity/enemy/base/enemy.tscn" id="17_uw3bc"]
 [ext_resource type="Texture2D" uid="uid://cqt1oe248vvwn" path="res://entity/enemy/fairy/Fairy.2.png" id="18_aiv38"]
 [ext_resource type="PackedScene" uid="uid://baj687nr1ovqf" path="res://level/misty-lake/barrel-big-fairy.tscn" id="19_8gd87"]
-[ext_resource type="Shader" path="res://entity/bullet/resource/BulletGlow.gdshader" id="20_bf5r5"]
 [ext_resource type="Texture2D" uid="uid://dilcwhuq6brnv" path="res://entity/bullet/resource/ball.png" id="21_2bccy"]
 [ext_resource type="Shape2D" uid="uid://bflxt0dqc7na4" path="res://entity/bullet/resource/ball-hitbox.tres" id="22_bputd"]
 [ext_resource type="PackedScene" uid="uid://bc4tw8t6g734m" path="res://level/misty-lake-hard/enemy/fairy-unarmed.tscn" id="23_egpvx"]
@@ -54,17 +52,11 @@ shader_parameter/wave_distortion = 0.09
 shader_parameter/wave_multiplyer = -7.0
 shader_parameter/noise_texture = ExtResource("3_hbemg")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_w081n"]
-shader = ExtResource("8_kgagg")
-
 [sub_resource type="Curve2D" id="Curve2D_rvgc8"]
 _data = {
 "points": PackedVector2Array(0, 0, 0, 0, -50, 146, -77.7818, -22.6274, 77.7818, 22.6274, 56, 279, -43.8406, 49.4975, 43.8406, -49.4975, 171, 125, 203.647, 36.7696, -203.647, -36.7696, 254, 361, -83.4386, 16.9706, 83.4386, -16.9706, 424, 114, -63.6396, -62.2254, 63.6396, 62.2254, 453, 303, 0, 0, 0, 0, 621, 108)
 }
 point_count = 7
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_2rgkm"]
-shader = ExtResource("8_kgagg")
 
 [sub_resource type="Curve2D" id="Curve2D_va8k1"]
 _data = {
@@ -74,9 +66,6 @@ point_count = 4
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_1j2c8"]
 radius = 31.0161
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_d3uy2"]
-shader = ExtResource("20_bf5r5")
 
 [sub_resource type="Curve2D" id="Curve2D_c4b5w"]
 _data = {
@@ -1811,7 +1800,7 @@ position = Vector2(0, -43)
 [node name="CystalBullet" type="Node2D" parent="CystalDrop1"]
 top_level = true
 z_index = 100
-material = SubResource("ShaderMaterial_w081n")
+material = ExtResource("27_vmhcq")
 script = ExtResource("9_t5cur")
 texture = ExtResource("10_8mvcl")
 barrelGroup = &"Enemy Barrel 1"
@@ -1897,7 +1886,7 @@ visible = false
 
 [node name="TrackingBullet" type="Node2D" parent="Tracking2"]
 z_index = 100
-material = SubResource("ShaderMaterial_2rgkm")
+material = ExtResource("27_vmhcq")
 scale = Vector2(0.5, 0.5)
 script = ExtResource("9_t5cur")
 texture = ExtResource("14_uj8rn")
@@ -2087,7 +2076,7 @@ texture = ExtResource("18_aiv38")
 
 [node name="BigFairyBullet" type="Node2D" parent="BigHpFairy3"]
 z_index = 100
-material = SubResource("ShaderMaterial_d3uy2")
+material = ExtResource("27_vmhcq")
 scale = Vector2(0.5, 0.5)
 script = ExtResource("9_t5cur")
 texture = ExtResource("21_2bccy")

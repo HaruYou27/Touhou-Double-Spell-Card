@@ -1,17 +1,12 @@
 extends ColorRect
 
-@onready var bgm_volume := AudioServer.get_bus_volume_db(2)
-@onready var tree := get_tree()
-
 func fade2black(reverse:=false) -> Tween:
-	tree.paused = false
 	show()
 	var tween := create_tween()
 	if reverse:
 		color = Color.BLACK
 		tween.tween_property(self, 'color', Color(Color.BLACK, 0.), .5)
 	else:
-		bgm_volume = AudioServer.get_bus_volume_db(2)
 		color = Color(Color.BLACK, 0.0)
 		tween.tween_property(self, 'color', Color.BLACK, 1.)
 		

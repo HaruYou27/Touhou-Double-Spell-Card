@@ -74,6 +74,16 @@ debug_color = Color(0.713726, 0.105882, 0.701961, 0.419608)
 wait_time = 0.15
 autostart = true
 
+[node name="FantasySeals" type="Node2D" parent="."]
+
+[node name="Seal" parent="FantasySeals" instance=ExtResource("10_730ir")]
+
+[node name="Seal2" parent="FantasySeals" instance=ExtResource("10_730ir")]
+
+[node name="Seal3" parent="FantasySeals" instance=ExtResource("10_730ir")]
+
+[node name="Seal4" parent="FantasySeals" instance=ExtResource("10_730ir")]
+
 [node name="bullet" type="Node2D" parent="."]
 top_level = true
 z_index = 1
@@ -90,16 +100,6 @@ grazable = false
 collideAreas = true
 collideBodies = false
 collisionMask = 3
-
-[node name="FantasySeals" type="Node2D" parent="."]
-
-[node name="Seal" parent="FantasySeals" instance=ExtResource("10_730ir")]
-
-[node name="Seal2" parent="FantasySeals" instance=ExtResource("10_730ir")]
-
-[node name="Seal3" parent="FantasySeals" instance=ExtResource("10_730ir")]
-
-[node name="Seal4" parent="FantasySeals" instance=ExtResource("10_730ir")]
 
 [connection signal="add_bomb" from="Player/graze" to="Player" method="_on_graze_add_bomb"]
 [connection signal="timeout" from="Player/Timer" to="bullet" method="SpawnBullet"]

@@ -25,7 +25,7 @@ float SCurve (float value)
 {
 	lowp float is_bigger = step(0.5, value);
 	value -= is_bigger;
-    return 
+    return
 }
 
 void fragment()

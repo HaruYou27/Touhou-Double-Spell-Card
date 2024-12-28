@@ -3,12 +3,15 @@ extends Control
 var scene: Control
 ## Thread id. Collect with WorkerThreadPoll.
 var task := 0
+@onready var viewport := get_viewport()
+@onready var background: Sprite2D = $background
 ## Non-blocking level loader.
 func load_scene(path:String, player:=false) -> void:
+	background.texture = ImageTexture.create_from_image(viewport.get_texture().get_image())
 	ScreenEffect.hide()
+	scene.queue_free()
 	task = WorkerThreadPool.add_task(instance_scene.bind(path, player))
 	
-	scene.queue_free()
 	progess_bar.value = 0.0
 	show()
 

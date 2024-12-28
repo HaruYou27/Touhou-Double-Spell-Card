@@ -28,9 +28,9 @@ float SCurve (float value)
 	float is_bigger = step(0.5, value);
 	value -= is_bigger;
 	#if !defined(VULKAN)
-		value = value * value * value * value * value * 16.0 + is_bigger; 
+		value = value * value * value * value * value * 16.0 + is_bigger;
 	#endif
-	
+
 	#ifdef VULKAN
 		fma(value * value * value * value * value, 16.0, is_bigger);
 	#endif
@@ -41,17 +41,17 @@ void fragment()
 {
 	//Direction and coord.
 #ifdef HIGH_PRECISION
-	lowp 
+	lowp
 #endif
 	vec3 dir = vec3(UV.xy*zoom*0.001,1.);
 #ifdef HIGH_PRECISION
-	lowp 
+	lowp
 #endif
 	vec3 from = from_const;
 
 	//volumetric rendering
 #ifdef HIGH_PRECISION
-	lowp 
+	lowp
 #endif
 	float s = 0.1, fade=1.;
 #ifdef HIGH_PRECISION
@@ -67,7 +67,7 @@ void fragment()
 	#if !defined(VULKAN)
 		p = from+s*dir*0.5;
 	#endif
-	
+
 		p = abs(vec3(tile)-mod(p,vec3(tile*2.))); // tiling fold
 		lowp float pa,a=pa=0.;
 

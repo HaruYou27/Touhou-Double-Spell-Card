@@ -21,6 +21,11 @@ size_flags_horizontal = 4
 theme = ExtResource("1_2tfm8")
 script = ExtResource("1_gveu2")
 
+[node name="background" type="Sprite2D" parent="."]
+self_modulate = Color(0.5, 0.5, 0.5, 1)
+position = Vector2(-50, 0)
+centered = false
+
 [node name="Yin-yang-orb" type="Sprite2D" parent="."]
 material = ExtResource("2_3ks0h")
 position = Vector2(220, 615)
@@ -41,9 +46,9 @@ grow_vertical = 2
 custom_minimum_size = Vector2(400, 0)
 layout_mode = 2
 step = 0.0
-rounded = true
 
 [node name="Label" type="Label" parent="VBoxContainer"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 50
 text = "Loading..."
 horizontal_alignment = 1

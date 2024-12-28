@@ -5,7 +5,7 @@
 [node name="ScreenEffect" type="ColorRect"]
 process_mode = 3
 top_level = true
-z_index = 4096
+z_index = 4095
 custom_minimum_size = Vector2(540, 960)
 anchors_preset = 15
 anchor_right = 1.0

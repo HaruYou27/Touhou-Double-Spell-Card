@@ -1,4 +1,4 @@
-[gd_scene load_steps=60 format=3 uid="uid://bxvy3qa8esorq"]
+[gd_scene load_steps=49 format=3 uid="uid://bxvy3qa8esorq"]
 
 [ext_resource type="Shader" path="res://level/misty-lake-hard/resource/water.gdshader" id="1_kv0nh"]
 [ext_resource type="Texture2D" uid="uid://coq45et7pnhnx" path="res://level/misty-lake-hard/resource/water-gradient.tres" id="2_yt2xx"]
@@ -7,7 +7,6 @@
 [ext_resource type="Texture2D" uid="uid://bgh4r80tk5o7v" path="res://level/misty-lake-hard/resource/water-noise.tres" id="3_l3dc8"]
 [ext_resource type="PackedScene" uid="uid://6wuhmc2p8byc" path="res://level/misty-lake-hard/fog.tscn" id="6_dlknp"]
 [ext_resource type="Texture2D" uid="uid://x1e8a67qetah" path="res://level/misty-lake-hard/resource/FullMoon.png" id="6_ja1w8"]
-[ext_resource type="Shader" path="res://entity/bullet/resource/Bullet.gdshader" id="8_nrdry"]
 [ext_resource type="Texture2D" uid="uid://ci8njay8ma26f" path="res://entity/bullet/resource/cystal.png" id="9_5uwhi"]
 [ext_resource type="Script" path="res://entity/bullet/BulletSharp.cs" id="9_yjnvc"]
 [ext_resource type="Shape2D" uid="uid://borrvdxc7pflf" path="res://entity/bullet/resource/cystal-hitbox.tres" id="10_xyp3x"]
@@ -19,7 +18,6 @@
 [ext_resource type="PackedScene" uid="uid://dtlscerig62nv" path="res://entity/enemy/base/enemy.tscn" id="16_bi0tp"]
 [ext_resource type="Texture2D" uid="uid://cqt1oe248vvwn" path="res://entity/enemy/fairy/Fairy.2.png" id="17_2fadj"]
 [ext_resource type="PackedScene" uid="uid://c7plqidxhf5bq" path="res://level/misty-lake-hard/barrel-big-fairy.tscn" id="20_mqptk"]
-[ext_resource type="Shader" path="res://entity/bullet/resource/BulletGlow.gdshader" id="20_nk1se"]
 [ext_resource type="Texture2D" uid="uid://dilcwhuq6brnv" path="res://entity/bullet/resource/ball.png" id="20_r16r1"]
 [ext_resource type="Shape2D" uid="uid://bflxt0dqc7na4" path="res://entity/bullet/resource/ball-hitbox.tres" id="21_lvtat"]
 [ext_resource type="PackedScene" uid="uid://bc4tw8t6g734m" path="res://level/misty-lake-hard/enemy/fairy-unarmed.tscn" id="22_mjcsd"]
@@ -54,36 +52,11 @@ shader_parameter/wave_distortion = 0.09
 shader_parameter/wave_multiplyer = -7.0
 shader_parameter/noise_texture = ExtResource("3_l3dc8")
 
-[sub_resource type="Gradient" id="Gradient_6yoxw"]
-interpolation_mode = 2
-interpolation_color_space = 2
-colors = PackedColorArray(0.69, 0.0552, 0.65826, 1, 1, 1, 0.06, 1)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_kammw"]
-gradient = SubResource("Gradient_6yoxw")
-width = 32
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_w081n"]
-shader = ExtResource("8_nrdry")
-shader_parameter/color_map = SubResource("GradientTexture1D_kammw")
-
 [sub_resource type="Curve2D" id="Curve2D_rvgc8"]
 _data = {
 "points": PackedVector2Array(0, 0, 0, 0, -50, 146, -77.7818, -22.6274, 77.7818, 22.6274, 56, 279, -43.8406, 49.4975, 43.8406, -49.4975, 171, 125, 203.647, 36.7696, -203.647, -36.7696, 254, 361, -83.4386, 16.9706, 83.4386, -16.9706, 424, 114, -63.6396, -62.2254, 63.6396, 62.2254, 453, 303, 0, 0, 0, 0, 621, 108)
 }
 point_count = 7
-
-[sub_resource type="Gradient" id="Gradient_c57lt"]
-interpolation_color_space = 2
-colors = PackedColorArray(0.62, 0.0744, 0.365387, 1, 0.619608, 0.643137, 0.913725, 1)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_mflqg"]
-gradient = SubResource("Gradient_c57lt")
-width = 8
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_2rgkm"]
-shader = ExtResource("8_nrdry")
-shader_parameter/color_map = SubResource("GradientTexture1D_mflqg")
 
 [sub_resource type="Curve2D" id="Curve2D_va8k1"]
 _data = {
@@ -93,19 +66,6 @@ point_count = 4
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_1j2c8"]
 radius = 31.0161
-
-[sub_resource type="Gradient" id="Gradient_nhfr7"]
-interpolation_mode = 2
-interpolation_color_space = 2
-colors = PackedColorArray(0.7052, 0.1312, 0.82, 1, 0.2047, 0.89, 0.89, 1)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_jpep5"]
-gradient = SubResource("Gradient_nhfr7")
-width = 32
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_d3uy2"]
-shader = ExtResource("20_nk1se")
-shader_parameter/color_map = SubResource("GradientTexture1D_jpep5")
 
 [sub_resource type="Curve2D" id="Curve2D_c4b5w"]
 _data = {
@@ -1840,7 +1800,7 @@ position = Vector2(0, -43)
 [node name="CystalBullet" type="Node2D" parent="CystalDrop1"]
 top_level = true
 z_index = 100
-material = SubResource("ShaderMaterial_w081n")
+material = ExtResource("32_2t71u")
 script = ExtResource("9_yjnvc")
 texture = ExtResource("9_5uwhi")
 barrelGroup = &"Enemy Barrel 1"
@@ -1927,7 +1887,7 @@ visible = false
 
 [node name="TrackingBullet" type="Node2D" parent="Tracking2"]
 z_index = 100
-material = SubResource("ShaderMaterial_2rgkm")
+material = ExtResource("32_2t71u")
 scale = Vector2(0.5, 0.5)
 script = ExtResource("9_yjnvc")
 texture = ExtResource("13_o07g8")
@@ -2117,7 +2077,7 @@ texture = ExtResource("17_2fadj")
 
 [node name="BigFairyBullet" type="Node2D" parent="BigHpFairy3"]
 z_index = 100
-material = SubResource("ShaderMaterial_d3uy2")
+material = ExtResource("32_2t71u")
 scale = Vector2(0.5, 0.5)
 script = ExtResource("9_yjnvc")
 texture = ExtResource("20_r16r1")
