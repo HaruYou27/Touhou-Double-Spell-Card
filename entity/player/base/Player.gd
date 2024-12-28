@@ -53,7 +53,6 @@ func move(event:InputEvent) -> void:
 	if is_multiplayer_authority():
 		rpc('_update_position', global_position)
 
-var tween_bomb: Tween
 func bomb() -> bool:
 	if not (bomb_count and can_bomb):
 		return true
@@ -61,8 +60,7 @@ func bomb() -> bool:
 	bomb_count -= 1
 	can_bomb = false
 	Global.hud.update_bomb(bomb_count)
-	tween_bomb = create_tween()
-	tween_bomb.tween_property(sprite, "self_modulate", Color(1.0,1.0,1.0,0.5), 1.0)
+	self_modulate = Color(1.0,1.0,1.0,0.5)
 	if is_multiplayer_authority():
 		hitbox.disabled = true
 	
@@ -88,8 +86,7 @@ func bomb_finished() -> void:
 	if is_multiplayer_authority():
 		hitbox.set_deferred('disabled', false)
 	can_bomb = true
-	tween_bomb = create_tween()
-	tween_bomb.tween_property(sprite, "modulate", Color.WHITE, 1.0)
+	self_modulate = Color.WHITE
 
 @onready var death_sfx: AudioStreamPlayer = $explosion/DeathSFX
 @onready var death_fx: GPUParticles2D = $explosion

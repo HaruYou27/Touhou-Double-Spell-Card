@@ -24,7 +24,7 @@ func bomb() -> bool:
 	if super():
 		return true
 		
-	tween_bomb = create_tween()
+	var tween_bomb = create_tween()
 	tween_bomb.tween_callback(spawn_bomb.bind(0))
 	tween_bomb.tween_interval(0.5)
 	tween_bomb.tween_callback(spawn_bomb.bind(1))
