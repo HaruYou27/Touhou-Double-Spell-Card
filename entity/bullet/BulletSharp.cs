@@ -214,6 +214,7 @@ public partial class BulletSharp : Node2D
 	{
 		if (indexTail == 0)
 		{
+			RenderingServer.CanvasItemClear(canvasItem);
 			return;
 		}
 

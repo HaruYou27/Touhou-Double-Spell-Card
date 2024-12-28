@@ -1,6 +1,3 @@
-shader_type canvas_item;
-#pragma disable_preprocessor
-
 uniform int iterations = 10;
 uniform float formuparam = 1.00;
 
@@ -18,35 +15,65 @@ uniform float saturation = 0.750;
 varying vec3 from_const;
 void vertex()
 {
+#if !defined(VULKAN)
 	from_const = vec3(1.0,0.5-TIME*speed,0.5);
+#endif
+#ifdef VULKAN
+	from_const = vec3(1.0, fma(TIME, -speed, 0.5), 0.5);
+#endif
 }
 
 float SCurve (float value)
 {
 	float is_bigger = step(0.5, value);
 	value -= is_bigger;
-    return value * value * value * value * value * 16.0 + is_bigger;
+	#if !defined(VULKAN)
+		value = value * value * value * value * value * 16.0 + is_bigger; 
+	#endif
+	
+	#ifdef VULKAN
+		fma(value * value * value * value * value, 16.0, is_bigger);
+	#endif
+    return value;
 }
 
 void fragment()
 {
 	//Direction and coord.
-	lowp vec3 dir = vec3(UV.xy*zoom*0.001,1.);
-	lowp vec3 from = from_const;
+#ifdef HIGH_PRECISION
+	lowp 
+#endif
+	vec3 dir = vec3(UV.xy*zoom*0.001,1.);
+#ifdef HIGH_PRECISION
+	lowp 
+#endif
+	vec3 from = from_const;
 
 	//volumetric rendering
-	lowp float s = 0.1, fade=1.;
-	lowp vec3 v=vec3(0.);
+#ifdef HIGH_PRECISION
+	lowp 
+#endif
+	float s = 0.1, fade=1.;
+#ifdef HIGH_PRECISION
+	lowp
+#endif
+	vec3 v=vec3(0.);
 	for (int r=0; r<volsteps; r++)
 	{
-		lowp vec3 p = fma(dir * 0.5, vec3(s), from);
+	#ifdef HIGH_PRECISION
+		lowp
+	#endif
+		vec3 p = vec3(0.0);
+	#if !defined(VULKAN)
+		p = from+s*dir*0.5;
+	#endif
+	
 		p = abs(vec3(tile)-mod(p,vec3(tile*2.))); // tiling fold
 		lowp float pa,a=pa=0.;
 
 		for (int i=0; i<iterations; i++)
 		{
-			// Can convert to fma ??
-			p = abs(p) / dot(p,p) - formuparam; // the magic formula
+			p=abs(p)/dot(p,p)-formuparam; // the magic formula
 			a+=abs(length(p)-pa); // absolute sum of average change
 			pa=length(p);
 		}
@@ -71,5 +98,4 @@ void fragment()
     COLOR.r = mix(L.r, SCurve(C.r), 0.7);
     COLOR.g = mix(L.g, SCurve(C.g), 1.0);
     COLOR.b = mix(L.b, SCurve(C.b), 0.2);
-
 }

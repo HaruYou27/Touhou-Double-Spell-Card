@@ -13,7 +13,7 @@ extends VBoxContainer
 @onready var score2: FormatLabel = $score2
 func display_score(score:Score) -> void:
 	show()
-	player1.update_label(score.username)
+	player1.update_label(Global.user_data.user_name)
 	item1.update_label(score.item)
 	graze1.update_label(score.graze)
 	retry1.update_label(score.retry_count)

@@ -15,19 +15,29 @@ void vertex()
 	float time = TIME * time_scale;
 #endif
 
-#ifdef TIME_OFFSET
+#if defined(TIME_OFFSET) && defined(TIME_FLOW)
 	// Offset time by r channel.
 	time *= sign(COLOR.r - .5);
-	time += 100.0 * COLOR.r;
 #endif
+#if defined(VULKAN) && defined(TIME_OFFSET) && defined(TIME_FLOW)
+	time = fma(100.0, COLOR.r, time);
+#endif
+#if defined(TIME_FLOW) && !defined(VULKAN) && defined(TIME_OFFSET)
+	time += 100.0 * COLOR.r;
+#endif 
 
 	// Offset vertex to the center of the image.
+#ifdef VULKAN
+	VERTEX = fma(vec2(-0.5), 1 / TEXTURE_PIXEL_SIZE, VERTEX);
+#endif
+#if !defined(VULKAN)
 	VERTEX -= 0.5 / TEXTURE_PIXEL_SIZE;
+#endif
 	float theta = COLOR.r;
 	VERTEX *= mat2(vec2(cos(theta),-sin(theta)),
                    vec2(sin(theta),cos(theta)));
 
-#ifdef COLOR_TIME
+#if defined(COLOR_TIME) && defined(TIME_FLOW)
 	//shift color through time across color map & mix it with white color.
 	color = texture(color_map, vec2(abs(sin(time)))).rgb;
 #endif
@@ -39,7 +49,7 @@ void vertex()
 // Block color modulate pass through fragment.
 	COLOR = vec4(1.0);
 
-#ifdef BLINKING
+#if defined(BLINKING) && defined(TIME_FLOW)
 	// Blinking effect.
 	COLOR.a = abs(sin(time));
 #endif

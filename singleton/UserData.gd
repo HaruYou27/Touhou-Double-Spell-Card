@@ -17,6 +17,7 @@ enum GRAPHIC_LEVEL
 	LOW,
 	MEDIUM,
 	HIGH,
+	ULTRA,
 }
 @export var graphic_level := GRAPHIC_LEVEL.HIGH
 @export var screen_shake_intensity := 2.0

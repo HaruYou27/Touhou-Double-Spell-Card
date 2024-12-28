@@ -18,14 +18,14 @@ uniform float saturation = 0.750;
 varying vec3 from_const;
 void vertex()
 {
-	from_const = vec3(1.0,0.5-TIME*speed,0.5);
+	from_const = vec3(1.0, fma(TIME, -speed, 0.5), 0.5);
 }
 
 float SCurve (float value)
 {
-	float is_bigger = step(0.5, value);
+	lowp float is_bigger = step(0.5, value);
 	value -= is_bigger;
-    return value * value * value * value * value * 16.0 + is_bigger;
+    return 
 }
 
 void fragment()
@@ -39,13 +39,14 @@ void fragment()
 	lowp vec3 v=vec3(0.);
 	for (int r=0; r<volsteps; r++)
 	{
-		lowp vec3 p=from+s*dir*0.5;
-		p = abs(vec3(tile)-mod(p,vec3(tile*2.))); // tiling fold
+		lowp vec3 p = fma(dir * 0.5, vec3(s), from);
+		p = abs(vec3(tile) - mod(p,vec3(tile*2.))); // tiling fold
 		lowp float pa,a=pa=0.;
 
 		for (int i=0; i<iterations; i++)
 		{
-			p=abs(p)/dot(p,p)-formuparam; // the magic formula
+			// Can convert to fma ??
+			p = fma(abs(p), 1 / dot(p,p), - formuparam); // the magic formula
 			a+=abs(length(p)-pa); // absolute sum of average change
 			pa=length(p);
 		}
