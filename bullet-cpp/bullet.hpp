@@ -13,18 +13,22 @@ namespace godot
         private:
             StringName barrel_group;
             bool local_rotation;
-            Texture2D texture;
+            Ref<Texture2D> texture;
             float speed;
             TypedArray<Node2D> barrels;
-            Shape2D hitbox;
-        protected:
+            Ref<Shape2D> hitbox;
+            bool grazable;
+            bool collide_areas;
+            bool collide_bodies;
             
+        protected:
+            static void _bind_methods();
         public:
             Bullet();
             ~Bullet();
 
-            void set_texture(const Texture2D tex);
-            Texture2D get_texture() const;
+            void set_texture(const Ref<Texture2D> tex);
+            Ref<Texture2D> get_texture() const;
 
             void set_barrel_group(const StringName group);
             StringName get_barrel_group() const;
@@ -35,7 +39,11 @@ namespace godot
             void set_speed(const float value);
             float get_speed() const;
 
-            void set_hitbox(const Shape2D hitbox);
+            void set_hitbox(const Ref<Shape2D> hitbox);
+            Ref<Shape2D> get_hitbox() const;
+
+            void set_grazable(const bool value);
+            bool get_grazable() const;
     };
     
 }
