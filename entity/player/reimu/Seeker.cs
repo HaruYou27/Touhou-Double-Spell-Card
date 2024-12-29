@@ -14,8 +14,6 @@ public partial class Seeker : BulletSharp
 		seekQuery.CollideWithBodies = collideBodies;
 		seekQuery.CollisionMask = seekMask;
 		
-		System.Array.Resize(ref actions, 4);
-		actions[3] = SeekTarget;
 		base._Ready();
 	}
 	protected override bool Collide(Bullet bullet, Dictionary result)
@@ -29,33 +27,18 @@ public partial class Seeker : BulletSharp
 
 		return false;
 	}
-	private void SeekTarget()
-	{
-		int indexStop;
-		int index = 0;
+    protected override Dictionary CollisionCheck(Bullet bullet)
+    {
+		seekQuery.Transform = bullet.transform;
+		Dictionary result = space.GetRestInfo(seekQuery);
+		if (result.Count == 0)
+		{
+			return base.CollisionCheck(bullet);
+		}
+		Vector2 target = (Vector2) result["point"];
+		bullet.velocity = (target - bullet.transform.Origin).Normalized() * speed;
+		bullet.transform = new Transform2D(bullet.velocity.Angle() + PIhalf, bullet.transform.Origin);
 		
-		if (tick)
-		{
-			indexStop = Mathf.RoundToInt(indexTail / 2);
-		}
-		else
-		{
-			index = Mathf.RoundToInt(indexTail / 2);
-			indexStop = indexTail;
-		}
-		while (index < indexStop)
-		{
-			Bullet bullet = bullets[index];
-			index++;
-			seekQuery.Transform = bullet.transform;
-			Dictionary result = space.GetRestInfo(seekQuery);
-			if (result.Count == 0)
-			{
-				continue;
-			}
-			Vector2 target = (Vector2) result["point"];
-			bullet.velocity = (target - bullet.transform.Origin).Normalized() * speed;
-			bullet.transform = new Transform2D(bullet.velocity.Angle() + PIhalf, bullet.transform.Origin);
-		}
+		return base.CollisionCheck(bullet);
 	}
 }

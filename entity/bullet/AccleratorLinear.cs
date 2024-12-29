@@ -1,5 +1,6 @@
 using Godot;
 
+[GlobalClass]
 public partial class AccleratorLinear : AcceleratorSine
 {
 	[Export] protected float speedFinal = 527;
@@ -8,9 +9,11 @@ public partial class AccleratorLinear : AcceleratorSine
 	{
 		return Mathf.Lerp(speed, speedFinal, lifeTime / duration);
 	}
-	protected override void Accelerate(BulletCounter bullet)
-	{
-		bullet.count += delta32;
-		bullet.velocity = new Vector2(CalulateSpeed(bullet.count), 0).Rotated(bullet.transform.Rotation - PIhalf);
-	}
+	    protected override void Move(Bullet bullet)
+    {
+		BulletCounter bulletCounter = (BulletCounter) bullet;
+		bulletCounter.count += delta32;
+		bullet.velocity = new Vector2(CalulateSpeed(bulletCounter.count), 0).Rotated(bullet.transform.Rotation - PIhalf);
+        base.Move(bullet);
+    }
 }

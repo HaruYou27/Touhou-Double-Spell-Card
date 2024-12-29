@@ -1,5 +1,6 @@
 using Godot;
 
+[GlobalClass]
 public partial class AccleratorEase : AccleratorSmooth
 {
 	[Export] protected float easeCurve = 1;

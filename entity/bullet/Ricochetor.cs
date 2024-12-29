@@ -1,6 +1,7 @@
 using Godot;
 using Godot.Collections;
 
+[GlobalClass]
 public partial class Ricochetor : BulletSharp
 {
     protected class BulletBool : Bullet

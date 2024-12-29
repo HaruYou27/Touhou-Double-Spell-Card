@@ -1,6 +1,7 @@
 using Godot;
 using System;
 
+[GlobalClass]
 public partial class AcceleratorSine : BulletSharp
 {
 	protected class BulletCounter : Bullet
@@ -11,8 +12,6 @@ public partial class AcceleratorSine : BulletSharp
 
 	public override void _Ready()
 	{
-		System.Array.Resize(ref actions, 4);
-		actions[3] = AccelerateBullets;
 		base._Ready();
 	}
 	protected override Bullet CreateBullet()
@@ -25,17 +24,11 @@ public partial class AcceleratorSine : BulletSharp
 		bulletCounter.count = 0;
 		base.ResetBullet(barrel, bullet);
 	}
-	protected virtual void Accelerate(BulletCounter bullet)
-	{
-		bullet.count += delta32 * duration;
-		bullet.velocity = bullet.velocity.Normalized() * speed * MathF.Abs(MathF.Sin(bullet.count));
-	}
-	private void AccelerateBullets()
-	{
-		for (int index = 0; index < indexTail; index++)
-		{
-			Accelerate((BulletCounter) bullets[index]);
-			
-		}
-	}
+    protected override void Move(Bullet bullet)
+    {
+		BulletCounter bulletCounter = (BulletCounter) bullet;
+		bulletCounter.count += delta32 * duration;
+		bullet.velocity = bullet.velocity.Normalized() * speed * MathF.Abs(MathF.Sin(bulletCounter.count));
+        base.Move(bullet);
+    }
 }
