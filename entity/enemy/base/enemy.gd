@@ -46,7 +46,7 @@ func _on_body_entered(body:Node2D) -> void:
 		
 	if not body.is_multiplayer_authority():
 		return
-	body.hit()
+	body.hit.call_deferred()
 
 func timeout() -> void:
 	disable.call_deferred()

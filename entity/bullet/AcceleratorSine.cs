@@ -11,8 +11,8 @@ public partial class AcceleratorSine : BulletSharp
 
 	public override void _Ready()
 	{
-		Array.Resize(ref actions, 5);
-		actions[4] = AccelerateBullets;
+		System.Array.Resize(ref actions, 4);
+		actions[3] = AccelerateBullets;
 		base._Ready();
 	}
 	protected override Bullet CreateBullet()
@@ -32,7 +32,7 @@ public partial class AcceleratorSine : BulletSharp
 	}
 	private void AccelerateBullets()
 	{
-		for (nint index = 0; index < indexTail; index++)
+		for (int index = 0; index < indexTail; index++)
 		{
 			Accelerate((BulletCounter) bullets[index]);
 			

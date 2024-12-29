@@ -20,7 +20,6 @@ public partial class GlobalBullet : BulletSharp
 		float rotation = MathF.Tau * random;
 		item.velocity = new Vector2(speed * random, 0).Rotated(rotation);
 		item.transform = new Transform2D(rotation, position);
-		item.result = null;
 	
 		bullets[indexTail] = item;
 		indexTail++;

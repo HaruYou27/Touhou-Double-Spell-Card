@@ -1818,66 +1818,114 @@ script = ExtResource("11_ym16e")
 barrel_group = &"Enemy Barrel 1"
 
 [node name="Fairy" parent="CystalDrop1/CystalSpawner" instance=ExtResource("12_1xc1c")]
+process_thread_group = 1
+process_thread_group_order = 0
+process_thread_messages = 0
 position = Vector2(-50, 146)
 time = 4.0
 
 [node name="Fairy2" parent="CystalDrop1/CystalSpawner" instance=ExtResource("12_1xc1c")]
+process_thread_group = 1
+process_thread_group_order = 0
+process_thread_messages = 0
 position = Vector2(-50, 146)
 time = 4.0
 
 [node name="Fairy3" parent="CystalDrop1/CystalSpawner" instance=ExtResource("12_1xc1c")]
+process_thread_group = 1
+process_thread_group_order = 0
+process_thread_messages = 0
 position = Vector2(-50, 146)
 time = 4.0
 
 [node name="Fairy4" parent="CystalDrop1/CystalSpawner" instance=ExtResource("12_1xc1c")]
+process_thread_group = 1
+process_thread_group_order = 0
+process_thread_messages = 0
 position = Vector2(-50, 146)
 time = 4.0
 
 [node name="Fairy5" parent="CystalDrop1/CystalSpawner" instance=ExtResource("12_1xc1c")]
+process_thread_group = 1
+process_thread_group_order = 0
+process_thread_messages = 0
 position = Vector2(-50, 146)
 time = 4.0
 
 [node name="Fairy6" parent="CystalDrop1/CystalSpawner" instance=ExtResource("12_1xc1c")]
+process_thread_group = 1
+process_thread_group_order = 0
+process_thread_messages = 0
 position = Vector2(-50, 146)
 time = 4.0
 
 [node name="Fairy7" parent="CystalDrop1/CystalSpawner" instance=ExtResource("12_1xc1c")]
+process_thread_group = 1
+process_thread_group_order = 0
+process_thread_messages = 0
 position = Vector2(-50, 146)
 time = 4.0
 
 [node name="Fairy8" parent="CystalDrop1/CystalSpawner" instance=ExtResource("12_1xc1c")]
+process_thread_group = 1
+process_thread_group_order = 0
+process_thread_messages = 0
 position = Vector2(-50, 146)
 time = 4.0
 
 [node name="Fairy9" parent="CystalDrop1/CystalSpawner" instance=ExtResource("12_1xc1c")]
+process_thread_group = 1
+process_thread_group_order = 0
+process_thread_messages = 0
 position = Vector2(-50, 146)
 time = 4.0
 
 [node name="Fairy10" parent="CystalDrop1/CystalSpawner" instance=ExtResource("12_1xc1c")]
+process_thread_group = 1
+process_thread_group_order = 0
+process_thread_messages = 0
 position = Vector2(-50, 146)
 time = 4.0
 
 [node name="Fairy11" parent="CystalDrop1/CystalSpawner" instance=ExtResource("12_1xc1c")]
+process_thread_group = 1
+process_thread_group_order = 0
+process_thread_messages = 0
 position = Vector2(-50, 146)
 time = 4.0
 
 [node name="Fairy12" parent="CystalDrop1/CystalSpawner" instance=ExtResource("12_1xc1c")]
+process_thread_group = 1
+process_thread_group_order = 0
+process_thread_messages = 0
 position = Vector2(-50, 146)
 time = 4.0
 
 [node name="Fairy13" parent="CystalDrop1/CystalSpawner" instance=ExtResource("12_1xc1c")]
+process_thread_group = 1
+process_thread_group_order = 0
+process_thread_messages = 0
 position = Vector2(-50, 146)
 time = 4.0
 
 [node name="Fairy14" parent="CystalDrop1/CystalSpawner" instance=ExtResource("12_1xc1c")]
+process_thread_group = 1
+process_thread_group_order = 0
+process_thread_messages = 0
 position = Vector2(-50, 146)
 time = 4.0
 
 [node name="Fairy15" parent="CystalDrop1/CystalSpawner" instance=ExtResource("12_1xc1c")]
+process_thread_group = 1
+process_thread_group_order = 0
+process_thread_messages = 0
 position = Vector2(-50, 146)
 time = 4.0
 
 [node name="Fairy16" parent="CystalDrop1/CystalSpawner" instance=ExtResource("12_1xc1c")]
+process_thread_group = 1
+process_thread_group_order = 0
+process_thread_messages = 0
 position = Vector2(-50, 146)
 time = 4.0
 

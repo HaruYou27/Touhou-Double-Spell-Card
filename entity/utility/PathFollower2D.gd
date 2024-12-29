@@ -11,6 +11,7 @@ func die() -> void:
 	if tween:
 		tween.kill()
 	set_process(false)
+	progress_ratio = 0.0
 
 func _ready() -> void:
 	enemy.died.connect(die)

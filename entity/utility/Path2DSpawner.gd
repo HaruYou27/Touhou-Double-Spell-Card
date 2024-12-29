@@ -35,4 +35,4 @@ var barrels := []
 func _transform_barrel() -> void:
 	for barrel in barrels:
 		if barrel.is_visible_in_tree():
-			barrel.transform_barrel()
+			barrel.transform_barrel.call_deferred()

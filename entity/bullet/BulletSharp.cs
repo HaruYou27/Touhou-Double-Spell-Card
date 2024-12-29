@@ -11,7 +11,6 @@ public partial class BulletSharp : Node2D
 		public Vector2 velocity;
 		public Transform2D transform;
 		public bool grazable;
-		public Dictionary result = null;
 	}
 	[Export] protected Texture2D texture;
 	[Export] protected int maxBullet = 727;
@@ -36,7 +35,7 @@ public partial class BulletSharp : Node2D
 	// Avoid garbage collector.
 	private Stack<Bullet> bulletPool;
 	protected Bullet[] bullets;
-	protected nint indexTail = 0;
+	protected int indexTail = 0;
 
 	protected static GlobalBullet globalBullet;
 	protected static PhysicsDirectSpaceState2D space;
@@ -53,7 +52,7 @@ public partial class BulletSharp : Node2D
 
 		Array<Node> nodes = tree.GetNodesInGroup(barrelGroup);
 		barrels = new Node2D[nodes.Count];
-		nint index = 0;
+		int index = 0;
 		foreach (Node node in nodes)
 		{
 			if (node.IsClass("Node2D"))
@@ -68,13 +67,10 @@ public partial class BulletSharp : Node2D
 
 		bulletPool = new Stack<Bullet>(maxBullet);
 		bullets = new Bullet[maxBullet];
-
-		actions[0] = DrawBullets;
 	}
 	protected virtual void ResetBullet(Node2D barrel, Bullet bullet)
 	{
 		bullet.grazable = grazable;
-		bullet.result = new Dictionary();
 		float angle;
 		if (localRotation)
 		{
@@ -140,7 +136,7 @@ public partial class BulletSharp : Node2D
 		bullet.grazable = grazable;
 		float deltaRotation = MathF.Tau / count;
 		float rotation = 0;
-		for (nint index = 0; index < count; index++)
+		for (int index = 0; index < count; index++)
 		{
 			bullet.velocity = new Vector2(speed, 0).Rotated(rotation);
 			bullet.transform = new Transform2D(rotation + PIhalf, position);
@@ -155,7 +151,7 @@ public partial class BulletSharp : Node2D
 		{
 			return;
 		}
-		for (nint index = 0; index < indexTail; index++)
+		for (int index = 0; index < indexTail; index++)
 		{
 			Bullet bullet = bullets[index];
 			bulletPool.Push(bullet);
@@ -201,104 +197,69 @@ public partial class BulletSharp : Node2D
 	}
 	protected bool tick;
 	protected float delta32;
-	protected Action[] actions = new Action[4];
-	private void DrawBullets()
-	{
-		RenderingServer.CanvasItemClear(canvasItem);
-		for (nint index = 0; index < indexTail; index++)
-		{
-			DrawBullet(bullets[index].transform, new Color());
-		}
-	}
+	protected Action[] actions = new Action[3];
 	public override void _PhysicsProcess(double delta)
 	{
+		RenderingServer.CanvasItemClear(canvasItem);
 		if (indexTail == 0)
 		{
-			RenderingServer.CanvasItemClear(canvasItem);
 			return;
 		}
 
-		void MoveBullets()
+		delta32 = (float) delta;
+		Bullet[] newBullets = new Bullet[maxBullet];
+		int newIndex = 0;
+		int indexStart = 0;
+        tick = !tick;
+        int indexHalt;
+        if (tick)
+        {
+            indexHalt = Mathf.RoundToInt(indexTail / 2);
+        }
+        else
+        {
+            indexStart = Mathf.RoundToInt(indexTail / 2);
+            indexHalt = indexTail;
+        }
+		void DrawBullets()
 		{
-			delta32 = (float) delta;
-			for (nint index = 0; index < indexTail; index++)
+        	for (int index = 0; index < indexTail; index++)
 			{
-				Move(bullets[index]);
+				Bullet bullet = bullets[index];
+				Move(bullet);
+				DrawBullet(bullet.transform, new Color());
 			}
 		}
-
-		Bullet[] newBullets = new Bullet[maxBullet];
-		tick = !tick;
-		nint newIndex = 0;
-
-		void CollisionCheck()
+		Task draw_task = Task.Factory.StartNew(DrawBullets);
+		for (int index = 0; index < indexTail; index++)
 		{
-			nint indexStop;
-			nint index = 0;
-			
-			if (tick)
+			Bullet bullet = bullets[index];
+			if (index < indexStart && index >= indexHalt)
 			{
-				index = Mathf.RoundToInt(indexTail / 2);
-				indexStop = indexTail;
+				newBullets[newIndex] = bullet;
+				newIndex++;
+				continue;
+			}
+			
+			query.Transform = bullet.transform;
+			if (bullet.grazable)
+			{
+				query.CollisionMask = collisionGraze;
 			}
 			else
 			{
-				indexStop = Mathf.RoundToInt(indexTail / 2);
+				query.CollisionMask = collisionMask;
 			}
-			while (index < indexStop)
+			Dictionary result = space.GetRestInfo(query);
+			if (result.Count == 0 || Collide(bullet, result))
 			{
-				Bullet bullet = bullets[index];
-				index++;
-				query.Transform = bullet.transform;
-				if (bullet.grazable)
-				{
-					query.CollisionMask = collisionGraze;
-				}
-				else
-				{
-					query.CollisionMask = collisionMask;
-				}
-				bullet.result = space.GetRestInfo(query);
-			}
-		}
-		void CollisionSolve()
-		{
-			void KeepBullet(Bullet bullet)
-			{
-				bullet.result = null;
 				newBullets[newIndex] = bullet;
 				newIndex++;
+				continue;
 			}
-			for (nint index = 0; index < indexTail; index++)
-			{
-				Bullet bullet = bullets[index];
-				if (bullet.result == null)
-				{
-					KeepBullet(bullet);
-					continue;
-				}
-				// In very rare case of race condition.
-				Dictionary result;
-				try
-				{
-					result = bullet.result.Duplicate();
-				}
-				catch
-				{
-					result = new Dictionary();
-				}
-				if (result.Count == 0 || Collide(bullet, result))
-				{
-					KeepBullet(bullet);
-					continue;
-				}
-				bulletPool.Push(bullet);
-			}
+			bulletPool.Push(bullet);
 		}
-		actions[1] = MoveBullets;
-		actions[2] = CollisionCheck;
-		actions[3] = CollisionSolve;
-		Parallel.Invoke(actions);
+		draw_task.Wait();
 		bullets = newBullets;
 		indexTail = newIndex;
 	}
