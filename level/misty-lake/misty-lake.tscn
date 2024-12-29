@@ -1747,7 +1747,7 @@ _data = {
 "game": SubResource("Animation_shi7r")
 }
 
-[node name="MistyLake" type="Control"]
+[node name="MistyLake2" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0

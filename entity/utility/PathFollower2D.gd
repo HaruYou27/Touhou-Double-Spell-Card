@@ -11,7 +11,8 @@ func die() -> void:
 	if tween:
 		tween.kill()
 	set_process(false)
-	progress_ratio = 0.0
+	progress_ratio = float(reverse)
+
 
 func _ready() -> void:
 	enemy.died.connect(die)
@@ -20,14 +21,16 @@ func _ready() -> void:
 func start() -> void:
 	if not is_multiplayer_authority():
 		return
-	
-	rpc("sync_start")
+
 	sync_start()
-	
 	tween = create_tween()
-	set_process(true)
 	tween.tween_property(self, 'progress_ratio', float(not reverse), time)
 	tween.tween_callback(enemy.timeout)
+	
+	if multiplayer.multiplayer_peer is OfflineMultiplayerPeer:
+		return
+	set_process(true)
+	rpc("sync_start")
 	
 var tick := false
 func _process(_delta: float) -> void:

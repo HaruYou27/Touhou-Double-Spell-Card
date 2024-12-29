@@ -23,5 +23,3 @@ visual = NodePath("../phantom")
 shape = SubResource("CircleShape2D_noovt")
 
 [node name="phantom" parent="." instance=ExtResource("3_gl4or")]
-
-[connection signal="died" from="Enemy" to="." method="_on_enemy_died"]

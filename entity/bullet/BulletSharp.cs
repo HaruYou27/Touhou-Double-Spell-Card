@@ -40,13 +40,11 @@ public partial class BulletSharp : Node2D
 
 	protected static GlobalBullet globalBullet;
 	protected static PhysicsDirectSpaceState2D space;
-	private static SceneTree tree;
+	protected static SceneTree tree;
 
 	protected const float PIhalf = MathF.PI / 2;
 	public override void _Ready()
 	{
-		tree = GetTree();
-		space = GetWorld2D().DirectSpaceState;
 		canvasItem = GetCanvasItem();
 		collisionGraze = collisionMask + 8;
 		TopLevel = true;
@@ -70,6 +68,7 @@ public partial class BulletSharp : Node2D
 
 		bulletPool = new Stack<Bullet>(maxBullet);
 		bullets = new Bullet[maxBullet];
+		bulletsClone = new Bullet[maxBullet];
 	}
 	protected virtual void ResetBullet(Node2D barrel, Bullet bullet)
 	{
@@ -213,6 +212,8 @@ public partial class BulletSharp : Node2D
 	}
 	protected bool tick;
 	protected float delta32;
+	private Bullet[] bulletsClone;
+	public 
 	public override void _PhysicsProcess(double delta)
 	{
 		RenderingServer.CanvasItemClear(canvasItem);
@@ -220,8 +221,7 @@ public partial class BulletSharp : Node2D
 		{
 			return;
 		}
-
-		delta32 = (float) delta;
+		
 		void DrawBullets()
 		{
 			for (int index = 0; index < indexTail; index++)
@@ -231,9 +231,9 @@ public partial class BulletSharp : Node2D
 				DrawBullet(bullet.transform, new Color());
 			}
 		}
-		Task drawTask = Task.Factory.StartNew(DrawBullets);
-
-		Bullet[] newBullets = new Bullet[maxBullet];
+		delta32 = (float) delta;
+		
+		Task drawTask = Task.Factory.StartNew(DrawBullets, TaskCreationOptions.PreferFairness);
 		int newIndex = 0;
 		int indexStart = 0;
 		tick = !tick;
@@ -253,7 +253,7 @@ public partial class BulletSharp : Node2D
 			Bullet bullet = bullets[index];
 			if (index < indexStart && index >= indexHalt)
 			{
-				newBullets[newIndex] = bullet;
+				bulletsClone[newIndex] = bullet;
 				newIndex++;
 				continue;
 			}
@@ -262,14 +262,14 @@ public partial class BulletSharp : Node2D
 
 			if (result.Count == 0 || Collide(bullet, result))
 			{
-				newBullets[newIndex] = bullet;
+				bulletsClone[newIndex] = bullet;
 				newIndex++;
 				continue;
 			}
 			bulletPool.Push(bullet);
 		}
 		drawTask.Wait();
-		bullets = newBullets;
+		bullets = bulletsClone;
 		indexTail = newIndex;
 	}
 }
