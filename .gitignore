@@ -14,7 +14,7 @@ bullet-cpp/__pycache__/
 compile_commands.json
 
 # Ignore files generated for documentation
-/src/gen
+bullet-cpp/src/gen
 
 # Binaries
 *.o
