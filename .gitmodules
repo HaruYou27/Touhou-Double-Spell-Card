@@ -1,4 +1,0 @@
-[submodule "bullet-cpp/godot-cpp"]
-	path = bullet-cpp/godot-cpp
-	url = git@github.com:godotengine/godot-cpp.git
-	branch = 4.3

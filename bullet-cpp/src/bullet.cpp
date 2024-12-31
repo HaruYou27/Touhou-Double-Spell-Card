@@ -86,6 +86,15 @@ void Bullet::spawn_bullet()
     }
 }
 
+Bullet::Bullet()
+{
+
+}
+Bullet::~Bullet()
+{
+    
+}
+
 void Bullet::spawn_circle(long count, Vector2 position)
 {
     CHECK_CAPACITY

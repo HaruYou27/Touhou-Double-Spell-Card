@@ -42,16 +42,16 @@ class Bullet : public Node2D
         unsigned int collision_graze;
         unsigned int collision_layer = 1;
         RID canvas_item;
-        static SceneTree* tree;
+        SceneTree* tree;
 
     protected:
         float delta32;
         Rect2 world_border = Rect2(-100, -100, 370, 580);
         bool tick;
         PackedInt32Array indexes_delete = PackedInt32Array();
-        static Ref<World2D> world;
-        static RenderingServer* renderer;
-        static WorkerThreadPool* threader;
+        Ref<World2D> world;
+        RenderingServer* renderer;
+        WorkerThreadPool* threader;
 
         int index_empty = 0;
         Transform2D transforms[MAX_BULLET];
