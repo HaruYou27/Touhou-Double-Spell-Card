@@ -10,17 +10,19 @@
 #include <godot_cpp/classes/rendering_server.hpp>
 #include <godot_cpp/classes/scene_tree.hpp>
 
-#define MAX_BULLET 3272
+#define MAX_BULLET 2727
 #define SET_GET(var, type) void set_##var(const type value); type get_##var() const;
 #define GET_COLLISION_MASK float mask = static_cast<Vector2>(result["linear_velocity"]).x;
 #define GET_COLLIDER Object* collider = ObjectDB::get_instance(static_cast<uint64_t>(result["collider_id"]));
 #define CHECK_CAPACITY if (index_empty == MAX_BULLET) {return;}
-#define BIND_SETGET(var) ClassDB::bind_method(D_METHOD("set_"#var, #var), &Bullet::set_##var); ClassDB::bind_method(D_METHOD("get_"#var), &Bullet::get_##var);
-#define ADD_PROPERTY_BOOL(var) ADD_PROPERTY(PropertyInfo(Variant::BOOL, #var), "set_" #var, "get_" #var);
-#define ADD_PROPERTY_OBJECT(var, type) ADD_PROPERTY(PropertyInfo(Variant::OBJECT, #var, PROPERTY_HINT_RESOURCE_TYPE, #type), "set_" #var, "get_" #var);
-#define SETTER_GETTER(var, type) void Bullet::set_##var(const type value) {var = value;} type Bullet::get_##var() const {return var;}
+#define BIND_SETGET(var, class) ClassDB::bind_method(D_METHOD("set_"#var, #var), &class::set_##var); ClassDB::bind_method(D_METHOD("get_"#var), &class::get_##var);
+#define ADD_PROPERTY_BOOL(var, class) ADD_PROPERTY(PropertyInfo(Variant::BOOL, #var), "set_" #var, "get_" #var);
+#define ADD_PROPERTY_FLOAT(var, class) ADD_PROPERTY(PropertyInfo(Variant::FLOAT, #var), "set_" #var, "get_" #var);
+#define ADD_PROPERTY_OBJECT(var, type, class) ADD_PROPERTY(PropertyInfo(Variant::OBJECT, #var, PROPERTY_HINT_RESOURCE_TYPE, #type), "set_" #var, "get_" #var);
+#define SETTER_GETTER(var, type, class) void Bullet::set_##var(const type value) {var = value;} type Bullet::get_##var() const {return var;}
 #define LOOP_BULLET for (int index = 0; index < index_empty; index++)
 #define FILL_ARRAY_HOLE(array) array[index] = array[index_empty];
+#define BIND_FUNCTION(func, class) ClassDB::bind_method(D_METHOD(#func), &class::func);
 
 using namespace godot;
 class Bullet : public Node2D
@@ -38,17 +40,17 @@ class Bullet : public Node2D
         bool collide_areas = false;
         bool collide_bodies = true;
 
-        PhysicsShapeQueryParameters2D query;
-        unsigned int collision_graze;
-        unsigned int collision_layer = 1;
+        PhysicsShapeQueryParameters2D* query;
+        unsigned int collision_graze = 0;
+        unsigned int collision_layer = 0;
         RID canvas_item;
         SceneTree* tree;
 
     protected:
         float delta32;
-        Rect2 world_border = Rect2(-100, -100, 370, 580);
+        Rect2 world_border;
         bool tick;
-        PackedInt32Array indexes_delete = PackedInt32Array();
+        PackedInt32Array indexes_delete;
         Ref<World2D> world;
         RenderingServer* renderer;
         WorkerThreadPool* threader;
@@ -59,8 +61,6 @@ class Bullet : public Node2D
         bool grazables[MAX_BULLET];
 
         static void _bind_methods();
-        virtual void draw_bullets();
-        Callable action_draw = callable_mp(this, &Bullet::draw_bullets);
         virtual void move_bullets();
         Callable action_move = callable_mp(this, &Bullet::move_bullets);
         virtual bool collision_check(int index);

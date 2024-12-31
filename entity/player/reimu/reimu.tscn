@@ -8,7 +8,7 @@
 [ext_resource type="Script" path="res://entity/player/reimu/Seeker.cs" id="7_3q5yl"]
 [ext_resource type="Texture2D" uid="uid://cx7ewf38kbh34" path="res://entity/player/reimu/resource/reimu-hitbox.png" id="7_hytxk"]
 [ext_resource type="Material" uid="uid://c5frc6pfgn8xs" path="res://singleton/bullet/bullet-monochrome.material" id="7_w7two"]
-[ext_resource type="Shape2D" uid="uid://57c5btn7th0e" path="res://entity/bullet/resource/rice-hitbox.tres" id="8_jyhni"]
+[ext_resource type="Shape2D" uid="uid://57c5btn7th0e" path="res://entity/bullet/rice-hitbox.tres" id="8_jyhni"]
 [ext_resource type="PackedScene" uid="uid://8587t5a7aa40" path="res://entity/player/reimu/seal.tscn" id="10_730ir"]
 [ext_resource type="Texture2D" uid="uid://cu2ufhkx3vayf" path="res://entity/player/reimu/resource/ofuda.png" id="14_yebca"]
 

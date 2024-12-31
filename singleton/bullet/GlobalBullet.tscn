@@ -1,55 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://c3rxoiw7os1of"]
+[gd_scene load_steps=3 format=3 uid="uid://c3rxoiw7os1of"]
 
 [ext_resource type="Shader" path="res://singleton/bullet/bullet-monochrome.gdshader" id="1_4vpwl"]
-[ext_resource type="Script" path="res://singleton/bullet/GlobalBullet.cs" id="2_wmxr2"]
-[ext_resource type="Texture2D" uid="uid://ccgackr4sld8n" path="res://singleton/bullet/point.png" id="3_kgvap"]
-[ext_resource type="Shape2D" uid="uid://bflxt0dqc7na4" path="res://entity/bullet/resource/ball-hitbox.tres" id="4_v8hfc"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_4ux2n"]
 shader = ExtResource("1_4vpwl")
 
-[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_5a814"]
-distance = -1160.0
-
-[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_u8032"]
-normal = Vector2(0, 1)
-distance = -200.0
-
-[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_1woir"]
-normal = Vector2(1, 0)
-distance = -200.0
-
-[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_pgwb8"]
-normal = Vector2(-1, 0)
-distance = -740.0
-
 [node name="ItemManager" type="Node2D"]
 z_index = 1
 material = SubResource("ShaderMaterial_4ux2n")
-script = ExtResource("2_wmxr2")
-texture = ExtResource("3_kgvap")
-maxBullet = 5727
-barrelGroup = &""
-speed = 27.0
-hitBox = ExtResource("4_v8hfc")
-grazable = false
-collisionMask = 9
-
-[node name="WorldBoundary" type="StaticBody2D" parent="."]
-process_thread_group = 1
-process_thread_group_order = 0
-process_thread_messages = 0
-collision_mask = 0
-constant_linear_velocity = Vector2(-1, 0)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldBoundary"]
-shape = SubResource("WorldBoundaryShape2D_5a814")
-
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="WorldBoundary"]
-shape = SubResource("WorldBoundaryShape2D_u8032")
-
-[node name="CollisionShape2D3" type="CollisionShape2D" parent="WorldBoundary"]
-shape = SubResource("WorldBoundaryShape2D_1woir")
-
-[node name="CollisionShape2D4" type="CollisionShape2D" parent="WorldBoundary"]
-shape = SubResource("WorldBoundaryShape2D_pgwb8")
