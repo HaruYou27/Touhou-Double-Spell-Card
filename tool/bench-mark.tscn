@@ -1,8 +1,8 @@
 [gd_scene load_steps=9 format=3 uid="uid://c4o2oanaiajtg"]
 
-[ext_resource type="Script" path="res://entity/bullet/BulletSharp.cs" id="2_v3ng2"]
+[ext_resource type="Script" path="res://entity/bullet/BulletBasic.gd" id="2_v3ng2"]
 [ext_resource type="Texture2D" uid="uid://bfp5momdip3ss" path="res://entity/bullet/resource/butterfly.png" id="3_fya4b"]
-[ext_resource type="Shape2D" uid="uid://cdhtnr4opiiga" path="res://entity/bullet/resource/butterfly-hitbox.tres" id="4_oqjk6"]
+[ext_resource type="Shape2D" uid="uid://bflxt0dqc7na4" path="res://entity/bullet/resource/ball-hitbox.tres" id="4_oqjk6"]
 [ext_resource type="Script" path="res://entity/utility/Rotator.gd" id="5_yjnrk"]
 
 [sub_resource type="Shader" id="Shader_muqwk"]
@@ -41,12 +41,10 @@ material = SubResource("ShaderMaterial_kpi4i")
 scale = Vector2(0.5, 0.5)
 script = ExtResource("2_v3ng2")
 texture = ExtResource("3_fya4b")
-maxBullet = 2727
-barrelGroup = &"Spellcard Circle"
+barrelGroup = "Spellcard Circle"
 speed = 127.0
 localRotation = true
-hitBox = ExtResource("4_oqjk6")
-collisionMask = 5
+hitbox = ExtResource("4_oqjk6")
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 0.15
@@ -218,4 +216,4 @@ position = Vector2(31.3851, -6.24289)
 rotation = -0.196345
 gizmo_extents = 40.0
 
-[connection signal="timeout" from="Timer" to="SpellcardCircle" method="SpawnBullet"]
+[connection signal="timeout" from="Timer" to="SpellcardCircle" method="spawn_bullet"]
