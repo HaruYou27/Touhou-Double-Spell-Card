@@ -12,6 +12,15 @@
 
 #define MAX_BULLET 3272
 #define SET_GET(var, type) void set_##var(const type value); type get_##var() const;
+#define GET_COLLISION_MASK float mask = static_cast<Vector2>(result["linear_velocity"]).x;
+#define GET_COLLIDER Object* collider = ObjectDB::get_instance(static_cast<uint64_t>(result["collider_id"]));
+#define CHECK_CAPACITY if (index_empty == MAX_BULLET) {return;}
+#define BIND_SETGET(var) ClassDB::bind_method(D_METHOD("set_"#var, #var), &Bullet::set_##var); ClassDB::bind_method(D_METHOD("get_"#var), &Bullet::get_##var);
+#define ADD_PROPERTY_BOOL(var) ADD_PROPERTY(PropertyInfo(Variant::BOOL, #var), "set_" #var, "get_" #var);
+#define ADD_PROPERTY_OBJECT(var, type) ADD_PROPERTY(PropertyInfo(Variant::OBJECT, #var, PROPERTY_HINT_RESOURCE_TYPE, #type), "set_" #var, "get_" #var);
+#define SETTER_GETTER(var, type) void Bullet::set_##var(const type value) {var = value;} type Bullet::get_##var() const {return var;}
+#define LOOP_BULLET for (int index = 0; index < index_empty; index++)
+#define FILL_ARRAY_HOLE(array) array[index] = array[index_empty];
 
 using namespace godot;
 class Bullet : public Node2D
@@ -50,17 +59,15 @@ class Bullet : public Node2D
         bool grazables[MAX_BULLET];
 
         static void _bind_methods();
-        static inline float get_collision_mask(Dictionary& result) {return Object::cast_to<Vector2>(result["linear_velocity"])->x;}
-        static inline Object* get_collider(Dictionary& result) {return ObjectDB::get_instance(*Object::cast_to<uint64_t>(result["collider_id"]));}
         virtual void draw_bullets();
-        Callable action_draw = callable_mp(this, draw_bullets);
+        Callable action_draw = callable_mp(this, &Bullet::draw_bullets);
         virtual void move_bullets();
-        Callable action_move = callable_mp(this, move_bullets);
+        Callable action_move = callable_mp(this, &Bullet::move_bullets);
         virtual bool collision_check(int index);
         virtual bool collide(Dictionary& result, int index);
         inline virtual void sort_bullets(int index);
         virtual void expire_bullets();
-        Callable action_expire = callable_mp(this, expire_bullets);
+        Callable action_expire = callable_mp(this, &Bullet::expire_bullets);
     public:
         Bullet();
         ~Bullet();

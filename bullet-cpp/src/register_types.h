@@ -1,4 +1,4 @@
-#ifndef BULLETREGISTER_TYPES_H
+#ifndef BULLET_REGISTER_TYPES_H
 #define BULLET_REGISTER_TYPES_H
 
 #include <godot_cpp/core/class_db.hpp>

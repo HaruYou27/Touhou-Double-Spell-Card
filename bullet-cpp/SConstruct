@@ -5,8 +5,8 @@ import sys
 from methods import print_error
 
 
-libname = "BULLETHELL++"
-projectdir = "."
+libname = "BulletHELLplusplus"
+projectdir = "../"
 
 localEnv = Environment(tools=["default"], PLATFORM="")
 

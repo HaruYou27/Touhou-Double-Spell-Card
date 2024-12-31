@@ -1,13 +1,5 @@
 #include <bullet.hpp>
 
-#define CHECK_CAPACITY if (index_empty == MAX_BULLET) {return;}
-#define BIND_SETGET(var) ClassDB::bind_method(D_METHOD("set_"#var, #var), &Bullet::set_##var); ClassDB::bind_method(D_METHOD("get_"#var), &Bullet::get_##var);
-#define ADD_PROPERTY_BOOL(var) ADD_PROPERTY(PropertyInfo(Variant::BOOL, #var), "set_" #var, "get_" #var);
-#define ADD_PROPERTY_OBJECT(var, type) ADD_PROPERTY(PropertyInfo(Variant::OBJECT, #var, PROPERTY_HINT_RESOURCE_TYPE, #type), "set_" #var, "get_" #var);
-#define SETTER_GETTER(var, type) void Bullet::set_##var(const type value) {##var = value;} ##type Bullet::get_##var() const {return var;}
-#define LOOP_BULLET for (int index = 0; index < index_empty; index++)
-#define FILL_ARRAY_HOLE(array) array[index] = array[index_empty];
-
 using namespace godot;
 
 void Bullet::_bind_methods()
@@ -142,14 +134,15 @@ void Bullet::move_bullets()
 // return true means bullet is still alive
 bool Bullet::collide(Dictionary& result, int index)
 {
-    float mask = get_collision_mask(result);
+    GET_COLLISION_MASK
     if (mask < 0)
     {
         // spawnitem
         return false;
     }
     grazables[index] = false;
-    get_collider(result)->call_deferred("hit");
+    GET_COLLIDER
+    collider->call_deferred("hit");
     return true;
 }
 
