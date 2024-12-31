@@ -1,4 +1,3 @@
 *.backup
 .godot/
 .vscode/
-bullet-cpp/godot-cpp

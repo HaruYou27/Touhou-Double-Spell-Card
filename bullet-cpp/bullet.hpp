@@ -1,3 +1,6 @@
+#ifndef BULLET
+#define BULLET
+
 #include <godot_cpp/classes/node2d.hpp>
 #include <godot_cpp/classes/shape2d.hpp>
 #include <godot_cpp/classes/physics_shape_query_parameters2d.hpp>
@@ -79,3 +82,4 @@ class Bullet : public Node2D
         void spawn_circle(long count, Vector2 position);
         void clear();
 };
+#endif
