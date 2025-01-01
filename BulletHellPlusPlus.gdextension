@@ -2,7 +2,7 @@
 
 entry_symbol = "bullet_library_init"
 compatibility_minimum = "4.3"
-reloadable = true
+reloadable = false
 
 [libraries]
 

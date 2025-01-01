@@ -1,4 +1,4 @@
-[gd_scene load_steps=49 format=3 uid="uid://820qlg5cbdi"]
+[gd_scene load_steps=40 format=3 uid="uid://820qlg5cbdi"]
 
 [ext_resource type="Shader" path="res://level/misty-lake-hard/resource/water.gdshader" id="1_dpvkb"]
 [ext_resource type="Texture2D" uid="uid://coq45et7pnhnx" path="res://level/misty-lake-hard/resource/water-gradient.tres" id="2_03a50"]
@@ -7,29 +7,20 @@
 [ext_resource type="Shader" path="res://level/misty-lake-hard/resource/sky-reflection.gdshader" id="5_thpg0"]
 [ext_resource type="Texture2D" uid="uid://x1e8a67qetah" path="res://level/misty-lake-hard/resource/FullMoon.png" id="6_aaqhm"]
 [ext_resource type="PackedScene" uid="uid://6wuhmc2p8byc" path="res://level/misty-lake-hard/fog.tscn" id="7_pvwld"]
-[ext_resource type="Script" path="res://entity/bullet/BulletSharp.cs" id="9_t5cur"]
-[ext_resource type="Texture2D" uid="uid://ci8njay8ma26f" path="res://entity/bullet/resource/cystal.png" id="10_8mvcl"]
+[ext_resource type="Texture2D" uid="uid://ci8njay8ma26f" path="res://entity/bullet/cystal.png" id="10_8mvcl"]
 [ext_resource type="Shape2D" uid="uid://borrvdxc7pflf" path="res://entity/bullet/cystal-hitbox.tres" id="11_1md7t"]
 [ext_resource type="Script" path="res://entity/utility/Path2DSpawner.gd" id="12_7qycb"]
 [ext_resource type="PackedScene" uid="uid://cyvf0ik0p568i" path="res://level/misty-lake-hard/enemy/fairy.tscn" id="13_khp1w"]
-[ext_resource type="Texture2D" uid="uid://bb6gmgus0empe" path="res://entity/bullet/resource/rice.png" id="14_uj8rn"]
-[ext_resource type="Shape2D" uid="uid://57c5btn7th0e" path="res://entity/bullet/rice-hitbox.tres" id="15_6nhw0"]
 [ext_resource type="PackedScene" uid="uid://qcqdhn5ssewn" path="res://level/misty-lake-hard/enemy/fairy-tracker.tscn" id="16_rvste"]
 [ext_resource type="PackedScene" uid="uid://dtlscerig62nv" path="res://entity/enemy/base/enemy.tscn" id="17_uw3bc"]
 [ext_resource type="Texture2D" uid="uid://cqt1oe248vvwn" path="res://entity/enemy/fairy/Fairy.2.png" id="18_aiv38"]
 [ext_resource type="PackedScene" uid="uid://baj687nr1ovqf" path="res://level/misty-lake/barrel-big-fairy.tscn" id="19_8gd87"]
-[ext_resource type="Texture2D" uid="uid://dilcwhuq6brnv" path="res://entity/bullet/ball.png" id="21_2bccy"]
-[ext_resource type="Shape2D" uid="uid://bflxt0dqc7na4" path="res://entity/bullet/ball-hitbox.tres" id="22_bputd"]
 [ext_resource type="PackedScene" uid="uid://bc4tw8t6g734m" path="res://level/misty-lake-hard/enemy/fairy-unarmed.tscn" id="23_egpvx"]
 [ext_resource type="PackedScene" uid="uid://c7lcs65yc2vea" path="res://level/misty-lake-hard/enemy/ghost-unarmed.tscn" id="24_uth2c"]
 [ext_resource type="PackedScene" uid="uid://bncu813gm4hx8" path="res://entity/boss/yukari/yukari.tscn" id="25_0chj7"]
 [ext_resource type="Script" path="res://entity/utility/TargetLocker.gd" id="26_e1gun"]
 [ext_resource type="Material" uid="uid://c5ahns6t1w0c" path="res://level/misty-lake-hard/resource/boss-bullet.material" id="27_vmhcq"]
-[ext_resource type="Texture2D" uid="uid://d1nkk7km71ule" path="res://entity/bullet/resource/kunai1.png" id="28_66k7w"]
-[ext_resource type="Shape2D" uid="uid://brtfnhe3eksr4" path="res://entity/bullet/kunai-hitbox.tres" id="29_w4pd7"]
 [ext_resource type="Script" path="res://entity/utility/Rotator.gd" id="30_c004w"]
-[ext_resource type="Texture2D" uid="uid://bfp5momdip3ss" path="res://entity/bullet/butterfly.png" id="31_th2hi"]
-[ext_resource type="Shape2D" uid="uid://cdhtnr4opiiga" path="res://entity/bullet/butterfly-hitbox.tres" id="32_tlyyh"]
 [ext_resource type="Script" path="res://entity/utility/RotatorAccelerator.gd" id="33_bxfih"]
 [ext_resource type="Script" path="res://entity/utility/PreciseTimer.gd" id="34_scoie"]
 [ext_resource type="Shader" path="res://level/misty-lake-hard/resource/reflection.gdshader" id="35_eor82"]
@@ -1797,15 +1788,14 @@ process_mode = 4
 visible = false
 position = Vector2(0, -43)
 
-[node name="CystalBullet" type="Node2D" parent="CystalDrop1"]
+[node name="CystalBullet" type="Bullet" parent="CystalDrop1"]
+speed = 172.0
+barrel_group = &"Enemy Barrel 1"
+hitbox = ExtResource("11_1md7t")
+texture = ExtResource("10_8mvcl")
 top_level = true
 z_index = 100
 material = ExtResource("27_vmhcq")
-script = ExtResource("9_t5cur")
-texture = ExtResource("10_8mvcl")
-barrelGroup = &"Enemy Barrel 1"
-hitBox = ExtResource("11_1md7t")
-collisionMask = 5
 
 [node name="CystalTimer" type="Timer" parent="CystalDrop1"]
 wait_time = 0.2
@@ -1884,16 +1874,10 @@ time = 4.0
 process_mode = 4
 visible = false
 
-[node name="TrackingBullet" type="Node2D" parent="Tracking2"]
+[node name="TrackingBullet" type="Bullet" parent="Tracking2"]
 z_index = 100
 material = ExtResource("27_vmhcq")
 scale = Vector2(0.5, 0.5)
-script = ExtResource("9_t5cur")
-texture = ExtResource("14_uj8rn")
-barrelGroup = &"Enemy Barrel 2"
-speed = 72.0
-hitBox = ExtResource("15_6nhw0")
-collisionMask = 5
 
 [node name="TrackingTimer" type="Timer" parent="Tracking2"]
 wait_time = 0.4
@@ -2074,16 +2058,10 @@ texture = ExtResource("18_aiv38")
 
 [node name="barrel9" parent="BigHpFairy3/Fairy/TopMiddle/visual" instance=ExtResource("19_8gd87")]
 
-[node name="BigFairyBullet" type="Node2D" parent="BigHpFairy3"]
+[node name="BigFairyBullet" type="Bullet" parent="BigHpFairy3"]
 z_index = 100
 material = ExtResource("27_vmhcq")
 scale = Vector2(0.5, 0.5)
-script = ExtResource("9_t5cur")
-texture = ExtResource("21_2bccy")
-barrelGroup = &"Enemy Barrel 3"
-speed = 127.0
-hitBox = ExtResource("22_bputd")
-collisionMask = 5
 
 [node name="TransformBarrel" type="Path2D" parent="BigHpFairy3"]
 script = ExtResource("12_7qycb")
@@ -2237,13 +2215,6 @@ process_mode = 4
 visible = false
 z_index = 100
 material = ExtResource("27_vmhcq")
-script = ExtResource("9_t5cur")
-texture = ExtResource("28_66k7w")
-maxBullet = 2727
-barrelGroup = &"Boss Spell Card 1"
-speed = 125.0
-hitBox = ExtResource("29_w4pd7")
-collisionMask = 5
 
 [node name="barrel" type="Node2D" parent="SpellCircle"]
 
@@ -2252,26 +2223,26 @@ position = Vector2(270, 300)
 script = ExtResource("30_c004w")
 speed = -3.0
 
-[node name="@Marker2D@27672" type="Marker2D" parent="SpellCircle/barrel/Barrel1" groups=["Boss Spell Card 1"]]
+[node name="@Marker2D@27672" type="Marker2D" parent="SpellCircle/barrel/Barrel1" groups=["Spellcard Circle"]]
 position = Vector2(142.004, 0)
 gizmo_extents = 20.0
 
-[node name="@Marker2D@27676" type="Marker2D" parent="SpellCircle/barrel/Barrel1" groups=["Boss Spell Card 1"]]
+[node name="@Marker2D@27676" type="Marker2D" parent="SpellCircle/barrel/Barrel1" groups=["Spellcard Circle"]]
 position = Vector2(100.412, 100.412)
 rotation = 0.785398
 gizmo_extents = 20.0
 
-[node name="@Marker2D@27680" type="Marker2D" parent="SpellCircle/barrel/Barrel1" groups=["Boss Spell Card 1"]]
+[node name="@Marker2D@27680" type="Marker2D" parent="SpellCircle/barrel/Barrel1" groups=["Spellcard Circle"]]
 position = Vector2(-6.20717e-06, 142.004)
 rotation = 1.5708
 gizmo_extents = 20.0
 
-[node name="@Marker2D@27684" type="Marker2D" parent="SpellCircle/barrel/Barrel1" groups=["Boss Spell Card 1"]]
+[node name="@Marker2D@27684" type="Marker2D" parent="SpellCircle/barrel/Barrel1" groups=["Spellcard Circle"]]
 position = Vector2(-100.412, 100.412)
 rotation = 2.35619
 gizmo_extents = 20.0
 
-[node name="@Marker2D@27688" type="Marker2D" parent="SpellCircle/barrel/Barrel1" groups=["Boss Spell Card 1"]]
+[node name="@Marker2D@27688" type="Marker2D" parent="SpellCircle/barrel/Barrel1" groups=["Spellcard Circle"]]
 position = Vector2(-142.004, -1.24143e-05)
 rotation = -3.14159
 gizmo_extents = 20.0
@@ -2281,22 +2252,22 @@ position = Vector2(270, 300)
 script = ExtResource("30_c004w")
 speed = 3.0
 
-[node name="_Marker2D_27675" type="Marker2D" parent="SpellCircle/barrel/Barrel2" groups=["Boss Spell Card 1"]]
+[node name="_Marker2D_27675" type="Marker2D" parent="SpellCircle/barrel/Barrel2" groups=["Spellcard Circle"]]
 position = Vector2(118.072, 78.8929)
 rotation = 0.589049
 gizmo_extents = 20.0
 
-[node name="_Marker2D_27679" type="Marker2D" parent="SpellCircle/barrel/Barrel2" groups=["Boss Spell Card 1"]]
+[node name="_Marker2D_27679" type="Marker2D" parent="SpellCircle/barrel/Barrel2" groups=["Spellcard Circle"]]
 position = Vector2(27.7035, 139.275)
 rotation = 1.37445
 gizmo_extents = 20.0
 
-[node name="_Marker2D_27683" type="Marker2D" parent="SpellCircle/barrel/Barrel2" groups=["Boss Spell Card 1"]]
+[node name="_Marker2D_27683" type="Marker2D" parent="SpellCircle/barrel/Barrel2" groups=["Spellcard Circle"]]
 position = Vector2(-78.8929, 118.072)
 rotation = 2.15984
 gizmo_extents = 20.0
 
-[node name="_Marker2D_27687" type="Marker2D" parent="SpellCircle/barrel/Barrel2" groups=["Boss Spell Card 1"]]
+[node name="_Marker2D_27687" type="Marker2D" parent="SpellCircle/barrel/Barrel2" groups=["Spellcard Circle"]]
 position = Vector2(-139.275, 27.7035)
 rotation = 2.94524
 gizmo_extents = 20.0
@@ -2312,14 +2283,6 @@ visible = false
 z_index = 100
 material = ExtResource("27_vmhcq")
 scale = Vector2(0.5, 0.5)
-script = ExtResource("9_t5cur")
-texture = ExtResource("31_th2hi")
-maxBullet = 2727
-barrelGroup = &"Spellcard Circle"
-speed = 127.0
-localRotation = true
-hitBox = ExtResource("32_tlyyh")
-collisionMask = 5
 
 [node name="SpellButterflyTimer" type="Timer" parent="SpellButterfly"]
 wait_time = 0.15
@@ -2331,82 +2294,82 @@ scale = Vector2(2, 2)
 script = ExtResource("30_c004w")
 speed = -6.283
 
-[node name="@Marker2D@76188" type="Marker2D" parent="SpellButterfly/CircleBarrel2" groups=["Spellcard Circle"]]
+[node name="@Marker2D@76188" type="Marker2D" parent="SpellButterfly/CircleBarrel2" groups=["Spellcard Butterfly"]]
 position = Vector2(31.3851, 6.24289)
 rotation = 0.19635
 gizmo_extents = 40.0
 
-[node name="@Marker2D@76190" type="Marker2D" parent="SpellButterfly/CircleBarrel2" groups=["Spellcard Circle"]]
+[node name="@Marker2D@76190" type="Marker2D" parent="SpellButterfly/CircleBarrel2" groups=["Spellcard Butterfly"]]
 position = Vector2(26.607, 17.7782)
 rotation = 0.589049
 gizmo_extents = 40.0
 
-[node name="@Marker2D@76192" type="Marker2D" parent="SpellButterfly/CircleBarrel2" groups=["Spellcard Circle"]]
+[node name="@Marker2D@76192" type="Marker2D" parent="SpellButterfly/CircleBarrel2" groups=["Spellcard Butterfly"]]
 position = Vector2(17.7782, 26.607)
 rotation = 0.981748
 gizmo_extents = 40.0
 
-[node name="@Marker2D@76194" type="Marker2D" parent="SpellButterfly/CircleBarrel2" groups=["Spellcard Circle"]]
+[node name="@Marker2D@76194" type="Marker2D" parent="SpellButterfly/CircleBarrel2" groups=["Spellcard Butterfly"]]
 position = Vector2(6.24289, 31.3851)
 rotation = 1.37445
 gizmo_extents = 40.0
 
-[node name="@Marker2D@76196" type="Marker2D" parent="SpellButterfly/CircleBarrel2" groups=["Spellcard Circle"]]
+[node name="@Marker2D@76196" type="Marker2D" parent="SpellButterfly/CircleBarrel2" groups=["Spellcard Butterfly"]]
 position = Vector2(-6.24289, 31.3851)
 rotation = 1.76715
 gizmo_extents = 40.0
 
-[node name="@Marker2D@76198" type="Marker2D" parent="SpellButterfly/CircleBarrel2" groups=["Spellcard Circle"]]
+[node name="@Marker2D@76198" type="Marker2D" parent="SpellButterfly/CircleBarrel2" groups=["Spellcard Butterfly"]]
 position = Vector2(-17.7782, 26.607)
 rotation = 2.15984
 gizmo_extents = 40.0
 
-[node name="@Marker2D@76200" type="Marker2D" parent="SpellButterfly/CircleBarrel2" groups=["Spellcard Circle"]]
+[node name="@Marker2D@76200" type="Marker2D" parent="SpellButterfly/CircleBarrel2" groups=["Spellcard Butterfly"]]
 position = Vector2(-26.607, 17.7782)
 rotation = 2.55254
 gizmo_extents = 40.0
 
-[node name="@Marker2D@76202" type="Marker2D" parent="SpellButterfly/CircleBarrel2" groups=["Spellcard Circle"]]
+[node name="@Marker2D@76202" type="Marker2D" parent="SpellButterfly/CircleBarrel2" groups=["Spellcard Butterfly"]]
 position = Vector2(-31.3851, 6.24289)
 rotation = 2.94524
 gizmo_extents = 40.0
 
-[node name="@Marker2D@76204" type="Marker2D" parent="SpellButterfly/CircleBarrel2" groups=["Spellcard Circle"]]
+[node name="@Marker2D@76204" type="Marker2D" parent="SpellButterfly/CircleBarrel2" groups=["Spellcard Butterfly"]]
 position = Vector2(-31.3851, -6.24289)
 rotation = -2.94525
 gizmo_extents = 40.0
 
-[node name="@Marker2D@76206" type="Marker2D" parent="SpellButterfly/CircleBarrel2" groups=["Spellcard Circle"]]
+[node name="@Marker2D@76206" type="Marker2D" parent="SpellButterfly/CircleBarrel2" groups=["Spellcard Butterfly"]]
 position = Vector2(-26.607, -17.7782)
 rotation = -2.55255
 gizmo_extents = 40.0
 
-[node name="@Marker2D@76208" type="Marker2D" parent="SpellButterfly/CircleBarrel2" groups=["Spellcard Circle"]]
+[node name="@Marker2D@76208" type="Marker2D" parent="SpellButterfly/CircleBarrel2" groups=["Spellcard Butterfly"]]
 position = Vector2(-17.7783, -26.607)
 rotation = -2.15985
 gizmo_extents = 40.0
 
-[node name="@Marker2D@76210" type="Marker2D" parent="SpellButterfly/CircleBarrel2" groups=["Spellcard Circle"]]
+[node name="@Marker2D@76210" type="Marker2D" parent="SpellButterfly/CircleBarrel2" groups=["Spellcard Butterfly"]]
 position = Vector2(-6.24289, -31.3851)
 rotation = -1.76715
 gizmo_extents = 40.0
 
-[node name="@Marker2D@76212" type="Marker2D" parent="SpellButterfly/CircleBarrel2" groups=["Spellcard Circle"]]
+[node name="@Marker2D@76212" type="Marker2D" parent="SpellButterfly/CircleBarrel2" groups=["Spellcard Butterfly"]]
 position = Vector2(6.24289, -31.3851)
 rotation = -1.37445
 gizmo_extents = 40.0
 
-[node name="@Marker2D@76214" type="Marker2D" parent="SpellButterfly/CircleBarrel2" groups=["Spellcard Circle"]]
+[node name="@Marker2D@76214" type="Marker2D" parent="SpellButterfly/CircleBarrel2" groups=["Spellcard Butterfly"]]
 position = Vector2(17.7782, -26.607)
 rotation = -0.981746
 gizmo_extents = 40.0
 
-[node name="@Marker2D@76216" type="Marker2D" parent="SpellButterfly/CircleBarrel2" groups=["Spellcard Circle"]]
+[node name="@Marker2D@76216" type="Marker2D" parent="SpellButterfly/CircleBarrel2" groups=["Spellcard Butterfly"]]
 position = Vector2(26.607, -17.7782)
 rotation = -0.589045
 gizmo_extents = 40.0
 
-[node name="@Marker2D@76218" type="Marker2D" parent="SpellButterfly/CircleBarrel2" groups=["Spellcard Circle"]]
+[node name="@Marker2D@76218" type="Marker2D" parent="SpellButterfly/CircleBarrel2" groups=["Spellcard Butterfly"]]
 position = Vector2(31.3851, -6.24289)
 rotation = -0.196345
 gizmo_extents = 40.0
@@ -2416,12 +2379,6 @@ process_mode = 4
 visible = false
 z_index = 100
 material = ExtResource("27_vmhcq")
-script = ExtResource("9_t5cur")
-texture = ExtResource("28_66k7w")
-barrelGroup = &"SpellCard 4 Barrel"
-speed = 127.0
-hitBox = ExtResource("29_w4pd7")
-collisionMask = 5
 
 [node name="CircleBarrel" type="Node2D" parent="SpellWaveParticle"]
 position = Vector2(270, 396)
@@ -2458,12 +2415,6 @@ wait_time = 0.06
 
 [node name="Ball" type="Node2D" parent="."]
 material = ExtResource("27_vmhcq")
-script = ExtResource("9_t5cur")
-texture = ExtResource("21_2bccy")
-maxBullet = 27
-barrelGroup = &"SpellCircleBall"
-hitBox = ExtResource("22_bputd")
-collisionMask = 5
 
 [node name="BackBufferCopy" type="Node2D" parent="."]
 z_index = 2000

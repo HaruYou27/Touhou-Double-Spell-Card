@@ -1,0 +1,124 @@
+#include <tracker.hpp>
+
+using namespace godot;
+
+void Tracker::_bind_methods()
+{
+    BIND_SETGET(turn_speed, Tracker)
+    BIND_SETGET(seek_shape, Tracker)
+}
+
+Tracker::Tracker()
+{
+    seek_query = memnew(PhysicsShapeQueryParameters2D());
+    if (!seek_query->reference())
+    {
+        ERR_PRINT("Can't keep reference PhysicsShapeQueryParameters2D.");
+    }
+}
+Tracker::~Tracker()
+{
+    seek_query->unreference();
+}
+
+SETTER_GETTER(seek_shape, Ref<Shape2D>, Tracker)
+SETTER_GETTER(turn_speed, double, Tracker)
+
+void Tracker::spawn_bullet()
+{
+    CHECK_CAPACITY
+    if (target != nullptr)
+    {
+        for (Node2D* barrel : barrels)
+        {
+            CHECK_CAPACITY
+            Vector2 position = barrel->get_global_position();
+            Vector2 velocity = target->get_global_position() - position;
+            velocity.normalize();
+            velocity *= get_speed();
+            velocities[index_empty] = velocity;
+            transforms[index_empty] = Transform2D(velocity.angle() + M_PI_2, get_scale(), 0, position);
+            index_empty++;
+        }
+    } 
+    else
+    {
+        for (Node2D* barrel : barrels)
+        {
+            float angle = barrel->get_rotation();
+            velocities[index_empty] = Vector2(get_speed(), 0).rotated(angle);
+            transforms[index_empty] = Transform2D(angle + M_PI_2, get_scale(), 0, barrel->get_global_position());
+            index_empty++;
+        }
+    }
+}
+
+void Tracker::lock_target(int index)
+{
+    Transform2D& transform = transforms[index];
+    Vector2 velocity = velocities[index];
+    velocity += (target->get_global_position() - transform.get_origin()).normalized() * turn_speed * delta32;
+    velocity.normalize();
+    velocity *= get_speed();
+
+    transform.set_rotation(velocity.angle() + M_PI_2);
+    velocities[index] = velocity;
+    Bullet::move_bullet(index);
+}
+
+void Tracker::move_bullets()
+{
+    if (target != nullptr)
+    {
+        LOOP_BULLETS
+        {
+            lock_target(index);
+        }
+        return;
+    }
+    LOOP_BULLETS
+    {
+        Bullet::move_bullet(index);
+    }
+}
+
+bool Tracker::collide(Dictionary& result, int index)
+{
+    GET_COLLIDER
+    collider->call_deferred("hit");
+    return true;
+}
+
+void Tracker::_ready()
+{
+    seeker = Object::cast_to<Node2D>(get_parent());
+    seek_query->set_shape(seek_shape);
+    seek_query->set_collide_with_areas(get_collide_areas());
+    seek_query->set_collide_with_bodies(get_collide_bodies());
+    seek_query->set_collision_mask(get_collision_layer());
+    
+    return Bullet::_ready();
+}
+
+void Tracker::_physics_process(double delta)
+{
+    IS_BULLETS_EMPTY
+    if (target != nullptr && static_cast<bool>(target->get("is_alive")))
+    {
+        return Bullet::_physics_process(delta);
+    }
+    seek_query->set_transform(seeker->get_transform());
+    COLLIDE_QUERY(seek_query)
+    if (result.is_empty())
+    {
+        return Bullet::_physics_process(delta);
+    }
+    GET_COLLIDER
+    target = Object::cast_to<Node2D>(collider);
+    if (!(target->is_class("Enemy") || target->is_class("Boss")))
+    {
+        target = nullptr;
+        WARN_PRINT("Target must inherits Enemy or Boss class.");
+    }
+    return Bullet::_physics_process(delta);
+}

@@ -16,6 +16,6 @@ animations = [{
 [node name="ReimuSprite" type="AnimatedSprite2D"]
 z_index = 10
 texture_filter = 1
-position = Vector2(1, 8)
+position = Vector2(0, 8)
 sprite_frames = SubResource("14")
 animation = &"new_animation"

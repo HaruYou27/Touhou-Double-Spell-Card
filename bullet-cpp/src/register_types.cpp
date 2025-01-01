@@ -5,6 +5,7 @@
 #include <godot_cpp/godot.hpp>
 
 #include "bullet.hpp"
+#include "tracker.hpp"
 
 using namespace godot;
 
@@ -14,6 +15,7 @@ void initialize_gdextension_types(ModuleInitializationLevel p_level)
 		return;
 	}
 	GDREGISTER_CLASS(Bullet);
+	GDREGISTER_CLASS(Tracker);
 }
 
 void uninitialize_gdextension_types(ModuleInitializationLevel p_level) {

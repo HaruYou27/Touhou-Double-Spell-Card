@@ -15,21 +15,21 @@ void Bullet::_bind_methods()
     BIND_SETGET(collision_layer, Bullet)
 
     BIND_FUNCTION(spawn_bullet, Bullet)
-    BIND_FUNCTION(spawn_circle, Bullet)
     BIND_FUNCTION(clear, Bullet)
+    ClassDB::bind_method(D_METHOD("spawn_circle", "count", "position"), &Bullet::spawn_circle);
 
-    ADD_PROPERTY_FLOAT(speed, Bullet)
+    ADD_PROPERTY_FLOAT(speed)
     ADD_PROPERTY(PropertyInfo(Variant::STRING_NAME, "barrel_group", PROPERTY_HINT_TYPE_STRING), "set_barrel_group", "get_barrel_group");
-    ADD_PROPERTY_OBJECT(hitbox, Shape2D, Bullet)
-    ADD_PROPERTY_OBJECT(texture, Texture2D, Bullet)
-    ADD_PROPERTY_BOOL(grazable, Bullet)
-    ADD_PROPERTY_BOOL(collide_areas, Bullet)
-    ADD_PROPERTY_BOOL(collide_bodies, Bullet)
-    ADD_PROPERTY_BOOL(local_rotation, Bullet)
-    ADD_PROPERTY(PropertyInfo(Variant::INT, "collision_layer", PROPERTY_HINT_LAYERS_2D_PHYSICS), "set_collision_layer", "get_collision_layer");
+    ADD_PROPERTY_OBJECT(hitbox, Shape2D)
+    ADD_PROPERTY_OBJECT(texture, Texture2D)
+    ADD_PROPERTY_BOOL(grazable)
+    ADD_PROPERTY_BOOL(collide_areas)
+    ADD_PROPERTY_BOOL(collide_bodies)
+    ADD_PROPERTY_BOOL(local_rotation)
+    ADD_PROPERTY_COLLISION(collision_layer)
 }
 
-SETTER_GETTER(speed, float, Bullet)
+SETTER_GETTER(speed, double, Bullet)
 SETTER_GETTER(texture, Ref<Texture2D>, Bullet)
 SETTER_GETTER(barrel_group, StringName, Bullet)
 SETTER_GETTER(local_rotation, bool, Bullet)
@@ -41,6 +41,7 @@ SETTER_GETTER(collision_layer, long, Bullet)
 
 void Bullet::_ready()
 {
+    set_as_top_level(true);
     canvas_item = get_canvas_item();
     collision_graze = collision_layer + 8;
     tree = get_tree();
@@ -75,7 +76,7 @@ void Bullet::spawn_bullet()
         {
             continue;
         }
-        grazables[index_empty] = grazable;
+        reset_bullet();
         float angle;
         if (local_rotation)
         {
@@ -100,13 +101,16 @@ Bullet::Bullet()
     }
     indexes_delete = PackedInt32Array();
     world_border = Rect2(-100, -100, 740, 1160);
+    barrels = std::vector<Node2D*>();
 }
 Bullet::~Bullet()
 {
-    if (!query->unreference())
-    {
-        ERR_PRINT("Can't remove reference PhysicsShapeQueryParameters2D.");
-    }
+    query->unreference();
+}
+
+void Bullet::reset_bullet()
+{
+    grazes[index_empty] = grazable;
 }
 
 void Bullet::spawn_circle(long count, Vector2 position)
@@ -116,7 +120,7 @@ void Bullet::spawn_circle(long count, Vector2 position)
     float angle = 0;
     for (long index = 0; index < count; index++)
     {
-        grazables[index_empty] = grazable;
+        reset_bullet();
         velocities[index_empty] = Vector2(speed, 0).rotated(angle);
         transforms[index_empty] = Transform2D(angle + M_PI_2, position);
         angle += delta_angle;
@@ -129,13 +133,18 @@ void Bullet::clear()
     index_empty = 0;
 }
 
+void Bullet::move_bullet(int index)
+{
+    Transform2D& transform = transforms[index];
+    transform.set_origin(transform.get_origin() + velocities[index] * delta32);
+    texture->draw(canvas_item, transform.get_origin().rotated(-transform.get_rotation()) / transform.get_scale(), Color(transform.get_rotation(), 1, 1));
+}
+
 void Bullet::move_bullets()
 {
-    LOOP_BULLET
+    LOOP_BULLETS
     {
-        Transform2D& transform = transforms[index];
-        transform.set_origin(transform.get_origin() + velocities[index] * delta32);
-        texture->draw(canvas_item, transform.get_origin().rotated(-transform.get_rotation()) / transform.get_scale(), Color(transform.get_rotation(), 1, 1));
+        move_bullet(index);
     }
 }
 
@@ -148,19 +157,10 @@ bool Bullet::collide(Dictionary& result, int index)
         // spawnitem
         return true;
     }
-    grazables[index] = false;
+    grazes[index] = false;
     GET_COLLIDER
     collider->call_deferred("hit");
     return false;
-}
-
-bool Bullet::collision_check(int index)
-{
-    Transform2D& transform = transforms[index];
-    query->set_transform(transform);
-    query->set_collision_mask((grazables[index]) ? collision_graze : collision_layer);
-    Dictionary result = world->get_direct_space_state()->get_rest_info(query);
-    return !result.is_empty() && collide(result, index);
 }
 
 void Bullet::expire_bullets()
@@ -192,16 +192,13 @@ void Bullet::sort_bullets(int index)
     }
     FILL_ARRAY_HOLE(transforms)
     FILL_ARRAY_HOLE(velocities)
-    FILL_ARRAY_HOLE(grazables)
+    FILL_ARRAY_HOLE(grazes)
 }
 
 void Bullet::_physics_process(double delta)
 {
     renderer->canvas_item_clear(canvas_item);
-    if (index_empty == 0)
-    {
-        return;
-    }
+    IS_BULLETS_EMPTY
     long task_move = threader->add_task(action_move, true);
 
     tick = !tick;
@@ -216,7 +213,11 @@ void Bullet::_physics_process(double delta)
     long task_expire = threader->add_task(action_expire);
     while (index < index_halt)
     {
-        if (collision_check(index))
+        Transform2D& transform = transforms[index];
+        query->set_transform(transform);
+        query->set_collision_mask((grazes[index]) ? collision_graze : collision_layer);
+        COLLIDE_QUERY(query)
+        if (!result.is_empty() && collide(result, index))
         {
             indexes_delete.push_back(index);
         }

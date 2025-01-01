@@ -16,13 +16,16 @@
 #define GET_COLLIDER Object* collider = ObjectDB::get_instance(static_cast<uint64_t>(result["collider_id"]));
 #define CHECK_CAPACITY if (index_empty == MAX_BULLET) {return;}
 #define BIND_SETGET(var, class) ClassDB::bind_method(D_METHOD("set_"#var, #var), &class::set_##var); ClassDB::bind_method(D_METHOD("get_"#var), &class::get_##var);
-#define ADD_PROPERTY_BOOL(var, class) ADD_PROPERTY(PropertyInfo(Variant::BOOL, #var), "set_" #var, "get_" #var);
-#define ADD_PROPERTY_FLOAT(var, class) ADD_PROPERTY(PropertyInfo(Variant::FLOAT, #var), "set_" #var, "get_" #var);
-#define ADD_PROPERTY_OBJECT(var, type, class) ADD_PROPERTY(PropertyInfo(Variant::OBJECT, #var, PROPERTY_HINT_RESOURCE_TYPE, #type), "set_" #var, "get_" #var);
-#define SETTER_GETTER(var, type, class) void Bullet::set_##var(const type value) {var = value;} type Bullet::get_##var() const {return var;}
-#define LOOP_BULLET for (int index = 0; index < index_empty; index++)
+#define ADD_PROPERTY_BOOL(var) ADD_PROPERTY(PropertyInfo(Variant::BOOL, #var), "set_" #var, "get_" #var);
+#define ADD_PROPERTY_FLOAT(var) ADD_PROPERTY(PropertyInfo(Variant::FLOAT, #var), "set_" #var, "get_" #var);
+#define ADD_PROPERTY_OBJECT(var, type) ADD_PROPERTY(PropertyInfo(Variant::OBJECT, #var, PROPERTY_HINT_RESOURCE_TYPE, #type), "set_" #var, "get_" #var);
+#define ADD_PROPERTY_COLLISION(var) ADD_PROPERTY(PropertyInfo(Variant::INT, #var, PROPERTY_HINT_LAYERS_2D_PHYSICS), "set_" #var, "get_" #var);
+#define SETTER_GETTER(var, type, class) void class::set_##var(const type value) {var = value;} type class::get_##var() const {return var;}
 #define FILL_ARRAY_HOLE(array) array[index] = array[index_empty];
 #define BIND_FUNCTION(func, class) ClassDB::bind_method(D_METHOD(#func), &class::func);
+#define COLLIDE_QUERY(query) Dictionary result = world->get_direct_space_state()->get_rest_info(query);
+#define LOOP_BULLETS for (int index = 0; index < index_empty; index++)
+#define IS_BULLETS_EMPTY if (index_empty == 0) {return;}
 
 using namespace godot;
 class Bullet : public Node2D
@@ -34,7 +37,6 @@ class Bullet : public Node2D
         bool local_rotation = false;
         Ref<Texture2D> texture;
         float speed = 272.0;
-        std::vector<Node2D*> barrels = std::vector<Node2D*>();;
         Ref<Shape2D> hitbox;
         bool grazable = true;
         bool collide_areas = false;
@@ -42,37 +44,37 @@ class Bullet : public Node2D
 
         PhysicsShapeQueryParameters2D* query;
         unsigned int collision_graze = 0;
-        unsigned int collision_layer = 0;
+        unsigned int collision_layer = 4;
         RID canvas_item;
         SceneTree* tree;
-
-    protected:
-        float delta32;
+        void expire_bullets();
+        Callable action_expire = callable_mp(this, &Bullet::expire_bullets);
         Rect2 world_border;
+        RenderingServer* renderer;
+        Callable action_move = callable_mp(this, &Bullet::move_bullets);
+    protected:
+        std::vector<Node2D*> barrels;
+        float delta32;
         bool tick;
         PackedInt32Array indexes_delete;
         Ref<World2D> world;
-        RenderingServer* renderer;
         WorkerThreadPool* threader;
 
         int index_empty = 0;
         Transform2D transforms[MAX_BULLET];
         Vector2 velocities[MAX_BULLET];
-        bool grazables[MAX_BULLET];
+        bool grazes[MAX_BULLET];
 
         static void _bind_methods();
-        virtual void move_bullets();
-        Callable action_move = callable_mp(this, &Bullet::move_bullets);
-        virtual bool collision_check(int index);
         virtual bool collide(Dictionary& result, int index);
+        virtual void move_bullets();
         inline virtual void sort_bullets(int index);
-        virtual void expire_bullets();
-        Callable action_expire = callable_mp(this, &Bullet::expire_bullets);
+        inline virtual void reset_bullet();
     public:
         Bullet();
         ~Bullet();
 
-        SET_GET(speed, float);
+        SET_GET(speed, double);
         SET_GET(texture, Ref<Texture2D>);
         SET_GET(barrel_group, StringName);
         SET_GET(local_rotation, bool);
@@ -82,10 +84,11 @@ class Bullet : public Node2D
         SET_GET(collide_bodies, bool);
         SET_GET(collision_layer, long);
 
-        virtual void _physics_process(double p_delta) override;
+        virtual void _physics_process(double delta) override;
         virtual void _ready() override;
 
-        void spawn_bullet();
+        inline virtual void move_bullet(int index);
+        virtual void spawn_bullet();
         void spawn_circle(long count, Vector2 position);
         void clear();
 };

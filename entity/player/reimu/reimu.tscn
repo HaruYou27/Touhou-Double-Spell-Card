@@ -1,14 +1,13 @@
-[gd_scene load_steps=15 format=3 uid="uid://bk08ga1mfcleb"]
+[gd_scene load_steps=13 format=3 uid="uid://bk08ga1mfcleb"]
 
 [ext_resource type="PackedScene" uid="uid://ffnff8ahyxxn" path="res://entity/player/reimu/reimu-sprite.tscn" id="2_1gpls"]
 [ext_resource type="Script" path="res://entity/player/reimu/reimu.gd" id="2_ukdaa"]
 [ext_resource type="PackedScene" uid="uid://c34lwlqwsc4ve" path="res://entity/player/base/player.tscn" id="4_ftqh1"]
 [ext_resource type="PackedScene" uid="uid://bsa0xvb26o22u" path="res://entity/player/reimu/yinyang-orb.tscn" id="5_ryrqw"]
 [ext_resource type="PackedScene" uid="uid://cex3540cp47lm" path="res://entity/player/base/graze.tscn" id="5_sq1so"]
-[ext_resource type="Script" path="res://entity/player/reimu/Seeker.cs" id="7_3q5yl"]
 [ext_resource type="Texture2D" uid="uid://cx7ewf38kbh34" path="res://entity/player/reimu/resource/reimu-hitbox.png" id="7_hytxk"]
 [ext_resource type="Material" uid="uid://c5frc6pfgn8xs" path="res://singleton/bullet/bullet-monochrome.material" id="7_w7two"]
-[ext_resource type="Shape2D" uid="uid://57c5btn7th0e" path="res://entity/bullet/rice-hitbox.tres" id="8_jyhni"]
+[ext_resource type="Shape2D" uid="uid://8v0qid6h0jl5" path="res://entity/player/reimu/resource/ofuda.tres" id="8_a450e"]
 [ext_resource type="PackedScene" uid="uid://8587t5a7aa40" path="res://entity/player/reimu/seal.tscn" id="10_730ir"]
 [ext_resource type="Texture2D" uid="uid://cu2ufhkx3vayf" path="res://entity/player/reimu/resource/ofuda.png" id="14_yebca"]
 
@@ -19,20 +18,16 @@ radius = 3.0
 radius = 39.0
 height = 174.0
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_iup0u"]
-radius = 256.0
-
 [node name="Reimu" type="Node2D"]
 
 [node name="Player" parent="." node_paths=PackedStringArray("sprite", "hitbox") instance=ExtResource("4_ftqh1")]
-position = Vector2(153, 807)
+position = Vector2(147, 793)
 collision_mask = 0
 script = ExtResource("2_ukdaa")
 sprite = NodePath("ReimuSprite")
 hitbox = NodePath("Hitbox")
 
 [node name="ReimuSprite" parent="Player" instance=ExtResource("2_1gpls")]
-position = Vector2(0, 8)
 
 [node name="YinyangOrb" parent="Player/ReimuSprite" groups=["Reimu Barrel"] instance=ExtResource("5_ryrqw")]
 texture_filter = 2
@@ -70,8 +65,22 @@ z_index = 9
 shape = SubResource("CapsuleShape2D_sx7ua")
 debug_color = Color(0.713726, 0.105882, 0.701961, 0.419608)
 
-[node name="Timer" type="Timer" parent="Player"]
-wait_time = 0.15
+[node name="bullet" type="Tracker" parent="Player"]
+speed = 572.0
+barrel_group = &"Reimu Barrel"
+hitbox = ExtResource("8_a450e")
+texture = ExtResource("14_yebca")
+grazable = false
+collide_areas = true
+collide_bodies = false
+local_rotation = true
+collision_layer = 2
+top_level = true
+z_index = 1
+material = ExtResource("7_w7two")
+
+[node name="Timer" type="Timer" parent="Player/bullet"]
+wait_time = 0.2
 autostart = true
 
 [node name="FantasySeals" type="Node2D" parent="."]
@@ -84,22 +93,5 @@ autostart = true
 
 [node name="Seal4" parent="FantasySeals" instance=ExtResource("10_730ir")]
 
-[node name="bullet" type="Node2D" parent="."]
-top_level = true
-z_index = 1
-material = ExtResource("7_w7two")
-script = ExtResource("7_3q5yl")
-seekShape = SubResource("CircleShape2D_iup0u")
-texture = ExtResource("14_yebca")
-maxBullet = 1727
-barrelGroup = &"Reimu Barrel"
-speed = 727.0
-localRotation = true
-hitBox = ExtResource("8_jyhni")
-grazable = false
-collideAreas = true
-collideBodies = false
-collisionMask = 3
-
 [connection signal="add_bomb" from="Player/graze" to="Player" method="_on_graze_add_bomb"]
-[connection signal="timeout" from="Player/Timer" to="bullet" method="SpawnBullet"]
+[connection signal="timeout" from="Player/bullet/Timer" to="Player/bullet" method="spawn_bullet"]

@@ -21,9 +21,10 @@ func hit() -> void:
 func die() -> void:
 	hp = 0
 	disable.call_deferred()
-	GlobalBullet.call_deferred("SpawnItems", point, global_position)
+	#GlobalBullet.call_deferred("SpawnItems", point, global_position)
 	explosion.emitting = true
 	SoundEffect.tick1.play()
+	is_alive = false
 	died.emit()
 	
 	timeout()
@@ -52,7 +53,6 @@ func timeout() -> void:
 	disable.call_deferred()
 	
 func disable() -> void:
-	is_alive = false
 	process_mode = Node.PROCESS_MODE_DISABLED
 	monitorable = false
 	monitoring = false

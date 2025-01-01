@@ -26,10 +26,10 @@ func _process(_delta: float) -> void:
 	
 	if item_count > 27:
 		item_count -= 27
-		GlobalBullet.call_deferred("SpawnItems", 27, global_position)
+		#GlobalBullet.call_deferred("SpawnItems", 27, global_position)
 		return
 	
-	GlobalBullet.call_deferred("SpawnItems", item_count, global_position)
+	#GlobalBullet.call_deferred("SpawnItems", item_count, global_position)
 	item_count = 0
 	
 var tween
