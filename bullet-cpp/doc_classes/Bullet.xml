@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<class name="Bullet" inherits="Node2D" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
+	<brief_description>
+	</brief_description>
+	<description>
+	</description>
+	<tutorials>
+	</tutorials>
+	<methods>
+		<method name="clear">
+			<return type="void" />
+			<description>
+			</description>
+		</method>
+		<method name="spawn_bullet">
+			<return type="void" />
+			<description>
+			</description>
+		</method>
+		<method name="spawn_circle">
+			<return type="void" />
+			<param index="0" name="count" type="int" />
+			<param index="1" name="position" type="Vector2" />
+			<description>
+			</description>
+		</method>
+	</methods>
+	<members>
+		<member name="barrel_group" type="StringName" setter="set_barrel_group" getter="get_barrel_group" default="&amp;&quot;&quot;">
+		</member>
+		<member name="collide_areas" type="bool" setter="set_collide_areas" getter="get_collide_areas" default="false">
+		</member>
+		<member name="collide_bodies" type="bool" setter="set_collide_bodies" getter="get_collide_bodies" default="true">
+		</member>
+		<member name="collision_layer" type="int" setter="set_collision_layer" getter="get_collision_layer" default="4">
+		</member>
+		<member name="grazable" type="bool" setter="set_grazable" getter="get_grazable" default="true">
+		</member>
+		<member name="hitbox" type="Shape2D" setter="set_hitbox" getter="get_hitbox">
+		</member>
+		<member name="local_rotation" type="bool" setter="set_local_rotation" getter="get_local_rotation" default="false">
+		</member>
+		<member name="speed" type="float" setter="set_speed" getter="get_speed" default="272.0">
+		</member>
+		<member name="texture" type="Texture2D" setter="set_texture" getter="get_texture">
+		</member>
+	</members>
+</class>

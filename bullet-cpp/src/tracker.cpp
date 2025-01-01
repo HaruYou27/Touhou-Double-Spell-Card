@@ -15,15 +15,10 @@ void Tracker::_bind_methods()
 
 Tracker::Tracker()
 {
-    seek_query = memnew(PhysicsShapeQueryParameters2D());
-    if (!seek_query->reference())
-    {
-        ERR_PRINT("Can't keep reference PhysicsShapeQueryParameters2D.");
-    }
+    seek_query = Ref<PhysicsShapeQueryParameters2D>(memnew(PhysicsShapeQueryParameters2D()));
 }
 Tracker::~Tracker()
 {
-    seek_query->unreference();
 }
 
 SETTER_GETTER(seek_shape, Ref<Shape2D>, Tracker)

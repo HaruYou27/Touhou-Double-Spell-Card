@@ -100,18 +100,13 @@ void Bullet::spawn_bullet()
 
 Bullet::Bullet()
 {
-    query = memnew(PhysicsShapeQueryParameters2D());
-    if (!query->reference())
-    {
-        ERR_PRINT("Can't keep reference PhysicsShapeQueryParameters2D.");
-    }
+    query = Ref<PhysicsShapeQueryParameters2D>(memnew(PhysicsShapeQueryParameters2D()));
     indexes_delete = PackedInt32Array();
     world_border = Rect2(-100, -100, 740, 1160);
     barrels = std::vector<Node2D*>();
 }
 Bullet::~Bullet()
 {
-    query->unreference();
 }
 
 void Bullet::reset_bullet()

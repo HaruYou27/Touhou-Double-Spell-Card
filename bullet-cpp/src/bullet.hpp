@@ -43,7 +43,7 @@ class Bullet : public Node2D
         bool collide_areas = false;
         bool collide_bodies = true;
 
-        PhysicsShapeQueryParameters2D* query;
+        Ref<PhysicsShapeQueryParameters2D> query;
         unsigned int collision_graze = 0;
         unsigned int collision_layer = 4;
         RID canvas_item;
@@ -76,15 +76,15 @@ class Bullet : public Node2D
         Bullet();
         ~Bullet();
 
-        SET_GET(speed, double);
-        SET_GET(texture, Ref<Texture2D>);
-        SET_GET(barrel_group, StringName);
-        SET_GET(local_rotation, bool);
-        SET_GET(hitbox, Ref<Shape2D>);
-        SET_GET(grazable, bool);
-        SET_GET(collide_areas, bool);
-        SET_GET(collide_bodies, bool);
-        SET_GET(collision_layer, int);
+        SET_GET(speed, double)
+        SET_GET(texture, Ref<Texture2D>)
+        SET_GET(barrel_group, StringName)
+        SET_GET(local_rotation, bool)
+        SET_GET(hitbox, Ref<Shape2D>)
+        SET_GET(grazable, bool)
+        SET_GET(collide_areas, bool)
+        SET_GET(collide_bodies, bool)
+        SET_GET(collision_layer, int)
 
         virtual void _physics_process(double delta) override;
         virtual void _ready() override;

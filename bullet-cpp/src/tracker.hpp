@@ -15,7 +15,7 @@ class Tracker : public Bullet
         Vector2 offset = Vector2(0, -256);
         Ref<Shape2D> seek_shape;
         Node2D* seeker;
-        PhysicsShapeQueryParameters2D* seek_query;
+        Ref<PhysicsShapeQueryParameters2D> seek_query;
         Node2D* target;
         Vector2 target_position;
     protected:

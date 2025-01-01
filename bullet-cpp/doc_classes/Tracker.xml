@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<class name="Tracker" inherits="Bullet" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
+	<brief_description>
+	</brief_description>
+	<description>
+	</description>
+	<tutorials>
+	</tutorials>
+	<members>
+		<member name="offset" type="Vector2" setter="set_offset" getter="get_offset" default="Vector2(0, -256)">
+		</member>
+		<member name="seek_shape" type="Shape2D" setter="set_seek_shape" getter="get_seek_shape">
+		</member>
+		<member name="turn_speed" type="float" setter="set_turn_speed" getter="get_turn_speed" default="7272.0">
+		</member>
+	</members>
+</class>
