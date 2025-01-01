@@ -84,14 +84,14 @@ class Bullet : public Node2D
         SET_GET(grazable, bool);
         SET_GET(collide_areas, bool);
         SET_GET(collide_bodies, bool);
-        SET_GET(collision_layer, long);
+        SET_GET(collision_layer, int);
 
         virtual void _physics_process(double delta) override;
         virtual void _ready() override;
 
         inline virtual void move_bullet(int index);
         virtual void spawn_bullet();
-        void spawn_circle(long count, Vector2 position);
+        void spawn_circle(int count, Vector2 position);
         void clear();
 };
 #endif

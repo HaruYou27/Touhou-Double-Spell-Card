@@ -37,7 +37,7 @@ SETTER_GETTER(hitbox, Ref<Shape2D>, Bullet)
 SETTER_GETTER(collide_areas, bool, Bullet)
 SETTER_GETTER(grazable, bool, Bullet)
 SETTER_GETTER(collide_bodies, bool, Bullet)
-SETTER_GETTER(collision_layer, long, Bullet)
+SETTER_GETTER(collision_layer, int, Bullet)
 
 void Bullet::_ready()
 {
@@ -119,12 +119,12 @@ void Bullet::reset_bullet()
     grazes[index_empty] = grazable;
 }
 
-void Bullet::spawn_circle(long count, Vector2 position)
+void Bullet::spawn_circle(int count, Vector2 position)
 {
     CHECK_CAPACITY
     float delta_angle = Math_TAU / count;
     float angle = 0;
-    for (long index = 0; index < count; index++)
+    for (int index = 0; index < count; index++)
     {
         reset_bullet();
         velocities[index_empty] = Vector2(speed, 0).rotated(angle);
@@ -205,7 +205,7 @@ void Bullet::_physics_process(double delta)
 {
     renderer->canvas_item_clear(canvas_item);
     IS_BULLETS_EMPTY
-    long task_move = threader->add_task(action_move, true);
+    int task_move = threader->add_task(action_move, true);
 
     tick = !tick;
     delta32 = delta;
@@ -216,7 +216,7 @@ void Bullet::_physics_process(double delta)
         index = index_halt;
         index_halt = index_empty;
     }
-    long task_expire = threader->add_task(action_expire);
+    int task_expire = threader->add_task(action_expire);
     while (index < index_halt)
     {
         Transform2D& transform = transforms[index];
