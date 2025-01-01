@@ -6,6 +6,11 @@ void Tracker::_bind_methods()
 {
     BIND_SETGET(turn_speed, Tracker)
     BIND_SETGET(seek_shape, Tracker)
+    BIND_SETGET(offset, Tracker)
+
+    ADD_PROPERTY_FLOAT(turn_speed)
+    ADD_PROPERTY_OBJECT(seek_shape, Shape2D)
+    ADD_PROPERTY(PropertyInfo(Variant::VECTOR2, "offset"), "set_offset", "get_offset");
 }
 
 Tracker::Tracker()
@@ -23,6 +28,7 @@ Tracker::~Tracker()
 
 SETTER_GETTER(seek_shape, Ref<Shape2D>, Tracker)
 SETTER_GETTER(turn_speed, double, Tracker)
+SETTER_GETTER(offset, Vector2, Tracker)
 
 void Tracker::spawn_bullet()
 {
@@ -33,7 +39,7 @@ void Tracker::spawn_bullet()
         {
             CHECK_CAPACITY
             Vector2 position = barrel->get_global_position();
-            Vector2 velocity = target->get_global_position() - position;
+            Vector2 velocity = target_position - position;
             velocity.normalize();
             velocity *= get_speed();
             velocities[index_empty] = velocity;
@@ -57,7 +63,7 @@ void Tracker::lock_target(int index)
 {
     Transform2D& transform = transforms[index];
     Vector2 velocity = velocities[index];
-    velocity += (target->get_global_position() - transform.get_origin()).normalized() * turn_speed * delta32;
+    velocity += (target_position - transform.get_origin()).normalized() * turn_speed * delta32;
     velocity.normalize();
     velocity *= get_speed();
 
@@ -91,23 +97,24 @@ bool Tracker::collide(Dictionary& result, int index)
 
 void Tracker::_ready()
 {
+    Bullet::_ready();
+
     seeker = Object::cast_to<Node2D>(get_parent());
     seek_query->set_shape(seek_shape);
     seek_query->set_collide_with_areas(get_collide_areas());
     seek_query->set_collide_with_bodies(get_collide_bodies());
     seek_query->set_collision_mask(get_collision_layer());
     
-    return Bullet::_ready();
 }
 
 void Tracker::_physics_process(double delta)
 {
-    IS_BULLETS_EMPTY
     if (target != nullptr && static_cast<bool>(target->get("is_alive")))
     {
+        target_position = target->get_global_position();
         return Bullet::_physics_process(delta);
     }
-    seek_query->set_transform(seeker->get_transform());
+    seek_query->set_transform(seeker->get_transform().translated(offset));
     COLLIDE_QUERY(seek_query)
     if (result.is_empty())
     {
@@ -115,10 +122,11 @@ void Tracker::_physics_process(double delta)
     }
     GET_COLLIDER
     target = Object::cast_to<Node2D>(collider);
+    /*
     if (!(target->is_class("Enemy") || target->is_class("Boss")))
     {
         target = nullptr;
         WARN_PRINT("Target must inherits Enemy or Boss class.");
-    }
+    }*/
     return Bullet::_physics_process(delta);
 }

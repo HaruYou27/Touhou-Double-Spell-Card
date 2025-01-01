@@ -41,7 +41,13 @@ SETTER_GETTER(collision_layer, long, Bullet)
 
 void Bullet::_ready()
 {
+    engine = Engine::get_singleton();
     set_as_top_level(true);
+    if (engine->is_editor_hint())
+    {
+        set_physics_process(false);
+        return;
+    }
     canvas_item = get_canvas_item();
     collision_graze = collision_layer + 8;
     tree = get_tree();

@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://bk08ga1mfcleb"]
+[gd_scene load_steps=14 format=3 uid="uid://bk08ga1mfcleb"]
 
 [ext_resource type="PackedScene" uid="uid://ffnff8ahyxxn" path="res://entity/player/reimu/reimu-sprite.tscn" id="2_1gpls"]
 [ext_resource type="Script" path="res://entity/player/reimu/reimu.gd" id="2_ukdaa"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://bsa0xvb26o22u" path="res://entity/player/reimu/yinyang-orb.tscn" id="5_ryrqw"]
 [ext_resource type="PackedScene" uid="uid://cex3540cp47lm" path="res://entity/player/base/graze.tscn" id="5_sq1so"]
 [ext_resource type="Texture2D" uid="uid://cx7ewf38kbh34" path="res://entity/player/reimu/resource/reimu-hitbox.png" id="7_hytxk"]
+[ext_resource type="Shape2D" uid="uid://dp6ob6j31prqn" path="res://entity/player/reimu/resource/bullet-seek.tres" id="7_q4k1v"]
 [ext_resource type="Material" uid="uid://c5frc6pfgn8xs" path="res://singleton/bullet/bullet-monochrome.material" id="7_w7two"]
 [ext_resource type="Shape2D" uid="uid://8v0qid6h0jl5" path="res://entity/player/reimu/resource/ofuda.tres" id="8_a450e"]
 [ext_resource type="PackedScene" uid="uid://8587t5a7aa40" path="res://entity/player/reimu/seal.tscn" id="10_730ir"]
@@ -66,6 +67,7 @@ shape = SubResource("CapsuleShape2D_sx7ua")
 debug_color = Color(0.713726, 0.105882, 0.701961, 0.419608)
 
 [node name="bullet" type="Tracker" parent="Player"]
+seek_shape = ExtResource("7_q4k1v")
 speed = 572.0
 barrel_group = &"Reimu Barrel"
 hitbox = ExtResource("8_a450e")

@@ -12,10 +12,12 @@ class Tracker : public Bullet
 
     private:
         float turn_speed = 7272;
+        Vector2 offset = Vector2(0, -256);
         Ref<Shape2D> seek_shape;
         Node2D* seeker;
         PhysicsShapeQueryParameters2D* seek_query;
         Node2D* target;
+        Vector2 target_position;
     protected:
         static void _bind_methods();
         inline void lock_target(int index);
@@ -26,6 +28,7 @@ class Tracker : public Bullet
         ~Tracker();
 
         SET_GET(turn_speed, double)
+        SET_GET(offset, Vector2)
         SET_GET(seek_shape, Ref<Shape2D>)
 
         virtual void spawn_bullet() override;

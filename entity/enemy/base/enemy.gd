@@ -50,6 +50,7 @@ func _on_body_entered(body:Node2D) -> void:
 	body.hit.call_deferred()
 
 func timeout() -> void:
+	is_alive = false
 	disable.call_deferred()
 	
 func disable() -> void:

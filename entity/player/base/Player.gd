@@ -149,5 +149,4 @@ func sync_revive() -> void:
 	Global.last_man_standing = false
 
 func _on_bomb_timer_timeout() -> void:
-	return
 	Global.hud.update_bomb(bomb_count)

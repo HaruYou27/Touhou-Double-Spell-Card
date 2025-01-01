@@ -9,6 +9,7 @@
 #include <godot_cpp/classes/worker_thread_pool.hpp>
 #include <godot_cpp/classes/rendering_server.hpp>
 #include <godot_cpp/classes/scene_tree.hpp>
+#include <godot_cpp/classes/engine.hpp>
 
 #define MAX_BULLET 2727
 #define SET_GET(var, type) void set_##var(const type value); type get_##var() const;
@@ -59,6 +60,7 @@ class Bullet : public Node2D
         PackedInt32Array indexes_delete;
         Ref<World2D> world;
         WorkerThreadPool* threader;
+        Engine* engine;
 
         int index_empty = 0;
         Transform2D transforms[MAX_BULLET];
