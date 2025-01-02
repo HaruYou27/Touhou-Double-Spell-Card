@@ -16,8 +16,8 @@
 radius = 3.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_sx7ua"]
-radius = 39.0
-height = 174.0
+radius = 24.0
+height = 112.0
 
 [node name="Reimu" type="Node2D"]
 

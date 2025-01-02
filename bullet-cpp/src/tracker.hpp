@@ -27,7 +27,7 @@ class Tracker : public Bullet
         Tracker();
         ~Tracker();
 
-        SET_GET(turn_speed, double)
+        SET_GET(turn_speed, float)
         SET_GET(offset, Vector2)
         SET_GET(seek_shape, Ref<Shape2D>)
 

@@ -24,9 +24,11 @@
 #define SETTER_GETTER(var, type, class) void class::set_##var(const type value) {var = value;} type class::get_##var() const {return var;}
 #define FILL_ARRAY_HOLE(array) array[index] = array[index_empty];
 #define BIND_FUNCTION(func, class) ClassDB::bind_method(D_METHOD(#func), &class::func);
-#define COLLIDE_QUERY(query) Dictionary result = world->get_direct_space_state()->get_rest_info(query);
+#define COLLIDE_QUERY(query) Dictionary result = space->get_rest_info(query);
 #define LOOP_BULLETS for (int index = 0; index < index_empty; index++)
 #define IS_BULLETS_EMPTY if (index_empty == 0) {return;}
+#define NEW_OBJECT(class) Ref<class>(memnew(class()));
+#define GET_BULLET_TRANSFORM Transform2D& transform = transforms[index];
 
 using namespace godot;
 class Bullet : public Node2D
@@ -58,7 +60,7 @@ class Bullet : public Node2D
         float delta32;
         bool tick;
         PackedInt32Array indexes_delete;
-        Ref<World2D> world;
+        PhysicsDirectSpaceState2D* space;
         WorkerThreadPool* threader;
         Engine* engine;
 
@@ -76,7 +78,7 @@ class Bullet : public Node2D
         Bullet();
         ~Bullet();
 
-        SET_GET(speed, double)
+        SET_GET(speed, float)
         SET_GET(texture, Ref<Texture2D>)
         SET_GET(barrel_group, StringName)
         SET_GET(local_rotation, bool)
@@ -91,7 +93,7 @@ class Bullet : public Node2D
 
         inline virtual void move_bullet(int index);
         virtual void spawn_bullet();
-        void spawn_circle(int count, Vector2 position);
+        virtual void spawn_circle(int count, Vector2 position);
         void clear();
 };
 #endif

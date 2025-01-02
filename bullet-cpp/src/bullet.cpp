@@ -29,7 +29,7 @@ void Bullet::_bind_methods()
     ADD_PROPERTY_COLLISION(collision_layer)
 }
 
-SETTER_GETTER(speed, double, Bullet)
+SETTER_GETTER(speed, float, Bullet)
 SETTER_GETTER(texture, Ref<Texture2D>, Bullet)
 SETTER_GETTER(barrel_group, StringName, Bullet)
 SETTER_GETTER(local_rotation, bool, Bullet)
@@ -51,7 +51,7 @@ void Bullet::_ready()
     canvas_item = get_canvas_item();
     collision_graze = collision_layer + 8;
     tree = get_tree();
-    world = get_world_2d();
+    space = get_world_2d()->get_direct_space_state();
     renderer = RenderingServer::get_singleton();
     threader = WorkerThreadPool::get_singleton();
 
@@ -100,7 +100,7 @@ void Bullet::spawn_bullet()
 
 Bullet::Bullet()
 {
-    query = Ref<PhysicsShapeQueryParameters2D>(memnew(PhysicsShapeQueryParameters2D()));
+    query = NEW_OBJECT(PhysicsShapeQueryParameters2D)
     indexes_delete = PackedInt32Array();
     world_border = Rect2(-100, -100, 740, 1160);
     barrels = std::vector<Node2D*>();
@@ -136,7 +136,7 @@ void Bullet::clear()
 
 void Bullet::move_bullet(int index)
 {
-    Transform2D& transform = transforms[index];
+    GET_BULLET_TRANSFORM
     transform.set_origin(transform.get_origin() + velocities[index] * delta32);
     texture->draw(canvas_item, transform.get_origin().rotated(-transform.get_rotation()) / transform.get_scale(), Color(transform.get_rotation(), 1, 1));
 }
@@ -214,7 +214,7 @@ void Bullet::_physics_process(double delta)
     int task_expire = threader->add_task(action_expire);
     while (index < index_halt)
     {
-        Transform2D& transform = transforms[index];
+        GET_BULLET_TRANSFORM
         query->set_transform(transform);
         query->set_collision_mask((grazes[index]) ? collision_graze : collision_layer);
         COLLIDE_QUERY(query)

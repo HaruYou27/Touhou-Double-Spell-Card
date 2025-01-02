@@ -15,14 +15,14 @@ void Tracker::_bind_methods()
 
 Tracker::Tracker()
 {
-    seek_query = Ref<PhysicsShapeQueryParameters2D>(memnew(PhysicsShapeQueryParameters2D()));
+    seek_query = NEW_OBJECT(PhysicsShapeQueryParameters2D)
 }
 Tracker::~Tracker()
 {
 }
 
 SETTER_GETTER(seek_shape, Ref<Shape2D>, Tracker)
-SETTER_GETTER(turn_speed, double, Tracker)
+SETTER_GETTER(turn_speed, float, Tracker)
 SETTER_GETTER(offset, Vector2, Tracker)
 
 void Tracker::spawn_bullet()
@@ -56,7 +56,7 @@ void Tracker::spawn_bullet()
 
 void Tracker::lock_target(int index)
 {
-    Transform2D& transform = transforms[index];
+    GET_BULLET_TRANSFORM
     Vector2 velocity = velocities[index];
     velocity += (target_position - transform.get_origin()).normalized() * turn_speed * delta32;
     velocity.normalize();
@@ -117,11 +117,11 @@ void Tracker::_physics_process(double delta)
     }
     GET_COLLIDER
     target = Object::cast_to<Node2D>(collider);
-    /*
-    if (!(target->is_class("Enemy") || target->is_class("Boss")))
+    
+    if (!static_cast<bool>(target->get("is_alive")))
     {
         target = nullptr;
         WARN_PRINT("Target must inherits Enemy or Boss class.");
-    }*/
+    }
     return Bullet::_physics_process(delta);
 }

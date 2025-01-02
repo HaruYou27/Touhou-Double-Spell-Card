@@ -1,11 +1,12 @@
-#include "register_types.h"
+#include <register_types.h>
 #include <gdextension_interface.h>
 #include <godot_cpp/core/class_db.hpp>
 #include <godot_cpp/core/defs.hpp>
 #include <godot_cpp/godot.hpp>
 
-#include "bullet.hpp"
-#include "tracker.hpp"
+#include <bullet.hpp>
+#include <tracker.hpp>
+#include <item_manager.hpp>
 
 using namespace godot;
 
@@ -16,6 +17,7 @@ void initialize_gdextension_types(ModuleInitializationLevel p_level)
 	}
 	GDREGISTER_CLASS(Bullet);
 	GDREGISTER_CLASS(Tracker);
+	GDREGISTER_CLASS(ItemManager);
 }
 
 void uninitialize_gdextension_types(ModuleInitializationLevel p_level) {
