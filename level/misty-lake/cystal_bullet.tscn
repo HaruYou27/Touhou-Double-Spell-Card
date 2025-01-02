@@ -1,0 +1,14 @@
+[gd_scene load_steps=4 format=3 uid="uid://c1xyo1w3okwtp"]
+
+[ext_resource type="Shape2D" uid="uid://borrvdxc7pflf" path="res://entity/bullet/cystal-hitbox.tres" id="1_scqkf"]
+[ext_resource type="Texture2D" uid="uid://ci8njay8ma26f" path="res://entity/bullet/cystal.png" id="2_lxig8"]
+[ext_resource type="Material" uid="uid://c5ahns6t1w0c" path="res://level/misty-lake-hard/resource/boss-bullet.material" id="3_r65pm"]
+
+[node name="CystalBullet" type="Bullet"]
+speed = 172.0
+barrel_group = &"Enemy Barrel 1"
+hitbox = ExtResource("1_scqkf")
+texture = ExtResource("2_lxig8")
+top_level = true
+z_index = 100
+material = ExtResource("3_r65pm")

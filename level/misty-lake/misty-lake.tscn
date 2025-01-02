@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3 uid="uid://820qlg5cbdi"]
+[gd_scene load_steps=38 format=3 uid="uid://820qlg5cbdi"]
 
 [ext_resource type="Shader" path="res://level/misty-lake-hard/resource/water.gdshader" id="1_dpvkb"]
 [ext_resource type="Texture2D" uid="uid://coq45et7pnhnx" path="res://level/misty-lake-hard/resource/water-gradient.tres" id="2_03a50"]
@@ -7,8 +7,7 @@
 [ext_resource type="Shader" path="res://level/misty-lake-hard/resource/sky-reflection.gdshader" id="5_thpg0"]
 [ext_resource type="Texture2D" uid="uid://x1e8a67qetah" path="res://level/misty-lake-hard/resource/FullMoon.png" id="6_aaqhm"]
 [ext_resource type="PackedScene" uid="uid://6wuhmc2p8byc" path="res://level/misty-lake-hard/fog.tscn" id="7_pvwld"]
-[ext_resource type="Texture2D" uid="uid://ci8njay8ma26f" path="res://entity/bullet/cystal.png" id="10_8mvcl"]
-[ext_resource type="Shape2D" uid="uid://borrvdxc7pflf" path="res://entity/bullet/cystal-hitbox.tres" id="11_1md7t"]
+[ext_resource type="PackedScene" uid="uid://c1xyo1w3okwtp" path="res://level/misty-lake/cystal_bullet.tscn" id="8_bx502"]
 [ext_resource type="Script" path="res://entity/utility/Path2DSpawner.gd" id="12_7qycb"]
 [ext_resource type="PackedScene" uid="uid://cyvf0ik0p568i" path="res://level/misty-lake-hard/enemy/fairy.tscn" id="13_khp1w"]
 [ext_resource type="PackedScene" uid="uid://qcqdhn5ssewn" path="res://level/misty-lake-hard/enemy/fairy-tracker.tscn" id="16_rvste"]
@@ -22,7 +21,6 @@
 [ext_resource type="Material" uid="uid://c5ahns6t1w0c" path="res://level/misty-lake-hard/resource/boss-bullet.material" id="27_vmhcq"]
 [ext_resource type="Script" path="res://entity/utility/Rotator.gd" id="30_c004w"]
 [ext_resource type="Script" path="res://entity/utility/RotatorAccelerator.gd" id="33_bxfih"]
-[ext_resource type="Script" path="res://entity/utility/PreciseTimer.gd" id="34_scoie"]
 [ext_resource type="Shader" path="res://level/misty-lake-hard/resource/reflection.gdshader" id="35_eor82"]
 [ext_resource type="PackedScene" uid="uid://uiwkegjhrq51" path="res://level/misty-lake-hard/fog_overlay.tscn" id="36_uf74i"]
 [ext_resource type="PackedScene" uid="uid://bfvb372sca8m2" path="res://user-interface/leveler/leveler.tscn" id="37_67qvw"]
@@ -349,7 +347,7 @@ tracks/21/keys = {
 tracks/22/type = "value"
 tracks/22/imported = false
 tracks/22/enabled = true
-tracks/22/path = NodePath("SpellCircle:visible")
+tracks/22/path = NodePath("SpellCircle/BulletCircle:visible")
 tracks/22/interp = 1
 tracks/22/loop_wrap = true
 tracks/22/keys = {
@@ -373,7 +371,7 @@ tracks/23/keys = {
 tracks/24/type = "value"
 tracks/24/imported = false
 tracks/24/enabled = true
-tracks/24/path = NodePath("SpellCircle/barrel:position")
+tracks/24/path = NodePath("SpellCircle/BulletCircle/barrel:position")
 tracks/24/interp = 1
 tracks/24/loop_wrap = true
 tracks/24/keys = {
@@ -385,7 +383,7 @@ tracks/24/keys = {
 tracks/25/type = "value"
 tracks/25/imported = false
 tracks/25/enabled = true
-tracks/25/path = NodePath("SpellCircle:localRotation")
+tracks/25/path = NodePath("SpellCircle/BulletCircle:localRotation")
 tracks/25/interp = 1
 tracks/25/loop_wrap = true
 tracks/25/keys = {
@@ -409,58 +407,34 @@ tracks/26/keys = {
 tracks/27/type = "value"
 tracks/27/imported = false
 tracks/27/enabled = true
-tracks/27/path = NodePath("SpellButterfly:visible")
+tracks/27/path = NodePath("SpellWaveParticle/BulletWaveParticle:process_mode")
 tracks/27/interp = 1
 tracks/27/loop_wrap = true
 tracks/27/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [false]
+"values": [4]
 }
 tracks/28/type = "value"
 tracks/28/imported = false
 tracks/28/enabled = true
-tracks/28/path = NodePath("SpellWaveParticle:process_mode")
+tracks/28/path = NodePath("SpellWaveParticle/BulletWaveParticle:visible")
 tracks/28/interp = 1
 tracks/28/loop_wrap = true
 tracks/28/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [4]
+"values": [false]
 }
 tracks/29/type = "value"
 tracks/29/imported = false
 tracks/29/enabled = true
-tracks/29/path = NodePath("SpellWaveParticle:visible")
+tracks/29/path = NodePath("SpellWaveParticle/BulletWaveParticle/TimerPrecise:process_mode")
 tracks/29/interp = 1
 tracks/29/loop_wrap = true
 tracks/29/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/30/type = "value"
-tracks/30/imported = false
-tracks/30/enabled = true
-tracks/30/path = NodePath("SpellWaveParticle/TimerPrecise:process_mode")
-tracks/30/interp = 1
-tracks/30/loop_wrap = true
-tracks/30/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [4]
-}
-tracks/31/type = "value"
-tracks/31/imported = false
-tracks/31/enabled = true
-tracks/31/path = NodePath("SpellButterfly:process_mode")
-tracks/31/interp = 1
-tracks/31/loop_wrap = true
-tracks/31/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
@@ -1361,7 +1335,7 @@ tracks/40/keys = {
 tracks/41/type = "value"
 tracks/41/imported = false
 tracks/41/enabled = true
-tracks/41/path = NodePath("SpellCircle:visible")
+tracks/41/path = NodePath("SpellCircle/BulletCircle:visible")
 tracks/41/interp = 1
 tracks/41/loop_wrap = true
 tracks/41/keys = {
@@ -1373,7 +1347,7 @@ tracks/41/keys = {
 tracks/42/type = "value"
 tracks/42/imported = false
 tracks/42/enabled = true
-tracks/42/path = NodePath("SpellCircle:process_mode")
+tracks/42/path = NodePath("SpellCircle/BulletCircle:process_mode")
 tracks/42/interp = 1
 tracks/42/loop_wrap = true
 tracks/42/keys = {
@@ -1385,7 +1359,7 @@ tracks/42/keys = {
 tracks/43/type = "method"
 tracks/43/imported = false
 tracks/43/enabled = true
-tracks/43/path = NodePath("SpellCircle/SpellCircleTimer")
+tracks/43/path = NodePath("SpellCircle/BulletCircle/SpellCircleTimer")
 tracks/43/interp = 1
 tracks/43/loop_wrap = true
 tracks/43/keys = {
@@ -1402,7 +1376,7 @@ tracks/43/keys = {
 tracks/44/type = "value"
 tracks/44/imported = false
 tracks/44/enabled = true
-tracks/44/path = NodePath("SpellCircle:localRotation")
+tracks/44/path = NodePath("SpellCircle/BulletCircle:localRotation")
 tracks/44/interp = 1
 tracks/44/loop_wrap = true
 tracks/44/keys = {
@@ -1414,7 +1388,7 @@ tracks/44/keys = {
 tracks/45/type = "value"
 tracks/45/imported = false
 tracks/45/enabled = true
-tracks/45/path = NodePath("SpellCircle/barrel:position")
+tracks/45/path = NodePath("SpellCircle/BulletCircle/barrel:position")
 tracks/45/interp = 1
 tracks/45/loop_wrap = true
 tracks/45/keys = {
@@ -1426,7 +1400,7 @@ tracks/45/keys = {
 tracks/46/type = "value"
 tracks/46/imported = false
 tracks/46/enabled = true
-tracks/46/path = NodePath("SpellCircle/barrel:position")
+tracks/46/path = NodePath("SpellCircle/BulletCircle/barrel:position")
 tracks/46/interp = 1
 tracks/46/loop_wrap = true
 tracks/46/keys = {
@@ -1458,25 +1432,13 @@ tracks/47/keys = {
 "method": &"spawn_item"
 }]
 }
-tracks/48/type = "value"
+tracks/48/type = "method"
 tracks/48/imported = false
 tracks/48/enabled = true
-tracks/48/path = NodePath("SpellButterfly:visible")
+tracks/48/path = NodePath("SpellButterfly/BulletButterfly/SpellButterflyTimer")
 tracks/48/interp = 1
 tracks/48/loop_wrap = true
 tracks/48/keys = {
-"times": PackedFloat32Array(0, 112.2, 112.354, 143.1, 143.3),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
-"update": 1,
-"values": [false, false, true, true, false]
-}
-tracks/49/type = "method"
-tracks/49/imported = false
-tracks/49/enabled = true
-tracks/49/path = NodePath("SpellButterfly/SpellButterflyTimer")
-tracks/49/interp = 1
-tracks/49/loop_wrap = true
-tracks/49/keys = {
 "times": PackedFloat32Array(112.3, 134.9),
 "transitions": PackedFloat32Array(1, 1),
 "values": [{
@@ -1487,85 +1449,73 @@ tracks/49/keys = {
 "method": &"stop"
 }]
 }
-tracks/50/type = "value"
-tracks/50/imported = false
-tracks/50/enabled = true
-tracks/50/path = NodePath("SpellWaveParticle:process_mode")
-tracks/50/interp = 1
-tracks/50/loop_wrap = true
-tracks/50/keys = {
+tracks/49/type = "value"
+tracks/49/imported = false
+tracks/49/enabled = true
+tracks/49/path = NodePath("SpellWaveParticle/BulletWaveParticle:process_mode")
+tracks/49/interp = 1
+tracks/49/loop_wrap = true
+tracks/49/keys = {
 "times": PackedFloat32Array(0, 136.233, 136.7),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
 "values": [4, 4, 0]
 }
-tracks/51/type = "value"
-tracks/51/imported = false
-tracks/51/enabled = true
-tracks/51/path = NodePath("SpellWaveParticle:visible")
-tracks/51/interp = 1
-tracks/51/loop_wrap = true
-tracks/51/keys = {
+tracks/50/type = "value"
+tracks/50/imported = false
+tracks/50/enabled = true
+tracks/50/path = NodePath("SpellWaveParticle/BulletWaveParticle:visible")
+tracks/50/interp = 1
+tracks/50/loop_wrap = true
+tracks/50/keys = {
 "times": PackedFloat32Array(0, 136, 136.364),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
 "values": [false, false, true]
 }
-tracks/52/type = "value"
-tracks/52/imported = false
-tracks/52/enabled = true
-tracks/52/path = NodePath("SpellWaveParticle/TimerPrecise:process_mode")
-tracks/52/interp = 1
-tracks/52/loop_wrap = true
-tracks/52/keys = {
+tracks/51/type = "value"
+tracks/51/imported = false
+tracks/51/enabled = true
+tracks/51/path = NodePath("SpellWaveParticle/BulletWaveParticle/TimerPrecise:process_mode")
+tracks/51/interp = 1
+tracks/51/loop_wrap = true
+tracks/51/keys = {
 "times": PackedFloat32Array(136.563, 147.919),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [0, 4]
 }
-tracks/53/type = "value"
-tracks/53/imported = false
-tracks/53/enabled = true
-tracks/53/path = NodePath("yukari:position")
-tracks/53/interp = 1
-tracks/53/loop_wrap = true
-tracks/53/keys = {
+tracks/52/type = "value"
+tracks/52/imported = false
+tracks/52/enabled = true
+tracks/52/path = NodePath("yukari:position")
+tracks/52/interp = 1
+tracks/52/loop_wrap = true
+tracks/52/keys = {
 "times": PackedFloat32Array(0, 75, 76, 98.5, 99.6669, 111.533, 112.321, 135.6, 136.5, 154.312, 155),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 0,
 "values": [Vector2(270, -300), Vector2(270, -300), Vector2(270, 300), Vector2(270, 300), Vector2(270, 128), Vector2(270, 128), Vector2(270, 371), Vector2(270, 371), Vector2(270, 428), Vector2(270, 428), Vector2(270, -300)]
 }
-tracks/54/type = "value"
-tracks/54/imported = false
-tracks/54/enabled = true
-tracks/54/path = NodePath("yukari:process_mode")
-tracks/54/interp = 1
-tracks/54/loop_wrap = true
-tracks/54/keys = {
+tracks/53/type = "value"
+tracks/53/imported = false
+tracks/53/enabled = true
+tracks/53/path = NodePath("yukari:process_mode")
+tracks/53/interp = 1
+tracks/53/loop_wrap = true
+tracks/53/keys = {
 "times": PackedFloat32Array(0, 73.3006, 73.9),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
 "values": [4, 4, 0]
 }
-tracks/55/type = "value"
-tracks/55/imported = false
-tracks/55/enabled = true
-tracks/55/path = NodePath("SpellButterfly:process_mode")
-tracks/55/interp = 1
-tracks/55/loop_wrap = true
-tracks/55/keys = {
-"times": PackedFloat32Array(0, 111.833, 112.421, 143.133, 143.49),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
-"update": 1,
-"values": [4, 4, 0, 0, 4]
-}
-tracks/56/type = "method"
-tracks/56/imported = false
-tracks/56/enabled = true
-tracks/56/path = NodePath("Ball")
-tracks/56/interp = 1
-tracks/56/loop_wrap = true
-tracks/56/keys = {
+tracks/54/type = "method"
+tracks/54/imported = false
+tracks/54/enabled = true
+tracks/54/path = NodePath("Ball")
+tracks/54/interp = 1
+tracks/54/loop_wrap = true
+tracks/54/keys = {
 "times": PackedFloat32Array(79.5333, 80.0628, 82.5033, 85.3039, 85.8333, 88.3667, 91.3039, 91.8333, 94.5, 97.1372, 97.6667, 100.6, 103.23, 103.759, 106.2, 109.001, 109.53, 112.063, 115.001, 115.53, 118.197, 120.834, 121.363, 124.297, 126.8, 127.329, 129.77, 132.571, 133.1, 135.633),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
 "values": [{
@@ -1660,13 +1610,13 @@ tracks/56/keys = {
 "method": &"SpawnBullet"
 }]
 }
-tracks/57/type = "method"
-tracks/57/imported = false
-tracks/57/enabled = true
-tracks/57/path = NodePath("yukari/TargetLocker")
-tracks/57/interp = 1
-tracks/57/loop_wrap = true
-tracks/57/keys = {
+tracks/55/type = "method"
+tracks/55/imported = false
+tracks/55/enabled = true
+tracks/55/path = NodePath("yukari/TargetLocker")
+tracks/55/interp = 1
+tracks/55/loop_wrap = true
+tracks/55/keys = {
 "times": PackedFloat32Array(79.2333, 82.4, 85.0039, 88.2634, 91.0039, 94.3967, 96.8372, 100.497, 102.93, 106.097, 108.701, 111.96, 114.701, 118.093, 120.534, 124.193, 126.5, 129.667, 132.271, 135.53),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
 "values": [{
@@ -1788,14 +1738,7 @@ process_mode = 4
 visible = false
 position = Vector2(0, -43)
 
-[node name="CystalBullet" type="Bullet" parent="CystalDrop1"]
-speed = 172.0
-barrel_group = &"Enemy Barrel 1"
-hitbox = ExtResource("11_1md7t")
-texture = ExtResource("10_8mvcl")
-top_level = true
-z_index = 100
-material = ExtResource("27_vmhcq")
+[node name="CystalBullet" parent="CystalDrop1" instance=ExtResource("8_bx502")]
 
 [node name="CystalTimer" type="Timer" parent="CystalDrop1"]
 wait_time = 0.2
@@ -1875,6 +1818,7 @@ process_mode = 4
 visible = false
 
 [node name="TrackingBullet" type="Bullet" parent="Tracking2"]
+top_level = true
 z_index = 100
 material = ExtResource("27_vmhcq")
 scale = Vector2(0.5, 0.5)
@@ -2059,6 +2003,7 @@ texture = ExtResource("18_aiv38")
 [node name="barrel9" parent="BigHpFairy3/Fairy/TopMiddle/visual" instance=ExtResource("19_8gd87")]
 
 [node name="BigFairyBullet" type="Bullet" parent="BigHpFairy3"]
+top_level = true
 z_index = 100
 material = ExtResource("27_vmhcq")
 scale = Vector2(0.5, 0.5)
@@ -2211,174 +2156,185 @@ gizmo_extents = 25.9
 script = ExtResource("26_e1gun")
 
 [node name="SpellCircle" type="Node2D" parent="."]
+
+[node name="BulletCircle" type="Bullet" parent="SpellCircle"]
 process_mode = 4
 visible = false
+top_level = true
 z_index = 100
 material = ExtResource("27_vmhcq")
 
-[node name="barrel" type="Node2D" parent="SpellCircle"]
+[node name="barrel" type="Node2D" parent="SpellCircle/BulletCircle"]
 
-[node name="Barrel1" type="Node2D" parent="SpellCircle/barrel"]
+[node name="Barrel1" type="Node2D" parent="SpellCircle/BulletCircle/barrel"]
 position = Vector2(270, 300)
 script = ExtResource("30_c004w")
 speed = -3.0
 
-[node name="@Marker2D@27672" type="Marker2D" parent="SpellCircle/barrel/Barrel1" groups=["Spellcard Circle"]]
+[node name="@Marker2D@27672" type="Marker2D" parent="SpellCircle/BulletCircle/barrel/Barrel1" groups=["Spellcard Circle"]]
 position = Vector2(142.004, 0)
 gizmo_extents = 20.0
 
-[node name="@Marker2D@27676" type="Marker2D" parent="SpellCircle/barrel/Barrel1" groups=["Spellcard Circle"]]
+[node name="@Marker2D@27676" type="Marker2D" parent="SpellCircle/BulletCircle/barrel/Barrel1" groups=["Spellcard Circle"]]
 position = Vector2(100.412, 100.412)
 rotation = 0.785398
 gizmo_extents = 20.0
 
-[node name="@Marker2D@27680" type="Marker2D" parent="SpellCircle/barrel/Barrel1" groups=["Spellcard Circle"]]
+[node name="@Marker2D@27680" type="Marker2D" parent="SpellCircle/BulletCircle/barrel/Barrel1" groups=["Spellcard Circle"]]
 position = Vector2(-6.20717e-06, 142.004)
 rotation = 1.5708
 gizmo_extents = 20.0
 
-[node name="@Marker2D@27684" type="Marker2D" parent="SpellCircle/barrel/Barrel1" groups=["Spellcard Circle"]]
+[node name="@Marker2D@27684" type="Marker2D" parent="SpellCircle/BulletCircle/barrel/Barrel1" groups=["Spellcard Circle"]]
 position = Vector2(-100.412, 100.412)
 rotation = 2.35619
 gizmo_extents = 20.0
 
-[node name="@Marker2D@27688" type="Marker2D" parent="SpellCircle/barrel/Barrel1" groups=["Spellcard Circle"]]
+[node name="@Marker2D@27688" type="Marker2D" parent="SpellCircle/BulletCircle/barrel/Barrel1" groups=["Spellcard Circle"]]
 position = Vector2(-142.004, -1.24143e-05)
 rotation = -3.14159
 gizmo_extents = 20.0
 
-[node name="Barrel2" type="Node2D" parent="SpellCircle/barrel"]
+[node name="Barrel2" type="Node2D" parent="SpellCircle/BulletCircle/barrel"]
 position = Vector2(270, 300)
+rotation = -0.181117
 script = ExtResource("30_c004w")
 speed = 3.0
 
-[node name="_Marker2D_27675" type="Marker2D" parent="SpellCircle/barrel/Barrel2" groups=["Spellcard Circle"]]
+[node name="_Marker2D_27675" type="Marker2D" parent="SpellCircle/BulletCircle/barrel/Barrel2" groups=["Spellcard Circle"]]
 position = Vector2(118.072, 78.8929)
 rotation = 0.589049
 gizmo_extents = 20.0
 
-[node name="_Marker2D_27679" type="Marker2D" parent="SpellCircle/barrel/Barrel2" groups=["Spellcard Circle"]]
+[node name="_Marker2D_27679" type="Marker2D" parent="SpellCircle/BulletCircle/barrel/Barrel2" groups=["Spellcard Circle"]]
 position = Vector2(27.7035, 139.275)
 rotation = 1.37445
 gizmo_extents = 20.0
 
-[node name="_Marker2D_27683" type="Marker2D" parent="SpellCircle/barrel/Barrel2" groups=["Spellcard Circle"]]
+[node name="_Marker2D_27683" type="Marker2D" parent="SpellCircle/BulletCircle/barrel/Barrel2" groups=["Spellcard Circle"]]
 position = Vector2(-78.8929, 118.072)
 rotation = 2.15984
 gizmo_extents = 20.0
 
-[node name="_Marker2D_27687" type="Marker2D" parent="SpellCircle/barrel/Barrel2" groups=["Spellcard Circle"]]
+[node name="_Marker2D_27687" type="Marker2D" parent="SpellCircle/BulletCircle/barrel/Barrel2" groups=["Spellcard Circle"]]
 position = Vector2(-139.275, 27.7035)
 rotation = 2.94524
 gizmo_extents = 20.0
 
-[node name="SpellCircleTimer" type="Timer" parent="SpellCircle"]
+[node name="SpellCircleTimer" type="Timer" parent="SpellCircle/BulletCircle"]
 wait_time = 0.1
 
 [node name="SpellButterfly" type="Node2D" parent="."]
-process_mode = 4
-visible = false
+scale = Vector2(0.5, 0.5)
 
-[node name="SpellcardCircle" type="Node2D" parent="SpellButterfly"]
+[node name="BulletButterfly" type="Bullet" parent="SpellButterfly"]
+top_level = true
 z_index = 100
 material = ExtResource("27_vmhcq")
 scale = Vector2(0.5, 0.5)
 
-[node name="SpellButterflyTimer" type="Timer" parent="SpellButterfly"]
+[node name="SpellButterflyTimer" type="Timer" parent="SpellButterfly/BulletButterfly"]
 wait_time = 0.15
 
 [node name="CircleBarrel2" type="Node2D" parent="SpellButterfly"]
-position = Vector2(270, 300)
+position = Vector2(540, 600)
 rotation = 0.0349066
-scale = Vector2(2, 2)
+scale = Vector2(4, 4)
 script = ExtResource("30_c004w")
 speed = -6.283
 
-[node name="@Marker2D@76188" type="Marker2D" parent="SpellButterfly/CircleBarrel2" groups=["Spellcard Butterfly"]]
+[node name="_Marker2D_76188" type="Marker2D" parent="SpellButterfly/CircleBarrel2" groups=["Spellcard Butterfly"]]
 position = Vector2(31.3851, 6.24289)
 rotation = 0.19635
 gizmo_extents = 40.0
 
-[node name="@Marker2D@76190" type="Marker2D" parent="SpellButterfly/CircleBarrel2" groups=["Spellcard Butterfly"]]
+[node name="_Marker2D_76190" type="Marker2D" parent="SpellButterfly/CircleBarrel2" groups=["Spellcard Butterfly"]]
 position = Vector2(26.607, 17.7782)
 rotation = 0.589049
 gizmo_extents = 40.0
 
-[node name="@Marker2D@76192" type="Marker2D" parent="SpellButterfly/CircleBarrel2" groups=["Spellcard Butterfly"]]
+[node name="_Marker2D_76192" type="Marker2D" parent="SpellButterfly/CircleBarrel2" groups=["Spellcard Butterfly"]]
 position = Vector2(17.7782, 26.607)
 rotation = 0.981748
 gizmo_extents = 40.0
 
-[node name="@Marker2D@76194" type="Marker2D" parent="SpellButterfly/CircleBarrel2" groups=["Spellcard Butterfly"]]
+[node name="_Marker2D_76194" type="Marker2D" parent="SpellButterfly/CircleBarrel2" groups=["Spellcard Butterfly"]]
 position = Vector2(6.24289, 31.3851)
 rotation = 1.37445
 gizmo_extents = 40.0
 
-[node name="@Marker2D@76196" type="Marker2D" parent="SpellButterfly/CircleBarrel2" groups=["Spellcard Butterfly"]]
+[node name="_Marker2D_76196" type="Marker2D" parent="SpellButterfly/CircleBarrel2" groups=["Spellcard Butterfly"]]
 position = Vector2(-6.24289, 31.3851)
 rotation = 1.76715
 gizmo_extents = 40.0
 
-[node name="@Marker2D@76198" type="Marker2D" parent="SpellButterfly/CircleBarrel2" groups=["Spellcard Butterfly"]]
+[node name="_Marker2D_76198" type="Marker2D" parent="SpellButterfly/CircleBarrel2" groups=["Spellcard Butterfly"]]
 position = Vector2(-17.7782, 26.607)
 rotation = 2.15984
 gizmo_extents = 40.0
 
-[node name="@Marker2D@76200" type="Marker2D" parent="SpellButterfly/CircleBarrel2" groups=["Spellcard Butterfly"]]
+[node name="_Marker2D_76200" type="Marker2D" parent="SpellButterfly/CircleBarrel2" groups=["Spellcard Butterfly"]]
 position = Vector2(-26.607, 17.7782)
 rotation = 2.55254
 gizmo_extents = 40.0
 
-[node name="@Marker2D@76202" type="Marker2D" parent="SpellButterfly/CircleBarrel2" groups=["Spellcard Butterfly"]]
+[node name="_Marker2D_76202" type="Marker2D" parent="SpellButterfly/CircleBarrel2" groups=["Spellcard Butterfly"]]
 position = Vector2(-31.3851, 6.24289)
 rotation = 2.94524
 gizmo_extents = 40.0
 
-[node name="@Marker2D@76204" type="Marker2D" parent="SpellButterfly/CircleBarrel2" groups=["Spellcard Butterfly"]]
+[node name="_Marker2D_76204" type="Marker2D" parent="SpellButterfly/CircleBarrel2" groups=["Spellcard Butterfly"]]
 position = Vector2(-31.3851, -6.24289)
 rotation = -2.94525
 gizmo_extents = 40.0
 
-[node name="@Marker2D@76206" type="Marker2D" parent="SpellButterfly/CircleBarrel2" groups=["Spellcard Butterfly"]]
+[node name="_Marker2D_76206" type="Marker2D" parent="SpellButterfly/CircleBarrel2" groups=["Spellcard Butterfly"]]
 position = Vector2(-26.607, -17.7782)
 rotation = -2.55255
 gizmo_extents = 40.0
 
-[node name="@Marker2D@76208" type="Marker2D" parent="SpellButterfly/CircleBarrel2" groups=["Spellcard Butterfly"]]
+[node name="_Marker2D_76208" type="Marker2D" parent="SpellButterfly/CircleBarrel2" groups=["Spellcard Butterfly"]]
 position = Vector2(-17.7783, -26.607)
 rotation = -2.15985
 gizmo_extents = 40.0
 
-[node name="@Marker2D@76210" type="Marker2D" parent="SpellButterfly/CircleBarrel2" groups=["Spellcard Butterfly"]]
+[node name="_Marker2D_76210" type="Marker2D" parent="SpellButterfly/CircleBarrel2" groups=["Spellcard Butterfly"]]
 position = Vector2(-6.24289, -31.3851)
 rotation = -1.76715
 gizmo_extents = 40.0
 
-[node name="@Marker2D@76212" type="Marker2D" parent="SpellButterfly/CircleBarrel2" groups=["Spellcard Butterfly"]]
+[node name="_Marker2D_76212" type="Marker2D" parent="SpellButterfly/CircleBarrel2" groups=["Spellcard Butterfly"]]
 position = Vector2(6.24289, -31.3851)
 rotation = -1.37445
 gizmo_extents = 40.0
 
-[node name="@Marker2D@76214" type="Marker2D" parent="SpellButterfly/CircleBarrel2" groups=["Spellcard Butterfly"]]
+[node name="_Marker2D_76214" type="Marker2D" parent="SpellButterfly/CircleBarrel2" groups=["Spellcard Butterfly"]]
 position = Vector2(17.7782, -26.607)
 rotation = -0.981746
 gizmo_extents = 40.0
 
-[node name="@Marker2D@76216" type="Marker2D" parent="SpellButterfly/CircleBarrel2" groups=["Spellcard Butterfly"]]
+[node name="_Marker2D_76216" type="Marker2D" parent="SpellButterfly/CircleBarrel2" groups=["Spellcard Butterfly"]]
 position = Vector2(26.607, -17.7782)
 rotation = -0.589045
 gizmo_extents = 40.0
 
-[node name="@Marker2D@76218" type="Marker2D" parent="SpellButterfly/CircleBarrel2" groups=["Spellcard Butterfly"]]
+[node name="_Marker2D_76218" type="Marker2D" parent="SpellButterfly/CircleBarrel2" groups=["Spellcard Butterfly"]]
 position = Vector2(31.3851, -6.24289)
 rotation = -0.196345
 gizmo_extents = 40.0
 
 [node name="SpellWaveParticle" type="Node2D" parent="."]
+
+[node name="BulletWaveParticle" type="Bullet" parent="SpellWaveParticle"]
 process_mode = 4
 visible = false
+top_level = true
 z_index = 100
 material = ExtResource("27_vmhcq")
+
+[node name="TimerPrecise" type="Timer" parent="SpellWaveParticle/BulletWaveParticle"]
+process_mode = 4
+wait_time = 0.06
 
 [node name="CircleBarrel" type="Node2D" parent="SpellWaveParticle"]
 position = Vector2(270, 396)
@@ -2408,12 +2364,8 @@ position = Vector2(6.08052e-07, -50.9902)
 rotation = -1.5708
 gizmo_extents = 20.0
 
-[node name="TimerPrecise" type="Node" parent="SpellWaveParticle"]
-process_mode = 4
-script = ExtResource("34_scoie")
-wait_time = 0.06
-
-[node name="Ball" type="Node2D" parent="."]
+[node name="Ball" type="Bullet" parent="."]
+top_level = true
 material = ExtResource("27_vmhcq")
 
 [node name="BackBufferCopy" type="Node2D" parent="."]
@@ -2444,12 +2396,11 @@ libraries = {
 [node name="bgm" type="AudioStreamPlayer" parent="."]
 bus = &"BGM"
 
-[connection signal="timeout" from="CystalDrop1/CystalTimer" to="CystalDrop1/CystalBullet" method="SpawnBullet"]
 [connection signal="timeout" from="CystalDrop1/CystalTimer" to="CystalDrop1/CystalSpawner" method="_transform_barrel"]
 [connection signal="timeout" from="Tracking2/TrackingTimer" to="Tracking2/TrackingBullet" method="SpawnBullet"]
 [connection signal="timeout" from="Tracking2/TrackingTimer" to="Tracking2/TrackingSpawner" method="_transform_barrel"]
 [connection signal="timeout" from="ScoreGiveaway4/GiveawayTimer" to="ScoreGiveaway4/GiveawaySpawner" method="spawn_enemy"]
 [connection signal="timeout" from="ScoreGiveaway4/GiveawayTimer" to="ScoreGiveaway4/GiveawaySpawner2" method="spawn_enemy"]
-[connection signal="timeout" from="SpellCircle/SpellCircleTimer" to="SpellCircle" method="SpawnBullet"]
-[connection signal="timeout" from="SpellButterfly/SpellButterflyTimer" to="SpellButterfly/SpellcardCircle" method="SpawnBullet"]
-[connection signal="timeout" from="SpellWaveParticle/TimerPrecise" to="SpellWaveParticle" method="SpawnBullet"]
+[connection signal="timeout" from="SpellCircle/BulletCircle/SpellCircleTimer" to="SpellCircle/BulletCircle" method="SpawnBullet"]
+[connection signal="timeout" from="SpellButterfly/BulletButterfly/SpellButterflyTimer" to="SpellButterfly/BulletButterfly" method="SpawnBullet"]
+[connection signal="timeout" from="SpellWaveParticle/BulletWaveParticle/TimerPrecise" to="SpellWaveParticle/BulletWaveParticle" method="SpawnBullet"]

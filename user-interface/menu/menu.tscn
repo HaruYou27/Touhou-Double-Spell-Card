@@ -16,7 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://ffnff8ahyxxn" path="res://entity/player/reimu/reimu-sprite.tscn" id="10_dtu3c"]
 [ext_resource type="Shape2D" uid="uid://8v0qid6h0jl5" path="res://entity/player/reimu/resource/ofuda.tres" id="11_poxet"]
 [ext_resource type="PackedScene" uid="uid://bsa0xvb26o22u" path="res://entity/player/reimu/yinyang-orb.tscn" id="11_uxxtn"]
-[ext_resource type="Material" uid="uid://c5frc6pfgn8xs" path="res://singleton/bullet/bullet-monochrome.material" id="11_wt44o"]
+[ext_resource type="Material" uid="uid://c5frc6pfgn8xs" path="res://singleton/item-manager/bullet-monochrome.material" id="11_wt44o"]
 [ext_resource type="PackedScene" uid="uid://cw6ldgxnk6nf3" path="res://entity/player/marisa/marisa-sprite.tscn" id="12_3ecnw"]
 [ext_resource type="Script" path="res://user-interface/menu/character/character.gd" id="13_rskvb"]
 [ext_resource type="PackedScene" uid="uid://ecqcoejg1lj8" path="res://entity/player/marisa/beam.tscn" id="14_7sa2c"]

@@ -10,8 +10,8 @@ class ItemManager : public Bullet
     GDCLASS(ItemManager, Bullet)
     
     private:
-        float gravity;
-        float speed_angular;
+        float gravity = 98;
+        float speed_angular = Math_PI;
     protected:
         static void _bind_methods();
         inline void create_item(Vector2 position, float random);

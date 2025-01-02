@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://cex3540cp47lm" path="res://entity/player/base/graze.tscn" id="5_sq1so"]
 [ext_resource type="Texture2D" uid="uid://cx7ewf38kbh34" path="res://entity/player/reimu/resource/reimu-hitbox.png" id="7_hytxk"]
 [ext_resource type="Shape2D" uid="uid://dp6ob6j31prqn" path="res://entity/player/reimu/resource/bullet-seek.tres" id="7_q4k1v"]
-[ext_resource type="Material" uid="uid://c5frc6pfgn8xs" path="res://singleton/bullet/bullet-monochrome.material" id="7_w7two"]
+[ext_resource type="Material" uid="uid://c5frc6pfgn8xs" path="res://singleton/item-manager/bullet-monochrome.material" id="7_w7two"]
 [ext_resource type="Shape2D" uid="uid://8v0qid6h0jl5" path="res://entity/player/reimu/resource/ofuda.tres" id="8_a450e"]
 [ext_resource type="PackedScene" uid="uid://8587t5a7aa40" path="res://entity/player/reimu/seal.tscn" id="10_730ir"]
 [ext_resource type="Texture2D" uid="uid://cu2ufhkx3vayf" path="res://entity/player/reimu/resource/ofuda.png" id="14_yebca"]

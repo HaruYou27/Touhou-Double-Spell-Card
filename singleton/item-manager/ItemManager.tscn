@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://c3rxoiw7os1of"]
+
+[ext_resource type="Texture2D" uid="uid://ccgackr4sld8n" path="res://singleton/item-manager/point.png" id="1_dwmc0"]
+[ext_resource type="Material" uid="uid://c5frc6pfgn8xs" path="res://singleton/item-manager/bullet-monochrome.material" id="2_opknh"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_17gda"]
+radius = 8.0
+
+[node name="ItemManager" type="ItemManager"]
+speed = 72.0
+hitbox = SubResource("CircleShape2D_17gda")
+texture = ExtResource("1_dwmc0")
+grazable = false
+collision_layer = 8
+top_level = true
+z_index = 1
+material = ExtResource("2_opknh")

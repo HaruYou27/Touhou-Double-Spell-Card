@@ -33,9 +33,6 @@ var can_bomb := true
 @onready var sentivity := Global.user_data.sentivity
 var can_move := false
 func _input(event:InputEvent) -> void:
-	#if (event is InputEventMouseMotion and Input.is_action_pressed("drag")):
-		#move(event)
-
 	if event is InputEventScreenDrag:
 		move(event)
 		if event.index > 0:

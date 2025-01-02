@@ -4,6 +4,11 @@ entry_symbol = "bullet_library_init"
 compatibility_minimum = "4.3"
 reloadable = false
 
+[icons]
+Bullet = "res://bullet-cpp/icons/bullets.svg"
+Tracker = "res://bullet-cpp/icons/tracker.svg"
+ItemManager = "res://bullet-cpp/icons/bullets_global.svg"
+
 [libraries]
 
 linux.debug.x86_64 = "res://bin/linux/libBulletHELLplusplus.linux.template_debug.x86_64.so"

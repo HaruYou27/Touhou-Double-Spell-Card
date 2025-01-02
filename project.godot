@@ -19,9 +19,10 @@ run/max_fps=60
 [autoload]
 
 Global="*res://singleton/Global.gd"
+GlobalItem="*res://singleton/item-manager/ItemManager.tscn"
 SoundEffect="*res://singleton/sound-effect/sound_effect.tscn"
-LevelLoader="*res://singleton/LevelLoader.tscn"
 ScreenEffect="*res://singleton/screen-effect/ScreenEffect.gd"
+LevelLoader="*res://singleton/LevelLoader.tscn"
 
 [display]
 
