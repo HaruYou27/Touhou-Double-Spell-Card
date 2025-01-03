@@ -1,0 +1,15 @@
+[gd_scene load_steps=4 format=3 uid="uid://beleukbiw05us"]
+
+[ext_resource type="Shape2D" uid="uid://brtfnhe3eksr4" path="res://entity/bullet/kunai-hitbox.tres" id="1_675u2"]
+[ext_resource type="Material" uid="uid://c5ahns6t1w0c" path="res://level/misty-lake-hard/resource/boss-bullet.material" id="1_tn8ua"]
+[ext_resource type="Texture2D" uid="uid://d1nkk7km71ule" path="res://entity/bullet/kunai1.png" id="2_o66lf"]
+
+[node name="BulletWaveParticle" type="Bullet"]
+speed = 172.0
+barrel_group = &"SpellCard 4 Barrel"
+hitbox = ExtResource("1_675u2")
+texture = ExtResource("2_o66lf")
+process_mode = 4
+top_level = true
+z_index = 100
+material = ExtResource("1_tn8ua")

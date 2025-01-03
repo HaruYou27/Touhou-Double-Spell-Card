@@ -2,20 +2,20 @@
 
 [ext_resource type="Script" path="res://entity/utility/TargetLocker.gd" id="1_rkp4i"]
 
-[node name="barrel" type="Node2D" groups=["Enemy Barrel 4"]]
+[node name="barrel" type="Node2D"]
 rotation = 1.5708
 script = ExtResource("1_rkp4i")
 
-[node name="_Marker2D_28733" type="Marker2D" parent="." groups=["Enemy Barrel 3"]]
+[node name="_Marker2D_28733" type="Marker2D" parent="." groups=["Big Fairy Barrel"]]
 position = Vector2(19.3441, -3.84779)
 rotation = -0.19635
 gizmo_extents = 20.0
 
-[node name="_Marker2D_28734" type="Marker2D" parent="." groups=["Enemy Barrel 3"]]
+[node name="_Marker2D_28734" type="Marker2D" parent="." groups=["Big Fairy Barrel"]]
 position = Vector2(19.7231, -2.86102e-06)
 gizmo_extents = 20.0
 
-[node name="_Marker2D_28735" type="Marker2D" parent="." groups=["Enemy Barrel 3"]]
+[node name="_Marker2D_28735" type="Marker2D" parent="." groups=["Big Fairy Barrel"]]
 position = Vector2(19.3441, 3.84778)
 rotation = 0.196349
 gizmo_extents = 20.0

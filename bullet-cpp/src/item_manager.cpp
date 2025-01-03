@@ -19,6 +19,8 @@ void ItemManager::_bind_methods()
 
     ADD_PROPERTY_FLOAT(gravity)
     ADD_PROPERTY_FLOAT(speed_angular)
+
+    BIND_FUNCTION(spawn_item, ItemManager);
 }
 
 void ItemManager::create_item(Vector2 position, float random)
@@ -48,7 +50,7 @@ void ItemManager::spawn_circle(int count, Vector2 position)
 void ItemManager::move_bullet(int index)
 {
     GET_BULLET_TRANSFORM
-    transform.rotate(speed_angular * delta32);
+    transform.set_rotation(transform.get_rotation() + speed_angular * delta32);
     velocities[index].y += gravity * delta32;
     Bullet::move_bullet(index);
 }

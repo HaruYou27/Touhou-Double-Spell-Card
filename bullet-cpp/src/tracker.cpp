@@ -104,7 +104,11 @@ void Tracker::_ready()
 
 void Tracker::_physics_process(double delta)
 {
-    if (target != nullptr && static_cast<bool>(target->get("is_alive")))
+    if (!static_cast<bool>(target->get("is_alive")))
+    {
+        target = nullptr;
+    }
+    if (target != nullptr)
     {
         target_position = target->get_global_position();
         return Bullet::_physics_process(delta);
@@ -118,10 +122,5 @@ void Tracker::_physics_process(double delta)
     GET_COLLIDER
     target = Object::cast_to<Node2D>(collider);
     
-    if (!static_cast<bool>(target->get("is_alive")))
-    {
-        target = nullptr;
-        WARN_PRINT("Target must inherits Enemy or Boss class.");
-    }
     return Bullet::_physics_process(delta);
 }

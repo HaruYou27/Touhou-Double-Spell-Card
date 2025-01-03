@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<class name="ItemManager" inherits="Bullet" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
+	<brief_description>
+	</brief_description>
+	<description>
+	</description>
+	<tutorials>
+	</tutorials>
+	<members>
+		<member name="gravity" type="float" setter="set_gravity" getter="get_gravity" default="98.0">
+		</member>
+		<member name="speed_angular" type="float" setter="set_speed_angular" getter="get_speed_angular" default="3.14159">
+		</member>
+	</members>
+</class>

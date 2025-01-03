@@ -63,6 +63,7 @@ class Bullet : public Node2D
         PhysicsDirectSpaceState2D* space;
         WorkerThreadPool* threader;
         Engine* engine;
+        Node* item_manager;
 
         int index_empty = 0;
         Transform2D transforms[MAX_BULLET];

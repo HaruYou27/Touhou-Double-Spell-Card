@@ -51,7 +51,7 @@ var scene_packed : PackedScene
 func instance_scene(path:String, player:bool) -> void:
 	if not path.is_empty():
 		scene_packed = load(path)
-	#GlobalBullet.call_deferred("Clear")
+	GlobalItem.call_deferred("Clear")
 	increase_bar.call_deferred()
 	scene = scene_packed.instantiate()
 	increase_bar.call_deferred()

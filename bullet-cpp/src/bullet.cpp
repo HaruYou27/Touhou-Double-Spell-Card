@@ -54,6 +54,7 @@ void Bullet::_ready()
     space = get_world_2d()->get_direct_space_state();
     renderer = RenderingServer::get_singleton();
     threader = WorkerThreadPool::get_singleton();
+    item_manager = get_node<Node>("/root/GlobalItem");
 
     query->set_shape(hitbox);
     query->set_collide_with_areas(collide_areas);
@@ -155,7 +156,7 @@ bool Bullet::collide(Dictionary& result, int index)
     GET_COLLISION_MASK
     if (mask < 0)
     {
-        // spawnitem
+        item_manager->call_deferred("spawn_item", transforms[index]);
         return true;
     }
     grazes[index] = false;

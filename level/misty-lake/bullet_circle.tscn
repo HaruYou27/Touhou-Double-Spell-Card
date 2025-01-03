@@ -1,0 +1,15 @@
+[gd_scene load_steps=4 format=3 uid="uid://ighcu2h88vhh"]
+
+[ext_resource type="Material" uid="uid://c5ahns6t1w0c" path="res://level/misty-lake-hard/resource/boss-bullet.material" id="1_2y3on"]
+[ext_resource type="Shape2D" uid="uid://brtfnhe3eksr4" path="res://entity/bullet/kunai-hitbox.tres" id="1_yfpyj"]
+[ext_resource type="Texture2D" uid="uid://d1nkk7km71ule" path="res://entity/bullet/kunai1.png" id="2_xhrl0"]
+
+[node name="BulletCircle" type="Bullet"]
+speed = 172.0
+barrel_group = &"Spellcard Circle"
+hitbox = ExtResource("1_yfpyj")
+texture = ExtResource("2_xhrl0")
+process_mode = 4
+top_level = true
+z_index = 100
+material = ExtResource("1_2y3on")

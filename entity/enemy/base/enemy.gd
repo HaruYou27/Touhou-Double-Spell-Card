@@ -21,7 +21,7 @@ func hit() -> void:
 func die() -> void:
 	hp = 0
 	disable.call_deferred()
-	#GlobalBullet.call_deferred("SpawnItems", point, global_position)
+	GlobalItem.call_deferred("spawn_circle", point, global_position)
 	explosion.emitting = true
 	SoundEffect.tick1.play()
 	is_alive = false
