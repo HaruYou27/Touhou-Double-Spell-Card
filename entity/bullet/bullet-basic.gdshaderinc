@@ -19,20 +19,12 @@ void vertex()
 	// Offset time by r channel.
 	time *= sign(COLOR.r - .5);
 #endif
-#if defined(VULKAN) && defined(TIME_OFFSET) && defined(TIME_FLOW)
-	time = fma(100.0, COLOR.r, time);
-#endif
-#if defined(TIME_FLOW) && !defined(VULKAN) && defined(TIME_OFFSET)
+#if defined(TIME_FLOW) && defined(TIME_OFFSET)
 	time += 100.0 * COLOR.r;
 #endif
 
 	// Offset vertex to the center of the image.
-#ifdef VULKAN
-	VERTEX = fma(vec2(-0.5), 1 / TEXTURE_PIXEL_SIZE, VERTEX);
-#endif
-#if !defined(VULKAN)
 	VERTEX -= 0.5 / TEXTURE_PIXEL_SIZE;
-#endif
 	float theta = COLOR.r;
 	VERTEX *= mat2(vec2(cos(theta),-sin(theta)),
                    vec2(sin(theta),cos(theta)));
@@ -57,8 +49,11 @@ void vertex()
 }
 void fragment()
 {
-	#ifdef COLORIZE
-		// Only change color of the gray -> black pixels.
-		COLOR.rgb = mix(color, vec3(1.), COLOR.r);
-	#endif
+#ifdef COLOR_UV
+	COLOR.r += UV.x * UV.y;
+#endif
+#ifdef COLORIZE
+	// Only change color of the gray -> black pixels.
+	COLOR.rgb = mix(color, vec3(1.), COLOR.r);
+#endif
 }

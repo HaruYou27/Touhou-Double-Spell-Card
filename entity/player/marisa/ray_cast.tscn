@@ -1,9 +1,0 @@
-[gd_scene format=3 uid="uid://bsnqtgxxjmolk"]
-
-[node name="RayCast2D3" type="RayCast2D"]
-position = Vector2(13, 0)
-exclude_parent = false
-target_position = Vector2(0, -1150)
-collision_mask = 2
-collide_with_areas = true
-collide_with_bodies = false

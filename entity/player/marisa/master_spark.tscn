@@ -1,9 +1,8 @@
-[gd_scene load_steps=12 format=3 uid="uid://b85g60flfgfr3"]
+[gd_scene load_steps=11 format=3 uid="uid://b85g60flfgfr3"]
 
 [ext_resource type="Script" path="res://entity/player/marisa/MasterSpark.gd" id="1_i45vv"]
 [ext_resource type="PackedScene" uid="uid://ecqcoejg1lj8" path="res://entity/player/marisa/beam.tscn" id="2_wwrg5"]
 [ext_resource type="Shader" path="res://entity/player/marisa/resource/master_spark.gdshader" id="3_kqvhu"]
-[ext_resource type="PackedScene" uid="uid://bsnqtgxxjmolk" path="res://entity/player/marisa/ray_cast.tscn" id="9_hoe4h"]
 
 [sub_resource type="Animation" id="Animation_d3sxi"]
 resource_name = "Master Spark"
@@ -375,13 +374,30 @@ libraries = {
 [node name="Beam" parent="." instance=ExtResource("2_wwrg5")]
 material = SubResource("ShaderMaterial_0nkt0")
 
-[node name="RayCast2D" parent="." instance=ExtResource("9_hoe4h")]
+[node name="RayCast2D" type="Marker2D" parent="."]
 position = Vector2(0, 70)
+rotation = -1.5708
+gizmo_extents = 20.0
 
-[node name="RayCast2D2" parent="RayCast2D" instance=ExtResource("9_hoe4h")]
+[node name="RayCast2D2" type="Marker2D" parent="."]
+position = Vector2(-32, 70)
+rotation = -1.5708
+gizmo_extents = 20.0
 
-[node name="RayCast2D3" parent="RayCast2D" instance=ExtResource("9_hoe4h")]
-position = Vector2(-13, 0)
+[node name="RayCast2D4" type="Marker2D" parent="."]
+position = Vector2(-16, 70)
+rotation = -1.5708
+gizmo_extents = 20.0
+
+[node name="RayCast2D5" type="Marker2D" parent="."]
+position = Vector2(16, 70)
+rotation = -1.5708
+gizmo_extents = 20.0
+
+[node name="RayCast2D3" type="Marker2D" parent="."]
+position = Vector2(32, 70)
+rotation = -1.5708
+gizmo_extents = 706.7
 
 [node name="Spark" type="StaticBody2D" parent="."]
 collision_layer = 4

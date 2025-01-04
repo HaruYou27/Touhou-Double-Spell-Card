@@ -7,9 +7,8 @@ signal died
 @export var hp := 1
 ## Fair reward.
 @onready var point = hp
-var is_alive := true
 func hit() -> void:
-	if not hp and is_alive:
+	if not hp:
 		die()
 		return
 		
@@ -24,8 +23,6 @@ func die() -> void:
 	GlobalItem.call_deferred("spawn_circle", point, global_position)
 	explosion.emitting = true
 	SoundEffect.tick1.play()
-	is_alive = false
-	died.emit()
 	
 	timeout()
 	
@@ -33,7 +30,6 @@ func reset() -> void:
 	process_mode = Node.PROCESS_MODE_INHERIT
 	monitoring = true
 	monitorable = true
-	is_alive = true
 	visual.show()
 	hp = point
 
@@ -50,7 +46,7 @@ func _on_body_entered(body:Node2D) -> void:
 	body.hit.call_deferred()
 
 func timeout() -> void:
-	is_alive = false
+	died.emit()
 	disable.call_deferred()
 	
 func disable() -> void:

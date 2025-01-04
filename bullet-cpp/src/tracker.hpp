@@ -1,7 +1,7 @@
 #ifndef BULLET_Tracker
 #define BULLET_Tracker
 
-#include <godot_cpp/classes/node2d.hpp>
+#include <godot_cpp/classes/area2d.hpp>
 
 #include <bullet.hpp>
 
@@ -16,7 +16,7 @@ class Tracker : public Bullet
         Ref<Shape2D> seek_shape;
         Node2D* seeker;
         Ref<PhysicsShapeQueryParameters2D> seek_query;
-        Node2D* target;
+        Area2D* target;
         Vector2 target_position;
     protected:
         static void _bind_methods();

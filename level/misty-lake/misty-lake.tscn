@@ -1747,7 +1747,7 @@ visible = false
 position = Vector2(0, -43)
 
 [node name="CystalBullet" parent="CystalDrop1" instance=ExtResource("8_bx502")]
-barrel_group = &"Cystal Drop Barrell"
+barrel_group = &"Cystal Drop Barrel"
 
 [node name="CystalTimer" type="Timer" parent="CystalDrop1"]
 wait_time = 0.2
@@ -1756,71 +1756,55 @@ wait_time = 0.2
 position = Vector2(4, -54)
 curve = SubResource("Curve2D_rvgc8")
 script = ExtResource("12_7qycb")
-barrel_group = &"Enemy Barrel 1"
+barrel_group = &"Cystal Drop Barrel"
 
 [node name="Fairy" parent="CystalDrop1/CystalSpawner" instance=ExtResource("13_khp1w")]
 position = Vector2(-50, 146)
-time = 4.0
 
 [node name="Fairy2" parent="CystalDrop1/CystalSpawner" instance=ExtResource("13_khp1w")]
 position = Vector2(-50, 146)
-time = 4.0
 
 [node name="Fairy3" parent="CystalDrop1/CystalSpawner" instance=ExtResource("13_khp1w")]
 position = Vector2(-50, 146)
-time = 4.0
 
 [node name="Fairy4" parent="CystalDrop1/CystalSpawner" instance=ExtResource("13_khp1w")]
 position = Vector2(-50, 146)
-time = 4.0
 
 [node name="Fairy5" parent="CystalDrop1/CystalSpawner" instance=ExtResource("13_khp1w")]
 position = Vector2(-50, 146)
-time = 4.0
 
 [node name="Fairy6" parent="CystalDrop1/CystalSpawner" instance=ExtResource("13_khp1w")]
 position = Vector2(-50, 146)
-time = 4.0
 
 [node name="Fairy7" parent="CystalDrop1/CystalSpawner" instance=ExtResource("13_khp1w")]
 position = Vector2(-50, 146)
-time = 4.0
 
 [node name="Fairy8" parent="CystalDrop1/CystalSpawner" instance=ExtResource("13_khp1w")]
 position = Vector2(-50, 146)
-time = 4.0
 
 [node name="Fairy9" parent="CystalDrop1/CystalSpawner" instance=ExtResource("13_khp1w")]
 position = Vector2(-50, 146)
-time = 4.0
 
 [node name="Fairy10" parent="CystalDrop1/CystalSpawner" instance=ExtResource("13_khp1w")]
 position = Vector2(-50, 146)
-time = 4.0
 
 [node name="Fairy11" parent="CystalDrop1/CystalSpawner" instance=ExtResource("13_khp1w")]
 position = Vector2(-50, 146)
-time = 4.0
 
 [node name="Fairy12" parent="CystalDrop1/CystalSpawner" instance=ExtResource("13_khp1w")]
 position = Vector2(-50, 146)
-time = 4.0
 
 [node name="Fairy13" parent="CystalDrop1/CystalSpawner" instance=ExtResource("13_khp1w")]
 position = Vector2(-50, 146)
-time = 4.0
 
 [node name="Fairy14" parent="CystalDrop1/CystalSpawner" instance=ExtResource("13_khp1w")]
 position = Vector2(-50, 146)
-time = 4.0
 
 [node name="Fairy15" parent="CystalDrop1/CystalSpawner" instance=ExtResource("13_khp1w")]
 position = Vector2(-50, 146)
-time = 4.0
 
 [node name="Fairy16" parent="CystalDrop1/CystalSpawner" instance=ExtResource("13_khp1w")]
 position = Vector2(-50, 146)
-time = 4.0
 
 [node name="Tracking2" type="Node2D" parent="."]
 process_mode = 4
@@ -1834,7 +1818,7 @@ wait_time = 0.4
 [node name="TrackingSpawner" type="Path2D" parent="Tracking2"]
 curve = SubResource("Curve2D_va8k1")
 script = ExtResource("12_7qycb")
-barrel_group = &"Enemy Barrel 2"
+barrel_group = &"Tracking Barrel"
 
 [node name="Fairy" parent="Tracking2/TrackingSpawner" instance=ExtResource("16_rvste")]
 position = Vector2(597, -58)
@@ -2019,7 +2003,7 @@ scale = Vector2(0.5, 0.5)
 
 [node name="TransformBarrel" type="Path2D" parent="BigHpFairy3"]
 script = ExtResource("12_7qycb")
-barrel_group = &"Enemy Barrel 4"
+barrel_group = &"Big Fairy Barrel"
 
 [node name="ScoreGiveaway4" type="Node2D" parent="."]
 process_mode = 4

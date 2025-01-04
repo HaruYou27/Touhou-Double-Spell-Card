@@ -16,6 +16,8 @@ void Tracker::_bind_methods()
 Tracker::Tracker()
 {
     seek_query = NEW_OBJECT(PhysicsShapeQueryParameters2D)
+    seek_query->set_collide_with_areas(true);
+    seek_query->set_collide_with_bodies(false);
 }
 Tracker::~Tracker()
 {
@@ -92,25 +94,25 @@ bool Tracker::collide(Dictionary& result, int index)
 
 void Tracker::_ready()
 {
+    Bullet::set_collide_areas(true);
+    Bullet::set_collide_bodies(true);
     Bullet::_ready();
 
     seeker = Object::cast_to<Node2D>(get_parent());
     seek_query->set_shape(seek_shape);
-    seek_query->set_collide_with_areas(get_collide_areas());
-    seek_query->set_collide_with_bodies(get_collide_bodies());
     seek_query->set_collision_mask(get_collision_layer());
     
 }
 
 void Tracker::_physics_process(double delta)
 {
-    if (!static_cast<bool>(target->get("is_alive")))
-    {
-        target = nullptr;
-    }
     if (target != nullptr)
     {
         target_position = target->get_global_position();
+        if (!target->is_monitorable())
+        {
+            target = nullptr;
+        }
         return Bullet::_physics_process(delta);
     }
     seek_query->set_transform(seeker->get_transform().translated(offset));
@@ -120,7 +122,7 @@ void Tracker::_physics_process(double delta)
         return Bullet::_physics_process(delta);
     }
     GET_COLLIDER
-    target = Object::cast_to<Node2D>(collider);
+    target = static_cast<Area2D*>(collider);
     
     return Bullet::_physics_process(delta);
 }

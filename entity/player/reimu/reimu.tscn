@@ -82,7 +82,7 @@ z_index = 1
 material = ExtResource("7_w7two")
 
 [node name="Timer" type="Timer" parent="Player/bullet"]
-wait_time = 0.2
+wait_time = 0.25
 autostart = true
 
 [node name="FantasySeals" type="Node2D" parent="."]
