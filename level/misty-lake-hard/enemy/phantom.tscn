@@ -1,13 +1,14 @@
-[gd_scene load_steps=5 format=3 uid="uid://c7lcs65yc2vea"]
+[gd_scene load_steps=6 format=3 uid="uid://c7lcs65yc2vea"]
 
 [ext_resource type="Script" path="res://entity/utility/PathFollower2D.gd" id="1_3qi0t"]
 [ext_resource type="PackedScene" uid="uid://dtlscerig62nv" path="res://entity/enemy/base/enemy.tscn" id="2_wexhf"]
 [ext_resource type="PackedScene" uid="uid://x6m45dr4ylyl" path="res://entity/enemy/phantom/blue-phantom.tscn" id="3_gl4or"]
+[ext_resource type="Script" path="res://entity/utility/TargetLocker.gd" id="4_s66fx"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_noovt"]
 radius = 18.1108
 
-[node name="Fairy" type="PathFollow2D" node_paths=PackedStringArray("enemy")]
+[node name="phantom" type="PathFollow2D" node_paths=PackedStringArray("enemy")]
 rotates = false
 cubic_interp = false
 loop = false
@@ -16,10 +17,15 @@ time = 7.0
 enemy = NodePath("Enemy")
 
 [node name="Enemy" parent="." node_paths=PackedStringArray("visual") instance=ExtResource("2_wexhf")]
-hp = 8
-visual = NodePath("../phantom")
+visual = NodePath("phantom")
 
 [node name="hitbox" type="CollisionShape2D" parent="Enemy"]
 shape = SubResource("CircleShape2D_noovt")
 
-[node name="phantom" parent="." instance=ExtResource("3_gl4or")]
+[node name="phantom" parent="Enemy" instance=ExtResource("3_gl4or")]
+
+[node name="Marker2D" type="Marker2D" parent="Enemy/phantom" groups=["Tracking Barrel"]]
+position = Vector2(0, 20)
+rotation = 1.5708
+gizmo_extents = 58.2
+script = ExtResource("4_s66fx")

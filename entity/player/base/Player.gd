@@ -79,7 +79,7 @@ func bomb_go_off() -> void:
 	kaboom.emit()
 	
 @export var hitbox : CollisionShape2D
-func bomb_finished() -> void:
+func bomb_finished(_nm) -> void:
 	if is_multiplayer_authority():
 		hitbox.set_deferred('disabled', false)
 	can_bomb = true

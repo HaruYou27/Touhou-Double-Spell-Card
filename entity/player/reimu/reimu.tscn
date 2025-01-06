@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://bk08ga1mfcleb"]
+[gd_scene load_steps=15 format=3 uid="uid://bk08ga1mfcleb"]
 
 [ext_resource type="PackedScene" uid="uid://ffnff8ahyxxn" path="res://entity/player/reimu/reimu-sprite.tscn" id="2_1gpls"]
 [ext_resource type="Script" path="res://entity/player/reimu/reimu.gd" id="2_ukdaa"]
@@ -10,6 +10,7 @@
 [ext_resource type="Material" uid="uid://c5frc6pfgn8xs" path="res://singleton/item-manager/bullet-monochrome.material" id="7_w7two"]
 [ext_resource type="Shape2D" uid="uid://8v0qid6h0jl5" path="res://entity/player/reimu/resource/ofuda.tres" id="8_a450e"]
 [ext_resource type="PackedScene" uid="uid://8587t5a7aa40" path="res://entity/player/reimu/seal.tscn" id="10_730ir"]
+[ext_resource type="Texture2D" uid="uid://b6ekahb1h5dwc" path="res://entity/player/reimu/resource/ofuda-black.png" id="12_3088t"]
 [ext_resource type="Texture2D" uid="uid://cu2ufhkx3vayf" path="res://entity/player/reimu/resource/ofuda.png" id="14_yebca"]
 
 [sub_resource type="CircleShape2D" id="7"]
@@ -33,31 +34,35 @@ hitbox = NodePath("Hitbox")
 [node name="YinyangOrb" parent="Player/ReimuSprite" groups=["Reimu Barrel"] instance=ExtResource("5_ryrqw")]
 texture_filter = 2
 position = Vector2(72, 0)
+rotation = -1.39626
 flip_v = true
 
 [node name="YinyangOrb2" parent="Player/ReimuSprite" groups=["Reimu Barrel"] instance=ExtResource("5_ryrqw")]
 texture_filter = 2
 position = Vector2(-72, 0)
+rotation = -1.74533
 flip_h = false
 
-[node name="Marker2D" type="Marker2D" parent="Player/ReimuSprite" groups=["Reimu Barrel"]]
-position = Vector2(13.0002, -39.9999)
+[node name="Marker2D" type="Marker2D" parent="Player/ReimuSprite" groups=["Reimu Barrel Straight"]]
+position = Vector2(13, -50)
 rotation = -1.5708
 gizmo_extents = 51.7
 
-[node name="Position2D2" type="Marker2D" parent="Player/ReimuSprite" groups=["Reimu Barrel"]]
+[node name="Position2D2" type="Marker2D" parent="Player/ReimuSprite" groups=["Reimu Barrel Straight"]]
 position = Vector2(-13, -40)
 rotation = -1.5708
 gizmo_extents = 82.9
+
+[node name="Hitbox2" type="Sprite2D" parent="Player/ReimuSprite"]
+show_behind_parent = true
+z_index = 10
+position = Vector2(0, -8)
+texture = ExtResource("7_hytxk")
 
 [node name="Hitbox" type="CollisionShape2D" parent="Player"]
 z_index = 100
 shape = SubResource("7")
 debug_color = Color(0, 1, 0.34902, 0.419608)
-
-[node name="Hitbox2" type="Sprite2D" parent="Player/Hitbox"]
-show_behind_parent = true
-texture = ExtResource("7_hytxk")
 
 [node name="graze" parent="Player" instance=ExtResource("5_sq1so")]
 
@@ -65,25 +70,6 @@ texture = ExtResource("7_hytxk")
 z_index = 9
 shape = SubResource("CapsuleShape2D_sx7ua")
 debug_color = Color(0.713726, 0.105882, 0.701961, 0.419608)
-
-[node name="bullet" type="Tracker" parent="Player"]
-seek_shape = ExtResource("7_q4k1v")
-speed = 572.0
-barrel_group = &"Reimu Barrel"
-hitbox = ExtResource("8_a450e")
-texture = ExtResource("14_yebca")
-grazable = false
-collide_areas = true
-collide_bodies = false
-local_rotation = true
-collision_layer = 2
-top_level = true
-z_index = 1
-material = ExtResource("7_w7two")
-
-[node name="Timer" type="Timer" parent="Player/bullet"]
-wait_time = 0.25
-autostart = true
 
 [node name="FantasySeals" type="Node2D" parent="."]
 
@@ -95,5 +81,39 @@ autostart = true
 
 [node name="Seal4" parent="FantasySeals" instance=ExtResource("10_730ir")]
 
+[node name="Seeker" type="Tracker" parent="."]
+seek_shape = ExtResource("7_q4k1v")
+speed = 572.0
+barrel_group = &"Reimu Barrel"
+hitbox = ExtResource("8_a450e")
+texture = ExtResource("14_yebca")
+grazable = false
+collide_areas = true
+local_rotation = true
+collision_layer = 2
+top_level = true
+z_index = 1
+material = ExtResource("7_w7two")
+
+[node name="Timer" type="Timer" parent="Seeker"]
+wait_time = 0.25
+autostart = true
+
+[node name="Bullet" type="Bullet" parent="."]
+speed = 727.0
+barrel_group = &"Reimu Barrel Straight"
+hitbox = ExtResource("8_a450e")
+texture = ExtResource("12_3088t")
+grazable = false
+collide_areas = true
+collide_bodies = false
+local_rotation = true
+collision_layer = 2
+top_level = true
+
+[node name="Timer" type="Timer" parent="Bullet"]
+wait_time = 0.2
+autostart = true
+
 [connection signal="add_bomb" from="Player/graze" to="Player" method="_on_graze_add_bomb"]
-[connection signal="timeout" from="Player/bullet/Timer" to="Player/bullet" method="spawn_bullet"]
+[connection signal="timeout" from="Seeker/Timer" to="Seeker" method="spawn_bullet"]

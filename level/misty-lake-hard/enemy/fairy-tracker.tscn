@@ -1,9 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://qcqdhn5ssewn"]
+[gd_scene load_steps=5 format=3 uid="uid://qcqdhn5ssewn"]
 
 [ext_resource type="Script" path="res://entity/utility/PathFollower2D.gd" id="1_si6qk"]
 [ext_resource type="PackedScene" uid="uid://dtlscerig62nv" path="res://entity/enemy/base/enemy.tscn" id="2_8b4id"]
 [ext_resource type="Texture2D" uid="uid://ejrqvn5h5jxu" path="res://entity/enemy/fairy/Fairy.1.png" id="3_i78df"]
-[ext_resource type="Script" path="res://entity/utility/TargetLocker.gd" id="5_ntmqj"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_noovt"]
 radius = 29.0
@@ -25,9 +24,3 @@ shape = SubResource("CircleShape2D_noovt")
 
 [node name="visual" type="Sprite2D" parent="Enemy"]
 texture = ExtResource("3_i78df")
-
-[node name="Marker2D" type="Marker2D" parent="Enemy/visual" groups=["Tracking Barrel"]]
-position = Vector2(0, 20)
-rotation = 1.5708
-gizmo_extents = 58.2
-script = ExtResource("5_ntmqj")
