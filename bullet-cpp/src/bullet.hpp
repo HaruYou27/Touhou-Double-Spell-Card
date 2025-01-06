@@ -7,15 +7,13 @@
 #include <godot_cpp/classes/world2d.hpp>
 #include <godot_cpp/classes/physics_direct_space_state2d.hpp>
 #include <godot_cpp/classes/worker_thread_pool.hpp>
+#include <godot_cpp/classes/thread.hpp>
 #include <godot_cpp/classes/rendering_server.hpp>
 #include <godot_cpp/classes/scene_tree.hpp>
 #include <godot_cpp/classes/engine.hpp>
 
-#define MAX_BULLET 2727
 #define SET_GET(var, type) void set_##var(const type value); type get_##var() const;
-#define GET_COLLISION_MASK float mask = static_cast<Vector2>(result["linear_velocity"]).x;
-#define GET_COLLIDER Object* collider = ObjectDB::get_instance(static_cast<uint64_t>(result["collider_id"]));
-#define CHECK_CAPACITY if (index_empty == MAX_BULLET) {return;}
+#define CHECK_CAPACITY if (index_empty == max_bullet) {return;}
 #define BIND_SETGET(var, class) ClassDB::bind_method(D_METHOD("set_"#var, #var), &class::set_##var); ClassDB::bind_method(D_METHOD("get_"#var), &class::get_##var);
 #define ADD_PROPERTY_BOOL(var) ADD_PROPERTY(PropertyInfo(Variant::BOOL, #var), "set_" #var, "get_" #var);
 #define ADD_PROPERTY_FLOAT(var) ADD_PROPERTY(PropertyInfo(Variant::FLOAT, #var), "set_" #var, "get_" #var);
@@ -24,11 +22,8 @@
 #define SETTER_GETTER(var, type, class) void class::set_##var(const type value) {var = value;} type class::get_##var() const {return var;}
 #define FILL_ARRAY_HOLE(array) array[index] = array[index_empty];
 #define BIND_FUNCTION(func, class) ClassDB::bind_method(D_METHOD(#func), &class::func);
-#define COLLIDE_QUERY(query) Dictionary result = space->get_rest_info(query);
-#define LOOP_BULLETS for (int index = 0; index < index_empty; index++)
 #define IS_BULLETS_EMPTY if (index_empty == 0) {return;}
 #define NEW_OBJECT(class) Ref<class>(memnew(class()));
-#define GET_BULLET_TRANSFORM Transform2D& transform = transforms[index];
 
 using namespace godot;
 class Bullet : public Node2D
@@ -48,36 +43,44 @@ class Bullet : public Node2D
         Ref<PhysicsShapeQueryParameters2D> query;
         unsigned int collision_graze = 0;
         unsigned int collision_layer = 4;
-        RID canvas_item;
         SceneTree* tree;
         void expire_bullets();
-        Callable action_expire = callable_mp(this, &Bullet::expire_bullets);
+        void move_bullets();
+        Callable action_expire;
         Rect2 world_border;
-        RenderingServer* renderer;
-        Callable action_move = callable_mp(this, &Bullet::move_bullets);
-    protected:
-        std::vector<Node2D*> barrels;
-        float delta32;
-        bool tick;
-        PackedInt32Array indexes_delete;
-        PhysicsDirectSpaceState2D* space;
+        Callable action_move;
         WorkerThreadPool* threader;
         Engine* engine;
+    protected:
+        static const short max_bullet = 2727;
+        Ref<Thread> task_move;
+        std::vector<Node2D*> barrels;
+        RID canvas_item;
+        float delta32 = 0;
+        bool tick = false;
+        short indexes_delete[max_bullet];
+        short index_expire = max_bullet - 1;
+        short index_collided = 0;
+        short index_half;
+        PhysicsDirectSpaceState2D* space;
+        RenderingServer* renderer;
         Node* item_manager;
 
-        int index_empty = 0;
-        Transform2D transforms[MAX_BULLET];
-        Vector2 velocities[MAX_BULLET];
-        bool grazes[MAX_BULLET];
-
+        short index_empty = 0;
+        Transform2D transforms[max_bullet];
+        Vector2 velocities[max_bullet];
+        bool grazes[max_bullet];
         static void _bind_methods();
-        virtual bool collide(Dictionary& result, int index);
-        virtual void move_bullets();
-        inline virtual void sort_bullets(int index);
-        inline virtual void reset_bullet();
+        virtual bool collide(const Dictionary& result, const short index);
+        virtual void move_bullet(const short index);
+        virtual void expire_bullet();
+        virtual bool collision_check(const short index);
+        virtual void sort_bullets(short index);
+        virtual void reset_bullet();
+        static Object* get_collider(const Dictionary& result);
+        static float get_collision_mask(const Dictionary& result);
     public:
         Bullet();
-        ~Bullet();
 
         SET_GET(speed, float)
         SET_GET(texture, Ref<Texture2D>)
@@ -89,12 +92,11 @@ class Bullet : public Node2D
         SET_GET(collide_bodies, bool)
         SET_GET(collision_layer, int)
 
-        virtual void _physics_process(double delta) override;
+        virtual void _physics_process(const double delta) override;
         virtual void _ready() override;
 
-        inline virtual void move_bullet(int index);
         virtual void spawn_bullet();
-        virtual void spawn_circle(int count, Vector2 position);
+        virtual void spawn_circle(const signed long count, const Vector2 position);
         void clear();
 };
 #endif

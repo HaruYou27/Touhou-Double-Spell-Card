@@ -2,13 +2,6 @@
 
 using namespace godot;
 
-ItemManager::ItemManager()
-{
-}
-ItemManager::~ItemManager()
-{
-}
-
 SETTER_GETTER(gravity, float, ItemManager)
 SETTER_GETTER(speed_angular, float, ItemManager)
 
@@ -23,7 +16,7 @@ void ItemManager::_bind_methods()
     BIND_FUNCTION(spawn_item, ItemManager);
 }
 
-void ItemManager::create_item(Vector2 position, float random)
+void ItemManager::create_item(const Vector2 position, const float random)
 {
     float rotation = Math_TAU * random;
     velocities[index_empty] = Vector2(get_speed() * random, 0).rotated(rotation);
@@ -37,27 +30,26 @@ void ItemManager::spawn_item(Vector2 position)
     create_item(position, sinf(position.x * position.y));
 }
 
-void ItemManager::spawn_circle(int count, Vector2 position)
+void ItemManager::spawn_circle(const signed long count, const Vector2 position)
 {
     CHECK_CAPACITY
-    for (int index = 1; index <= count; index++)
+    for (short index = 1; index <= count; index++)
     {
         CHECK_CAPACITY
         create_item(position, sinf(position.x * position.y * index));
     }
 }
 
-void ItemManager::move_bullet(int index)
+void ItemManager::move_bullet(const short index)
 {
-    GET_BULLET_TRANSFORM
+    Transform2D& transform = transforms[index];
     transform.set_rotation(transform.get_rotation() + speed_angular * delta32);
     velocities[index].y += gravity * delta32;
     Bullet::move_bullet(index);
 }
 
-bool ItemManager::collide(Dictionary& result, int index)
+bool ItemManager::collide(const Dictionary& result, const short index)
 {
-    GET_COLLIDER
-    collider->call_deferred("item_collect");
+    get_collider(result)->call_deferred("item_collect");
     return true;
 }

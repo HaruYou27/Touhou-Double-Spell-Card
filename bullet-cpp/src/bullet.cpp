@@ -1,7 +1,5 @@
 #include <bullet.hpp>
 
-using namespace godot;
-
 void Bullet::_bind_methods()
 {
     BIND_SETGET(speed, Bullet)
@@ -62,13 +60,13 @@ void Bullet::_ready()
     renderer->canvas_item_set_custom_rect(canvas_item, true);
 
     TypedArray<Node> nodes = tree->get_nodes_in_group(barrel_group);
-    int index_halt = nodes.size();
-    for (int index = 0; index < index_halt; index++)
+    short index_stop = nodes.size();
+    for (short index = 0; index < index_stop; index++)
     {
-        Node* node = Object::cast_to<Node>(nodes[index]);
-        if (node->is_class("Node2D"))
+        Node2D* node = Object::cast_to<Node2D>(nodes[index]);
+        if (node != nullptr)
         {
-            barrels.push_back(Object::cast_to<Node2D>(node));
+            barrels.push_back(node);
         }
     }
 }
@@ -85,14 +83,7 @@ void Bullet::spawn_bullet()
         }
         reset_bullet();
         float angle;
-        if (local_rotation)
-        {
-            angle = barrel->get_rotation();
-        }
-        else
-        {
-            angle = barrel->get_global_rotation();
-        }
+        angle = (local_rotation) ? barrel->get_rotation() : barrel->get_global_rotation();
         velocities[index_empty] = Vector2(speed, 0).rotated(angle);
         transforms[index_empty] = Transform2D(angle + M_PI_2, get_scale(), 0, barrel->get_global_position());
         index_empty++;
@@ -102,12 +93,11 @@ void Bullet::spawn_bullet()
 Bullet::Bullet()
 {
     query = NEW_OBJECT(PhysicsShapeQueryParameters2D)
-    indexes_delete = PackedInt32Array();
+    task_move = NEW_OBJECT(Thread)
     world_border = Rect2(-100, -100, 740, 1160);
     barrels = std::vector<Node2D*>();
-}
-Bullet::~Bullet()
-{
+    action_expire = callable_mp(this, &Bullet::expire_bullets);
+    action_move = callable_mp(this, &Bullet::move_bullets);
 }
 
 void Bullet::reset_bullet()
@@ -115,12 +105,12 @@ void Bullet::reset_bullet()
     grazes[index_empty] = grazable;
 }
 
-void Bullet::spawn_circle(int count, Vector2 position)
+void Bullet::spawn_circle(const signed long count, const Vector2 position)
 {
     CHECK_CAPACITY
     float delta_angle = Math_TAU / count;
     float angle = 0;
-    for (int index = 0; index < count; index++)
+    for (short index = 0; index < count; index++)
     {
         reset_bullet();
         velocities[index_empty] = Vector2(speed, 0).rotated(angle);
@@ -133,106 +123,129 @@ void Bullet::spawn_circle(int count, Vector2 position)
 void Bullet::clear()
 {
     index_empty = 0;
+    index_collided = 0;
+    index_expire = max_bullet - 1;
 }
 
-void Bullet::move_bullet(int index)
+void Bullet::move_bullet(const short index)
 {
-    GET_BULLET_TRANSFORM
+    Transform2D& transform = transforms[index];
     transform.set_origin(transform.get_origin() + velocities[index] * delta32);
     texture->draw(canvas_item, transform.get_origin().rotated(-transform.get_rotation()) / transform.get_scale(), Color(transform.get_rotation(), 1, 1));
 }
 
 void Bullet::move_bullets()
 {
-    LOOP_BULLETS
+    task_move->set_thread_safety_checks_enabled(false);
+    for (short index = 0; index < index_empty; index++)
     {
         move_bullet(index);
     }
 }
 
-// return false means bullet is still alive
-bool Bullet::collide(Dictionary& result, int index)
+Object* Bullet::get_collider(const Dictionary& result)
 {
-    GET_COLLISION_MASK
-    if (mask < 0)
+    return ObjectDB::get_instance(static_cast<uint64_t>(result["collider_id"]));
+}
+
+float Bullet::get_collision_mask(const Dictionary& result)
+{
+    return static_cast<Vector2>(result["linear_velocity"]).x;
+}
+// return false means bullet is still alive
+bool Bullet::collide(const Dictionary& result, const short index)
+{
+    if (get_collision_mask(result) < 0)
     {
         item_manager->call_deferred("spawn_item", transforms[index]);
         return true;
     }
     grazes[index] = false;
-    GET_COLLIDER
-    collider->call_deferred("hit");
+    get_collider(result)->call_deferred("hit");
     return false;
+}
+
+void Bullet::expire_bullet()
+{
 }
 
 void Bullet::expire_bullets()
 {
-    int index = roundl(index_empty / 2);
-    int index_halt = index_empty;
-    if (tick)
-    {
-        index_halt = index;
-        index = 0;
-    }
-    while (index < index_halt)
+    expire_bullet();
+    short index_stop = (tick) ? index_half : index_empty;
+    short index = (tick) ? 0 : index_half;
+    while (index < index_stop)
     {
         if (world_border.has_point(transforms[index].get_origin()))
         {
             index++;
             continue;
         }
-        indexes_delete.push_back(index);
+        indexes_delete[index_expire] = index;
+        index_expire--;
         index++;
     }
 }
 
-void Bullet::sort_bullets(int index)
+void Bullet::sort_bullets(const short index)
 {
-    if (index == index_empty)
-    {
-        return;
-    }
     FILL_ARRAY_HOLE(transforms)
     FILL_ARRAY_HOLE(velocities)
     FILL_ARRAY_HOLE(grazes)
 }
 
-void Bullet::_physics_process(double delta)
+bool Bullet::collision_check(const short index)
+{
+    Transform2D& transform = transforms[index];
+    query->set_transform(transform);
+    query->set_collision_mask((grazes[index]) ? collision_graze : collision_layer);
+    Dictionary result = space->get_rest_info(query);
+    return !result.is_empty() && collide(result, index);
+}
+
+void Bullet::_physics_process(const double delta)
 {
     renderer->canvas_item_clear(canvas_item);
     IS_BULLETS_EMPTY
-    int task_move = threader->add_task(action_move, true);
+    task_move->start(action_move, Thread::PRIORITY_HIGH);
 
     tick = !tick;
     delta32 = delta;
-    int index_halt = roundl(index_empty / 2);
-    int index = 0;
-    if (tick)
-    {
-        index = index_halt;
-        index_halt = index_empty;
-    }
+    index_half = roundl(index_empty / 2);
+    short index_stop = (tick) ? index_empty : index_half;
+    short index = (tick) ? index_half : 0;
     int task_expire = threader->add_task(action_expire);
-    while (index < index_halt)
+    while (index < index_stop)
     {
-        GET_BULLET_TRANSFORM
-        query->set_transform(transform);
-        query->set_collision_mask((grazes[index]) ? collision_graze : collision_layer);
-        COLLIDE_QUERY(query)
-        if (!result.is_empty() && collide(result, index))
+        if (collision_check(index))
         {
-            indexes_delete.push_back(index);
+            indexes_delete[index_collided] = index;
+            index_collided++;
         }
         index++;
     }
 
-    threader->wait_for_task_completion(task_move);
+    task_move->wait_to_finish();
     threader->wait_for_task_completion(task_expire);
 
-    for (int idx : indexes_delete)
+    for (short idx = 0; idx < index_collided; idx++)
     {
         index_empty--;
+        if (index == index_empty)
+        {
+            return;
+        }
         sort_bullets(idx);
     }
-    indexes_delete.clear();
+    for (short idx = max_bullet - 1; idx < index_expire; idx--)
+    {
+        index_empty--;
+        if (index == index_empty)
+        {
+            return;
+        }
+        sort_bullets(idx);
+    }
+    index_collided = 0;
+    index_expire = max_bullet - 1;
 }

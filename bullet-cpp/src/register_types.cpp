@@ -5,7 +5,7 @@
 #include <godot_cpp/godot.hpp>
 
 #include <bullet.hpp>
-#include <tracker.hpp>
+#include <seeker.hpp>
 #include <item_manager.hpp>
 
 using namespace godot;
@@ -16,7 +16,7 @@ void initialize_gdextension_types(ModuleInitializationLevel p_level)
 		return;
 	}
 	GDREGISTER_CLASS(Bullet);
-	GDREGISTER_CLASS(Tracker);
+	GDREGISTER_CLASS(Seeker);
 	GDREGISTER_CLASS(ItemManager);
 }
 

@@ -14,16 +14,13 @@ class ItemManager : public Bullet
         float speed_angular = Math_PI;
     protected:
         static void _bind_methods();
-        inline void create_item(Vector2 position, float random);
-        virtual bool collide(Dictionary& result, int index) override;
-        virtual void move_bullet(int index) override;
+        inline void create_item(const Vector2 position, const float random);
+        virtual bool collide(const Dictionary& result, const short index) override;
+        virtual void move_bullet(const short index) override;
     public:
-        ItemManager();
-        ~ItemManager();
-        
         SET_GET(gravity, float)
         SET_GET(speed_angular, float)
-        void spawn_item(Vector2 position);
-        virtual void spawn_circle(int count, Vector2 position) override;
+        void spawn_item(const Vector2 position);
+        virtual void spawn_circle(const signed long count, const Vector2 position) override;
 };
 #endif
