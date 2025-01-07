@@ -11,7 +11,7 @@ void Seeker::_bind_methods()
 
 Seeker::Seeker()
 {
-    seek_query = NEW_OBJECT(PhysicsShapeQueryParameters2D)
+    seek_query.instantiate();
     seek_query->set_collide_with_areas(true);
     seek_query->set_collide_with_bodies(false);
 }

@@ -85,7 +85,7 @@ debug_color = Color(0.713726, 0.105882, 0.701961, 0.419608)
 [node name="Seeker" type="Seeker" parent="."]
 seek_shape = ExtResource("7_q4k1v")
 texture_vfx = ExtResource("9_syrfc")
-speed = 427.0
+speed = 727.0
 barrel_group = &"Reimu Barrel"
 hitbox = ExtResource("8_a450e")
 texture = ExtResource("14_yebca")

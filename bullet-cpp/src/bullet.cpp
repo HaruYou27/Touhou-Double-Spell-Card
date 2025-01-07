@@ -42,23 +42,22 @@ void Bullet::_ready()
     }
     canvas_item = get_canvas_item();
     collision_graze = collision_layer + 8;
-    tree = get_tree();
     space = get_world_2d()->get_direct_space_state();
     renderer = RenderingServer::get_singleton();
-    threader = WorkerThreadPool::get_singleton();
     item_manager = get_node<Node>("/root/GlobalItem");
 
     query->set_shape(hitbox);
     renderer->canvas_item_set_custom_rect(canvas_item, true);
 
-    TypedArray<Node> nodes = tree->get_nodes_in_group(barrel_group);
+    TypedArray<Node> nodes = get_tree()->get_nodes_in_group(barrel_group);
     int index_stop = nodes.size();
     for (int index = 0; index < index_stop; index++)
     {
         Node2D* node = Object::cast_to<Node2D>(nodes[index]);
         if (node != nullptr)
         {
-            barrels.push_back(node);
+            barrels[count_node] = node;
+            count_node++;
         }
     }
 }
@@ -66,28 +65,23 @@ void Bullet::_ready()
 void Bullet::spawn_bullet()
 {
     CHECK_CAPACITY
-    for (Node2D* barrel : barrels)
+    for (int index = 0; index < count_barrel; index++)
     {
         CHECK_CAPACITY
-        if (!barrel->is_visible_in_tree())
-        {
-            continue;
-        }
         reset_bullet();
-        float angle;
-        angle = (local_rotation) ? barrel->get_rotation() : barrel->get_global_rotation();
+        float angle = barrel_rotations[index];
         velocities[count_bullet] = Vector2(speed, 0).rotated(angle);
-        transforms[count_bullet] = Transform2D(angle + M_PI_2, get_scale(), 0, barrel->get_global_position());
+        transforms[count_bullet] = Transform2D(angle + M_PI_2, get_scale(), 0, barrel_positions[index]);
         count_bullet++;
     }
 }
 
 Bullet::Bullet()
 {
-    query = NEW_OBJECT(PhysicsShapeQueryParameters2D)
-    task_move = NEW_OBJECT(Thread)
+    query.instantiate();
+    thread_bullet.instantiate();
+    thread_barrel.instantiate();
     world_border = Rect2(-100, -100, 740, 1160);
-    barrels = std::vector<Node2D*>();
     action_expire = callable_mp(this, &Bullet::expire_bullets);
     action_move = callable_mp(this, &Bullet::move_bullets);
 }
@@ -128,7 +122,7 @@ void Bullet::move_bullet(const int index)
 
 void Bullet::move_bullets()
 {
-    task_move->set_thread_safety_checks_enabled(false);
+    thread_bullet->set_thread_safety_checks_enabled(false);
     for (int index = 0; index < count_bullet; index++)
     {
         move_bullet(index);
@@ -157,14 +151,25 @@ bool Bullet::collide(const Dictionary& result, const int index)
     return false;
 }
 
-void Bullet::expire_bullet()
+void Bullet::cache_barrel()
 {
-    return;
+    count_barrel = 0;
+    for (int index = 0; index < count_node;index++)
+    {
+        Node2D* node = barrels[index];
+        if (node->is_visible_in_tree())
+        {
+            barrel_positions[count_barrel] = node->get_global_position();
+            barrel_rotations[count_barrel] = (local_rotation) ? node->get_rotation() : node->get_global_rotation();
+            count_barrel++;
+        }
+    }
 }
 
 void Bullet::expire_bullets()
 {
-    expire_bullet();
+    thread_barrel->set_thread_safety_checks_enabled(false);
+    cache_barrel();
     int index_stop = (tick) ? index_half : count_bullet;
     int index = (tick) ? 0 : index_half;
     while (index < index_stop)
@@ -199,15 +204,19 @@ bool Bullet::collision_check(const int index)
 void Bullet::_physics_process(const double delta)
 {
     renderer->canvas_item_clear(canvas_item);
-    IS_BULLETS_EMPTY
-    task_move->start(action_move, Thread::PRIORITY_HIGH);
+    if (count_bullet == 0)
+    {
+        cache_barrel();
+        return;
+    }
+    thread_bullet->start(action_move, Thread::PRIORITY_HIGH);
 
     tick = !tick;
     delta32 = delta;
     index_half = roundl(count_bullet / 2);
     int index_stop = (tick) ? count_bullet : index_half;
     int index = (tick) ? index_half : 0;
-    int task_expire = threader->add_task(action_expire);
+    thread_barrel->start(action_expire);
     while (index < index_stop)
     {
         if (collision_check(index))
@@ -218,8 +227,8 @@ void Bullet::_physics_process(const double delta)
         index++;
     }
 
-    task_move->wait_to_finish();
-    threader->wait_for_task_completion(task_expire);
+    thread_bullet->wait_to_finish();
+    thread_barrel->wait_to_finish();
 
     for (int idx = 0; idx < count_collided; idx++)
     {

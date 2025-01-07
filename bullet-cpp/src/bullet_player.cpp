@@ -18,13 +18,14 @@ bool BulletPlayer::collide(const Dictionary& result, const int index)
 {
     get_collider(result)->call_deferred("hit");
     positions_vfx[index_vfx] = static_cast<Vector2>(result["point"]);
-    grazes[index_vfx] = false;
+    frames[index_vfx] = 5;
     index_vfx++;
     return true;
 }
 
-void BulletPlayer::expire_bullet()
+void BulletPlayer::cache_barrel()
 {
+    Bullet::cache_barrel();
     if (index_vfx == 0)
     {
         return;
@@ -33,8 +34,9 @@ void BulletPlayer::expire_bullet()
     {
         Vector2& position = positions_vfx[index];
         texture_vfx->draw(canvas_item, position, Color(0,0,0));
+        frames[index_vfx]--;
 
-        if (grazes[index])
+        if (frames[index_vfx] == 0)
         {
             index_vfx--;
             if (index == index_vfx)
@@ -43,6 +45,5 @@ void BulletPlayer::expire_bullet()
             }
             position = positions_vfx[index];
         }
-        grazes[index] = true;
     }
 }
