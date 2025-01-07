@@ -17,6 +17,7 @@ time = 7.0
 enemy = NodePath("Enemy")
 
 [node name="Enemy" parent="." node_paths=PackedStringArray("visual") instance=ExtResource("2_wexhf")]
+hp = 8
 visual = NodePath("phantom")
 
 [node name="hitbox" type="CollisionShape2D" parent="Enemy"]

@@ -35,13 +35,13 @@ hitbox = NodePath("Hitbox")
 [node name="YinyangOrb" parent="Player/ReimuSprite" groups=["Reimu Barrel"] instance=ExtResource("5_ryrqw")]
 texture_filter = 2
 position = Vector2(72, 0)
-rotation = -1.39626
+rotation = -1.48353
 flip_v = true
 
 [node name="YinyangOrb2" parent="Player/ReimuSprite" groups=["Reimu Barrel"] instance=ExtResource("5_ryrqw")]
 texture_filter = 2
 position = Vector2(-72, 0)
-rotation = -1.74533
+rotation = -1.65806
 flip_h = false
 
 [node name="Marker2D" type="Marker2D" parent="Player/ReimuSprite" groups=["Reimu Barrel Straight"]]
@@ -85,13 +85,11 @@ debug_color = Color(0.713726, 0.105882, 0.701961, 0.419608)
 [node name="Seeker" type="Seeker" parent="."]
 seek_shape = ExtResource("7_q4k1v")
 texture_vfx = ExtResource("9_syrfc")
-speed = 572.0
+speed = 427.0
 barrel_group = &"Reimu Barrel"
 hitbox = ExtResource("8_a450e")
 texture = ExtResource("14_yebca")
 grazable = false
-collide_areas = true
-collide_bodies = false
 local_rotation = true
 collision_layer = 2
 top_level = true
@@ -99,20 +97,20 @@ z_index = 1
 material = ExtResource("7_w7two")
 
 [node name="Timer" type="Timer" parent="Seeker"]
-wait_time = 0.25
+wait_time = 0.3
 autostart = true
 
-[node name="Bullet" type="Bullet" parent="."]
+[node name="Bullet" type="BulletPlayer" parent="."]
+texture_vfx = ExtResource("9_syrfc")
 speed = 727.0
 barrel_group = &"Reimu Barrel Straight"
 hitbox = ExtResource("8_a450e")
 texture = ExtResource("12_3088t")
 grazable = false
-collide_areas = true
-collide_bodies = false
 local_rotation = true
 collision_layer = 2
 top_level = true
+material = ExtResource("7_w7two")
 
 [node name="Timer" type="Timer" parent="Bullet"]
 wait_time = 0.2
@@ -120,3 +118,4 @@ autostart = true
 
 [connection signal="add_bomb" from="Player/graze" to="Player" method="_on_graze_add_bomb"]
 [connection signal="timeout" from="Seeker/Timer" to="Seeker" method="spawn_bullet"]
+[connection signal="timeout" from="Bullet/Timer" to="Bullet" method="spawn_bullet"]

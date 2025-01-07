@@ -307,11 +307,13 @@ autostart = true
 
 [node name="YinyangOrb" parent="TabContainer/play/Character/Preview/Reimu/Reimu/barrel" groups=["Reimu Barrel"] instance=ExtResource("11_uxxtn")]
 position = Vector2(72, 0)
+rotation = -1.48353
 flip_v = true
 
 [node name="YinyangOrb2" parent="TabContainer/play/Character/Preview/Reimu/Reimu/barrel" groups=["Reimu Barrel"] instance=ExtResource("11_uxxtn")]
 texture_filter = 1
 position = Vector2(-72, 0)
+rotation = -1.65806
 flip_h = false
 
 [node name="Marker2D" type="Marker2D" parent="TabContainer/play/Character/Preview/Reimu/Reimu/barrel" groups=["Reimu Barrel"]]
@@ -330,7 +332,6 @@ barrel_group = &"Reimu Barrel"
 hitbox = ExtResource("11_poxet")
 texture = ExtResource("9_f05ce")
 grazable = false
-collide_bodies = false
 local_rotation = true
 top_level = true
 z_index = 1

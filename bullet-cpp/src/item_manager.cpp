@@ -19,9 +19,9 @@ void ItemManager::_bind_methods()
 void ItemManager::create_item(const Vector2 position, const float random)
 {
     float rotation = Math_TAU * random;
-    velocities[index_empty] = Vector2(get_speed() * random, 0).rotated(rotation);
-    transforms[index_empty] = Transform2D(rotation, position);
-    index_empty++;
+    velocities[count_bullet] = Vector2(get_speed() * random, 0).rotated(rotation);
+    transforms[count_bullet] = Transform2D(rotation, position);
+    count_bullet++;
 }
 
 void ItemManager::spawn_item(Vector2 position)
@@ -33,14 +33,14 @@ void ItemManager::spawn_item(Vector2 position)
 void ItemManager::spawn_circle(const signed long count, const Vector2 position)
 {
     CHECK_CAPACITY
-    for (short index = 1; index <= count; index++)
+    for (int index = 1; index <= count; index++)
     {
         CHECK_CAPACITY
         create_item(position, sinf(position.x * position.y * index));
     }
 }
 
-void ItemManager::move_bullet(const short index)
+void ItemManager::move_bullet(const int index)
 {
     Transform2D& transform = transforms[index];
     transform.set_rotation(transform.get_rotation() + speed_angular * delta32);
@@ -48,7 +48,7 @@ void ItemManager::move_bullet(const short index)
     Bullet::move_bullet(index);
 }
 
-bool ItemManager::collide(const Dictionary& result, const short index)
+bool ItemManager::collide(const Dictionary& result, const int index)
 {
     get_collider(result)->call_deferred("item_collect");
     return true;

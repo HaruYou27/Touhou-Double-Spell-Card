@@ -15,8 +15,8 @@ class ItemManager : public Bullet
     protected:
         static void _bind_methods();
         inline void create_item(const Vector2 position, const float random);
-        virtual bool collide(const Dictionary& result, const short index) override;
-        virtual void move_bullet(const short index) override;
+        virtual bool collide(const Dictionary& result, const int index) override;
+        virtual void move_bullet(const int index) override;
     public:
         SET_GET(gravity, float)
         SET_GET(speed_angular, float)

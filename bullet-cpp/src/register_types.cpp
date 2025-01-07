@@ -7,6 +7,7 @@
 #include <bullet.hpp>
 #include <seeker.hpp>
 #include <item_manager.hpp>
+#include<bullet_player.hpp>
 
 using namespace godot;
 
@@ -16,8 +17,9 @@ void initialize_gdextension_types(ModuleInitializationLevel p_level)
 		return;
 	}
 	GDREGISTER_CLASS(Bullet);
-	GDREGISTER_CLASS(Seeker);
 	GDREGISTER_CLASS(ItemManager);
+	GDREGISTER_CLASS(BulletPlayer);
+	GDREGISTER_CLASS(Seeker);
 }
 
 void uninitialize_gdextension_types(ModuleInitializationLevel p_level) {
