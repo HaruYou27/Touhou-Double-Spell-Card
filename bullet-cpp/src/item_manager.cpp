@@ -30,7 +30,7 @@ void ItemManager::spawn_item(Vector2 position)
     create_item(position, sinf(position.x * position.y));
 }
 
-void ItemManager::spawn_circle(const signed long count, const Vector2 position)
+void ItemManager::spawn_circle(const int count, const Vector2 position)
 {
     CHECK_CAPACITY
     for (int index = 1; index <= count; index++)

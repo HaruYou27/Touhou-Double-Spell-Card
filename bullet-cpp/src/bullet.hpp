@@ -80,7 +80,7 @@ protected:
     virtual void move_bullet(const int index);
     virtual void cache_barrel();
     virtual bool collision_check(const int index);
-    virtual void sort_bullets(int index);
+    virtual void sort_bullet(const int index);
     virtual void reset_bullet();
     static Object* get_collider(const Dictionary& result);
     static float get_result_mask(const Dictionary& result);
@@ -97,7 +97,7 @@ public:
     virtual void _physics_process(const double delta) override;
     virtual void _ready() override;
     virtual void spawn_bullet();
-    virtual void spawn_circle(const signed long count, const Vector2 position);
+    virtual void spawn_circle(const int count, const Vector2 position);
     void clear();
 };
 #endif

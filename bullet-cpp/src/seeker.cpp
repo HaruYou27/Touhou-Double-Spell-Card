@@ -38,9 +38,13 @@ void Seeker::move_bullet(const int index)
         velocity.normalize();
         velocity *= get_speed();
         transform.set_rotation(velocity.angle() + M_PI_2);
-        targets[index] = (target->is_monitorable()) ? target : nullptr;
+        if (target->is_monitorable())
+        {
+            return Bullet::move_bullet(index);
+        }
+        targets[index] = nullptr;
     }
-    Bullet::move_bullet(index);
+    return Bullet::move_bullet(index);
 }
 
 bool Seeker::collision_check(const int index)
@@ -48,7 +52,11 @@ bool Seeker::collision_check(const int index)
     if (targets[index] == nullptr)
     {
         Dictionary result = space->get_rest_info(seek_query);
-        targets[index] = (result.is_empty()) ? nullptr : dynamic_cast<Area2D*>(get_collider(result));
+        if (result.is_empty())
+        {
+            return false;
+        }
+        targets[index] = dynamic_cast<Area2D*>(get_collider(result));
         return false;
     }
     return Bullet::collision_check(index);

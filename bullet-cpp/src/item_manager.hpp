@@ -21,6 +21,6 @@ class ItemManager : public Bullet
         SET_GET(gravity, float)
         SET_GET(speed_angular, float)
         void spawn_item(const Vector2 position);
-        virtual void spawn_circle(const signed long count, const Vector2 position) override;
+        virtual void spawn_circle(const int count, const Vector2 position) override;
 };
 #endif

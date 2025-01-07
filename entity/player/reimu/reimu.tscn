@@ -6,9 +6,9 @@
 [ext_resource type="PackedScene" uid="uid://bsa0xvb26o22u" path="res://entity/player/reimu/yinyang-orb.tscn" id="5_ryrqw"]
 [ext_resource type="PackedScene" uid="uid://cex3540cp47lm" path="res://entity/player/base/graze.tscn" id="5_sq1so"]
 [ext_resource type="Texture2D" uid="uid://cx7ewf38kbh34" path="res://entity/player/reimu/resource/reimu-hitbox.png" id="7_hytxk"]
-[ext_resource type="Shape2D" uid="uid://dp6ob6j31prqn" path="res://entity/player/reimu/resource/bullet-seek.tres" id="7_q4k1v"]
 [ext_resource type="Material" uid="uid://c5frc6pfgn8xs" path="res://singleton/item-manager/bullet-monochrome.material" id="7_w7two"]
 [ext_resource type="Shape2D" uid="uid://8v0qid6h0jl5" path="res://entity/player/reimu/resource/ofuda.tres" id="8_a450e"]
+[ext_resource type="Shape2D" uid="uid://cpnfwnm5yimfk" path="res://entity/player/reimu/resource/seek-shape.tres" id="8_drurl"]
 [ext_resource type="Texture2D" uid="uid://big5g3qavf0aq" path="res://entity/player/reimu/resource/hitfx.png" id="9_syrfc"]
 [ext_resource type="PackedScene" uid="uid://8587t5a7aa40" path="res://entity/player/reimu/seal.tscn" id="10_730ir"]
 [ext_resource type="Texture2D" uid="uid://b6ekahb1h5dwc" path="res://entity/player/reimu/resource/ofuda-black.png" id="12_3088t"]
@@ -83,7 +83,7 @@ debug_color = Color(0.713726, 0.105882, 0.701961, 0.419608)
 [node name="Seal4" parent="FantasySeals" instance=ExtResource("10_730ir")]
 
 [node name="Seeker" type="Seeker" parent="."]
-seek_shape = ExtResource("7_q4k1v")
+seek_shape = ExtResource("8_drurl")
 texture_vfx = ExtResource("9_syrfc")
 speed = 727.0
 barrel_group = &"Reimu Barrel"

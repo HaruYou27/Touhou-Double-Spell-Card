@@ -91,7 +91,7 @@ void Bullet::reset_bullet()
     grazes[count_bullet] = grazable;
 }
 
-void Bullet::spawn_circle(const signed long count, const Vector2 position)
+void Bullet::spawn_circle(const int count, const Vector2 position)
 {
     CHECK_CAPACITY
     float delta_angle = Math_TAU / count;
@@ -185,7 +185,7 @@ void Bullet::expire_bullets()
     }
 }
 
-void Bullet::sort_bullets(const int index)
+void Bullet::sort_bullet(const int index)
 {
     FILL_ARRAY_HOLE(transforms)
     FILL_ARRAY_HOLE(velocities)
@@ -238,7 +238,7 @@ void Bullet::_physics_process(const double delta)
         {
             continue;
         }
-        sort_bullets(i);
+        sort_bullet(i);
     }
     count_collided = 0;
     for (int idx = 0; idx < count_expire; idx++)
@@ -249,7 +249,7 @@ void Bullet::_physics_process(const double delta)
         {
             continue;
         }
-        sort_bullets(i);
+        sort_bullet(i);
     }
     count_expire = 0;
 }
