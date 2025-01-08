@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=3 uid="uid://820qlg5cbdi"]
+[gd_scene load_steps=43 format=3 uid="uid://820qlg5cbdi"]
 
 [ext_resource type="Material" uid="uid://bfp322op0h8h4" path="res://level/misty-lake/resource/water-shader.tres" id="1_fq2jh"]
 [ext_resource type="Texture2D" uid="uid://bgh4r80tk5o7v" path="res://level/misty-lake/resource/water-noise.tres" id="3_hbemg"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://c1xyo1w3okwtp" path="res://level/misty-lake/cystal_bullet.tscn" id="8_bx502"]
 [ext_resource type="PackedScene" uid="uid://cncbx2jqrl88c" path="res://level/misty-lake/tracking_bullet.tscn" id="11_lmauy"]
 [ext_resource type="Script" path="res://entity/utility/Path2DSpawner.gd" id="12_7qycb"]
+[ext_resource type="PackedScene" uid="uid://cmphgsoxqsrqh" path="res://level/misty-lake/big_fairy.tscn" id="12_u7k0g"]
 [ext_resource type="PackedScene" uid="uid://cyvf0ik0p568i" path="res://level/misty-lake/hard/fairy.tscn" id="13_khp1w"]
 [ext_resource type="PackedScene" uid="uid://cggnsrkbgml74" path="res://level/misty-lake/big_fairy_bullet.tscn" id="16_xkvxf"]
 [ext_resource type="Material" uid="uid://bod7a8oou48rl" path="res://level/misty-lake/resource/bullet-color-time.tres" id="17_hvy4g"]
@@ -78,6 +79,18 @@ viewport_path = NodePath("SubViewportContainer/SubViewport")
 
 [sub_resource type="Animation" id="Animation_hyjfd"]
 length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SubViewportContainer/SubViewport/background:material:shader_parameter/color_map:gradient:offsets")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [PackedFloat32Array(0, 0.8, 1)]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_y00g5"]
 _data = {
@@ -130,7 +143,6 @@ modulate = Color(1, 1, 1, 0)
 graphic_level = 2
 
 [node name="CystalDrop1" type="Node2D" parent="."]
-process_mode = 4
 visible = false
 position = Vector2(0, -43)
 
@@ -144,7 +156,6 @@ wait_time = 0.5
 position = Vector2(4, -54)
 curve = SubResource("Curve2D_rvgc8")
 script = ExtResource("12_7qycb")
-reverse = true
 barrel_group = &"Cystal Drop Barrel"
 
 [node name="Fairy" parent="CystalDrop1/CystalSpawner" instance=ExtResource("13_khp1w")]
@@ -206,7 +217,6 @@ visible = false
 [node name="TrackingSpawner" type="Path2D" parent="Tracking2"]
 curve = SubResource("Curve2D_va8k1")
 script = ExtResource("12_7qycb")
-reverse = true
 barrel_group = &"Tracking Barrel"
 
 [node name="Ghost17" parent="Tracking2/TrackingSpawner" instance=ExtResource("24_uth2c")]
@@ -263,21 +273,11 @@ visible = false
 
 [node name="Fairy" type="Node2D" parent="BigHpFairy3"]
 
-[node name="TopLeft" parent="BigHpFairy3/Fairy" node_paths=PackedStringArray("visual") instance=ExtResource("17_uw3bc")]
-position = Vector2(609, 349)
-hp = 32
-visual = NodePath("visual")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="BigHpFairy3/Fairy/TopLeft"]
-shape = SubResource("CircleShape2D_1j2c8")
-
-[node name="visual" type="Sprite2D" parent="BigHpFairy3/Fairy/TopLeft"]
-texture = ExtResource("18_aiv38")
-
-[node name="barrel" parent="BigHpFairy3/Fairy/TopLeft/visual" instance=ExtResource("19_8gd87")]
+[node name="TopLeft" parent="BigHpFairy3/Fairy" instance=ExtResource("12_u7k0g")]
+position = Vector2(651, 41)
 
 [node name="TopRight" parent="BigHpFairy3/Fairy" node_paths=PackedStringArray("visual") instance=ExtResource("17_uw3bc")]
-position = Vector2(-84, 329)
+position = Vector2(-120, 28)
 hp = 32
 visual = NodePath("visual")
 
@@ -290,7 +290,7 @@ texture = ExtResource("18_aiv38")
 [node name="barrel2" parent="BigHpFairy3/Fairy/TopRight/visual" instance=ExtResource("19_8gd87")]
 
 [node name="BotLeft" parent="BigHpFairy3/Fairy" node_paths=PackedStringArray("visual") instance=ExtResource("17_uw3bc")]
-position = Vector2(620, -49)
+position = Vector2(-95, 26)
 hp = 32
 visual = NodePath("visual")
 
@@ -381,6 +381,7 @@ texture = ExtResource("18_aiv38")
 [node name="barrel9" parent="BigHpFairy3/Fairy/TopMiddle/visual" instance=ExtResource("19_8gd87")]
 
 [node name="BigFairyBullet" parent="BigHpFairy3" instance=ExtResource("16_xkvxf")]
+barrel_group = &"Big Fairy Tracker"
 material = ExtResource("17_hvy4g")
 
 [node name="TransformBarrel" type="Path2D" parent="BigHpFairy3"]
@@ -521,7 +522,7 @@ autostart = true
 [node name="yukari" parent="." instance=ExtResource("25_0chj7")]
 process_mode = 4
 visible = false
-position = Vector2(270, -300)
+position = Vector2(270, 300)
 bonus_threshold = 2727
 
 [node name="TargetLocker" type="Marker2D" parent="yukari"]
@@ -531,7 +532,6 @@ gizmo_extents = 25.9
 script = ExtResource("26_e1gun")
 
 [node name="SpellCircle" type="Node2D" parent="."]
-process_mode = 4
 visible = false
 
 [node name="BulletCircle" parent="SpellCircle" instance=ExtResource("23_1ju68")]
@@ -598,7 +598,6 @@ wait_time = 0.1
 autostart = true
 
 [node name="SpellButterfly" type="Node2D" parent="."]
-process_mode = 4
 visible = false
 scale = Vector2(0.5, 0.5)
 
@@ -730,6 +729,7 @@ rotation = -1.5708
 gizmo_extents = 20.0
 
 [node name="TimerPrecise" type="Timer" parent="SpellWaveParticle"]
+process_mode = 4
 wait_time = 0.06
 autostart = true
 
@@ -738,7 +738,6 @@ speed = 72.0
 barrel_group = &"Ball Tracking"
 hitbox = ExtResource("29_y8e6g")
 texture = ExtResource("30_n5lhs")
-process_mode = 4
 top_level = true
 material = ExtResource("27_vmhcq")
 

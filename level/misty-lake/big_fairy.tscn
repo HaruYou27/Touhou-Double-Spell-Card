@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://cmphgsoxqsrqh"]
+
+[ext_resource type="PackedScene" uid="uid://dtlscerig62nv" path="res://entity/enemy/base/enemy.tscn" id="1_r57kt"]
+[ext_resource type="Script" path="res://entity/utility/TargetLocker.gd" id="3_888hk"]
+[ext_resource type="Texture2D" uid="uid://cqt1oe248vvwn" path="res://entity/enemy/fairy/Fairy.2.png" id="3_x7wcv"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1j2c8"]
+radius = 31.0161
+
+[node name="FairyBIg" type="Node2D"]
+
+[node name="Enemy" parent="." instance=ExtResource("1_r57kt")]
+position = Vector2(101, 87)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy"]
+position = Vector2(508, 262)
+shape = SubResource("CircleShape2D_1j2c8")
+
+[node name="visual" type="Sprite2D" parent="Enemy"]
+position = Vector2(508, 262)
+texture = ExtResource("3_x7wcv")
+
+[node name="barrel" type="Node2D" parent="Enemy/visual" groups=["Big Fairy Tracker"]]
+rotation = 1.5708
+script = ExtResource("3_888hk")

@@ -1,12 +1,53 @@
-[gd_scene load_steps=17 format=3 uid="uid://of6l83moa38k"]
+[gd_scene load_steps=21 format=3 uid="uid://of6l83moa38k"]
 
 [ext_resource type="PackedScene" uid="uid://c34lwlqwsc4ve" path="res://entity/player/base/player.tscn" id="1_vjhba"]
 [ext_resource type="Texture2D" uid="uid://c7k6r1xgk2xii" path="res://entity/player/marisa/resource/marisa-hitbox.png" id="2_h730r"]
 [ext_resource type="PackedScene" uid="uid://cex3540cp47lm" path="res://entity/player/base/graze.tscn" id="2_jex7f"]
 [ext_resource type="Script" path="res://entity/player/marisa/MasterSpark.gd" id="3_l0hw3"]
 [ext_resource type="PackedScene" uid="uid://ecqcoejg1lj8" path="res://entity/player/marisa/beam.tscn" id="4_0mlkd"]
-[ext_resource type="Shader" path="res://entity/player/marisa/resource/master_spark.gdshader" id="5_ll3s3"]
+[ext_resource type="Material" uid="uid://dox27ncd2r5o3" path="res://entity/resource/glow.tres" id="5_0ffch"]
+[ext_resource type="Texture2D" uid="uid://d2wacgirqsjjn" path="res://entity/resource/white-trans.tres" id="6_3or5n"]
+[ext_resource type="Texture2D" uid="uid://dxsf3vpqsosf1" path="res://entity/resource/fire_particle.png" id="7_wwddi"]
+[ext_resource type="Script" path="res://entity/utility/graphic/Particles2D.gd" id="8_48a8s"]
 [ext_resource type="PackedScene" uid="uid://cw6ldgxnk6nf3" path="res://entity/player/marisa/marisa-sprite.tscn" id="13_sco1m"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_s1f2m"]
+radius = 230.0
+height = 1608.0
+
+[sub_resource type="Curve" id="Curve_xum4h"]
+min_value = -360.0
+max_value = 360.0
+_data = [Vector2(0, -360), 0.0, 720.0, 0, 1, Vector2(1, 360), 720.0, 0.0, 1, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_k4o8b"]
+texture_mode = 1
+curve = SubResource("Curve_xum4h")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_pud3s"]
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 16.0
+angular_velocity_curve = SubResource("CurveTexture_k4o8b")
+gravity = Vector3(0, 200, 0)
+radial_accel_min = 100.0
+radial_accel_max = 200.0
+scale_min = 0.5
+color = Color(0.254902, 0.419608, 0.94902, 1)
+color_ramp = ExtResource("6_3or5n")
+hue_variation_max = 0.03
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_rvtdp"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(40, -480, 0)
+gravity = Vector3(0, 200, 0)
+scale_min = 0.1
+scale_max = 0.2
+color = Color(0.254902, 0.419608, 0.94902, 1)
+color_ramp = ExtResource("6_3or5n")
+hue_variation_max = 0.13
 
 [sub_resource type="Animation" id="Animation_d3sxi"]
 resource_name = "Master Spark"
@@ -27,7 +68,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Beam/BeamParticle:speed_scale")
+tracks/1/path = NodePath("BeamParticle:speed_scale")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -39,7 +80,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Beam/BeamParticle:process_material:emission_box_extents")
+tracks/2/path = NodePath("BeamParticle:process_material:emission_box_extents")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -51,7 +92,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("Beam/BeamParticle:speed_scale")
+tracks/3/path = NodePath("BeamParticle:speed_scale")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -63,7 +104,7 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("Beam/BeamParticle:position")
+tracks/4/path = NodePath("BeamParticle:position")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -75,7 +116,7 @@ tracks/4/keys = {
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("Beam/BeamParticle:process_material:scale_min")
+tracks/5/path = NodePath("BeamParticle:process_material:scale_min")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
@@ -87,7 +128,7 @@ tracks/5/keys = {
 tracks/6/type = "value"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("Beam/BeamParticle:process_material:scale_max")
+tracks/6/path = NodePath("BeamParticle:process_material:scale_max")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
@@ -111,7 +152,7 @@ tracks/7/keys = {
 tracks/8/type = "value"
 tracks/8/imported = false
 tracks/8/enabled = true
-tracks/8/path = NodePath("Beam/BeamParticle:scale")
+tracks/8/path = NodePath("BeamParticle:scale")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/keys = {
@@ -135,46 +176,34 @@ tracks/9/keys = {
 tracks/10/type = "value"
 tracks/10/imported = false
 tracks/10/enabled = true
-tracks/10/path = NodePath("Beam/CollisionParticle:visible")
+tracks/10/path = NodePath("CollisionParticle:visible")
 tracks/10/interp = 1
 tracks/10/loop_wrap = true
 tracks/10/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 6),
+"transitions": PackedFloat32Array(1, 1),
 "update": 1,
-"values": [false]
+"values": [false, true]
 }
 tracks/11/type = "value"
 tracks/11/imported = false
 tracks/11/enabled = true
-tracks/11/path = NodePath("Beam/CollisionParticle2:visible")
+tracks/11/path = NodePath("Beam:material:shader_parameter/alpha_delta")
 tracks/11/interp = 1
 tracks/11/loop_wrap = true
 tracks/11/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/12/type = "value"
-tracks/12/imported = false
-tracks/12/enabled = true
-tracks/12/path = NodePath("Beam:material:shader_parameter/alpha_delta")
-tracks/12/interp = 1
-tracks/12/loop_wrap = true
-tracks/12/keys = {
 "times": PackedFloat32Array(0, 1, 5, 6),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
 "values": [0.4, 0.0, 0.0, 0.4]
 }
-tracks/13/type = "value"
-tracks/13/imported = false
-tracks/13/enabled = true
-tracks/13/path = NodePath("Spark/SparkHitbox:disabled")
-tracks/13/interp = 1
-tracks/13/loop_wrap = true
-tracks/13/keys = {
+tracks/12/type = "value"
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/path = NodePath("Spark/SparkHitbox:disabled")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/keys = {
 "times": PackedFloat32Array(0, 1, 5, 6),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
@@ -198,7 +227,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Beam/BeamParticle:process_material:emission_box_extents")
+tracks/1/path = NodePath("BeamParticle:process_material:emission_box_extents")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -210,7 +239,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Beam/BeamParticle:speed_scale")
+tracks/2/path = NodePath("BeamParticle:speed_scale")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -222,7 +251,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("Beam/BeamParticle:position")
+tracks/3/path = NodePath("BeamParticle:position")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -234,7 +263,7 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("Beam/BeamParticle:process_material:scale_min")
+tracks/4/path = NodePath("BeamParticle:process_material:scale_min")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -246,7 +275,7 @@ tracks/4/keys = {
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("Beam/BeamParticle:process_material:scale_max")
+tracks/5/path = NodePath("BeamParticle:process_material:scale_max")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
@@ -270,7 +299,7 @@ tracks/6/keys = {
 tracks/7/type = "value"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("Beam/BeamParticle:scale")
+tracks/7/path = NodePath("BeamParticle:scale")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
@@ -294,46 +323,34 @@ tracks/8/keys = {
 tracks/9/type = "value"
 tracks/9/imported = false
 tracks/9/enabled = true
-tracks/9/path = NodePath("Beam/CollisionParticle:visible")
+tracks/9/path = NodePath("CollisionParticle:visible")
 tracks/9/interp = 1
 tracks/9/loop_wrap = true
 tracks/9/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [false]
+"values": [true]
 }
 tracks/10/type = "value"
 tracks/10/imported = false
 tracks/10/enabled = true
-tracks/10/path = NodePath("Beam/CollisionParticle2:visible")
+tracks/10/path = NodePath("Beam:material:shader_parameter/alpha_delta")
 tracks/10/interp = 1
 tracks/10/loop_wrap = true
 tracks/10/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
+"update": 0,
+"values": [0.4]
 }
 tracks/11/type = "value"
 tracks/11/imported = false
 tracks/11/enabled = true
-tracks/11/path = NodePath("Beam:material:shader_parameter/alpha_delta")
+tracks/11/path = NodePath("Spark/SparkHitbox:disabled")
 tracks/11/interp = 1
 tracks/11/loop_wrap = true
 tracks/11/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.4]
-}
-tracks/12/type = "value"
-tracks/12/imported = false
-tracks/12/enabled = true
-tracks/12/path = NodePath("Spark/SparkHitbox:disabled")
-tracks/12/interp = 1
-tracks/12/loop_wrap = true
-tracks/12/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
@@ -345,27 +362,6 @@ _data = {
 "Master Spark": SubResource("Animation_d3sxi"),
 "RESET": SubResource("Animation_65s67")
 }
-
-[sub_resource type="Gradient" id="Gradient_nn53k"]
-interpolation_mode = 2
-interpolation_color_space = 2
-offsets = PackedFloat32Array(0, 0.197802, 0.395604, 0.626374, 0.813187, 1)
-colors = PackedColorArray(1, 0.2, 0.211765, 1, 0.433833, 1, 0.21, 1, 0.933333, 0, 1, 1, 0.0168, 0.16772, 0.84, 1, 1, 0.2, 0.213333, 1, 0.435294, 1, 0.211765, 1)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_k8r5t"]
-gradient = SubResource("Gradient_nn53k")
-width = 512
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_0nkt0"]
-shader = ExtResource("5_ll3s3")
-shader_parameter/speed_color = -1.0
-shader_parameter/alpha_delta = 0.4
-shader_parameter/speed_alpha = -2.0
-shader_parameter/color_map = SubResource("GradientTexture1D_k8r5t")
-
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_s1f2m"]
-radius = 230.0
-height = 1608.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ttfkj"]
 radius = 6.0
@@ -384,22 +380,18 @@ hitbox = NodePath("Hitbox")
 
 [node name="marisa" parent="Player" instance=ExtResource("13_sco1m")]
 
-[node name="MasterSpark" type="Node2D" parent="Player/marisa"]
+[node name="MasterSpark" type="Node2D" parent="Player/marisa" node_paths=PackedStringArray("beam_particle", "collision_particle")]
 z_index = 9
 z_as_relative = false
-position = Vector2(-2, -77)
+position = Vector2(0, -32)
 script = ExtResource("3_l0hw3")
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Player/marisa/MasterSpark"]
-libraries = {
-"": SubResource("AnimationLibrary_huuam")
-}
+beam_particle = NodePath("BeamParticle")
+collision_particle = NodePath("CollisionParticle")
 
 [node name="Beam" parent="Player/marisa/MasterSpark" instance=ExtResource("4_0mlkd")]
-material = SubResource("ShaderMaterial_0nkt0")
 
 [node name="RayCast2D" type="Marker2D" parent="Player/marisa/MasterSpark"]
-position = Vector2(0, 70)
+position = Vector2(0, 10)
 rotation = -1.5708
 gizmo_extents = 20.0
 
@@ -429,8 +421,46 @@ position = Vector2(0, -599)
 shape = SubResource("CapsuleShape2D_s1f2m")
 disabled = true
 
+[node name="CollisionParticle" type="GPUParticles2D" parent="Player/marisa/MasterSpark"]
+top_level = true
+z_index = 3000
+z_as_relative = false
+material = ExtResource("5_0ffch")
+position = Vector2(0, 1000)
+amount = 64
+process_material = SubResource("ParticleProcessMaterial_pud3s")
+texture = ExtResource("7_wwddi")
+speed_scale = 2.0
+fixed_fps = 60
+interpolate = false
+visibility_rect = Rect2(-128, -128, 256, 512)
+script = ExtResource("8_48a8s")
+graphic_level = 1
+
+[node name="BeamParticle" type="GPUParticles2D" parent="Player/marisa/MasterSpark"]
+z_index = 3000
+z_as_relative = false
+material = ExtResource("5_0ffch")
+position = Vector2(0, -422)
+scale = Vector2(1, 1.2)
+amount = 512
+process_material = SubResource("ParticleProcessMaterial_rvtdp")
+texture = ExtResource("7_wwddi")
+lifetime = 2.0
+fixed_fps = 60
+interpolate = false
+visibility_rect = Rect2(-270, -500, 540, 1280)
+script = ExtResource("8_48a8s")
+graphic_level = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Player/marisa/MasterSpark"]
+libraries = {
+"": SubResource("AnimationLibrary_huuam")
+}
+
 [node name="Hitbox" type="Sprite2D" parent="Player/marisa"]
 show_behind_parent = true
+z_index = 11
 texture = ExtResource("2_h730r")
 
 [node name="Hitbox" type="CollisionShape2D" parent="Player"]
