@@ -1,0 +1,19 @@
+[gd_resource type="ShaderMaterial" load_steps=4 format=3 uid="uid://bfp322op0h8h4"]
+
+[ext_resource type="Shader" path="res://level/misty-lake/resource/water.gdshader" id="1_p81hr"]
+
+[sub_resource type="Gradient" id="Gradient_bkf36"]
+offsets = PackedFloat32Array(0, 0.859375, 1)
+colors = PackedColorArray(0, 0.0745098, 0.219608, 1, 0.109804, 0.65098, 0.929412, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_dcogi"]
+gradient = SubResource("Gradient_bkf36")
+width = 16
+
+[resource]
+shader = ExtResource("1_p81hr")
+shader_parameter/wave_velocity = Vector2(0, 2)
+shader_parameter/wave_distortion = 0.2
+shader_parameter/wave_multipler = -7.0
+shader_parameter/water_velocity = Vector2(0, -0.2)
+shader_parameter/color_map = SubResource("GradientTexture1D_dcogi")

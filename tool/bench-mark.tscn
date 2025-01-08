@@ -2,7 +2,7 @@
 
 [ext_resource type="Shape2D" uid="uid://cdhtnr4opiiga" path="res://entity/bullet/butterfly-hitbox.tres" id="1_2rhby"]
 [ext_resource type="Texture2D" uid="uid://bfp5momdip3ss" path="res://entity/bullet/butterfly.png" id="2_iwpk2"]
-[ext_resource type="Material" uid="uid://c5ahns6t1w0c" path="res://level/misty-lake-hard/resource/boss-bullet.material" id="3_qlbfh"]
+[ext_resource type="Material" uid="uid://bod7a8oou48rl" path="res://level/misty-lake/resource/bullet-color-time.tres" id="3_qlbfh"]
 [ext_resource type="Script" path="res://entity/utility/Rotator.gd" id="5_yjnrk"]
 
 [node name="Node2D" type="Node2D"]

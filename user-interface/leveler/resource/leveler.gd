@@ -4,6 +4,7 @@ class_name Leveler
 @onready var pause: Button = $pause
 @onready var hud: HUD = $hud
 @export var animator: AnimationPlayer
+@export var animation: StringName
 func _ready() -> void:
 	tree.paused = false
 	ScreenEffect.fade2black(true)
@@ -17,7 +18,7 @@ func start() -> void:
 		rpc('_sync_start', Time.get_ticks_msec())
 		#var timer := get_tree().create_timer(2., true, true, true)
 		#timer.timeout.connect(animator.play.bind("game"))
-		animator.play("game")
+		animator.play(animation)
 	#if not Global.player2:
 	#	animator.seek(3.0)
 	

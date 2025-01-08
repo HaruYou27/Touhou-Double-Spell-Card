@@ -1,6 +1,6 @@
 
 #ifdef TIME_FLOW
-uniform float time_scale;
+uniform float time_scale = 1.0;
 #endif
 
 #ifdef COLORIZE
@@ -18,8 +18,6 @@ void vertex()
 #if defined(TIME_OFFSET) && defined(TIME_FLOW)
 	// Offset time by r channel.
 	time *= sign(COLOR.r - .5);
-#endif
-#if defined(TIME_FLOW) && defined(TIME_OFFSET)
 	time += 100.0 * COLOR.r;
 #endif
 

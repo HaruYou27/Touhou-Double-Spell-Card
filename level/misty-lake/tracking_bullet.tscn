@@ -2,7 +2,7 @@
 
 [ext_resource type="Shape2D" uid="uid://57c5btn7th0e" path="res://entity/bullet/rice-hitbox.tres" id="1_oey0b"]
 [ext_resource type="Texture2D" uid="uid://bb6gmgus0empe" path="res://entity/bullet/rice.png" id="2_da0ck"]
-[ext_resource type="Material" uid="uid://c5ahns6t1w0c" path="res://level/misty-lake-hard/resource/boss-bullet.material" id="3_hwl7e"]
+[ext_resource type="Material" uid="uid://yrt7o0rc1slt" path="res://level/misty-lake/resource/bullet.tres" id="3_hwl7e"]
 
 [node name="TrackingBullet" type="Bullet"]
 speed = 72.0

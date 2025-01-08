@@ -1,9 +1,9 @@
 [gd_scene load_steps=11 format=3 uid="uid://baj6tuuf1x8"]
 
 [ext_resource type="Shader" path="res://level/shader/noise-colorize.gdshader" id="1_jus0f"]
-[ext_resource type="Texture2D" uid="uid://rooeax5tkuf4" path="res://level/misty-lake-hard/resource/fog-noise-2.tres" id="2_dqfdf"]
+[ext_resource type="Texture2D" uid="uid://rooeax5tkuf4" path="res://level/misty-lake/resource/fog-noise-2.tres" id="2_dqfdf"]
 [ext_resource type="Script" path="res://entity/utility/graphic/GraphicOptional.gd" id="3_kt1qi"]
-[ext_resource type="Texture2D" uid="uid://clt15wekn0gcj" path="res://level/misty-lake-hard/resource/fog-noise.tres" id="3_qdpv8"]
+[ext_resource type="Texture2D" uid="uid://clt15wekn0gcj" path="res://level/misty-lake/resource/fog-noise.tres" id="3_qdpv8"]
 
 [sub_resource type="Gradient" id="Gradient_0h5jx"]
 colors = PackedColorArray(1, 1, 1, 1, 0.33, 0.776667, 1, 1)

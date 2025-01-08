@@ -1,6 +1,6 @@
 [gd_resource type="AnimationLibrary" load_steps=4 format=3 uid="uid://co0x1lfyxmlfe"]
 
-[ext_resource type="AudioStream" uid="uid://bt7vy6thn8yac" path="res://level/misty-lake-hard/resource/guava-mono.ogg" id="1_comhg"]
+[ext_resource type="AudioStream" uid="uid://bt7vy6thn8yac" path="res://level/misty-lake/resource/guava-mono.ogg" id="1_comhg"]
 
 [sub_resource type="Animation" id="Animation_7espq"]
 length = 0.001
@@ -629,7 +629,7 @@ tracks/9/path = NodePath("ScoreGiveaway4/GiveawayTimer")
 tracks/9/interp = 1
 tracks/9/loop_wrap = true
 tracks/9/keys = {
-"times": PackedFloat32Array(75.1333),
+"times": PackedFloat32Array(66.1),
 "transitions": PackedFloat32Array(1),
 "values": [{
 "args": [],
@@ -767,175 +767,175 @@ tracks/15/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
 "values": [{
 "args": [],
-"method": &"SpawnBullet"
+"method": &"spawn_bullet"
 }, {
 "args": [],
-"method": &"SpawnBullet"
+"method": &"spawn_bullet"
 }, {
 "args": [],
-"method": &"SpawnBullet"
+"method": &"spawn_bullet"
 }, {
 "args": [],
-"method": &"SpawnBullet"
+"method": &"spawn_bullet"
 }, {
 "args": [],
-"method": &"SpawnBullet"
+"method": &"spawn_bullet"
 }, {
 "args": [],
-"method": &"SpawnBullet"
+"method": &"spawn_bullet"
 }, {
 "args": [],
-"method": &"SpawnBullet"
+"method": &"spawn_bullet"
 }, {
 "args": [],
-"method": &"SpawnBullet"
+"method": &"spawn_bullet"
 }, {
 "args": [],
-"method": &"SpawnBullet"
+"method": &"spawn_bullet"
 }, {
 "args": [],
-"method": &"SpawnBullet"
+"method": &"spawn_bullet"
 }, {
 "args": [],
-"method": &"SpawnBullet"
+"method": &"spawn_bullet"
 }, {
 "args": [],
-"method": &"SpawnBullet"
+"method": &"spawn_bullet"
 }, {
 "args": [],
-"method": &"SpawnBullet"
+"method": &"spawn_bullet"
 }, {
 "args": [],
-"method": &"SpawnBullet"
+"method": &"spawn_bullet"
 }, {
 "args": [],
-"method": &"SpawnBullet"
+"method": &"spawn_bullet"
 }, {
 "args": [],
-"method": &"SpawnBullet"
+"method": &"spawn_bullet"
 }, {
 "args": [],
-"method": &"SpawnBullet"
+"method": &"spawn_bullet"
 }, {
 "args": [],
-"method": &"SpawnBullet"
+"method": &"spawn_bullet"
 }, {
 "args": [],
-"method": &"SpawnBullet"
+"method": &"spawn_bullet"
 }, {
 "args": [],
-"method": &"SpawnBullet"
+"method": &"spawn_bullet"
 }, {
 "args": [],
-"method": &"SpawnBullet"
+"method": &"spawn_bullet"
 }, {
 "args": [],
-"method": &"SpawnBullet"
+"method": &"spawn_bullet"
 }, {
 "args": [],
-"method": &"SpawnBullet"
+"method": &"spawn_bullet"
 }, {
 "args": [],
-"method": &"SpawnBullet"
+"method": &"spawn_bullet"
 }, {
 "args": [],
-"method": &"SpawnBullet"
+"method": &"spawn_bullet"
 }, {
 "args": [],
-"method": &"SpawnBullet"
+"method": &"spawn_bullet"
 }, {
 "args": [],
-"method": &"SpawnBullet"
+"method": &"spawn_bullet"
 }, {
 "args": [],
-"method": &"SpawnBullet"
+"method": &"spawn_bullet"
 }, {
 "args": [],
-"method": &"SpawnBullet"
+"method": &"spawn_bullet"
 }, {
 "args": [],
-"method": &"SpawnBullet"
+"method": &"spawn_bullet"
 }, {
 "args": [],
-"method": &"SpawnBullet"
+"method": &"spawn_bullet"
 }, {
 "args": [],
-"method": &"SpawnBullet"
+"method": &"spawn_bullet"
 }, {
 "args": [],
-"method": &"SpawnBullet"
+"method": &"spawn_bullet"
 }, {
 "args": [],
-"method": &"SpawnBullet"
+"method": &"spawn_bullet"
 }, {
 "args": [],
-"method": &"SpawnBullet"
+"method": &"spawn_bullet"
 }, {
 "args": [],
-"method": &"SpawnBullet"
+"method": &"spawn_bullet"
 }, {
 "args": [],
-"method": &"SpawnBullet"
+"method": &"spawn_bullet"
 }, {
 "args": [],
-"method": &"SpawnBullet"
+"method": &"spawn_bullet"
 }, {
 "args": [],
-"method": &"SpawnBullet"
+"method": &"spawn_bullet"
 }, {
 "args": [],
-"method": &"SpawnBullet"
+"method": &"spawn_bullet"
 }, {
 "args": [],
-"method": &"SpawnBullet"
+"method": &"spawn_bullet"
 }, {
 "args": [],
-"method": &"SpawnBullet"
+"method": &"spawn_bullet"
 }, {
 "args": [],
-"method": &"SpawnBullet"
+"method": &"spawn_bullet"
 }, {
 "args": [],
-"method": &"SpawnBullet"
+"method": &"spawn_bullet"
 }, {
 "args": [],
-"method": &"SpawnBullet"
+"method": &"spawn_bullet"
 }, {
 "args": [],
-"method": &"SpawnBullet"
+"method": &"spawn_bullet"
 }, {
 "args": [],
-"method": &"SpawnBullet"
+"method": &"spawn_bullet"
 }, {
 "args": [],
-"method": &"SpawnBullet"
+"method": &"spawn_bullet"
 }, {
 "args": [],
-"method": &"SpawnBullet"
+"method": &"spawn_bullet"
 }, {
 "args": [],
-"method": &"SpawnBullet"
+"method": &"spawn_bullet"
 }, {
 "args": [],
-"method": &"SpawnBullet"
+"method": &"spawn_bullet"
 }, {
 "args": [],
-"method": &"SpawnBullet"
+"method": &"spawn_bullet"
 }, {
 "args": [],
-"method": &"SpawnBullet"
+"method": &"spawn_bullet"
 }, {
 "args": [],
-"method": &"SpawnBullet"
+"method": &"spawn_bullet"
 }, {
 "args": [],
-"method": &"SpawnBullet"
+"method": &"spawn_bullet"
 }, {
 "args": [],
-"method": &"SpawnBullet"
+"method": &"spawn_bullet"
 }, {
 "args": [],
-"method": &"SpawnBullet"
+"method": &"spawn_bullet"
 }]
 }
 tracks/16/type = "method"
@@ -1363,12 +1363,9 @@ tracks/48/path = NodePath("SpellButterfly/SpellButterflyTimer")
 tracks/48/interp = 1
 tracks/48/loop_wrap = true
 tracks/48/keys = {
-"times": PackedFloat32Array(112.3, 134.9),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(134.9),
+"transitions": PackedFloat32Array(1),
 "values": [{
-"args": [-1],
-"method": &"start"
-}, {
 "args": [],
 "method": &"stop"
 }]
@@ -1400,147 +1397,135 @@ tracks/50/keys = {
 tracks/51/type = "value"
 tracks/51/imported = false
 tracks/51/enabled = true
-tracks/51/path = NodePath("SpellWaveParticle/TimerPrecise:process_mode")
+tracks/51/path = NodePath("yukari:position")
 tracks/51/interp = 1
 tracks/51/loop_wrap = true
 tracks/51/keys = {
-"times": PackedFloat32Array(136.563, 147.919),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [0, 4]
-}
-tracks/52/type = "value"
-tracks/52/imported = false
-tracks/52/enabled = true
-tracks/52/path = NodePath("yukari:position")
-tracks/52/interp = 1
-tracks/52/loop_wrap = true
-tracks/52/keys = {
 "times": PackedFloat32Array(0, 75, 76, 98.5, 99.6669, 111.533, 112.321, 135.6, 136.5, 154.312, 155),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 0,
 "values": [Vector2(270, -300), Vector2(270, -300), Vector2(270, 300), Vector2(270, 300), Vector2(270, 128), Vector2(270, 128), Vector2(270, 371), Vector2(270, 371), Vector2(270, 428), Vector2(270, 428), Vector2(270, -300)]
 }
-tracks/53/type = "value"
-tracks/53/imported = false
-tracks/53/enabled = true
-tracks/53/path = NodePath("yukari:process_mode")
-tracks/53/interp = 1
-tracks/53/loop_wrap = true
-tracks/53/keys = {
+tracks/52/type = "value"
+tracks/52/imported = false
+tracks/52/enabled = true
+tracks/52/path = NodePath("yukari:process_mode")
+tracks/52/interp = 1
+tracks/52/loop_wrap = true
+tracks/52/keys = {
 "times": PackedFloat32Array(0, 73.3006, 73.9),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
 "values": [4, 4, 0]
 }
-tracks/54/type = "method"
-tracks/54/imported = false
-tracks/54/enabled = true
-tracks/54/path = NodePath("Ball")
-tracks/54/interp = 1
-tracks/54/loop_wrap = true
-tracks/54/keys = {
+tracks/53/type = "method"
+tracks/53/imported = false
+tracks/53/enabled = true
+tracks/53/path = NodePath("Ball")
+tracks/53/interp = 1
+tracks/53/loop_wrap = true
+tracks/53/keys = {
 "times": PackedFloat32Array(79.5333, 80.0628, 82.5033, 85.3039, 85.8333, 88.3667, 91.3039, 91.8333, 94.5, 97.1372, 97.6667, 100.6, 103.23, 103.759, 106.2, 109.001, 109.53, 112.063, 115.001, 115.53, 118.197, 120.834, 121.363, 124.297, 126.8, 127.329, 129.77, 132.571, 133.1, 135.633),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
 "values": [{
 "args": [],
-"method": &"SpawnBullet"
+"method": &"spawn_bullet"
 }, {
 "args": [],
-"method": &"SpawnBullet"
+"method": &"spawn_bullet"
 }, {
 "args": [],
-"method": &"SpawnBullet"
+"method": &"spawn_bullet"
 }, {
 "args": [],
-"method": &"SpawnBullet"
+"method": &"spawn_bullet"
 }, {
 "args": [],
-"method": &"SpawnBullet"
+"method": &"spawn_bullet"
 }, {
 "args": [],
-"method": &"SpawnBullet"
+"method": &"spawn_bullet"
 }, {
 "args": [],
-"method": &"SpawnBullet"
+"method": &"spawn_bullet"
 }, {
 "args": [],
-"method": &"SpawnBullet"
+"method": &"spawn_bullet"
 }, {
 "args": [],
-"method": &"SpawnBullet"
+"method": &"spawn_bullet"
 }, {
 "args": [],
-"method": &"SpawnBullet"
+"method": &"spawn_bullet"
 }, {
 "args": [],
-"method": &"SpawnBullet"
+"method": &"spawn_bullet"
 }, {
 "args": [],
-"method": &"SpawnBullet"
+"method": &"spawn_bullet"
 }, {
 "args": [],
-"method": &"SpawnBullet"
+"method": &"spawn_bullet"
 }, {
 "args": [],
-"method": &"SpawnBullet"
+"method": &"spawn_bullet"
 }, {
 "args": [],
-"method": &"SpawnBullet"
+"method": &"spawn_bullet"
 }, {
 "args": [],
-"method": &"SpawnBullet"
+"method": &"spawn_bullet"
 }, {
 "args": [],
-"method": &"SpawnBullet"
+"method": &"spawn_bullet"
 }, {
 "args": [],
-"method": &"SpawnBullet"
+"method": &"spawn_bullet"
 }, {
 "args": [],
-"method": &"SpawnBullet"
+"method": &"spawn_bullet"
 }, {
 "args": [],
-"method": &"SpawnBullet"
+"method": &"spawn_bullet"
 }, {
 "args": [],
-"method": &"SpawnBullet"
+"method": &"spawn_bullet"
 }, {
 "args": [],
-"method": &"SpawnBullet"
+"method": &"spawn_bullet"
 }, {
 "args": [],
-"method": &"SpawnBullet"
+"method": &"spawn_bullet"
 }, {
 "args": [],
-"method": &"SpawnBullet"
+"method": &"spawn_bullet"
 }, {
 "args": [],
-"method": &"SpawnBullet"
+"method": &"spawn_bullet"
 }, {
 "args": [],
-"method": &"SpawnBullet"
+"method": &"spawn_bullet"
 }, {
 "args": [],
-"method": &"SpawnBullet"
+"method": &"spawn_bullet"
 }, {
 "args": [],
-"method": &"SpawnBullet"
+"method": &"spawn_bullet"
 }, {
 "args": [],
-"method": &"SpawnBullet"
+"method": &"spawn_bullet"
 }, {
 "args": [],
-"method": &"SpawnBullet"
+"method": &"spawn_bullet"
 }]
 }
-tracks/55/type = "method"
-tracks/55/imported = false
-tracks/55/enabled = true
-tracks/55/path = NodePath("yukari/TargetLocker")
-tracks/55/interp = 1
-tracks/55/loop_wrap = true
-tracks/55/keys = {
+tracks/54/type = "method"
+tracks/54/imported = false
+tracks/54/enabled = true
+tracks/54/path = NodePath("yukari/TargetLocker")
+tracks/54/interp = 1
+tracks/54/loop_wrap = true
+tracks/54/keys = {
 "times": PackedFloat32Array(79.2333, 82.4, 85.0039, 88.2634, 91.0039, 94.3967, 96.8372, 100.497, 102.93, 106.097, 108.701, 111.96, 114.701, 118.093, 120.534, 124.193, 126.5, 129.667, 132.271, 135.53),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
 "values": [{
@@ -1604,6 +1589,56 @@ tracks/55/keys = {
 "args": [],
 "method": &"transform_barrel"
 }]
+}
+tracks/55/type = "value"
+tracks/55/imported = false
+tracks/55/enabled = true
+tracks/55/path = NodePath("Ball:process_mode")
+tracks/55/interp = 1
+tracks/55/loop_wrap = true
+tracks/55/keys = {
+"times": PackedFloat32Array(0, 78.6667, 79.3206),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [4, 4, 0]
+}
+tracks/56/type = "method"
+tracks/56/imported = false
+tracks/56/enabled = true
+tracks/56/path = NodePath("SpellWaveParticle/TimerPrecise")
+tracks/56/interp = 1
+tracks/56/loop_wrap = true
+tracks/56/keys = {
+"times": PackedFloat32Array(147.333),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"stop"
+}]
+}
+tracks/57/type = "value"
+tracks/57/imported = false
+tracks/57/enabled = true
+tracks/57/path = NodePath("SpellButterfly:visible")
+tracks/57/interp = 1
+tracks/57/loop_wrap = true
+tracks/57/keys = {
+"times": PackedFloat32Array(0, 110.623, 111.655, 143.223, 143.889),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [false, false, true, true, false]
+}
+tracks/58/type = "value"
+tracks/58/imported = false
+tracks/58/enabled = true
+tracks/58/path = NodePath("SpellButterfly:process_mode")
+tracks/58/interp = 1
+tracks/58/loop_wrap = true
+tracks/58/keys = {
+"times": PackedFloat32Array(0, 110.623, 111.921, 143.223, 143.889),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [4, 4, 0, 0, 4]
 }
 
 [resource]

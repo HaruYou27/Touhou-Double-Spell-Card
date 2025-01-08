@@ -2,7 +2,7 @@
 
 [ext_resource type="Shape2D" uid="uid://borrvdxc7pflf" path="res://entity/bullet/cystal-hitbox.tres" id="1_scqkf"]
 [ext_resource type="Texture2D" uid="uid://ci8njay8ma26f" path="res://entity/bullet/cystal.png" id="2_lxig8"]
-[ext_resource type="Material" uid="uid://c5ahns6t1w0c" path="res://level/misty-lake-hard/resource/boss-bullet.material" id="3_r65pm"]
+[ext_resource type="Material" uid="uid://yrt7o0rc1slt" path="res://level/misty-lake/resource/bullet.tres" id="3_r65pm"]
 
 [node name="CystalBullet" type="Bullet"]
 speed = 172.0

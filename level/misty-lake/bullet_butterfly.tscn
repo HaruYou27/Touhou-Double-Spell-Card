@@ -2,7 +2,7 @@
 
 [ext_resource type="Shape2D" uid="uid://cdhtnr4opiiga" path="res://entity/bullet/butterfly-hitbox.tres" id="1_b7q7r"]
 [ext_resource type="Texture2D" uid="uid://bfp5momdip3ss" path="res://entity/bullet/butterfly.png" id="2_xtueh"]
-[ext_resource type="Material" uid="uid://c5ahns6t1w0c" path="res://level/misty-lake-hard/resource/boss-bullet.material" id="3_nr24w"]
+[ext_resource type="Material" uid="uid://yrt7o0rc1slt" path="res://level/misty-lake/resource/bullet.tres" id="3_nr24w"]
 
 [node name="BulletButterfly" type="Bullet"]
 speed = 172.0

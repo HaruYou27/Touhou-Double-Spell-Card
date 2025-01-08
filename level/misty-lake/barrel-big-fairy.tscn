@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://entity/utility/TargetLocker.gd" id="1_rkp4i"]
 
-[node name="barrel" type="Node2D"]
+[node name="barrel" type="Node2D" groups=["Big Fairy Tracker"]]
 rotation = 1.5708
 script = ExtResource("1_rkp4i")
 

@@ -1,0 +1,21 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://bod7a8oou48rl"]
+
+[ext_resource type="Texture2D" uid="uid://bd8pe65d7nfr4" path="res://level/misty-lake/resource/purple-blue-yellow-orange.tres" id="1_627vj"]
+
+[sub_resource type="Shader" id="Shader_nh5lo"]
+code = "shader_type canvas_item;
+
+#define COLOR_ROTATION
+#define COLOR_UV
+#define COLORIZE
+#define TIME_FLOW
+#define TIME_OFFSET
+#define COLOR_TIME
+
+#include \"res://entity/bullet/bullet-basic.gdshaderinc\"
+"
+
+[resource]
+shader = SubResource("Shader_nh5lo")
+shader_parameter/time_scale = 1.0
+shader_parameter/color_map = ExtResource("1_627vj")
