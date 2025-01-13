@@ -23,13 +23,12 @@ var index := 0
 
 const ray_length = Vector2(0, -960)
 
-func _physics_process(delta:float) -> void:
+func _physics_process(_delta:float) -> void:
 	#if cooldown >= 0:
 	#	cooldown -= delta
 	#	return
 		
-	if index == index_max:
-		index = 0
+	index = posmod(index, rays.size())
 	ray_query.from = rays[index].global_position
 	index += 1
 	ray_query.to = ray_query.from + ray_length

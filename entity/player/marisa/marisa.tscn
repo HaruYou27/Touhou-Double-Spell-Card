@@ -435,7 +435,6 @@ fixed_fps = 60
 interpolate = false
 visibility_rect = Rect2(-128, -128, 256, 512)
 script = ExtResource("8_48a8s")
-graphic_level = 1
 
 [node name="BeamParticle" type="GPUParticles2D" parent="Player/marisa/MasterSpark"]
 z_index = 3000
@@ -451,7 +450,6 @@ fixed_fps = 60
 interpolate = false
 visibility_rect = Rect2(-270, -500, 540, 1280)
 script = ExtResource("8_48a8s")
-graphic_level = 2
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Player/marisa/MasterSpark"]
 libraries = {

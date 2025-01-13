@@ -33,8 +33,10 @@ func reset() -> void:
 	visual.show()
 	hp = point
 
+@export var oneshot := false
 func _ready() -> void:
-	disable.call_deferred()
+	if not oneshot:
+		disable.call_deferred()
 
 func _on_body_entered(body:Node2D) -> void:
 	if body is not Player:

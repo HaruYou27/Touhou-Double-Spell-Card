@@ -9,17 +9,19 @@ radius = 31.0161
 
 [node name="FairyBIg" type="Node2D"]
 
-[node name="Enemy" parent="." instance=ExtResource("1_r57kt")]
-position = Vector2(101, 87)
+[node name="Enemy" parent="." node_paths=PackedStringArray("visual") instance=ExtResource("1_r57kt")]
+hp = 64
+visual = NodePath("visual")
+oneshot = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy"]
-position = Vector2(508, 262)
 shape = SubResource("CircleShape2D_1j2c8")
 
 [node name="visual" type="Sprite2D" parent="Enemy"]
-position = Vector2(508, 262)
 texture = ExtResource("3_x7wcv")
 
-[node name="barrel" type="Node2D" parent="Enemy/visual" groups=["Big Fairy Tracker"]]
+[node name="barrel" type="Marker2D" parent="Enemy/visual" groups=["Big Fairy Tracker"]]
+position = Vector2(0, 27)
 rotation = 1.5708
+gizmo_extents = 20.0
 script = ExtResource("3_888hk")

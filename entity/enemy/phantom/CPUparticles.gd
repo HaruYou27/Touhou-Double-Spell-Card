@@ -10,7 +10,7 @@ func _ready() -> void:
 	visibility_changed.connect(_visibility_changed)
 	
 func change_graphic() -> void:
-	fract_delta = Global.user_data.graphic_level > UserData.GRAPHIC_LEVEL.LOW
+	fract_delta = Global.user_data.graphic_level > UserData.GRAPHIC_LEVEL.MINIMAL
 	if Global.user_data.graphic_level < UserData.GRAPHIC_LEVEL.LOW:
 		fixed_fps = 30
 	else:

@@ -16,6 +16,8 @@ func die() -> void:
 
 func _ready() -> void:
 	enemy.died.connect(die)
+	cubic_interp = false
+	rotates = false
 	set_process(false)
 
 func start() -> void:

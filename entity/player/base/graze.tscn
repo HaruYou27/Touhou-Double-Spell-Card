@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://cex3540cp47lm"]
+[gd_scene load_steps=7 format=3 uid="uid://cex3540cp47lm"]
 
 [ext_resource type="Script" path="res://entity/player/base/graze.gd" id="1_doa5g"]
 [ext_resource type="Material" uid="uid://dox27ncd2r5o3" path="res://entity/resource/glow.tres" id="2_ltv4y"]
 [ext_resource type="AudioStream" uid="uid://4t58xs4qdlkr" path="res://singleton/sound-effect/resource/tick+.wav" id="2_tulhb"]
 [ext_resource type="Texture2D" uid="uid://dilcwhuq6brnv" path="res://entity/bullet/ball.png" id="3_ktjtp"]
+[ext_resource type="Script" path="res://entity/utility/graphic/Particles2D.gd" id="4_jo3u4"]
 
 [sub_resource type="ParticleProcessMaterial" id="25"]
 emission_shape = 1
@@ -25,15 +26,18 @@ script = ExtResource("1_doa5g")
 
 [node name="vfx" type="GPUParticles2D" parent="."]
 process_mode = 3
-z_index = 4
+z_index = 9
 material = ExtResource("2_ltv4y")
 emitting = false
-amount = 32
+amount = 64
 process_material = SubResource("25")
 texture = ExtResource("3_ktjtp")
+lifetime = 2.0
 one_shot = true
 speed_scale = 2.0
+fixed_fps = 60
 local_coords = true
+script = ExtResource("4_jo3u4")
 
 [node name="sfx" type="AudioStreamPlayer" parent="."]
 process_mode = 3
