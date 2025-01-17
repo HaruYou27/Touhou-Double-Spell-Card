@@ -17,6 +17,7 @@ func _peer_disconnected() -> void:
 	player2 = null
 
 const main_menu := "res://user-interface/menu/menu.tscn"
+const config_path := 'user://saveData.res'
 
 var offset := 0
 func sync_clock() -> void:
@@ -39,16 +40,8 @@ func _ready() -> void:
 	if not Engine.is_editor_hint:
 		print(Engine.get_license_text())
 	#multiplayer.peer_disconnected.connect(_peer_disconnected)
-	user_data = load('user://saveData.res')
+	user_data = load(config_path)
 	if user_data:
 		return
 		
 	user_data = UserData.new()
-	
-##Save user config.
-func _exit_tree() -> void:
-	if Engine.is_editor_hint:
-		return
-	
-	ProjectSettings.save_custom('user://override.cfg')
-	ResourceSaver.save(user_data, 'user://saveData.res', ResourceSaver.FLAG_COMPRESS)

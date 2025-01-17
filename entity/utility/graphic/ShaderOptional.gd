@@ -4,7 +4,6 @@ class_name ShaderOptional
 @export var material_low : ShaderMaterial
 @export var material_medium : ShaderMaterial
 @export var material_high : ShaderMaterial
-@export var material_ultra : ShaderMaterial
 
 func _ready() -> void:
 	change_graphic()
@@ -12,8 +11,6 @@ func _ready() -> void:
 	
 func change_graphic() -> void:
 	match Global.user_data.graphic_level:
-		UserData.GRAPHIC_LEVEL.ULTRA:
-			material = material_ultra
 		UserData.GRAPHIC_LEVEL.HIGH:
 			material = material_high
 		UserData.GRAPHIC_LEVEL.MEDIUM:

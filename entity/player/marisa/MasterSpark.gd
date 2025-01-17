@@ -14,7 +14,6 @@ func _ready():
 	ray_query.collide_with_bodies = false
 	ray_query.collision_mask = collision_layer
 	
-@export var beam_particle: GPUParticles2D
 @export var collision_particle: GPUParticles2D 
 
 ## Avoid cheating by increase physics step.

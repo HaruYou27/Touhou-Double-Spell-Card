@@ -1,7 +1,7 @@
 extends CPUParticles2D
 class_name CPUparticles
 	
-func  _visibility_changed() -> void:
+func _visibility_changed() -> void:
 	emitting = is_visible_in_tree()
 
 func _ready() -> void:
@@ -10,8 +10,9 @@ func _ready() -> void:
 	visibility_changed.connect(_visibility_changed)
 	
 func change_graphic() -> void:
-	fract_delta = Global.user_data.graphic_level > UserData.GRAPHIC_LEVEL.MINIMAL
-	if Global.user_data.graphic_level < UserData.GRAPHIC_LEVEL.LOW:
+	var graphic_level := Global.user_data.graphic_level
+	fract_delta = graphic_level > UserData.GRAPHIC_LEVEL.MINIMAL
+	if graphic_level < UserData.GRAPHIC_LEVEL.LOW:
 		fixed_fps = 30
 	else:
 		fixed_fps = 0

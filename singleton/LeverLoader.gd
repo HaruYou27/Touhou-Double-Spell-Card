@@ -10,7 +10,7 @@ func load_scene(path:String, player:=false) -> void:
 	background.texture = ImageTexture.create_from_image(viewport.get_texture().get_image())
 	ScreenEffect.hide()
 	scene.queue_free()
-	task = WorkerThreadPool.add_task(instance_scene.bind(path, player))
+	task = WorkerThreadPool.add_task(_instance_scene.bind(path, player))
 	
 	progess_bar.value = 0.0
 	show()
@@ -48,7 +48,7 @@ func increase_bar() -> void:
 ## Cache scene.
 var scene_packed : PackedScene
 ## Should be called in a thread. Use cache if path is empty.
-func instance_scene(path:String, player:bool) -> void:
+func _instance_scene(path:String, player:bool) -> void:
 	if not path.is_empty():
 		scene_packed = load(path)
 	GlobalItem.call_deferred("clear")
@@ -95,3 +95,18 @@ func _ready() -> void:
 	multiplayer.peer_disconnected.connect(_peer_disconnected)
 	set_process(false)
 	hide()
+
+var task_config := 0
+##Save user config.
+func save_config() -> void:
+	task_config = WorkerThreadPool.add_task(_save_config)
+
+func _save_config() -> void:
+	if Engine.is_editor_hint:
+		return
+	ProjectSettings.save_custom('user://override.cfg')
+	ResourceSaver.save(Global.user_data, Global.config_path, ResourceSaver.FLAG_COMPRESS)
+	_collect_task_config.call_deferred()
+	
+func _collect_task_config() -> void:
+	WorkerThreadPool.wait_for_task_completion(task_config)

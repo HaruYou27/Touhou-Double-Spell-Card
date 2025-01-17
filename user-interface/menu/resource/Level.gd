@@ -3,6 +3,11 @@ extends VBoxContainer
 @onready var level := $"../../../background"
 @onready var level_list := $LevelList
 @onready var preview := $Preview
+@onready var user_data: UserData = Global.user_data
+
+func _ready() -> void:
+	level.current_tab = user_data.last_level
+
 func select_level(next:bool) -> void:
 	if not is_multiplayer_authority():
 		return
@@ -34,6 +39,8 @@ func _on_enter_pressed() -> void:
 
 @rpc("reliable", "call_local")
 func start_game() -> void:
+	user_data.last_level = level.current_tab
+	LevelLoader.save_config()
 	LevelLoader.load_scene(preview.get_current_tab_control().get_meta("level"), true)
 	
 @rpc("reliable")

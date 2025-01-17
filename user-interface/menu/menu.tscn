@@ -399,13 +399,16 @@ metadata/_tab_index = 0
 [node name="SpeedLabel" type="Label" parent="TabContainer/Settings/Game"]
 layout_mode = 2
 text = "Game Speed: %f"
+script = ExtResource("4_h21eu")
 
-[node name="speed" type="HSlider" parent="TabContainer/Settings/Game"]
+[node name="speed" type="HSlider" parent="TabContainer/Settings/Game" node_paths=PackedStringArray("label")]
 layout_mode = 2
 min_value = 0.25
-max_value = 2.0
+max_value = 1.0
 step = 0.0
 value = 1.0
+script = ExtResource("8_b5jhj")
+label = NodePath("../SpeedLabel")
 
 [node name="language" type="OptionButton" parent="TabContainer/Settings/Game"]
 layout_mode = 2

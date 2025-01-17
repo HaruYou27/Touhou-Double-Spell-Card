@@ -1,10 +1,7 @@
-[gd_scene load_steps=9 format=3 uid="uid://c86prfv7djel5"]
+[gd_scene load_steps=6 format=3 uid="uid://c86prfv7djel5"]
 
-[ext_resource type="Material" uid="uid://q5nkdgcdwaci" path="res://level/space/resource/space-low.tres" id="1_3kslh"]
-[ext_resource type="Script" path="res://entity/utility/graphic/ShaderOptional.gd" id="2_cdvf4"]
 [ext_resource type="PackedScene" uid="uid://bfvb372sca8m2" path="res://user-interface/leveler/leveler.tscn" id="3_55qid"]
 [ext_resource type="Material" uid="uid://dr20u75y4dglk" path="res://level/space/resource/space-high.tres" id="3_q0l4k"]
-[ext_resource type="Material" uid="uid://xmhvi7u7hc1k" path="res://level/space/resource/space-medium.tres" id="3_tiya2"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_clq85"]
 size = Vector2(540, 960)
@@ -20,13 +17,9 @@ _data = {
 [node name="Space" type="Node2D"]
 
 [node name="Star" type="Sprite2D" parent="."]
-material = ExtResource("3_tiya2")
+material = ExtResource("3_q0l4k")
 texture = SubResource("PlaceholderTexture2D_clq85")
 centered = false
-script = ExtResource("2_cdvf4")
-material_low = ExtResource("1_3kslh")
-material_medium = ExtResource("3_tiya2")
-material_high = ExtResource("3_q0l4k")
 
 [node name="player" type="Node2D" parent="."]
 

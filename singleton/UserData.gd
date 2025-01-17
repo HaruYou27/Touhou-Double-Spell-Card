@@ -17,7 +17,6 @@ enum GRAPHIC_LEVEL
 	LOW,
 	MEDIUM,
 	HIGH,
-	ULTRA,
 }
 @export var graphic_level := GRAPHIC_LEVEL.HIGH
 @export var screen_shake_intensity := 2.0
@@ -30,3 +29,5 @@ func _set_raw_input(value:bool) -> void:
 
 @export_category('User data')
 @export var scores := {}
+@export var last_level := 0
+@export var last_character := 0
