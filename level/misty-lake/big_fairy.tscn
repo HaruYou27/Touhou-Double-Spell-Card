@@ -10,7 +10,7 @@ radius = 31.0161
 [node name="FairyBIg" type="Node2D"]
 
 [node name="Enemy" parent="." node_paths=PackedStringArray("visual") instance=ExtResource("1_r57kt")]
-hp = 64
+hp = 32
 visual = NodePath("visual")
 oneshot = true
 

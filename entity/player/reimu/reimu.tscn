@@ -97,7 +97,7 @@ z_index = 1
 material = ExtResource("7_w7two")
 
 [node name="Timer" type="Timer" parent="Seeker"]
-wait_time = 0.3
+wait_time = 0.15
 autostart = true
 
 [node name="Bullet" type="BulletPlayer" parent="."]
@@ -113,7 +113,7 @@ top_level = true
 material = ExtResource("7_w7two")
 
 [node name="Timer" type="Timer" parent="Bullet"]
-wait_time = 0.2
+wait_time = 0.1
 autostart = true
 
 [connection signal="add_bomb" from="Player/graze" to="Player" method="_on_graze_add_bomb"]

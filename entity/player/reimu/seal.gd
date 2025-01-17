@@ -29,7 +29,7 @@ func toggle(on:bool) -> void:
 	target_vaild = false
 	target = null
 	
-var target: Node2D
+var target: Area2D
 var target_vaild := false
 func _on_area_entered(area: Area2D) -> void:
 	if target_vaild:
@@ -40,7 +40,7 @@ func _on_area_entered(area: Area2D) -> void:
 @export var speed_turn := 727.0
 @onready var velocity := Vector2.UP * speed
 func _physics_process(delta: float) -> void:
-	target_vaild = target and target.is_alive
+	target_vaild = target and target.monitorable
 	if target_vaild:
 		velocity += (target.global_position - global_position).normalized() * speed_turn
 		velocity = velocity.normalized() * speed

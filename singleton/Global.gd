@@ -38,7 +38,7 @@ var user_data : UserData
 func _ready() -> void:
 	if not Engine.is_editor_hint:
 		print(Engine.get_license_text())
-	multiplayer.peer_disconnected.connect(_peer_disconnected)
+	#multiplayer.peer_disconnected.connect(_peer_disconnected)
 	user_data = load('user://saveData.res')
 	if user_data:
 		return
@@ -50,9 +50,5 @@ func _exit_tree() -> void:
 	if Engine.is_editor_hint:
 		return
 	
-	var window := get_window()
-	ProjectSettings.set_setting('display/window/size/viewport_width', window.size.x)
-	ProjectSettings.set_setting('display/window/size/viewport_height', window.size.y)
-	ProjectSettings.set_setting('display/window/size/mode', window.mode)
 	ProjectSettings.save_custom('user://override.cfg')
 	ResourceSaver.save(user_data, 'user://saveData.res', ResourceSaver.FLAG_COMPRESS)

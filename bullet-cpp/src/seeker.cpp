@@ -37,7 +37,7 @@ void Seeker::move_bullet(const int index)
         velocity += (target->get_global_position() - transform.get_origin()).normalized() * turn_speed * delta32;
         velocity.normalize();
         velocity *= get_speed();
-        transform.set_rotation(velocity.angle() + M_PI_2);
+        transform.set_rotation(velocity.angle() + PI_2);
         if (target->is_monitorable())
         {
             return Bullet::move_bullet(index);

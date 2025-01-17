@@ -422,18 +422,6 @@ tracks/28/keys = {
 "update": 1,
 "values": [false]
 }
-tracks/29/type = "value"
-tracks/29/imported = false
-tracks/29/enabled = true
-tracks/29/path = NodePath("SpellWaveParticle/TimerPrecise:process_mode")
-tracks/29/interp = 1
-tracks/29/loop_wrap = true
-tracks/29/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [4]
-}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_y00g5"]
 _data = {
@@ -486,7 +474,6 @@ modulate = Color(1, 1, 1, 0)
 graphic_level = 2
 
 [node name="CystalDrop1" type="Node2D" parent="."]
-process_mode = 4
 visible = false
 position = Vector2(0, -43)
 
@@ -807,7 +794,6 @@ gizmo_extents = 25.9
 script = ExtResource("26_e1gun")
 
 [node name="SpellCircle" type="Node2D" parent="."]
-process_mode = 4
 visible = false
 
 [node name="BulletCircle" parent="SpellCircle" instance=ExtResource("23_1ju68")]
@@ -874,7 +860,6 @@ wait_time = 0.1
 autostart = true
 
 [node name="SpellButterfly" type="Node2D" parent="."]
-process_mode = 4
 visible = false
 scale = Vector2(0.5, 0.5)
 
@@ -1006,7 +991,6 @@ rotation = -1.5708
 gizmo_extents = 20.0
 
 [node name="TimerPrecise" type="Timer" parent="SpellWaveParticle"]
-process_mode = 4
 wait_time = 0.06
 autostart = true
 
@@ -1015,7 +999,6 @@ speed = 72.0
 barrel_group = &"Ball Tracking"
 hitbox = ExtResource("29_y8e6g")
 texture = ExtResource("30_n5lhs")
-process_mode = 4
 top_level = true
 material = ExtResource("27_vmhcq")
 

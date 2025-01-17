@@ -17,5 +17,5 @@ func hit() -> void:
 func item_collect() -> void:
 	if not is_multiplayer_authority():
 		return
-		
+	
 	hud.add_item()

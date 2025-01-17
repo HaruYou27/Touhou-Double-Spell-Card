@@ -71,7 +71,7 @@ void Bullet::spawn_bullet()
         reset_bullet();
         float angle = barrel_rotations[index];
         velocities[count_bullet] = Vector2(speed, 0).rotated(angle);
-        transforms[count_bullet] = Transform2D(angle + M_PI_2, get_scale(), 0, barrel_positions[index]);
+        transforms[count_bullet] = Transform2D(angle + PI_2, get_scale(), 0, barrel_positions[index]);
         count_bullet++;
     }
 }
@@ -100,7 +100,7 @@ void Bullet::spawn_circle(const int count, const Vector2 position)
     {
         reset_bullet();
         velocities[count_bullet] = Vector2(speed, 0).rotated(angle);
-        transforms[count_bullet] = Transform2D(angle + M_PI_2, position);
+        transforms[count_bullet] = Transform2D(angle + PI_2, position);
         angle += delta_angle;
         count_bullet++;
     }
@@ -143,7 +143,7 @@ bool Bullet::collide(const Dictionary& result, const int index)
 {
     if (get_result_mask(result) < 0)
     {
-        item_manager->call_deferred("spawn_item", transforms[index]);
+        item_manager->call_deferred("spawn_item", transforms[index].get_origin());
         return true;
     }
     grazes[index] = false;

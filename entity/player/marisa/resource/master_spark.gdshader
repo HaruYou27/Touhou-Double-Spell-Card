@@ -5,7 +5,7 @@ uniform sampler2D color_map;
 uniform float speed_color = 1.0;
 uniform float alpha_delta = 0.1;
 uniform float speed_alpha = 2.0;
-
+uniform float UV_diff = 1.0;
 
 void vertex()
 {
@@ -15,5 +15,5 @@ void vertex()
 void fragment()
 {
 	COLOR.rgb = mix(texture(color_map, vec2(abs(sin(UV.x)))).rgb, vec3(1.), COLOR.r);
-	COLOR.a += alpha_delta * (sin(TIME * speed_alpha + UV.x));
+	COLOR.a += alpha_delta * (sin(TIME * speed_alpha + UV.x * UV_diff));
 }
