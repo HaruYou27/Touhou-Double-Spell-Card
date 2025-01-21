@@ -35,13 +35,12 @@ private:
     int count_node = 0;
     int count_barrel = 0;
 
-    void expire_bullets();
+    void collision_wall();
     void move_bullets();
 
     Callable action_expire;
     Rect2 world_border;
     Callable action_move;
-    Engine* engine;
 protected:
     static const int max_bullet = 2000;
     static const int half_bullet = 1000;
@@ -67,13 +66,15 @@ protected:
     Vector2 velocities[max_bullet];
     bool grazes[max_bullet];
 
-    static void _bind_methods();
     virtual bool collide(const Dictionary &result, const int index);
     virtual void move_bullet(const int index);
     virtual void cache_barrel();
     virtual bool collision_check(const int index);
     virtual void sort_bullet(const int index);
     virtual void reset_bullet();
+    virtual void collide_wall(const int index);
+
+    static void _bind_methods();
     static Object *get_collider(const Dictionary &result);
     static float get_result_mask(const Dictionary &result);
 public:

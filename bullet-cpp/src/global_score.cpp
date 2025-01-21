@@ -1,6 +1,7 @@
 #include <global_score.hpp>
 
 GETTER(graze, int, GlobalScore)
+GETTER(score, int, GlobalScore)
 GETTER(item, int, GlobalScore)
 GETTER(death_count, int, GlobalScore)
 
@@ -30,18 +31,15 @@ void GlobalScore::reset()
     item = 1;
     graze = 1;
     death_count = 0;
+    score = 0;
     updating_score = false;
-}
-
-int GlobalScore::get_score()
-{
-    return item * graze * engine->get_time_scale();
 }
 
 void GlobalScore::_update_score()
 {
     updating_score = false;
-    emit_signal("score_changed", get_score());
+    score = item * graze * engine->get_time_scale();
+    emit_signal("score_changed", score);
 }
 
 void GlobalScore::update_score()

@@ -3,7 +3,6 @@
 
 #include <bullet.hpp>
 
-using namespace godot;
 class Spinner : public Bullet
 {
 GDCLASS(Spinner, Bullet)

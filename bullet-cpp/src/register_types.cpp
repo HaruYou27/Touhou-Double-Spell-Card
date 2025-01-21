@@ -11,6 +11,10 @@
 #include <spinner.hpp>
 #include <barrel_rotator_random.hpp>
 #include <global_score.hpp>
+#include <accelerator_sine.hpp>
+#include <accelerator.hpp>
+#include <accelerator_smooth.hpp>
+#include <ricochetor.hpp>
 
 using namespace godot;
 
@@ -20,12 +24,16 @@ void initialize_gdextension_types(ModuleInitializationLevel p_level)
 		return;
 	}
 	GDREGISTER_CLASS(Bullet);
+	GDREGISTER_CLASS(Spinner);
 	GDREGISTER_CLASS(ItemManager);
 	GDREGISTER_CLASS(BulletPlayer);
 	GDREGISTER_CLASS(Seeker);
-	GDREGISTER_CLASS(Spinner);
 	GDREGISTER_CLASS(BarrelRotatorRandom);
 	GDREGISTER_CLASS(GlobalScore);
+	GDREGISTER_CLASS(AcceleratorSine);
+	GDREGISTER_CLASS(Accelerator);
+	GDREGISTER_CLASS(AcceleratorSmooth);
+	GDREGISTER_CLASS(Ricochetor);
 }
 
 void uninitialize_gdextension_types(ModuleInitializationLevel p_level) {

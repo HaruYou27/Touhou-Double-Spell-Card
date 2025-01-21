@@ -8,6 +8,52 @@ void ItemManager::_bind_methods()
     ADD_PROPERTY_FLOAT(gravity)
 
     BIND_FUNCTION(spawn_item, ItemManager);
+    ClassDB::bind_method(D_METHOD("get_nearest_player", "position"), &ItemManager::get_nearest_player);
+}
+
+void ItemManager::get_players()
+{
+    player1 = Object::cast_to<Node2D>(global->get("player1"));
+    player2 = Object::cast_to<Node2D>(global->get("player2"));
+}
+
+Vector2 ItemManager::get_nearest_player(const Vector2 position)
+{
+    if (player1 == nullptr)
+    {
+        return;
+    }
+    Vector2 direction1 = position1 - position;
+    if (player2 == nullptr)
+    {
+        return direction1;
+    }
+    Vector2 direction2 = position2 - position;
+    if (direction2.length_squared() < direction1.length_squared())
+    {
+        return direction2;
+    }
+    return direction1;
+}
+
+void ItemManager::cache_barrel()
+{
+    if (player1 == nullptr)
+    {
+        return;
+    }
+    position1 = player1->get_global_position();
+    if (player2 == nullptr)
+    {
+        return;
+    }
+    position2 = player2->get_global_position();
+}
+
+void ItemManager::_ready()
+{
+    Bullet::_ready();
+    global = get_node<Node>("/root/Global");
 }
 
 void ItemManager::create_item(const Vector2 position, const float random)

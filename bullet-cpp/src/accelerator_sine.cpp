@@ -19,6 +19,11 @@ float AcceleratorSine::calculate_speed(const int index)
     return get_speed() * Math::absf(sin(life_times[index]));
 }
 
+void AcceleratorSine::sort_bullet(const int index)
+{
+    FILL_ARRAY_HOLE(life_times)
+}
+
 void AcceleratorSine::move_bullet(const int index)
 {
     life_times[index] += delta32;

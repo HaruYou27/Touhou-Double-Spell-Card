@@ -6,8 +6,8 @@ void AcceleratorSmooth::_bind_methods()
 
 void AcceleratorSmooth::_ready()
 {
-    acceleration = get_speed_final() - get_speed();
     Bullet::_ready();
+    acceleration = get_speed_final() - get_speed();
 }
 
 float AcceleratorSmooth::calculate_speed(const int index)

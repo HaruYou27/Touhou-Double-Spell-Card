@@ -33,9 +33,8 @@ SETTER_GETTER(collision_layer, int, Bullet)
 
 void Bullet::_ready()
 {
-    engine = Engine::get_singleton();
     set_as_top_level(true);
-    if (engine->is_editor_hint())
+    if (Engine::get_singleton()->is_editor_hint())
     {
         set_physics_process(false);
         return;
@@ -82,7 +81,7 @@ Bullet::Bullet()
     thread_bullet.instantiate();
     thread_barrel.instantiate();
     world_border = Rect2(-100, -100, 740, 1160);
-    action_expire = callable_mp(this, &Bullet::expire_bullets);
+    action_expire = callable_mp(this, &Bullet::collision_wall);
     action_move = callable_mp(this, &Bullet::move_bullets);
 }
 
@@ -166,7 +165,13 @@ void Bullet::cache_barrel()
     }
 }
 
-void Bullet::expire_bullets()
+void Bullet::collide_wall(const int index)
+{
+    indexes_delete_border[count_expire] = index;
+    count_expire++;
+}
+
+void Bullet::collision_wall()
 {
     thread_barrel->set_thread_safety_checks_enabled(false);
     cache_barrel();
@@ -179,8 +184,7 @@ void Bullet::expire_bullets()
             index++;
             continue;
         }
-        indexes_delete_border[count_expire] = index;
-        count_expire++;
+        collide_wall(index);
         index++;
     }
 }

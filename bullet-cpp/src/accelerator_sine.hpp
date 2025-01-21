@@ -17,6 +17,7 @@ protected:
     virtual float calculate_speed(const int index);
     virtual void move_bullet(const int index) override;
     virtual void reset_bullet() override;
+    virtual void sort_bullet(const int index) override;
 public:
     SET_GET(duration, float);
 };

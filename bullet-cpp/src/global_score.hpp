@@ -11,6 +11,7 @@ class GlobalScore : public Node
 GDCLASS(GlobalScore, Node)
 
 private:
+    int score = 0;
     int item = 1;
     int graze = 1;
     int death_count = 0;
@@ -30,7 +31,7 @@ public:
     int get_item() const;
     int get_graze() const;
     int get_death_count() const;
-    int get_score();
+    int get_score() const;
 };
 
 #endif
