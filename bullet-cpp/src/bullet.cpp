@@ -129,17 +129,17 @@ void Bullet::move_bullets()
     }
 }
 
-Object* Bullet::get_collider(const Dictionary& result)
+Object* Bullet::get_collider(const Dictionary &result)
 {
     return ObjectDB::get_instance(static_cast<uint64_t>(result["collider_id"]));
 }
 
-float Bullet::get_result_mask(const Dictionary& result)
+float Bullet::get_result_mask(const Dictionary &result)
 {
     return static_cast<Vector2>(result["linear_velocity"]).x;
 }
 // return false means bullet is still alive
-bool Bullet::collide(const Dictionary& result, const int index)
+bool Bullet::collide(const Dictionary &result, const int index)
 {
     if (get_result_mask(result) < 0)
     {

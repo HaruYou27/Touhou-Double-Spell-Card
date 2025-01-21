@@ -21,8 +21,8 @@
 [ext_resource type="Script" path="res://user-interface/menu/character/character.gd" id="13_rskvb"]
 [ext_resource type="PackedScene" uid="uid://ecqcoejg1lj8" path="res://entity/player/marisa/beam.tscn" id="14_7sa2c"]
 [ext_resource type="Shortcut" uid="uid://xs30oatyn1i6" path="res://user-interface/resource/shortcut/enter.tres" id="14_nwuco"]
+[ext_resource type="Script" path="res://user-interface/resource/custom-node/PercentageSliderNormalized.gd" id="18_5vp8w"]
 [ext_resource type="Script" path="res://user-interface/menu/settings/controls.gd" id="24_hwgke"]
-[ext_resource type="Script" path="res://user-interface/menu/particles.gd" id="25_ck8hf"]
 [ext_resource type="Script" path="res://user-interface/menu/resource/EnetHost.gd" id="26_wbk6w"]
 [ext_resource type="Script" path="res://user-interface/menu/resource/EnetJoin.gd" id="27_1hjwn"]
 [ext_resource type="Script" path="res://user-interface/menu/settings/graphic.gd" id="30_jysfy"]
@@ -191,10 +191,11 @@ tabs_visible = false
 [node name="play" type="TabContainer" parent="TabContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
-current_tab = 0
+current_tab = 2
 metadata/_tab_index = 0
 
 [node name="Level" type="VBoxContainer" parent="TabContainer/play"]
+visible = false
 layout_mode = 2
 script = ExtResource("2_hncmy")
 metadata/_tab_index = 0
@@ -274,7 +275,6 @@ layout_mode = 2
 metadata/_tab_index = 1
 
 [node name="Character" type="VBoxContainer" parent="TabContainer/play"]
-visible = false
 layout_mode = 2
 script = ExtResource("13_rskvb")
 metadata/_tab_index = 2
@@ -291,42 +291,37 @@ layout_mode = 2
 metadata/path = &"res://entity/player/reimu/reimu.tscn"
 metadata/_tab_index = 0
 
-[node name="Reimu" type="Node2D" parent="TabContainer/play/Character/Preview/Reimu"]
-texture_filter = 1
-position = Vector2(270, 651)
-scale = Vector2(2, 2)
+[node name="ReimuSprite" parent="TabContainer/play/Character/Preview/Reimu" instance=ExtResource("10_dtu3c")]
+position = Vector2(270, 718)
 
-[node name="ReimuSprite" parent="TabContainer/play/Character/Preview/Reimu/Reimu" instance=ExtResource("10_dtu3c")]
-position = Vector2(0, 0)
-
-[node name="Timer" type="Timer" parent="TabContainer/play/Character/Preview/Reimu/Reimu"]
+[node name="Timer" type="Timer" parent="TabContainer/play/Character/Preview/Reimu/ReimuSprite"]
 wait_time = 0.2
 autostart = true
 
-[node name="barrel" type="Node2D" parent="TabContainer/play/Character/Preview/Reimu/Reimu"]
+[node name="barrel" type="Node2D" parent="TabContainer/play/Character/Preview/Reimu/ReimuSprite"]
 
-[node name="YinyangOrb" parent="TabContainer/play/Character/Preview/Reimu/Reimu/barrel" groups=["Reimu Barrel"] instance=ExtResource("11_uxxtn")]
+[node name="YinyangOrb" parent="TabContainer/play/Character/Preview/Reimu/ReimuSprite/barrel" groups=["Reimu Barrel"] instance=ExtResource("11_uxxtn")]
 position = Vector2(72, 0)
 rotation = -1.48353
 flip_v = true
 
-[node name="YinyangOrb2" parent="TabContainer/play/Character/Preview/Reimu/Reimu/barrel" groups=["Reimu Barrel"] instance=ExtResource("11_uxxtn")]
+[node name="YinyangOrb2" parent="TabContainer/play/Character/Preview/Reimu/ReimuSprite/barrel" groups=["Reimu Barrel"] instance=ExtResource("11_uxxtn")]
 texture_filter = 1
 position = Vector2(-72, 0)
 rotation = -1.65806
 flip_h = false
 
-[node name="Marker2D" type="Marker2D" parent="TabContainer/play/Character/Preview/Reimu/Reimu/barrel" groups=["Reimu Barrel"]]
+[node name="Marker2D" type="Marker2D" parent="TabContainer/play/Character/Preview/Reimu/ReimuSprite/barrel" groups=["Reimu Barrel"]]
 position = Vector2(13.0002, -39.9999)
 rotation = -1.5708
 gizmo_extents = 51.7
 
-[node name="Position2D2" type="Marker2D" parent="TabContainer/play/Character/Preview/Reimu/Reimu/barrel" groups=["Reimu Barrel"]]
+[node name="Position2D2" type="Marker2D" parent="TabContainer/play/Character/Preview/Reimu/ReimuSprite/barrel" groups=["Reimu Barrel"]]
 position = Vector2(-13, -40)
 rotation = -1.5708
 gizmo_extents = 82.9
 
-[node name="bullet" type="Bullet" parent="TabContainer/play/Character/Preview/Reimu/Reimu" groups=["Bullet Manager"]]
+[node name="bullet" type="Bullet" parent="TabContainer/play/Character/Preview/Reimu/ReimuSprite" groups=["Bullet Manager"]]
 speed = 572.0
 barrel_group = &"Reimu Barrel"
 hitbox = ExtResource("11_poxet")
@@ -334,9 +329,8 @@ texture = ExtResource("9_f05ce")
 grazable = false
 local_rotation = true
 top_level = true
-z_index = 1
+z_index = -5
 material = ExtResource("11_wt44o")
-scale = Vector2(2, 2)
 
 [node name="Marisa" type="Control" parent="TabContainer/play/Character/Preview"]
 visible = false
@@ -344,16 +338,12 @@ layout_mode = 2
 metadata/path = &"res://entity/player/marisa/marisa.tscn"
 metadata/_tab_index = 1
 
-[node name="Marisa" type="Node2D" parent="TabContainer/play/Character/Preview/Marisa"]
-texture_filter = 1
-position = Vector2(270, 657)
-scale = Vector2(2, 2)
+[node name="marisa" parent="TabContainer/play/Character/Preview/Marisa" instance=ExtResource("12_3ecnw")]
+position = Vector2(270, 741)
 
-[node name="marisa" parent="TabContainer/play/Character/Preview/Marisa/Marisa" instance=ExtResource("12_3ecnw")]
-
-[node name="Beam" parent="TabContainer/play/Character/Preview/Marisa/Marisa" instance=ExtResource("14_7sa2c")]
-position = Vector2(0, -50)
-scale = Vector2(0.5, 0.5)
+[node name="Beam" parent="TabContainer/play/Character/Preview/Marisa/marisa" instance=ExtResource("14_7sa2c")]
+show_behind_parent = true
+position = Vector2(0, -58)
 
 [node name="title" type="OptionButton" parent="TabContainer/play/Character"]
 layout_mode = 2
@@ -398,7 +388,7 @@ metadata/_tab_index = 0
 
 [node name="SpeedLabel" type="Label" parent="TabContainer/Settings/Game"]
 layout_mode = 2
-text = "Game Speed: %f"
+text = "Game Speed: %d %%"
 script = ExtResource("4_h21eu")
 
 [node name="speed" type="HSlider" parent="TabContainer/Settings/Game" node_paths=PackedStringArray("label")]
@@ -407,7 +397,7 @@ min_value = 0.25
 max_value = 1.0
 step = 0.0
 value = 1.0
-script = ExtResource("8_b5jhj")
+script = ExtResource("18_5vp8w")
 label = NodePath("../SpeedLabel")
 
 [node name="language" type="OptionButton" parent="TabContainer/Settings/Game"]
@@ -434,19 +424,21 @@ layout_mode = 2
 [node name="SentivityLabel" type="Label" parent="TabContainer/Settings/Controls"]
 layout_mode = 2
 size_flags_horizontal = 4
-text = "Input sentivity : %1.1f"
+text = "Input sentivity : %d %%"
 script = ExtResource("4_h21eu")
 
-[node name="sentivity" type="HSlider" parent="TabContainer/Settings/Controls"]
+[node name="sentivity" type="HSlider" parent="TabContainer/Settings/Controls" node_paths=PackedStringArray("label")]
 layout_mode = 2
 focus_mode = 0
 min_value = 0.1
 max_value = 2.0
-step = 0.1
+step = 0.01
 value = 2.0
 allow_greater = true
 tick_count = 20
 ticks_on_borders = true
+script = ExtResource("18_5vp8w")
+label = NodePath("../SentivityLabel")
 
 [node name="raw" type="CheckButton" parent="TabContainer/Settings/Controls"]
 layout_mode = 2
@@ -583,7 +575,7 @@ max_value = 1.0
 step = 0.25
 value = 1.0
 tick_count = 4
-script = ExtResource("25_ck8hf")
+script = ExtResource("18_5vp8w")
 label = NodePath("../ParticlesLabel")
 
 [node name="EffectLevel" type="OptionButton" parent="TabContainer/Settings/Graphic"]
@@ -860,12 +852,11 @@ script = ExtResource("34_wrdal")
 [connection signal="pressed" from="TabContainer/play/Level/LeftRightButton/previous" to="TabContainer/play/Level" method="select_level" binds= [false]]
 [connection signal="pressed" from="TabContainer/play/Level/LeftRightButton/next" to="TabContainer/play/Level" method="select_level" binds= [true]]
 [connection signal="pressed" from="TabContainer/play/Level/enter" to="TabContainer/play/Level" method="_on_enter_pressed" flags=6]
-[connection signal="timeout" from="TabContainer/play/Character/Preview/Reimu/Reimu/Timer" to="TabContainer/play/Character/Preview/Reimu/Reimu/bullet" method="spawn_bullet"]
+[connection signal="timeout" from="TabContainer/play/Character/Preview/Reimu/ReimuSprite/Timer" to="TabContainer/play/Character/Preview/Reimu/ReimuSprite/bullet" method="spawn_bullet"]
 [connection signal="item_selected" from="TabContainer/play/Character/title" to="TabContainer/play/Character" method="_on_title_item_selected"]
 [connection signal="pressed" from="TabContainer/play/Character/HBoxContainer/previous" to="TabContainer/play/Character" method="_change_character" binds= [false]]
 [connection signal="pressed" from="TabContainer/play/Character/HBoxContainer/next" to="TabContainer/play/Character" method="_change_character" binds= [true]]
 [connection signal="pressed" from="TabContainer/Settings/Game/reset" to="TabContainer/Settings/Game" method="_on_reset_pressed"]
-[connection signal="value_changed" from="TabContainer/Settings/Controls/sentivity" to="TabContainer/Settings/Controls/SentivityLabel" method="update_label"]
 [connection signal="pressed" from="TabContainer/Settings/Controls/reset" to="TabContainer/Settings/Controls" method="_on_reset_pressed"]
 [connection signal="value_changed" from="TabContainer/Settings/Audio/master" to="TabContainer/Settings/Audio" method="_on_master_value_changed"]
 [connection signal="value_changed" from="TabContainer/Settings/Audio/bgm" to="TabContainer/Settings/Audio" method="_on_bgm_value_changed"]

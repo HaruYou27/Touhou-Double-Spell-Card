@@ -1,5 +1,5 @@
-#ifndef BULLET_PLAYER
-#define BULLET_PLAYER
+#ifndef BULLET_PLAYER_HPP
+#define BULLET_PLAYER_HPP
 
 #include <bullet.hpp>
 
@@ -16,7 +16,7 @@ private:
 protected:
     static void _bind_methods();
     virtual void cache_barrel() override;
-    virtual bool collide(const Dictionary& result, const int index) override;
+    virtual bool collide(const Dictionary &result, const int index) override;
     virtual void sort_bullet(const int index) override;
 public:
     BulletPlayer();

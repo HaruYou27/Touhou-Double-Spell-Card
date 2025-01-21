@@ -1,5 +1,5 @@
-#ifndef BULLET
-#define BULLET
+#ifndef BULLET_HPP
+#define BULLET_HPP
 
 #include <godot_cpp/classes/node2d.hpp>
 #include <godot_cpp/classes/shape2d.hpp>
@@ -10,6 +10,7 @@
 #include <godot_cpp/classes/rendering_server.hpp>
 #include <godot_cpp/classes/scene_tree.hpp>
 #include <godot_cpp/classes/engine.hpp>
+
 #include <utility.hpp>
 
 using namespace godot;
@@ -28,7 +29,7 @@ private:
     unsigned int collision_layer = 4;
 
     static const int max_barrel = 64;
-    Node2D* barrels[max_barrel];
+    Node2D *barrels[max_barrel];
     Vector2 barrel_positions[max_barrel];
     float barrel_rotations[max_barrel];
     int count_node = 0;
@@ -59,22 +60,22 @@ protected:
     int index_half = 0;
     int count_bullet = 0;
 
-    PhysicsDirectSpaceState2D* space;
-    RenderingServer* renderer;
-    Node* item_manager;
+    PhysicsDirectSpaceState2D *space;
+    RenderingServer *renderer;
+    Node *item_manager;
     Transform2D transforms[max_bullet];
     Vector2 velocities[max_bullet];
     bool grazes[max_bullet];
 
     static void _bind_methods();
-    virtual bool collide(const Dictionary& result, const int index);
+    virtual bool collide(const Dictionary &result, const int index);
     virtual void move_bullet(const int index);
     virtual void cache_barrel();
     virtual bool collision_check(const int index);
     virtual void sort_bullet(const int index);
     virtual void reset_bullet();
-    static Object* get_collider(const Dictionary& result);
-    static float get_result_mask(const Dictionary& result);
+    static Object *get_collider(const Dictionary &result);
+    static float get_result_mask(const Dictionary &result);
 public:
     Bullet();
     SET_GET(speed, float)

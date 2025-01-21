@@ -1,5 +1,5 @@
-#ifndef BULLET_SEEKER
-#define BULLET_SEEKER
+#ifndef BULLET_SEEKER_HPP
+#define BULLET_SEEKER_HPP
 
 #include <godot_cpp/classes/area2d.hpp>
 

@@ -13,6 +13,7 @@ func load_scene(path:String, player:=false) -> void:
 	task = WorkerThreadPool.add_task(_instance_scene.bind(path, player))
 	
 	progess_bar.value = 0.0
+	increase_bar(75.0)
 	show()
 
 @onready var progess_bar: ProgressBar = $VBoxContainer/ProgressBar
@@ -31,19 +32,13 @@ func _set_player2_character(path:String) -> void:
 var progress_value := 0
 var tween: Tween
 ## Animate the progress bar.
-func increase_bar() -> void:
-	var percentage := 0
-	if player1.is_empty() and player2.is_empty():
-		percentage = 50
-	else:
-		percentage = 25
+func increase_bar(percentage:float) -> void:
 	progress_value += percentage
 	
 	if tween:
 		tween.kill()
 	tween = create_tween()
-	tween.set_ease(Tween.EASE_OUT)
-	tween.tween_property(progess_bar, "value", progress_value, 0.5)
+	tween.tween_property(progess_bar, "value", progress_value, 1.0)
 
 ## Cache scene.
 var scene_packed : PackedScene
@@ -51,11 +46,11 @@ var scene_packed : PackedScene
 func _instance_scene(path:String, player:bool) -> void:
 	if not path.is_empty():
 		scene_packed = load(path)
-	GlobalItem.call_deferred("clear")
-	increase_bar.call_deferred()
-	scene = scene_packed.instantiate()
-	increase_bar.call_deferred()
+	increase_bar.call_deferred(25.0)
 	
+	GlobalItem.call_deferred("clear")
+	scene = scene_packed.instantiate()
+
 	if player:
 		if not player1.is_empty():
 			player1_packed = load(player1)
@@ -75,8 +70,7 @@ func load_player(packed:PackedScene, id:int) -> Node:
 	var player: Node = packed.instantiate()
 	player.name = str(id)
 	player.set_multiplayer_authority(id)
-	
-	increase_bar.call_deferred()
+
 	return player
 	
 @onready var root : Window = get_tree().root

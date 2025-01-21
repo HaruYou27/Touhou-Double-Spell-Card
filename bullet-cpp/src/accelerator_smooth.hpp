@@ -1,0 +1,20 @@
+#ifndef ACCELERATOR_SMOOTH_HPP
+#define ACCELERATOR_SMOOTH_HPP
+
+#include <accelerator.hpp>
+
+using namespace godot;
+class AcceleratorSmooth : public Accelerator
+{
+GDCLASS(AcceleratorSmooth, Accelerator)
+
+private:
+    float acceleration;
+protected:
+    static void _bind_methods();
+    virtual float calculate_speed(const int index) override;
+public:
+    virtual void _ready() override;
+};
+
+#endif

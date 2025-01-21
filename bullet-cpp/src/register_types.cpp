@@ -8,6 +8,9 @@
 #include <seeker.hpp>
 #include <item_manager.hpp>
 #include <bullet_player.hpp>
+#include <spinner.hpp>
+#include <barrel_rotator_random.hpp>
+#include <global_score.hpp>
 
 using namespace godot;
 
@@ -20,6 +23,9 @@ void initialize_gdextension_types(ModuleInitializationLevel p_level)
 	GDREGISTER_CLASS(ItemManager);
 	GDREGISTER_CLASS(BulletPlayer);
 	GDREGISTER_CLASS(Seeker);
+	GDREGISTER_CLASS(Spinner);
+	GDREGISTER_CLASS(BarrelRotatorRandom);
+	GDREGISTER_CLASS(GlobalScore);
 }
 
 void uninitialize_gdextension_types(ModuleInitializationLevel p_level) {

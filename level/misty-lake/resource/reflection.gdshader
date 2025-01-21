@@ -24,7 +24,7 @@ void vertex()
 
 void fragment()
 {
-	vec2 uv = vec2(UV.x - 0.02, UV.y - 0.02);
+	vec2 uv = vec2(UV.x + 0.02, UV.y + 0.02);
 	vec2 refraction_offset = texture(
 		refraction_map,
 		vec2(
