@@ -30,7 +30,7 @@ void BulletPlayer::sort_bullet(const int index)
 
 bool BulletPlayer::collide(const Dictionary &result, const int index)
 {
-    get_collider(result)->call_deferred("hit");
+    get_collider(result)->call("hit");
     positions_collision[index] = static_cast<Vector2>(result["point"]);
     return true;
 }

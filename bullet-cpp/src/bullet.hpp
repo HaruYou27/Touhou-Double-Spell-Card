@@ -9,11 +9,10 @@
 #include <godot_cpp/classes/thread.hpp>
 #include <godot_cpp/classes/rendering_server.hpp>
 #include <godot_cpp/classes/scene_tree.hpp>
-#include <godot_cpp/classes/engine.hpp>
 
 #include <utility.hpp>
 
-using namespace godot;
+
 class Bullet : public Node2D
 {
 GDCLASS(Bullet, Node2D)

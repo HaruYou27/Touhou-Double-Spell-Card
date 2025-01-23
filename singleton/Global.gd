@@ -3,7 +3,6 @@ extends Node2D
 
 ## Emit when player change graphic settings.
 signal update_graphic
-
 var hud: HUD
 var leveler: Leveler
 
@@ -45,3 +44,9 @@ func _ready() -> void:
 		return
 		
 	user_data = UserData.new()
+
+func game_pause()
+	leveler.pause.pressed.emit()
+
+func game_over()
+	Global.leveler.animator.stop()

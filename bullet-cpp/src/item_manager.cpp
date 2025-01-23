@@ -17,6 +17,15 @@ void ItemManager::get_players()
     player2 = Object::cast_to<Node2D>(global->get("player2"));
 }
 
+bool ItemManager::is_offline()
+{
+    if (player2 == nullptr)
+    {
+        return true;
+    }
+    return false;
+}
+
 Vector2 ItemManager::get_nearest_player(const Vector2 position)
 {
     if (player1 == nullptr)

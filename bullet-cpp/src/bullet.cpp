@@ -34,11 +34,7 @@ SETTER_GETTER(collision_layer, int, Bullet)
 void Bullet::_ready()
 {
     set_as_top_level(true);
-    if (Engine::get_singleton()->is_editor_hint())
-    {
-        set_physics_process(false);
-        return;
-    }
+    CHECK_EDITOR
     canvas_item = get_canvas_item();
     collision_graze = collision_layer + 8;
     space = get_world_2d()->get_direct_space_state();
@@ -142,7 +138,7 @@ bool Bullet::collide(const Dictionary &result, const int index)
 {
     if (get_result_mask(result) < 0)
     {
-        item_manager->call_deferred("spawn_item", transforms[index].get_origin());
+        item_manager->call("spawn_item", transforms[index].get_origin());
         return true;
     }
     grazes[index] = false;

@@ -3,7 +3,7 @@
 
 #include <bullet.hpp>
 
-using namespace godot;
+
 class AcceleratorSine : public Bullet
 {
 GDCLASS(AcceleratorSine, Bullet)

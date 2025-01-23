@@ -5,7 +5,7 @@
 #include <godot_cpp/classes/node2d.hpp>
 #include <godot_cpp/core/math.hpp>
 
-using namespace godot;
+
 class BarrelRotatorRandom : public Node2D
 {
 GDCLASS(BarrelRotatorRandom, Node2D)

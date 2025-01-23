@@ -3,7 +3,7 @@
 
 #include <accelerator.hpp>
 
-using namespace godot;
+
 class AcceleratorSmooth : public Accelerator
 {
 GDCLASS(AcceleratorSmooth, Accelerator)

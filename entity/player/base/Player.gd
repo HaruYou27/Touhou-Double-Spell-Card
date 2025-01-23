@@ -31,7 +31,6 @@ func hit() -> void:
 
 var can_bomb := true
 @onready var sentivity := Global.user_data.sentivity
-var can_move := false
 func _input(event:InputEvent) -> void:
 	if event is InputEventScreenDrag:
 		move(event)

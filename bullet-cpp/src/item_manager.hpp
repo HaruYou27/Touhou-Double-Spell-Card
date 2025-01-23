@@ -25,6 +25,7 @@ class ItemManager : public Spinner
         void spawn_item(const Vector2 position);
         void get_players();
         Vector2 get_nearest_player(const Vector2 position);
+        bool is_offline();
 
         virtual void spawn_circle(const int count, const Vector2 position) override;
         virtual void _ready() override;
