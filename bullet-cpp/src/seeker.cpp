@@ -56,6 +56,7 @@ bool Seeker::collision_check(const int index)
         {
             return false;
         }
+        result.make_read_only();
         targets[index] = dynamic_cast<Area2D*>(get_collider(result));
         return false;
     }

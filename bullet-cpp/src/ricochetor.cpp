@@ -45,6 +45,6 @@ void Ricochetor::collide_wall(const int index)
         normal += Vector2(0, 1);
     }
 
-    velocity.bounce(normal);
+    velocity = velocity.bounce(normal);
     transform.set_rotation(velocity.angle() + PI_2);
 }

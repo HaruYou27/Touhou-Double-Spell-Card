@@ -1,7 +1,6 @@
 extends Area2D
 class_name FantasySeal
 
-@onready var tree := get_tree()
 @onready var tail_particles: GPUParticles2D = $tail
 @onready var seal_particles: GPUParticles2D = $sealParticles
 @onready var seal_particles_fb: CPUParticles2D = $sealParticles2
@@ -48,7 +47,7 @@ func _physics_process(delta: float) -> void:
 	global_position += delta * velocity
  
 func explode(_nm=null) -> void:
-	OS.delay_msec(16)
+	#OS.delay_msec(16)
 	ScreenEffect.flash(0.3)
 	ScreenEffect.shake(0.3)
 	explosion.emitting = true

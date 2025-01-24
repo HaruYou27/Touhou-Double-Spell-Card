@@ -16,8 +16,15 @@
 #include <accelerator.hpp>
 #include <accelerator_smooth.hpp>
 #include <ricochetor.hpp>
-
-
+#include <ricochet_target.hpp>
+#include <player.hpp>
+#include <boss.hpp>
+#include <reimu.hpp>
+#include <fantasy_seal.hpp>
+#include <master_spark.hpp>
+#include <screen_effect.hpp>
+#include <graze_body.hpp>
+#include <barrel_rotator.hpp>
 
 void initialize_gdextension_types(ModuleInitializationLevel p_level)
 {
@@ -27,15 +34,24 @@ void initialize_gdextension_types(ModuleInitializationLevel p_level)
 	GDREGISTER_CLASS(Bullet);
 	GDREGISTER_CLASS(Spinner);
 	GDREGISTER_CLASS(ItemManager);
+	GDREGISTER_CLASS(GrazeBody);
+	GDREGISTER_CLASS(ScreenEffect);
+	GDREGISTER_CLASS(Reimu);
+	GDREGISTER_CLASS(FantasySeal);
+	GDREGISTER_CLASS(Player);
 	GDREGISTER_CLASS(Enemy);
+	GDREGISTER_CLASS(Boss);
+	GDREGISTER_CLASS(MasterSpark);
 	GDREGISTER_CLASS(BulletPlayer);
 	GDREGISTER_CLASS(Seeker);
 	GDREGISTER_CLASS(BarrelRotatorRandom);
+	GDREGISTER_CLASS(BarrelRotator);
 	GDREGISTER_CLASS(ScoreManager);
 	GDREGISTER_CLASS(AcceleratorSine);
 	GDREGISTER_CLASS(Accelerator);
 	GDREGISTER_CLASS(AcceleratorSmooth);
 	GDREGISTER_CLASS(Ricochetor);
+	GDREGISTER_CLASS(RicochetTarget);
 }
 
 void uninitialize_gdextension_types(ModuleInitializationLevel p_level) {

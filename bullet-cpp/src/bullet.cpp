@@ -76,7 +76,6 @@ Bullet::Bullet()
     query.instantiate();
     thread_bullet.instantiate();
     thread_barrel.instantiate();
-    world_border = Rect2(-100, -100, 740, 1160);
     action_expire = callable_mp(this, &Bullet::collision_wall);
     action_move = callable_mp(this, &Bullet::move_bullets);
 }
@@ -198,6 +197,7 @@ bool Bullet::collision_check(const int index)
     query->set_transform(transform);
     query->set_collision_mask((grazes[index]) ? collision_graze : collision_layer);
     Dictionary result = space->get_rest_info(query);
+    result.make_read_only();
     return !result.is_empty() && collide(result, index);
 }
 

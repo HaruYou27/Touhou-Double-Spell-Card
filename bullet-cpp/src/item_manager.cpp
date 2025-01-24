@@ -30,7 +30,7 @@ Vector2 ItemManager::get_nearest_player(const Vector2 position)
 {
     if (player1 == nullptr)
     {
-        return;
+        return Vector2(0, 0);
     }
     Vector2 direction1 = position1 - position;
     if (player2 == nullptr)
