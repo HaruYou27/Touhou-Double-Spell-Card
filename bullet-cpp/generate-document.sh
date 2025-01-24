@@ -1,1 +1,1 @@
-godot --doctool ../ --gdextension-docs  
+godot --doctool . --gdextension-docs  

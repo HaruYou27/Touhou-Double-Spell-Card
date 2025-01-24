@@ -20,7 +20,7 @@ private:
     Control *scene;
     Node *level_loader;
     Time *time;
-    Ref<FastNoiseLite> noise;
+    Ref<Noise> noise;
 protected:
     static void _bind_methods();
 public:
@@ -32,7 +32,7 @@ public:
     void flash(const double duration);
     Ref<Tween> fade2black(const bool reverse = false);
 
-    SET_GET(noise, Ref<FastNoiseLite>)
+    SET_GET(noise, Ref<Noise>)
 };
 
 #endif

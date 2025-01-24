@@ -25,7 +25,6 @@ private:
 protected:
     static void _bind_methods();
 public:
-    bool last_stand = false;
     virtual void _ready() override;
     
     void reset();

@@ -3,20 +3,12 @@ extends Node2D
 
 ## Emit when player change graphic settings.
 signal update_graphic
-var hud: HUD
 var leveler: Leveler
-
-var player1: Player
-var player2: Player
-## The game will end if both players die.
-var last_man_standing := false
-
-func _peer_disconnected() -> void:
-	return
-	player2 = null
 
 const main_menu := "res://user-interface/menu/menu.tscn"
 const config_path := 'user://saveData.res'
+
+var last_man_standing := false
 
 var offset := 0
 func sync_clock() -> void:
@@ -44,9 +36,3 @@ func _ready() -> void:
 		return
 		
 	user_data = UserData.new()
-
-func game_pause()
-	leveler.pause.pressed.emit()
-
-func game_over()
-	Global.leveler.animator.stop()

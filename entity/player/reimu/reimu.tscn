@@ -1,5 +1,6 @@
-[gd_scene load_steps=15 format=3 uid="uid://bk08ga1mfcleb"]
+[gd_scene load_steps=16 format=3 uid="uid://bk08ga1mfcleb"]
 
+[ext_resource type="Script" path="res://entity/player/reimu/reimu.gd" id="1_u2niu"]
 [ext_resource type="PackedScene" uid="uid://ffnff8ahyxxn" path="res://entity/player/reimu/reimu-sprite.tscn" id="2_1gpls"]
 [ext_resource type="PackedScene" uid="uid://c34lwlqwsc4ve" path="res://entity/player/base/player.tscn" id="4_ftqh1"]
 [ext_resource type="PackedScene" uid="uid://bsa0xvb26o22u" path="res://entity/player/reimu/yinyang-orb.tscn" id="5_ryrqw"]
@@ -20,12 +21,13 @@ radius = 3.0
 radius = 24.0
 height = 112.0
 
-[node name="Reimu" type="Node2D"]
+[node name="Reimu" type="Node2D" node_paths=PackedStringArray("seals")]
+script = ExtResource("1_u2niu")
+seals = [NodePath("Player/Seal"), NodePath("Player/Seal2"), NodePath("Player/Seal3"), NodePath("Player/Seal4")]
 
 [node name="Player" parent="." instance=ExtResource("4_ftqh1")]
 position = Vector2(147, 793)
 collision_mask = 0
-script = null
 
 [node name="ReimuSprite" parent="Player" instance=ExtResource("2_1gpls")]
 
@@ -70,15 +72,19 @@ shape = SubResource("CapsuleShape2D_sx7ua")
 debug_color = Color(0.713726, 0.105882, 0.701961, 0.419608)
 
 [node name="Seal" parent="Player" instance=ExtResource("10_730ir")]
+velocity_inital = Vector2(27, 27)
 position = Vector2(-147, -793)
 
 [node name="Seal2" parent="Player" instance=ExtResource("10_730ir")]
+velocity_inital = Vector2(-27, 27)
 position = Vector2(-147, -793)
 
 [node name="Seal3" parent="Player" instance=ExtResource("10_730ir")]
+velocity_inital = Vector2(27, -27)
 position = Vector2(-147, -793)
 
 [node name="Seal4" parent="Player" instance=ExtResource("10_730ir")]
+velocity_inital = Vector2(-27, -27)
 position = Vector2(-147, -793)
 
 [node name="Seeker" type="Seeker" parent="."]
@@ -115,6 +121,6 @@ material = ExtResource("7_w7two")
 wait_time = 0.1
 autostart = true
 
-[connection signal="add_bomb" from="Player/graze" to="Player" method="_on_graze_add_bomb"]
+[connection signal="bomb" from="Player" to="." method="_on_player_bomb"]
 [connection signal="timeout" from="Seeker/Timer" to="Seeker" method="spawn_bullet"]
 [connection signal="timeout" from="Bullet/Timer" to="Bullet" method="spawn_bullet"]

@@ -8,13 +8,8 @@ void ItemManager::_bind_methods()
     ADD_PROPERTY_FLOAT(gravity)
 
     BIND_FUNCTION(spawn_item, ItemManager);
+    BIND_FUNCTION(is_offline, ItemManager);
     ClassDB::bind_method(D_METHOD("get_nearest_player", "position"), &ItemManager::get_nearest_player);
-}
-
-void ItemManager::get_players()
-{
-    player1 = Object::cast_to<Node2D>(global->get("player1"));
-    player2 = Object::cast_to<Node2D>(global->get("player2"));
 }
 
 bool ItemManager::is_offline()
@@ -62,7 +57,6 @@ void ItemManager::cache_barrel()
 void ItemManager::_ready()
 {
     Bullet::_ready();
-    global = get_node<Node>("/root/Global");
 }
 
 void ItemManager::create_item(const Vector2 position, const float random)
@@ -97,6 +91,6 @@ void ItemManager::move_bullet(const int index)
 
 bool ItemManager::collide(const Dictionary &result, const int index)
 {
-    get_collider(result)->call_deferred("item_collect");
+    Object::cast_to<GrazeBody>(get_collider(result))->item_collect();
     return true;
 }

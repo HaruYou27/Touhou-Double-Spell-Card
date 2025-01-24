@@ -2,14 +2,15 @@ extends Control
 class_name Leveler
 
 @onready var pause: Button = $pause
-@onready var hud: HUD = $hud
+@onready var hud:= $hud
 @export var animator: AnimationPlayer
 @export var animation: StringName
 func _ready() -> void:
 	tree.paused = false
-	ScreenEffect.fade2black(true)
+	ScreenVFX.fade2black(true)
 	Global.leveler = self
 	rpc('start')
+	GlobalScore.reset()
 	animator.animation_finished.connect(hud.save_score)
 
 @rpc("reliable", "any_peer", "call_local")

@@ -12,6 +12,7 @@ void Boss::_bind_methods()
     ADD_PROPERTY_INT(threshold)
     
     BIND_FUNCTION(spawn_item, Boss)
+    BIND_FUNCTION(_body_entered, Boss)
 }
 
 void Boss::_body_entered(Node2D *body)
@@ -26,8 +27,8 @@ void Boss::_body_entered(Node2D *body)
 
 void Boss::_ready()
 {
-    CHECK_EDITOR
     connect("body_entered", callable_mp(this, &Boss::_body_entered));
+    CHECK_EDITOR
     item_manager = get_node<ItemManager>("/root/GlobalItem");
 }
 

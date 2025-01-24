@@ -21,7 +21,8 @@ run/max_fps=60
 Global="*res://singleton/Global.gd"
 GlobalItem="*res://singleton/item-manager/ItemManager.tscn"
 SoundEffect="*res://singleton/sound-effect/sound_effect.tscn"
-ScreenEffect="*res://singleton/screen-effect/ScreenEffect.gd"
+ScreenVFX="*res://singleton/screen-effect/screen_effect.tscn"
+GlobalScore="*res://singleton/global_score.tscn"
 LevelLoader="*res://singleton/LevelLoader.tscn"
 
 [display]

@@ -36,9 +36,9 @@ void initialize_gdextension_types(ModuleInitializationLevel p_level)
 	GDREGISTER_CLASS(ItemManager);
 	GDREGISTER_CLASS(GrazeBody);
 	GDREGISTER_CLASS(ScreenEffect);
-	GDREGISTER_CLASS(Reimu);
 	GDREGISTER_CLASS(FantasySeal);
 	GDREGISTER_CLASS(Player);
+	GDREGISTER_CLASS(Reimu);
 	GDREGISTER_CLASS(Enemy);
 	GDREGISTER_CLASS(Boss);
 	GDREGISTER_CLASS(MasterSpark);

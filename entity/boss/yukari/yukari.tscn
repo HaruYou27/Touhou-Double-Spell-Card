@@ -1,7 +1,6 @@
-[gd_scene load_steps=12 format=3 uid="uid://bncu813gm4hx8"]
+[gd_scene load_steps=11 format=3 uid="uid://bncu813gm4hx8"]
 
 [ext_resource type="Texture2D" uid="uid://cnecndeyl8vpm" path="res://entity/boss/resource/boss-indicator.png" id="2_wallc"]
-[ext_resource type="Script" path="res://entity/boss/yukari/Boss.gd" id="3"]
 [ext_resource type="Script" path="res://entity/boss/resource/LockedPosition2D.gd" id="3_fqo85"]
 [ext_resource type="Texture2D" uid="uid://ctt770vnvbov" path="res://entity/boss/resource/boss-background.svg" id="4_w0mse"]
 [ext_resource type="Texture2D" uid="uid://d0u5qj7ysa3ai" path="res://entity/boss/resource/boss-heathbar-frame.svg" id="6_28uxw"]
@@ -41,12 +40,11 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="yukari" type="Area2D" node_paths=PackedStringArray("heath_bar")]
+[node name="yukari" type="Boss"]
+heath_path = NodePath("HeathBar")
 texture_filter = 1
 collision_layer = 2
 collision_mask = 4
-script = ExtResource("3")
-heath_bar = NodePath("HeathBar")
 
 [node name="indicator" type="Sprite2D" parent="."]
 texture_filter = 2
@@ -79,5 +77,3 @@ shape = SubResource("1")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CollisionShape2D"]
 sprite_frames = SubResource("2")
-
-[connection signal="body_entered" from="." to="." method="_on_body_entered"]

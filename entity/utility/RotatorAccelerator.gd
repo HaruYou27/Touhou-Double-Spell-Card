@@ -1,6 +1,5 @@
-extends Rotator
+extends BarrelRotator
 class_name RotatorAccelerator
-## Should only be use on bosses.
 
 @export var speed_final := -TAU
 @export var duration := 5.727

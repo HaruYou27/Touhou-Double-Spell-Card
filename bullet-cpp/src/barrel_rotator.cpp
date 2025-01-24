@@ -1,12 +1,5 @@
 #include <barrel_rotator.hpp>
 
-BarrelRotator::BarrelRotator()
-{
-    Dictionary unreliable;
-    RPC_CONFIG(unreliable, authority, unreliable_ordered);
-    rpc_config("_sync_rotation", unreliable);
-}
-
 SETTER_GETTER(speed, float, BarrelRotator)
 
 void BarrelRotator::_bind_methods()
@@ -15,18 +8,17 @@ void BarrelRotator::_bind_methods()
     ADD_PROPERTY_FLOAT(speed);
 }
 
-void BarrelRotator::_ready()
+void BarrelRotator::_visibility_changed()
 {
-    set_physics_process(is_multiplayer_authority());
+    set_physics_process(is_visible_in_tree());
 }
 
-void BarrelRotator::_sync_rotation(const float rotation)
+void BarrelRotator::_ready()
 {
-    set_rotation(rotation);
+    connect("visibility_changed", callable_mp(this, &BarrelRotator::_visibility_changed));
 }
 
 void BarrelRotator::_physics_process(double delta)
 {
     rotate(speed * delta);
-    rpc("_sync_rotation");
 }

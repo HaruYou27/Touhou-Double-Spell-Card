@@ -8,7 +8,11 @@ reloadable = false
 Bullet = "res://bullet-cpp/icons/bullets.svg"
 Seeker = "res://bullet-cpp/icons/tracker.svg"
 ItemManager = "res://bullet-cpp/icons/bullets_global.svg"
+ScoreManager = "res://bullet-cpp/icons/bullets_global.svg"
+ScreenEffect = "res://bullet-cpp/icons/bullets_global.svg"
 BulletPlayer = "res://bullet-cpp/icons/tracker.svg"
+BarrelRotator = "res://bullet-cpp/icons/rotator.svg"
+BarrelRotatorRandom = "res://bullet-cpp/icons/rotator.svg"
 
 [libraries]
 

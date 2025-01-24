@@ -12,7 +12,8 @@ void ScoreManager::_bind_methods()
     ADD_SIGNAL(MethodInfo("bomb_changed", PropertyInfo(Variant::INT, "bomb")));
 
     BIND_FUNCTION(reset, ScoreManager)
-    //BIND_FUNCTION(add_item, ScoreManager)
+    BIND_FUNCTION(use_bomb, ScoreManager)
+    BIND_FUNCTION(_update_score, ScoreManager)
     //BIND_FUNCTION(add_death_count, ScoreManager)
     //BIND_FUNCTION(add_graze, ScoreManager)
     //BIND_FUNCTION(add_item, ScoreManager)

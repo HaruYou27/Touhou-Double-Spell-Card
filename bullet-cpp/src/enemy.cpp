@@ -11,6 +11,7 @@ void Enemy::_bind_methods()
     BIND_FUNCTION(timeout, Enemy)
     BIND_FUNCTION(hit, Enemy)
     BIND_FUNCTION(reset, Enemy)
+    BIND_FUNCTION(disable, Enemy)
 
     BIND_SETGET(explosion_path, Enemy)
     BIND_SETGET(visual_path, Enemy)
@@ -90,6 +91,7 @@ void Enemy::_ready()
     visual = get_node<Node2D>(visual_path);
     item = heath;
     item_manager = get_node<ItemManager>("/root/GlobalItem");
+    sound_effect = get_node<Node>("/root/SoundEffect");
 
     if (!oneshot)
     {

@@ -1,0 +1,3 @@
+[gd_scene format=3 uid="uid://ciqdkny3kli5i"]
+
+[node name="GlobalScore" type="ScoreManager"]

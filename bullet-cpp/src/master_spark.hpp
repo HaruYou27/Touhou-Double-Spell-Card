@@ -4,13 +4,11 @@
 #include <godot_cpp/classes/node2d.hpp>
 #include <godot_cpp/classes/physics_ray_query_parameters2d.hpp>
 #include <godot_cpp/classes/physics_direct_space_state2d.hpp>
-#include <godot_cpp/classes/animation_player.hpp>
 #include <godot_cpp/classes/gpu_particles2d.hpp>
 #include <godot_cpp/classes/world2d.hpp>
 
 #include <utility.hpp>
 #include <screen_effect.hpp>
-#include <player.hpp>
 
 class MasterSpark : public Node2D
 {
@@ -23,8 +21,6 @@ private:
     NodePath ray_path;
     
     ScreenEffect *screen_effect;
-    Player *player;
-    AnimationPlayer *animator;
     GPUParticles2D *collision_particle;
     PhysicsDirectSpaceState2D *space;
     Node2D *rays[max_ray];

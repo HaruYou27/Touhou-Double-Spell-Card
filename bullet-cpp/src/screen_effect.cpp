@@ -1,12 +1,12 @@
 #include <screen_effect.hpp>
 
-SETTER_GETTER(noise, Ref<FastNoiseLite>, ScreenEffect)
+SETTER_GETTER(noise, Ref<Noise>, ScreenEffect)
 
 void ScreenEffect::_bind_methods()
 {
     BIND_FUNCTION(flash_red, ScreenEffect);
     BIND_SETGET(noise, ScreenEffect);
-    ADD_PROPERTY_OBJECT(noise, Ref<FastNoiseLite>);
+    ADD_PROPERTY_OBJECT(noise, Ref<Noise>);
 
     ClassDB::bind_method(D_METHOD("fade2black", "reverse"), &ScreenEffect::fade2black);
     ClassDB::bind_method(D_METHOD("flash", "duration"), &ScreenEffect::flash);

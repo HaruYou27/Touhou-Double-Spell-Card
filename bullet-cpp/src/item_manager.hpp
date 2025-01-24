@@ -2,6 +2,7 @@
 #define ITEM_MANAGER_HPP
 
 #include <spinner.hpp>
+#include <graze_body.hpp>
 
 class ItemManager : public Spinner
 {
@@ -9,9 +10,7 @@ class ItemManager : public Spinner
     
     private:
         float gravity = 98;
-        Node *global;
-        Node2D *player1;
-        Node2D *player2;
+        
         Vector2 position1;
         Vector2 position2;
     protected:
@@ -21,7 +20,10 @@ class ItemManager : public Spinner
         virtual void move_bullet(const int index) override;
         virtual void cache_barrel() override;
     public:
+        Node2D *player1;
+        Node2D *player2;
         SET_GET(gravity, float)
+        
         void spawn_item(const Vector2 position);
         void get_players();
         Vector2 get_nearest_player(const Vector2 position);

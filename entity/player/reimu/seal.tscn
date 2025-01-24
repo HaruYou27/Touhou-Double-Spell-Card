@@ -1,6 +1,7 @@
-[gd_scene load_steps=15 format=3 uid="uid://8587t5a7aa40"]
+[gd_scene load_steps=16 format=3 uid="uid://8587t5a7aa40"]
 
 [ext_resource type="Texture2D" uid="uid://b1ltes0v4mau1" path="res://entity/resource/smoke_particle.png" id="1_edwen"]
+[ext_resource type="Script" path="res://entity/player/reimu/seal.gd" id="1_g0uo8"]
 [ext_resource type="Material" uid="uid://dox27ncd2r5o3" path="res://entity/resource/glow.tres" id="1_jtbc5"]
 [ext_resource type="Texture2D" uid="uid://batbnxisqv8ly" path="res://entity/resource/easeOutCurve.tres" id="2_mi5v7"]
 [ext_resource type="Texture2D" uid="uid://dxsf3vpqsosf1" path="res://entity/resource/fire_particle.png" id="2_nfihp"]
@@ -54,10 +55,11 @@ alpha_curve = ExtResource("2_mi5v7")
 [sub_resource type="CircleShape2D" id="CircleShape2D_lym8p"]
 radius = 22.0
 
-[node name="Seal" type="Area2D"]
+[node name="Seal" type="FantasySeal"]
 collision_layer = 0
 collision_mask = 2
 monitorable = false
+script = ExtResource("1_g0uo8")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = ExtResource("2_pl7gm")
@@ -71,7 +73,6 @@ texture = ExtResource("1_edwen")
 fixed_fps = 0
 draw_order = 0
 script = ExtResource("5_01jhk")
-graphic_level = 1
 
 [node name="sealParticles" type="GPUParticles2D" parent="."]
 material = ExtResource("1_jtbc5")
@@ -80,7 +81,6 @@ process_material = SubResource("ParticleProcessMaterial_svktf")
 texture = ExtResource("2_nfihp")
 local_coords = true
 script = ExtResource("5_01jhk")
-graphic_level = 1
 
 [node name="sealParticles2" type="CPUParticles2D" parent="."]
 process_mode = 4
@@ -107,7 +107,6 @@ explosiveness = 1.0
 fixed_fps = 0
 local_coords = true
 script = ExtResource("5_01jhk")
-graphic_level = 1
 
 [node name="explosion2" parent="." instance=ExtResource("8_rypni")]
 process_mode = 4
@@ -134,7 +133,6 @@ constant_linear_velocity = Vector2(-727, 0)
 shape = ExtResource("2_pl7gm")
 debug_color = Color(0, 0.6, 0.701961, 0)
 
-[connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="finished" from="explosion" to="." method="_on_explosion_finished"]
 [connection signal="finished" from="explosion2" to="." method="_on_explosion_finished"]
 [connection signal="area_entered" from="hitbox" to="." method="explode"]

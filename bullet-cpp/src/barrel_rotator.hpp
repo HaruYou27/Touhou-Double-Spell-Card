@@ -14,11 +14,10 @@ private:
 protected:
     static void _bind_methods();
 public:
-    BarrelRotator();
     virtual void _ready() override;
     virtual void _physics_process(double delta) override;
 
-    void _sync_rotation(const float rotation);
+    void _visibility_changed();
     SET_GET(speed, float)
 };
 

@@ -1,15 +1,12 @@
-[gd_scene load_steps=3 format=3 uid="uid://dtlscerig62nv"]
+[gd_scene load_steps=2 format=3 uid="uid://dtlscerig62nv"]
 
-[ext_resource type="Script" path="res://entity/enemy/base/enemy.gd" id="1_a5f4m"]
 [ext_resource type="PackedScene" uid="uid://dletx36qco4eh" path="res://entity/utility/graphic/explosion.tscn" id="2_7l4kj"]
 
-[node name="Enemy" type="Area2D"]
+[node name="Enemy" type="Enemy"]
+explosion_path = NodePath("explosion")
 collision_layer = 2
 collision_mask = 4
-script = ExtResource("1_a5f4m")
 
 [node name="explosion" parent="." instance=ExtResource("2_7l4kj")]
 process_mode = 3
 lifetime = 1.0
-
-[connection signal="body_entered" from="." to="." method="_on_body_entered"]

@@ -15,9 +15,8 @@ script = ExtResource("1_rkh5m")
 time = 7.0
 enemy = NodePath("Enemy")
 
-[node name="Enemy" parent="." node_paths=PackedStringArray("visual") instance=ExtResource("2_h6tah")]
-hp = 16
-visual = NodePath("visual")
+[node name="Enemy" parent="." instance=ExtResource("2_h6tah")]
+visual_path = NodePath("visual")
 
 [node name="hitbox" type="CollisionShape2D" parent="Enemy"]
 shape = SubResource("CircleShape2D_noovt")

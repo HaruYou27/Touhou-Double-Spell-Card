@@ -1,9 +1,9 @@
 [gd_scene load_steps=3 format=3 uid="uid://c34lwlqwsc4ve"]
 
-[ext_resource type="Script" path="res://entity/player/base/Player.gd" id="1_ty0s5"]
+[ext_resource type="Script" path="res://entity/player/base/player.gd" id="1_ty0s5"]
 [ext_resource type="PackedScene" uid="uid://beyxw0mbyoq47" path="res://entity/resource/explosionBig.tscn" id="2_r67v6"]
 
-[node name="Player" type="StaticBody2D"]
+[node name="Player" type="Player"]
 collision_layer = 4
 script = ExtResource("1_ty0s5")
 
@@ -15,20 +15,18 @@ one_shot = true
 
 [node name="explosion" parent="." instance=ExtResource("2_r67v6")]
 
-[node name="DeathTimer" type="Timer" parent="explosion"]
+[node name="DeathTimer" type="Timer" parent="."]
 wait_time = 0.3
 one_shot = true
 
-[node name="DeathSFX" type="AudioStreamPlayer" parent="explosion"]
-
-[node name="ReviveTimer" type="Timer" parent="explosion"]
+[node name="ReviveTimer" type="Timer" parent="."]
+wait_time = 2.0
 one_shot = true
 
-[node name="BombTimer" type="Timer" parent="."]
-one_shot = true
-autostart = true
+[node name="DeathSFX" type="AudioStreamPlayer" parent="."]
 
+[connection signal="bomb" from="." to="." method="_on_bomb"]
+[connection signal="position_changed" from="." to="." method="_on_position_changed"]
 [connection signal="timeout" from="RecoverTimer" to="." method="_on_recover_timer_timeout"]
-[connection signal="timeout" from="explosion/DeathTimer" to="." method="_on_death_timer_timeout"]
-[connection signal="timeout" from="explosion/ReviveTimer" to="." method="revive"]
-[connection signal="timeout" from="BombTimer" to="." method="_on_bomb_timer_timeout"]
+[connection signal="timeout" from="DeathTimer" to="." method="_on_death_timer_timeout"]
+[connection signal="timeout" from="ReviveTimer" to="." method="revive"]

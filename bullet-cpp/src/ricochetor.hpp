@@ -11,7 +11,7 @@ protected:
     static void _bind_methods();
     virtual void reset_bullet() override;
     virtual void collide_wall(const int index) override;
-    virtual void sort_bullet(const int index);
+    virtual void sort_bullet(const int index) override;
 
     bool ricocheted[max_bullet];
 };

@@ -8,7 +8,7 @@ var task := 0
 ## Non-blocking level loader.
 func load_scene(path:String, player:=false) -> void:
 	background.texture = ImageTexture.create_from_image(viewport.get_texture().get_image())
-	ScreenEffect.hide()
+	ScreenVFX.hide()
 	scene.queue_free()
 	task = WorkerThreadPool.add_task(_instance_scene.bind(path, player))
 	

@@ -44,7 +44,7 @@ func _physics_process(_delta:float) -> void:
 func _on_player_kaboom() -> void:
 	set_physics_process(false)
 	animator.play("Master Spark")
-	ScreenEffect.shake(6.0)
+	ScreenVFX.shake(6.0)
 	
 func _on_animation_player_animation_finished(_nm):
 	set_physics_process(true)
