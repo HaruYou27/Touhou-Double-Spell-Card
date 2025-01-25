@@ -72,21 +72,25 @@ z_index = 9
 shape = SubResource("CapsuleShape2D_sx7ua")
 debug_color = Color(0.713726, 0.105882, 0.701961, 0.419608)
 
-[node name="Seal" parent="Player" instance=ExtResource("10_730ir")]
-velocity_inital = Vector2(27, 27)
-position = Vector2(-147, -793)
-
 [node name="Seal2" parent="Player" instance=ExtResource("10_730ir")]
-velocity_inital = Vector2(-27, 27)
+velocity_inital = Vector2(-72, 72)
 position = Vector2(-147, -793)
 
 [node name="Seal3" parent="Player" instance=ExtResource("10_730ir")]
-velocity_inital = Vector2(27, -27)
+velocity_inital = Vector2(72, -72)
 position = Vector2(-147, -793)
 
 [node name="Seal4" parent="Player" instance=ExtResource("10_730ir")]
-velocity_inital = Vector2(-27, -27)
+velocity_inital = Vector2(-72, -72)
 position = Vector2(-147, -793)
+
+[node name="Seal" parent="Player" instance=ExtResource("10_730ir")]
+velocity_inital = Vector2(72, 72)
+position = Vector2(-147, -793)
+
+[node name="BombTimer" type="Timer" parent="Player"]
+wait_time = 5.0
+one_shot = true
 
 [node name="Seeker" type="Seeker" parent="."]
 seek_shape = ExtResource("8_drurl")
@@ -123,5 +127,6 @@ wait_time = 0.1
 autostart = true
 
 [connection signal="bomb" from="Player" to="." method="_on_player_bomb"]
+[connection signal="timeout" from="Player/BombTimer" to="Player" method="bomb_finished" binds= [false]]
 [connection signal="timeout" from="Seeker/Timer" to="Seeker" method="spawn_bullet"]
 [connection signal="timeout" from="Bullet/Timer" to="Bullet" method="spawn_bullet"]

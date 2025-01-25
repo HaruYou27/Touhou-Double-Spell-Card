@@ -6,10 +6,10 @@ extends FantasySeal
 @onready var explosion_fb: CPUParticles2D = $explosion2
 
 ## It's more convenient this way.
-@onready var hitbox: CollisionShape2D = $hitbox/CollisionShape2D
+@onready var hitbox: Area2D = $hitbox
 @onready var explode_physics: Node = $ExplodeBody
 
-func _ready() -> void:
+func _enter_tree() -> void:
 	toggle.call_deferred(false)
 	toggle_explode.call_deferred(false)
 
@@ -17,25 +17,18 @@ func toggle(on:bool) -> void:
 	tail_particles.emitting = on
 	seal_particles.emitting = on
 	seal_particles_fb.emitting = on
-	set_physics_process(on)
+	explosion_fb.emitting = on
 	
-	hitbox.disabled = not on
-	toggle_internal(on)
+	set_process(on)
+	hitbox.monitoring = on
+	monitoring = on
+	#top_level = not on
 	
-	target_vaild = false
-	target = null
-	
-var target: Area2D
-var target_vaild := false
-func _on_area_entered(area: Area2D) -> void:
-	if target_vaild:
-		return
-	target = area
- 
 func explode(_nm=null) -> void:
 	ScreenVFX.flash(0.3)
 	ScreenVFX.shake(0.3)
 	explosion.emitting = true
+	set_physics_process(false)
 	toggle.call_deferred(false)
 	toggle_explode.call_deferred(true)
 

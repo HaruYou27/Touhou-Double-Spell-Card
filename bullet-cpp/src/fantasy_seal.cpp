@@ -16,23 +16,13 @@ void FantasySeal::_bind_methods()
     ADD_PROPERTY_FLOAT(speed)
     ADD_PROPERTY_FLOAT(speed_turn)
     ADD_PROPERTY_VECTOR2(velocity_inital)
-
-    BIND_FUNCTION(toggle_internal, FantasySeal)
 }
 
 void FantasySeal::_ready()
 {
-    set_as_top_level(false);
-    CHECK_EDITOR
-    call_deferred("toggle_internal", false);
-    parent = Object::cast_to<Node2D>(get_parent());
-}
-
-void FantasySeal::toggle_internal(const bool on)
-{
-    set_process(on);
-    set_monitoring(on);
-    set_as_top_level(false);
+    set_physics_process(false);
+    set_process(false);
+    parent = get_node<Node2D>("..");
 }
 
 void FantasySeal::_process(double delta)
@@ -46,36 +36,24 @@ void FantasySeal::_process(double delta)
         life_time += delta;
         return;
     }
+    velocity = Vector2(0, -speed);
+
     life_time = 0;
-    position_local = Vector2(0, 0);
     rotation_local = 0;
-    target = nullptr;
-    velocity = Vector2(speed, 0).rotated(get_rotation());
+    position_local = Vector2(0, 0);
     set_physics_process(true);
     set_process(false);
-    set_as_top_level(true);
+    //set_as_top_level(true);
 }
 
 void FantasySeal::_physics_process(double delta)
 {
     translate(velocity * delta);
-    if (target == nullptr)
+    if (has_overlapping_areas())
     {
-        if (has_overlapping_areas())
-        {
-            target = Object::cast_to<Area2D>(get_overlapping_areas().front());
-        }
-        else
-        {
-            return;
-        }
+        Node2D *target = Object::cast_to<Node2D>(get_overlapping_areas().front());
+        velocity += (target->get_global_position() - get_global_position()).normalized() * speed_turn;
+        velocity.normalize();
+        velocity *= speed;
     }
-    if (!target->is_monitorable())
-    {
-        target = nullptr;
-        return;
-    }
-    velocity += (target->get_global_position() - get_global_position()).normalized() * speed_turn;
-    velocity.normalize();
-    velocity *= speed;
 }

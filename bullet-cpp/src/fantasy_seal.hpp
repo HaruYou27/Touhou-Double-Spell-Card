@@ -13,7 +13,6 @@ class FantasySeal : public Area2D
 GDCLASS(FantasySeal, Area2D)
 
 private:
-    Area2D *target;
     Node2D *parent;
 
     float speed = 527;
@@ -36,8 +35,6 @@ public:
     virtual void _ready() override;
     virtual void _physics_process(double delta) override;
     virtual void _process(double delta) override;
-
-    void toggle_internal(const bool on);
 };
 
 #endif

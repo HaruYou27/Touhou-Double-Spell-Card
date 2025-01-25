@@ -12,6 +12,7 @@ func _ready() -> void:
 	score_label.update_label(0)
 	GlobalScore.bomb_changed.connect(_update_bomb)
 	GlobalScore.score_changed.connect(_update_score)
+	_update_bomb(GlobalScore.get_bomb())
 
 @export var bomb_label : FormatLabel
 func _update_bomb(bomb_count:int) -> void:
