@@ -24,13 +24,19 @@ MasterSpark::MasterSpark()
 
 void MasterSpark::_bomb_finished(Variant value)
 {
-    set_physics_process(true);
+    set_physics_process(!is_editor);
 }
 
 void MasterSpark::_ready()
 {
-    CHECK_EDITOR
-    screen_effect = get_node<ScreenEffect>("/root/SrceenVFX");
+    is_editor = Engine::get_singleton()->is_editor_hint();
+    set_physics_process(!is_editor);
+    if (is_editor)
+    {
+        return;
+    }
+
+    screen_effect = get_node<ScreenEffect>("/root/ScreenVFX");
     space = get_world_2d()->get_direct_space_state();
 
     rays[0] = get_node<Node2D>(ray_path);
@@ -52,9 +58,11 @@ void MasterSpark::bomb()
 void MasterSpark::_physics_process(double delta)
 {
     index = Math::posmod(index, max_ray);
-    query->set_from(rays[index]->get_global_position());
+    Vector2 from = rays[index]->get_global_position();
+    query->set_from(from);
     index++;
-    query->set_to(query->get_from() + Vector2(0, 960));
+    query->set_to(from - Vector2(0, 960));
+
     Dictionary result = space->intersect_ray(query);
     if (result.is_empty())
     {

@@ -1,6 +1,6 @@
 extends Player
 	
-@onready var death_timer: Timer = $DeathTimer
+@onready var death_timer: Timer = $explosion/DeathTimer
 @onready var tree := get_tree()
 @export var sprite : Node2D
 @onready var layer_physics := collision_layer

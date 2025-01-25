@@ -6,7 +6,7 @@ void ScreenEffect::_bind_methods()
 {
     BIND_FUNCTION(flash_red, ScreenEffect);
     BIND_SETGET(noise, ScreenEffect);
-    ADD_PROPERTY_OBJECT(noise, Ref<Noise>);
+    ADD_PROPERTY_OBJECT(noise, Noise);
 
     ClassDB::bind_method(D_METHOD("fade2black", "reverse"), &ScreenEffect::fade2black);
     ClassDB::bind_method(D_METHOD("flash", "duration"), &ScreenEffect::flash);

@@ -25,9 +25,10 @@ height = 112.0
 script = ExtResource("1_u2niu")
 seals = [NodePath("Player/Seal"), NodePath("Player/Seal2"), NodePath("Player/Seal3"), NodePath("Player/Seal4")]
 
-[node name="Player" parent="." instance=ExtResource("4_ftqh1")]
+[node name="Player" parent="." node_paths=PackedStringArray("sprite") instance=ExtResource("4_ftqh1")]
 position = Vector2(147, 793)
 collision_mask = 0
+sprite = NodePath("ReimuSprite")
 
 [node name="ReimuSprite" parent="Player" instance=ExtResource("2_1gpls")]
 

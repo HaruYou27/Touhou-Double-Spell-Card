@@ -1,9 +1,8 @@
-[gd_scene load_steps=20 format=3 uid="uid://of6l83moa38k"]
+[gd_scene load_steps=19 format=3 uid="uid://of6l83moa38k"]
 
 [ext_resource type="PackedScene" uid="uid://c34lwlqwsc4ve" path="res://entity/player/base/player.tscn" id="1_vjhba"]
 [ext_resource type="Texture2D" uid="uid://c7k6r1xgk2xii" path="res://entity/player/marisa/resource/marisa-hitbox.png" id="2_h730r"]
 [ext_resource type="PackedScene" uid="uid://cex3540cp47lm" path="res://entity/player/base/graze.tscn" id="2_jex7f"]
-[ext_resource type="Script" path="res://entity/player/marisa/MasterSpark.gd" id="3_l0hw3"]
 [ext_resource type="PackedScene" uid="uid://ecqcoejg1lj8" path="res://entity/player/marisa/beam.tscn" id="4_0mlkd"]
 [ext_resource type="Material" uid="uid://dox27ncd2r5o3" path="res://entity/resource/glow.tres" id="5_0ffch"]
 [ext_resource type="Texture2D" uid="uid://d2wacgirqsjjn" path="res://entity/resource/white-trans.tres" id="6_3or5n"]
@@ -40,8 +39,8 @@ hue_variation_max = 0.03
 
 [sub_resource type="Animation" id="Animation_d3sxi"]
 resource_name = "Master Spark"
-length = 6.0
-step = 1.0
+length = 3.0
+step = 0.5
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -49,7 +48,7 @@ tracks/0/path = NodePath("Beam:width")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 1, 5, 6),
+"times": PackedFloat32Array(0, 0.5, 2.5, 3),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
 "values": [128.0, 470.0, 470.0, 128.0]
@@ -61,7 +60,7 @@ tracks/1/path = NodePath("Beam:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 1, 5, 6),
+"times": PackedFloat32Array(0, 0.5, 2.5, 3),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
 "values": [Vector2(0, -48), Vector2(0, -207), Vector2(0, -207), Vector2(0, -48)]
@@ -85,7 +84,7 @@ tracks/3/path = NodePath("CollisionParticle:visible")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0, 6),
+"times": PackedFloat32Array(0, 3),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [false, true]
@@ -97,7 +96,7 @@ tracks/4/path = NodePath("Beam:material:shader_parameter/alpha_delta")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
-"times": PackedFloat32Array(0, 1, 5, 6),
+"times": PackedFloat32Array(0, 0.5, 2.5, 3),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
 "values": [0.4, 0.0, 0.0, 0.4]
@@ -109,7 +108,7 @@ tracks/5/path = NodePath("Spark/SparkHitbox:disabled")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
-"times": PackedFloat32Array(0, 1, 5, 6),
+"times": PackedFloat32Array(0, 0.5, 2.5, 3),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
 "values": [true, false, false, true]
@@ -206,19 +205,18 @@ height = 194.0
 [node name="Marisa" type="Node2D"]
 texture_filter = 1
 
-[node name="Player" parent="." node_paths=PackedStringArray("sprite", "hitbox") instance=ExtResource("1_vjhba")]
+[node name="Player" parent="." node_paths=PackedStringArray("sprite") instance=ExtResource("1_vjhba")]
 position = Vector2(424, 848)
 sprite = NodePath("marisa")
-hitbox = NodePath("Hitbox")
 
 [node name="marisa" parent="Player" instance=ExtResource("13_sco1m")]
 
-[node name="MasterSpark" type="Node2D" parent="Player/marisa" node_paths=PackedStringArray("collision_particle")]
+[node name="MasterSpark" type="MasterSpark" parent="Player/marisa"]
+collision_particle_path = NodePath("CollisionParticle")
+ray_path = NodePath("RayCast2D")
 z_index = 9
 z_as_relative = false
 position = Vector2(0, -32)
-script = ExtResource("3_l0hw3")
-collision_particle = NodePath("CollisionParticle")
 
 [node name="Beam" parent="Player/marisa/MasterSpark" instance=ExtResource("4_0mlkd")]
 
@@ -249,6 +247,7 @@ collision_mask = 0
 constant_linear_velocity = Vector2(-727, 0)
 
 [node name="SparkHitbox" type="CollisionShape2D" parent="Player/marisa/MasterSpark/Spark"]
+z_index = -1
 position = Vector2(0, -599)
 shape = SubResource("CapsuleShape2D_s1f2m")
 disabled = true
@@ -279,7 +278,7 @@ z_index = 11
 texture = ExtResource("2_h730r")
 
 [node name="Hitbox" type="CollisionShape2D" parent="Player"]
-z_index = 100
+z_index = -1
 shape = SubResource("CircleShape2D_ttfkj")
 
 [node name="graze" parent="Player" instance=ExtResource("2_jex7f")]
@@ -287,6 +286,7 @@ shape = SubResource("CircleShape2D_ttfkj")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player/graze"]
 shape = SubResource("CapsuleShape2D_imnki")
 
-[connection signal="kaboom" from="Player" to="Player/marisa/MasterSpark" method="_on_player_kaboom"]
+[connection signal="bomb" from="Player" to="Player/marisa/MasterSpark" method="bomb"]
+[connection signal="bomb" from="Player" to="Player/marisa/MasterSpark/AnimationPlayer" method="play" binds= ["Master Spark"]]
 [connection signal="animation_finished" from="Player/marisa/MasterSpark/AnimationPlayer" to="Player" method="bomb_finished"]
-[connection signal="animation_finished" from="Player/marisa/MasterSpark/AnimationPlayer" to="Player/marisa/MasterSpark" method="_on_animation_player_animation_finished"]
+[connection signal="animation_finished" from="Player/marisa/MasterSpark/AnimationPlayer" to="Player/marisa/MasterSpark" method="_bomb_finished"]

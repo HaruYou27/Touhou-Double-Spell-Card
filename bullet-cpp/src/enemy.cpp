@@ -69,7 +69,7 @@ void Enemy::hit()
         die();
         return;
     }
-    heath--;
+    --heath;
 }
 
 void Enemy::_body_entered(Node2D *body)
@@ -86,6 +86,8 @@ void Enemy::_body_entered(Node2D *body)
 void Enemy::_ready()
 {
     connect("body_entered", callable_mp(this, &Enemy::_body_entered));
+    set_collision_layer(2);
+    set_collision_mask(4);
     CHECK_EDITOR
     explosion = get_node<CPUParticles2D>(explosion_path);
     visual = get_node<Node2D>(visual_path);

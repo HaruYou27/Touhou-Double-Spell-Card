@@ -1,6 +1,9 @@
-[gd_scene format=3 uid="uid://cu1o7xqqwep3b"]
+[gd_scene load_steps=2 format=3 uid="uid://cu1o7xqqwep3b"]
+
+[ext_resource type="FastNoiseLite" uid="uid://cg47m5w3wfrcl" path="res://singleton/screen-effect/noise-cheap.tres" id="1_e6hna"]
 
 [node name="ScreenVFX" type="ScreenEffect"]
+noise = ExtResource("1_e6hna")
 process_mode = 3
 visible = false
 top_level = true

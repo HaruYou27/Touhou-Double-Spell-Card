@@ -26,6 +26,7 @@ private:
     Node2D *rays[max_ray];
     Ref<PhysicsRayQueryParameters2D> query;
     int index = 0;
+    bool is_editor;
 protected:
     static void _bind_methods();
 public:

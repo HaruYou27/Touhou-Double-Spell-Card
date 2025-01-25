@@ -33,7 +33,6 @@ void FantasySeal::toggle_internal(const bool on)
     set_process(on);
     set_monitoring(on);
     set_as_top_level(false);
-    target = nullptr;
 }
 
 void FantasySeal::_process(double delta)
@@ -48,6 +47,9 @@ void FantasySeal::_process(double delta)
         return;
     }
     life_time = 0;
+    position_local = Vector2(0, 0);
+    rotation_local = 0;
+    target = nullptr;
     velocity = Vector2(speed, 0).rotated(get_rotation());
     set_physics_process(true);
     set_process(false);

@@ -16,6 +16,7 @@ void BarrelRotator::_visibility_changed()
 void BarrelRotator::_ready()
 {
     connect("visibility_changed", callable_mp(this, &BarrelRotator::_visibility_changed));
+    set_rotation(0);
 }
 
 void BarrelRotator::_physics_process(double delta)

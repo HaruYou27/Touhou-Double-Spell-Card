@@ -3,4 +3,6 @@ extends Node
 @export var seals : Array[FantasySeal]
 
 func _on_player_bomb() -> void:
-	pass # Replace with function body.
+	for seal in seals:
+		seal.position = Vector2.ZERO
+		seal.toggle(true)

@@ -17,6 +17,7 @@ GDCLASS(Boss, Area2D)
 private:
     int threshold = 2727;
     int item = 0;
+    int damage = 0;
 
     NodePath heath_path;
     Range *heath_bar;

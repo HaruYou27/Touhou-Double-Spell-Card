@@ -64,7 +64,7 @@ void ScoreManager::update_score()
 
 void ScoreManager::add_bomb()
 {
-    bomb++;
+    ++bomb;
     sound_effect->call("bomb_pickup");
     emit_signal("bomb_changed", bomb);
 }
@@ -75,7 +75,7 @@ bool ScoreManager::use_bomb()
     {
         return false;
     }
-    bomb--;
+    --bomb;
     emit_signal("bomb_changed", bomb);
     return true;
 }
@@ -84,16 +84,16 @@ void ScoreManager::add_item()
 {
     update_score();
     sound_effect->call("item_pickup");
-    item++;
+    ++item;
 }
 
 void ScoreManager::add_graze()
 {
     update_score();
-    graze++;
+    ++graze;
 }
 
 void ScoreManager::add_death_count()
 {
-    death_count++;
+    ++death_count;
 }

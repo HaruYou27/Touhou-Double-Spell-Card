@@ -28,13 +28,16 @@ void Boss::_body_entered(Node2D *body)
 void Boss::_ready()
 {
     connect("body_entered", callable_mp(this, &Boss::_body_entered));
+    set_collision_layer(2);
+    set_collision_mask(4);
     CHECK_EDITOR
     item_manager = get_node<ItemManager>("/root/GlobalItem");
 }
 
 void Boss::hit()
 {
-    heath_bar->set_value(heath_bar->get_value() + 1);
+    ++damage;
+    heath_bar->set_value(damage);
 }
 
 void Boss::_process(double delta)
@@ -57,7 +60,8 @@ void Boss::_process(double delta)
 void Boss::spawn_item()
 {
     set_process(true);
-    item = heath_bar->get_value();
+    item = damage;
+    damage = 0;
     REPLACE_TWEEN(tween)
     tween->tween_property(heath_bar, "value", 0, 1);
 }
