@@ -54,13 +54,13 @@ func _on_death_timer_timeout():
 	
 	rpc("sync_death")
 	
-	if Global.player2:
+	if GlobalItem.is_offline():
+		Global.leveler.pause.pressed.emit()
+	else:
 		if Global.last_man_standing:
 			Global.leveler.animator.stop()
 		else:
 			revive_timer.start()
-	else:
-		Global.leveler.pause.pressed.emit()
 		
 @rpc("reliable", "authority")
 func sync_death() -> void:
