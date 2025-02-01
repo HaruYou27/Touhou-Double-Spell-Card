@@ -25,7 +25,7 @@ class ItemManager : public Spinner
         SET_GET(gravity, float)
         
         void spawn_item(const Vector2 position);
-        void get_players();
+        void revive_player();
         Vector2 get_nearest_player(const Vector2 position);
         bool is_offline();
 

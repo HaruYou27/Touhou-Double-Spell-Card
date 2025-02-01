@@ -6,7 +6,7 @@
 shader = ExtResource("1_jy4id")
 shader_parameter/iterations = 10
 shader_parameter/formuparam = 1.0
-shader_parameter/volsteps = 10
+shader_parameter/volsteps = 5
 shader_parameter/stepsize = 0.2
 shader_parameter/zoom = 2.205
 shader_parameter/tile = 0.5

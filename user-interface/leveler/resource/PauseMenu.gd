@@ -21,9 +21,8 @@ func _on_pause_pressed():
 	set_process_input(false)
 	accept_event()
 	
-	if is_instance_valid(Global.player2):
-		return
-	tree.paused = true
+	if GlobalItem.is_offline():
+		tree.paused = true
 
 func _on_continue_pressed() -> void:
 	tree.paused = false

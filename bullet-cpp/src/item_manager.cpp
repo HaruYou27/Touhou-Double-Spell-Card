@@ -9,6 +9,7 @@ void ItemManager::_bind_methods()
 
     BIND_FUNCTION(spawn_item, ItemManager);
     BIND_FUNCTION(is_offline, ItemManager);
+    BIND_FUNCTION(revive_player, ItemManager);
     ClassDB::bind_method(D_METHOD("get_nearest_player", "position"), &ItemManager::get_nearest_player);
 }
 
@@ -19,6 +20,12 @@ bool ItemManager::is_offline()
         return true;
     }
     return false;
+}
+
+void ItemManager::revive_player()
+{
+    // Dirty fix.
+    player1->call("revive");
 }
 
 Vector2 ItemManager::get_nearest_player(const Vector2 position)

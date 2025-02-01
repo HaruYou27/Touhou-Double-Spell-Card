@@ -32,18 +32,6 @@ sprite = NodePath("ReimuSprite")
 
 [node name="ReimuSprite" parent="Player" instance=ExtResource("2_1gpls")]
 
-[node name="YinyangOrb" parent="Player/ReimuSprite" groups=["Reimu Barrel"] instance=ExtResource("5_ryrqw")]
-texture_filter = 2
-position = Vector2(72, 0)
-rotation = -1.48353
-flip_v = true
-
-[node name="YinyangOrb2" parent="Player/ReimuSprite" groups=["Reimu Barrel"] instance=ExtResource("5_ryrqw")]
-texture_filter = 2
-position = Vector2(-72, 0)
-rotation = -1.65806
-flip_h = false
-
 [node name="Marker2D" type="Marker2D" parent="Player/ReimuSprite" groups=["Reimu Barrel Straight"]]
 position = Vector2(13, -50)
 rotation = -1.5708
@@ -59,6 +47,20 @@ show_behind_parent = true
 z_index = 11
 position = Vector2(0, -8)
 texture = ExtResource("7_hytxk")
+
+[node name="BarrelRotator" type="BarrelRotator" parent="Player/ReimuSprite"]
+speed = 3.142
+rotation = 440.782
+
+[node name="YinyangOrb" parent="Player/ReimuSprite/BarrelRotator" groups=["Reimu Barrel"] instance=ExtResource("5_ryrqw")]
+texture_filter = 2
+position = Vector2(-100, -15)
+flip_v = true
+
+[node name="YinyangOrb2" parent="Player/ReimuSprite/BarrelRotator" groups=["Reimu Barrel"] instance=ExtResource("5_ryrqw")]
+texture_filter = 2
+position = Vector2(100, 15)
+flip_h = false
 
 [node name="Hitbox" type="CollisionShape2D" parent="Player"]
 z_index = 100
@@ -107,7 +109,7 @@ z_index = 1
 material = ExtResource("7_w7two")
 
 [node name="Timer" type="Timer" parent="Seeker"]
-wait_time = 0.15
+wait_time = 0.2
 autostart = true
 
 [node name="Bullet" type="BulletPlayer" parent="."]

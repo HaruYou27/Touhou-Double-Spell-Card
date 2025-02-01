@@ -24,3 +24,4 @@ android.debug.arm32 = "res://bin/android/libBulletHELLplusplus.android.template_
 android.release.arm32 = "res://bin/android/libBulletHELLplusplus.android.template_release.arm32.so"
 
 windows.debug.x86_64 = "res://bin/windows/libBulletHELLplusplus.windows.template_debug.x86_64.dll"
+web = "res://bin/web/libBulletHELLplusplus.web.template_release.wasm32.wasm"
