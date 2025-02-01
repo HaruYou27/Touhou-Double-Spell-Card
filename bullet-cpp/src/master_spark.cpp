@@ -41,7 +41,7 @@ void MasterSpark::_ready()
 
     rays[0] = get_node<Node2D>(ray_path);
     TypedArray<Node> children = rays[0]->get_children();
-    for (int idx = 0; idx < 4; idx++)
+    for (int idx = 0; idx < max_ray - 1; idx++)
     {
         rays[idx + 1] = Object::cast_to<Node2D>(children[idx]);
     }

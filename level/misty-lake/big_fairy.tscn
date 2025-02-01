@@ -11,7 +11,7 @@ radius = 31.0161
 
 [node name="Enemy" parent="." instance=ExtResource("1_r57kt")]
 heath = 32
-oneshot = true
+is_alive = true
 visual_path = NodePath("visual")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy"]

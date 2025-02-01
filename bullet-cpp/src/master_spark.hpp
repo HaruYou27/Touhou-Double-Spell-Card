@@ -15,7 +15,7 @@ class MasterSpark : public Node2D
 GDCLASS(MasterSpark, Node2D)
 
 private:
-    static const int max_ray = 5;
+    static const int max_ray = 3;
     NodePath animator_path;
     NodePath collision_particle_path;
     NodePath ray_path;

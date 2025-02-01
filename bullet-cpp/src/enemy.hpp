@@ -14,7 +14,6 @@ GDCLASS(Enemy, Area2D)
 
 private:
     int heath = 4;
-    bool oneshot = false;
     bool is_alive = false;
 
     NodePath explosion_path;
@@ -41,7 +40,7 @@ public:
     SET_GET(visual_path, NodePath)
     SET_GET(heath, int)
     SET_GET(item, int)
-    SET_GET(oneshot, bool)
+    SET_GET(is_alive, bool)
 };
 
 #endif

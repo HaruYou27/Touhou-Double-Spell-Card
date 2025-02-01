@@ -19,7 +19,7 @@ width = 512
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_0nkt0"]
 shader = ExtResource("1_ustug")
 shader_parameter/speed_color = -1.0
-shader_parameter/alpha_delta = 0.4
+shader_parameter/alpha_delta = 0.2
 shader_parameter/speed_alpha = -1.0
 shader_parameter/UV_diff = 7.0
 shader_parameter/color_map = SubResource("GradientTexture1D_k8r5t")
@@ -46,12 +46,13 @@ color_ramp = ExtResource("3_mme7v")
 hue_variation_max = 0.13
 
 [node name="Beam" type="Line2D"]
+modulate = Color(1, 1, 1, 0.9)
 texture_filter = 1
 texture_repeat = 2
 material = SubResource("ShaderMaterial_0nkt0")
 position = Vector2(0, -48)
 points = PackedVector2Array(0, 0, 0, -960)
-width = 128.0
+width = 64.0
 texture = SubResource("GradientTexture2D_u5d4h")
 texture_mode = 2
 begin_cap_mode = 2

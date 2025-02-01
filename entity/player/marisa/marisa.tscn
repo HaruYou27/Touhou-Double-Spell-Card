@@ -51,7 +51,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.5, 2.5, 3),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
-"values": [128.0, 470.0, 470.0, 128.0]
+"values": [64.0, 470.0, 470.0, 64.0]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -126,7 +126,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [128.0]
+"values": [64.0]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -219,27 +219,20 @@ z_as_relative = false
 position = Vector2(0, -32)
 
 [node name="Beam" parent="Player/marisa/MasterSpark" instance=ExtResource("4_0mlkd")]
+z_index = -1
 
 [node name="RayCast2D" type="Marker2D" parent="Player/marisa/MasterSpark"]
 position = Vector2(0, 10)
 rotation = -1.5708
-gizmo_extents = 20.0
-
-[node name="RayCast2D2" type="Marker2D" parent="Player/marisa/MasterSpark/RayCast2D"]
-position = Vector2(0.000114441, -32)
-gizmo_extents = 20.0
+gizmo_extents = 146.6
 
 [node name="RayCast2D4" type="Marker2D" parent="Player/marisa/MasterSpark/RayCast2D"]
 position = Vector2(6.10352e-05, -16)
-gizmo_extents = 20.0
+gizmo_extents = 235.2
 
 [node name="RayCast2D5" type="Marker2D" parent="Player/marisa/MasterSpark/RayCast2D"]
 position = Vector2(-6.10352e-05, 16)
-gizmo_extents = 20.0
-
-[node name="RayCast2D3" type="Marker2D" parent="Player/marisa/MasterSpark/RayCast2D"]
-position = Vector2(-0.000114441, 32)
-gizmo_extents = 706.7
+gizmo_extents = 235.2
 
 [node name="Spark" type="StaticBody2D" parent="Player/marisa/MasterSpark"]
 collision_layer = 4

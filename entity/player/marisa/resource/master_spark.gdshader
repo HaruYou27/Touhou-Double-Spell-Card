@@ -16,4 +16,5 @@ void fragment()
 {
 	COLOR.rgb = mix(texture(color_map, vec2(abs(sin(UV.x)))).rgb, vec3(1.), COLOR.r);
 	COLOR.a += alpha_delta * (sin(TIME * speed_alpha + UV.x * UV_diff));
+	COLOR.a = min(COLOR.a, 0.9);
 }

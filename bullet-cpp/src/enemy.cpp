@@ -3,7 +3,7 @@
 SETTER_GETTER(explosion_path, NodePath, Enemy)
 SETTER_GETTER(visual_path, NodePath, Enemy)
 SETTER_GETTER(heath, int, Enemy)
-SETTER_GETTER(oneshot, bool, Enemy)
+SETTER_GETTER(is_alive, bool, Enemy)
 
 void Enemy::_bind_methods()
 {
@@ -16,10 +16,10 @@ void Enemy::_bind_methods()
     BIND_SETGET(explosion_path, Enemy)
     BIND_SETGET(visual_path, Enemy)
     BIND_SETGET(heath, Enemy)
-    BIND_SETGET(oneshot, Enemy)
+    BIND_SETGET(is_alive, Enemy)
 
     ADD_PROPERTY_INT(heath)
-    ADD_PROPERTY_BOOL(oneshot)
+    ADD_PROPERTY_BOOL(is_alive)
     ADD_PROPERTY_NODEPATH(explosion_path)
     ADD_PROPERTY_NODEPATH(visual_path)
 }
@@ -95,7 +95,7 @@ void Enemy::_ready()
     item_manager = get_node<ItemManager>("/root/GlobalItem");
     sound_effect = get_node<Node>("/root/SoundEffect");
 
-    if (!oneshot)
+    if (!is_alive)
     {
         call_deferred("disable");
     }
