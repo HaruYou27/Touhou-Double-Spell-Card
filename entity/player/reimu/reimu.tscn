@@ -46,11 +46,12 @@ gizmo_extents = 82.9
 show_behind_parent = true
 z_index = 11
 position = Vector2(0, -8)
+scale = Vector2(1.5, 1.5)
 texture = ExtResource("7_hytxk")
 
 [node name="BarrelRotator" type="BarrelRotator" parent="Player/ReimuSprite"]
 speed = 3.142
-rotation = 440.782
+rotation = 1900.81
 
 [node name="YinyangOrb" parent="Player/ReimuSprite/BarrelRotator" groups=["Reimu Barrel"] instance=ExtResource("5_ryrqw")]
 texture_filter = 2

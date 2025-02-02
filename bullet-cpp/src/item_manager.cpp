@@ -34,31 +34,17 @@ Vector2 ItemManager::get_nearest_player(const Vector2 position)
     {
         return Vector2(0, 0);
     }
-    Vector2 direction1 = position1 - position;
+    Vector2 direction1 = player1->get_global_position() - position;
     if (player2 == nullptr)
     {
         return direction1;
     }
-    Vector2 direction2 = position2 - position;
+    Vector2 direction2 = player2->get_global_position() - position;
     if (direction2.length_squared() < direction1.length_squared())
     {
         return direction2;
     }
     return direction1;
-}
-
-void ItemManager::cache_barrel()
-{
-    if (player1 == nullptr)
-    {
-        return;
-    }
-    position1 = player1->get_global_position();
-    if (player2 == nullptr)
-    {
-        return;
-    }
-    position2 = player2->get_global_position();
 }
 
 void ItemManager::_ready()

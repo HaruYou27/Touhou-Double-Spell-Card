@@ -10,15 +10,11 @@ class ItemManager : public Spinner
     
     private:
         float gravity = 98;
-        
-        Vector2 position1;
-        Vector2 position2;
     protected:
         static void _bind_methods();
         inline void create_item(const Vector2 position, const float random);
         virtual bool collide(const Dictionary &result, const int index) override;
         virtual void move_bullet(const int index) override;
-        virtual void cache_barrel() override;
     public:
         Node2D *player1;
         Node2D *player2;

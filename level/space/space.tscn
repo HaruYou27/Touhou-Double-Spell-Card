@@ -1,10 +1,10 @@
 [gd_scene load_steps=6 format=3 uid="uid://c86prfv7djel5"]
 
 [ext_resource type="PackedScene" uid="uid://bfvb372sca8m2" path="res://user-interface/leveler/leveler.tscn" id="3_55qid"]
-[ext_resource type="Material" uid="uid://dr20u75y4dglk" path="res://level/space/resource/space-high.tres" id="3_q0l4k"]
+[ext_resource type="Material" uid="uid://dr20u75y4dglk" path="res://level/space/resource/space.tres" id="3_q0l4k"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_clq85"]
-size = Vector2(540, 960)
+size = Vector2(270, 480)
 
 [sub_resource type="Animation" id="Animation_kyj2n"]
 resource_name = "game"
@@ -17,7 +17,9 @@ _data = {
 [node name="Space" type="Node2D"]
 
 [node name="Star" type="Sprite2D" parent="."]
+texture_filter = 2
 material = ExtResource("3_q0l4k")
+scale = Vector2(2, 2)
 texture = SubResource("PlaceholderTexture2D_clq85")
 centered = false
 
