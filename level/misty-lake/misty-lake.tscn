@@ -801,7 +801,7 @@ visible = false
 [node name="Barrel1" type="BarrelRotator" parent="SpellCircle/barrel"]
 speed = 3.142
 position = Vector2(270, 300)
-rotation = 393.493
+rotation = 288.443
 
 [node name="@Marker2D@27672" type="Marker2D" parent="SpellCircle/barrel/Barrel1" groups=["Spellcard Circle"]]
 position = Vector2(142.004, 0)
@@ -829,7 +829,7 @@ gizmo_extents = 20.0
 
 [node name="Barrel2" type="BarrelRotator" parent="SpellCircle/barrel"]
 position = Vector2(270, 300)
-rotation = -393.438
+rotation = -288.388
 
 [node name="_Marker2D_27675" type="Marker2D" parent="SpellCircle/barrel/Barrel2" groups=["Spellcard Circle"]]
 position = Vector2(118.072, 78.8929)
@@ -864,7 +864,7 @@ scale = Vector2(0.5, 0.5)
 [node name="CircleBarrel2" type="BarrelRotator" parent="SpellButterfly"]
 speed = -6.284
 position = Vector2(540, 600)
-rotation = -786.987
+rotation = -576.885
 scale = Vector2(4, 4)
 
 [node name="_Marker2D_76188" type="Marker2D" parent="SpellButterfly/CircleBarrel2" groups=["Spellcard Butterfly"]]
@@ -995,15 +995,13 @@ texture = ExtResource("30_n5lhs")
 top_level = true
 material = ExtResource("27_vmhcq")
 
-[node name="BackBufferCopy" type="Node2D" parent="."]
+[node name="reflection" type="Sprite2D" parent="."]
 z_index = 2000
-script = ExtResource("4_mglvh")
-
-[node name="reflection" type="Sprite2D" parent="BackBufferCopy"]
 texture_repeat = 2
 material = SubResource("ShaderMaterial_g5wds")
 texture = SubResource("ViewportTexture_506w5")
 centered = false
+script = ExtResource("4_mglvh")
 
 [node name="FogOverlay" parent="." instance=ExtResource("36_uf74i")]
 modulate = Color(1, 1, 1, 0)

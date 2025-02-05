@@ -51,7 +51,7 @@ texture = ExtResource("7_hytxk")
 
 [node name="BarrelRotator" type="BarrelRotator" parent="Player/ReimuSprite"]
 speed = 3.142
-rotation = 1900.81
+rotation = 31.9435
 
 [node name="YinyangOrb" parent="Player/ReimuSprite/BarrelRotator" groups=["Reimu Barrel"] instance=ExtResource("5_ryrqw")]
 texture_filter = 2

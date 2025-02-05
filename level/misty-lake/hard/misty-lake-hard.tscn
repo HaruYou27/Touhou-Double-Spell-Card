@@ -60,14 +60,14 @@ _data = {
 }
 point_count = 4
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_g5wds"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hm76v"]
 shader = ExtResource("26_7xvjr")
 shader_parameter/water_opacity = 0.5
 shader_parameter/refraction_strength = 0.04
 shader_parameter/speed = 0.1
 shader_parameter/refraction_map = ExtResource("2_q3kyb")
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_506w5"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_6lbim"]
 viewport_path = NodePath("SubViewportContainer/SubViewport")
 
 [sub_resource type="Animation" id="Animation_cpalx"]
@@ -1021,7 +1021,6 @@ autostart = true
 [node name="CircleBarrel3" type="BarrelRotator" parent="SpellButterfly"]
 speed = -6.283
 position = Vector2(540, 580)
-rotation = 0.0349066
 scale = Vector2(2, 2)
 
 [node name="_Marker2D_76187" type="Marker2D" parent="SpellButterfly/CircleBarrel3" groups=["Spellcard Butterfly"]]
@@ -1091,7 +1090,6 @@ gizmo_extents = 40.0
 [node name="_Marker2D_76200" type="Marker2D" parent="SpellButterfly/CircleBarrel3" groups=["Spellcard Butterfly"]]
 position = Vector2(-26.607, 17.7782)
 rotation = 2.55254
-scale = Vector2(1, 1)
 gizmo_extents = 40.0
 
 [node name="_Marker2D_76201" type="Marker2D" parent="SpellButterfly/CircleBarrel3" groups=["Spellcard Butterfly"]]
@@ -1112,13 +1110,11 @@ gizmo_extents = 40.0
 [node name="_Marker2D_76204" type="Marker2D" parent="SpellButterfly/CircleBarrel3" groups=["Spellcard Butterfly"]]
 position = Vector2(-31.3851, -6.24289)
 rotation = -2.94525
-scale = Vector2(1, 1)
 gizmo_extents = 40.0
 
 [node name="_Marker2D_76205" type="Marker2D" parent="SpellButterfly/CircleBarrel3" groups=["Spellcard Butterfly"]]
 position = Vector2(-29.5641, -12.2459)
 rotation = -2.7489
-scale = Vector2(1, 1)
 gizmo_extents = 40.0
 
 [node name="_Marker2D_76206" type="Marker2D" parent="SpellButterfly/CircleBarrel3" groups=["Spellcard Butterfly"]]
@@ -1174,7 +1170,6 @@ gizmo_extents = 40.0
 [node name="_Marker2D_76216" type="Marker2D" parent="SpellButterfly/CircleBarrel3" groups=["Spellcard Butterfly"]]
 position = Vector2(26.607, -17.7782)
 rotation = -0.589045
-scale = Vector2(1, 1)
 gizmo_extents = 40.0
 
 [node name="_Marker2D_76217" type="Marker2D" parent="SpellButterfly/CircleBarrel3" groups=["Spellcard Butterfly"]]
@@ -1195,7 +1190,6 @@ visible = false
 
 [node name="CircleBarrel" type="BarrelRotator" parent="SpellWaveParticle"]
 position = Vector2(270, 396)
-rotation = 0.820527
 scale = Vector2(2, 2)
 script = ExtResource("22_olt7o")
 speed_final = -6.283
@@ -1234,15 +1228,13 @@ process_mode = 4
 top_level = true
 material = ExtResource("25_2u8wn")
 
-[node name="BackBufferCopy" type="Node2D" parent="."]
+[node name="reflection" type="Sprite2D" parent="."]
 z_index = 2000
-script = ExtResource("3_cixof")
-
-[node name="reflection" type="Sprite2D" parent="BackBufferCopy"]
 texture_repeat = 2
-material = SubResource("ShaderMaterial_g5wds")
-texture = SubResource("ViewportTexture_506w5")
+material = SubResource("ShaderMaterial_hm76v")
+texture = SubResource("ViewportTexture_6lbim")
 centered = false
+script = ExtResource("3_cixof")
 
 [node name="FogOverlay" parent="." instance=ExtResource("27_nq1sc")]
 modulate = Color(1, 1, 1, 0)
