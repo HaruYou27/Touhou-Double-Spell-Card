@@ -2,7 +2,7 @@ shader_type canvas_item;
 
 group_uniforms reflection;
 uniform float water_opacity : hint_range(0.0, 1.0) = 0.5;
-uniform sampler2D screen : hint_screen_texture, repeat_disable, filter_nearest;
+uniform sampler2D screen : hint_screen_texture;
 
 group_uniforms refraction;
 // Should be a noise texture.

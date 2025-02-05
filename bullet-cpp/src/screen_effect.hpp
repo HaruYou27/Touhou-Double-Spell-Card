@@ -4,8 +4,8 @@
 #include <godot_cpp/classes/color_rect.hpp>
 #include <godot_cpp/classes/tween.hpp>
 #include <godot_cpp/classes/property_tweener.hpp>
-#include <godot_cpp/classes/fast_noise_lite.hpp>
 #include <godot_cpp/classes/time.hpp>
+#include <godot_cpp/classes/random_number_generator.hpp>
 
 #include <utility.hpp>
 
@@ -14,16 +14,18 @@ class ScreenEffect : public ColorRect
 GDCLASS(ScreenEffect, ColorRect)
 private:
     double shake_intensity = 1;
-    double shake_duration = 0;
+    double trauma = 0;
     
     Ref<Tween> tween;
     Control *scene;
     Node *level_loader;
     Time *time;
-    Ref<Noise> noise;
+    Ref<RandomNumberGenerator> rng;
 protected:
     static void _bind_methods();
 public:
+    ScreenEffect();
+
     virtual void _ready() override;
     virtual void _process(double delta) override;
 
@@ -31,8 +33,7 @@ public:
     void flash_red();
     void flash(const double duration);
     Ref<Tween> fade2black(const bool reverse = false);
-
-    SET_GET(noise, Ref<Noise>)
+    void reset();
 };
 
 #endif

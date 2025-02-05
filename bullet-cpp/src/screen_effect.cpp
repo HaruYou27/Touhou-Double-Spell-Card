@@ -1,11 +1,15 @@
 #include <screen_effect.hpp>
 
-SETTER_GETTER(noise, Ref<Noise>, ScreenEffect)
+ScreenEffect::ScreenEffect()
+{
+    rng.instantiate();
+    rng->randomize();
+}
 
 void ScreenEffect::_bind_methods()
 {
     BIND_FUNCTION(flash_red, ScreenEffect);
-    BIND_SETGET(noise, ScreenEffect);
+    BIND_FUNCTION(reset, ScreenEffect);
     ADD_PROPERTY_OBJECT(noise, Noise);
 
     ClassDB::bind_method(D_METHOD("fade2black", "reverse"), &ScreenEffect::fade2black);
@@ -20,9 +24,9 @@ void ScreenEffect::_ready()
     set_custom_minimum_size(Vector2(540, 960));
     set_z_index(4090);
     CHECK_EDITOR
+    time = Time::get_singleton();
     level_loader = get_node<Node>("/root/LevelLoader");
     shake_intensity = static_cast<double>(get_node<Node>("/root/Global")->get("user_data").get("screen_shake_intensity"));
-    time = Time::get_singleton();
 }
 
 Ref<Tween> ScreenEffect::fade2black(const bool reverse)
@@ -61,25 +65,33 @@ void ScreenEffect::flash(const double duration)
 void ScreenEffect::shake(const double duration)
 {
     set_process(true);
-    shake_duration += duration;
+    trauma += duration;
     scene = Object::cast_to<Control>(level_loader->get("scene"));
+}
+
+void ScreenEffect::reset()
+{
+    trauma = 0;
+    set_process(false);
 }
 
 void ScreenEffect::_process(double delta)
 {
-    shake_duration -= delta;
-    if ((shake_duration < 0) || (shake_intensity < 0.001))
+    trauma -= delta;
+    if ((trauma < 0) || (shake_intensity < 0.001))
     {
         set_process(false);
-        shake_duration = 0;
+        trauma = 0;
         scene->set_position(Vector2(0, 0));
-        scene->set_rotation_degrees(0);
+        scene->set_rotation(0);
         return;
     }
-    int msec = time->get_ticks_msec();
+    scene->set_rotation(rng->randf_range(-0.01, 0.01));
     int usec = time->get_ticks_usec();
-    scene->set_position((scene->get_position() + 
-        Vector2(noise->get_noise_2d(-usec, msec),
-            noise->get_noise_2d(usec, -msec))).clampf(-5, 5));
-    scene->set_rotation_degrees(Math::clamp<double>(scene->get_rotation_degrees() + noise->get_noise_1d(msec), -0.25, 0.25));
+    
+    Vector2 offset = Vector2(rng->randf(), rng->randf());
+    offset.normalize();
+    offset *= 5 * sin(usec);
+
+    scene->set_position(offset);
 }
