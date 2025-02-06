@@ -10,7 +10,6 @@ void ScreenEffect::_bind_methods()
 {
     BIND_FUNCTION(flash_red, ScreenEffect);
     BIND_FUNCTION(reset, ScreenEffect);
-    ADD_PROPERTY_OBJECT(noise, Noise);
 
     ClassDB::bind_method(D_METHOD("fade2black", "reverse"), &ScreenEffect::fade2black);
     ClassDB::bind_method(D_METHOD("flash", "duration"), &ScreenEffect::flash);
@@ -88,8 +87,9 @@ void ScreenEffect::_process(double delta)
     }
     scene->set_rotation(rng->randf_range(-0.01, 0.01));
     int usec = time->get_ticks_usec();
+    int random_int = rng->randi();
     
-    Vector2 offset = Vector2(rng->randf(), rng->randf());
+    Vector2 offset = Vector2(sin(random_int), cos(random_int));
     offset.normalize();
     offset *= 5 * sin(usec);
 

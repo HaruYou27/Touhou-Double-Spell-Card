@@ -11,7 +11,7 @@ void Player::_bind_methods()
 void Player::_ready()
 {
     CHECK_EDITOR
-    ItemManager *item_manager = get_node<ItemManager>("/root/GlobalItem");
+    item_manager = get_node<ItemManager>("/root/GlobalItem");
     if (is_multiplayer_authority())
     {
         item_manager->player1 = this;
@@ -20,6 +20,16 @@ void Player::_ready()
     item_manager->player2 = this;
     set_process_input(false);
     set_collision_layer(0);
+}
+
+void Player::_exit_tree()
+{
+    CHECK_EDITOR
+    if (is_multiplayer_authority())
+    {
+        item_manager->player1 = nullptr;
+    }
+    item_manager->player2 = nullptr;
 }
 
 void Player::clamp_position()

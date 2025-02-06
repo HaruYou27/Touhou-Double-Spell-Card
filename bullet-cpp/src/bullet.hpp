@@ -10,8 +10,9 @@
 #include <godot_cpp/classes/rendering_server.hpp>
 #include <godot_cpp/classes/scene_tree.hpp>
 
-#include <utility.hpp>
 
+
+#include <utility.hpp>
 
 class Bullet : public Node2D
 {
@@ -24,7 +25,6 @@ private:
     float speed = 272.0;
     Ref<Shape2D> hitbox;
     bool grazable = true;
-    unsigned int collision_graze = 0;
     unsigned int collision_layer = 4;
 
     static const int max_barrel = 64;
@@ -49,6 +49,7 @@ protected:
     Ref<PhysicsShapeQueryParameters2D> query;
     RID canvas_item;
     
+    unsigned int collision_graze = 8;
     float delta32 = 0;
     bool tick = false;
     int indexes_delete[half_bullet];
@@ -67,6 +68,7 @@ protected:
 
     virtual bool collide(const Dictionary &result, const int index);
     virtual void move_bullet(const int index);
+    virtual void draw_bullet(const int index);
     virtual void cache_barrel();
     virtual bool collision_check(const int index);
     virtual void sort_bullet(const int index);

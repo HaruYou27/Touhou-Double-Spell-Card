@@ -13,6 +13,7 @@ GDCLASS(Player, StaticBody2D)
 
 private:
     float sentivity = 1.2;
+    ItemManager *item_manager;
 protected:
     static void _bind_methods();
     virtual void clamp_position();
@@ -20,6 +21,7 @@ public:
     SET_GET(sentivity, float)
     virtual void _ready() override;
     virtual void _input(const Ref<InputEvent> &event) override;
+    virtual void _exit_tree() override;
 };
 
 #endif

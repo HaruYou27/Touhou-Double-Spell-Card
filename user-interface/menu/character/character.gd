@@ -7,6 +7,7 @@ extends VBoxContainer
 func _ready() -> void:
 	multiplayer.peer_connected.connect(set_character)
 	characters.current_tab = user_data.last_character
+	title.select(user_data.last_character)
 	set_character()
 	
 func _change_character(next:bool) -> void:

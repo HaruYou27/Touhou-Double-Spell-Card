@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=14 format=3 uid="uid://dotibkyt5mm7v"]
+[gd_resource type="Theme" load_steps=15 format=3 uid="uid://dotibkyt5mm7v"]
 
 [ext_resource type="StyleBox" uid="uid://cebpd4om8pydp" path="res://user-interface/menu/theme/black-lefted.tres" id="1_r1gl7"]
 [ext_resource type="FontFile" uid="uid://cc78r22h75c20" path="res://user-interface/resource/font/NotoSerif-Regular.ttf" id="1_sdo2j"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://bpfs1qrrcpysu" path="res://user-interface/resource/icon/yang-yin.png" id="6_ieens"]
 [ext_resource type="StyleBox" uid="uid://dmkvh06g0hgeo" path="res://user-interface/menu/theme/black-bottomed-rounded.tres" id="7_ot3qr"]
 [ext_resource type="StyleBox" uid="uid://c3sc24iii5cgi" path="res://user-interface/menu/theme/black-bottomed.tres" id="7_viw4s"]
+[ext_resource type="FontFile" uid="uid://c7ppp33ch6e5" path="res://user-interface/resource/font/Vbutlong.ttf" id="8_c8hah"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_f2yet"]
 
@@ -60,6 +61,7 @@ HSlider/icons/grabber_highlight = ExtResource("6_ieens")
 ItemList/styles/panel = ExtResource("2_fbp55")
 Label/styles/normal = ExtResource("2_fbp55")
 LineEdit/styles/normal = ExtResource("7_ot3qr")
+OptionButton/fonts/font = ExtResource("8_c8hah")
 RichTextLabel/styles/normal = ExtResource("2_fbp55")
 TabBar/styles/tab_selected = ExtResource("7_viw4s")
 TabContainer/styles/panel = SubResource("StyleBoxEmpty_2nys1")

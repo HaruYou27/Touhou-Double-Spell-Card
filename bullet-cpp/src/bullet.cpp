@@ -36,7 +36,6 @@ void Bullet::_ready()
     set_as_top_level(true);
     CHECK_EDITOR
     canvas_item = get_canvas_item();
-    collision_graze = collision_layer + 8;
     space = get_world_2d()->get_direct_space_state();
     renderer = RenderingServer::get_singleton();
     item_manager = get_node<Node>("/root/GlobalItem");
@@ -51,8 +50,7 @@ void Bullet::_ready()
         Node2D* node = Object::cast_to<Node2D>(nodes[index]);
         if (node != nullptr)
         {
-            barrels[count_node] = node;
-            count_node++;
+            barrels[count_node++] = node;
         }
     }
 }
@@ -65,9 +63,8 @@ void Bullet::spawn_bullet()
         CHECK_CAPACITY
         reset_bullet();
         float angle = barrel_rotations[index];
-        velocities[count_bullet] = Vector2(speed, 0).rotated(angle);
         transforms[count_bullet] = Transform2D(angle + PI_2, get_scale(), 0, barrel_positions[index]);
-        count_bullet++;
+        velocities[count_bullet++] = Vector2(speed, 0).rotated(angle);
     }
 }
 
@@ -82,7 +79,7 @@ Bullet::Bullet()
 
 void Bullet::reset_bullet()
 {
-    grazes[count_bullet] = grazable;
+    grazes[count_bullet++] = grazable;
 }
 
 void Bullet::spawn_circle(const int count, const Vector2 position)
@@ -92,11 +89,10 @@ void Bullet::spawn_circle(const int count, const Vector2 position)
     float angle = 0;
     for (int index = 0; index < count; index++)
     {
-        reset_bullet();
         velocities[count_bullet] = Vector2(speed, 0).rotated(angle);
         transforms[count_bullet] = Transform2D(angle + PI_2, position);
         angle += delta_angle;
-        count_bullet++;
+        reset_bullet();
     }
 }
 
@@ -107,11 +103,17 @@ void Bullet::clear()
     count_expire = 0;
 }
 
+void Bullet::draw_bullet(const int index)
+{
+    Transform2D& transform = transforms[index];
+    texture->draw(canvas_item, transform.get_origin().rotated(-transform.get_rotation()) / transform.get_scale(), Color(transform.get_rotation(), 1, 1));
+}
+
 void Bullet::move_bullet(const int index)
 {
     Transform2D& transform = transforms[index];
     transform.set_origin(transform.get_origin() + velocities[index] * delta32);
-    texture->draw(canvas_item, transform.get_origin().rotated(-transform.get_rotation()) / transform.get_scale(), Color(transform.get_rotation(), 1, 1));
+    draw_bullet(index);
 }
 
 void Bullet::move_bullets()
@@ -153,17 +155,15 @@ void Bullet::cache_barrel()
         Node2D* node = barrels[index];
         if (node->is_visible_in_tree())
         {
-            barrel_positions[count_barrel] = node->get_global_position();
             barrel_rotations[count_barrel] = (local_rotation) ? node->get_rotation() : node->get_global_rotation();
-            count_barrel++;
+            barrel_positions[count_barrel++] = node->get_global_position();
         }
     }
 }
 
 void Bullet::collide_wall(const int index)
 {
-    indexes_delete_border[count_expire] = index;
-    count_expire++;
+    indexes_delete_border[count_expire++] = index;
 }
 
 void Bullet::collision_wall()
@@ -174,13 +174,11 @@ void Bullet::collision_wall()
     int index = (tick) ? 0 : index_half;
     while (index < index_stop)
     {
-        if (world_border.has_point(transforms[index].get_origin()))
+        if (!world_border.has_point(transforms[index].get_origin()))
         {
-            index++;
-            continue;
+            collide_wall(index);
         }
-        collide_wall(index);
-        index++;
+        ++index;
     }
 }
 
@@ -221,10 +219,9 @@ void Bullet::_physics_process(const double delta)
     {
         if (collision_check(index))
         {
-            indexes_delete[count_collided] = index;
-            count_collided++;
+            indexes_delete[count_collided++] = index;
         }
-        index++;
+        ++index;
     }
 
     thread_bullet->wait_to_finish();
@@ -232,9 +229,8 @@ void Bullet::_physics_process(const double delta)
 
     for (int idx = 0; idx < count_collided; idx++)
     {
-        count_bullet--;
         int i = indexes_delete[idx];
-        if (i == count_bullet)
+        if (i == --count_bullet)
         {
             continue;
         }
@@ -243,9 +239,8 @@ void Bullet::_physics_process(const double delta)
     count_collided = 0;
     for (int idx = 0; idx < count_expire; idx++)
     {
-        count_bullet--;
         int i = indexes_delete_border[idx];
-        if (i == count_bullet)
+        if (i == --count_bullet)
         {
             continue;
         }

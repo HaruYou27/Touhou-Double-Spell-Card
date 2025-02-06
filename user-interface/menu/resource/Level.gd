@@ -7,15 +7,16 @@ extends VBoxContainer
 
 func _ready() -> void:
 	level.current_tab = user_data.last_level
+	level_list.select(user_data.last_level)
 
 func select_level(next:bool) -> void:
 	if not is_multiplayer_authority():
 		return
-		
+
 	if next:
-		level.current_tab += 1
+		level.select_next_available()
 	else:
-		level.current_tab -= 1
+		level.select_previous_available()
 	level_list.select(level.current_tab)
 	preview.current_tab = level.current_tab
 	

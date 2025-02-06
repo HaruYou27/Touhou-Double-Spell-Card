@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://of6l83moa38k"]
+[gd_scene load_steps=20 format=3 uid="uid://of6l83moa38k"]
 
 [ext_resource type="PackedScene" uid="uid://c34lwlqwsc4ve" path="res://entity/player/base/player.tscn" id="1_vjhba"]
 [ext_resource type="Texture2D" uid="uid://c7k6r1xgk2xii" path="res://entity/player/marisa/resource/marisa-hitbox.png" id="2_h730r"]
@@ -199,8 +199,11 @@ _data = {
 radius = 6.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_imnki"]
-radius = 58.0
-height = 194.0
+radius = 24.0
+height = 94.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_n4w23"]
+radius = 100.0
 
 [node name="Marisa" type="Node2D"]
 texture_filter = 1
@@ -278,6 +281,13 @@ shape = SubResource("CircleShape2D_ttfkj")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player/graze"]
 shape = SubResource("CapsuleShape2D_imnki")
+debug_color = Color(0.735606, 0.457171, 0.300325, 0.42)
+
+[node name="ItemCollector" type="StaticBody2D" parent="Player"]
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player/ItemCollector"]
+shape = SubResource("CircleShape2D_n4w23")
 
 [connection signal="bomb" from="Player" to="Player/marisa/MasterSpark" method="bomb"]
 [connection signal="bomb" from="Player" to="Player/marisa/MasterSpark/AnimationPlayer" method="play" binds= ["Master Spark"]]

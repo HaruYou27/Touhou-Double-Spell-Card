@@ -9,16 +9,24 @@ class ItemManager : public Spinner
     GDCLASS(ItemManager, Spinner)
     
     private:
-        float gravity = 98;
+        static constexpr float gravity = 98;
+        static constexpr float speed_approach = 127;
+
+        Vector2 player1_position;
+        Vector2 player2_position;
     protected:
         static void _bind_methods();
         inline void create_item(const Vector2 position, const float random);
+
         virtual bool collide(const Dictionary &result, const int index) override;
         virtual void move_bullet(const int index) override;
+        virtual void cache_barrel() override;
+        virtual void sort_bullet(const int index) override;
+
+        float distances[max_bullet];
     public:
         Node2D *player1;
         Node2D *player2;
-        SET_GET(gravity, float)
         
         void spawn_item(const Vector2 position);
         void revive_player();

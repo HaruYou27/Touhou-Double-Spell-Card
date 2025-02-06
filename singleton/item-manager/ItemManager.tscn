@@ -7,11 +7,9 @@
 radius = 8.0
 
 [node name="ItemManager" type="ItemManager"]
-gravity = 72.0
 speed = 17.0
 hitbox = SubResource("CircleShape2D_17gda")
 texture = ExtResource("1_dwmc0")
-grazable = false
 collision_layer = 8
 top_level = true
 z_index = 1

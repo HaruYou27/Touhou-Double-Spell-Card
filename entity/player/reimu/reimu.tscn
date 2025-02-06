@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://bk08ga1mfcleb"]
+[gd_scene load_steps=17 format=3 uid="uid://bk08ga1mfcleb"]
 
 [ext_resource type="Script" path="res://entity/player/reimu/reimu.gd" id="1_u2niu"]
 [ext_resource type="PackedScene" uid="uid://ffnff8ahyxxn" path="res://entity/player/reimu/reimu-sprite.tscn" id="2_1gpls"]
@@ -18,8 +18,11 @@
 radius = 3.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_sx7ua"]
-radius = 24.0
-height = 112.0
+radius = 14.0
+height = 90.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_gnk54"]
+radius = 64.0
 
 [node name="Reimu" type="Node2D" node_paths=PackedStringArray("seals")]
 script = ExtResource("1_u2niu")
@@ -51,7 +54,6 @@ texture = ExtResource("7_hytxk")
 
 [node name="BarrelRotator" type="BarrelRotator" parent="Player/ReimuSprite"]
 speed = 3.142
-rotation = 31.9435
 
 [node name="YinyangOrb" parent="Player/ReimuSprite/BarrelRotator" groups=["Reimu Barrel"] instance=ExtResource("5_ryrqw")]
 texture_filter = 2
@@ -94,6 +96,12 @@ position = Vector2(-147, -793)
 [node name="BombTimer" type="Timer" parent="Player"]
 wait_time = 5.0
 one_shot = true
+
+[node name="ItemCollector" type="StaticBody2D" parent="Player"]
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player/ItemCollector"]
+shape = SubResource("CircleShape2D_gnk54")
 
 [node name="Seeker" type="Seeker" parent="."]
 seek_shape = ExtResource("8_drurl")
