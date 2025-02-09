@@ -1,4 +1,4 @@
-#include <boss.hpp>
+#include "boss.hpp"
 
 SETTER_GETTER(threshold, int, Boss)
 SETTER_GETTER(heath_path, NodePath, Boss)

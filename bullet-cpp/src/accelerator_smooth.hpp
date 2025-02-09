@@ -1,7 +1,7 @@
 #ifndef ACCELERATOR_SMOOTH_HPP
 #define ACCELERATOR_SMOOTH_HPP
 
-#include <accelerator.hpp>
+#include "accelerator.hpp"
 
 
 class AcceleratorSmooth : public Accelerator

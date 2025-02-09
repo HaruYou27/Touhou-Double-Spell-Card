@@ -1,4 +1,4 @@
-#include <screen_effect.hpp>
+#include "screen_effect.hpp"
 
 ScreenEffect::ScreenEffect()
 {

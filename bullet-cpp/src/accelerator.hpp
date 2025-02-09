@@ -1,7 +1,7 @@
 #ifndef ACCELERATOR_HPP
 #define ACCELERATOR_HPP
 
-#include <accelerator_sine.hpp>
+#include "accelerator_sine.hpp"
 
 class Accelerator : public AcceleratorSine
 {

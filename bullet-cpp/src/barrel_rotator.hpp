@@ -3,7 +3,7 @@
 
 #include <godot_cpp/classes/node2d.hpp>
 
-#include <utility.hpp>
+#include "utility.hpp"
 
 class BarrelRotator : public Node2D
 {

@@ -1,7 +1,7 @@
 #ifndef SPINNER_HPP
 #define SPINNER_HPP
 
-#include <bullet.hpp>
+#include "bullet.hpp"
 
 class Spinner : public Bullet
 {

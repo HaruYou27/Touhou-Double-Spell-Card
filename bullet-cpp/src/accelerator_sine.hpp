@@ -1,7 +1,7 @@
 #ifndef ACCELERATOR_SINE_HPP
 #define ACCELERATOR_SINE_HPP
 
-#include <bullet.hpp>
+#include "bullet.hpp"
 
 
 class AcceleratorSine : public Bullet

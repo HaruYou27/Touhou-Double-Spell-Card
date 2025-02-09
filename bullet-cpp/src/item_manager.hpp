@@ -1,8 +1,8 @@
 #ifndef ITEM_MANAGER_HPP
 #define ITEM_MANAGER_HPP
 
-#include <spinner.hpp>
-#include <graze_body.hpp>
+#include "spinner.hpp"
+#include "graze_body.hpp"
 
 class ItemManager : public Spinner
 {

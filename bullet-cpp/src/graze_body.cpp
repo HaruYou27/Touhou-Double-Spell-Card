@@ -1,4 +1,4 @@
-#include <graze_body.hpp>
+#include "graze_body.hpp"
 
 SETTER_GETTER(vfx_path, NodePath, GrazeBody)
 SETTER_GETTER(sfx_path, NodePath, GrazeBody)

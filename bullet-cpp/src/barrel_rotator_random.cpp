@@ -1,4 +1,4 @@
-#include <barrel_rotator_random.hpp>
+#include "barrel_rotator_random.hpp"
 
 SETTER_GETTER(angle_min, float, BarrelRotatorRandom)
 SETTER_GETTER(angle_max, float, BarrelRotatorRandom)

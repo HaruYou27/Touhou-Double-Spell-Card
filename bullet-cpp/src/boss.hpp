@@ -6,9 +6,9 @@
 #include <godot_cpp/classes/tween.hpp>
 #include <godot_cpp/classes/property_tweener.hpp>
 
-#include <utility.hpp>
-#include <item_manager.hpp>
-#include <player.hpp>
+#include "utility.hpp"
+#include "item_manager.hpp"
+#include "player.hpp"
 
 class Boss : public Area2D
 {

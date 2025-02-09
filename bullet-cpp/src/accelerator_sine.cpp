@@ -1,4 +1,4 @@
-#include <accelerator_sine.hpp>
+#include "accelerator_sine.hpp"
 
 SETTER_GETTER(duration, float, AcceleratorSine)
 

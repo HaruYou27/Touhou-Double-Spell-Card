@@ -1,4 +1,4 @@
-#include <ricochetor.hpp>
+#include "ricochetor.hpp"
 
 void Ricochetor::_bind_methods()
 {

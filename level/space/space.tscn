@@ -14,7 +14,9 @@ _data = {
 "game": SubResource("Animation_kyj2n")
 }
 
-[node name="Space" type="Node2D"]
+[node name="Space" type="Control"]
+layout_mode = 3
+anchors_preset = 0
 
 [node name="Star" type="Sprite2D" parent="."]
 texture_filter = 2
@@ -23,9 +25,8 @@ scale = Vector2(2, 2)
 texture = SubResource("PlaceholderTexture2D_clq85")
 centered = false
 
-[node name="player" type="Node2D" parent="."]
-
 [node name="level" parent="." node_paths=PackedStringArray("animator") instance=ExtResource("3_55qid")]
+layout_mode = 1
 animator = NodePath("../AnimationPlayer")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -35,3 +36,9 @@ libraries = {
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 bus = &"BGM"
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0

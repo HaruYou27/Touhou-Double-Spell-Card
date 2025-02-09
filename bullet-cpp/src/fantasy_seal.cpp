@@ -1,4 +1,4 @@
-#include <fantasy_seal.hpp>
+#include "fantasy_seal.hpp"
 
 SETTER_GETTER(speed, float, FantasySeal)
 SETTER_GETTER(speed_turn, float, FantasySeal)

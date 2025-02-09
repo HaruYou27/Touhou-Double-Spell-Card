@@ -63,7 +63,13 @@ shader_parameter/line_count = 1.0
 shader_parameter/background_color = Color(0.0588235, 0.00784314, 0.14902, 0)
 shader_parameter/grid_color = SubResource("GradientTexture1D_3dg5s")
 
-[node name="DreamWorld" type="Node2D"]
+[node name="DreamWorld" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="Nebula" type="Sprite2D" parent="."]
 texture_repeat = 2
@@ -97,6 +103,7 @@ offset_bottom = 960.0
 [node name="player" type="Node2D" parent="."]
 
 [node name="level" parent="." node_paths=PackedStringArray("animator") instance=ExtResource("4_aeo0o")]
+layout_mode = 1
 animator = NodePath("../AnimationPlayer")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]

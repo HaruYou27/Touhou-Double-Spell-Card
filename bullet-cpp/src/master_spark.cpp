@@ -1,4 +1,4 @@
-#include <master_spark.hpp>
+#include "master_spark.hpp"
 
 SETTER_GETTER(collision_particle_path, NodePath, MasterSpark)
 SETTER_GETTER(ray_path, NodePath, MasterSpark)

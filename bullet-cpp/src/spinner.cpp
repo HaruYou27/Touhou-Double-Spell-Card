@@ -1,4 +1,4 @@
-#include <spinner.hpp>
+#include "spinner.hpp"
 
 SETTER_GETTER(speed_angular, float, Spinner)
 

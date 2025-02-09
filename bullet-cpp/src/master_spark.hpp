@@ -7,8 +7,8 @@
 #include <godot_cpp/classes/gpu_particles2d.hpp>
 #include <godot_cpp/classes/world2d.hpp>
 
-#include <utility.hpp>
-#include <screen_effect.hpp>
+#include "utility.hpp"
+#include "screen_effect.hpp"
 
 class MasterSpark : public Node2D
 {

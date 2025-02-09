@@ -1,4 +1,4 @@
-#include <ricochet_target.hpp>
+#include "ricochet_target.hpp"
 
 void RicochetTarget::_bind_methods()
 {

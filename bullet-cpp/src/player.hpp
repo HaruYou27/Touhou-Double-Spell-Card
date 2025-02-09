@@ -4,8 +4,8 @@
 #include <godot_cpp/classes/static_body2d.hpp>
 #include <godot_cpp/classes/input_event_screen_drag.hpp>
 
-#include <utility.hpp>
-#include <item_manager.hpp>
+#include "utility.hpp"
+#include "item_manager.hpp"
 
 class Player : public StaticBody2D
 {

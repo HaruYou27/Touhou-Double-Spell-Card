@@ -1,7 +1,7 @@
 #ifndef SCORE_MANAGER_HPP
 #define SCORE_MANAGER_HPP
 
-#include <utility.hpp>
+#include "utility.hpp"
 #include <godot_cpp/classes/node.hpp>
 #include <godot_cpp/classes/engine.hpp>
 

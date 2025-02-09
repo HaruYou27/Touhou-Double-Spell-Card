@@ -5,8 +5,8 @@
 #include <godot_cpp/classes/gpu_particles2d.hpp>
 #include <godot_cpp/classes/cpu_particles2d.hpp>
 
-#include <utility.hpp>
-#include <screen_effect.hpp>
+#include "utility.hpp"
+#include "screen_effect.hpp"
 
 class FantasySeal : public Area2D
 {

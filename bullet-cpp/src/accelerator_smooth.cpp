@@ -1,4 +1,4 @@
-#include <accelerator_smooth.hpp>
+#include "accelerator_smooth.hpp"
 
 void AcceleratorSmooth::_bind_methods()
 {

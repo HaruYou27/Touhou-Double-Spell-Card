@@ -1,8 +1,8 @@
 #ifndef RICOCHET_TARGET_HPP
 #define RICOCHET_TARGET_HPP
 
-#include <ricochetor.hpp>
-#include <item_manager.hpp>
+#include "ricochetor.hpp"
+#include "item_manager.hpp"
 
 class RicochetTarget : public Ricochetor
 {

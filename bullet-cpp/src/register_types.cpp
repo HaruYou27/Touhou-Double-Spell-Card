@@ -1,30 +1,31 @@
-#include <register_types.h>
+#include "register_types.h"
+
 #include <gdextension_interface.h>
 #include <godot_cpp/core/class_db.hpp>
 #include <godot_cpp/core/defs.hpp>
 #include <godot_cpp/godot.hpp>
 
-#include <bullet.hpp>
-#include <seeker.hpp>
-#include <item_manager.hpp>
-#include <enemy.hpp>
-#include <bullet_player.hpp>
-#include <spinner.hpp>
-#include <barrel_rotator_random.hpp>
-#include <score_manager.hpp>
-#include <accelerator_sine.hpp>
-#include <accelerator.hpp>
-#include <accelerator_smooth.hpp>
-#include <ricochetor.hpp>
-#include <ricochet_target.hpp>
-#include <player.hpp>
-#include <boss.hpp>
-#include <reimu.hpp>
-#include <fantasy_seal.hpp>
-#include <master_spark.hpp>
-#include <screen_effect.hpp>
-#include <graze_body.hpp>
-#include <barrel_rotator.hpp>
+#include "bullet.hpp"
+#include "seeker.hpp"
+#include "item_manager.hpp"
+#include "enemy.hpp"
+#include "bullet_player.hpp"
+#include "spinner.hpp"
+#include "barrel_rotator_random.hpp"
+#include "score_manager.hpp"
+#include "accelerator_sine.hpp"
+#include "accelerator.hpp"
+#include "accelerator_smooth.hpp"
+#include "ricochetor.hpp"
+#include "ricochet_target.hpp"
+#include "player.hpp"
+#include "boss.hpp"
+#include "reimu.hpp"
+#include "fantasy_seal.hpp"
+#include "master_spark.hpp"
+#include "screen_effect.hpp"
+#include "graze_body.hpp"
+#include "barrel_rotator.hpp"
 
 void initialize_gdextension_types(ModuleInitializationLevel p_level)
 {

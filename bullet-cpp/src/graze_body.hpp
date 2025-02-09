@@ -5,8 +5,8 @@
 #include <godot_cpp/classes/gpu_particles2d.hpp>
 #include <godot_cpp/classes/audio_stream_player.hpp>
 
-#include <utility.hpp>
-#include <score_manager.hpp>
+#include "utility.hpp"
+#include "score_manager.hpp"
 
 
 class GrazeBody : public StaticBody2D

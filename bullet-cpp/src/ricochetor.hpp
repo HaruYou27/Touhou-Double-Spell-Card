@@ -1,7 +1,7 @@
 #ifndef RICOCHETOR_HPP
 #define RICOCHETOR_HPP
 
-#include <bullet.hpp>
+#include "bullet.hpp"
 
 class Ricochetor : public Bullet
 {

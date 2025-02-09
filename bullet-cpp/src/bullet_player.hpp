@@ -1,7 +1,7 @@
 #ifndef BULLET_PLAYER_HPP
 #define BULLET_PLAYER_HPP
 
-#include <bullet.hpp>
+#include "bullet.hpp"
 
 class BulletPlayer : public Bullet
 {

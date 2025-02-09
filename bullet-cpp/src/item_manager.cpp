@@ -1,10 +1,10 @@
-#include <item_manager.hpp>
+#include "item_manager.hpp"
 
 void ItemManager::_bind_methods()
 {
-    BIND_FUNCTION(spawn_item, ItemManager);
-    BIND_FUNCTION(is_offline, ItemManager);
-    BIND_FUNCTION(revive_player, ItemManager);
+    BIND_FUNCTION(spawn_item, ItemManager)
+    BIND_FUNCTION(is_offline, ItemManager)
+    BIND_FUNCTION(revive_player, ItemManager)
     ClassDB::bind_method(D_METHOD("get_nearest_player", "position"), &ItemManager::get_nearest_player);
 }
 

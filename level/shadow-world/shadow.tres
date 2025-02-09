@@ -1,0 +1,6 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://b270qye66ccmk"]
+
+[ext_resource type="Shader" path="res://entity/resource/bad-apple.gdshader" id="1_vdc4m"]
+
+[resource]
+shader = ExtResource("1_vdc4m")

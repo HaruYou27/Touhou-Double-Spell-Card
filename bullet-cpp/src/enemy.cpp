@@ -1,4 +1,4 @@
-#include <enemy.hpp>
+#include "enemy.hpp"
 
 SETTER_GETTER(explosion_path, NodePath, Enemy)
 SETTER_GETTER(visual_path, NodePath, Enemy)

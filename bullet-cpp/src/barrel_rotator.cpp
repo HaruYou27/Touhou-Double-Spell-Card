@@ -1,4 +1,4 @@
-#include <barrel_rotator.hpp>
+#include "barrel_rotator.hpp"
 
 SETTER_GETTER(speed, float, BarrelRotator)
 

@@ -7,7 +7,7 @@
 #include <godot_cpp/classes/time.hpp>
 #include <godot_cpp/classes/random_number_generator.hpp>
 
-#include <utility.hpp>
+#include "utility.hpp"
 
 class ScreenEffect : public ColorRect
 {

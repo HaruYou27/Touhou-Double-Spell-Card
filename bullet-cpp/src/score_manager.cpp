@@ -1,4 +1,4 @@
-#include <score_manager.hpp>
+#include "score_manager.hpp"
 
 GETTER(graze, int, ScoreManager)
 GETTER(score, int, ScoreManager)

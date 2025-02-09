@@ -4,9 +4,9 @@
 #include <godot_cpp/classes/area2d.hpp>
 #include <godot_cpp/classes/cpu_particles2d.hpp>
 
-#include <utility.hpp>
-#include <item_manager.hpp>
-#include <player.hpp>
+#include "utility.hpp"
+#include "item_manager.hpp"
+#include "player.hpp"
 
 class Enemy : public Area2D
 {
