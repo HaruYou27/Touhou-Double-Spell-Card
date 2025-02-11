@@ -27,6 +27,18 @@ void Seeker::_ready()
     seek_query->set_collision_mask(get_collision_layer());
 }
 
+void Seeker::reset_bullet()
+{
+    targets[count_bullet] = nullptr;
+    Bullet::reset_bullet();
+}
+
+void Seeker::sort_bullet(const int index)
+{
+    FILL_ARRAY_HOLE(targets);
+    Bullet::sort_bullet(index);
+}
+
 void Seeker::move_bullet(const int index)
 {
     Area2D* target = targets[index];

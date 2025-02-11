@@ -473,6 +473,7 @@ modulate = Color(1, 1, 1, 0)
 graphic_level = 2
 
 [node name="CystalDrop1" type="Node2D" parent="."]
+process_mode = 4
 visible = false
 position = Vector2(0, -43)
 
@@ -606,39 +607,30 @@ visible = false
 [node name="Fairy" type="Node2D" parent="BigHpFairy3"]
 
 [node name="TopLeft" parent="BigHpFairy3/Fairy" instance=ExtResource("12_u7k0g")]
-visible = false
 position = Vector2(651, 41)
 
 [node name="TopRight" parent="BigHpFairy3/Fairy" instance=ExtResource("12_u7k0g")]
-visible = false
 position = Vector2(-120, 28)
 
 [node name="BotLeft" parent="BigHpFairy3/Fairy" instance=ExtResource("12_u7k0g")]
-visible = false
 position = Vector2(-95, 26)
 
 [node name="BotRight" parent="BigHpFairy3/Fairy" instance=ExtResource("12_u7k0g")]
-visible = false
 position = Vector2(-98, -54)
 
 [node name="Middle" parent="BigHpFairy3/Fairy" instance=ExtResource("12_u7k0g")]
-visible = false
 position = Vector2(432, -49)
 
 [node name="MiddleLeft" parent="BigHpFairy3/Fairy" instance=ExtResource("12_u7k0g")]
-visible = false
 position = Vector2(539, -81)
 
 [node name="BotMiddle" parent="BigHpFairy3/Fairy" instance=ExtResource("12_u7k0g")]
-visible = false
 position = Vector2(228, -72)
 
 [node name="MiddleRight" parent="BigHpFairy3/Fairy" instance=ExtResource("12_u7k0g")]
-visible = false
 position = Vector2(-90, -13)
 
 [node name="TopMiddle" parent="BigHpFairy3/Fairy" instance=ExtResource("12_u7k0g")]
-visible = false
 position = Vector2(613, 405)
 
 [node name="BigFairyBullet" parent="BigHpFairy3" instance=ExtResource("16_xkvxf")]
@@ -792,6 +784,7 @@ gizmo_extents = 25.9
 script = ExtResource("26_e1gun")
 
 [node name="SpellCircle" type="Node2D" parent="."]
+process_mode = 4
 visible = false
 
 [node name="BulletCircle" parent="SpellCircle" instance=ExtResource("23_1ju68")]
@@ -801,7 +794,7 @@ visible = false
 [node name="Barrel1" type="BarrelRotator" parent="SpellCircle/barrel"]
 speed = 3.142
 position = Vector2(270, 300)
-rotation = 31.0009
+rotation = 1757.37
 
 [node name="@Marker2D@27672" type="Marker2D" parent="SpellCircle/barrel/Barrel1" groups=["Spellcard Circle"]]
 position = Vector2(142.004, 0)
@@ -829,7 +822,7 @@ gizmo_extents = 20.0
 
 [node name="Barrel2" type="BarrelRotator" parent="SpellCircle/barrel"]
 position = Vector2(270, 300)
-rotation = -30.9972
+rotation = -1757.31
 
 [node name="_Marker2D_27675" type="Marker2D" parent="SpellCircle/barrel/Barrel2" groups=["Spellcard Circle"]]
 position = Vector2(118.072, 78.8929)
@@ -856,6 +849,7 @@ wait_time = 0.1
 autostart = true
 
 [node name="SpellButterfly" type="Node2D" parent="."]
+process_mode = 4
 visible = false
 scale = Vector2(0.5, 0.5)
 
@@ -864,7 +858,7 @@ scale = Vector2(0.5, 0.5)
 [node name="CircleBarrel2" type="BarrelRotator" parent="SpellButterfly"]
 speed = -6.284
 position = Vector2(540, 600)
-rotation = -62.0018
+rotation = -3514.74
 scale = Vector2(4, 4)
 
 [node name="_Marker2D_76188" type="Marker2D" parent="SpellButterfly/CircleBarrel2" groups=["Spellcard Butterfly"]]
@@ -959,6 +953,7 @@ visible = false
 
 [node name="CircleBarrel" type="BarrelRotator" parent="SpellWaveParticle"]
 position = Vector2(270, 396)
+rotation = -485.816
 scale = Vector2(2, 2)
 script = ExtResource("33_bxfih")
 speed_final = -6.283
@@ -993,6 +988,7 @@ barrel_group = &"Ball Tracking"
 hitbox = ExtResource("29_y8e6g")
 texture = ExtResource("30_n5lhs")
 top_level = true
+z_index = 15
 material = ExtResource("27_vmhcq")
 
 [node name="reflection" type="Sprite2D" parent="."]

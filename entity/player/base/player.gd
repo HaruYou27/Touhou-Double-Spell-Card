@@ -15,6 +15,9 @@ func hit() -> void:
 	if GlobalItem:
 		tree.paused = true
 
+func _enter_tree() -> void:
+	set_sentivity(Global.user_data.sentivity)
+
 var can_bomb := true
 func _on_bomb() -> void:
 	if not (GlobalScore.use_bomb() and can_bomb):

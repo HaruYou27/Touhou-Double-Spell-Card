@@ -1226,6 +1226,7 @@ hitbox = ExtResource("23_sdsnq")
 texture = ExtResource("24_78ale")
 process_mode = 4
 top_level = true
+z_index = 15
 material = ExtResource("25_2u8wn")
 
 [node name="reflection" type="Sprite2D" parent="."]

@@ -17,6 +17,8 @@ protected:
     static void _bind_methods();
     virtual bool collision_check(const int index) override;
     virtual void move_bullet(const int index) override;
+    virtual void sort_bullet(const int index) override;
+    virtual void reset_bullet() override;
 public:
     Seeker();
     SET_GET(turn_speed, float)

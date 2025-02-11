@@ -6,6 +6,8 @@ void Player::_bind_methods()
 {
     ADD_SIGNAL(MethodInfo("bomb"));
     ADD_SIGNAL(MethodInfo("position_changed"));
+
+    BIND_SETGET(sentivity, Player)
 }
 
 void Player::_ready()

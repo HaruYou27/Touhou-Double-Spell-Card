@@ -54,6 +54,7 @@ texture = ExtResource("7_hytxk")
 
 [node name="BarrelRotator" type="BarrelRotator" parent="Player/ReimuSprite"]
 speed = 3.142
+rotation = 628.836
 
 [node name="YinyangOrb" parent="Player/ReimuSprite/BarrelRotator" groups=["Reimu Barrel"] instance=ExtResource("5_ryrqw")]
 texture_filter = 2
@@ -117,10 +118,6 @@ top_level = true
 z_index = 1
 material = ExtResource("7_w7two")
 
-[node name="Timer" type="Timer" parent="Seeker"]
-wait_time = 0.2
-autostart = true
-
 [node name="Bullet" type="BulletPlayer" parent="."]
 texture_vfx = ExtResource("9_syrfc")
 speed = 727.0
@@ -133,11 +130,11 @@ collision_layer = 2
 top_level = true
 material = ExtResource("7_w7two")
 
-[node name="Timer" type="Timer" parent="Bullet"]
-wait_time = 0.1
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.2
 autostart = true
 
 [connection signal="bomb" from="Player" to="." method="_on_player_bomb"]
 [connection signal="timeout" from="Player/BombTimer" to="Player" method="bomb_finished" binds= [false]]
-[connection signal="timeout" from="Seeker/Timer" to="Seeker" method="spawn_bullet"]
-[connection signal="timeout" from="Bullet/Timer" to="Bullet" method="spawn_bullet"]
+[connection signal="timeout" from="Timer" to="Seeker" method="spawn_bullet"]
+[connection signal="timeout" from="Timer" to="Bullet" method="spawn_bullet"]
