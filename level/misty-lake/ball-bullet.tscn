@@ -1,0 +1,15 @@
+[gd_scene load_steps=4 format=3 uid="uid://je3vr6p45egj"]
+
+[ext_resource type="Shape2D" uid="uid://bflxt0dqc7na4" path="res://entity/bullet/ball-hitbox.tres" id="1_eojk2"]
+[ext_resource type="Texture2D" uid="uid://db6gp4ldpr8i2" path="res://entity/bullet/ball64.tres" id="2_5ckep"]
+[ext_resource type="Material" uid="uid://yrt7o0rc1slt" path="res://level/misty-lake/resource/bullet.tres" id="3_fx6yn"]
+
+[node name="Ball" type="Bullet"]
+speed = 172.0
+barrel_group = &"Ball Tracking"
+hitbox = ExtResource("1_eojk2")
+texture = ExtResource("2_5ckep")
+process_mode = 4
+top_level = true
+z_index = 15
+material = ExtResource("3_fx6yn")

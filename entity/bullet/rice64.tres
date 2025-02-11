@@ -1,0 +1,9 @@
+[gd_resource type="GradientTexture2D" load_steps=2 format=3 uid="uid://5m87dx48aidp"]
+
+[ext_resource type="Gradient" uid="uid://bokigooq6vr7j" path="res://entity/bullet/ball-gradient.tres" id="1_gsbrs"]
+
+[resource]
+gradient = ExtResource("1_gsbrs")
+width = 32
+fill = 1
+fill_from = Vector2(0.5, 0.5)

@@ -3,7 +3,7 @@
 [ext_resource type="Shader" path="res://entity/player/marisa/resource/master_spark.gdshader" id="1_ustug"]
 [ext_resource type="Material" uid="uid://dox27ncd2r5o3" path="res://entity/resource/glow.tres" id="2_otnkd"]
 [ext_resource type="Texture2D" uid="uid://d2wacgirqsjjn" path="res://entity/resource/white-trans.tres" id="3_mme7v"]
-[ext_resource type="Texture2D" uid="uid://dxsf3vpqsosf1" path="res://entity/resource/fire_particle.png" id="4_50ymf"]
+[ext_resource type="Texture2D" uid="uid://cwqf8tiuf70qd" path="res://entity/player/base/sparkle.tres" id="4_s6trx"]
 [ext_resource type="Script" path="res://entity/utility/graphic/Particles2D.gd" id="5_0cx3m"]
 
 [sub_resource type="Gradient" id="Gradient_nn53k"]
@@ -39,8 +39,6 @@ particle_flag_disable_z = true
 emission_shape = 3
 emission_box_extents = Vector3(40, -480, 0)
 gravity = Vector3(0, 200, 0)
-scale_min = 0.1
-scale_max = 0.2
 color = Color(0.254902, 0.419608, 0.94902, 1)
 color_ramp = ExtResource("3_mme7v")
 hue_variation_max = 0.13
@@ -67,7 +65,7 @@ position = Vector2(0, -422)
 scale = Vector2(1, 1.2)
 amount = 512
 process_material = SubResource("ParticleProcessMaterial_e6tjc")
-texture = ExtResource("4_50ymf")
+texture = ExtResource("4_s6trx")
 lifetime = 2.0
 fixed_fps = 60
 interpolate = false

@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://btdmutmmovbcx"]
+[gd_scene load_steps=36 format=3 uid="uid://btdmutmmovbcx"]
 
 [ext_resource type="Material" uid="uid://bfp322op0h8h4" path="res://level/misty-lake/resource/water-shader.tres" id="1_uyie7"]
 [ext_resource type="Texture2D" uid="uid://bgh4r80tk5o7v" path="res://level/misty-lake/resource/water-noise.tres" id="2_q3kyb"]
@@ -20,10 +20,8 @@
 [ext_resource type="PackedScene" uid="uid://ighcu2h88vhh" path="res://level/misty-lake/bullet_circle.tscn" id="18_qsrog"]
 [ext_resource type="PackedScene" uid="uid://c5a7s56lfc5fl" path="res://level/misty-lake/bullet_butterfly.tscn" id="20_cwlyi"]
 [ext_resource type="PackedScene" uid="uid://beleukbiw05us" path="res://level/misty-lake/bullet_wave_particle.tscn" id="21_lot2p"]
+[ext_resource type="PackedScene" uid="uid://je3vr6p45egj" path="res://level/misty-lake/ball-bullet.tscn" id="22_0f38g"]
 [ext_resource type="Script" path="res://entity/utility/RotatorAccelerator.gd" id="22_olt7o"]
-[ext_resource type="Shape2D" uid="uid://bflxt0dqc7na4" path="res://entity/bullet/ball-hitbox.tres" id="23_sdsnq"]
-[ext_resource type="Texture2D" uid="uid://dilcwhuq6brnv" path="res://entity/bullet/ball.png" id="24_78ale"]
-[ext_resource type="Material" uid="uid://yrt7o0rc1slt" path="res://level/misty-lake/resource/bullet.tres" id="25_2u8wn"]
 [ext_resource type="Shader" path="res://level/misty-lake/resource/reflection.gdshader" id="26_7xvjr"]
 [ext_resource type="PackedScene" uid="uid://uiwkegjhrq51" path="res://level/misty-lake/resource/fog_overlay.tscn" id="27_nq1sc"]
 [ext_resource type="PackedScene" uid="uid://bfvb372sca8m2" path="res://user-interface/leveler/leveler.tscn" id="28_qda3s"]
@@ -1219,15 +1217,7 @@ process_callback = 0
 wait_time = 0.05
 autostart = true
 
-[node name="Ball" type="Bullet" parent="."]
-speed = 172.0
-barrel_group = &"Ball Tracking"
-hitbox = ExtResource("23_sdsnq")
-texture = ExtResource("24_78ale")
-process_mode = 4
-top_level = true
-z_index = 15
-material = ExtResource("25_2u8wn")
+[node name="Ball" parent="." instance=ExtResource("22_0f38g")]
 
 [node name="reflection" type="Sprite2D" parent="."]
 z_index = 2000

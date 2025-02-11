@@ -1,7 +1,6 @@
-[gd_scene load_steps=20 format=3 uid="uid://of6l83moa38k"]
+[gd_scene load_steps=21 format=3 uid="uid://of6l83moa38k"]
 
 [ext_resource type="PackedScene" uid="uid://c34lwlqwsc4ve" path="res://entity/player/base/player.tscn" id="1_vjhba"]
-[ext_resource type="Texture2D" uid="uid://c7k6r1xgk2xii" path="res://entity/player/marisa/resource/marisa-hitbox.png" id="2_h730r"]
 [ext_resource type="PackedScene" uid="uid://cex3540cp47lm" path="res://entity/player/base/graze.tscn" id="2_jex7f"]
 [ext_resource type="PackedScene" uid="uid://ecqcoejg1lj8" path="res://entity/player/marisa/beam.tscn" id="4_0mlkd"]
 [ext_resource type="Material" uid="uid://dox27ncd2r5o3" path="res://entity/resource/glow.tres" id="5_0ffch"]
@@ -195,6 +194,18 @@ _data = {
 "RESET": SubResource("Animation_65s67")
 }
 
+[sub_resource type="Gradient" id="Gradient_hsv0v"]
+interpolation_mode = 2
+offsets = PackedFloat32Array(0.280488, 0.506098, 0.573171)
+colors = PackedColorArray(1, 1, 1, 1, 0.82, 0.1558, 0.1558, 1, 0.82, 0.1558, 0.1558, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_fsvlp"]
+gradient = SubResource("Gradient_hsv0v")
+width = 24
+height = 24
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_ttfkj"]
 radius = 6.0
 
@@ -271,7 +282,7 @@ libraries = {
 [node name="Hitbox" type="Sprite2D" parent="Player/marisa"]
 show_behind_parent = true
 z_index = 11
-texture = ExtResource("2_h730r")
+texture = SubResource("GradientTexture2D_fsvlp")
 
 [node name="Hitbox" type="CollisionShape2D" parent="Player"]
 z_index = 22

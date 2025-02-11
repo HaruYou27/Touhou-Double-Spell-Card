@@ -61,10 +61,10 @@ void Bullet::spawn_bullet()
     for (int index = 0; index < count_barrel; index++)
     {
         CHECK_CAPACITY
-        reset_bullet();
         float angle = barrel_rotations[index];
         transforms[count_bullet] = Transform2D(angle + PI_2, get_scale(), 0, barrel_positions[index]);
-        velocities[count_bullet++] = Vector2(speed, 0).rotated(angle);
+        velocities[count_bullet] = Vector2(speed, 0).rotated(angle);
+        reset_bullet();
     }
 }
 

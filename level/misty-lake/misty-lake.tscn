@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://820qlg5cbdi"]
+[gd_scene load_steps=36 format=3 uid="uid://820qlg5cbdi"]
 
 [ext_resource type="Material" uid="uid://bfp322op0h8h4" path="res://level/misty-lake/resource/water-shader.tres" id="1_fq2jh"]
 [ext_resource type="Texture2D" uid="uid://bgh4r80tk5o7v" path="res://level/misty-lake/resource/water-noise.tres" id="3_hbemg"]
@@ -17,12 +17,10 @@
 [ext_resource type="PackedScene" uid="uid://bc4tw8t6g734m" path="res://level/misty-lake/hard/fairy-unarmed.tscn" id="23_egpvx"]
 [ext_resource type="PackedScene" uid="uid://c7lcs65yc2vea" path="res://level/misty-lake/hard/phantom.tscn" id="24_uth2c"]
 [ext_resource type="PackedScene" uid="uid://bncu813gm4hx8" path="res://entity/boss/yukari/yukari.tscn" id="25_0chj7"]
+[ext_resource type="PackedScene" uid="uid://je3vr6p45egj" path="res://level/misty-lake/ball-bullet.tscn" id="26_5w3ld"]
 [ext_resource type="PackedScene" uid="uid://c5a7s56lfc5fl" path="res://level/misty-lake/bullet_butterfly.tscn" id="26_c7ekx"]
 [ext_resource type="Script" path="res://entity/utility/TargetLocker.gd" id="26_e1gun"]
 [ext_resource type="PackedScene" uid="uid://beleukbiw05us" path="res://level/misty-lake/bullet_wave_particle.tscn" id="27_av3l4"]
-[ext_resource type="Material" uid="uid://yrt7o0rc1slt" path="res://level/misty-lake/resource/bullet.tres" id="27_vmhcq"]
-[ext_resource type="Shape2D" uid="uid://bflxt0dqc7na4" path="res://entity/bullet/ball-hitbox.tres" id="29_y8e6g"]
-[ext_resource type="Texture2D" uid="uid://dilcwhuq6brnv" path="res://entity/bullet/ball.png" id="30_n5lhs"]
 [ext_resource type="AnimationLibrary" uid="uid://co0x1lfyxmlfe" path="res://level/misty-lake/resource/misty-lake-anim.tres" id="31_3u5ao"]
 [ext_resource type="Script" path="res://entity/utility/RotatorAccelerator.gd" id="33_bxfih"]
 [ext_resource type="Shader" path="res://level/misty-lake/resource/reflection.gdshader" id="35_eor82"]
@@ -607,30 +605,48 @@ visible = false
 [node name="Fairy" type="Node2D" parent="BigHpFairy3"]
 
 [node name="TopLeft" parent="BigHpFairy3/Fairy" instance=ExtResource("12_u7k0g")]
+process_mode = 4
+visible = false
 position = Vector2(651, 41)
 
 [node name="TopRight" parent="BigHpFairy3/Fairy" instance=ExtResource("12_u7k0g")]
+process_mode = 4
+visible = false
 position = Vector2(-120, 28)
 
 [node name="BotLeft" parent="BigHpFairy3/Fairy" instance=ExtResource("12_u7k0g")]
+process_mode = 4
+visible = false
 position = Vector2(-95, 26)
 
 [node name="BotRight" parent="BigHpFairy3/Fairy" instance=ExtResource("12_u7k0g")]
+process_mode = 4
+visible = false
 position = Vector2(-98, -54)
 
 [node name="Middle" parent="BigHpFairy3/Fairy" instance=ExtResource("12_u7k0g")]
+process_mode = 4
+visible = false
 position = Vector2(432, -49)
 
 [node name="MiddleLeft" parent="BigHpFairy3/Fairy" instance=ExtResource("12_u7k0g")]
+process_mode = 4
+visible = false
 position = Vector2(539, -81)
 
 [node name="BotMiddle" parent="BigHpFairy3/Fairy" instance=ExtResource("12_u7k0g")]
+process_mode = 4
+visible = false
 position = Vector2(228, -72)
 
 [node name="MiddleRight" parent="BigHpFairy3/Fairy" instance=ExtResource("12_u7k0g")]
+process_mode = 4
+visible = false
 position = Vector2(-90, -13)
 
 [node name="TopMiddle" parent="BigHpFairy3/Fairy" instance=ExtResource("12_u7k0g")]
+process_mode = 4
+visible = false
 position = Vector2(613, 405)
 
 [node name="BigFairyBullet" parent="BigHpFairy3" instance=ExtResource("16_xkvxf")]
@@ -794,7 +810,6 @@ visible = false
 [node name="Barrel1" type="BarrelRotator" parent="SpellCircle/barrel"]
 speed = 3.142
 position = Vector2(270, 300)
-rotation = 1757.37
 
 [node name="@Marker2D@27672" type="Marker2D" parent="SpellCircle/barrel/Barrel1" groups=["Spellcard Circle"]]
 position = Vector2(142.004, 0)
@@ -822,7 +837,6 @@ gizmo_extents = 20.0
 
 [node name="Barrel2" type="BarrelRotator" parent="SpellCircle/barrel"]
 position = Vector2(270, 300)
-rotation = -1757.31
 
 [node name="_Marker2D_27675" type="Marker2D" parent="SpellCircle/barrel/Barrel2" groups=["Spellcard Circle"]]
 position = Vector2(118.072, 78.8929)
@@ -858,7 +872,6 @@ scale = Vector2(0.5, 0.5)
 [node name="CircleBarrel2" type="BarrelRotator" parent="SpellButterfly"]
 speed = -6.284
 position = Vector2(540, 600)
-rotation = -3514.74
 scale = Vector2(4, 4)
 
 [node name="_Marker2D_76188" type="Marker2D" parent="SpellButterfly/CircleBarrel2" groups=["Spellcard Butterfly"]]
@@ -945,6 +958,9 @@ gizmo_extents = 40.0
 wait_time = 0.15
 autostart = true
 
+[node name="Ball" parent="." instance=ExtResource("26_5w3ld")]
+speed = 72.0
+
 [node name="SpellWaveParticle" type="Node2D" parent="."]
 process_mode = 4
 visible = false
@@ -953,7 +969,6 @@ visible = false
 
 [node name="CircleBarrel" type="BarrelRotator" parent="SpellWaveParticle"]
 position = Vector2(270, 396)
-rotation = -485.816
 scale = Vector2(2, 2)
 script = ExtResource("33_bxfih")
 speed_final = -6.283
@@ -981,15 +996,6 @@ gizmo_extents = 20.0
 [node name="TimerPrecise" type="Timer" parent="SpellWaveParticle"]
 wait_time = 0.06
 autostart = true
-
-[node name="Ball" type="Bullet" parent="."]
-speed = 72.0
-barrel_group = &"Ball Tracking"
-hitbox = ExtResource("29_y8e6g")
-texture = ExtResource("30_n5lhs")
-top_level = true
-z_index = 15
-material = ExtResource("27_vmhcq")
 
 [node name="reflection" type="Sprite2D" parent="."]
 z_index = 2000
