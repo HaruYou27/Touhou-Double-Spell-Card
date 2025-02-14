@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" path="res://entity/player/reimu/reimu.gd" id="1_u2niu"]
 [ext_resource type="PackedScene" uid="uid://ffnff8ahyxxn" path="res://entity/player/reimu/reimu-sprite.tscn" id="2_1gpls"]
+[ext_resource type="PackedScene" uid="uid://btrsc7usm17wx" path="res://entity/player/reimu/orb-barrel.tscn" id="4_03n0g"]
 [ext_resource type="PackedScene" uid="uid://c34lwlqwsc4ve" path="res://entity/player/base/player.tscn" id="4_ftqh1"]
-[ext_resource type="PackedScene" uid="uid://bsa0xvb26o22u" path="res://entity/player/reimu/yinyang-orb.tscn" id="5_ryrqw"]
 [ext_resource type="PackedScene" uid="uid://cex3540cp47lm" path="res://entity/player/base/graze.tscn" id="5_sq1so"]
 [ext_resource type="Material" uid="uid://c5frc6pfgn8xs" path="res://singleton/item-manager/bullet-monochrome.material" id="7_w7two"]
 [ext_resource type="Shape2D" uid="uid://8v0qid6h0jl5" path="res://entity/player/reimu/resource/ofuda.tres" id="8_a450e"]
@@ -62,19 +62,8 @@ z_index = 11
 position = Vector2(0, -8)
 texture = SubResource("GradientTexture2D_g0bid")
 
-[node name="BarrelRotator" type="BarrelRotator" parent="Player/ReimuSprite"]
-speed = 3.142
-rotation = 542.114
-
-[node name="YinyangOrb" parent="Player/ReimuSprite/BarrelRotator" groups=["Reimu Barrel"] instance=ExtResource("5_ryrqw")]
-texture_filter = 2
-position = Vector2(-100, -15)
-flip_v = true
-
-[node name="YinyangOrb2" parent="Player/ReimuSprite/BarrelRotator" groups=["Reimu Barrel"] instance=ExtResource("5_ryrqw")]
-texture_filter = 2
-position = Vector2(100, 15)
-flip_h = false
+[node name="BarrelRotator" parent="Player/ReimuSprite" instance=ExtResource("4_03n0g")]
+rotation = 3.19437
 
 [node name="Hitbox" type="CollisionShape2D" parent="Player"]
 z_index = 100

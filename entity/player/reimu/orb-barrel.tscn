@@ -1,0 +1,17 @@
+[gd_scene load_steps=2 format=3 uid="uid://btrsc7usm17wx"]
+
+[ext_resource type="PackedScene" uid="uid://bsa0xvb26o22u" path="res://entity/player/reimu/yinyang-orb.tscn" id="1_c7bt1"]
+
+[node name="BarrelRotator" type="BarrelRotator"]
+speed = 3.142
+rotation = 91.8003
+
+[node name="YinyangOrb" parent="." groups=["Reimu Barrel"] instance=ExtResource("1_c7bt1")]
+texture_filter = 2
+position = Vector2(-100, -15)
+flip_v = true
+
+[node name="YinyangOrb2" parent="." groups=["Reimu Barrel"] instance=ExtResource("1_c7bt1")]
+texture_filter = 2
+position = Vector2(100, 15)
+flip_h = false

@@ -13,9 +13,9 @@
 [ext_resource type="PackedScene" uid="uid://bmsj0mdtehnxx" path="res://user-interface/local-score.tscn" id="6_46wtg"]
 [ext_resource type="Script" path="res://user-interface/resource/custom-node/PercentageSlider.gd" id="8_b5jhj"]
 [ext_resource type="Texture2D" uid="uid://cu2ufhkx3vayf" path="res://entity/player/reimu/resource/ofuda.png" id="9_f05ce"]
+[ext_resource type="PackedScene" uid="uid://btrsc7usm17wx" path="res://entity/player/reimu/orb-barrel.tscn" id="10_bh3vs"]
 [ext_resource type="PackedScene" uid="uid://ffnff8ahyxxn" path="res://entity/player/reimu/reimu-sprite.tscn" id="10_dtu3c"]
 [ext_resource type="Shape2D" uid="uid://8v0qid6h0jl5" path="res://entity/player/reimu/resource/ofuda.tres" id="11_poxet"]
-[ext_resource type="PackedScene" uid="uid://bsa0xvb26o22u" path="res://entity/player/reimu/yinyang-orb.tscn" id="11_uxxtn"]
 [ext_resource type="Material" uid="uid://c5frc6pfgn8xs" path="res://singleton/item-manager/bullet-monochrome.material" id="11_wt44o"]
 [ext_resource type="PackedScene" uid="uid://cw6ldgxnk6nf3" path="res://entity/player/marisa/marisa-sprite.tscn" id="12_3ecnw"]
 [ext_resource type="Script" path="res://user-interface/menu/character/character.gd" id="13_rskvb"]
@@ -300,17 +300,6 @@ autostart = true
 
 [node name="barrel" type="Node2D" parent="TabContainer/play/Character/Preview/Reimu/ReimuSprite"]
 
-[node name="YinyangOrb" parent="TabContainer/play/Character/Preview/Reimu/ReimuSprite/barrel" groups=["Reimu Barrel"] instance=ExtResource("11_uxxtn")]
-position = Vector2(72, 0)
-rotation = -1.48353
-flip_v = true
-
-[node name="YinyangOrb2" parent="TabContainer/play/Character/Preview/Reimu/ReimuSprite/barrel" groups=["Reimu Barrel"] instance=ExtResource("11_uxxtn")]
-texture_filter = 1
-position = Vector2(-72, 0)
-rotation = -1.65806
-flip_h = false
-
 [node name="Marker2D" type="Marker2D" parent="TabContainer/play/Character/Preview/Reimu/ReimuSprite/barrel" groups=["Reimu Barrel"]]
 position = Vector2(13.0002, -39.9999)
 rotation = -1.5708
@@ -320,6 +309,9 @@ gizmo_extents = 51.7
 position = Vector2(-13, -40)
 rotation = -1.5708
 gizmo_extents = 82.9
+
+[node name="BarrelRotator" parent="TabContainer/play/Character/Preview/Reimu/ReimuSprite/barrel" instance=ExtResource("10_bh3vs")]
+rotation = 56.5134
 
 [node name="bullet" type="Bullet" parent="TabContainer/play/Character/Preview/Reimu/ReimuSprite" groups=["Bullet Manager"]]
 speed = 572.0
@@ -343,7 +335,6 @@ position = Vector2(270, 741)
 
 [node name="Beam" parent="TabContainer/play/Character/Preview/Marisa/marisa" instance=ExtResource("14_7sa2c")]
 show_behind_parent = true
-position = Vector2(0, -58)
 
 [node name="title" type="OptionButton" parent="TabContainer/play/Character"]
 layout_mode = 2
