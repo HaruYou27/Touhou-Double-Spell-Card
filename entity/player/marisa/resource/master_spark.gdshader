@@ -1,5 +1,5 @@
 shader_type canvas_item;
-render_mode blend_add;
+render_mode blend_sub;
 
 uniform sampler2D color_map;
 uniform float speed_color = 1.0;

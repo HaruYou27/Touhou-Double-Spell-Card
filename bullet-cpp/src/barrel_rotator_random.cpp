@@ -10,11 +10,16 @@ void BarrelRotatorRandom::_bind_methods()
 
     ADD_PROPERTY_FLOAT(angle_min)
     ADD_PROPERTY_FLOAT(angle_max)
-
-    BIND_FUNCTION(transform_barrel, BarrelRotatorRandom)
 }
 
-void BarrelRotatorRandom::transform_barrel()
+void BarrelRotatorRandom::_ready()
 {
-    set_rotation(angle_min + Math::absf(sin(get_global_position().length())) * (angle_max - angle_min));
+    BarrelRotator::_ready();
+    CHECK_EDITOR
+    angle = angle_max - angle_min;
+}
+
+void BarrelRotatorRandom::_physics_process(double delta)
+{
+    set_rotation(angle_min + Math::absf(sin(get_global_position().length_squared())) * angle);
 }

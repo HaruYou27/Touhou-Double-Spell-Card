@@ -1,15 +1,26 @@
-[gd_scene load_steps=4 format=3 uid="uid://cggnsrkbgml74"]
+[gd_scene load_steps=7 format=3 uid="uid://cggnsrkbgml74"]
 
 [ext_resource type="Shape2D" uid="uid://c0mwekxtkw5pj" path="res://entity/bullet/star-hitbox.tres" id="1_2sdhb"]
 [ext_resource type="Texture2D" uid="uid://bm3e0n33ykp6h" path="res://entity/bullet/star.png" id="2_ru3x7"]
-[ext_resource type="Material" uid="uid://yrt7o0rc1slt" path="res://level/misty-lake/resource/bullet.tres" id="3_ldn65"]
+[ext_resource type="Shader" path="res://entity/bullet/Bullet.gdshader" id="3_es6xo"]
 
-[node name="BigFairyBullet" type="Bullet"]
+[sub_resource type="Gradient" id="Gradient_lxr2a"]
+interpolation_mode = 2
+interpolation_color_space = 2
+colors = PackedColorArray(0.305882, 0.00784314, 0.313726, 1, 0.51, 0.2074, 0.0561, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_y7ioh"]
+gradient = SubResource("Gradient_lxr2a")
+width = 64
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_am7mn"]
+shader = ExtResource("3_es6xo")
+shader_parameter/color_map = SubResource("GradientTexture1D_y7ioh")
+
+[node name="BigFairyBullet" type="Spinner"]
 speed = 172.0
 barrel_group = &"Big Fairy Barrel"
 hitbox = ExtResource("1_2sdhb")
 texture = ExtResource("2_ru3x7")
 top_level = true
-z_index = 100
-material = ExtResource("3_ldn65")
-scale = Vector2(0.5, 0.5)
+material = SubResource("ShaderMaterial_am7mn")

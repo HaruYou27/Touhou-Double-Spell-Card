@@ -1,7 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://cmphgsoxqsrqh"]
+[gd_scene load_steps=4 format=3 uid="uid://cmphgsoxqsrqh"]
 
 [ext_resource type="PackedScene" uid="uid://dtlscerig62nv" path="res://entity/enemy/base/enemy.tscn" id="1_r57kt"]
-[ext_resource type="Script" path="res://entity/utility/TargetLocker.gd" id="3_888hk"]
 [ext_resource type="Texture2D" uid="uid://cqt1oe248vvwn" path="res://entity/enemy/fairy/Fairy.2.png" id="3_x7wcv"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_1j2c8"]
@@ -20,8 +19,20 @@ shape = SubResource("CircleShape2D_1j2c8")
 [node name="visual" type="Sprite2D" parent="Enemy"]
 texture = ExtResource("3_x7wcv")
 
-[node name="barrel" type="Marker2D" parent="Enemy/visual" groups=["Big Fairy Tracker"]]
-position = Vector2(0, 27)
-rotation = 1.5708
+[node name="barrel2" type="AimBot" parent="Enemy/visual" groups=["Big Fairy Tracker"]]
+gizmo_extents = 163.8
+
+[node name="_Marker2D_28733" type="Marker2D" parent="Enemy/visual/barrel2" groups=["Big Fairy Barrel"]]
+position = Vector2(19.3441, -3.84779)
+rotation = -0.19635
 gizmo_extents = 20.0
-script = ExtResource("3_888hk")
+
+[node name="_Marker2D_28734" type="Marker2D" parent="Enemy/visual/barrel2" groups=["Big Fairy Barrel"]]
+position = Vector2(19.7231, -2.86102e-06)
+gizmo_extents = 20.0
+
+[node name="_Marker2D_28735" type="Marker2D" parent="Enemy/visual/barrel2" groups=["Big Fairy Barrel"]]
+position = Vector2(19.3441, 3.84778)
+rotation = 0.196349
+scale = Vector2(1, 1)
+gizmo_extents = 20.0

@@ -12,7 +12,7 @@ class Player : public StaticBody2D
 GDCLASS(Player, StaticBody2D)
 
 private:
-    float sentivity = 1.2;
+    float sentivity = 1;
     ItemManager *item_manager;
 protected:
     static void _bind_methods();

@@ -26,6 +26,7 @@
 #include "screen_effect.hpp"
 #include "graze_body.hpp"
 #include "barrel_rotator.hpp"
+#include "aim_bot.hpp"
 
 void initialize_gdextension_types(ModuleInitializationLevel p_level)
 {
@@ -45,8 +46,9 @@ void initialize_gdextension_types(ModuleInitializationLevel p_level)
 	GDREGISTER_CLASS(MasterSpark);
 	GDREGISTER_CLASS(BulletPlayer);
 	GDREGISTER_CLASS(Seeker);
-	GDREGISTER_CLASS(BarrelRotatorRandom);
 	GDREGISTER_CLASS(BarrelRotator);
+	GDREGISTER_CLASS(BarrelRotatorRandom);
+	GDREGISTER_CLASS(AimBot);
 	GDREGISTER_CLASS(ScoreManager);
 	GDREGISTER_CLASS(AcceleratorSine);
 	GDREGISTER_CLASS(Accelerator);

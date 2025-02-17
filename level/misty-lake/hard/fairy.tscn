@@ -24,8 +24,7 @@ shape = SubResource("CircleShape2D_noovt")
 [node name="visual" type="Sprite2D" parent="Enemy"]
 texture = ExtResource("3_anm3e")
 
-[node name="Marker2D" type="BarrelRotatorRandom" parent="Enemy/visual" groups=["Cystal Drop Barrel"]]
-angle_min = 0.785
-angle_max = 2.355
+[node name="Marker2D" type="Marker2D" parent="Enemy/visual" groups=["Cystal Drop Barrel"]]
 position = Vector2(0, 23)
 rotation = 1.5708
+gizmo_extents = 72.5

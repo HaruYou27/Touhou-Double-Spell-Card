@@ -20,6 +20,10 @@ bool ItemManager::is_offline()
 void ItemManager::revive_player()
 {
     // Dirty fix.
+    if (player1 == nullptr)
+    {
+        return;
+    }
     player1->call("revive");
 }
 
@@ -30,8 +34,8 @@ Vector2 ItemManager::get_nearest_player(const Vector2 position)
     {
         return direction1;
     }
+    
     Vector2 direction2 = player2_position - position;
-
     return (direction2.length_squared() < direction1.length_squared()) ? direction2 : direction1;
 }
 
@@ -48,6 +52,7 @@ void ItemManager::create_item(const Vector2 position, const float random)
     float rotation = Math_TAU * random;
     velocities[count_bullet] = Vector2(get_speed() * random, 0).rotated(rotation);
     transforms[count_bullet] = Transform2D(rotation, position);
+    
     reset_bullet();
 }
 

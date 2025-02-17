@@ -87,7 +87,7 @@ script = ExtResource("10_4xdio")
 
 [node name="fps" type="Label" parent="hud/VBoxContainer/HBoxContainer"]
 layout_mode = 2
-text = "%d"
+text = "FPS:%d"
 script = ExtResource("11_dfhqj")
 
 [node name="Timer" type="Timer" parent="hud/VBoxContainer/HBoxContainer"]

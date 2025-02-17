@@ -12,4 +12,3 @@ texture = ExtResource("2_qke8r")
 top_level = true
 z_index = 100
 material = ExtResource("3_hwl7e")
-scale = Vector2(0.5, 0.5)

@@ -6,10 +6,6 @@ class_name Path2DSpawner
 func _ready() -> void:
 	for follower in available:
 		follower.enemy.died.connect(_reclaim_follower.bind(follower))
-	
-	if barrel_group.is_empty():
-		return
-	barrels = tree.get_nodes_in_group(barrel_group)
 
 func _reclaim_follower(follower:Node) -> void:
 	available.append(follower)
@@ -29,10 +25,3 @@ func spawn_enemy() -> void:
 	
 	if mirror:
 		tick = not tick
-
-@export var barrel_group : StringName
-var barrels := []
-func _transform_barrel() -> void:
-	for barrel in barrels:
-		if barrel.is_visible_in_tree():
-			barrel.transform_barrel.call_deferred()

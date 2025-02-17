@@ -34,6 +34,7 @@ SETTER_GETTER(collision_layer, int, Bullet)
 void Bullet::_ready()
 {
     set_as_top_level(true);
+    set_scale(Vector2(1, 1));
     CHECK_EDITOR
     canvas_item = get_canvas_item();
     space = get_world_2d()->get_direct_space_state();
@@ -62,7 +63,7 @@ void Bullet::spawn_bullet()
     {
         CHECK_CAPACITY
         float angle = barrel_rotations[index];
-        transforms[count_bullet] = Transform2D(angle + PI_2, get_scale(), 0, barrel_positions[index]);
+        transforms[count_bullet] = Transform2D(angle + PI_2, Vector2(1, 1), 0, barrel_positions[index]);
         velocities[count_bullet] = Vector2(speed, 0).rotated(angle);
         reset_bullet();
     }
@@ -106,7 +107,7 @@ void Bullet::clear()
 void Bullet::draw_bullet(const int index)
 {
     Transform2D& transform = transforms[index];
-    texture->draw(canvas_item, transform.get_origin().rotated(-transform.get_rotation()) / transform.get_scale(), Color(transform.get_rotation(), 1, 1));
+    texture->draw(canvas_item, transform.get_origin().rotated(-transform.get_rotation()), Color(transform.get_rotation(), 1, 1));
 }
 
 void Bullet::move_bullet(const int index)
@@ -152,7 +153,7 @@ void Bullet::cache_barrel()
     count_barrel = 0;
     for (int index = 0; index < count_node;index++)
     {
-        Node2D* node = barrels[index];
+        Node2D *node = barrels[index];
         if (node->is_visible_in_tree())
         {
             barrel_rotations[count_barrel] = (local_rotation) ? node->get_rotation() : node->get_global_rotation();
@@ -171,14 +172,12 @@ void Bullet::collision_wall()
     thread_barrel->set_thread_safety_checks_enabled(false);
     cache_barrel();
     int index_stop = (tick) ? index_half : count_bullet;
-    int index = (tick) ? 0 : index_half;
-    while (index < index_stop)
+    for (int index = (tick) ? 0 : index_half; index < index_stop; index++)
     {
         if (!world_border.has_point(transforms[index].get_origin()))
         {
             collide_wall(index);
         }
-        ++index;
     }
 }
 
@@ -213,15 +212,14 @@ void Bullet::_physics_process(const double delta)
     delta32 = delta;
     index_half = roundl(count_bullet / 2);
     int index_stop = (tick) ? count_bullet : index_half;
-    int index = (tick) ? index_half : 0;
+    
     thread_barrel->start(action_expire);
-    while (index < index_stop)
+    for (int index = (tick) ? index_half : 0; index < index_stop; index++)
     {
         if (collision_check(index))
         {
             indexes_delete[count_collided++] = index;
         }
-        ++index;
     }
 
     thread_bullet->wait_to_finish();
@@ -237,6 +235,7 @@ void Bullet::_physics_process(const double delta)
         sort_bullet(i);
     }
     count_collided = 0;
+
     for (int idx = 0; idx < count_expire; idx++)
     {
         int i = indexes_delete_border[idx];

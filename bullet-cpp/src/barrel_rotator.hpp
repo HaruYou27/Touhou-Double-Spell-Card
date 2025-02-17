@@ -1,13 +1,13 @@
 #ifndef BARREL_ROTATOR_HPP
 #define BARREL_ROTATOR_HPP
 
-#include <godot_cpp/classes/node2d.hpp>
+#include <godot_cpp/classes/marker2d.hpp>
 
 #include "utility.hpp"
 
-class BarrelRotator : public Node2D
+class BarrelRotator : public Marker2D
 {
-GDCLASS(BarrelRotator, Node2D)
+GDCLASS(BarrelRotator, Marker2D)
 
 private:
     float speed = -Math_PI;

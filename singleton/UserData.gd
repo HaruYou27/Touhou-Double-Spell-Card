@@ -22,7 +22,7 @@ enum GRAPHIC_LEVEL
 @export var screen_shake_intensity := 2.0
 
 @export_category("Controls")
-@export var sentivity := 1.2
+@export var sentivity := 1.0
 @export var raw_input := true : set = _set_raw_input
 func _set_raw_input(value:bool) -> void:
 	Input.use_accumulated_input = value

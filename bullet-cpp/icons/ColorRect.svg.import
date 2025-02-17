@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c533qvnby8mq1"
-path="res://.godot/imported/tracker.svg-549b58eb1a8b3a8ac491f51b43da1bf1.ctex"
+uid="uid://b0ju5t7q7sx8v"
+path="res://.godot/imported/ColorRect.svg-c621bd9548b18aca8a302e7e1f385b64.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://bullet-cpp/icons/tracker.svg"
-dest_files=["res://.godot/imported/tracker.svg-549b58eb1a8b3a8ac491f51b43da1bf1.ctex"]
+source_file="res://bullet-cpp/icons/ColorRect.svg"
+dest_files=["res://.godot/imported/ColorRect.svg-c621bd9548b18aca8a302e7e1f385b64.ctex"]
 
 [params]
 

@@ -1,4 +1,5 @@
 shader_type canvas_item;
+render_mode blend_mix;
 #pragma disable_preprocessor
 
 uniform float brightness : hint_range(0.001, 2.0) = 1.0;

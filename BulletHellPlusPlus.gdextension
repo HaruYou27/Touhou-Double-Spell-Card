@@ -6,13 +6,27 @@ reloadable = false
 
 [icons]
 Bullet = "res://bullet-cpp/icons/bullets.svg"
-Seeker = "res://bullet-cpp/icons/tracker.svg"
+Seeker = "res://bullet-cpp/icons/Marker2D.svg"
 ItemManager = "res://bullet-cpp/icons/bullets_global.svg"
 ScoreManager = "res://bullet-cpp/icons/bullets_global.svg"
-ScreenEffect = "res://bullet-cpp/icons/bullets_global.svg"
-BulletPlayer = "res://bullet-cpp/icons/tracker.svg"
+ScreenEffect = "res://bullet-cpp/icons/ColorRect.svg"
+BulletPlayer = "res://bullet-cpp/icons/bulletS.svg"
 BarrelRotator = "res://bullet-cpp/icons/rotator.svg"
 BarrelRotatorRandom = "res://bullet-cpp/icons/rotator.svg"
+Spinner = "res://bullet-cpp/icons/rotator.svg"
+AimBot = "res://bullet-cpp/icons/Marker2D.svg"
+MasterSpark = "res://bullet-cpp/icons/RayCast2D.svg"
+Player = "res://bullet-cpp/icons/CharacterBody2D.svg"
+GrazeBody = "res://bullet-cpp/icons/CharacterBody2D.svg"
+Reimu = "res://bullet-cpp/icons/CharacterBody2D.svg"
+FantasySeal = "res://bullet-cpp/icons/bulletS.svg"
+Enemy = "res://bullet-cpp/icons/Godot.svg"
+Boss = "res://bullet-cpp/icons/Godot.svg"
+Accelerator = "res://bullet-cpp/icons/bullets.svg"
+AcceleratorSine = "res://bullet-cpp/icons/bullets.svg"
+AcceleratorSmooth = "res://bullet-cpp/icons/bullets.svg"
+Ricochetor = "res://bullet-cpp/icons/bullets.svg"
+RicochetTarget = "res://bullet-cpp/icons/Marker2D.svg"
 
 [libraries]
 

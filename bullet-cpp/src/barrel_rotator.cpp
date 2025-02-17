@@ -6,6 +6,7 @@ void BarrelRotator::_bind_methods()
 {
     BIND_SETGET(speed, BarrelRotator);
     ADD_PROPERTY_FLOAT(speed);
+    BIND_FUNCTION(_visibility_changed, BarrelRotator)
 }
 
 void BarrelRotator::_visibility_changed()
