@@ -96,4 +96,6 @@ void ScoreManager::add_graze()
 void ScoreManager::add_death_count()
 {
     ++death_count;
+    bomb = 3;
+    emit_signal("bomb_changed", bomb);
 }

@@ -574,6 +574,7 @@ position = Vector2(432, -49)
 script = ExtResource("12_7qycb")
 
 [node name="BigFairyBullet" parent="BigHpFairy3" instance=ExtResource("11_lmauy")]
+speed = 127.0
 barrel_group = &"Big Fairy Barrel"
 
 [node name="ScoreGiveaway4" type="Node2D" parent="."]
@@ -727,7 +728,7 @@ visible = false
 [node name="Barrel1" type="BarrelRotator" parent="SpellCircle/barrel"]
 speed = 3.142
 position = Vector2(270, 300)
-rotation = 122.017
+rotation = 509.07
 
 [node name="@Marker2D@27672" type="Marker2D" parent="SpellCircle/barrel/Barrel1" groups=["Spellcard Circle"]]
 position = Vector2(142.004, 0)
@@ -755,7 +756,7 @@ gizmo_extents = 20.0
 
 [node name="Barrel2" type="BarrelRotator" parent="SpellCircle/barrel"]
 position = Vector2(270, 300)
-rotation = -122.0
+rotation = -509.015
 
 [node name="_Marker2D_27675" type="Marker2D" parent="SpellCircle/barrel/Barrel2" groups=["Spellcard Circle"]]
 position = Vector2(118.072, 78.8929)
@@ -791,7 +792,7 @@ scale = Vector2(1, 1)
 [node name="CircleBarrel2" type="BarrelRotator" parent="SpellButterfly"]
 speed = -6.284
 position = Vector2(540, 600)
-rotation = -244.033
+rotation = -1018.14
 scale = Vector2(4, 4)
 
 [node name="_Marker2D_76188" type="Marker2D" parent="SpellButterfly/CircleBarrel2" groups=["Spellcard Butterfly"]]

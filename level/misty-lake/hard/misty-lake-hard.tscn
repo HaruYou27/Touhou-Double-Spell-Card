@@ -630,6 +630,7 @@ position = Vector2(-95, 26)
 
 [node name="BotRight" parent="BigHpFairy3/Fairy" instance=ExtResource("12_cata7")]
 process_mode = 4
+visible = false
 position = Vector2(-98, -54)
 
 [node name="Middle" parent="BigHpFairy3/Fairy" instance=ExtResource("13_dquvh")]
@@ -795,6 +796,7 @@ autostart = true
 [node name="Barrel1" type="BarrelRotator" parent="SpellCircle/barrel"]
 speed = -3.0
 position = Vector2(270, 300)
+rotation = -4.45
 
 [node name="_Marker2D_27672" type="Marker2D" parent="SpellCircle/barrel/Barrel1" groups=["Spellcard Circle"]]
 position = Vector2(142.004, 0)
@@ -843,6 +845,7 @@ gizmo_extents = 20.0
 [node name="Barrel2" type="BarrelRotator" parent="SpellCircle/barrel"]
 speed = 3.0
 position = Vector2(270, 300)
+rotation = 4.45
 
 [node name="_Marker2D_27673" type="Marker2D" parent="SpellCircle/barrel/Barrel2" groups=["Spellcard Circle"]]
 position = Vector2(139.275, 27.7035)
@@ -899,6 +902,7 @@ autostart = true
 [node name="CircleBarrel3" type="BarrelRotator" parent="SpellButterfly"]
 speed = -6.283
 position = Vector2(540, 580)
+rotation = -9.31979
 scale = Vector2(2, 2)
 
 [node name="_Marker2D_76187" type="Marker2D" parent="SpellButterfly/CircleBarrel3" groups=["Spellcard Butterfly"]]

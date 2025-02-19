@@ -1,0 +1,8 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://c2y5dxhtl2ki4"]
+
+[ext_resource type="Shader" path="res://entity/bullet/BulletGlow.gdshader" id="1_d2jwq"]
+[ext_resource type="Texture2D" uid="uid://bd8pe65d7nfr4" path="res://level/misty-lake/resource/purple-blue-yellow-orange.tres" id="2_6mqbk"]
+
+[resource]
+shader = ExtResource("1_d2jwq")
+shader_parameter/color_map = ExtResource("2_6mqbk")

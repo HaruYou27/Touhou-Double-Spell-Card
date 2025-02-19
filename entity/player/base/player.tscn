@@ -1,7 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://c34lwlqwsc4ve"]
+[gd_scene load_steps=5 format=3 uid="uid://c34lwlqwsc4ve"]
 
 [ext_resource type="Script" path="res://entity/player/base/player.gd" id="1_ty0s5"]
 [ext_resource type="PackedScene" uid="uid://beyxw0mbyoq47" path="res://entity/resource/explosionBig.tscn" id="2_r67v6"]
+[ext_resource type="Script" path="res://entity/player/base/crosshair.gd" id="3_ac3su"]
+[ext_resource type="PackedScene" uid="uid://bld0r7itdm642" path="res://entity/player/base/crosshair.tscn" id="3_v8fpm"]
 
 [node name="Player" type="Player"]
 collision_layer = 4
@@ -24,6 +26,51 @@ wait_time = 2.0
 one_shot = true
 
 [node name="DeathSFX" type="AudioStreamPlayer" parent="."]
+
+[node name="crosshair" type="Node2D" parent="."]
+z_index = 20
+scale = Vector2(2, 2)
+script = ExtResource("3_ac3su")
+displacement = 32
+
+[node name="crosshair" parent="crosshair" instance=ExtResource("3_v8fpm")]
+position = Vector2(32, 0)
+scale = Vector2(1, 1)
+
+[node name="crosshair2" parent="crosshair" instance=ExtResource("3_v8fpm")]
+position = Vector2(22.6274, 22.6274)
+rotation = 0.785398
+scale = Vector2(1, 1)
+
+[node name="crosshair3" parent="crosshair" instance=ExtResource("3_v8fpm")]
+position = Vector2(-1.39876e-06, 32)
+rotation = 1.5708
+scale = Vector2(1, 1)
+
+[node name="crosshair4" parent="crosshair" instance=ExtResource("3_v8fpm")]
+position = Vector2(-22.6274, 22.6274)
+rotation = 2.35619
+scale = Vector2(1, 1)
+
+[node name="crosshair5" parent="crosshair" instance=ExtResource("3_v8fpm")]
+position = Vector2(-32, -2.79753e-06)
+rotation = 3.14159
+scale = Vector2(1, 1)
+
+[node name="crosshair6" parent="crosshair" instance=ExtResource("3_v8fpm")]
+position = Vector2(-22.6274, -22.6274)
+rotation = 3.92699
+scale = Vector2(1, 1)
+
+[node name="crosshair7" parent="crosshair" instance=ExtResource("3_v8fpm")]
+position = Vector2(3.81596e-07, -32)
+rotation = 4.71239
+scale = Vector2(1, 1)
+
+[node name="crosshair8" parent="crosshair" instance=ExtResource("3_v8fpm")]
+position = Vector2(22.6274, -22.6274)
+rotation = 5.49779
+scale = Vector2(1, 1)
 
 [connection signal="bomb" from="." to="." method="_on_bomb"]
 [connection signal="position_changed" from="." to="." method="_on_position_changed"]

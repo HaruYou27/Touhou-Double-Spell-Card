@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://bld0r7itdm642"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_d103g"]
+blend_mode = 2
+light_mode = 1
+
+[sub_resource type="Gradient" id="Gradient_w16hj"]
+offsets = PackedFloat32Array(0.691176)
+colors = PackedColorArray(0.514833, 1, 0.29, 0.227451)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_drdkk"]
+gradient = SubResource("Gradient_w16hj")
+width = 50
+
+[node name="crosshair" type="Sprite2D"]
+material = SubResource("CanvasItemMaterial_d103g")
+scale = Vector2(2, 2)
+texture = SubResource("GradientTexture1D_drdkk")
