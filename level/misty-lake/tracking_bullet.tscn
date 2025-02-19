@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://cncbx2jqrl88c"]
 
 [ext_resource type="Shape2D" uid="uid://57c5btn7th0e" path="res://entity/bullet/rice-hitbox.tres" id="1_oey0b"]
-[ext_resource type="Texture2D" uid="uid://5m87dx48aidp" path="res://entity/bullet/rice64.tres" id="2_qke8r"]
+[ext_resource type="Texture2D" uid="uid://5m87dx48aidp" path="res://entity/bullet/rice32.tres" id="2_qke8r"]
 [ext_resource type="Material" uid="uid://yrt7o0rc1slt" path="res://level/misty-lake/resource/bullet.tres" id="3_hwl7e"]
 
 [node name="TrackingBullet" type="Bullet"]
@@ -10,5 +10,5 @@ barrel_group = &"Tracking Barrel"
 hitbox = ExtResource("1_oey0b")
 texture = ExtResource("2_qke8r")
 top_level = true
-z_index = 100
+z_index = 2000
 material = ExtResource("3_hwl7e")

@@ -11,5 +11,5 @@ hitbox = ExtResource("1_eojk2")
 texture = ExtResource("2_5ckep")
 process_mode = 4
 top_level = true
-z_index = 15
+z_index = 2001
 material = ExtResource("3_fx6yn")

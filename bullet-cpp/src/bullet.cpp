@@ -35,6 +35,7 @@ void Bullet::_ready()
 {
     set_as_top_level(true);
     set_scale(Vector2(1, 1));
+    set_position(Vector2(0, 0));
     CHECK_EDITOR
     canvas_item = get_canvas_item();
     space = get_world_2d()->get_direct_space_state();

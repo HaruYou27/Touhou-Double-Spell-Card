@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://820qlg5cbdi"]
+[gd_scene load_steps=34 format=3 uid="uid://820qlg5cbdi"]
 
 [ext_resource type="Material" uid="uid://bfp322op0h8h4" path="res://level/misty-lake/resource/water-shader.tres" id="1_fq2jh"]
 [ext_resource type="Texture2D" uid="uid://bgh4r80tk5o7v" path="res://level/misty-lake/resource/water-noise.tres" id="3_hbemg"]
@@ -9,20 +9,19 @@
 [ext_resource type="PackedScene" uid="uid://c1xyo1w3okwtp" path="res://level/misty-lake/cystal_bullet.tscn" id="8_bx502"]
 [ext_resource type="PackedScene" uid="uid://cncbx2jqrl88c" path="res://level/misty-lake/tracking_bullet.tscn" id="11_lmauy"]
 [ext_resource type="Script" path="res://entity/utility/Path2DSpawner.gd" id="12_7qycb"]
-[ext_resource type="PackedScene" uid="uid://cmphgsoxqsrqh" path="res://level/misty-lake/big_fairy.tscn" id="12_u7k0g"]
+[ext_resource type="PackedScene" uid="uid://cq3xwwyrafhhf" path="res://level/misty-lake/big_fairy.tscn" id="12_u7k0g"]
+[ext_resource type="PackedScene" uid="uid://t06jih7w41he" path="res://level/misty-lake/big_fairy_circle.tscn" id="13_8aarh"]
 [ext_resource type="PackedScene" uid="uid://cyvf0ik0p568i" path="res://level/misty-lake/hard/fairy.tscn" id="13_khp1w"]
-[ext_resource type="PackedScene" uid="uid://cggnsrkbgml74" path="res://level/misty-lake/big_fairy_bullet.tscn" id="16_xkvxf"]
 [ext_resource type="PackedScene" uid="uid://ighcu2h88vhh" path="res://level/misty-lake/bullet_circle.tscn" id="23_1ju68"]
 [ext_resource type="PackedScene" uid="uid://bc4tw8t6g734m" path="res://level/misty-lake/hard/fairy-unarmed.tscn" id="23_egpvx"]
 [ext_resource type="PackedScene" uid="uid://c7lcs65yc2vea" path="res://level/misty-lake/hard/phantom.tscn" id="24_uth2c"]
 [ext_resource type="PackedScene" uid="uid://bncu813gm4hx8" path="res://entity/boss/yukari/yukari.tscn" id="25_0chj7"]
-[ext_resource type="PackedScene" uid="uid://df7drvwynf7qy" path="res://entity/utility/burst_timer.tscn" id="25_8tpir"]
 [ext_resource type="PackedScene" uid="uid://je3vr6p45egj" path="res://level/misty-lake/ball-bullet.tscn" id="26_5w3ld"]
 [ext_resource type="PackedScene" uid="uid://c5a7s56lfc5fl" path="res://level/misty-lake/bullet_butterfly.tscn" id="26_c7ekx"]
-[ext_resource type="Script" path="res://entity/utility/TargetLocker.gd" id="26_e1gun"]
 [ext_resource type="PackedScene" uid="uid://beleukbiw05us" path="res://level/misty-lake/bullet_wave_particle.tscn" id="27_av3l4"]
 [ext_resource type="AnimationLibrary" uid="uid://co0x1lfyxmlfe" path="res://level/misty-lake/resource/misty-lake-anim.tres" id="31_3u5ao"]
 [ext_resource type="Script" path="res://entity/utility/RotatorAccelerator.gd" id="33_bxfih"]
+[ext_resource type="Shader" path="res://level/misty-lake/resource/reflection.gdshader" id="35_eor82"]
 [ext_resource type="PackedScene" uid="uid://uiwkegjhrq51" path="res://level/misty-lake/resource/fog_overlay.tscn" id="36_uf74i"]
 [ext_resource type="PackedScene" uid="uid://bfvb372sca8m2" path="res://user-interface/leveler/leveler.tscn" id="37_67qvw"]
 
@@ -57,13 +56,23 @@ _data = {
 }
 point_count = 4
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6aqhd"]
+shader = ExtResource("35_eor82")
+shader_parameter/water_opacity = 0.5
+shader_parameter/refraction_strength = 0.04
+shader_parameter/speed = 0.1
+shader_parameter/refraction_map = ExtResource("3_hbemg")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_yun7d"]
+viewport_path = NodePath("SubViewportContainer/SubViewport")
+
 [sub_resource type="Animation" id="Animation_cpalx"]
 resource_name = "RESET"
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("background:material:shader_parameter/color_map:gradient:colors")
+tracks/0/path = NodePath("SubViewportContainer/SubViewport/background:material:shader_parameter/color_map:gradient:colors")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -75,7 +84,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("background/FullMoon:modulate")
+tracks/1/path = NodePath("SubViewportContainer/SubViewport/background/FullMoon:modulate")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -111,7 +120,7 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("background/fog:modulate")
+tracks/4/path = NodePath("SubViewportContainer/SubViewport/background/fog:modulate")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -195,214 +204,166 @@ tracks/10/keys = {
 tracks/11/type = "value"
 tracks/11/imported = false
 tracks/11/enabled = true
-tracks/11/path = NodePath("BigHpFairy3/Fairy/MiddleLeft:position")
+tracks/11/path = NodePath("Tracking2:process_mode")
 tracks/11/interp = 1
 tracks/11/loop_wrap = true
 tracks/11/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(539, -81)]
+"update": 1,
+"values": [4]
 }
 tracks/12/type = "value"
 tracks/12/imported = false
 tracks/12/enabled = true
-tracks/12/path = NodePath("BigHpFairy3/Fairy/BotMiddle:position")
+tracks/12/path = NodePath("BigHpFairy3:process_mode")
 tracks/12/interp = 1
 tracks/12/loop_wrap = true
 tracks/12/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(228, -72)]
+"update": 1,
+"values": [4]
 }
 tracks/13/type = "value"
 tracks/13/imported = false
 tracks/13/enabled = true
-tracks/13/path = NodePath("BigHpFairy3/Fairy/MiddleRight:position")
+tracks/13/path = NodePath("ScoreGiveaway4:process_mode")
 tracks/13/interp = 1
 tracks/13/loop_wrap = true
 tracks/13/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(-90, -13)]
+"update": 1,
+"values": [4]
 }
 tracks/14/type = "value"
 tracks/14/imported = false
 tracks/14/enabled = true
-tracks/14/path = NodePath("BigHpFairy3/Fairy/TopMiddle:position")
+tracks/14/path = NodePath("BigHpFairy3:visible")
 tracks/14/interp = 1
 tracks/14/loop_wrap = true
 tracks/14/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(613, 405)]
+"update": 1,
+"values": [false]
 }
 tracks/15/type = "value"
 tracks/15/imported = false
 tracks/15/enabled = true
-tracks/15/path = NodePath("Tracking2:process_mode")
+tracks/15/path = NodePath("ScoreGiveaway4:visible")
 tracks/15/interp = 1
 tracks/15/loop_wrap = true
 tracks/15/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [4]
+"values": [false]
 }
 tracks/16/type = "value"
 tracks/16/imported = false
 tracks/16/enabled = true
-tracks/16/path = NodePath("BigHpFairy3:process_mode")
+tracks/16/path = NodePath("Tracking2:visible")
 tracks/16/interp = 1
 tracks/16/loop_wrap = true
 tracks/16/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [4]
+"values": [false]
 }
 tracks/17/type = "value"
 tracks/17/imported = false
 tracks/17/enabled = true
-tracks/17/path = NodePath("ScoreGiveaway4:process_mode")
+tracks/17/path = NodePath("yukari:visible")
 tracks/17/interp = 1
 tracks/17/loop_wrap = true
 tracks/17/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [4]
+"values": [false]
 }
 tracks/18/type = "value"
 tracks/18/imported = false
 tracks/18/enabled = true
-tracks/18/path = NodePath("BigHpFairy3:visible")
+tracks/18/path = NodePath("SpellCircle:visible")
 tracks/18/interp = 1
 tracks/18/loop_wrap = true
 tracks/18/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
+"update": 0,
 "values": [false]
 }
 tracks/19/type = "value"
 tracks/19/imported = false
 tracks/19/enabled = true
-tracks/19/path = NodePath("ScoreGiveaway4:visible")
+tracks/19/path = NodePath("yukari:position")
 tracks/19/interp = 1
 tracks/19/loop_wrap = true
 tracks/19/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
+"update": 0,
+"values": [Vector2(270, 300)]
 }
 tracks/20/type = "value"
 tracks/20/imported = false
 tracks/20/enabled = true
-tracks/20/path = NodePath("Tracking2:visible")
+tracks/20/path = NodePath("SpellCircle/barrel:position")
 tracks/20/interp = 1
 tracks/20/loop_wrap = true
 tracks/20/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
+"update": 0,
+"values": [Vector2(0, 0)]
 }
 tracks/21/type = "value"
 tracks/21/imported = false
 tracks/21/enabled = true
-tracks/21/path = NodePath("yukari:visible")
+tracks/21/path = NodePath("SpellCircle:localRotation")
 tracks/21/interp = 1
 tracks/21/loop_wrap = true
 tracks/21/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
+"update": 0,
 "values": [false]
 }
 tracks/22/type = "value"
 tracks/22/imported = false
 tracks/22/enabled = true
-tracks/22/path = NodePath("SpellCircle:visible")
+tracks/22/path = NodePath("yukari:process_mode")
 tracks/22/interp = 1
 tracks/22/loop_wrap = true
 tracks/22/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [false]
+"update": 1,
+"values": [4]
 }
 tracks/23/type = "value"
 tracks/23/imported = false
 tracks/23/enabled = true
-tracks/23/path = NodePath("yukari:position")
+tracks/23/path = NodePath("SpellWaveParticle:process_mode")
 tracks/23/interp = 1
 tracks/23/loop_wrap = true
 tracks/23/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(270, 300)]
+"update": 1,
+"values": [4]
 }
 tracks/24/type = "value"
 tracks/24/imported = false
 tracks/24/enabled = true
-tracks/24/path = NodePath("SpellCircle/barrel:position")
+tracks/24/path = NodePath("SpellWaveParticle:visible")
 tracks/24/interp = 1
 tracks/24/loop_wrap = true
 tracks/24/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0, 0)]
-}
-tracks/25/type = "value"
-tracks/25/imported = false
-tracks/25/enabled = true
-tracks/25/path = NodePath("SpellCircle:localRotation")
-tracks/25/interp = 1
-tracks/25/loop_wrap = true
-tracks/25/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [false]
-}
-tracks/26/type = "value"
-tracks/26/imported = false
-tracks/26/enabled = true
-tracks/26/path = NodePath("yukari:process_mode")
-tracks/26/interp = 1
-tracks/26/loop_wrap = true
-tracks/26/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [4]
-}
-tracks/27/type = "value"
-tracks/27/imported = false
-tracks/27/enabled = true
-tracks/27/path = NodePath("SpellWaveParticle:process_mode")
-tracks/27/interp = 1
-tracks/27/loop_wrap = true
-tracks/27/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [4]
-}
-tracks/28/type = "value"
-tracks/28/imported = false
-tracks/28/enabled = true
-tracks/28/path = NodePath("SpellWaveParticle:visible")
-tracks/28/interp = 1
-tracks/28/loop_wrap = true
-tracks/28/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
@@ -423,7 +384,25 @@ grow_horizontal = 2
 grow_vertical = 2
 pivot_offset = Vector2(270, 480)
 
-[node name="background" type="Sprite2D" parent="."]
+[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
+process_thread_group = 2
+process_thread_group_order = 0
+process_thread_messages = 0
+z_index = -100
+custom_minimum_size = Vector2(540, 960)
+layout_mode = 0
+offset_right = 540.0
+offset_bottom = 960.0
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
+handle_input_locally = false
+canvas_item_default_texture_filter = 0
+canvas_item_default_texture_repeat = 1
+size = Vector2i(540, 960)
+render_target_update_mode = 4
+
+[node name="background" type="Sprite2D" parent="SubViewportContainer/SubViewport"]
 z_index = -100
 texture_filter = 1
 texture_repeat = 2
@@ -433,18 +412,17 @@ centered = false
 script = ExtResource("4_mglvh")
 graphic_level = 1
 
-[node name="FullMoon" type="Sprite2D" parent="background"]
+[node name="FullMoon" type="Sprite2D" parent="SubViewportContainer/SubViewport/background"]
 modulate = Color(1, 1, 1, 0)
 material = SubResource("ShaderMaterial_h610u")
 position = Vector2(270, 201)
 texture = ExtResource("6_aaqhm")
 
-[node name="fog" parent="background" instance=ExtResource("7_pvwld")]
+[node name="fog" parent="SubViewportContainer/SubViewport/background" instance=ExtResource("7_pvwld")]
 modulate = Color(1, 1, 1, 0)
 graphic_level = 2
 
 [node name="CystalDrop1" type="Node2D" parent="."]
-process_mode = 4
 visible = false
 position = Vector2(0, -43)
 
@@ -577,57 +555,26 @@ visible = false
 [node name="Fairy" type="Node2D" parent="BigHpFairy3"]
 
 [node name="TopLeft" parent="BigHpFairy3/Fairy" instance=ExtResource("12_u7k0g")]
-position = Vector2(651, 41)
 
 [node name="TopRight" parent="BigHpFairy3/Fairy" instance=ExtResource("12_u7k0g")]
 position = Vector2(-120, 28)
 
-[node name="BotLeft" parent="BigHpFairy3/Fairy" instance=ExtResource("12_u7k0g")]
-process_mode = 4
-visible = false
-position = Vector2(-95, 26)
-
 [node name="BotRight" parent="BigHpFairy3/Fairy" instance=ExtResource("12_u7k0g")]
-process_mode = 4
-visible = false
 position = Vector2(-98, -54)
 
-[node name="Middle" parent="BigHpFairy3/Fairy" instance=ExtResource("12_u7k0g")]
-process_mode = 4
+[node name="BotLeft" parent="BigHpFairy3/Fairy" instance=ExtResource("12_u7k0g")]
+position = Vector2(-95, 26)
+
+[node name="Middle" parent="BigHpFairy3/Fairy" instance=ExtResource("13_8aarh")]
+process_mode = 0
 visible = false
 position = Vector2(432, -49)
-
-[node name="MiddleLeft" parent="BigHpFairy3/Fairy" instance=ExtResource("12_u7k0g")]
-process_mode = 4
-visible = false
-position = Vector2(539, -81)
-
-[node name="BotMiddle" parent="BigHpFairy3/Fairy" instance=ExtResource("12_u7k0g")]
-process_mode = 4
-visible = false
-position = Vector2(228, -72)
-
-[node name="MiddleRight" parent="BigHpFairy3/Fairy" instance=ExtResource("12_u7k0g")]
-process_mode = 4
-visible = false
-position = Vector2(-90, -13)
-
-[node name="TopMiddle" parent="BigHpFairy3/Fairy" instance=ExtResource("12_u7k0g")]
-process_mode = 4
-visible = false
-position = Vector2(613, 405)
-
-[node name="StarBig" parent="BigHpFairy3" instance=ExtResource("16_xkvxf")]
-speed = 72.0
-barrel_group = &"Big Fairy Tracker"
 
 [node name="TransformBarrel" type="Path2D" parent="BigHpFairy3"]
 script = ExtResource("12_7qycb")
 
-[node name="RiceBig" parent="BigHpFairy3" instance=ExtResource("11_lmauy")]
-speed = 172.0
-barrel_group = &"Big Fairy Tracker"
-position = Vector2(411, 441)
+[node name="BigFairyBullet" parent="BigHpFairy3" instance=ExtResource("11_lmauy")]
+barrel_group = &"Big Fairy Barrel"
 
 [node name="ScoreGiveaway4" type="Node2D" parent="."]
 process_mode = 4
@@ -765,14 +712,12 @@ process_mode = 4
 visible = false
 position = Vector2(270, 300)
 
-[node name="TargetLocker" type="Marker2D" parent="yukari" groups=["Ball Tracking"]]
+[node name="TargetLocker" type="AimBot" parent="yukari" groups=["Ball Tracking"]]
 position = Vector2(0, 145)
 rotation = 1.5708
 gizmo_extents = 25.9
-script = ExtResource("26_e1gun")
 
 [node name="SpellCircle" type="Node2D" parent="."]
-process_mode = 4
 visible = false
 
 [node name="BulletCircle" parent="SpellCircle" instance=ExtResource("23_1ju68")]
@@ -782,6 +727,7 @@ visible = false
 [node name="Barrel1" type="BarrelRotator" parent="SpellCircle/barrel"]
 speed = 3.142
 position = Vector2(270, 300)
+rotation = 122.017
 
 [node name="@Marker2D@27672" type="Marker2D" parent="SpellCircle/barrel/Barrel1" groups=["Spellcard Circle"]]
 position = Vector2(142.004, 0)
@@ -809,6 +755,7 @@ gizmo_extents = 20.0
 
 [node name="Barrel2" type="BarrelRotator" parent="SpellCircle/barrel"]
 position = Vector2(270, 300)
+rotation = -122.0
 
 [node name="_Marker2D_27675" type="Marker2D" parent="SpellCircle/barrel/Barrel2" groups=["Spellcard Circle"]]
 position = Vector2(118.072, 78.8929)
@@ -835,7 +782,6 @@ wait_time = 0.1
 autostart = true
 
 [node name="SpellButterfly" type="Node2D" parent="."]
-process_mode = 4
 visible = false
 scale = Vector2(0.5, 0.5)
 
@@ -845,6 +791,7 @@ scale = Vector2(1, 1)
 [node name="CircleBarrel2" type="BarrelRotator" parent="SpellButterfly"]
 speed = -6.284
 position = Vector2(540, 600)
+rotation = -244.033
 scale = Vector2(4, 4)
 
 [node name="_Marker2D_76188" type="Marker2D" parent="SpellButterfly/CircleBarrel2" groups=["Spellcard Butterfly"]]
@@ -933,6 +880,7 @@ autostart = true
 
 [node name="Ball" parent="." instance=ExtResource("26_5w3ld")]
 speed = 72.0
+process_mode = 0
 
 [node name="SpellWaveParticle" type="Node2D" parent="."]
 process_mode = 4
@@ -970,6 +918,14 @@ gizmo_extents = 20.0
 wait_time = 0.06
 autostart = true
 
+[node name="reflection" type="Sprite2D" parent="."]
+z_index = 1000
+texture_repeat = 2
+material = SubResource("ShaderMaterial_6aqhd")
+texture = SubResource("ViewportTexture_yun7d")
+centered = false
+script = ExtResource("4_mglvh")
+
 [node name="FogOverlay" parent="." instance=ExtResource("36_uf74i")]
 modulate = Color(1, 1, 1, 0)
 z_index = 3000
@@ -989,8 +945,6 @@ libraries = {
 
 [node name="bgm" type="AudioStreamPlayer" parent="."]
 bus = &"BGM"
-
-[node name="BurstTimer" parent="." instance=ExtResource("25_8tpir")]
 
 [connection signal="timeout" from="CystalDrop1/CystalTimer" to="CystalDrop1/CystalBullet" method="spawn_bullet"]
 [connection signal="timeout" from="Tracking2/TrackingTimer" to="Tracking2/TrackingBullet" method="spawn_bullet" flags=3]

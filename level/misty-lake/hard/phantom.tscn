@@ -16,7 +16,6 @@ time = 5.0
 enemy = NodePath("Enemy")
 
 [node name="Enemy" parent="." instance=ExtResource("2_wexhf")]
-heath = 8
 visual_path = NodePath("phantom")
 
 [node name="hitbox" type="CollisionShape2D" parent="Enemy"]

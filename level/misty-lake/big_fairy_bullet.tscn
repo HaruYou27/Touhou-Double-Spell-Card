@@ -23,4 +23,5 @@ barrel_group = &"Big Fairy Barrel"
 hitbox = ExtResource("1_2sdhb")
 texture = ExtResource("2_ru3x7")
 top_level = true
+z_index = 2000
 material = SubResource("ShaderMaterial_am7mn")

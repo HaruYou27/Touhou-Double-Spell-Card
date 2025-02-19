@@ -10,5 +10,5 @@ barrel_group = &"Spellcard Circle"
 hitbox = ExtResource("1_yfpyj")
 texture = ExtResource("2_xhrl0")
 top_level = true
-z_index = 100
+z_index = 2000
 material = ExtResource("3_y334c")
