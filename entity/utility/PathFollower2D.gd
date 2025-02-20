@@ -2,6 +2,7 @@ extends PathFollow2D
 class_name  PathFollower2D
 
 @export var time := 0.
+@export var ease_type : Tween.EaseType = Tween.EASE_OUT_IN
 var reverse := false
 
 @export var enemy: Enemy
@@ -26,6 +27,7 @@ func start() -> void:
 
 	sync_start()
 	tween = create_tween()
+	tween.set_ease(ease_type)
 	tween.tween_property(self, 'progress_ratio', float(not reverse), time)
 	tween.tween_callback(enemy.timeout)
 	

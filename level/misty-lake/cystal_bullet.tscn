@@ -9,6 +9,7 @@ speed = 172.0
 barrel_group = &"Enemy Barrel 1"
 hitbox = ExtResource("1_scqkf")
 texture = ExtResource("2_lxig8")
+local_rotation = true
 top_level = true
 z_index = 2000
 material = ExtResource("3_r65pm")

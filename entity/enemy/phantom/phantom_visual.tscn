@@ -1,0 +1,25 @@
+[gd_scene load_steps=6 format=3 uid="uid://x6m45dr4ylyl"]
+
+[ext_resource type="Material" uid="uid://dox27ncd2r5o3" path="res://entity/resource/glow.tres" id="1_6oogq"]
+[ext_resource type="Texture2D" uid="uid://dxsf3vpqsosf1" path="res://entity/resource/fire_particle.png" id="2_2uaab"]
+[ext_resource type="Gradient" uid="uid://432bbqehslyp" path="res://entity/resource/fade-gradient.tres" id="3_c0psp"]
+[ext_resource type="Script" path="res://entity/enemy/phantom/phantom_visual.gd" id="4_okmoh"]
+
+[sub_resource type="Curve" id="4"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.972222, 0.53527), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[node name="phantom" type="CPUParticles2D"]
+process_thread_group = 2
+process_thread_group_order = 0
+process_thread_messages = 0
+material = ExtResource("1_6oogq")
+local_coords = true
+texture = ExtResource("2_2uaab")
+gravity = Vector2(0, -172)
+angular_velocity_min = 311.53
+angular_velocity_max = 494.06
+scale_amount_curve = SubResource("4")
+color = Color(0.392157, 0.685434, 1, 1)
+color_ramp = ExtResource("3_c0psp")
+script = ExtResource("4_okmoh")

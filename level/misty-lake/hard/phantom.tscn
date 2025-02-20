@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://entity/utility/PathFollower2D.gd" id="1_3qi0t"]
 [ext_resource type="PackedScene" uid="uid://dtlscerig62nv" path="res://entity/enemy/base/enemy.tscn" id="2_wexhf"]
-[ext_resource type="PackedScene" uid="uid://x6m45dr4ylyl" path="res://entity/enemy/phantom/blue-phantom.tscn" id="3_gl4or"]
+[ext_resource type="PackedScene" uid="uid://x6m45dr4ylyl" path="res://entity/enemy/phantom/phantom_visual.tscn" id="3_gl4or"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_noovt"]
 radius = 18.1108
@@ -22,6 +22,7 @@ visual_path = NodePath("phantom")
 shape = SubResource("CircleShape2D_noovt")
 
 [node name="phantom" parent="Enemy" instance=ExtResource("3_gl4or")]
+color = Color(1, 0.392157, 0.651485, 1)
 
 [node name="AimBot" type="AimBot" parent="Enemy/phantom" groups=["Tracking Barrel"]]
 position = Vector2(0, 20)

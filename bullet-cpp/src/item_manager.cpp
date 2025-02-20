@@ -10,11 +10,7 @@ void ItemManager::_bind_methods()
 
 bool ItemManager::is_offline()
 {
-    if (player2 == nullptr)
-    {
-        return true;
-    }
-    return false;
+    return (player2 == nullptr) ? true : false;
 }
 
 void ItemManager::revive_player()
@@ -64,7 +60,12 @@ void ItemManager::spawn_item(Vector2 position)
 
 void ItemManager::cache_barrel()
 {
-    player1_position = (player1 == nullptr) ? Vector2(0, 0) : player1->get_global_position();
+    if (player1 == nullptr)
+    {
+        player1_position = Vector2(0, 0);
+        return;
+    }
+    player1_position = player1->get_global_position();
     player2_position = (player2 == nullptr) ? Vector2(0, 0) : player2->get_global_position();
 }
 

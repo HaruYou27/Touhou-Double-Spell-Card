@@ -5,7 +5,7 @@
 [ext_resource type="Material" uid="uid://yrt7o0rc1slt" path="res://level/misty-lake/resource/bullet.tres" id="3_hwl7e"]
 
 [node name="TrackingBullet" type="Bullet"]
-speed = 72.0
+speed = 127.0
 barrel_group = &"Tracking Barrel"
 hitbox = ExtResource("1_oey0b")
 texture = ExtResource("2_qke8r")

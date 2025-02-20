@@ -10,8 +10,6 @@
 #include <godot_cpp/classes/rendering_server.hpp>
 #include <godot_cpp/classes/scene_tree.hpp>
 
-
-
 #include "utility.hpp"
 
 class Bullet : public Node2D

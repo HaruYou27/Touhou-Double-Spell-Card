@@ -6,9 +6,9 @@
 [ext_resource type="Texture2D" uid="uid://batbnxisqv8ly" path="res://entity/resource/easeOutCurve.tres" id="2_mi5v7"]
 [ext_resource type="Texture2D" uid="uid://dxsf3vpqsosf1" path="res://entity/resource/fire_particle.png" id="2_nfihp"]
 [ext_resource type="Shape2D" uid="uid://cpnfwnm5yimfk" path="res://entity/player/reimu/resource/seek-shape.tres" id="2_pl7gm"]
-[ext_resource type="Script" path="res://entity/utility/graphic/Particles2D.gd" id="5_01jhk"]
-[ext_resource type="Script" path="res://entity/utility/graphic/GraphicFallback.gd" id="7_56w1o"]
-[ext_resource type="PackedScene" uid="uid://dletx36qco4eh" path="res://entity/utility/graphic/explosion.tscn" id="8_rypni"]
+[ext_resource type="Script" path="res://level/utility/Particles2D.gd" id="5_01jhk"]
+[ext_resource type="Script" path="res://level/utility/GraphicFallback.gd" id="7_56w1o"]
+[ext_resource type="PackedScene" uid="uid://dletx36qco4eh" path="res://entity/utility/explosion.tscn" id="8_rypni"]
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_xlfo5"]
 particle_flag_disable_z = true

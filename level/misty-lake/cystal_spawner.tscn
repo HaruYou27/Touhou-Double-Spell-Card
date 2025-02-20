@@ -1,0 +1,63 @@
+[gd_scene load_steps=4 format=3 uid="uid://blhwt58rvxmy6"]
+
+[ext_resource type="Script" path="res://entity/utility/Path2DSpawner.gd" id="1_4lm00"]
+[ext_resource type="PackedScene" uid="uid://cyvf0ik0p568i" path="res://level/misty-lake/hard/fairy.tscn" id="2_yme4f"]
+
+[sub_resource type="Curve2D" id="Curve2D_rvgc8"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -50, 146, -77.7818, -22.6274, 77.7818, 22.6274, 56, 279, -43.8406, 49.4975, 43.8406, -49.4975, 171, 125, 203.647, 36.7696, -203.647, -36.7696, 254, 361, -83.4386, 16.9706, 83.4386, -16.9706, 424, 114, -63.6396, -62.2254, 63.6396, 62.2254, 453, 303, 0, 0, 0, 0, 600, 205)
+}
+point_count = 7
+
+[node name="CystalSpawner" type="Path2D"]
+position = Vector2(3, -47)
+curve = SubResource("Curve2D_rvgc8")
+script = ExtResource("1_4lm00")
+
+[node name="Fairy" parent="." instance=ExtResource("2_yme4f")]
+position = Vector2(-50, 146)
+
+[node name="Fairy2" parent="." instance=ExtResource("2_yme4f")]
+position = Vector2(-50, 146)
+
+[node name="Fairy3" parent="." instance=ExtResource("2_yme4f")]
+position = Vector2(-50, 146)
+
+[node name="Fairy4" parent="." instance=ExtResource("2_yme4f")]
+position = Vector2(-50, 146)
+
+[node name="Fairy5" parent="." instance=ExtResource("2_yme4f")]
+position = Vector2(-50, 146)
+
+[node name="Fairy6" parent="." instance=ExtResource("2_yme4f")]
+position = Vector2(-50, 146)
+
+[node name="Fairy7" parent="." instance=ExtResource("2_yme4f")]
+position = Vector2(-50, 146)
+
+[node name="Fairy8" parent="." instance=ExtResource("2_yme4f")]
+position = Vector2(-50, 146)
+
+[node name="Fairy9" parent="." instance=ExtResource("2_yme4f")]
+position = Vector2(-50, 146)
+
+[node name="Fairy10" parent="." instance=ExtResource("2_yme4f")]
+position = Vector2(-50, 146)
+
+[node name="Fairy11" parent="." instance=ExtResource("2_yme4f")]
+position = Vector2(-50, 146)
+
+[node name="Fairy12" parent="." instance=ExtResource("2_yme4f")]
+position = Vector2(-50, 146)
+
+[node name="Fairy13" parent="." instance=ExtResource("2_yme4f")]
+position = Vector2(-50, 146)
+
+[node name="Fairy14" parent="." instance=ExtResource("2_yme4f")]
+position = Vector2(-50, 146)
+
+[node name="Fairy15" parent="." instance=ExtResource("2_yme4f")]
+position = Vector2(-50, 146)
+
+[node name="Fairy16" parent="." instance=ExtResource("2_yme4f")]
+position = Vector2(-50, 146)

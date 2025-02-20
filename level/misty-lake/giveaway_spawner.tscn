@@ -1,0 +1,64 @@
+[gd_scene load_steps=4 format=3 uid="uid://cnlx6witstpr6"]
+
+[ext_resource type="Script" path="res://entity/utility/Path2DSpawner.gd" id="1_mdj8r"]
+[ext_resource type="PackedScene" uid="uid://xqyxbaqg5pxr" path="res://level/misty-lake/hard/phantom-unarmed.tscn" id="2_t355n"]
+
+[sub_resource type="Curve2D" id="Curve2D_k6wgk"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 88.6195, -61.0539, 13.0182, 189.95, -13.0182, -189.95, 472, 173, 26.4148, 266.676, -26.4148, -266.676, 6, 249, 10.0794, -109.309, -10.0794, 109.309, 462, 451, 21.2356, 197.877, -21.2356, -197.877, 38, 555, 0, 0, 0, 0, 670, 841)
+}
+point_count = 6
+
+[node name="GiveawaySpawner" type="Path2D"]
+position = Vector2(27, -13)
+curve = SubResource("Curve2D_k6wgk")
+script = ExtResource("1_mdj8r")
+mirror = true
+
+[node name="phantom" parent="." instance=ExtResource("2_t355n")]
+position = Vector2(88.6195, -61.0539)
+
+[node name="phantom2" parent="." instance=ExtResource("2_t355n")]
+position = Vector2(88.6195, -61.0539)
+
+[node name="phantom3" parent="." instance=ExtResource("2_t355n")]
+position = Vector2(88.6195, -61.0539)
+
+[node name="phantom4" parent="." instance=ExtResource("2_t355n")]
+position = Vector2(88.6195, -61.0539)
+
+[node name="phantom5" parent="." instance=ExtResource("2_t355n")]
+position = Vector2(88.6195, -61.0539)
+
+[node name="phantom6" parent="." instance=ExtResource("2_t355n")]
+position = Vector2(88.6195, -61.0539)
+
+[node name="phantom7" parent="." instance=ExtResource("2_t355n")]
+position = Vector2(88.6195, -61.0539)
+
+[node name="phantom8" parent="." instance=ExtResource("2_t355n")]
+position = Vector2(88.6195, -61.0539)
+
+[node name="phantom9" parent="." instance=ExtResource("2_t355n")]
+position = Vector2(88.6195, -61.0539)
+
+[node name="phantom10" parent="." instance=ExtResource("2_t355n")]
+position = Vector2(88.6195, -61.0539)
+
+[node name="phantom11" parent="." instance=ExtResource("2_t355n")]
+position = Vector2(88.6195, -61.0539)
+
+[node name="phantom12" parent="." instance=ExtResource("2_t355n")]
+position = Vector2(88.6195, -61.0539)
+
+[node name="phantom13" parent="." instance=ExtResource("2_t355n")]
+position = Vector2(88.6195, -61.0539)
+
+[node name="phantom14" parent="." instance=ExtResource("2_t355n")]
+position = Vector2(88.6195, -61.0539)
+
+[node name="phantom15" parent="." instance=ExtResource("2_t355n")]
+position = Vector2(88.6195, -61.0539)
+
+[node name="phantom16" parent="." instance=ExtResource("2_t355n")]
+position = Vector2(88.6195, -61.0539)

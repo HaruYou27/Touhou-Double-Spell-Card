@@ -6,7 +6,7 @@
 [ext_resource type="Material" uid="uid://dox27ncd2r5o3" path="res://entity/resource/glow.tres" id="5_0ffch"]
 [ext_resource type="Texture2D" uid="uid://d2wacgirqsjjn" path="res://entity/resource/white-trans.tres" id="6_3or5n"]
 [ext_resource type="Texture2D" uid="uid://dxsf3vpqsosf1" path="res://entity/resource/fire_particle.png" id="7_wwddi"]
-[ext_resource type="Script" path="res://entity/utility/graphic/Particles2D.gd" id="8_48a8s"]
+[ext_resource type="Script" path="res://level/utility/Particles2D.gd" id="8_48a8s"]
 [ext_resource type="PackedScene" uid="uid://cw6ldgxnk6nf3" path="res://entity/player/marisa/marisa-sprite.tscn" id="13_sco1m"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_s1f2m"]

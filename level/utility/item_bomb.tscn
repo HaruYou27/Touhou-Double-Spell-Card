@@ -1,9 +1,10 @@
 [gd_scene load_steps=4 format=3 uid="uid://88wytmpkd5vb"]
 
-[ext_resource type="Texture2D" uid="uid://ypvhm2lldgvc" path="res://entity/boss/resource/bombItem.png" id="1_8ddcf"]
-[ext_resource type="Script" path="res://entity/boss/resource/item_bomb.gd" id="1_4006l"]
+[ext_resource type="Script" path="res://level/utility/item_bomb.gd" id="1_4006l"]
+[ext_resource type="Texture2D" uid="uid://cmrk4x6eek1v6" path="res://level/utility/item_bomb.png" id="2_h53b1"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_g8xir"]
+radius = 16.0
 
 [node name="ItemBomb" type="Area2D"]
 collision_layer = 0
@@ -11,11 +12,10 @@ collision_mask = 9
 monitorable = false
 script = ExtResource("1_4006l")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("1_8ddcf")
+[node name="ItemBomb" type="Sprite2D" parent="."]
+texture = ExtResource("2_h53b1")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 2)
 shape = SubResource("CircleShape2D_g8xir")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

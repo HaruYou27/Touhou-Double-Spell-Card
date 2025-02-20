@@ -4,7 +4,7 @@
 [ext_resource type="Material" uid="uid://dox27ncd2r5o3" path="res://entity/resource/glow.tres" id="2_otnkd"]
 [ext_resource type="Texture2D" uid="uid://d2wacgirqsjjn" path="res://entity/resource/white-trans.tres" id="3_mme7v"]
 [ext_resource type="Texture2D" uid="uid://cwqf8tiuf70qd" path="res://entity/player/base/sparkle.tres" id="4_s6trx"]
-[ext_resource type="Script" path="res://entity/utility/graphic/Particles2D.gd" id="5_0cx3m"]
+[ext_resource type="Script" path="res://level/utility/Particles2D.gd" id="5_0cx3m"]
 
 [sub_resource type="Gradient" id="Gradient_nn53k"]
 interpolation_mode = 2

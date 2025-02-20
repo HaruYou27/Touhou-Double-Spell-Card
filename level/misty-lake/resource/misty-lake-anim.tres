@@ -577,7 +577,7 @@ tracks/8/use_blend = false
 tracks/9/type = "method"
 tracks/9/imported = false
 tracks/9/enabled = true
-tracks/9/path = NodePath("ScoreGiveaway4/GiveawayTimer")
+tracks/9/path = NodePath("ScoreGiveaway4/GiveawaySpawner/GiveawayTimer")
 tracks/9/interp = 1
 tracks/9/loop_wrap = true
 tracks/9/keys = {
@@ -623,10 +623,10 @@ tracks/12/path = NodePath("BigHpFairy3/Fairy/TopLeft:position")
 tracks/12/interp = 1
 tracks/12/loop_wrap = true
 tracks/12/keys = {
-"times": PackedFloat32Array(0, 32.4, 34.4, 53.613, 54.5),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0, 32.4, 33.8333, 53.613, 54.5),
+"transitions": PackedFloat32Array(1, 0.5, 1, 2, 1),
 "update": 0,
-"values": [Vector2(609, 349), Vector2(609, 349), Vector2(64, 126), Vector2(64, 126), Vector2(-112, 116)]
+"values": [Vector2(609, 349), Vector2(609, 349), Vector2(64, 126), Vector2(64, 126), Vector2(652, 128)]
 }
 tracks/13/type = "value"
 tracks/13/imported = false
@@ -636,9 +636,9 @@ tracks/13/interp = 1
 tracks/13/loop_wrap = true
 tracks/13/keys = {
 "times": PackedFloat32Array(0, 35.4333, 37.4333, 53.613, 54.5),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"transitions": PackedFloat32Array(1, 0.5, 1, 2, 1),
 "update": 0,
-"values": [Vector2(-84, 329), Vector2(-84, 329), Vector2(467, 126), Vector2(467, 126), Vector2(635, 78)]
+"values": [Vector2(-84, 329), Vector2(-84, 329), Vector2(467, 126), Vector2(467, 126), Vector2(-112, 20)]
 }
 tracks/14/type = "method"
 tracks/14/imported = false
@@ -827,7 +827,7 @@ tracks/15/interp = 1
 tracks/15/loop_wrap = true
 tracks/15/keys = {
 "times": PackedFloat32Array(0, 38.4667, 40.5, 53.3667, 54.5),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"transitions": PackedFloat32Array(1, 0.5, 1, 2, 1),
 "update": 0,
 "values": [Vector2(620, -49), Vector2(620, -49), Vector2(180, 500), Vector2(180, 500), Vector2(-120, 418)]
 }
@@ -838,8 +838,8 @@ tracks/16/path = NodePath("BigHpFairy3/Fairy/BotRight:position")
 tracks/16/interp = 1
 tracks/16/loop_wrap = true
 tracks/16/keys = {
-"times": PackedFloat32Array(0, 41.9667, 43.8667, 53.5, 54.5),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0, 41.6333, 43.8667, 53.5, 54.5),
+"transitions": PackedFloat32Array(1, 0.5, 1, 2, 1),
 "update": 0,
 "values": [Vector2(-98, -54), Vector2(-98, -54), Vector2(360, 500), Vector2(360, 500), Vector2(619, 395)]
 }
@@ -850,8 +850,8 @@ tracks/17/path = NodePath("BigHpFairy3/Fairy/Middle:position")
 tracks/17/interp = 1
 tracks/17/loop_wrap = true
 tracks/17/keys = {
-"times": PackedFloat32Array(0, 30.3667, 32.3667, 53.5, 54.5),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0, 29.6333, 31.6, 53.5, 54.5),
+"transitions": PackedFloat32Array(1, 0.5, 1, 2, 1),
 "update": 0,
 "values": [Vector2(432, -49), Vector2(432, -49), Vector2(270, 300), Vector2(270, 300), Vector2(282, -94)]
 }
@@ -886,7 +886,7 @@ tracks/20/path = NodePath("BigHpFairy3:process_mode")
 tracks/20/interp = 1
 tracks/20/loop_wrap = true
 tracks/20/keys = {
-"times": PackedFloat32Array(0, 27.7333, 28.4333, 58.3333, 58.7667),
+"times": PackedFloat32Array(0, 27.9, 28.7667, 58.3333, 58.7667),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 1,
 "values": [4, 4, 0, 0, 4]
@@ -898,10 +898,10 @@ tracks/21/path = NodePath("ScoreGiveaway4:process_mode")
 tracks/21/interp = 1
 tracks/21/loop_wrap = true
 tracks/21/keys = {
-"times": PackedFloat32Array(0, 54, 76.4),
-"transitions": PackedFloat32Array(1, 1, 1),
+"times": PackedFloat32Array(0, 53.0802, 54.0333, 75.3579, 76.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 1,
-"values": [4, 0, 4]
+"values": [4, 4, 0, 0, 4]
 }
 tracks/22/type = "value"
 tracks/22/imported = false
@@ -1109,7 +1109,7 @@ tracks/37/interp = 1
 tracks/37/loop_wrap = true
 tracks/37/keys = {
 "times": PackedFloat32Array(0, 75, 76, 98.5, 99.6669, 111.533, 112.321, 135.6, 136.5, 154.312, 155),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"transitions": PackedFloat32Array(1, -2, 1, -2, 1, -2, 1, -2, 1, 2, 1),
 "update": 0,
 "values": [Vector2(270, -300), Vector2(270, -300), Vector2(270, 300), Vector2(270, 300), Vector2(270, 128), Vector2(270, 128), Vector2(270, 371), Vector2(270, 371), Vector2(270, 428), Vector2(270, 428), Vector2(270, -300)]
 }
@@ -1342,7 +1342,7 @@ tracks/44/path = NodePath("BigHpFairy3/Fairy/TopLeft:visible")
 tracks/44/interp = 1
 tracks/44/loop_wrap = true
 tracks/44/keys = {
-"times": PackedFloat32Array(0, 32.7372, 32.8667),
+"times": PackedFloat32Array(0, 32.1, 32.3),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [false, false, true]
@@ -1378,7 +1378,7 @@ tracks/47/path = NodePath("BigHpFairy3/Fairy/BotLeft:visible")
 tracks/47/interp = 1
 tracks/47/loop_wrap = true
 tracks/47/keys = {
-"times": PackedFloat32Array(0, 38.3343, 38.4342),
+"times": PackedFloat32Array(0, 38.3001, 38.4),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
 "values": [false, false, true]
@@ -1390,7 +1390,7 @@ tracks/48/path = NodePath("BigHpFairy3/Fairy/BotRight:visible")
 tracks/48/interp = 1
 tracks/48/loop_wrap = true
 tracks/48/keys = {
-"times": PackedFloat32Array(0, 41.9009, 41.9342),
+"times": PackedFloat32Array(0, 41.4667, 41.5),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
 "values": [false, false, true]
@@ -1402,7 +1402,7 @@ tracks/49/path = NodePath("BigHpFairy3/Fairy/Middle:visible")
 tracks/49/interp = 1
 tracks/49/loop_wrap = true
 tracks/49/keys = {
-"times": PackedFloat32Array(0, 30.2334, 30.3333),
+"times": PackedFloat32Array(0, 29.4667, 29.5666),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
 "values": [false, false, true]
@@ -1414,7 +1414,7 @@ tracks/50/path = NodePath("BigHpFairy3/Fairy/TopLeft:process_mode")
 tracks/50/interp = 1
 tracks/50/loop_wrap = true
 tracks/50/keys = {
-"times": PackedFloat32Array(0, 32.7667, 32.8),
+"times": PackedFloat32Array(0, 32.1333, 32.2333),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
 "values": [4, 4, 0]
@@ -1438,7 +1438,7 @@ tracks/52/path = NodePath("BigHpFairy3/Fairy/BotLeft:process_mode")
 tracks/52/interp = 1
 tracks/52/loop_wrap = true
 tracks/52/keys = {
-"times": PackedFloat32Array(0, 38.3343, 38.4009),
+"times": PackedFloat32Array(0, 38.3001, 38.3667),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
 "values": [4, 4, 0]
@@ -1450,7 +1450,7 @@ tracks/53/path = NodePath("BigHpFairy3/Fairy/BotRight:process_mode")
 tracks/53/interp = 1
 tracks/53/loop_wrap = true
 tracks/53/keys = {
-"times": PackedFloat32Array(0, 41.9009, 42.9667),
+"times": PackedFloat32Array(0, 41.3676, 41.4667),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
 "values": [4, 4, 0]
@@ -1462,10 +1462,22 @@ tracks/54/path = NodePath("BigHpFairy3/Fairy/Middle:process_mode")
 tracks/54/interp = 1
 tracks/54/loop_wrap = true
 tracks/54/keys = {
-"times": PackedFloat32Array(0, 30.6, 30.6333),
+"times": PackedFloat32Array(0, 29.5, 29.5333),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
 "values": [4, 4, 0]
+}
+tracks/55/type = "value"
+tracks/55/imported = false
+tracks/55/enabled = true
+tracks/55/path = NodePath("ScoreGiveaway4/DnaFairy:position")
+tracks/55/interp = 1
+tracks/55/loop_wrap = true
+tracks/55/keys = {
+"times": PackedFloat32Array(54.0126, 54.9667, 73.26, 74.259),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(404, -127), Vector2(270, 72), Vector2(270, 72), Vector2(153, -61)]
 }
 
 [resource]
