@@ -7,7 +7,7 @@ reloadable = false
 [icons]
 Bullet = "res://bullet-cpp/icons/bullets.svg"
 Seeker = "res://bullet-cpp/icons/Marker2D.svg"
-ItemManager = "res://bullet-cpp/icons/bullets_global.svg"
+ItemManager = "res://singleton/item-manager/point.png"
 ScoreManager = "res://bullet-cpp/icons/bullets_global.svg"
 ScreenEffect = "res://bullet-cpp/icons/ColorRect.svg"
 BulletPlayer = "res://bullet-cpp/icons/bulletS.svg"
@@ -27,6 +27,8 @@ AcceleratorSine = "res://bullet-cpp/icons/bullets.svg"
 AcceleratorSmooth = "res://bullet-cpp/icons/bullets.svg"
 Ricochetor = "res://bullet-cpp/icons/bullets.svg"
 RicochetTarget = "res://bullet-cpp/icons/Marker2D.svg"
+ItemDrop = "res://level/utility/item_bomb.png"
+BarrelSine = "res://bullet-cpp/icons/Marker2D.svg"
 
 [libraries]
 

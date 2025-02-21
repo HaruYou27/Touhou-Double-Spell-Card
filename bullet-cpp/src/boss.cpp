@@ -30,6 +30,9 @@ void Boss::_ready()
     connect("body_entered", callable_mp(this, &Boss::_body_entered));
     set_collision_layer(2);
     set_collision_mask(4);
+    set_monitorable(true);
+    set_monitoring(true);
+    set_pickable(false);
     CHECK_EDITOR
     item_manager = get_node<ItemManager>("/root/GlobalItem");
 }

@@ -577,7 +577,7 @@ tracks/8/use_blend = false
 tracks/9/type = "method"
 tracks/9/imported = false
 tracks/9/enabled = true
-tracks/9/path = NodePath("ScoreGiveaway4/GiveawaySpawner/GiveawayTimer")
+tracks/9/path = NodePath("ScoreGiveaway4/GiveawayTimer")
 tracks/9/interp = 1
 tracks/9/loop_wrap = true
 tracks/9/keys = {
@@ -1466,18 +1466,6 @@ tracks/54/keys = {
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
 "values": [4, 4, 0]
-}
-tracks/55/type = "value"
-tracks/55/imported = false
-tracks/55/enabled = true
-tracks/55/path = NodePath("ScoreGiveaway4/DnaFairy:position")
-tracks/55/interp = 1
-tracks/55/loop_wrap = true
-tracks/55/keys = {
-"times": PackedFloat32Array(54.0126, 54.9667, 73.26, 74.259),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 0,
-"values": [Vector2(404, -127), Vector2(270, 72), Vector2(270, 72), Vector2(153, -61)]
 }
 
 [resource]

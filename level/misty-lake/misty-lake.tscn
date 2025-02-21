@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://820qlg5cbdi"]
+[gd_scene load_steps=34 format=3 uid="uid://820qlg5cbdi"]
 
 [ext_resource type="Material" uid="uid://bfp322op0h8h4" path="res://level/misty-lake/resource/water-shader.tres" id="1_fq2jh"]
 [ext_resource type="Texture2D" uid="uid://bgh4r80tk5o7v" path="res://level/misty-lake/resource/water-noise.tres" id="3_hbemg"]
@@ -13,7 +13,6 @@
 [ext_resource type="Script" path="res://entity/utility/Path2DSpawner.gd" id="12_7qycb"]
 [ext_resource type="PackedScene" uid="uid://cq3xwwyrafhhf" path="res://level/misty-lake/big_fairy.tscn" id="12_u7k0g"]
 [ext_resource type="PackedScene" uid="uid://t06jih7w41he" path="res://level/misty-lake/big_fairy_circle.tscn" id="13_8aarh"]
-[ext_resource type="PackedScene" uid="uid://d0b4cxctc0bur" path="res://level/misty-lake/DnaFairy.tscn" id="14_nonst"]
 [ext_resource type="PackedScene" uid="uid://cnlx6witstpr6" path="res://level/misty-lake/giveaway_spawner.tscn" id="15_i3566"]
 [ext_resource type="PackedScene" uid="uid://ighcu2h88vhh" path="res://level/misty-lake/bullet_circle.tscn" id="23_1ju68"]
 [ext_resource type="PackedScene" uid="uid://bncu813gm4hx8" path="res://entity/boss/yukari/yukari.tscn" id="25_0chj7"]
@@ -375,18 +374,6 @@ tracks/24/keys = {
 "update": 1,
 "values": [false]
 }
-tracks/25/type = "value"
-tracks/25/imported = false
-tracks/25/enabled = true
-tracks/25/path = NodePath("ScoreGiveaway4/DnaFairy:position")
-tracks/25/interp = 1
-tracks/25/loop_wrap = true
-tracks/25/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(404, -127)]
-}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_y00g5"]
 _data = {
@@ -441,7 +428,6 @@ modulate = Color(1, 1, 1, 0)
 graphic_level = 2
 
 [node name="CystalDrop1" type="Node2D" parent="."]
-process_mode = 4
 visible = false
 position = Vector2(0, -43)
 
@@ -473,22 +459,19 @@ visible = false
 [node name="Fairy" type="Node2D" parent="BigHpFairy3"]
 
 [node name="TopLeft" parent="BigHpFairy3/Fairy" instance=ExtResource("12_u7k0g")]
-visible = true
 
 [node name="TopRight" parent="BigHpFairy3/Fairy" instance=ExtResource("12_u7k0g")]
-visible = true
 position = Vector2(-120, 28)
 
 [node name="BotRight" parent="BigHpFairy3/Fairy" instance=ExtResource("12_u7k0g")]
-visible = true
 position = Vector2(-98, -54)
 
 [node name="BotLeft" parent="BigHpFairy3/Fairy" instance=ExtResource("12_u7k0g")]
-visible = true
 position = Vector2(-95, 26)
 
 [node name="Middle" parent="BigHpFairy3/Fairy" instance=ExtResource("13_8aarh")]
 process_mode = 0
+visible = false
 position = Vector2(432, -49)
 
 [node name="TransformBarrel" type="Path2D" parent="BigHpFairy3"]
@@ -501,14 +484,7 @@ barrel_group = &"Big Fairy Barrel"
 process_mode = 4
 visible = false
 
-[node name="DnaFairy" parent="ScoreGiveaway4" instance=ExtResource("14_nonst")]
-position = Vector2(404, -127)
-
 [node name="GiveawaySpawner" parent="ScoreGiveaway4" instance=ExtResource("15_i3566")]
-
-[node name="GiveawayTimer" type="Timer" parent="ScoreGiveaway4/GiveawaySpawner"]
-wait_time = 0.5
-autostart = true
 
 [node name="CystalBullet" parent="ScoreGiveaway4" instance=ExtResource("8_bx502")]
 barrel_group = &"Fairy DNA Barrel"
@@ -516,11 +492,17 @@ material = SubResource("ShaderMaterial_0e0wb")
 
 [node name="Timer" type="Timer" parent="ScoreGiveaway4/CystalBullet"]
 wait_time = 0.1
+autostart = true
+
+[node name="GiveawayTimer" type="Timer" parent="ScoreGiveaway4"]
+wait_time = 0.5
+autostart = true
 
 [node name="yukari" parent="." instance=ExtResource("25_0chj7")]
 process_mode = 4
 visible = false
 position = Vector2(270, 300)
+input_pickable = false
 
 [node name="TargetLocker" type="AimBot" parent="yukari" groups=["Ball Tracking"]]
 position = Vector2(0, 145)
@@ -528,7 +510,6 @@ rotation = 1.5708
 gizmo_extents = 25.9
 
 [node name="SpellCircle" type="Node2D" parent="."]
-process_mode = 4
 visible = false
 
 [node name="BulletCircle" parent="SpellCircle" instance=ExtResource("23_1ju68")]
@@ -538,6 +519,7 @@ visible = false
 [node name="Barrel1" type="BarrelRotator" parent="SpellCircle/barrel"]
 speed = 3.142
 position = Vector2(270, 300)
+rotation = 1122.04
 
 [node name="@Marker2D@27672" type="Marker2D" parent="SpellCircle/barrel/Barrel1" groups=["Spellcard Circle"]]
 position = Vector2(142.004, 0)
@@ -565,6 +547,7 @@ gizmo_extents = 20.0
 
 [node name="Barrel2" type="BarrelRotator" parent="SpellCircle/barrel"]
 position = Vector2(270, 300)
+rotation = -1121.98
 
 [node name="_Marker2D_27675" type="Marker2D" parent="SpellCircle/barrel/Barrel2" groups=["Spellcard Circle"]]
 position = Vector2(118.072, 78.8929)
@@ -591,7 +574,6 @@ wait_time = 0.1
 autostart = true
 
 [node name="SpellButterfly" type="Node2D" parent="."]
-process_mode = 4
 visible = false
 scale = Vector2(0.5, 0.5)
 
@@ -601,6 +583,7 @@ scale = Vector2(1, 1)
 [node name="CircleBarrel2" type="BarrelRotator" parent="SpellButterfly"]
 speed = -6.284
 position = Vector2(540, 600)
+rotation = -2244.08
 scale = Vector2(4, 4)
 
 [node name="_Marker2D_76188" type="Marker2D" parent="SpellButterfly/CircleBarrel2" groups=["Spellcard Butterfly"]]
@@ -689,6 +672,7 @@ autostart = true
 
 [node name="Ball" parent="." instance=ExtResource("26_5w3ld")]
 speed = 72.0
+process_mode = 0
 
 [node name="SpellWaveParticle" type="Node2D" parent="."]
 process_mode = 4
@@ -756,8 +740,8 @@ bus = &"BGM"
 
 [connection signal="timeout" from="CystalDrop1/CystalTimer" to="CystalDrop1/CystalBullet" method="spawn_bullet"]
 [connection signal="timeout" from="Tracking2/TrackingTimer" to="Tracking2/TrackingBullet" method="spawn_bullet"]
-[connection signal="timeout" from="ScoreGiveaway4/GiveawaySpawner/GiveawayTimer" to="ScoreGiveaway4/GiveawaySpawner" method="spawn_enemy"]
 [connection signal="timeout" from="ScoreGiveaway4/CystalBullet/Timer" to="ScoreGiveaway4/CystalBullet" method="spawn_bullet"]
+[connection signal="timeout" from="ScoreGiveaway4/GiveawayTimer" to="ScoreGiveaway4/GiveawaySpawner" method="spawn_enemy"]
 [connection signal="timeout" from="SpellCircle/SpellCircleTimer" to="SpellCircle/BulletCircle" method="spawn_bullet"]
 [connection signal="timeout" from="SpellButterfly/SpellButterflyTimer" to="SpellButterfly/BulletButterfly" method="spawn_bullet"]
 [connection signal="timeout" from="SpellWaveParticle/TimerPrecise" to="SpellWaveParticle/BulletWaveParticle" method="spawn_bullet"]

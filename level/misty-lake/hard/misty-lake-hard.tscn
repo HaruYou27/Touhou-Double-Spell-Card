@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://btdmutmmovbcx"]
+[gd_scene load_steps=29 format=3 uid="uid://btdmutmmovbcx"]
 
 [ext_resource type="Material" uid="uid://bfp322op0h8h4" path="res://level/misty-lake/resource/water-shader.tres" id="1_uyie7"]
 [ext_resource type="Texture2D" uid="uid://bgh4r80tk5o7v" path="res://level/misty-lake/resource/water-noise.tres" id="2_q3kyb"]
@@ -13,7 +13,6 @@
 [ext_resource type="PackedScene" uid="uid://cmphgsoxqsrqh" path="res://level/misty-lake/hard/big_fairy_hard.tscn" id="12_cata7"]
 [ext_resource type="PackedScene" uid="uid://t06jih7w41he" path="res://level/misty-lake/big_fairy_circle.tscn" id="13_dquvh"]
 [ext_resource type="PackedScene" uid="uid://cnlx6witstpr6" path="res://level/misty-lake/giveaway_spawner.tscn" id="13_vvk3m"]
-[ext_resource type="PackedScene" uid="uid://d0b4cxctc0bur" path="res://level/misty-lake/DnaFairy.tscn" id="15_5s3ph"]
 [ext_resource type="PackedScene" uid="uid://bncu813gm4hx8" path="res://entity/boss/yukari/yukari.tscn" id="16_kfpsf"]
 [ext_resource type="PackedScene" uid="uid://ighcu2h88vhh" path="res://level/misty-lake/bullet_circle.tscn" id="18_qsrog"]
 [ext_resource type="PackedScene" uid="uid://c5a7s56lfc5fl" path="res://level/misty-lake/bullet_butterfly.tscn" id="20_cwlyi"]
@@ -517,7 +516,6 @@ position = Vector2(432, -49)
 
 [node name="BigFairyBullet" parent="BigHpFairy3" instance=ExtResource("10_0la6b")]
 barrel_group = &"Big Fairy Barrel"
-local_rotation = true
 
 [node name="ScoreGiveaway4" type="Node2D" parent="."]
 process_mode = 4
@@ -525,17 +523,22 @@ visible = false
 
 [node name="GiveawaySpawner" parent="ScoreGiveaway4" instance=ExtResource("13_vvk3m")]
 
-[node name="GiveawayTimer" type="Timer" parent="ScoreGiveaway4/GiveawaySpawner"]
+[node name="GiveawayTimer" type="Timer" parent="ScoreGiveaway4"]
 wait_time = 0.5
 autostart = true
 
-[node name="DnaFairy" parent="ScoreGiveaway4" instance=ExtResource("15_5s3ph")]
-position = Vector2(270, -60)
+[node name="CystalBullet" parent="ScoreGiveaway4" instance=ExtResource("7_tquvd")]
+barrel_group = &"Fairy DNA Barrel"
+
+[node name="Timer" type="Timer" parent="ScoreGiveaway4/CystalBullet"]
+wait_time = 0.2
+autostart = true
 
 [node name="yukari" parent="." instance=ExtResource("16_kfpsf")]
 process_mode = 4
 visible = false
 position = Vector2(270, 300)
+input_pickable = false
 
 [node name="TargetLocker" type="AimBot" parent="yukari" groups=["Ball Tracking"]]
 position = Vector2(0, 145)
@@ -891,7 +894,8 @@ bus = &"BGM"
 
 [connection signal="timeout" from="CystalDrop1/CystalTimer" to="CystalDrop1/CystalBullet" method="spawn_bullet"]
 [connection signal="timeout" from="Tracking2/TrackingTimer" to="Tracking2/TrackingBullet" method="spawn_bullet" flags=3]
-[connection signal="timeout" from="ScoreGiveaway4/GiveawaySpawner/GiveawayTimer" to="ScoreGiveaway4/GiveawaySpawner" method="spawn_enemy"]
+[connection signal="timeout" from="ScoreGiveaway4/GiveawayTimer" to="ScoreGiveaway4/GiveawaySpawner" method="spawn_enemy"]
+[connection signal="timeout" from="ScoreGiveaway4/CystalBullet/Timer" to="ScoreGiveaway4/CystalBullet" method="spawn_bullet"]
 [connection signal="timeout" from="SpellCircle/SpellCircleTimer" to="SpellCircle/BulletCircle" method="spawn_bullet"]
 [connection signal="timeout" from="SpellButterfly/SpellButterflyTimer" to="SpellButterfly/BulletButterfly" method="spawn_bullet"]
 [connection signal="timeout" from="SpellWaveParticle/TimerPrecise" to="SpellWaveParticle/BulletWaveParticle" method="spawn_bullet"]

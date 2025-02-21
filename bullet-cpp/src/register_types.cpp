@@ -27,6 +27,8 @@
 #include "graze_body.hpp"
 #include "barrel_rotator.hpp"
 #include "aim_bot.hpp"
+#include "item_drop.hpp"
+#include "barrel_sine.hpp"
 
 void initialize_gdextension_types(ModuleInitializationLevel p_level)
 {
@@ -47,6 +49,7 @@ void initialize_gdextension_types(ModuleInitializationLevel p_level)
 	GDREGISTER_CLASS(BulletPlayer);
 	GDREGISTER_CLASS(Seeker);
 	GDREGISTER_CLASS(BarrelRotator);
+	GDREGISTER_CLASS(BarrelSine);
 	GDREGISTER_CLASS(BarrelRotatorRandom);
 	GDREGISTER_CLASS(AimBot);
 	GDREGISTER_CLASS(ScoreManager);
@@ -55,6 +58,7 @@ void initialize_gdextension_types(ModuleInitializationLevel p_level)
 	GDREGISTER_CLASS(AcceleratorSmooth);
 	GDREGISTER_CLASS(Ricochetor);
 	GDREGISTER_CLASS(RicochetTarget);
+	GDREGISTER_CLASS(ItemDrop);
 }
 
 void uninitialize_gdextension_types(ModuleInitializationLevel p_level) {
