@@ -36,7 +36,7 @@ private:
     void move_bullets();
 
     Callable action_expire;
-    Rect2 world_border = Rect2(-100, -100, 740, 1160);
+    const Rect2 world_border = Rect2(-100, -100, 740, 1160);
     Callable action_move;
 protected:
     static const int max_bullet = 2000;

@@ -107,7 +107,7 @@ tracks/4/keys = {
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("Tracking2/TrackingSpawner:reverse")
+tracks/5/path = NodePath("CystalShoot2/CystalShootSpawner:reverse")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
@@ -179,7 +179,7 @@ tracks/10/keys = {
 tracks/11/type = "value"
 tracks/11/imported = false
 tracks/11/enabled = true
-tracks/11/path = NodePath("Tracking2:process_mode")
+tracks/11/path = NodePath("CystalShoot2:process_mode")
 tracks/11/interp = 1
 tracks/11/loop_wrap = true
 tracks/11/keys = {
@@ -239,7 +239,7 @@ tracks/15/keys = {
 tracks/16/type = "value"
 tracks/16/imported = false
 tracks/16/enabled = true
-tracks/16/path = NodePath("Tracking2:visible")
+tracks/16/path = NodePath("CystalShoot2:visible")
 tracks/16/interp = 1
 tracks/16/loop_wrap = true
 tracks/16/keys = {
@@ -466,23 +466,23 @@ position = Vector2(0, -43)
 speed = 372.0
 barrel_group = &"Cystal Drop Barrel"
 
-[node name="CystalTimer" type="Timer" parent="CystalDrop1"]
+[node name="CystalTimer" type="Timer" parent="CystalDrop1/CystalBullet"]
 wait_time = 0.2
 autostart = true
 
 [node name="CystalSpawner" parent="CystalDrop1" instance=ExtResource("8_5f462")]
 
-[node name="Tracking2" type="Node2D" parent="."]
+[node name="CystalShoot2" type="Node2D" parent="."]
 process_mode = 4
 visible = false
 
-[node name="TrackingTimer" type="Timer" parent="Tracking2"]
-autostart = true
-
-[node name="TrackingBullet" parent="Tracking2" instance=ExtResource("10_0la6b")]
+[node name="TrackingBullet" parent="CystalShoot2" instance=ExtResource("10_0la6b")]
 local_rotation = true
 
-[node name="TrackingSpawner" parent="Tracking2" instance=ExtResource("10_rn7ls")]
+[node name="TrackingTimer" type="Timer" parent="CystalShoot2/TrackingBullet"]
+autostart = true
+
+[node name="CystalShootSpawner" parent="CystalShoot2" instance=ExtResource("10_rn7ls")]
 
 [node name="BigHpFairy3" type="Node2D" parent="."]
 process_mode = 4
@@ -892,8 +892,8 @@ libraries = {
 [node name="bgm" type="AudioStreamPlayer" parent="."]
 bus = &"BGM"
 
-[connection signal="timeout" from="CystalDrop1/CystalTimer" to="CystalDrop1/CystalBullet" method="spawn_bullet"]
-[connection signal="timeout" from="Tracking2/TrackingTimer" to="Tracking2/TrackingBullet" method="spawn_bullet" flags=3]
+[connection signal="timeout" from="CystalDrop1/CystalBullet/CystalTimer" to="CystalDrop1/CystalBullet" method="spawn_bullet"]
+[connection signal="timeout" from="CystalShoot2/TrackingBullet/TrackingTimer" to="CystalShoot2/TrackingBullet" method="spawn_bullet" flags=3]
 [connection signal="timeout" from="ScoreGiveaway4/GiveawayTimer" to="ScoreGiveaway4/GiveawaySpawner" method="spawn_enemy"]
 [connection signal="timeout" from="ScoreGiveaway4/CystalBullet/Timer" to="ScoreGiveaway4/CystalBullet" method="spawn_bullet"]
 [connection signal="timeout" from="SpellCircle/SpellCircleTimer" to="SpellCircle/BulletCircle" method="spawn_bullet"]

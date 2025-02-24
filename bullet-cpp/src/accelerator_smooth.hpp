@@ -9,7 +9,7 @@ class AcceleratorSmooth : public Accelerator
 GDCLASS(AcceleratorSmooth, Accelerator)
 
 private:
-    float acceleration;
+    float acceleration = 1;
 protected:
     static void _bind_methods();
     virtual float calculate_speed(const int index) override;

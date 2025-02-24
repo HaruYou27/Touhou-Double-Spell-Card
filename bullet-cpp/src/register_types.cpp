@@ -29,6 +29,7 @@
 #include "aim_bot.hpp"
 #include "item_drop.hpp"
 #include "barrel_sine.hpp"
+#include "sine_displace.hpp"
 
 void initialize_gdextension_types(ModuleInitializationLevel p_level)
 {
@@ -36,6 +37,7 @@ void initialize_gdextension_types(ModuleInitializationLevel p_level)
 		return;
 	}
 	GDREGISTER_CLASS(Bullet);
+	GDREGISTER_CLASS(SineDisplace);
 	GDREGISTER_CLASS(Spinner);
 	GDREGISTER_CLASS(ItemManager);
 	GDREGISTER_CLASS(GrazeBody);

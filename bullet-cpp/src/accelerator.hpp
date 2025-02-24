@@ -9,11 +9,13 @@ GDCLASS(Accelerator, AcceleratorSine)
 
 private:
     float speed_final = 527;
+    float duration = 1;
 protected:
     static void _bind_methods();
     virtual float calculate_speed(const int index) override;
 public:
     SET_GET(speed_final, float);
+    SET_GET(duration, float);
 };
 
 #endif

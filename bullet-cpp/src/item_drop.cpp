@@ -12,15 +12,28 @@ void ItemDrop::_bind_methods()
     ADD_PROPERTY_VECTOR2(velocity)
 }
 
+void ItemDrop::disable()
+{
+    hide();
+    set_physics_process(false);
+    set_process_mode(Node::PROCESS_MODE_DISABLED);
+}
+
 void ItemDrop::_physics_process(const double delta)
 {
     velocity.y += gravity * delta;
     translate(velocity * delta);
+
+    if (world_border.has_point(get_global_position()))
+    {
+        disable();
+    }
 }
 
 void ItemDrop::_body_entered(Node2D *body)
 {
     global_score->add_bomb();
+    disable();
 }
 
 void ItemDrop::_ready()

@@ -3,61 +3,76 @@
 [ext_resource type="Script" path="res://entity/utility/Path2DSpawner.gd" id="1_en5ps"]
 [ext_resource type="PackedScene" uid="uid://c7lcs65yc2vea" path="res://level/misty-lake/hard/phantom.tscn" id="2_i3cmk"]
 
-[sub_resource type="Curve2D" id="Curve2D_va8k1"]
+[sub_resource type="Curve2D" id="Curve2D_t75f6"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, -92, -11, 219.819, -28.4275, -219.819, 28.4275, 192, 421, -144.393, -18.3189, 144.393, 18.3189, 351, 148, 29.665, -139.849, -29.665, 139.849, 366, 653, 0, 0, 0, 0, 689, 515)
+"points": PackedVector2Array(240.257, -137.496, -240.257, 137.496, 612, 888, 117.04, -200.101, -117.04, 200.101, 427, 71, -166.122, 64.1835, 166.122, -64.1835, 138, 73, 147.244, 11.3265, -147.244, -11.3265, -92, 836)
 }
-point_count = 5
+point_count = 4
 
-[node name="TrackingSpawner" type="Path2D"]
-position = Vector2(11, -23)
-curve = SubResource("Curve2D_va8k1")
+[node name="CystalShootSpawner" type="Path2D"]
+curve = SubResource("Curve2D_t75f6")
 script = ExtResource("1_en5ps")
 
 [node name="Ghost17" parent="." instance=ExtResource("2_i3cmk")]
-position = Vector2(-92, -11)
+position = Vector2(612, 888)
+time = 7.0
 
 [node name="Ghost18" parent="." instance=ExtResource("2_i3cmk")]
-position = Vector2(-92, -11)
+position = Vector2(612, 888)
+time = 7.0
 
 [node name="Ghost19" parent="." instance=ExtResource("2_i3cmk")]
-position = Vector2(-92, -11)
+position = Vector2(612, 888)
+time = 7.0
 
 [node name="Ghost20" parent="." instance=ExtResource("2_i3cmk")]
-position = Vector2(-92, -11)
+position = Vector2(612, 888)
+time = 7.0
 
 [node name="Ghost21" parent="." instance=ExtResource("2_i3cmk")]
-position = Vector2(-92, -11)
+position = Vector2(612, 888)
+time = 7.0
 
 [node name="Ghost22" parent="." instance=ExtResource("2_i3cmk")]
-position = Vector2(-92, -11)
+position = Vector2(612, 888)
+time = 7.0
 
 [node name="Ghost23" parent="." instance=ExtResource("2_i3cmk")]
-position = Vector2(-92, -11)
+position = Vector2(612, 888)
+time = 7.0
 
 [node name="Ghost24" parent="." instance=ExtResource("2_i3cmk")]
-position = Vector2(-92, -11)
+position = Vector2(612, 888)
+time = 7.0
 
 [node name="Ghost25" parent="." instance=ExtResource("2_i3cmk")]
-position = Vector2(-92, -11)
+position = Vector2(612, 888)
+time = 7.0
 
 [node name="Ghost26" parent="." instance=ExtResource("2_i3cmk")]
-position = Vector2(-92, -11)
+position = Vector2(612, 888)
+time = 7.0
 
 [node name="Ghost27" parent="." instance=ExtResource("2_i3cmk")]
-position = Vector2(-92, -11)
+position = Vector2(612, 888)
+time = 7.0
 
 [node name="Ghost28" parent="." instance=ExtResource("2_i3cmk")]
-position = Vector2(-92, -11)
+position = Vector2(612, 888)
+time = 7.0
 
 [node name="Ghost29" parent="." instance=ExtResource("2_i3cmk")]
-position = Vector2(-92, -11)
+position = Vector2(612, 888)
+time = 7.0
 
 [node name="Ghost30" parent="." instance=ExtResource("2_i3cmk")]
-position = Vector2(-92, -11)
+position = Vector2(612, 888)
+time = 7.0
 
 [node name="Ghost31" parent="." instance=ExtResource("2_i3cmk")]
-position = Vector2(-92, -11)
+position = Vector2(612, 888)
+time = 7.0
 
 [node name="Ghost32" parent="." instance=ExtResource("2_i3cmk")]
-position = Vector2(-92, -11)
+position = Vector2(612, 888)
+time = 7.0

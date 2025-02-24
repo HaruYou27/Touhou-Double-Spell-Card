@@ -13,6 +13,7 @@ process_mode = 4
 heath = 64
 is_alive = true
 visual_path = NodePath("visual")
+input_pickable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy"]
 shape = SubResource("CircleShape2D_1j2c8")
@@ -20,43 +21,43 @@ shape = SubResource("CircleShape2D_1j2c8")
 [node name="visual" type="Sprite2D" parent="Enemy"]
 texture = ExtResource("2_wfibm")
 
-[node name="CircleBarrel" type="BarrelRotator" parent="."]
+[node name="CircleBarrel" type="BarrelRotator" parent="Enemy/visual"]
 
-[node name="@Marker2D@41350" type="Marker2D" parent="CircleBarrel" groups=["Big Fairy Barrel"]]
+[node name="@Marker2D@41350" type="Marker2D" parent="Enemy/visual/CircleBarrel" groups=["Big Fairy Barrel"]]
 position = Vector2(28.2843, 0)
 gizmo_extents = 20.0
 
-[node name="@Marker2D@41351" type="Marker2D" parent="CircleBarrel" groups=["Big Fairy Barrel"]]
+[node name="@Marker2D@41351" type="Marker2D" parent="Enemy/visual/CircleBarrel" groups=["Big Fairy Barrel"]]
 position = Vector2(20, 20)
 rotation = 0.785398
 gizmo_extents = 20.0
 
-[node name="@Marker2D@41352" type="Marker2D" parent="CircleBarrel" groups=["Big Fairy Barrel"]]
+[node name="@Marker2D@41352" type="Marker2D" parent="Enemy/visual/CircleBarrel" groups=["Big Fairy Barrel"]]
 position = Vector2(-1.23634e-06, 28.2843)
 rotation = 1.5708
 gizmo_extents = 20.0
 
-[node name="@Marker2D@41353" type="Marker2D" parent="CircleBarrel" groups=["Big Fairy Barrel"]]
+[node name="@Marker2D@41353" type="Marker2D" parent="Enemy/visual/CircleBarrel" groups=["Big Fairy Barrel"]]
 position = Vector2(-20, 20)
 rotation = 2.35619
 gizmo_extents = 20.0
 
-[node name="@Marker2D@41354" type="Marker2D" parent="CircleBarrel" groups=["Big Fairy Barrel"]]
+[node name="@Marker2D@41354" type="Marker2D" parent="Enemy/visual/CircleBarrel" groups=["Big Fairy Barrel"]]
 position = Vector2(-28.2843, -2.47269e-06)
 rotation = -3.14159
 gizmo_extents = 20.0
 
-[node name="@Marker2D@41355" type="Marker2D" parent="CircleBarrel" groups=["Big Fairy Barrel"]]
+[node name="@Marker2D@41355" type="Marker2D" parent="Enemy/visual/CircleBarrel" groups=["Big Fairy Barrel"]]
 position = Vector2(-20, -20)
 rotation = -2.35619
 gizmo_extents = 20.0
 
-[node name="@Marker2D@41356" type="Marker2D" parent="CircleBarrel" groups=["Big Fairy Barrel"]]
+[node name="@Marker2D@41356" type="Marker2D" parent="Enemy/visual/CircleBarrel" groups=["Big Fairy Barrel"]]
 position = Vector2(3.37287e-07, -28.2843)
 rotation = -1.5708
 gizmo_extents = 20.0
 
-[node name="@Marker2D@41357" type="Marker2D" parent="CircleBarrel" groups=["Big Fairy Barrel"]]
+[node name="@Marker2D@41357" type="Marker2D" parent="Enemy/visual/CircleBarrel" groups=["Big Fairy Barrel"]]
 position = Vector2(20, -20)
 rotation = -0.785398
 gizmo_extents = 20.0

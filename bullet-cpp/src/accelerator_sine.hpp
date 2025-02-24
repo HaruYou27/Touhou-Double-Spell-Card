@@ -9,7 +9,7 @@ class AcceleratorSine : public Bullet
 GDCLASS(AcceleratorSine, Bullet)
 
 private:
-    float duration = 1;
+    float time_scale = 1;
 protected:
     float life_times[max_bullet];
 
@@ -19,7 +19,7 @@ protected:
     virtual void reset_bullet() override;
     virtual void sort_bullet(const int index) override;
 public:
-    SET_GET(duration, float);
+    SET_GET(time_scale, float);
 };
 
 #endif

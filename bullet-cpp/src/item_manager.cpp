@@ -95,8 +95,6 @@ void ItemManager::move_bullet(const int index)
     }
     
     Transform2D &transform = transforms[index];
-    transform.set_rotation(transform.get_rotation() + get_speed_angular() * delta32);
-    
     Vector2 local = transform.get_origin() - player1_position;
     Vector2 local_origin = player1_position;
     if (player2 != nullptr)
@@ -120,6 +118,7 @@ bool ItemManager::collide(const Dictionary &result, const int index)
     {
         grazes[index] = false;
         Transform2D &transform = transforms[index];
+        transform.set_rotation(0);
         distances[index] = get_nearest_player(transform.get_origin()).length();
         return false;
     }

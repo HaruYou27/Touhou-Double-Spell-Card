@@ -11,9 +11,11 @@ class ItemDrop : public Area2D
 GDCLASS(ItemDrop, Area2D)
     
 private:
+    const Rect2 world_border = Rect2(-100, -100, 740, 1160);
     float gravity = 98;
     Vector2 velocity = Vector2(0, 0);
     ScoreManager *global_score;
+    void disable();
 protected:
     static void _bind_methods();
 public:

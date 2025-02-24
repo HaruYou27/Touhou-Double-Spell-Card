@@ -1,11 +1,11 @@
 #include "accelerator_sine.hpp"
 
-SETTER_GETTER(duration, float, AcceleratorSine)
+SETTER_GETTER(time_scale, float, AcceleratorSine)
 
 void AcceleratorSine::_bind_methods()
 {
-    BIND_SETGET(duration, AcceleratorSine)
-    ADD_PROPERTY_FLOAT(duration)
+    BIND_SETGET(time_scale, AcceleratorSine)
+    ADD_PROPERTY_FLOAT(time_scale)
 }
 
 void AcceleratorSine::reset_bullet()
@@ -26,7 +26,7 @@ void AcceleratorSine::sort_bullet(const int index)
 
 void AcceleratorSine::move_bullet(const int index)
 {
-    life_times[index] += delta32;
+    life_times[index] += delta32 * time_scale;
     Vector2 &velocity = velocities[index];
     velocity.normalize();
     velocity *= calculate_speed(index);

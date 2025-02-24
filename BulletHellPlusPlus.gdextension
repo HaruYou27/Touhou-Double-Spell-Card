@@ -29,7 +29,7 @@ Ricochetor = "res://bullet-cpp/icons/bullets.svg"
 RicochetTarget = "res://bullet-cpp/icons/Marker2D.svg"
 ItemDrop = "res://level/utility/item_bomb.png"
 BarrelSine = "res://bullet-cpp/icons/Marker2D.svg"
-
+SineDisplace = "res://bullet-cpp/icons/bullets.svg"
 [libraries]
 
 linux.debug.x86_64 = "res://bin/linux/libBulletHELLplusplus.linux.template_debug.dev.x86_64.so"
