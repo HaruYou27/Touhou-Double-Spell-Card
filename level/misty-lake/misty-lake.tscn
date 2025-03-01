@@ -582,7 +582,6 @@ visible = false
 scale = Vector2(0.5, 0.5)
 
 [node name="BulletButterfly" parent="SpellButterfly" instance=ExtResource("26_c7ekx")]
-scale = Vector2(1, 1)
 
 [node name="CircleBarrel2" type="BarrelRotator" parent="SpellButterfly"]
 speed = -6.284
@@ -744,6 +743,11 @@ bus = &"BGM"
 [connection signal="timeout" from="CystalShoot2/TrackingBullet/TrackingTimer" to="CystalShoot2/TrackingBullet" method="spawn_bullet"]
 [connection signal="timeout" from="ScoreGiveaway4/CystalBullet/Timer" to="ScoreGiveaway4/CystalBullet" method="spawn_bullet"]
 [connection signal="timeout" from="ScoreGiveaway4/GiveawayTimer" to="ScoreGiveaway4/GiveawaySpawner" method="spawn_enemy"]
+[connection signal="body_entered" from="yukari" to="yukari" method=""]
+[connection signal="visibility_changed" from="SpellCircle/barrel/Barrel1" to="SpellCircle/barrel/Barrel1" method=""]
+[connection signal="visibility_changed" from="SpellCircle/barrel/Barrel2" to="SpellCircle/barrel/Barrel2" method=""]
 [connection signal="timeout" from="SpellCircle/SpellCircleTimer" to="SpellCircle/BulletCircle" method="spawn_bullet"]
+[connection signal="visibility_changed" from="SpellButterfly/CircleBarrel2" to="SpellButterfly/CircleBarrel2" method=""]
 [connection signal="timeout" from="SpellButterfly/SpellButterflyTimer" to="SpellButterfly/BulletButterfly" method="spawn_bullet"]
+[connection signal="visibility_changed" from="SpellWaveParticle/CircleBarrel" to="SpellWaveParticle/CircleBarrel" method=""]
 [connection signal="timeout" from="SpellWaveParticle/TimerPrecise" to="SpellWaveParticle/BulletWaveParticle" method="spawn_bullet"]

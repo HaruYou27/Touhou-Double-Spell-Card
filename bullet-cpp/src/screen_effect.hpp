@@ -20,12 +20,11 @@ private:
     Control *scene;
     Node *level_loader;
     Time *time;
-    Ref<RandomNumberGenerator> rng;
+
+    Callable action_hide = Callable(this, "hide");
 protected:
     static void _bind_methods();
 public:
-    ScreenEffect();
-
     virtual void _ready() override;
     virtual void _process(double delta) override;
 

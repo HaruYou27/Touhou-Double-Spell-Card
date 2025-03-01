@@ -35,9 +35,9 @@ private:
     void collision_wall();
     void move_bullets();
 
-    Callable action_expire;
     const Rect2 world_border = Rect2(-100, -100, 740, 1160);
-    Callable action_move;
+    Callable action_expire = callable_mp(this, &Bullet::collision_wall);
+    Callable action_move = callable_mp(this, &Bullet::move_bullets);
 protected:
     static const int max_bullet = 2000;
     static const int half_bullet = 1000;

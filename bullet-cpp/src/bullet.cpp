@@ -75,8 +75,6 @@ Bullet::Bullet()
     query.instantiate();
     thread_bullet.instantiate();
     thread_barrel.instantiate();
-    action_expire = callable_mp(this, &Bullet::collision_wall);
-    action_move = callable_mp(this, &Bullet::move_bullets);
 }
 
 void Bullet::reset_bullet()

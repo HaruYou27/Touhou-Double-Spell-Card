@@ -118,7 +118,7 @@ bool ItemManager::collide(const Dictionary &result, const int index)
     {
         grazes[index] = false;
         Transform2D &transform = transforms[index];
-        transform.set_rotation(0);
+        transform.set_rotation(PI_2);
         distances[index] = get_nearest_player(transform.get_origin()).length();
         return false;
     }

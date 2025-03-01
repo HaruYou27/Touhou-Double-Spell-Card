@@ -1,11 +1,5 @@
 #include "screen_effect.hpp"
 
-ScreenEffect::ScreenEffect()
-{
-    rng.instantiate();
-    rng->randomize();
-}
-
 void ScreenEffect::_bind_methods()
 {
     BIND_FUNCTION(flash_red, ScreenEffect);
@@ -42,7 +36,7 @@ Ref<Tween> ScreenEffect::fade2black(const bool reverse)
         set_color(Color(0, 0, 0, 0));
         tween->tween_property(this, "color", Color(0, 0, 0, 1), 0.5);
     }
-    tween->connect("finished", Callable(this, "hide"));
+    tween->connect("finished", action_hide, CONNECT_ONE_SHOT);
     return tween;
 }
 
@@ -58,7 +52,7 @@ void ScreenEffect::flash(const double duration)
     set_color(Color(1, 1, 1, 0.5));
     REPLACE_TWEEN(tween)
     tween->tween_property(this, "color", Color(1, 1, 1, 0), duration);
-    tween->connect("finished", Callable(this, "hide"));
+    tween->connect("finished", action_hide, CONNECT_ONE_SHOT);
 }
 
 void ScreenEffect::shake(const double duration)
@@ -85,13 +79,14 @@ void ScreenEffect::_process(double delta)
         scene->set_rotation(0);
         return;
     }
-    scene->set_rotation(rng->randf_range(-0.01, 0.01));
+
     int usec = time->get_ticks_usec();
-    int random_int = rng->randi();
+    float sin_usec = sin(usec);
+    scene->set_rotation(sin_usec * 0.01);
     
-    Vector2 offset = Vector2(sin(random_int), cos(random_int));
+    Vector2 offset = Vector2(sin_usec, cos(usec));
     offset.normalize();
-    offset *= 5 * sin(usec);
+    offset *= 5 * sin_usec;
 
     scene->set_position(offset);
 }
