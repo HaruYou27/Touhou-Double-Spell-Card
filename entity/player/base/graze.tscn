@@ -2,7 +2,7 @@
 
 [ext_resource type="Material" uid="uid://dox27ncd2r5o3" path="res://entity/resource/glow.tres" id="2_ltv4y"]
 [ext_resource type="AudioStream" uid="uid://4t58xs4qdlkr" path="res://singleton/sound-effect/resource/tick+.wav" id="2_tulhb"]
-[ext_resource type="Script" path="res://level/utility/Particles2D.gd" id="4_jo3u4"]
+[ext_resource type="Script" uid="uid://dq4f4p0t0t4dp" path="res://level/utility/Particles2D.gd" id="4_jo3u4"]
 
 [sub_resource type="ParticleProcessMaterial" id="25"]
 emission_shape = 1

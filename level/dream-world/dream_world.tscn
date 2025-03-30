@@ -1,10 +1,10 @@
 [gd_scene load_steps=14 format=3 uid="uid://dg3c0gdslbpa4"]
 
-[ext_resource type="Shader" path="res://level/dream-world/nebula.gdshader" id="1_fgedf"]
+[ext_resource type="Shader" uid="uid://48n6478ctnvo" path="res://level/dream-world/nebula.gdshader" id="1_fgedf"]
 [ext_resource type="Texture2D" uid="uid://c0vtwae7q6bhd" path="res://level/dream-world/nebula.tres" id="2_dcm6i"]
-[ext_resource type="Shader" path="res://level/dream-world/grid.gdshader" id="3_38whw"]
+[ext_resource type="Shader" uid="uid://doyg0ygeh5dv6" path="res://level/dream-world/grid.gdshader" id="3_38whw"]
 [ext_resource type="PackedScene" uid="uid://bfvb372sca8m2" path="res://user-interface/leveler/leveler.tscn" id="4_aeo0o"]
-[ext_resource type="Script" path="res://level/utility/GraphicOptional.gd" id="4_f1sm0"]
+[ext_resource type="Script" uid="uid://bj6mwqfrbealo" path="res://level/utility/GraphicOptional.gd" id="4_f1sm0"]
 
 [sub_resource type="Gradient" id="Gradient_hb3xu"]
 interpolation_mode = 2
@@ -18,11 +18,11 @@ width = 64
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_nunam"]
 shader = ExtResource("1_fgedf")
+shader_parameter/color_map = SubResource("GradientTexture1D_54ekl")
 shader_parameter/velocity = Vector2(0, -0.1)
 shader_parameter/fov = 90.0
 shader_parameter/y_rot = 8.55e-06
 shader_parameter/x_rot = 37.951
-shader_parameter/color_map = SubResource("GradientTexture1D_54ekl")
 
 [sub_resource type="Gradient" id="Gradient_ji18j"]
 interpolation_mode = 2

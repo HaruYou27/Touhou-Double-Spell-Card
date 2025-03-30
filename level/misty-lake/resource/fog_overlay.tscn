@@ -13,10 +13,10 @@ width = 64
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_crap5"]
 shader = ExtResource("1_y7bcl")
-shader_parameter/speed = 0.5
-shader_parameter/velocity = Vector2(0, -0.2)
 shader_parameter/color_map = SubResource("GradientTexture1D_3ycqc")
 shader_parameter/noise = ExtResource("2_1m30r")
+shader_parameter/speed = 0.5
+shader_parameter/velocity = Vector2(0, -0.2)
 
 [node name="FogOverlay" type="Sprite2D"]
 z_index = 900

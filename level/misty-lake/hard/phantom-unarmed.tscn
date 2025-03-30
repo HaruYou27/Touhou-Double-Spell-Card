@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://xqyxbaqg5pxr"]
 
-[ext_resource type="Script" path="res://entity/utility/PathFollower2D.gd" id="1_nx8jm"]
+[ext_resource type="Script" uid="uid://ikex7tge28pl" path="res://entity/utility/PathFollower2D.gd" id="1_nx8jm"]
 [ext_resource type="PackedScene" uid="uid://dtlscerig62nv" path="res://entity/enemy/base/enemy.tscn" id="2_swj6e"]
 [ext_resource type="PackedScene" uid="uid://x6m45dr4ylyl" path="res://entity/enemy/phantom/phantom_visual.tscn" id="3_fy83r"]
 

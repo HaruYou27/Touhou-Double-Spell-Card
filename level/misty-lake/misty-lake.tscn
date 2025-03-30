@@ -2,15 +2,15 @@
 
 [ext_resource type="Material" uid="uid://bfp322op0h8h4" path="res://level/misty-lake/resource/water-shader.tres" id="1_fq2jh"]
 [ext_resource type="Texture2D" uid="uid://bgh4r80tk5o7v" path="res://level/misty-lake/resource/water-noise.tres" id="3_hbemg"]
-[ext_resource type="Script" path="res://level/utility/GraphicOptional.gd" id="4_mglvh"]
-[ext_resource type="Shader" path="res://level/misty-lake/resource/sky-reflection.gdshader" id="5_thpg0"]
+[ext_resource type="Script" uid="uid://bj6mwqfrbealo" path="res://level/utility/GraphicOptional.gd" id="4_mglvh"]
+[ext_resource type="Shader" uid="uid://cnqpq8a8vqnqy" path="res://level/misty-lake/resource/sky-reflection.gdshader" id="5_thpg0"]
 [ext_resource type="Texture2D" uid="uid://x1e8a67qetah" path="res://level/misty-lake/resource/FullMoon.png" id="6_aaqhm"]
 [ext_resource type="PackedScene" uid="uid://6wuhmc2p8byc" path="res://level/misty-lake/resource/fog.tscn" id="7_pvwld"]
 [ext_resource type="PackedScene" uid="uid://c1xyo1w3okwtp" path="res://level/misty-lake/cystal_bullet.tscn" id="8_bx502"]
 [ext_resource type="PackedScene" uid="uid://blhwt58rvxmy6" path="res://level/misty-lake/cystal_spawner.tscn" id="8_rvbod"]
 [ext_resource type="PackedScene" uid="uid://c2pv6wt335tdn" path="res://level/misty-lake/tracking_spawner.tscn" id="9_8xx2p"]
 [ext_resource type="PackedScene" uid="uid://cncbx2jqrl88c" path="res://level/misty-lake/tracking_bullet.tscn" id="11_lmauy"]
-[ext_resource type="Script" path="res://entity/utility/Path2DSpawner.gd" id="12_7qycb"]
+[ext_resource type="Script" uid="uid://b68wyjrrw18sg" path="res://entity/utility/Path2DSpawner.gd" id="12_7qycb"]
 [ext_resource type="PackedScene" uid="uid://cq3xwwyrafhhf" path="res://level/misty-lake/big_fairy.tscn" id="12_u7k0g"]
 [ext_resource type="PackedScene" uid="uid://t06jih7w41he" path="res://level/misty-lake/big_fairy_circle.tscn" id="13_8aarh"]
 [ext_resource type="PackedScene" uid="uid://cnlx6witstpr6" path="res://level/misty-lake/giveaway_spawner.tscn" id="15_i3566"]
@@ -20,17 +20,17 @@
 [ext_resource type="PackedScene" uid="uid://c5a7s56lfc5fl" path="res://level/misty-lake/bullet_butterfly.tscn" id="26_c7ekx"]
 [ext_resource type="PackedScene" uid="uid://beleukbiw05us" path="res://level/misty-lake/bullet_wave_particle.tscn" id="27_av3l4"]
 [ext_resource type="AnimationLibrary" uid="uid://co0x1lfyxmlfe" path="res://level/misty-lake/resource/misty-lake-anim.tres" id="31_3u5ao"]
-[ext_resource type="Script" path="res://entity/utility/RotatorAccelerator.gd" id="33_bxfih"]
-[ext_resource type="Shader" path="res://level/misty-lake/resource/reflection.gdshader" id="35_eor82"]
+[ext_resource type="Script" uid="uid://tnp6dlgobqlc" path="res://entity/utility/RotatorAccelerator.gd" id="33_bxfih"]
+[ext_resource type="Shader" uid="uid://cwih6274kmr3w" path="res://level/misty-lake/resource/reflection.gdshader" id="35_eor82"]
 [ext_resource type="PackedScene" uid="uid://uiwkegjhrq51" path="res://level/misty-lake/resource/fog_overlay.tscn" id="36_uf74i"]
 [ext_resource type="PackedScene" uid="uid://bfvb372sca8m2" path="res://user-interface/leveler/leveler.tscn" id="37_67qvw"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_h610u"]
 shader = ExtResource("5_thpg0")
+shader_parameter/noise_texture = ExtResource("3_hbemg")
 shader_parameter/wave_velocity = Vector2(0, 1)
 shader_parameter/wave_distortion = 0.09
 shader_parameter/wave_multiplyer = -7.0
-shader_parameter/noise_texture = ExtResource("3_hbemg")
 
 [sub_resource type="Shader" id="Shader_v07qt"]
 code = "shader_type canvas_item;
@@ -64,9 +64,9 @@ shader_parameter/color_map = SubResource("GradientTexture1D_pqqvs")
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_6aqhd"]
 shader = ExtResource("35_eor82")
 shader_parameter/water_opacity = 0.5
+shader_parameter/refraction_map = ExtResource("3_hbemg")
 shader_parameter/refraction_strength = 0.04
 shader_parameter/speed = 0.1
-shader_parameter/refraction_map = ExtResource("3_hbemg")
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_yun7d"]
 viewport_path = NodePath("SubViewportContainer/SubViewport")
@@ -377,7 +377,7 @@ tracks/24/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_y00g5"]
 _data = {
-"RESET": SubResource("Animation_cpalx")
+&"RESET": SubResource("Animation_cpalx")
 }
 
 [node name="MistyLake2" type="Control"]

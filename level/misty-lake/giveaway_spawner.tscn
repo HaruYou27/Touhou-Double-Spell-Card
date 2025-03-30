@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://cnlx6witstpr6"]
 
-[ext_resource type="Script" path="res://entity/utility/Path2DSpawner.gd" id="1_mdj8r"]
+[ext_resource type="Script" uid="uid://b68wyjrrw18sg" path="res://entity/utility/Path2DSpawner.gd" id="1_mdj8r"]
 [ext_resource type="PackedScene" uid="uid://xqyxbaqg5pxr" path="res://level/misty-lake/hard/phantom-unarmed.tscn" id="2_t355n"]
 
 [sub_resource type="Curve2D" id="Curve2D_k6wgk"]

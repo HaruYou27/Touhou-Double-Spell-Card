@@ -2,33 +2,33 @@
 
 [ext_resource type="Theme" uid="uid://dotibkyt5mm7v" path="res://user-interface/menu/theme/menu.tres" id="1_tnrbu"]
 [ext_resource type="Texture2D" uid="uid://bgh4r80tk5o7v" path="res://level/misty-lake/resource/water-noise.tres" id="2_57hu4"]
-[ext_resource type="Script" path="res://user-interface/menu/settings/Generic.gd" id="2_dgpou"]
-[ext_resource type="Script" path="res://user-interface/menu/resource/Level.gd" id="2_hncmy"]
-[ext_resource type="Shader" path="res://level/misty-lake/resource/water.gdshader" id="2_hrrn6"]
-[ext_resource type="Script" path="res://user-interface/resource/custom-node/SFXButton.gd" id="3_wn432"]
-[ext_resource type="Script" path="res://user-interface/resource/custom-node/FormatLabel.gd" id="4_h21eu"]
+[ext_resource type="Script" uid="uid://ds3sdkcsc35br" path="res://user-interface/menu/settings/Generic.gd" id="2_dgpou"]
+[ext_resource type="Script" uid="uid://56nrjlcalnjp" path="res://user-interface/menu/resource/Level.gd" id="2_hncmy"]
+[ext_resource type="Shader" uid="uid://bvod4tn1td8xp" path="res://level/misty-lake/resource/water.gdshader" id="2_hrrn6"]
+[ext_resource type="Script" uid="uid://babve1x63io4j" path="res://user-interface/resource/custom-node/SFXButton.gd" id="3_wn432"]
+[ext_resource type="Script" uid="uid://d1qrfkqcqeko3" path="res://user-interface/resource/custom-node/FormatLabel.gd" id="4_h21eu"]
 [ext_resource type="PackedScene" uid="uid://bsf3tthvg8rot" path="res://user-interface/menu/settings/reset.tscn" id="5_nrino"]
-[ext_resource type="Script" path="res://user-interface/resource/custom-node/SFXToggler.gd" id="5_vnfn8"]
-[ext_resource type="Script" path="res://user-interface/menu/settings/audio.gd" id="6_8l51l"]
-[ext_resource type="PackedScene" uid="uid://bmsj0mdtehnxx" path="res://user-interface/local-score.tscn" id="6_46wtg"]
-[ext_resource type="Script" path="res://user-interface/resource/custom-node/PercentageSlider.gd" id="8_b5jhj"]
+[ext_resource type="Script" uid="uid://3d0fhbr2j165" path="res://user-interface/resource/custom-node/SFXToggler.gd" id="5_vnfn8"]
+[ext_resource type="Script" uid="uid://clrdv7mp1bmlj" path="res://user-interface/menu/settings/audio.gd" id="6_8l51l"]
+[ext_resource type="PackedScene" uid="uid://bmsj0mdtehnxx" path="res://user-interface/menu/local-score.tscn" id="6_46wtg"]
+[ext_resource type="Script" uid="uid://irsnl0hpdmch" path="res://user-interface/resource/custom-node/PercentageSlider.gd" id="8_b5jhj"]
 [ext_resource type="Texture2D" uid="uid://cu2ufhkx3vayf" path="res://entity/player/reimu/resource/ofuda.png" id="9_f05ce"]
-[ext_resource type="PackedScene" uid="uid://btrsc7usm17wx" path="res://entity/player/reimu/orb-barrel.tscn" id="10_bh3vs"]
+[ext_resource type="PackedScene" uid="uid://slgj8m4hrglh" path="res://entity/player/reimu/orb-barrel.tscn" id="10_bh3vs"]
 [ext_resource type="PackedScene" uid="uid://ffnff8ahyxxn" path="res://entity/player/reimu/reimu-sprite.tscn" id="10_dtu3c"]
 [ext_resource type="Shape2D" uid="uid://8v0qid6h0jl5" path="res://entity/player/reimu/resource/ofuda.tres" id="11_poxet"]
 [ext_resource type="Material" uid="uid://c5frc6pfgn8xs" path="res://singleton/item-manager/bullet-monochrome.material" id="11_wt44o"]
 [ext_resource type="PackedScene" uid="uid://cw6ldgxnk6nf3" path="res://entity/player/marisa/marisa-sprite.tscn" id="12_3ecnw"]
-[ext_resource type="Script" path="res://user-interface/menu/character/character.gd" id="13_rskvb"]
+[ext_resource type="Script" uid="uid://cabsvy5kchsr0" path="res://user-interface/menu/character/character.gd" id="13_rskvb"]
 [ext_resource type="PackedScene" uid="uid://ecqcoejg1lj8" path="res://entity/player/marisa/beam.tscn" id="14_7sa2c"]
 [ext_resource type="Shortcut" uid="uid://xs30oatyn1i6" path="res://user-interface/resource/shortcut/enter.tres" id="14_nwuco"]
-[ext_resource type="Script" path="res://user-interface/resource/custom-node/PercentageSliderNormalized.gd" id="18_5vp8w"]
-[ext_resource type="Script" path="res://user-interface/menu/settings/controls.gd" id="24_hwgke"]
-[ext_resource type="Script" path="res://user-interface/menu/resource/EnetHost.gd" id="26_wbk6w"]
-[ext_resource type="Script" path="res://user-interface/menu/resource/EnetJoin.gd" id="27_1hjwn"]
-[ext_resource type="Script" path="res://user-interface/menu/settings/graphic.gd" id="30_jysfy"]
-[ext_resource type="Script" path="res://user-interface/menu/resource/WebRtcHost.gd" id="32_ghjvh"]
-[ext_resource type="Script" path="res://user-interface/menu/resource/WebRtcJoin.gd" id="33_3cq4k"]
-[ext_resource type="Script" path="res://user-interface/menu/resource/ConnectionNotifier.gd" id="34_wrdal"]
+[ext_resource type="Script" uid="uid://c3n8s2ytwd8c2" path="res://user-interface/resource/custom-node/PercentageSliderNormalized.gd" id="18_5vp8w"]
+[ext_resource type="Script" uid="uid://bvpk10xko55xu" path="res://user-interface/menu/settings/controls.gd" id="24_hwgke"]
+[ext_resource type="Script" uid="uid://b1ft6tk2nw3rg" path="res://user-interface/menu/resource/EnetHost.gd" id="26_wbk6w"]
+[ext_resource type="Script" uid="uid://b1l06tmp7jmo8" path="res://user-interface/menu/resource/EnetJoin.gd" id="27_1hjwn"]
+[ext_resource type="Script" uid="uid://cycs0or5gxuo6" path="res://user-interface/menu/settings/graphic.gd" id="30_jysfy"]
+[ext_resource type="Script" uid="uid://b2ew6dumis88a" path="res://user-interface/menu/resource/WebRtcHost.gd" id="32_ghjvh"]
+[ext_resource type="Script" uid="uid://chl2q72nj8ek3" path="res://user-interface/menu/resource/WebRtcJoin.gd" id="33_3cq4k"]
+[ext_resource type="Script" uid="uid://ddbbg1oyx4qto" path="res://user-interface/menu/resource/ConnectionNotifier.gd" id="34_wrdal"]
 
 [sub_resource type="Gradient" id="Gradient_a3m1y"]
 interpolation_mode = 2
@@ -100,8 +100,8 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_h3542"]
 _data = {
-"RESET": SubResource("Animation_o46ky"),
-"waitting": SubResource("Animation_cp3fs")
+&"RESET": SubResource("Animation_o46ky"),
+&"waitting": SubResource("Animation_cp3fs")
 }
 
 [sub_resource type="Animation" id="Animation_s48o5"]
@@ -139,8 +139,8 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_at5y1"]
 _data = {
-"RESET": SubResource("Animation_s48o5"),
-"connecting": SubResource("Animation_j5e3v")
+&"RESET": SubResource("Animation_s48o5"),
+&"connecting": SubResource("Animation_j5e3v")
 }
 
 [node name="Menu" type="VBoxContainer"]

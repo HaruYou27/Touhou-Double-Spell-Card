@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=3 uid="uid://c34lwlqwsc4ve"]
 
-[ext_resource type="Script" path="res://entity/player/base/player.gd" id="1_ty0s5"]
+[ext_resource type="Script" uid="uid://ct7ibelalvbc2" path="res://entity/player/base/player.gd" id="1_ty0s5"]
 [ext_resource type="PackedScene" uid="uid://beyxw0mbyoq47" path="res://entity/resource/explosionBig.tscn" id="2_r67v6"]
-[ext_resource type="Script" path="res://entity/player/base/crosshair.gd" id="3_ac3su"]
+[ext_resource type="Script" uid="uid://cwfiuj8nx1lgk" path="res://entity/player/base/crosshair.gd" id="3_ac3su"]
 [ext_resource type="PackedScene" uid="uid://bld0r7itdm642" path="res://entity/player/base/crosshair.tscn" id="3_v8fpm"]
 
 [node name="Player" type="Player"]

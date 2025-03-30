@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://df7drvwynf7qy"]
 
-[ext_resource type="Script" path="res://entity/utility/burst_timer.gd" id="1_j5hpy"]
+[ext_resource type="Script" uid="uid://b15x8a61b2f0l" path="res://entity/utility/burst_timer.gd" id="1_j5hpy"]
 
 [node name="BurstTimer" type="Timer"]
 script = ExtResource("1_j5hpy")

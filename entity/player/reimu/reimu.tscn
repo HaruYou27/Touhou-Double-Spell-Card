@@ -1,6 +1,6 @@
 [gd_scene load_steps=18 format=3 uid="uid://bk08ga1mfcleb"]
 
-[ext_resource type="Script" path="res://entity/player/reimu/reimu.gd" id="1_u2niu"]
+[ext_resource type="Script" uid="uid://ch7l2qfjvlk0m" path="res://entity/player/reimu/reimu.gd" id="1_u2niu"]
 [ext_resource type="PackedScene" uid="uid://ffnff8ahyxxn" path="res://entity/player/reimu/reimu-sprite.tscn" id="2_1gpls"]
 [ext_resource type="PackedScene" uid="uid://slgj8m4hrglh" path="res://entity/player/reimu/orb-barrel.tscn" id="4_03n0g"]
 [ext_resource type="PackedScene" uid="uid://c34lwlqwsc4ve" path="res://entity/player/base/player.tscn" id="4_ftqh1"]

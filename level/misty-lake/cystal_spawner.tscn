@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://blhwt58rvxmy6"]
 
-[ext_resource type="Script" path="res://entity/utility/Path2DSpawner.gd" id="1_4lm00"]
+[ext_resource type="Script" uid="uid://b68wyjrrw18sg" path="res://entity/utility/Path2DSpawner.gd" id="1_4lm00"]
 [ext_resource type="PackedScene" uid="uid://cyvf0ik0p568i" path="res://level/misty-lake/hard/fairy.tscn" id="2_yme4f"]
 
 [sub_resource type="Curve2D" id="Curve2D_rvgc8"]

@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://dlimqo8igshs3"]
 
-[ext_resource type="Script" path="res://singleton/sound-effect/SoundEffect.gd" id="1_12ptu"]
+[ext_resource type="Script" uid="uid://cswvuev776lqf" path="res://singleton/sound-effect/SoundEffect.gd" id="1_12ptu"]
 [ext_resource type="AudioStream" uid="uid://bykr1yaisabfe" path="res://singleton/sound-effect/resource/tick-.wav" id="2_bltju"]
 [ext_resource type="AudioStream" uid="uid://4t58xs4qdlkr" path="res://singleton/sound-effect/resource/tick+.wav" id="3_d51pi"]
 [ext_resource type="AudioStream" uid="uid://dlbathqk2uyqy" path="res://singleton/sound-effect/resource/press-.wav" id="3_g7kf6"]

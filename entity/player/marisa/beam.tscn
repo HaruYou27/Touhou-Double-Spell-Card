@@ -1,10 +1,10 @@
 [gd_scene load_steps=12 format=3 uid="uid://ecqcoejg1lj8"]
 
-[ext_resource type="Shader" path="res://entity/player/marisa/resource/master_spark.gdshader" id="1_ustug"]
+[ext_resource type="Shader" uid="uid://duhf65a2774bs" path="res://entity/player/marisa/resource/master_spark.gdshader" id="1_ustug"]
 [ext_resource type="Material" uid="uid://dox27ncd2r5o3" path="res://entity/resource/glow.tres" id="2_otnkd"]
 [ext_resource type="Texture2D" uid="uid://d2wacgirqsjjn" path="res://entity/resource/white-trans.tres" id="3_mme7v"]
 [ext_resource type="Texture2D" uid="uid://cwqf8tiuf70qd" path="res://entity/player/base/sparkle.tres" id="4_s6trx"]
-[ext_resource type="Script" path="res://level/utility/Particles2D.gd" id="5_0cx3m"]
+[ext_resource type="Script" uid="uid://dq4f4p0t0t4dp" path="res://level/utility/Particles2D.gd" id="5_0cx3m"]
 
 [sub_resource type="Gradient" id="Gradient_nn53k"]
 interpolation_mode = 2
@@ -18,11 +18,11 @@ width = 512
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_0nkt0"]
 shader = ExtResource("1_ustug")
+shader_parameter/color_map = SubResource("GradientTexture1D_k8r5t")
 shader_parameter/speed_color = -1.0
 shader_parameter/alpha_delta = 0.2
 shader_parameter/speed_alpha = -1.0
 shader_parameter/UV_diff = 2.0
-shader_parameter/color_map = SubResource("GradientTexture1D_k8r5t")
 
 [sub_resource type="Gradient" id="Gradient_8pqvy"]
 offsets = PackedFloat32Array(0, 0.345794, 0.64486, 1)

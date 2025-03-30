@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://bsf3tthvg8rot"]
 
 [ext_resource type="StyleBox" uid="uid://dx7ggu83f4spa" path="res://user-interface/menu/theme/black.tres" id="1_3me2d"]
-[ext_resource type="Script" path="res://user-interface/resource/custom-node/SFXButton.gd" id="2_62er1"]
+[ext_resource type="Script" uid="uid://babve1x63io4j" path="res://user-interface/resource/custom-node/SFXButton.gd" id="2_62er1"]
 
 [node name="reset" type="Button"]
 size_flags_horizontal = 0

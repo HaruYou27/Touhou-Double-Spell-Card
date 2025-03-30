@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://qcqdhn5ssewn"]
 
-[ext_resource type="Script" path="res://entity/utility/PathFollower2D.gd" id="1_si6qk"]
+[ext_resource type="Script" uid="uid://ikex7tge28pl" path="res://entity/utility/PathFollower2D.gd" id="1_si6qk"]
 [ext_resource type="PackedScene" uid="uid://dtlscerig62nv" path="res://entity/enemy/base/enemy.tscn" id="2_8b4id"]
 [ext_resource type="Texture2D" uid="uid://ejrqvn5h5jxu" path="res://entity/enemy/fairy/Fairy.1.png" id="3_i78df"]
 

@@ -22,10 +22,10 @@ noise = SubResource("FastNoiseLite_jsbv1")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_hs1bl"]
 shader = ExtResource("1_4sbqf")
-shader_parameter/speed = 0.5
-shader_parameter/velocity = Vector2(0, -0.1)
 shader_parameter/color_map = ExtResource("1_amyse")
 shader_parameter/noise = SubResource("NoiseTexture2D_hxx5k")
+shader_parameter/speed = 0.5
+shader_parameter/velocity = Vector2(0, -0.1)
 
 [node name="FireHell" type="Sprite2D"]
 texture_repeat = 2

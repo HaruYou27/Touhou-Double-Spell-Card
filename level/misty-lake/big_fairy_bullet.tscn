@@ -2,7 +2,7 @@
 
 [ext_resource type="Shape2D" uid="uid://c0mwekxtkw5pj" path="res://entity/bullet/star-hitbox.tres" id="1_2sdhb"]
 [ext_resource type="Texture2D" uid="uid://bm3e0n33ykp6h" path="res://entity/bullet/star.png" id="2_ru3x7"]
-[ext_resource type="Shader" path="res://entity/bullet/Bullet.gdshader" id="3_es6xo"]
+[ext_resource type="Shader" uid="uid://cbvw0q45b5e2g" path="res://entity/bullet/Bullet.gdshader" id="3_es6xo"]
 
 [sub_resource type="Gradient" id="Gradient_lxr2a"]
 interpolation_mode = 2

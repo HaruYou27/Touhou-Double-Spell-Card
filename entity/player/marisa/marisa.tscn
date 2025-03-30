@@ -6,7 +6,7 @@
 [ext_resource type="Material" uid="uid://dox27ncd2r5o3" path="res://entity/resource/glow.tres" id="5_0ffch"]
 [ext_resource type="Texture2D" uid="uid://d2wacgirqsjjn" path="res://entity/resource/white-trans.tres" id="6_3or5n"]
 [ext_resource type="Texture2D" uid="uid://dxsf3vpqsosf1" path="res://entity/resource/fire_particle.png" id="7_wwddi"]
-[ext_resource type="Script" path="res://level/utility/Particles2D.gd" id="8_48a8s"]
+[ext_resource type="Script" uid="uid://dq4f4p0t0t4dp" path="res://level/utility/Particles2D.gd" id="8_48a8s"]
 [ext_resource type="PackedScene" uid="uid://cw6ldgxnk6nf3" path="res://entity/player/marisa/marisa-sprite.tscn" id="13_sco1m"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_s1f2m"]
@@ -14,8 +14,7 @@ radius = 230.0
 height = 1608.0
 
 [sub_resource type="Curve" id="Curve_xum4h"]
-min_value = -360.0
-max_value = 360.0
+_limits = [-360.0, 360.0, 0.0, 1.0]
 _data = [Vector2(0, -360), 0.0, 720.0, 0, 1, Vector2(1, 360), 720.0, 0.0, 1, 0]
 point_count = 2
 
@@ -190,8 +189,8 @@ tracks/5/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_huuam"]
 _data = {
-"Master Spark": SubResource("Animation_d3sxi"),
-"RESET": SubResource("Animation_65s67")
+&"Master Spark": SubResource("Animation_d3sxi"),
+&"RESET": SubResource("Animation_65s67")
 }
 
 [sub_resource type="Gradient" id="Gradient_hsv0v"]

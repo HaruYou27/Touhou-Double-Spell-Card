@@ -1,7 +1,7 @@
 [gd_scene load_steps=11 format=3 uid="uid://bncu813gm4hx8"]
 
 [ext_resource type="Texture2D" uid="uid://cnecndeyl8vpm" path="res://entity/boss/resource/boss-indicator.png" id="2_wallc"]
-[ext_resource type="Script" path="res://entity/boss/resource/LockedPosition2D.gd" id="3_fqo85"]
+[ext_resource type="Script" uid="uid://bqijnri0h7fn1" path="res://entity/boss/resource/LockedPosition2D.gd" id="3_fqo85"]
 [ext_resource type="Texture2D" uid="uid://ctt770vnvbov" path="res://entity/boss/resource/boss-background.svg" id="4_w0mse"]
 [ext_resource type="Texture2D" uid="uid://d0u5qj7ysa3ai" path="res://entity/boss/resource/boss-heathbar-frame.svg" id="6_28uxw"]
 [ext_resource type="Texture2D" uid="uid://bpq670j72ij4b" path="res://entity/boss/resource/boss-heathbar-progress.svg" id="6_cd3e3"]
