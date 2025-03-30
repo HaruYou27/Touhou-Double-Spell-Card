@@ -9,26 +9,9 @@ func _ready() -> void:
 	tree.paused = false
 	ScreenVFX.fade2black(true)
 	Global.leveler = self
-	rpc('start')
+	animator.play(animation)
 	GlobalScore.reset()
 	animator.animation_finished.connect(hud.save_score)
-
-@rpc("reliable", "any_peer", "call_local")
-func start() -> void:
-	if is_multiplayer_authority():
-		rpc('_sync_start', Time.get_ticks_msec())
-		#var timer := get_tree().create_timer(2., true, true, true)
-		#timer.timeout.connect(animator.play.bind("game"))
-		animator.play(animation)
-	#if not Global.player2:
-	#	animator.seek(3.0)
-	
-@rpc("reliable", "authority", "call_remote")
-func _sync_start(host_time:int) -> void:
-	animator.play("game")
-	#var offset := (Global.get_host_time() - host_time) / 1000000.
-	#var timer := get_tree().create_timer(2. - offset, true, true, true)
-	#timer.timeout.connect(animator.play.bind("game"))
 
 func revive_player() -> void:
 	GlobalItem.revive_player()

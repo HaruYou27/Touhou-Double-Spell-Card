@@ -20,16 +20,8 @@ func load_scene(path:String, player:=false) -> void:
 var player1 := ''
 var player1_packed : PackedScene
 var id1 := 1
-var player2 := ''
-var player2_packed : PackedScene
-var id2 := 0
-@rpc("reliable", "any_peer", "call_remote")
-func _set_player2_character(path:String) -> void:
-	player2 = path
-	id2 = multiplayer.get_remote_sender_id()
-	id1 = multiplayer.get_unique_id()
 
-var progress_value := 0
+var progress_value := 0.0
 var tween: Tween
 ## Animate the progress bar.
 func increase_bar(percentage:float) -> void:
@@ -58,11 +50,6 @@ func _instance_scene(path:String, player:bool) -> void:
 			player1 = ""
 			
 		scene.add_child(load_player(player1_packed, id1))
-		if id2 > 0:
-			if not player2.is_empty():
-				player2_packed = load(player1)
-				player2 = ""
-			scene.add_child(load_player(player2_packed, id2))
 	
 	finished.call_deferred()
 
@@ -83,11 +70,7 @@ func finished() -> void:
 	progress_value = 0
 	hide()
 
-func _peer_disconnected() -> void:
-	id2 = 0
-
 func _ready() -> void:
-	multiplayer.peer_disconnected.connect(_peer_disconnected)
 	set_process(false)
 	hide()
 

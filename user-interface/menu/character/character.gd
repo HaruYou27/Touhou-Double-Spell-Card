@@ -25,4 +25,3 @@ func _on_title_item_selected(index:int) -> void:
 func set_character() -> void:
 	user_data.last_character = characters.current_tab
 	LevelLoader.player1 = characters.get_current_tab_control().get_meta('path')
-	LevelLoader.rpc('_set_player2_character', LevelLoader.player1)

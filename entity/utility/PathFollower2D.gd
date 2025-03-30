@@ -24,8 +24,9 @@ func _ready() -> void:
 func start() -> void:
 	if not is_multiplayer_authority():
 		return
+	enemy.reset.call_deferred()
+	progress_ratio = float(reverse)
 
-	sync_start()
 	tween = create_tween()
 	tween.set_ease(ease_type)
 	tween.tween_property(self, 'progress_ratio', float(not reverse), time)
@@ -34,24 +35,3 @@ func start() -> void:
 	if multiplayer.multiplayer_peer is OfflineMultiplayerPeer:
 		return
 	set_process(true)
-	rpc("sync_start")
-	
-var tick := false
-func _process(_delta: float) -> void:
-	tick = not tick
-	if tick:
-		return
-	rpc("_sync_position", progress_ratio)
-	
-@rpc("authority","unreliable_ordered","call_remote")
-func _sync_position(pos:float) -> void:
-	if tween:
-		tween.kill()
-	tween = create_tween()
-	tween.set_ease(Tween.EASE_OUT)
-	tween.tween_property(self, 'progress_ratio', pos, 0.05)
-
-@rpc("reliable", "authority", "call_remote")
-func sync_start() -> void:
-	enemy.reset.call_deferred()
-	progress_ratio = float(reverse)

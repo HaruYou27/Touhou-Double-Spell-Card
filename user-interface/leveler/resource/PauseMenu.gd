@@ -9,10 +9,6 @@ func _ready() -> void:
 	resume.show()
 
 func _on_Quit_pressed() -> void:
-	rpc('quit')
-	
-@rpc("any_peer", "call_local", "reliable")
-func quit() -> void:
 	tree.paused = false
 	LevelLoader.load_scene(Global.main_menu)
 

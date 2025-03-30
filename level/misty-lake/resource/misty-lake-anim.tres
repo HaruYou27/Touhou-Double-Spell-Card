@@ -1470,6 +1470,6 @@ tracks/54/keys = {
 
 [resource]
 _data = {
-"RESET": SubResource("Animation_7espq"),
-"game": SubResource("Animation_shi7r")
+&"RESET": SubResource("Animation_7espq"),
+&"game": SubResource("Animation_shi7r")
 }

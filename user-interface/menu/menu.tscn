@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=3 uid="uid://bn5nhkofewyh8"]
+[gd_scene load_steps=32 format=3 uid="uid://bn5nhkofewyh8"]
 
 [ext_resource type="Theme" uid="uid://dotibkyt5mm7v" path="res://user-interface/menu/theme/menu.tres" id="1_tnrbu"]
 [ext_resource type="Texture2D" uid="uid://bgh4r80tk5o7v" path="res://level/misty-lake/resource/water-noise.tres" id="2_57hu4"]
@@ -10,7 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://bsf3tthvg8rot" path="res://user-interface/menu/settings/reset.tscn" id="5_nrino"]
 [ext_resource type="Script" uid="uid://3d0fhbr2j165" path="res://user-interface/resource/custom-node/SFXToggler.gd" id="5_vnfn8"]
 [ext_resource type="Script" uid="uid://clrdv7mp1bmlj" path="res://user-interface/menu/settings/audio.gd" id="6_8l51l"]
-[ext_resource type="PackedScene" uid="uid://bmsj0mdtehnxx" path="res://user-interface/menu/local-score.tscn" id="6_46wtg"]
+[ext_resource type="PackedScene" uid="uid://bmsj0mdtehnxx" path="res://user-interface/local-score.tscn" id="6_46wtg"]
 [ext_resource type="Script" uid="uid://irsnl0hpdmch" path="res://user-interface/resource/custom-node/PercentageSlider.gd" id="8_b5jhj"]
 [ext_resource type="Texture2D" uid="uid://cu2ufhkx3vayf" path="res://entity/player/reimu/resource/ofuda.png" id="9_f05ce"]
 [ext_resource type="PackedScene" uid="uid://slgj8m4hrglh" path="res://entity/player/reimu/orb-barrel.tscn" id="10_bh3vs"]
@@ -23,11 +23,7 @@
 [ext_resource type="Shortcut" uid="uid://xs30oatyn1i6" path="res://user-interface/resource/shortcut/enter.tres" id="14_nwuco"]
 [ext_resource type="Script" uid="uid://c3n8s2ytwd8c2" path="res://user-interface/resource/custom-node/PercentageSliderNormalized.gd" id="18_5vp8w"]
 [ext_resource type="Script" uid="uid://bvpk10xko55xu" path="res://user-interface/menu/settings/controls.gd" id="24_hwgke"]
-[ext_resource type="Script" uid="uid://b1ft6tk2nw3rg" path="res://user-interface/menu/resource/EnetHost.gd" id="26_wbk6w"]
-[ext_resource type="Script" uid="uid://b1l06tmp7jmo8" path="res://user-interface/menu/resource/EnetJoin.gd" id="27_1hjwn"]
 [ext_resource type="Script" uid="uid://cycs0or5gxuo6" path="res://user-interface/menu/settings/graphic.gd" id="30_jysfy"]
-[ext_resource type="Script" uid="uid://b2ew6dumis88a" path="res://user-interface/menu/resource/WebRtcHost.gd" id="32_ghjvh"]
-[ext_resource type="Script" uid="uid://chl2q72nj8ek3" path="res://user-interface/menu/resource/WebRtcJoin.gd" id="33_3cq4k"]
 [ext_resource type="Script" uid="uid://ddbbg1oyx4qto" path="res://user-interface/menu/resource/ConnectionNotifier.gd" id="34_wrdal"]
 
 [sub_resource type="Gradient" id="Gradient_a3m1y"]
@@ -64,84 +60,6 @@ shader_parameter/wave_distortion = 0.2
 shader_parameter/wave_multipler = -7.0
 shader_parameter/water_velocity = Vector2(0, -0.2)
 shader_parameter/color_map = SubResource("GradientTexture1D_qxer6")
-
-[sub_resource type="Animation" id="Animation_o46ky"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("host:text")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": ["Host Party"]
-}
-
-[sub_resource type="Animation" id="Animation_cp3fs"]
-resource_name = "waitting"
-length = 3.0
-loop_mode = 2
-step = 1.0
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("host:text")
-tracks/0/interp = 0
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1, 2, 3),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 1,
-"values": ["Waiting for connection", "Waiting for connection.", "Waiting for connection..", "Waiting for connection..."]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_h3542"]
-_data = {
-&"RESET": SubResource("Animation_o46ky"),
-&"waitting": SubResource("Animation_cp3fs")
-}
-
-[sub_resource type="Animation" id="Animation_s48o5"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Join:text")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": ["Join Party"]
-}
-
-[sub_resource type="Animation" id="Animation_j5e3v"]
-resource_name = "connecting"
-length = 3.0
-loop_mode = 2
-step = 1.0
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Join:text")
-tracks/0/interp = 0
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1, 2, 3),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 1,
-"values": ["Connecting", "Connecting.", "Connecting..", "Connecting..."]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_at5y1"]
-_data = {
-&"RESET": SubResource("Animation_s48o5"),
-&"connecting": SubResource("Animation_j5e3v")
-}
 
 [node name="Menu" type="VBoxContainer"]
 texture_filter = 2
@@ -224,6 +142,7 @@ alignment = 1
 selected = 0
 item_count = 2
 popup/item_0/text = "Misty Lake"
+popup/item_0/id = 0
 popup/item_1/text = "Misty Lake Hard"
 popup/item_1/id = 1
 
@@ -311,7 +230,7 @@ rotation = -1.5708
 gizmo_extents = 82.9
 
 [node name="BarrelRotator" parent="TabContainer/play/Character/Preview/Reimu/ReimuSprite/barrel" instance=ExtResource("10_bh3vs")]
-rotation = 56.5134
+rotation = 361.287
 
 [node name="bullet" type="Bullet" parent="TabContainer/play/Character/Preview/Reimu/ReimuSprite" groups=["Bullet Manager"]]
 speed = 572.0
@@ -343,6 +262,7 @@ alignment = 1
 selected = 0
 item_count = 2
 popup/item_0/text = "Reimu Hakurei"
+popup/item_0/id = 0
 popup/item_1/text = "Marisa Kirisame"
 popup/item_1/id = 1
 
@@ -396,6 +316,7 @@ layout_mode = 2
 selected = 0
 item_count = 1
 popup/item_0/text = "Language: English"
+popup/item_0/id = 0
 
 [node name="UserName" type="LineEdit" parent="TabContainer/Settings/Game"]
 layout_mode = 2
@@ -571,6 +492,7 @@ layout_mode = 2
 selected = 3
 item_count = 4
 popup/item_0/text = "Disable Background"
+popup/item_0/id = 0
 popup/item_1/text = "Simple Background"
 popup/item_1/id = 1
 popup/item_2/text = "Disable Advanced Graphic Effect"
@@ -581,211 +503,10 @@ popup/item_3/id = 3
 [node name="reset" parent="TabContainer/Settings/Graphic" instance=ExtResource("5_nrino")]
 layout_mode = 2
 
-[node name="multiplayer" type="TabContainer" parent="TabContainer"]
-visible = false
-layout_mode = 2
-current_tab = 0
-metadata/_tab_index = 2
-
-[node name="LanHost" type="Control" parent="TabContainer/multiplayer"]
-layout_mode = 2
-script = ExtResource("26_wbk6w")
-metadata/_tab_index = 0
-
-[node name="EnetHost2" type="Label" parent="TabContainer/multiplayer/LanHost"]
-visible = false
-layout_mode = 0
-offset_left = 125.0
-offset_top = 30.0
-offset_right = 483.0
-offset_bottom = 170.0
-text = "Enet Host"
-
-[node name="EnetHost" type="VBoxContainer" parent="TabContainer/multiplayer/LanHost"]
-layout_mode = 1
-anchors_preset = 12
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = -603.0
-offset_bottom = -375.0
-grow_horizontal = 2
-grow_vertical = 0
-
-[node name="HBoxContainer" type="HBoxContainer" parent="TabContainer/multiplayer/LanHost/EnetHost"]
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="ip" type="TextEdit" parent="TabContainer/multiplayer/LanHost/EnetHost/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_font_sizes/font_size = 24
-placeholder_text = "Error getting IP address !"
-editable = false
-virtual_keyboard_enabled = false
-middle_mouse_paste_enabled = false
-
-[node name="port" type="LineEdit" parent="TabContainer/multiplayer/LanHost/EnetHost/HBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 4
-text = "6567"
-placeholder_text = "6567"
-max_length = 5
-select_all_on_focus = true
-
-[node name="host" type="Button" parent="TabContainer/multiplayer/LanHost/EnetHost"]
-custom_minimum_size = Vector2(200, 0)
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-text = "Host Party"
-script = ExtResource("3_wn432")
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="TabContainer/multiplayer/LanHost/EnetHost"]
-libraries = {
-"": SubResource("AnimationLibrary_h3542")
-}
-
-[node name="BroadcastTimer" type="Timer" parent="TabContainer/multiplayer/LanHost/EnetHost"]
-wait_time = 3.0
-
-[node name="tip" type="Label" parent="TabContainer/multiplayer/LanHost"]
-custom_minimum_size = Vector2(482, 96)
-layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -241.0
-offset_top = -96.0
-offset_right = 241.0
-grow_horizontal = 2
-grow_vertical = 0
-size_flags_vertical = 10
-theme_override_font_sizes/font_size = 24
-text = "Tip: Try a different port if not working. If still doesn't work, let your friend host.
-"
-autowrap_mode = 3
-
-[node name="LanJoin" type="VSplitContainer" parent="TabContainer/multiplayer"]
-visible = false
-layout_mode = 2
-script = ExtResource("27_1hjwn")
-metadata/_tab_index = 1
-
-[node name="ItemList" type="ItemList" parent="TabContainer/multiplayer/LanJoin"]
-layout_mode = 2
-size_flags_vertical = 3
-auto_height = true
-
-[node name="EnetJoin" type="VBoxContainer" parent="TabContainer/multiplayer/LanJoin"]
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="HBoxContainer" type="HBoxContainer" parent="TabContainer/multiplayer/LanJoin/EnetJoin"]
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="ip" type="TextEdit" parent="TabContainer/multiplayer/LanJoin/EnetJoin/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-placeholder_text = "Paste your friend IP address:"
-
-[node name="port" type="LineEdit" parent="TabContainer/multiplayer/LanJoin/EnetJoin/HBoxContainer"]
-layout_mode = 2
-text = "6567"
-placeholder_text = "6567"
-
-[node name="Join" type="Button" parent="TabContainer/multiplayer/LanJoin/EnetJoin"]
-custom_minimum_size = Vector2(300, 0)
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-text = "Join Party"
-script = ExtResource("3_wn432")
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="TabContainer/multiplayer/LanJoin/EnetJoin"]
-libraries = {
-"": SubResource("AnimationLibrary_at5y1")
-}
-
-[node name="Timer" type="Timer" parent="TabContainer/multiplayer/LanJoin/EnetJoin"]
-
-[node name="OnlineHost" type="VBoxContainer" parent="TabContainer/multiplayer"]
-visible = false
-layout_mode = 2
-script = ExtResource("32_ghjvh")
-metadata/_tab_index = 2
-
-[node name="Offer" type="TextEdit" parent="TabContainer/multiplayer/OnlineHost"]
-custom_minimum_size = Vector2(0, 200)
-layout_mode = 2
-size_flags_horizontal = 3
-editable = false
-drag_and_drop_selection_enabled = false
-virtual_keyboard_enabled = false
-middle_mouse_paste_enabled = false
-
-[node name="Label" type="Label" parent="TabContainer/multiplayer/OnlineHost"]
-layout_mode = 2
-text = "Copy your *Offer* above and send it to your friend."
-autowrap_mode = 3
-
-[node name="ReplyOffer" type="TextEdit" parent="TabContainer/multiplayer/OnlineHost"]
-custom_minimum_size = Vector2(0, 200)
-layout_mode = 2
-size_flags_horizontal = 3
-placeholder_text = "Paste your friend *Offer* here"
-
-[node name="Host" type="Button" parent="TabContainer/multiplayer/OnlineHost"]
-custom_minimum_size = Vector2(200, 100)
-layout_mode = 2
-size_flags_horizontal = 4
-text = "Host Party"
-script = ExtResource("3_wn432")
-press_sfx = false
-
-[node name="IceTimer" type="Timer" parent="TabContainer/multiplayer/OnlineHost"]
-one_shot = true
-
-[node name="OnlineJoin" type="VBoxContainer" parent="TabContainer/multiplayer"]
-visible = false
-layout_mode = 2
-script = ExtResource("33_3cq4k")
-metadata/_tab_index = 3
-
-[node name="ReplyOffer" type="TextEdit" parent="TabContainer/multiplayer/OnlineJoin"]
-custom_minimum_size = Vector2(0, 200)
-layout_mode = 2
-size_flags_horizontal = 3
-placeholder_text = "Paste your friend *Offer* here"
-
-[node name="Label" type="Label" parent="TabContainer/multiplayer/OnlineJoin"]
-layout_mode = 2
-autowrap_mode = 3
-
-[node name="Offer" type="TextEdit" parent="TabContainer/multiplayer/OnlineJoin"]
-visible = false
-custom_minimum_size = Vector2(0, 200)
-layout_mode = 2
-size_flags_horizontal = 3
-placeholder_text = "Preparing your *Offer*..."
-editable = false
-
-[node name="Disconnect" type="Button" parent="TabContainer/multiplayer/OnlineJoin"]
-visible = false
-layout_mode = 2
-script = ExtResource("3_wn432")
-
-[node name="IceTimer" type="Timer" parent="TabContainer/multiplayer/OnlineJoin"]
-wait_time = 2.0
-one_shot = true
-
 [node name="VBoxContainer" type="VBoxContainer" parent="TabContainer"]
 visible = false
 layout_mode = 2
-metadata/_tab_index = 3
+metadata/_tab_index = 2
 
 [node name="RichTextLabel" type="RichTextLabel" parent="TabContainer/VBoxContainer"]
 layout_mode = 2
@@ -817,11 +538,12 @@ SOFTWARE."
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
 current_tab = 0
-tab_count = 4
+scrolling_enabled = false
+select_with_rmb = true
+tab_count = 3
 tab_0/title = "Play"
 tab_1/title = "Settings"
-tab_2/title = "Multiplayer"
-tab_3/title = "About"
+tab_2/title = "About"
 
 [node name="ConnectionNotifier" type="AcceptDialog" parent="."]
 disable_3d = true
@@ -841,6 +563,7 @@ script = ExtResource("34_wrdal")
 [connection signal="pressed" from="TabContainer/play/Level/LeftRightButton/next" to="TabContainer/play/Level" method="select_level" binds= [true]]
 [connection signal="pressed" from="TabContainer/play/Level/enter" to="TabContainer/play/Level" method="_on_enter_pressed" flags=6]
 [connection signal="timeout" from="TabContainer/play/Character/Preview/Reimu/ReimuSprite/Timer" to="TabContainer/play/Character/Preview/Reimu/ReimuSprite/bullet" method="spawn_bullet"]
+[connection signal="visibility_changed" from="TabContainer/play/Character/Preview/Reimu/ReimuSprite/barrel/BarrelRotator" to="TabContainer/play/Character/Preview/Reimu/ReimuSprite/barrel/BarrelRotator" method="_visibility_changed"]
 [connection signal="item_selected" from="TabContainer/play/Character/title" to="TabContainer/play/Character" method="_on_title_item_selected"]
 [connection signal="pressed" from="TabContainer/play/Character/HBoxContainer/previous" to="TabContainer/play/Character" method="_change_character" binds= [false]]
 [connection signal="pressed" from="TabContainer/play/Character/HBoxContainer/next" to="TabContainer/play/Character" method="_change_character" binds= [true]]
@@ -853,19 +576,4 @@ script = ExtResource("34_wrdal")
 [connection signal="value_changed" from="TabContainer/Settings/Audio/voice" to="TabContainer/Settings/Audio" method="_on_voice_value_changed"]
 [connection signal="pressed" from="TabContainer/Settings/Audio/reset" to="TabContainer/Settings/Audio" method="_on_reset_pressed"]
 [connection signal="pressed" from="TabContainer/Settings/Graphic/reset" to="TabContainer/Settings/Graphic" method="_on_reset_pressed"]
-[connection signal="text_changed" from="TabContainer/multiplayer/LanHost/EnetHost/HBoxContainer/port" to="TabContainer/multiplayer/LanHost" method="_on_port_text_changed"]
-[connection signal="pressed" from="TabContainer/multiplayer/LanHost/EnetHost/host" to="TabContainer/multiplayer/LanHost" method="_on_host_pressed"]
-[connection signal="item_clicked" from="TabContainer/multiplayer/LanJoin/ItemList" to="TabContainer/multiplayer/LanJoin" method="_on_item_list_item_clicked"]
-[connection signal="text_changed" from="TabContainer/multiplayer/LanJoin/EnetJoin/HBoxContainer/port" to="TabContainer/multiplayer/LanJoin" method="_on_port_text_changed"]
-[connection signal="pressed" from="TabContainer/multiplayer/LanJoin/EnetJoin/Join" to="TabContainer/multiplayer/LanJoin" method="_on_join_pressed"]
-[connection signal="timeout" from="TabContainer/multiplayer/LanJoin/EnetJoin/Timer" to="TabContainer/multiplayer/LanJoin" method="_on_timer_timeout"]
-[connection signal="focus_entered" from="TabContainer/multiplayer/OnlineHost/Offer" to="TabContainer/multiplayer/OnlineHost/Offer" method="select_all"]
-[connection signal="focus_entered" from="TabContainer/multiplayer/OnlineHost/ReplyOffer" to="TabContainer/multiplayer/OnlineHost/ReplyOffer" method="select_all"]
-[connection signal="pressed" from="TabContainer/multiplayer/OnlineHost/Host" to="TabContainer/multiplayer/OnlineHost" method="_on_host_pressed"]
-[connection signal="timeout" from="TabContainer/multiplayer/OnlineHost/IceTimer" to="TabContainer/multiplayer/OnlineHost" method="_on_ice_timer_timeout"]
-[connection signal="focus_entered" from="TabContainer/multiplayer/OnlineJoin/ReplyOffer" to="TabContainer/multiplayer/OnlineJoin/ReplyOffer" method="select_all"]
-[connection signal="text_changed" from="TabContainer/multiplayer/OnlineJoin/ReplyOffer" to="TabContainer/multiplayer/OnlineJoin" method="_on_reply_offer_text_changed"]
-[connection signal="focus_entered" from="TabContainer/multiplayer/OnlineJoin/Offer" to="TabContainer/multiplayer/OnlineJoin/Offer" method="select_all"]
-[connection signal="pressed" from="TabContainer/multiplayer/OnlineJoin/Disconnect" to="TabContainer/multiplayer/OnlineJoin" method="_on_disconnect_pressed"]
-[connection signal="timeout" from="TabContainer/multiplayer/OnlineJoin/IceTimer" to="TabContainer/multiplayer/OnlineJoin" method="_on_ice_timer_timeout"]
 [connection signal="tab_changed" from="TabBar" to="TabContainer" method="set_current_tab"]

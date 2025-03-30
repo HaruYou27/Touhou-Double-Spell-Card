@@ -3,11 +3,7 @@ extends Panel
 @onready var user_data := Global.user_data
 @export var hi_score_label : FormatLabel
 func _ready() -> void:
-	if GlobalItem.is_offline():
-		$VBoxContainer/HBoxContainer/ping.queue_free()
-		hi_score_label.update_label(0)
-	else:
-		hi_score_label.template = 'P2-Score: %09d'
+	hi_score_label.update_label(0)
 	
 	score_label.update_label(0)
 	GlobalScore.bomb_changed.connect(_update_bomb)
@@ -22,10 +18,6 @@ func _update_bomb(bomb_count:int) -> void:
 @export var score_label : FormatLabel
 func _update_score(score:int) -> void:
 	score_label.update_label(score)
-
-@rpc("any_peer", "unreliable", "call_remote")
-func _update_p2_score(value:int) -> void:
-	hi_score_label.update_label(value)
 
 @onready var pause_menu = $"../PauseMenu"
 func save_score(_nm) -> void:
