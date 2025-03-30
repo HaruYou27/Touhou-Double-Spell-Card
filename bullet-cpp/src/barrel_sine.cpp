@@ -14,7 +14,9 @@ void BarrelSine::_bind_methods()
 
 void BarrelSine::_ready()
 {
-    connect("visibility_changed", callable_mp(Object::cast_to<BarrelRotator>(this), &BarrelRotator::_visibility_changed));
+    float rotation = get_rotation();
+    BarrelRotator::_ready();
+    set_rotation(rotation);
     set_position(Vector2(0, 0));
 }
 

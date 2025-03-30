@@ -27,8 +27,8 @@ public:
     virtual void _ready() override;
     virtual void _physics_process(const double delta) override;
 
-    void visibility_changed();
-    void body_entered(Node2D *body);
+    void _visibility_changed();
+    void _body_entered(Node2D *body);
 };
 
 #endif

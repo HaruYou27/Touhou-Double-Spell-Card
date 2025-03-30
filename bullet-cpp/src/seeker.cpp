@@ -42,20 +42,17 @@ void Seeker::sort_bullet(const int index)
 void Seeker::move_bullet(const int index)
 {
     Area2D* target = targets[index];
-    if (target != nullptr)
+    if (target == nullptr)
     {
-        Transform2D& transform = transforms[index];
-        Vector2& velocity = velocities[index];
-        velocity += (target->get_global_position() - transform.get_origin()).normalized() * turn_speed * delta32;
-        velocity.normalize();
-        velocity *= get_speed();
-        transform.set_rotation(velocity.angle() + PI_2);
-        if (target->is_monitorable())
-        {
-            return Bullet::move_bullet(index);
-        }
-        targets[index] = nullptr;
+        return Bullet::move_bullet(index);
     }
+
+    Transform2D& transform = transforms[index];
+    Vector2& velocity = velocities[index];
+    velocity += (target->get_global_position() - transform.get_origin()).normalized() * turn_speed * delta32;
+    velocity.normalize();
+    velocity *= get_speed();
+    transform.set_rotation(velocity.angle() + PI_2);
     return Bullet::move_bullet(index);
 }
 
@@ -72,5 +69,11 @@ bool Seeker::collision_check(const int index)
         targets[index] = dynamic_cast<Area2D*>(get_collider(result));
         return false;
     }
+    if (targets[index]->is_monitorable())
+    {
+        return Bullet::collision_check(index);
+
+    }
+    targets[index] = nullptr;
     return Bullet::collision_check(index);
 }

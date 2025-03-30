@@ -12,6 +12,7 @@ void Enemy::_bind_methods()
     BIND_FUNCTION(hit, Enemy)
     BIND_FUNCTION(reset, Enemy)
     BIND_FUNCTION(disable, Enemy)
+    BIND_FUNCTION(_body_entered, Enemy)
 
     BIND_SETGET(explosion_path, Enemy)
     BIND_SETGET(visual_path, Enemy)
@@ -27,7 +28,6 @@ void Enemy::_bind_methods()
 void Enemy::reset()
 {
     is_alive = true;
-    set_process_mode(PROCESS_MODE_INHERIT);
     set_monitorable(true);
     set_monitoring(true);
     visual->show();
@@ -36,7 +36,6 @@ void Enemy::reset()
 
 void Enemy::disable()
 {
-    set_process_mode(PROCESS_MODE_DISABLED);
     set_monitorable(false);
     set_monitoring(false);
     visual->hide();
@@ -85,8 +84,10 @@ void Enemy::_body_entered(Node2D *body)
 
 void Enemy::_ready()
 {
-    connect("body_entered", callable_mp(this, &Enemy::_body_entered));
+    connect("body_entered", Callable(this, "_body_entered"), CONNECT_PERSIST);
     set_collision_layer(2);
+    set_monitorable(true);
+    set_monitoring(true);
     set_collision_mask(4);
     set_pickable(false);
     CHECK_EDITOR

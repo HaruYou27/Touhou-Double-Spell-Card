@@ -16,7 +16,7 @@ void BarrelRotator::_visibility_changed()
 
 void BarrelRotator::_ready()
 {
-    connect("visibility_changed", callable_mp(this, &BarrelRotator::_visibility_changed));
+    connect("visibility_changed", Callable(this, "_visibility_changed"), CONNECT_PERSIST);
     set_rotation(0);
 }
 

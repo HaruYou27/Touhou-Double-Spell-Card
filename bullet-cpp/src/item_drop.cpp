@@ -5,8 +5,8 @@ SETTER_GETTER(velocity, Vector2, ItemDrop)
 
 void ItemDrop::_bind_methods()
 {
-    BIND_FUNCTION(visibility_changed, ItemDrop)
-    BIND_FUNCTION(body_entered, ItemDrop)
+    BIND_FUNCTION(_visibility_changed, ItemDrop)
+    BIND_FUNCTION(_body_entered, ItemDrop)
 
     BIND_SETGET(gravity, ItemDrop)
     BIND_SETGET(velocity, ItemDrop)
@@ -24,7 +24,7 @@ void ItemDrop::disable()
 
 void ItemDrop::_physics_process(const double delta)
 {
-    velocity.y -= gravity * delta;
+    velocity.y += gravity * delta;
     translate(velocity * delta);
 
     if (world_border.has_point(get_global_position()))
@@ -34,12 +34,12 @@ void ItemDrop::_physics_process(const double delta)
     disable();
 }
 
-void ItemDrop::visibility_changed()
+void ItemDrop::_visibility_changed()
 {
     set_process_mode(Node::PROCESS_MODE_INHERIT);
 }
 
-void ItemDrop::body_entered(Node2D *body)
+void ItemDrop::_body_entered(Node2D *body)
 {
     global_score->add_bomb();
     disable();
@@ -47,16 +47,16 @@ void ItemDrop::body_entered(Node2D *body)
 
 void ItemDrop::_ready()
 {
-    set_monitoring(true);
-    set_monitorable(false);
+    set_monitoring(false);
+    set_monitorable(true);
     set_collision_mask(8);
     set_collision_layer(0);
     set_pickable(false);
     set_process_mode(Node::PROCESS_MODE_DISABLED);
     hide();
 
-    connect("visibility_changed", callable_mp(this, &ItemDrop::visibility_changed), CONNECT_PERSIST);
-    connect("body_entered", callable_mp(this, &ItemDrop::body_entered), CONNECT_PERSIST);
+    connect("visibility_changed", Callable(this, "_visibility_changed"), CONNECT_PERSIST + CONNECT_DEFERRED);
+    connect("body_entered", Callable(this, "_body_entered"), CONNECT_PERSIST);
     CHECK_EDITOR
     global_score = get_node<ScoreManager>("/root/GlobalScore");
 }

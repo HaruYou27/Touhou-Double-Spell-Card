@@ -27,7 +27,7 @@ void Boss::_body_entered(Node2D *body)
 
 void Boss::_ready()
 {
-    connect("body_entered", callable_mp(this, &Boss::_body_entered));
+    connect("body_entered", Callable(this, "_body_entered"), CONNECT_PERSIST);
     set_collision_layer(2);
     set_collision_mask(4);
     set_monitorable(true);
