@@ -109,11 +109,10 @@ tabs_visible = false
 [node name="play" type="TabContainer" parent="TabContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
-current_tab = 2
+current_tab = 0
 metadata/_tab_index = 0
 
 [node name="Level" type="VBoxContainer" parent="TabContainer/play"]
-visible = false
 layout_mode = 2
 script = ExtResource("2_hncmy")
 metadata/_tab_index = 0
@@ -194,6 +193,7 @@ layout_mode = 2
 metadata/_tab_index = 1
 
 [node name="Character" type="VBoxContainer" parent="TabContainer/play"]
+visible = false
 layout_mode = 2
 script = ExtResource("13_rskvb")
 metadata/_tab_index = 2
@@ -230,7 +230,7 @@ rotation = -1.5708
 gizmo_extents = 82.9
 
 [node name="BarrelRotator" parent="TabContainer/play/Character/Preview/Reimu/ReimuSprite/barrel" instance=ExtResource("10_bh3vs")]
-rotation = 361.287
+rotation = 90.0721
 
 [node name="bullet" type="Bullet" parent="TabContainer/play/Character/Preview/Reimu/ReimuSprite" groups=["Bullet Manager"]]
 speed = 572.0

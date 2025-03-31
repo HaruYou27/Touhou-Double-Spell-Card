@@ -29,4 +29,3 @@ func _on_enter_pressed() -> void:
 	user_data.last_level = level.current_tab
 	LevelLoader.save_config()
 	LevelLoader.load_scene(preview.get_current_tab_control().get_meta("level"), true)
-

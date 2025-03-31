@@ -732,8 +732,8 @@ animation = &"misty-lake-anim/game"
 deterministic = true
 audio_max_polyphony = 1
 libraries = {
-"": SubResource("AnimationLibrary_y00g5"),
-"misty-lake-anim": ExtResource("31_3u5ao")
+&"": SubResource("AnimationLibrary_y00g5"),
+&"misty-lake-anim": ExtResource("31_3u5ao")
 }
 
 [node name="bgm" type="AudioStreamPlayer" parent="."]

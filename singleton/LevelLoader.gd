@@ -41,7 +41,7 @@ func _instance_scene(path:String, player:bool) -> void:
 	increase_bar.call_deferred(25.0)
 	
 	GlobalItem.call_deferred("clear")
-	ScreenVFX.reset()
+	ScreenVFX.call_deferred("reset")
 	scene = scene_packed.instantiate()
 
 	if player:
