@@ -1,4 +1,5 @@
 shader_type canvas_item;
+#pragma disable_preprocessor
 render_mode blend_sub;
 
 uniform sampler2D color_map;

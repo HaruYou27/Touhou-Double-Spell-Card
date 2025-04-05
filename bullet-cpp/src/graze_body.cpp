@@ -25,13 +25,11 @@ void GrazeBody::_ready()
 
 void GrazeBody::item_collect()
 {
-    CHECK_MULTIPLAYER_AUTHORITY
     global_score->add_item();
 }
 
 void GrazeBody::hit()
 {
-    CHECK_MULTIPLAYER_AUTHORITY
     vfx->set_emitting(true);
     sfx->play();
     global_score->add_graze();

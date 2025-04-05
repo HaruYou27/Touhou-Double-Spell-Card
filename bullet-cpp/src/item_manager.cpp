@@ -3,36 +3,16 @@
 void ItemManager::_bind_methods()
 {
     BIND_FUNCTION(spawn_item, ItemManager)
-    BIND_FUNCTION(is_offline, ItemManager)
     BIND_FUNCTION(revive_player, ItemManager)
-    ClassDB::bind_method(D_METHOD("get_nearest_player", "position"), &ItemManager::get_nearest_player);
-}
-
-bool ItemManager::is_offline()
-{
-    return (player2 == nullptr) ? true : false;
 }
 
 void ItemManager::revive_player()
 {
-    // Dirty fix.
-    if (player1 == nullptr)
+    if (player == nullptr)
     {
         return;
     }
-    player1->call("revive");
-}
-
-Vector2 ItemManager::get_nearest_player(const Vector2 position)
-{
-    Vector2 direction1 = player1_position - position;
-    if (player2 == nullptr)
-    {
-        return direction1;
-    }
-    
-    Vector2 direction2 = player2_position - position;
-    return (direction2.length_squared() < direction1.length_squared()) ? direction2 : direction1;
+    player->call("revive");
 }
 
 void ItemManager::_ready()
@@ -60,18 +40,16 @@ void ItemManager::spawn_item(Vector2 position)
 
 void ItemManager::cache_barrel()
 {
-    if (player1 == nullptr)
+    if (player == nullptr)
     {
-        player1_position = Vector2(0, 0);
+        player_position = Vector2(0, 0);
         return;
     }
-    player1_position = player1->get_global_position();
-    player2_position = (player2 == nullptr) ? Vector2(0, 0) : player2->get_global_position();
+    player_position = player->get_global_position();
 }
 
 void ItemManager::spawn_circle(const int count, const Vector2 position)
 {
-    CHECK_CAPACITY
     for (int index = 1; index <= count; index++)
     {
         CHECK_CAPACITY
@@ -95,21 +73,17 @@ void ItemManager::move_bullet(const int index)
     }
     
     Transform2D &transform = transforms[index];
-    Vector2 local = transform.get_origin() - player1_position;
-    Vector2 local_origin = player1_position;
-    if (player2 != nullptr)
-    {
-        Vector2 point2 = transform.get_origin() - player2_position;
-        if (point2.length_squared() < local.length_squared())
-        {
-            local = point2;
-            local_origin = player2_position;
-        }
-    }
+    Vector2 local = transform.get_origin() - player_position;
+    Vector2 local_origin = player_position;
 
     distances[index] -= speed_approach * delta32;
     transform.set_origin(local.limit_length(distances[index]) + local_origin);
     draw_bullet(index);
+}
+
+Vector2 ItemManager::get_nearest_player(const Vector2 position)
+{
+    return player_position - position;    
 }
 
 bool ItemManager::collide(const Dictionary &result, const int index)

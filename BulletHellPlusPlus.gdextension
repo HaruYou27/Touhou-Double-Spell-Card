@@ -32,12 +32,12 @@ BarrelSine = "res://bullet-cpp/icons/Marker2D.svg"
 SineDisplace = "res://bullet-cpp/icons/bullets.svg"
 [libraries]
 
-linux.debug.x86_64 = "res://bin/linux/libBulletHELLplusplus.linux.template_debug.dev.x86_64.so"
+linux.debug.x86_64 = "res://bullet-cpp/bin/linux/libBulletHELLplusplus.linux.template_debug.dev.x86_64.so"
 
-android.debug.arm64 = "res://bin/android/libBulletHELLplusplus.android.template_debug.arm64.so"
-android.release.arm64 = "res://bin/android/libBulletHELLplusplus.android.template_release.arm64.so"
-android.debug.arm32 = "res://bin/android/libBulletHELLplusplus.android.template_debug.arm32.so"
-android.release.arm32 = "res://bin/android/libBulletHELLplusplus.android.template_release.arm32.so"
+android.debug.arm64 = "res://bullet-cpp/bin/android/libBulletHELLplusplus.android.template_debug.arm64.so"
+android.release.arm64 = "res://bullet-cpp/bin/android/libBulletHELLplusplus.android.template_release.arm64.so"
+android.debug.arm32 = "res://bullet-cpp/bin/android/libBulletHELLplusplus.android.template_debug.arm32.so"
+android.release.arm32 = "res://bullet-cpp/bin/android/libBulletHELLplusplus.android.template_release.arm32.so"
 
-windows.debug.x86_64 = "res://bin/windows/libBulletHELLplusplus.windows.template_debug.x86_64.dll"
-web = "res://bin/web/libBulletHELLplusplus.web.template_release.wasm32.wasm"
+windows.debug.x86_64 = "res://bullet-cpp/bin/windows/libBulletHELLplusplus.windows.template_debug.x86_64.dll"
+web = "res://bullet-cpp/bin/web/libBulletHELLplusplus.web.template_release.wasm32.wasm"

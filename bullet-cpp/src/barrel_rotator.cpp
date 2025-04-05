@@ -16,7 +16,10 @@ void BarrelRotator::_visibility_changed()
 
 void BarrelRotator::_ready()
 {
-    connect("visibility_changed", Callable(this, "_visibility_changed"), CONNECT_PERSIST);
+    if (Engine::get_singleton()->is_editor_hint())
+    {
+        connect("visibility_changed", Callable(this, "_visibility_changed"), CONNECT_PERSIST);
+    }
     set_rotation(0);
 }
 

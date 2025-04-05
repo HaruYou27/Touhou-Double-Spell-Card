@@ -1,8 +1,6 @@
+// Stuff that make my life easier.
 #ifndef UTILITY_HPP
 #define UTILITY_HPP
-
-// Stuff that make my life easier.
-
 #include <godot_cpp/classes/engine.hpp>
 
 #define SET_GET(var, type) void set_##var(const type value); type get_##var() const;
@@ -20,11 +18,9 @@
 #define ADD_PROPERTY_COLLISION(var)    ADD_PROPERTY(PropertyInfo(Variant::INT, #var, PROPERTY_HINT_LAYERS_2D_PHYSICS), "set_" #var, "get_" #var);
 
 #define FILL_ARRAY_HOLE(array) array[index] = array[count_bullet];
-#define RPC_CONFIG(config, mode, transfer) config["mode"] = #mode; config["transfer_mode"] = #transfer; config["sync"] = "call_remote"; config.make_read_only();
 #define REPLACE_TWEEN(tween) if (tween.is_valid()) {tween->kill();} tween = create_tween();
 
 #define CHECK_CAPACITY if (count_bullet == max_bullet) {return;}
-#define CHECK_MULTIPLAYER_AUTHORITY if (!is_multiplayer_authority()) {return;}
 #define CHECK_EDITOR if (Engine::get_singleton()->is_editor_hint()) {set_physics_process(false); set_process(false); set_process_input(false); set_process_unhandled_input(false); set_process_unhandled_key_input(false); set_process_shortcut_input(false); return;}
 
 using namespace godot;

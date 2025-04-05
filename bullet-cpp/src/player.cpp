@@ -5,8 +5,6 @@ SETTER_GETTER(sentivity, float, Player)
 void Player::_bind_methods()
 {
     ADD_SIGNAL(MethodInfo("bomb"));
-    ADD_SIGNAL(MethodInfo("position_changed"));
-
     BIND_SETGET(sentivity, Player)
 }
 
@@ -14,24 +12,12 @@ void Player::_ready()
 {
     CHECK_EDITOR
     item_manager = get_node<ItemManager>("/root/GlobalItem");
-    if (is_multiplayer_authority())
-    {
-        item_manager->player1 = this;
-        return;
-    }
-    item_manager->player2 = this;
-    set_process_input(false);
-    set_collision_layer(0);
+    item_manager->player = this;
 }
 
 void Player::_exit_tree()
 {
-    CHECK_EDITOR
-    if (is_multiplayer_authority())
-    {
-        item_manager->player1 = nullptr;
-    }
-    item_manager->player2 = nullptr;
+    item_manager->player = nullptr;
 }
 
 void Player::clamp_position()
@@ -49,7 +35,6 @@ void Player::_input(const Ref<InputEvent> &event)
     {
         translate(drag_event->get_relative() * sentivity);
         clamp_position();
-        emit_signal("position_changed");
 
         if (drag_event->get_index() > 0)
         {

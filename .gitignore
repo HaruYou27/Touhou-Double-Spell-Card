@@ -3,7 +3,7 @@
 .godot/
 
 # Ignore library files
-bin/
+**/bin/
 
 # Ignore scons cache
 custom.py

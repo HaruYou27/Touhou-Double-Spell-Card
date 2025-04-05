@@ -55,8 +55,11 @@ void ItemDrop::_ready()
     set_process_mode(Node::PROCESS_MODE_DISABLED);
     hide();
 
-    connect("visibility_changed", Callable(this, "_visibility_changed"), CONNECT_PERSIST + CONNECT_DEFERRED);
-    connect("body_entered", Callable(this, "_body_entered"), CONNECT_PERSIST);
+    if (Engine::get_singleton()->is_editor_hint())
+    {
+        connect("visibility_changed", Callable(this, "_visibility_changed"), CONNECT_PERSIST + CONNECT_DEFERRED);
+        connect("body_entered", Callable(this, "_body_entered"), CONNECT_PERSIST);
+    }
     CHECK_EDITOR
     global_score = get_node<ScoreManager>("/root/GlobalScore");
 }

@@ -428,7 +428,6 @@ modulate = Color(1, 1, 1, 0)
 graphic_level = 2
 
 [node name="CystalDrop1" type="Node2D" parent="."]
-process_mode = 4
 visible = false
 position = Vector2(0, -43)
 
@@ -460,21 +459,18 @@ visible = false
 [node name="Fairy" type="Node2D" parent="BigHpFairy3"]
 
 [node name="TopLeft" parent="BigHpFairy3/Fairy" instance=ExtResource("12_u7k0g")]
-process_mode = 4
 
 [node name="TopRight" parent="BigHpFairy3/Fairy" instance=ExtResource("12_u7k0g")]
-process_mode = 4
 position = Vector2(-120, 28)
 
 [node name="BotRight" parent="BigHpFairy3/Fairy" instance=ExtResource("12_u7k0g")]
-process_mode = 4
 position = Vector2(-98, -54)
 
 [node name="BotLeft" parent="BigHpFairy3/Fairy" instance=ExtResource("12_u7k0g")]
-process_mode = 4
 position = Vector2(-95, 26)
 
 [node name="Middle" parent="BigHpFairy3/Fairy" instance=ExtResource("13_8aarh")]
+process_mode = 0
 visible = false
 position = Vector2(432, -49)
 
@@ -514,7 +510,6 @@ rotation = 1.5708
 gizmo_extents = 25.9
 
 [node name="SpellCircle" type="Node2D" parent="."]
-process_mode = 4
 visible = false
 
 [node name="BulletCircle" parent="SpellCircle" instance=ExtResource("23_1ju68")]
@@ -524,6 +519,7 @@ visible = false
 [node name="Barrel1" type="BarrelRotator" parent="SpellCircle/barrel"]
 speed = 3.142
 position = Vector2(270, 300)
+rotation = 281.006
 
 [node name="@Marker2D@27672" type="Marker2D" parent="SpellCircle/barrel/Barrel1" groups=["Spellcard Circle"]]
 position = Vector2(142.004, 0)
@@ -551,6 +547,7 @@ gizmo_extents = 20.0
 
 [node name="Barrel2" type="BarrelRotator" parent="SpellCircle/barrel"]
 position = Vector2(270, 300)
+rotation = -280.951
 
 [node name="_Marker2D_27675" type="Marker2D" parent="SpellCircle/barrel/Barrel2" groups=["Spellcard Circle"]]
 position = Vector2(118.072, 78.8929)
@@ -577,7 +574,6 @@ wait_time = 0.1
 autostart = true
 
 [node name="SpellButterfly" type="Node2D" parent="."]
-process_mode = 4
 visible = false
 scale = Vector2(0.5, 0.5)
 
@@ -586,6 +582,7 @@ scale = Vector2(0.5, 0.5)
 [node name="CircleBarrel2" type="BarrelRotator" parent="SpellButterfly"]
 speed = -6.284
 position = Vector2(540, 600)
+rotation = -562.013
 scale = Vector2(4, 4)
 
 [node name="_Marker2D_76188" type="Marker2D" parent="SpellButterfly/CircleBarrel2" groups=["Spellcard Butterfly"]]
@@ -593,19 +590,9 @@ position = Vector2(31.3851, 6.24289)
 rotation = 0.19635
 gizmo_extents = 40.0
 
-[node name="_Marker2D_76190" type="Marker2D" parent="SpellButterfly/CircleBarrel2" groups=["Spellcard Butterfly"]]
-position = Vector2(26.607, 17.7782)
-rotation = 0.589049
-gizmo_extents = 40.0
-
 [node name="_Marker2D_76192" type="Marker2D" parent="SpellButterfly/CircleBarrel2" groups=["Spellcard Butterfly"]]
 position = Vector2(17.7782, 26.607)
 rotation = 0.981748
-gizmo_extents = 40.0
-
-[node name="_Marker2D_76194" type="Marker2D" parent="SpellButterfly/CircleBarrel2" groups=["Spellcard Butterfly"]]
-position = Vector2(6.24289, 31.3851)
-rotation = 1.37445
 gizmo_extents = 40.0
 
 [node name="_Marker2D_76196" type="Marker2D" parent="SpellButterfly/CircleBarrel2" groups=["Spellcard Butterfly"]]
@@ -613,19 +600,9 @@ position = Vector2(-6.24289, 31.3851)
 rotation = 1.76715
 gizmo_extents = 40.0
 
-[node name="_Marker2D_76198" type="Marker2D" parent="SpellButterfly/CircleBarrel2" groups=["Spellcard Butterfly"]]
-position = Vector2(-17.7782, 26.607)
-rotation = 2.15984
-gizmo_extents = 40.0
-
 [node name="_Marker2D_76200" type="Marker2D" parent="SpellButterfly/CircleBarrel2" groups=["Spellcard Butterfly"]]
 position = Vector2(-26.607, 17.7782)
 rotation = 2.55254
-gizmo_extents = 40.0
-
-[node name="_Marker2D_76202" type="Marker2D" parent="SpellButterfly/CircleBarrel2" groups=["Spellcard Butterfly"]]
-position = Vector2(-31.3851, 6.24289)
-rotation = 2.94524
 gizmo_extents = 40.0
 
 [node name="_Marker2D_76204" type="Marker2D" parent="SpellButterfly/CircleBarrel2" groups=["Spellcard Butterfly"]]
@@ -633,19 +610,9 @@ position = Vector2(-31.3851, -6.24289)
 rotation = -2.94525
 gizmo_extents = 40.0
 
-[node name="_Marker2D_76206" type="Marker2D" parent="SpellButterfly/CircleBarrel2" groups=["Spellcard Butterfly"]]
-position = Vector2(-26.607, -17.7782)
-rotation = -2.55255
-gizmo_extents = 40.0
-
 [node name="_Marker2D_76208" type="Marker2D" parent="SpellButterfly/CircleBarrel2" groups=["Spellcard Butterfly"]]
 position = Vector2(-17.7783, -26.607)
 rotation = -2.15985
-gizmo_extents = 40.0
-
-[node name="_Marker2D_76210" type="Marker2D" parent="SpellButterfly/CircleBarrel2" groups=["Spellcard Butterfly"]]
-position = Vector2(-6.24289, -31.3851)
-rotation = -1.76715
 gizmo_extents = 40.0
 
 [node name="_Marker2D_76212" type="Marker2D" parent="SpellButterfly/CircleBarrel2" groups=["Spellcard Butterfly"]]
@@ -653,19 +620,9 @@ position = Vector2(6.24289, -31.3851)
 rotation = -1.37445
 gizmo_extents = 40.0
 
-[node name="_Marker2D_76214" type="Marker2D" parent="SpellButterfly/CircleBarrel2" groups=["Spellcard Butterfly"]]
-position = Vector2(17.7782, -26.607)
-rotation = -0.981746
-gizmo_extents = 40.0
-
 [node name="_Marker2D_76216" type="Marker2D" parent="SpellButterfly/CircleBarrel2" groups=["Spellcard Butterfly"]]
 position = Vector2(26.607, -17.7782)
 rotation = -0.589045
-gizmo_extents = 40.0
-
-[node name="_Marker2D_76218" type="Marker2D" parent="SpellButterfly/CircleBarrel2" groups=["Spellcard Butterfly"]]
-position = Vector2(31.3851, -6.24289)
-rotation = -0.196345
 gizmo_extents = 40.0
 
 [node name="SpellButterflyTimer" type="Timer" parent="SpellButterfly"]
@@ -674,6 +631,7 @@ autostart = true
 
 [node name="Ball" parent="." instance=ExtResource("26_5w3ld")]
 speed = 72.0
+process_mode = 0
 
 [node name="SpellWaveParticle" type="Node2D" parent="."]
 process_mode = 4
