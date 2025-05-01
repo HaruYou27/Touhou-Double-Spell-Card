@@ -519,7 +519,7 @@ visible = false
 [node name="Barrel1" type="BarrelRotator" parent="SpellCircle/barrel"]
 speed = 3.142
 position = Vector2(270, 300)
-rotation = 281.006
+rotation = 81.1696
 
 [node name="@Marker2D@27672" type="Marker2D" parent="SpellCircle/barrel/Barrel1" groups=["Spellcard Circle"]]
 position = Vector2(142.004, 0)
@@ -547,7 +547,7 @@ gizmo_extents = 20.0
 
 [node name="Barrel2" type="BarrelRotator" parent="SpellCircle/barrel"]
 position = Vector2(270, 300)
-rotation = -280.951
+rotation = -81.1586
 
 [node name="_Marker2D_27675" type="Marker2D" parent="SpellCircle/barrel/Barrel2" groups=["Spellcard Circle"]]
 position = Vector2(118.072, 78.8929)
@@ -582,7 +582,7 @@ scale = Vector2(0.5, 0.5)
 [node name="CircleBarrel2" type="BarrelRotator" parent="SpellButterfly"]
 speed = -6.284
 position = Vector2(540, 600)
-rotation = -562.013
+rotation = -162.339
 scale = Vector2(4, 4)
 
 [node name="_Marker2D_76188" type="Marker2D" parent="SpellButterfly/CircleBarrel2" groups=["Spellcard Butterfly"]]
